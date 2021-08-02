@@ -1,4 +1,4 @@
-package com.mobdeve.s14.gonzales.mark.artemis
+package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
