@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/logo_only_girl_wo_border"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:duration="500"/>
+
+    <item
+        android:drawable="@drawable/logo_girl_and_arrow_wo_border"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:duration="500"/>
+
+    <item
+        android:drawable="@drawable/logo_girl_and_arrow_no_brush_wo_border"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:duration="500"/>
+
+    <item
+        android:drawable="@drawable/logo_girl_with_bow_brush_wo_circular_border"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:duration="500"/>
+</animation-list>
