@@ -8,6 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="rose_light">#ffc3a0</color>
-    <color name="rose_dark">#ffafbd</color>
+    <color name="cool_sky_dark">#2980b9</color>
 </resources>

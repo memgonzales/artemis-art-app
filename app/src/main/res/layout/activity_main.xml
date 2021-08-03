@@ -5,7 +5,7 @@
     android:id="@+id/cl_splash_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rose_dark"
+    android:background="@color/cool_sky_dark"
     tools:context=".MainActivity">
 
     <ImageView

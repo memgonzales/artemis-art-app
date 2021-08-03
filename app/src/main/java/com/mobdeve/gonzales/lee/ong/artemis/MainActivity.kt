@@ -20,8 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
 
-        logoAnimation!!.setEnterFadeDuration(300);
-        logoAnimation!!.setExitFadeDuration(300);
+        logoAnimation!!.setExitFadeDuration(400);
         logoAnimation!!.start()
     }
 }

@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:drawable="@drawable/logo_only_girl_wo_border"
-        android:fromAlpha="1.0"
-        android:toAlpha="0.0"
-        android:duration="500"/>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
 
     <item
-        android:drawable="@drawable/logo_girl_and_arrow_wo_border"
-        android:fromAlpha="1.0"
-        android:toAlpha="0.0"
-        android:duration="500"/>
+        android:drawable="@drawable/girl_no_border"
+        android:duration="500"
+        android:zAdjustment="bottom"/>
 
     <item
-        android:drawable="@drawable/logo_girl_and_arrow_no_brush_wo_border"
-        android:fromAlpha="1.0"
-        android:toAlpha="0.0"
-        android:duration="500"/>
+        android:drawable="@drawable/girl_arrow_no_border"
+        android:duration="500"
+        android:zAdjustment="bottom"/>
 
     <item
-        android:drawable="@drawable/logo_girl_with_bow_brush_wo_circular_border"
-        android:fromAlpha="1.0"
-        android:toAlpha="0.0"
-        android:duration="500"/>
+        android:drawable="@drawable/girl_arrow_bow_no_border"
+        android:duration="500"
+        android:zAdjustment="bottom"/>
+
+    <item
+        android:drawable="@drawable/girl_arrow_bow_brush_no_border"
+        android:duration="500"
+        android:zAdjustment="bottom"/>
 </animation-list>
