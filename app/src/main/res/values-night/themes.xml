@@ -3,7 +3,7 @@
     <style name="Theme.Artemis" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/azure_lane_dark</item>
+        <item name="colorPrimaryVariant">@color/purple_bg</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

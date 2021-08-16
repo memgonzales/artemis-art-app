@@ -5,12 +5,12 @@
     android:id="@+id/cl_splash_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/azure_lane_dark"
+    android:background="@color/purple_bg"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/iv_logo"
         app:layout_constraintBottom_toBottomOf="parent"
