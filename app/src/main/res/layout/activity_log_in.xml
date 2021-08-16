@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed-light"
         android:gravity="center"
-        android:text="Copyright &#xA9; 2021.\n Mark Edward M. Gonzales, Hylene Jules G. Lee, Phoebe Clare L. Ong"
+        android:text="Copyright &#xA9; 2021\n Mark Edward M. Gonzales, Hylene Jules G. Lee, Phoebe Clare L. Ong"
         android:textColor="@android:color/white"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
