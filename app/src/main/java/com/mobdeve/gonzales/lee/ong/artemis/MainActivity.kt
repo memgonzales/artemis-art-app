@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val ivLogo = findViewById<ImageView>(R.id.iv_logo)
+        val ivLogo = findViewById<ImageView>(R.id.iv_splash_logo)
         ivLogo.setBackgroundResource(R.drawable.logo_animation)
         logoAnimation = ivLogo.background as AnimationDrawable
 
