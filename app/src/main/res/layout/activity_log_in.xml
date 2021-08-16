@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.634"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.034"
+        app:layout_constraintVertical_bias="0.07999998"
         app:srcCompat="@drawable/logo_non_splash" />
 
     <TextView
@@ -52,7 +52,7 @@
         app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_log_in_artemis"
-        app:layout_constraintVertical_bias="0.049" />
+        app:layout_constraintVertical_bias="0.07999998" />
 
     <EditText
         android:id="@+id/et_log_in_password"
@@ -72,16 +72,45 @@
         tools:backgroundTint="@android:color/white" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_lpg_in"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/purple_darker"
-        android:text="LOG IN"
+        android:text="LOG IN TO ARTEMIS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/et_log_in_password"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/et_log_in_password"
         app:layout_constraintTop_toBottomOf="@+id/et_log_in_password"
-        app:layout_constraintVertical_bias="0.084" />
+        app:layout_constraintVertical_bias="0.071" />
+
+    <TextView
+        android:id="@+id/tv_log_in_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Not yet in our community? Sign up"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_lpg_in"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center"
+        android:text="Copyright &#xA9; 2021.\n Mark Edward M. Gonzales, Hylene Jules G. Lee, Phoebe Clare L. Ong"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
