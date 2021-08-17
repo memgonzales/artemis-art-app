@@ -20,6 +20,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initComponents()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+
+        logoAnimation!!.setExitFadeDuration(ANIMATION_FRAME_FADEOUT.toInt());
+        logoAnimation!!.start()
+    }
+
+    private fun initComponents() {
+        supportActionBar?.hide()
+
         val ivLogo = findViewById<ImageView>(R.id.iv_splash_logo)
         ivLogo.setBackgroundResource(R.drawable.logo_animation)
         logoAnimation = ivLogo.background as AnimationDrawable
@@ -29,12 +42,5 @@ class MainActivity : AppCompatActivity() {
             startActivity(i)
             finish()
         }, SPLASH_SCREEN_TIMEOUT.toLong())
-    }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-
-        logoAnimation!!.setExitFadeDuration(ANIMATION_FRAME_FADEOUT.toInt());
-        logoAnimation!!.start()
     }
 }
