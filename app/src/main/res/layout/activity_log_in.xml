@@ -5,112 +5,151 @@
     android:id="@+id/cl_log_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_bg"
     tools:context=".LogInActivity">
 
-    <ImageView
-        android:id="@+id/iv_log_in_logo"
-        android:layout_width="217dp"
-        android:layout_height="265dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.634"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07999998"
-        app:srcCompat="@drawable/logo_non_splash" />
-
-    <TextView
-        android:id="@+id/tv_log_in_artemis"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_log_in_top"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/delius"
-        android:gravity="center"
-        android:text="Artemis"
-        android:textColor="@color/white"
-        android:textSize="45sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/parabolic_border"
+        android:paddingBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@id/cl_log_in_bottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_log_in_logo"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/et_log_in_username_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/white"
-        android:ems="10"
-        android:hint="Username/Email"
-        android:inputType="textPersonName"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.50"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_log_in_artemis"
-        app:layout_constraintVertical_bias="0.07999998" />
-
-    <EditText
-        android:id="@+id/et_log_in_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_log_in_username_email"
-        app:layout_constraintVertical_bias="0.0"
-        tools:backgroundTint="@android:color/white" />
-
-    <Button
-        android:id="@+id/btn_lpg_in"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/purple_darker"
-        android:text="LOG IN"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/et_log_in_password"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/et_log_in_password"
-        app:layout_constraintTop_toBottomOf="@+id/et_log_in_password"
-        app:layout_constraintVertical_bias="0.071" />
-
-    <TextView
-        android:id="@+id/tv_log_in_sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Not yet in our community? Sign up"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_lpg_in"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed-light"
-        android:gravity="center"
-        android:text="Copyright &#xA9; 2021\n Mark Edward M. Gonzales, Hylene Jules G. Lee, Phoebe Clare L. Ong"
-        android:textColor="@android:color/white"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/iv_log_in_logo"
+            android:layout_width="181dp"
+            android:layout_height="223dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_non_splash" />
+
+        <TextView
+            android:id="@+id/tv_log_in_artemis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/delius"
+            android:gravity="center"
+            android:text="Art"
+            android:textColor="@color/white"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_log_in_logo"
+            app:layout_constraintVertical_bias="0.275" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/delius"
+            android:text="emis"
+            android:textColor="@color/white"
+            android:textSize="45sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_log_in_artemis"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_log_in_artemis" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_log_in_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_log_in_top"
+        app:layout_constraintVertical_bias="0.52">
+
+        <EditText
+            android:id="@+id/et_log_in_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/purple_darker"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="@color/purple_darker"
+            android:textColorHint="@color/purple_darker"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/gl_log_in_right"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/gl_log_in_left"
+            app:layout_constraintTop_toBottomOf="@+id/et_log_in_username_email"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/et_log_in_username_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/purple_darker"
+            android:ems="10"
+            android:hint="Username/Email"
+            android:inputType="textPersonName"
+            android:textColor="@color/purple_darker"
+            android:textColorHint="@color/purple_darker"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/gl_log_in_right"
+            app:layout_constraintStart_toStartOf="@+id/gl_log_in_left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.060000002" />
+
+        <Button
+            android:id="@+id/btn_log_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/purple_bg"
+            android:text="Log In"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/gl_log_in_right"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/gl_log_in_left"
+            app:layout_constraintTop_toBottomOf="@+id/et_log_in_password"
+            app:layout_constraintVertical_bias="0.059" />
+
+        <TextView
+            android:id="@+id/et_log_in_copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed-light"
+            android:gravity="center"
+            android:text="Copyright &#xA9; 2021\n Mark Edward M. Gonzales, Hylene Jules G. Lee, Phoebe Clare L. Ong"
+            android:textColor="@color/purple_darker"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.97" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_log_in_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="0dp"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_log_in_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="0dp"
+            app:layout_constraintGuide_percent="0.9" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

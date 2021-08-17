@@ -12,7 +12,8 @@ class MainActivity : AppCompatActivity() {
     private var logoAnimation: AnimationDrawable? = null
 
     companion object {
-        private const val TIME_OUT = 3000
+        private const val SPLASH_SCREEN_TIMEOUT = 3000
+        private const val ANIMATION_FRAME_FADEOUT = 400
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,13 +28,13 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(this@MainActivity, LogInActivity::class.java)
             startActivity(i)
             finish()
-        }, TIME_OUT.toLong())
+        }, SPLASH_SCREEN_TIMEOUT.toLong())
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
 
-        logoAnimation!!.setExitFadeDuration(400);
+        logoAnimation!!.setExitFadeDuration(ANIMATION_FRAME_FADEOUT.toInt());
         logoAnimation!!.start()
     }
 }
