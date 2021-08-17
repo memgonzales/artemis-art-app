@@ -11,10 +11,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_log_in_top"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@drawable/parabolic_border"
         android:paddingBottom="40dp"
-        app:layout_constraintBottom_toTopOf="@id/cl_log_in_bottom"
+        app:layout_constraintBottom_toTopOf="@id/gl_log_in_half"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,8 +22,11 @@
 
         <ImageView
             android:id="@+id/iv_log_in_logo"
-            android:layout_width="181dp"
-            android:layout_height="223dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@id/gl_log_in_bottom_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -45,8 +48,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_log_in_logo"
-            app:layout_constraintVertical_bias="0.275" />
+            app:layout_constraintTop_toBottomOf="@id/gl_log_in_bottom_logo"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tv_log_in_emis"
@@ -60,6 +63,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_log_in_art" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_log_in_bottom_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="0dp"
+            app:layout_constraintGuide_percent="0.74" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -167,39 +178,47 @@
             app:layout_constraintTop_toBottomOf="@+id/button4"
             app:layout_constraintVertical_bias="0.050000012" />
 
-                <TextView
-                    android:id="@+id/tv_log_in_copyright"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:gravity="center"
-                    android:text="Copyright &#xA9; 2021\n Mark Edward M. Gonzales, Hylene Jules G. Lee, Phoebe Clare L. Ong"
-                    android:textColor="@color/purple_darker"
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.97" />
+        <TextView
+            android:id="@+id/tv_log_in_copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed-light"
+            android:gravity="center"
+            android:text="Copyright &#xA9; 2021\n Mark Edward M. Gonzales, Hylene Jules G. Lee, Phoebe Clare L. Ong"
+            android:textColor="@color/purple_darker"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.97" />
 
 
-                <Button
-                    android:id="@+id/button4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/white"
-                    android:text="Create an Account"
-                    android:textColor="@color/purple_bg"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_log_in_copyright"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_log_in_right"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="@+id/gl_log_in_left"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_log_in"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:strokeColor="@color/purple_bg"
-                    app:strokeWidth="0.75dp" />
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/white"
+            android:text="Create an Account"
+            android:textColor="@color/purple_bg"
+            app:layout_constraintBottom_toTopOf="@+id/tv_log_in_copyright"
+            app:layout_constraintEnd_toStartOf="@+id/gl_log_in_right"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/gl_log_in_left"
+            app:layout_constraintTop_toBottomOf="@+id/btn_log_in"
+            app:layout_constraintVertical_bias="0.0"
+            app:strokeColor="@color/purple_bg"
+            app:strokeWidth="0.75dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_log_in_half"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.42" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
