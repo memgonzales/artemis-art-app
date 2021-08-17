@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initSplashScreen()
+        launchLogIn()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -32,16 +33,18 @@ class MainActivity : AppCompatActivity() {
         val ivLogo = findViewById<ImageView>(R.id.iv_splash_logo)
         ivLogo.setBackgroundResource(R.drawable.logo_animation)
         logoAnimation = ivLogo.background as AnimationDrawable
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            val i = Intent(this@MainActivity, SignUpActivity::class.java)
-            startActivity(i)
-            finish()
-        }, SPLASH_SCREEN_TIMEOUT.toLong())
     }
 
     private fun animateSplashScreen() {
         logoAnimation!!.setExitFadeDuration(ANIMATION_FRAME_FADEOUT.toInt());
         logoAnimation!!.start()
+    }
+
+    private fun launchLogIn() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            val i = Intent(this@MainActivity, LogInActivity::class.java)
+            startActivity(i)
+            finish()
+        }, SPLASH_SCREEN_TIMEOUT.toLong())
     }
 }
