@@ -61,16 +61,16 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_pic_logo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_pic"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@id/gl_sign_up_left_top"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/logo_non_splash" />
+                    app:srcCompat="@drawable/ic_action_check_circle_outline" />
 
                 <TextView
                     android:id="@+id/tv_add_profile_pic_create"
@@ -78,13 +78,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="sans-serif"
-                    android:gravity="center_vertical"
-                    android:text="Create Account"
+                    android:text="Welcome"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     app:layout_constraintBottom_toTopOf="@+id/tv_add_profile_pic_community"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right_top"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="@+id/tv_add_profile_pic_community"
                     app:layout_constraintTop_toTopOf="parent"
@@ -96,12 +93,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Join our community of art lovers."
+                    android:text="Your Artemis account has been successfully created."
                     android:textColor="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_add_profile_pic_logo"
                     app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right_top"
-                    app:layout_constraintHorizontal_bias="0.14"
-                    app:layout_constraintStart_toEndOf="@+id/iv_add_profile_pic_logo"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/gl_add_profile_pic_right_pic"
                     app:layout_constraintTop_toBottomOf="@+id/tv_add_profile_pic_create" />
 
                 <androidx.constraintlayout.widget.Guideline
@@ -119,6 +116,14 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="0dp"
                     app:layout_constraintGuide_percent="0.9" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_add_profile_pic_right_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:layout_constraintGuide_percent="0.32" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -157,109 +162,6 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="0dp"
                     app:layout_constraintGuide_percent="0.9" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_sign_up_username"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_bg"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_bg"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
-                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.060000002"
-                    app:startIconDrawable="@drawable/ic_action_person"
-                    app:startIconTint="@color/purple_bg">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_sign_up_username"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Username"
-                        android:inputType="text" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_sign_up_email"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_bg"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_bg"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
-                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
-                    app:layout_constraintTop_toBottomOf="@id/til_sign_up_username"
-                    app:layout_constraintVertical_bias="0"
-                    app:startIconDrawable="@drawable/ic_action_email"
-                    app:startIconTint="@color/purple_bg">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_sign_up_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Email Address"
-                        android:inputType="text" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_sign_up_password"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_bg"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_bg"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
-                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
-                    app:layout_constraintTop_toBottomOf="@id/til_sign_up_email"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/purple_bg"
-                    app:startIconDrawable="@android:drawable/ic_lock_lock"
-                    app:startIconTint="@color/purple_bg"
-                    tools:passwordToggleTint="@color/purple_bg"
-                    tools:startIconDrawable="@android:drawable/ic_lock_lock">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_sign_up_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Password"
-                        android:inputType="textPassword" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/btn_sign_up"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/purple_bg"
-                    android:text="Create Account"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_sign_up_left"
-                    app:layout_constraintTop_toBottomOf="@+id/til_sign_up_password"
-                    app:layout_constraintVertical_bias="0.060000002" />
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:autoLink="web"
-                    android:gravity="center"
-                    android:text="@string/tv_sign_up_clause"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_sign_up_left"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_sign_up"
-                    app:layout_constraintVertical_bias="0.050000012" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
