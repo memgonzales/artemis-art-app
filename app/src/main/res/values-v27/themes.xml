@@ -18,9 +18,7 @@
         <!-- Accent. -->
         <item name="colorAccent">?attr/colorPrimary</item>
         <!-- Input text color. -->
-        <item name="android:textColorSecondary">@color/purple_bg</item>
-        <!-- App title color. -->
-        <item name="android:textColorPrimary">@color/purple_darker</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
         <!-- Back icon. -->
         <item name="android:homeAsUpIndicator">@drawable/ic_action_arrow_back</item>
     </style>
