@@ -8,14 +8,14 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Accent. -->
         <item name="colorAccent">?attr/colorPrimary</item>
-        <!-- Control button color. -->
-        <item name="android:textColorSecondary">@android:color/white</item>
         <!-- App title color. -->
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/purple_bg</item>
+        <!-- Back icon. -->
+        <item name="android:homeAsUpIndicator">@drawable/ic_action_arrow_back</item>
     </style>
 </resources>
