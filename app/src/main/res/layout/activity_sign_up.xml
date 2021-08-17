@@ -175,7 +175,7 @@
                     app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
                     app:layout_constraintTop_toBottomOf="@id/til_sign_up_username"
                     app:layout_constraintVertical_bias="0"
-                    app:startIconDrawable="@android:drawable/ic_dialog_email"
+                    app:startIconDrawable="@drawable/ic_action_email"
                     app:startIconTint="@color/purple_bg">
 
                     <com.google.android.material.textfield.TextInputEditText
