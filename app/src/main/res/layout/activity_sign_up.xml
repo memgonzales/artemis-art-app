@@ -188,6 +188,7 @@
                     android:textColorHint="@color/purple_bg"
                     app:boxBackgroundColor="@android:color/white"
                     app:boxStrokeColor="@color/purple_bg"
+                    app:counterEnabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
                     app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"

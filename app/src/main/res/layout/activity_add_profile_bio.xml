@@ -193,20 +193,20 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/camera_plus"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right_camera"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right_pencil"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left_camera"
+                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left_pencil"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.120000005" />
+                    app:layout_constraintVertical_bias="0.12000000"
+                    app:srcCompat="@drawable/pencil_brush" />
 
                 <TextView
-                    android:id="@+id/tv_add_profile_bio_photo"
+                    android:id="@+id/tv_add_profile_bio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Add Profile Picture"
+                    android:text="Add Short Bio"
                     android:textColor="@color/purple_bg"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -216,18 +216,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/iv_add_profile_bio_pen"
                     app:layout_constraintVertical_bias="0.050000012" />
 
-                <TextView
-                    android:id="@+id/tv_add_profile_bio_desc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="As much wood as a woodchuck could chuck, If a woodchuck could chuck wood"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_add_profile_bio_photo"
-                    app:layout_constraintVertical_bias="0.029" />
+
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/gl_add_profile_bio_right"
@@ -237,24 +226,46 @@
                     app:layout_constraintGuide_begin="0dp"
                     app:layout_constraintGuide_percent="0.9" />
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/purple_bg"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:boxStrokeColor="@color/purple_bg"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="150"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right"
+                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left"
+                    app:layout_constraintTop_toBottomOf="@id/tv_add_profile_bio"
+                    app:layout_constraintVertical_bias="0.060000002">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Share something about yourself"
+                        android:inputType="text | textPersonName | textMultiLine" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <Button
                     android:id="@+id/btn_add_profile_bio_add"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/purple_bg"
-                    android:text="ADD PICTURE"
+                    android:text="ADD BIO"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_add_profile_bio_desc"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
                     app:layout_constraintVertical_bias="0.13" />
 
                 <TextView
                     android:id="@+id/tv_add_profile_bio_skip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Upload a bioture later"
+                    android:text="Write a bio later"
                     android:textColor="@color/purple_bg"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -263,7 +274,7 @@
                     app:layout_constraintVertical_bias="0.050000012" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_bio_left_camera"
+                    android:id="@+id/gl_add_profile_bio_left_pencil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -271,7 +282,7 @@
                     app:layout_constraintGuide_percent="0.4" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_bio_right_camera"
+                    android:id="@+id/gl_add_profile_bio_right_pencil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"

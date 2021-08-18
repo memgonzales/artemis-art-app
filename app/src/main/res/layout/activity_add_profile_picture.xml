@@ -193,13 +193,13 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/camera_plus"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_camera"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left_camera"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.120000005" />
+                    app:layout_constraintVertical_bias="0.12000000"
+                    app:srcCompat="@drawable/camera_plus" />
 
                 <TextView
                     android:id="@+id/tv_add_profile_pic_photo"
