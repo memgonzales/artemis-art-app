@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coord_add_profile_bio"
+        android:id="@+id/coord_feed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,64 +15,80 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar_add_profile_bio"
+            android:id="@+id/appbar_feed"
             android:layout_width="match_parent"
             android:layout_height="56dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/ctrl_add_profile_bio"
+                android:id="@+id/ctrl_feed"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:toolbarId="@+id/toolbar_add_profile_bio">
+                app:toolbarId="@+id/toolbar_feed">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar_add_profile_bio"
+                    android:id="@+id/toolbar_feed"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    tools:layout_collapseMode="pin"></androidx.appcompat.widget.Toolbar>
+                    tools:layout_collapseMode="pin">
+
+                </androidx.appcompat.widget.Toolbar>
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/girl_arrow_bow_brush_no_border" />
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Hello" />
+                    android:layout_gravity="start"
+                    android:layout_marginStart="56dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:text="Artemis"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsv_add_profile_bio"
+            android:id="@+id/nsv_feed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <TextView
-                android:id="@+id/textView"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_feed"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:text='Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.  The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.'
-                android:textColor="@android:color/black"
-                android:textSize="48sp" />
+                android:layout_height="wrap_content" />
         </androidx.core.widget.NestedScrollView>
 
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bab_feed"
-            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:elevation="0dp"
-            app:fabAlignmentMode="center"
-            app:fabCradleMargin="3dp"
-            tools:fabCradleMargin="4dp" />
-
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="@color/purple_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white"
+        app:menu="@menu/menu_bottom_feed"
+        app:labelVisibilityMode="labeled"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

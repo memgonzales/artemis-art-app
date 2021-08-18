@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/your_id"
+        android:title="Home"
+        android:icon="@drawable/search"
+        app:showAsAction = "always"/>
+
+    <item
+        android:id="@+id/your_id1"
+        android:title="Home1"
+        android:icon="@drawable/search"
+        app:showAsAction = "always"/>
+
+    <item
+        android:id="@+id/your_id2"
+        android:title="Home2"
+        android:icon="@drawable/search"
+        app:showAsAction = "always"/>
+
+    <item
+        android:id="@+id/your_id2"
+        android:title="Home2"
+        android:icon="@drawable/search"
+        app:showAsAction = "always"/>
+
+</menu>
