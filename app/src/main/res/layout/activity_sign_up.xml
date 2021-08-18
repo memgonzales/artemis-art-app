@@ -9,7 +9,6 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_sign_up"
-
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:elevation="0dp">
@@ -19,10 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar_sign_up">
-
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_sign_up"
