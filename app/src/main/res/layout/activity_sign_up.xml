@@ -4,55 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
 
 
-    android:id="@+id/coord_profile"
+    android:id="@+id/coord_sign_up"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:elevation="0dp">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_profile"
+        android:id="@+id/appbar_sign_up"
 
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/ctl_profile"
+            android:id="@+id/ctl_sign_up"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
 
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar_profile">
+            app:toolbarId="@+id/toolbar_sign_up">
 
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_profile"
+                android:id="@+id/toolbar_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsv_add_profile_pic"
+        android:id="@+id/nsv_sign_up"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_add_profile_pic"
+            android:id="@+id/cl_sign_up"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@android:color/black">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_add_profile_pic_top"
+                android:id="@+id/cl_sign_up_pic_top"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@drawable/parabolic_border"
                 android:paddingBottom="23dp"
-                app:layout_constraintBottom_toTopOf="@+id/gl_add_profile_pic_divider"
+                app:layout_constraintBottom_toTopOf="@+id/gl_sign_up_divider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <ImageView
-                    android:id="@+id/iv_add_profile_pic_logo"
+                    android:id="@+id/iv_sign_up_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:adjustViewBounds="true"
@@ -68,12 +68,12 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@id/gl_add_profile_pic_left_top"
+                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left_top"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/logo_non_splash" />
 
                 <TextView
-                    android:id="@+id/tv_add_profile_pic_create"
+                    android:id="@+id/tv_sign_up_create"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:fontFamily="sans-serif-medium"
@@ -84,17 +84,17 @@
                     app:autoSizeMinTextSize="12sp"
                     app:autoSizeStepGranularity="1sp"
                     app:autoSizeTextType="uniform"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_top"
+                    app:layout_constraintBottom_toTopOf="@+id/gl_sign_up_bottom_create"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right_top"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="@+id/tv_add_profile_pic_community"
+                    app:layout_constraintStart_toStartOf="@+id/tv_sign_up_community"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0"
                     app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
-                    android:id="@+id/tv_add_profile_pic_community"
+                    android:id="@+id/tv_sign_up_community"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="20dp"
@@ -104,15 +104,15 @@
                     app:autoSizeMinTextSize="5sp"
                     app:autoSizeStepGranularity="1sp"
                     app:autoSizeTextType="uniform"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_add_profile_pic_logo"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_top"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_sign_up_logo"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right_top"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/iv_add_profile_pic_logo"
-                    app:layout_constraintTop_toTopOf="@+id/guideline3"
+                    app:layout_constraintStart_toEndOf="@+id/iv_sign_up_logo"
+                    app:layout_constraintTop_toTopOf="@+id/gl_sign_up_top_community"
                     app:layout_constraintVertical_bias="1.0" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_left_top"
+                    android:id="@+id/gl_sign_up_left_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -120,7 +120,7 @@
                     app:layout_constraintGuide_percent="0.1" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_right_top"
+                    android:id="@+id/gl_sign_up_right_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -128,7 +128,7 @@
                     app:layout_constraintGuide_percent="0.9" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline2"
+                    android:id="@+id/gl_sign_up_bottom_create"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -136,7 +136,7 @@
                     app:layout_constraintGuide_percent="0.58" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline3"
+                    android:id="@+id/gl_sign_up_top_community"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -146,7 +146,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_add_profile_pic_divider"
+                android:id="@+id/gl_sign_up_divider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -154,7 +154,7 @@
                 app:layout_constraintGuide_percent="0.20" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_add_profile_pic_bottom"
+                android:id="@+id/cl_sign_up_bottom"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@android:color/white"
@@ -162,11 +162,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_add_profile_pic_top"
+                app:layout_constraintTop_toBottomOf="@id/cl_sign_up_pic_top"
                 app:layout_constraintVertical_bias="0.52">
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_left"
+                    android:id="@+id/gl_sign_up_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -174,7 +174,7 @@
                     app:layout_constraintGuide_percent="0.1" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_right"
+                    android:id="@+id/gl_sign_up_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -189,8 +189,8 @@
                     app:boxBackgroundColor="@android:color/white"
                     app:boxStrokeColor="@color/purple_bg"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_add_profile_pic_right"
-                    app:layout_constraintStart_toStartOf="@id/gl_add_profile_pic_left"
+                    app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
+                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.060000002"
                     app:startIconDrawable="@drawable/ic_action_person"
@@ -213,8 +213,8 @@
                     app:boxBackgroundColor="@android:color/white"
                     app:boxStrokeColor="@color/purple_bg"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_add_profile_pic_right"
-                    app:layout_constraintStart_toStartOf="@id/gl_add_profile_pic_left"
+                    app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
+                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
                     app:layout_constraintTop_toBottomOf="@id/til_sign_up_username"
                     app:layout_constraintVertical_bias="0"
                     app:startIconDrawable="@drawable/ic_action_email"
@@ -237,8 +237,8 @@
                     app:boxBackgroundColor="@android:color/white"
                     app:boxStrokeColor="@color/purple_bg"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_add_profile_pic_right"
-                    app:layout_constraintStart_toStartOf="@id/gl_add_profile_pic_left"
+                    app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
+                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
                     app:layout_constraintTop_toBottomOf="@id/til_sign_up_email"
                     app:layout_constraintVertical_bias="0.0"
                     app:passwordToggleEnabled="true"
@@ -263,14 +263,14 @@
                     android:backgroundTint="@color/purple_bg"
                     android:text="Create Account"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left"
+                    app:layout_constraintStart_toStartOf="@+id/gl_sign_up_left"
                     app:layout_constraintTop_toBottomOf="@+id/til_sign_up_password"
                     app:layout_constraintVertical_bias="0.060000002" />
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/tv_sign_up_privacy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
@@ -278,9 +278,9 @@
                     android:text="@string/tv_sign_up_clause"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left"
+                    app:layout_constraintStart_toStartOf="@+id/gl_sign_up_left"
                     app:layout_constraintTop_toBottomOf="@+id/btn_sign_up"
                     app:layout_constraintVertical_bias="0.050000012" />
 

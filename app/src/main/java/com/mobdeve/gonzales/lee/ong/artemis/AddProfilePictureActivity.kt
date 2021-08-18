@@ -16,7 +16,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
-        setSupportActionBar(findViewById(R.id.toolbar_profile))
+        setSupportActionBar(findViewById(R.id.toolbar_add_profile_pic))
 
         this.btnAddProfilePic = findViewById(R.id.btn_add_profile_pic_add)
         launchAddBio()

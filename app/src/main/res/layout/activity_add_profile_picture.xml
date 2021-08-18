@@ -4,30 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
 
 
-    android:id="@+id/coord_profile"
+    android:id="@+id/coord_add_profile_pic"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:elevation="0dp">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_profile"
+        android:id="@+id/appbar_add_profile_pic"
 
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/ctl_profile"
+            android:id="@+id/ctrl_add_profile_pic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
 
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar_profile">
+            app:toolbarId="@+id/toolbar_add_profile_pic">
 
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_profile"
+                android:id="@+id/toolbar_add_profile_pic"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
 
@@ -72,7 +72,7 @@
                     app:autoSizeMinTextSize="12sp"
                     app:autoSizeStepGranularity="1sp"
                     app:autoSizeTextType="uniform"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline4"
+                    app:layout_constraintBottom_toTopOf="@+id/gl_add_profile_pic_bottom_welcome"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_top"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="@+id/tv_add_profile_pic_community"
@@ -94,7 +94,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_top"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left_text"
-                    app:layout_constraintTop_toBottomOf="@id/guideline5"
+                    app:layout_constraintTop_toBottomOf="@id/gl_add_profile_pic_top_account"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <androidx.constraintlayout.widget.Guideline
@@ -130,7 +130,7 @@
                     app:layout_constraintGuide_percent="0.38" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline4"
+                    android:id="@+id/gl_add_profile_pic_bottom_welcome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -138,23 +138,15 @@
                     app:layout_constraintGuide_percent="0.45" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline5"
+                    android:id="@+id/gl_add_profile_pic_top_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layout_constraintGuide_begin="0dp"
                     app:layout_constraintGuide_percent="0.52" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="1.2" />
-
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/ig_add_profile_pic_logo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -225,7 +217,7 @@
                     app:layout_constraintVertical_bias="0.050000012" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/tv_add_profile_pic_desc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -255,11 +247,11 @@
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_add_profile_pic_desc"
                     app:layout_constraintVertical_bias="0.13" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/tv_add_profile_pic_skip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Upload a picture later"

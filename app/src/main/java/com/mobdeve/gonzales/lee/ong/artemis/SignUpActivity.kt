@@ -16,7 +16,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
-        setSupportActionBar(findViewById(R.id.toolbar_profile))
+        setSupportActionBar(findViewById(R.id.toolbar_sign_up))
         initActionBar()
 
         this.btnSignUp = findViewById(R.id.btn_sign_up)
