@@ -21,5 +21,7 @@
         <item name="android:textColorPrimary">@android:color/black</item>
         <!-- Back icon. -->
         <item name="android:homeAsUpIndicator">@drawable/ic_action_arrow_back</item>
+
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 </resources>

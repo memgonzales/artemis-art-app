@@ -75,35 +75,41 @@
                 <TextView
                     android:id="@+id/tv_add_profile_pic_create"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center_vertical"
+                    android:layout_height="0dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="bottom"
                     android:text="Create Account"
                     android:textColor="@color/white"
-                    android:textSize="30sp"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_add_profile_pic_community"
+                    app:autoSizeMaxTextSize="30sp"
+                    app:autoSizeMinTextSize="12sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_top"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="@+id/tv_add_profile_pic_community"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.39"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    tools:fontFamily="sans-serif-medium" />
+                    app:layout_constraintVertical_bias="1.0"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
                     android:id="@+id/tv_add_profile_pic_community"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="20dp"
                     android:text="Join our community of art lovers."
                     android:textColor="@android:color/white"
+                    app:autoSizeMaxTextSize="14sp"
+                    app:autoSizeMinTextSize="5sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_add_profile_pic_logo"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_top"
-                    app:layout_constraintHorizontal_bias="0.27"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/iv_add_profile_pic_logo"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_add_profile_pic_create" />
+                    app:layout_constraintTop_toTopOf="@+id/guideline3"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/gl_add_profile_pic_left_top"
@@ -120,6 +126,22 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="0dp"
                     app:layout_constraintGuide_percent="0.9" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:layout_constraintGuide_percent="0.58" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:layout_constraintGuide_percent="0.65" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
