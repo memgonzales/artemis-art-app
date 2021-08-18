@@ -79,7 +79,7 @@
                     android:id="@+id/tv_add_profile_success_community"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:text="Your Artemis account has been successfully created."
+                    android:text="Your Artemis account has been successfully created"
                     android:textColor="@android:color/white"
                     app:autoSizeMaxTextSize="14sp"
                     app:autoSizeMinTextSize="12sp"

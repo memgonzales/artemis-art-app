@@ -20,7 +20,7 @@ class AddProfileSuccessActivity : AppCompatActivity() {
         initActionBar()
 
         this.btnStartBrowsing = findViewById(R.id.btn_add_profile_browse)
-        launchAddProfilePic()
+        startBrowsing()
     }
 
     private fun initActionBar() {
@@ -28,9 +28,9 @@ class AddProfileSuccessActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
-    private fun launchAddProfilePic() {
+    private fun startBrowsing() {
         this.btnStartBrowsing?.setOnClickListener {
-            val i = Intent(this@AddProfileSuccessActivity, AddProfilePictureActivity::class.java)
+            val i = Intent(this@AddProfileSuccessActivity, BrowseFeedActivity::class.java)
             startActivity(i)
             finish()
         }

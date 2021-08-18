@@ -21,6 +21,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar_add_profile_pic">
 
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_add_profile_pic"
                 android:layout_width="match_parent"
@@ -79,7 +80,7 @@
                     android:id="@+id/tv_add_profile_pic_community"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:text="Your Artemis account has been successfully created."
+                    android:text="Your Artemis account has been successfully created"
                     android:textColor="@android:color/white"
                     app:autoSizeMaxTextSize="14sp"
                     app:autoSizeMinTextSize="12sp"
