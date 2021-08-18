@@ -5,21 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-class AddProfileBioActivity : AppCompatActivity() {
-    private var btnAddBio: Button? = null
+class AddProfileSuccessActivity : AppCompatActivity() {
+    private var btnStartBrowsing: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_profile_bio)
+        setContentView(R.layout.activity_add_profile_success)
 
         initComponents()
     }
 
     private fun initComponents() {
-        setSupportActionBar(findViewById(R.id.toolbar_add_profile_bio))
+        setSupportActionBar(findViewById(R.id.toolbar_add_profile_success))
         initActionBar()
 
-        this.btnAddBio = findViewById(R.id.btn_add_profile_bio_add)
+        this.btnStartBrowsing = findViewById(R.id.btn_add_profile_browse)
         launchAddProfilePic()
     }
 
@@ -29,9 +29,10 @@ class AddProfileBioActivity : AppCompatActivity() {
     }
 
     private fun launchAddProfilePic() {
-        this.btnAddBio?.setOnClickListener {
-            val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
+        this.btnStartBrowsing?.setOnClickListener {
+            val i = Intent(this@AddProfileSuccessActivity, AddProfilePictureActivity::class.java)
             startActivity(i)
+            finish()
         }
     }
 }

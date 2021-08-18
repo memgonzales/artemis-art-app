@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
+        <activity android:name=".AddProfileSuccessActivity"
+            android:parentActivityName=".AddProfileBioActivity"/>
         <activity
             android:name=".AddProfileBioActivity"
             android:parentActivityName=".AddProfilePictureActivity" />

@@ -239,13 +239,13 @@
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right"
                     app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left"
                     app:layout_constraintTop_toBottomOf="@id/tv_add_profile_bio"
-                    app:layout_constraintVertical_bias="0.060000002">
+                    app:layout_constraintVertical_bias="0.06000000">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Share something about yourself"
-                        android:inputType="text | textPersonName | textMultiLine" />
+                        android:inputType="text|textPersonName|textMultiLine" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
@@ -289,8 +289,50 @@
                     app:layout_constraintGuide_begin="0dp"
                     app:layout_constraintGuide_percent="0.6" />
 
+                <ImageView
+                    android:id="@+id/iv_add_profile_bio_progress1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="12dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_add_profile_bio_progress2"
+                    app:layout_constraintHorizontal_bias="0.97"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_add_profile_bio_skip"
+                    app:layout_constraintVertical_bias="0.883"
+                    app:srcCompat="@drawable/circle_unshaded" />
+
+                <ImageView
+                    android:id="@+id/iv_add_profile_bio_progress2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="12dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_add_profile_bio_skip"
+                    app:layout_constraintVertical_bias="0.883"
+                    app:srcCompat="@drawable/circle_shaded" />
+
+                <ImageView
+                    android:id="@+id/iv_add_profile_bio_progress3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="12dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.03"
+                    app:layout_constraintStart_toEndOf="@+id/iv_add_profile_bio_progress2"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_add_profile_bio_skip"
+                    app:layout_constraintVertical_bias="0.883"
+                    app:srcCompat="@drawable/circle_unshaded" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
