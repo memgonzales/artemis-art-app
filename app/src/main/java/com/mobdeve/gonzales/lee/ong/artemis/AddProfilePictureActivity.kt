@@ -24,7 +24,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
 
     private fun launchAddBio() {
         this.btnAddProfilePic?.setOnClickListener {
-            val i = Intent(this@AddProfilePictureActivity, SignUpActivity::class.java)
+            val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
             startActivity(i)
         }
     }

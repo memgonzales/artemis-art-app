@@ -4,30 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
 
 
-    android:id="@+id/coord_add_profile_pic"
+    android:id="@+id/coord_add_profile_bio"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:elevation="0dp">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_add_profile_pic"
+        android:id="@+id/appbar_add_profile_bio"
 
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/ctrl_add_profile_pic"
+            android:id="@+id/ctrl_add_profile_bio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
 
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar_add_profile_pic">
+            app:toolbarId="@+id/toolbar_add_profile_bio">
 
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_add_profile_pic"
+                android:id="@+id/toolbar_add_profile_bio"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
 
@@ -35,84 +35,70 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsv_add_profile_pic"
+        android:id="@+id/nsv_add_profile_bio"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_add_profile_pic"
+            android:id="@+id/cl_add_profile_bio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@android:color/black">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_add_profile_pic_top"
+                android:id="@+id/cl_add_profile_bio_top"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@drawable/parabolic_border"
-                app:layout_constraintBottom_toBottomOf="@id/gl_add_profile_pic_divider"
+                android:paddingBottom="30dp"
+                app:layout_constraintBottom_toBottomOf="@id/gl_add_profile_bio_divider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0">
 
-                <ImageView
-                    android:id="@+id/iv_sign_up_logo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_pic"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@id/gl_add_profile_pic_left_top"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/check_sharper" />
-
                 <TextView
-                    android:id="@+id/tv_sign_up_create"
+                    android:id="@+id/tv_add_profile_bio_create"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="sans-serif"
+                    android:layout_height="0dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="bottom"
                     android:text="Welcome"
                     android:textColor="@color/white"
-                    android:textSize="30sp"
                     app:autoSizeMaxTextSize="30sp"
                     app:autoSizeMinTextSize="12sp"
                     app:autoSizeStepGranularity="1sp"
                     app:autoSizeTextType="uniform"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_add_profile_pic_community"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_top"
+                    app:layout_constraintBottom_toTopOf="@+id/gl_add_profile_bio_bottom_welcome"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right_top"
                     app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="@+id/tv_add_profile_pic_community"
+                    app:layout_constraintStart_toStartOf="@+id/tv_add_profile_bio_community"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    tools:fontFamily="sans-serif-medium" />
+                    app:layout_constraintVertical_bias="0.100000024"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
-                    android:id="@+id/tv_add_profile_pic_community"
+                    android:id="@+id/tv_add_profile_bio_community"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:text="Your account has been successfully created."
+                    android:layout_height="0dp"
+                    android:text="Your Artemis account has been successfully created."
                     android:textColor="@android:color/white"
                     app:autoSizeMaxTextSize="14sp"
                     app:autoSizeMinTextSize="5sp"
                     app:autoSizeStepGranularity="1sp"
                     app:autoSizeTextType="uniform"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_top"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right_top"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_create" />
+                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left_text"
+                    app:layout_constraintTop_toBottomOf="@id/gl_add_profile_bio_top_account"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_left_top"
+                    android:id="@+id/gl_add_profile_bio_left_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -120,7 +106,7 @@
                     app:layout_constraintGuide_percent="0.1" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_right_top"
+                    android:id="@+id/gl_add_profile_bio_right_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -128,7 +114,7 @@
                     app:layout_constraintGuide_percent="0.9" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_right_pic"
+                    android:id="@+id/gl_add_profile_bio_right_pic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -136,17 +122,45 @@
                     app:layout_constraintGuide_percent="0.33" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_left_text"
+                    android:id="@+id/gl_add_profile_bio_left_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="0dp"
                     app:layout_constraintGuide_percent="0.38" />
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_add_profile_bio_bottom_welcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:layout_constraintGuide_percent="0.45" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_add_profile_bio_top_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:layout_constraintGuide_percent="0.52" />
+
+                <ImageView
+                    android:id="@+id/ig_add_profile_bio_logo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_add_profile_bio_community"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right_pic"
+                    app:layout_constraintStart_toStartOf="@id/gl_add_profile_bio_left_top"
+                    app:layout_constraintTop_toTopOf="@+id/tv_add_profile_bio_create"
+                    app:srcCompat="@drawable/check_sharper" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_add_profile_pic_divider"
+                android:id="@+id/gl_add_profile_bio_divider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -154,7 +168,7 @@
                 app:layout_constraintGuide_percent="0.20" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_add_profile_pic_bottom"
+                android:id="@+id/cl_add_profile_bio_bottom"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@android:color/white"
@@ -162,11 +176,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_add_profile_pic_top"
+                app:layout_constraintTop_toBottomOf="@id/cl_add_profile_bio_top"
                 app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_left"
+                    android:id="@+id/gl_add_profile_bio_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -174,21 +188,21 @@
                     app:layout_constraintGuide_percent="0.1" />
 
                 <ImageView
-                    android:id="@+id/iv_add_profile_pic_camera"
+                    android:id="@+id/iv_add_profile_bio_pen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/camera_plus"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_camera"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right_camera"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left_camera"
+                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left_camera"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.120000005" />
 
                 <TextView
-                    android:id="@+id/tv_add_profile_pic_photo"
+                    android:id="@+id/tv_add_profile_bio_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
@@ -196,27 +210,27 @@
                     android:textColor="@color/purple_bg"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_add_profile_pic_camera"
+                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_add_profile_bio_pen"
                     app:layout_constraintVertical_bias="0.050000012" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/tv_add_profile_bio_desc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="As much wood as a woodchuck could chuck, If a woodchuck could chuck wood"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_add_profile_pic_photo"
+                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_add_profile_bio_photo"
                     app:layout_constraintVertical_bias="0.029" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_right"
+                    android:id="@+id/gl_add_profile_bio_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -224,32 +238,32 @@
                     app:layout_constraintGuide_percent="0.9" />
 
                 <Button
-                    android:id="@+id/btn_add_profile_pic_add"
+                    android:id="@+id/btn_add_profile_bio_add"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/purple_bg"
                     android:text="ADD PICTURE"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right"
                     app:layout_constraintHorizontal_bias="0.497"
-                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_add_profile_bio_desc"
                     app:layout_constraintVertical_bias="0.13" />
 
                 <TextView
-                    android:id="@+id/tv_add_profile_pic_skip"
+                    android:id="@+id/tv_add_profile_bio_skip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Upload a picture later"
+                    android:text="Upload a bioture later"
                     android:textColor="@color/purple_bg"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_add_profile_pic_add"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_add_profile_bio_add"
                     app:layout_constraintVertical_bias="0.050000012" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_left_camera"
+                    android:id="@+id/gl_add_profile_bio_left_camera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -257,7 +271,7 @@
                     app:layout_constraintGuide_percent="0.4" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_pic_right_camera"
+                    android:id="@+id/gl_add_profile_bio_right_camera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
