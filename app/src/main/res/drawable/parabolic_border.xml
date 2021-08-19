@@ -6,7 +6,7 @@
     android:viewportWidth="12">
 
     <path
-        android:fillColor="@color/purple_bg"
+        android:fillColor="@color/purple_main"
         android:pathData="M 0,0 L 0,12 C 1,10 5,12 8,12 C 12,12 12,11 12,11 L 12,0 0,0"
         android:strokeWidth="0.1"/>
 

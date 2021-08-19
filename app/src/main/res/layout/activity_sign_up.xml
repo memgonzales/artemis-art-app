@@ -180,9 +180,9 @@
                     android:id="@+id/til_sign_up_username"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_bg"
+                    android:textColorHint="@color/purple_main"
                     app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_bg"
+                    app:boxStrokeColor="@color/purple_main"
                     app:counterEnabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
@@ -190,7 +190,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.060000002"
                     app:startIconDrawable="@drawable/ic_action_person"
-                    app:startIconTint="@color/purple_bg">
+                    app:startIconTint="@color/purple_main">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tiet_sign_up_username"
@@ -205,16 +205,16 @@
                     android:id="@+id/til_sign_up_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_bg"
+                    android:textColorHint="@color/purple_main"
                     app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_bg"
+                    app:boxStrokeColor="@color/purple_main"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
                     app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
                     app:layout_constraintTop_toBottomOf="@id/til_sign_up_username"
                     app:layout_constraintVertical_bias="0"
                     app:startIconDrawable="@drawable/ic_action_email"
-                    app:startIconTint="@color/purple_bg">
+                    app:startIconTint="@color/purple_main">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tiet_sign_up_email"
@@ -229,18 +229,18 @@
                     android:id="@+id/til_sign_up_password"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_bg"
+                    android:textColorHint="@color/purple_main"
                     app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_bg"
+                    app:boxStrokeColor="@color/purple_main"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
                     app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
                     app:layout_constraintTop_toBottomOf="@id/til_sign_up_email"
                     app:layout_constraintVertical_bias="0.0"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/purple_bg"
+                    app:passwordToggleTint="@color/purple_main"
                     app:startIconDrawable="@android:drawable/ic_lock_lock"
-                    app:startIconTint="@color/purple_bg"
+                    app:startIconTint="@color/purple_main"
                     tools:passwordToggleTint="@color/purple_bg"
                     tools:startIconDrawable="@android:drawable/ic_lock_lock">
 
@@ -256,7 +256,7 @@
                     android:id="@+id/btn_sign_up"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/purple_bg"
+                    android:backgroundTint="@color/purple_main"
                     android:text="Create Account"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right"

@@ -8,10 +8,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="purple_bg">#7D6EE3</color>
-    <color name="purple_lighter">#998EE8</color>
-    <color name="purple_darker">#6B59E3</color>
+    <!-- Used in app bar and filled header sections in log in and sign up -->
+    <color name="purple_main">#7D6EE3</color>
+    <!-- Used in bottom navigation bar -->
+    <color name="purple_navbar_lighter">#8F81EC</color>
 
-    <color name="gray_darker">#6C6B6E</color>
-    <color name="purple_darker_tame">#6B59E3</color>
+    <!-- Used in icons in edit text fields -->
+    <color name="purple_pics_lighter">#998EE8</color>
+    <!-- Used for emphasis -->
+    <color name="purple_emphasis_darker">#6B59E3</color>
+
+    <!-- Used to denote liked and bookmarked status -->
+    <color name="pinkish_purple">#90608a</color>
 </resources>
