@@ -17,15 +17,9 @@ class AddProfileSuccessActivity : AppCompatActivity() {
 
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_add_profile_success))
-        initActionBar()
 
         this.btnStartBrowsing = findViewById(R.id.btn_add_profile_browse)
         startBrowsing()
-    }
-
-    private fun initActionBar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     private fun startBrowsing() {
