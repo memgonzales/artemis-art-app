@@ -89,6 +89,22 @@
         app:itemIconTint="@color/purple_bg"
         app:itemTextColor="@color/purple_bg"
         app:menu="@menu/menu_bottom_feed"
-        app:labelVisibilityMode="labeled"/>
+        app:labelVisibilityMode="labeled">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="0dp"
+            app:backgroundTint="@color/purple_bg"
+            app:elevation="0dp"
+            app:fabCustomSize="44dp"
+            app:maxImageSize="34dp"
+            app:srcCompat="@android:drawable/ic_input_add"
+            app:tint="@android:color/white" />
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
