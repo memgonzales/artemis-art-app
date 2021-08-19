@@ -200,7 +200,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="You have now finished customizing your user profile. You may also update these details at a later time by going to your profile settings."
+                    android:text="You have finished customizing your user profile. You may also update these details at a later time by going to your profile settings."
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_success_right"
                     app:layout_constraintHorizontal_bias="1.0"

@@ -317,7 +317,7 @@
                     app:srcCompat="@drawable/circle_unshaded" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingActionButton"
+                    android:id="@+id/fab_add_profile_pic_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
