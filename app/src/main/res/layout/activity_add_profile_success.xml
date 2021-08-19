@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@drawable/parabolic_border"
-                android:paddingBottom="45dp"
+                android:paddingBottom="42dp"
                 app:layout_constraintBottom_toBottomOf="@id/gl_add_profile_success_divider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -79,16 +79,17 @@
                     android:id="@+id/tv_add_profile_success_community"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginStart="20dp"
                     android:text="Your Artemis account has been successfully created"
                     android:textColor="@android:color/white"
                     app:autoSizeMaxTextSize="14sp"
-                    app:autoSizeMinTextSize="12sp"
+                    app:autoSizeMinTextSize="5sp"
                     app:autoSizeStepGranularity="1sp"
                     app:autoSizeTextType="uniform"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_success_right_top"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_success_left_text"
+                    app:layout_constraintStart_toEndOf="@+id/ig_add_profile_success_logo"
                     app:layout_constraintTop_toBottomOf="@id/gl_add_profile_success_top_account"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -109,22 +110,6 @@
                     app:layout_constraintGuide_percent="0.9" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_success_right_pic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.33" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_add_profile_success_left_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.38" />
-
-                <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/gl_add_profile_success_bottom_welcome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -142,12 +127,11 @@
 
                 <ImageView
                     android:id="@+id/ig_add_profile_success_logo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_add_profile_success_community"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_success_right_pic"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/gl_add_profile_success_left_top"
                     app:layout_constraintTop_toTopOf="@+id/tv_add_profile_success_create"
                     app:srcCompat="@drawable/check_sharper" />

@@ -3,25 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/your_id"
-        android:title=""
+        android:title="Home"
         android:icon="@drawable/search"
         app:showAsAction = "always"/>
 
     <item
         android:id="@+id/your_id1"
-        android:title="Home1"
+        android:title="Followed"
+        android:icon="@drawable/search"
+        app:showAsAction = "always"/>
+
+    <item
+        android:id="@+id/your_id1"
+        android:title=""
         android:icon="@drawable/search"
         app:showAsAction = "always"/>
 
     <item
         android:id="@+id/your_id2"
-        android:title="Home2"
+        android:title="Bookmarks"
         android:icon="@drawable/search"
         app:showAsAction = "always"/>
 
     <item
         android:id="@+id/your_id2"
-        android:title="Home2"
+        android:title="Profile"
         android:icon="@drawable/search"
         app:showAsAction = "always"/>
 
