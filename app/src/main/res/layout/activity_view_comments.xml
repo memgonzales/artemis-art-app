@@ -85,12 +85,16 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="10dp"
+            android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:layout_constraintBottom_toBottomOf="@+id/et_add_comment"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@id/et_add_comment"
             app:layout_constraintEnd_toStartOf="@+id/gl_view_comments_right_comment"
             app:layout_constraintStart_toEndOf="@+id/et_add_comment"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/et_add_comment"
             app:srcCompat="@drawable/ic_action_send"
             app:tint="@color/purple_main" />
 

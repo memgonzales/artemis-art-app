@@ -73,6 +73,8 @@
                 android:id="@+id/rv_feed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+
         </androidx.core.widget.NestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
