@@ -14,7 +14,7 @@
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/ctrl_add_profile_bio"
+            android:id="@+id/ctl_add_profile_bio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
