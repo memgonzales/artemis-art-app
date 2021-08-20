@@ -389,7 +389,6 @@
                     android:id="@+id/tv_view_post_dimen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="1080 x 1080"
                     app:layout_constraintBottom_toBottomOf="parent"
