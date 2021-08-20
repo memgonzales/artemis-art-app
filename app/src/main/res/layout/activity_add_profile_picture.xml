@@ -168,7 +168,7 @@
                     app:layout_constraintGuide_percent="0.1" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/civ_add_profile_pic_camera"
+                    android:id="@+id/civ_item_feed_profile_pic"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:src="@drawable/shoob"
@@ -324,11 +324,11 @@
                     app:backgroundTint="@color/purple_pics_lighter"
                     app:ensureMinTouchTargetSize="false"
                     app:fabCustomSize="30dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/civ_add_profile_pic_camera"
+                    app:layout_constraintBottom_toBottomOf="@+id/civ_item_feed_profile_pic"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_camera"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left_camera"
-                    app:layout_constraintTop_toTopOf="@+id/civ_add_profile_pic_camera"
+                    app:layout_constraintTop_toTopOf="@+id/civ_item_feed_profile_pic"
                     app:layout_constraintVertical_bias="0.95"
                     app:maxImageSize="15dp"
                     app:srcCompat="@drawable/ic_action_camera_alt"

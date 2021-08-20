@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewPostActivity"></activity>
+        <activity android:name=".ViewPostActivity"
+            android:parentActivityName=".BrowseFeedActivity" />
         <activity android:name=".BrowseFeedActivity" />
         <activity
-            android:name=".AddProfileSuccessActivity"
-            android:parentActivityName=".AddProfileBioActivity" />
+            android:name=".AddProfileSuccessActivity"/>
         <activity
             android:name=".AddProfileBioActivity"
             android:parentActivityName=".AddProfilePictureActivity" />
