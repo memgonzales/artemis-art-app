@@ -87,7 +87,6 @@
             android:scaleType="fitXY"
             app:layout_constraintBottom_toTopOf="@+id/tv_item_feed_upvote_counter"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/civ_add_profile_pic_camera"
             app:layout_constraintVertical_bias="1.0"
