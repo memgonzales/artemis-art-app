@@ -68,7 +68,6 @@
             android:fillViewport="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_feed"
                 android:layout_width="match_parent"
