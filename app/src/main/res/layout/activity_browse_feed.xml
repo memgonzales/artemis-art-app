@@ -10,6 +10,7 @@
         android:id="@+id/coord_feed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipToPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +80,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_feed"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="?attr/actionBarSize" />
 
 
             </androidx.core.widget.NestedScrollView>

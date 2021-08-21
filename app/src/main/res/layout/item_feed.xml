@@ -10,7 +10,8 @@
         android:id="@+id/cl_item_feed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="12dp">
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_item_feed_profile_pic"
