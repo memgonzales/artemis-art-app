@@ -191,6 +191,7 @@
             app:layout_constraintStart_toStartOf="@+id/gl_log_in_left"
             app:layout_constraintTop_toBottomOf="@+id/btn_log_in"
             app:layout_constraintVertical_bias="0.0"
+            app:rippleColor="@color/light_gray"
             app:strokeColor="@color/purple_main"
             app:strokeWidth="0.75dp" />
 

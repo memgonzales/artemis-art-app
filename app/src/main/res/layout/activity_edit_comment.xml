@@ -166,6 +166,7 @@
                     app:layout_constraintHorizontal_bias="0.95"
                     app:layout_constraintStart_toStartOf="@+id/gl_edit_comment_left_text"
                     app:layout_constraintTop_toTopOf="@+id/button"
+                    app:rippleColor="@color/light_gray"
                     app:strokeColor="@color/purple_main"
                     app:strokeWidth="0.75dp" />
 

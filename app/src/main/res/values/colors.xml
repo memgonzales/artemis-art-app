@@ -20,4 +20,7 @@
 
     <!-- Used to denote liked and bookmarked status -->
     <color name="pinkish_purple">#CD3E6F</color>
+
+    <!-- Used in ripple effect of white buttons -->
+    <color name="light_gray">#d3d3d3</color>
 </resources>
