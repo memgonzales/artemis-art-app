@@ -17,10 +17,10 @@
         android:secondaryProgressTint="@color/pinkish_purple"
         android:translationZ="10dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/cl_log_in_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cl_log_in_top" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_log_in_top"
