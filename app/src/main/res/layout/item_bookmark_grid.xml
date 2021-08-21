@@ -4,7 +4,7 @@
     android:id="@+id/cl_item_bookmark"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="4dp">
 
     <ImageView
         android:id="@+id/iv_item_bookmark"
