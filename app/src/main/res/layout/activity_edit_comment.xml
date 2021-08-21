@@ -60,12 +60,105 @@
             android:fillViewport="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_edit_comment"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_item_comment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:paddingTop="12dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_item_comment_profile_pic"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:src="@drawable/shoob"
+                app:civ_border_color="@color/purple_main"
+                app:civ_border_width="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gl_item_comment_right_user_pic"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/gl_item_comment_left_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_item_comment_right_user_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="0dp"
+                app:layout_constraintGuide_percent="0.15" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_item_comment_left_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.01" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_item_comment_left_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="-99dp"
+                app:layout_constraintGuide_percent="0.03" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_item_comment_right_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.97" />
+
+            <TextView
+                android:id="@+id/tv_item_comment_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:text="shooberino"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_item_comment_date"
+                app:layout_constraintEnd_toStartOf="@+id/ib_item_comment_edit"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/gl_item_comment_right_user_pic"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.133"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_item_comment_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="August 20, 2021"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/civ_item_comment_profile_pic"
+                app:layout_constraintStart_toStartOf="@+id/tv_item_comment_username"
+                app:layout_constraintTop_toBottomOf="@+id/tv_item_comment_username"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tv_item_comment_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingMultiplier="1.05"
+                android:text="The light from the lantern at the end of the Doppel's tail can call forth a myriad of illusions, and the scissors are said to cause great devastation in the near futures of those who have been harmed by them."
+                app:layout_constraintEnd_toStartOf="@+id/gl_item_comment_right_margin"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/gl_item_comment_left_text"
+                app:layout_constraintTop_toBottomOf="@+id/civ_item_comment_profile_pic" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.core.widget.NestedScrollView>
+
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
