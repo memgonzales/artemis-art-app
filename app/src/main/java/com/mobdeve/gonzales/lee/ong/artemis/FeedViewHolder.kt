@@ -13,6 +13,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvItemFeedTitle: TextView
     private val tvItemFeedUpvoteCounter: TextView
     private val tvItemFeedComments: TextView
+
     fun setItemFeedProfilePic(picture: Int) {
         civItemFeedProfilePic.setImageResource(picture)
     }
@@ -29,7 +30,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvItemFeedTitle.text = title
     }
 
-    fun setTvItemFeedUpvoteCounter(upvotes: String?) {
+    fun setItemFeedUpvoteCounter(upvotes: String?) {
         tvItemFeedUpvoteCounter.text = upvotes
     }
 
