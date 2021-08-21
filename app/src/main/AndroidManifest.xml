@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".EditCommentActivity"
+        <activity android:name=".BrowseBookmarksActivity"></activity>
+        <activity
+            android:name=".EditCommentActivity"
             android:parentActivityName=".ViewCommentsActivity" />
         <activity
             android:name=".ViewCommentsActivity"
