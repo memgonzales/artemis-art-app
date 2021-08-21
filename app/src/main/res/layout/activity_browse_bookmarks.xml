@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_feed"
+    android:id="@+id/cl_bookmarks"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coord_feed"
+        android:id="@+id/coord_bookmarks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="true"
@@ -17,20 +17,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar_feed"
+            android:id="@+id/appbar_bookmarks"
             android:layout_width="match_parent"
             android:layout_height="56dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/ctl_feed"
+                android:id="@+id/ctl_bookmarks"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:toolbarId="@+id/toolbar_feed">
+                app:toolbarId="@+id/toolbar_bookmarks">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar_feed"
+                    android:id="@+id/toolbar_bookmarks"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     tools:layout_collapseMode="pin">
@@ -38,7 +38,7 @@
                 </androidx.appcompat.widget.Toolbar>
 
                 <ImageView
-                    android:id="@+id/iv_feed_logo"
+                    android:id="@+id/iv_bookmarks_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
@@ -47,7 +47,7 @@
                     app:srcCompat="@drawable/girl_arrow_bow_brush_no_border" />
 
                 <TextView
-                    android:id="@+id/tv_feed_title"
+                    android:id="@+id/tv_bookmarks_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
@@ -64,24 +64,65 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_feed"
+            android:id="@+id/srl_bookmarks"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.core.widget.NestedScrollView
-                android:id="@+id/nsv_feed"
+                android:id="@+id/nsv_bookmarks"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_feed"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_bookmarks_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="?attr/actionBarSize" />
+                    android:layout_height="match_parent">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/sfl_bookmarks"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="MissingConstraints">
+
+                        <LinearLayout
+                            android:id="@+id/ll_bookmarks_shimmer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_bookmarks"></include>
+
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_bookmarks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="?attr/actionBarSize"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
             </androidx.core.widget.NestedScrollView>
@@ -91,7 +132,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nv_feed_bottom"
+        android:id="@+id/nv_bookmarks_bottom"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
@@ -101,10 +142,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/menu_bottom_feed">
+        app:menu="@menu/menu_bottom_bookmarks">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_feed_add"
+            android:id="@+id/fab_bookmarks_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"

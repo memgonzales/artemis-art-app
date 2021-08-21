@@ -94,8 +94,6 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <!--add  several shimmer placeholder layout -->
-
                             <include layout="@layout/item_placeholder_comment"></include>
                             <include layout="@layout/item_placeholder_comment"></include>
                             <include layout="@layout/item_placeholder_comment"></include>

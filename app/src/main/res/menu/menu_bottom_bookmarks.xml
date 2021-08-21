@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/icon_home_feed"
+        android:icon="@drawable/outline_home_24"
+        android:title="Home"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/icon_follow_feed"
+        android:title="Followed"
+        android:icon="@drawable/outline_people_24"
+        app:showAsAction = "always"/>
+
+    <item
+        android:id="@+id/icon_add_invisible_feed"
+        android:title=""
+        android:enabled="false"
+        app:showAsAction = "always"/>
+
+    <item
+        android:id="@+id/icon_bookmark_feed"
+        android:icon="@drawable/outline_bookmark_24"
+        android:title="Bookmarks"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/icon_user_feed"
+        android:title="Profile"
+        android:icon="@drawable/outline_account_circle_24"
+        app:showAsAction = "always"/>
+
+</menu>
