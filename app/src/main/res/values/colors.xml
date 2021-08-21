@@ -23,4 +23,7 @@
 
     <!-- Used in ripple effect of white buttons -->
     <color name="light_gray">#d3d3d3</color>
+
+    <!-- Used in shimmer effect -->
+    <color name="lightest_gray">#dddddd</color>
 </resources>

@@ -77,14 +77,59 @@
                 android:fillViewport="true"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_feed"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_feed_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="?attr/actionBarSize" />
+                    android:layout_height="match_parent">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/sfl_feed"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="MissingConstraints">
+
+                        <LinearLayout
+                            android:id="@+id/ll_feed_shimmer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!--add  several shimmer placeholder layout -->
+
+                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed"></include>
+
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_feed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
 
             </androidx.core.widget.NestedScrollView>
+
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

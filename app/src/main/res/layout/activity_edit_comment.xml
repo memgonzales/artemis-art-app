@@ -125,7 +125,7 @@
                     android:text="shooberino"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/civ_edit_comment_profile_pic"
-                    app:layout_constraintEnd_toStartOf="@+id/ib_item_comment_edit"
+                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/gl_edit_comment_right_user_pic"
                     app:layout_constraintTop_toTopOf="@+id/civ_edit_comment_profile_pic"
@@ -147,28 +147,28 @@
 
                 <Button
                     android:id="@+id/button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Edit"
+                    android:text="Save Changes"
                     app:layout_constraintEnd_toStartOf="@+id/gl_edit_comment_right_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_edit_comment_left_text"
                     app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
 
-                <Button
-                    android:id="@+id/button2"
+                <ImageButton
+                    android:id="@+id/imageButton2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/white"
-                    android:text="Delete"
-                    android:textColor="@color/purple_main"
-                    app:layout_constraintBottom_toBottomOf="@+id/button"
-                    app:layout_constraintEnd_toStartOf="@+id/button"
-                    app:layout_constraintHorizontal_bias="0.95"
-                    app:layout_constraintStart_toStartOf="@+id/gl_edit_comment_left_text"
-                    app:layout_constraintTop_toTopOf="@+id/button"
-                    app:rippleColor="@color/light_gray"
-                    app:strokeColor="@color/purple_main"
-                    app:strokeWidth="0.75dp" />
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="@+id/civ_edit_comment_profile_pic"
+                    app:layout_constraintEnd_toEndOf="@id/gl_edit_comment_right_margin"
+                    app:layout_constraintTop_toTopOf="@+id/civ_edit_comment_profile_pic"
+                    app:srcCompat="@drawable/delete_icon2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

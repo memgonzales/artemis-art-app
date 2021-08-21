@@ -78,6 +78,31 @@
                     app:layout_constraintTop_toTopOf="@id/coord_view_comments"
                     app:layout_constraintVertical_bias="0.5">
 
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/sfl_view_comments"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="MissingConstraints">
+
+                        <LinearLayout
+                            android:id="@+id/ll_view_comments_shimmer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!--add  several shimmer placeholder layout -->
+
+                            <include layout="@layout/item_placeholder_comment"></include>
+                            <include layout="@layout/item_placeholder_comment"></include>
+                            <include layout="@layout/item_placeholder_comment"></include>
+
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_view_comments"
                         android:layout_width="match_parent"
@@ -85,7 +110,8 @@
                         android:layout_marginBottom="?attr/actionBarSize"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:visibility="gone"/>
 
                     <ImageView
                         android:id="@+id/iv_view_comments_no_comment"
@@ -96,6 +122,7 @@
                         android:adjustViewBounds="true"
                         android:alpha="0.6"
                         android:scaleType="fitCenter"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toTopOf="@+id/tv_view_comments_no_comment"
                         app:layout_constraintEnd_toEndOf="@+id/tv_view_comments_no_comment"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -114,6 +141,7 @@
                         android:textColor="@color/purple_main"
                         android:textSize="18sp"
                         android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"

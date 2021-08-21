@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 class LogInActivity : AppCompatActivity() {
     private var btnSignUp: Button? = null
     private var btnLogIn: Button? = null
+    private var btnTest: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +25,9 @@ class LogInActivity : AppCompatActivity() {
 
         this.btnLogIn = findViewById(R.id.btn_log_in)
         startBrowsing()
+
+        this.btnTest = findViewById(R.id.btn_test)
+        startTesting()
     }
 
     private fun launchSignUp() {
@@ -35,9 +39,16 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startBrowsing() {
         this.btnLogIn?.setOnClickListener {
-            val i = Intent(this@LogInActivity, EditCommentActivity::class.java)
+            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
             startActivity(i)
             finish()
+        }
+    }
+
+    private fun startTesting() {
+        this.btnTest?.setOnClickListener {
+            val i = Intent(this@LogInActivity, BrowseBookmarksActivity::class.java)
+            startActivity(i)
         }
     }
 }
