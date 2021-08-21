@@ -82,7 +82,7 @@
         app:layout_constraintVertical_bias="0.5">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/iv_view_comments_no_comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -90,16 +90,16 @@
             android:adjustViewBounds="true"
             android:alpha="0.6"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@+id/textView3"
-            app:layout_constraintEnd_toEndOf="@+id/textView3"
+            app:layout_constraintBottom_toTopOf="@+id/tv_view_comments_no_comment"
+            app:layout_constraintEnd_toEndOf="@+id/tv_view_comments_no_comment"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/tv_view_comments_no_comment"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             app:srcCompat="@drawable/logo_recolored" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tv_view_comments_no_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -112,7 +112,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_view_comments_no_comment" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
