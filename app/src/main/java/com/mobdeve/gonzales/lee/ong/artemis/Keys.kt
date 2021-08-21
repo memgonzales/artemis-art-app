@@ -12,5 +12,6 @@ enum class Keys {
     KEY_DIM_HEIGHT,
     KEY_DIM_WIDTH,
     KEY_DESCRIPTION,
-    KEY_TAGS
+    KEY_TAGS,
+    users
 }
