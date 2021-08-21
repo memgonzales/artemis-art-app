@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewCommentsActivity"
+        <activity android:name=".EditCommentActivity"></activity>
+        <activity
+            android:name=".ViewCommentsActivity"
             android:parentActivityName=".ViewPostActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
