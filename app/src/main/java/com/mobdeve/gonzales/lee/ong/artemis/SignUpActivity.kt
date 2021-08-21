@@ -64,7 +64,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun launchAddProfilePic() {
 
         this.btnSignUp?.setOnClickListener {
-            this.btnSignUp?.setOnClickListener(View.OnClickListener {
+
                 var username: String = tietUsername?.getText().toString().trim()
                 var email: String = tietEmail?.getText().toString().trim()
                 var password: String = tietPassword?.getText().toString().trim()
@@ -81,8 +81,6 @@ class SignUpActivity : AppCompatActivity() {
 
 
                 }
-            })
-
         }
     }
 
