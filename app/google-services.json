@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "864319386676",
+    "firebase_url": "https://artemis-77e4e-default-rtdb.firebaseio.com",
+    "project_id": "artemis-77e4e",
+    "storage_bucket": "artemis-77e4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864319386676:android:4aa9c0aec7fce3fa87c661",
+        "android_client_info": {
+          "package_name": "com.mobdeve.s14.gonzales.mark.artemis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864319386676-ma1gdtmma74e6nits7trt5cjsjoq30g0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8odS608Fi-FOdcifAC7WKd8aNrhzKamo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864319386676-ma1gdtmma74e6nits7trt5cjsjoq30g0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,10 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.google.android.material.textfield.TextInputEditText
 
 class AddProfileBioActivity : AppCompatActivity() {
     private var btnAddBio: Button? = null
 
+    private var tielBio: TextInputEditText? = null
+
+    private var
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_profile_bio)
@@ -16,6 +20,8 @@ class AddProfileBioActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
+        this.tielBio = findViewById(R.id.tiel_add_profile_bio)
+
         setSupportActionBar(findViewById(R.id.toolbar_add_profile_bio))
         initActionBar()
 
@@ -30,6 +36,9 @@ class AddProfileBioActivity : AppCompatActivity() {
 
     private fun launchAddProfilePic() {
         this.btnAddBio?.setOnClickListener {
+
+            var bio: String? = tielBio?.getText().toString().trim()
+
             val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
             startActivity(i)
         }
