@@ -19,7 +19,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
             android:adjustViewBounds="true"
             android:background="@color/lightest_gray"
             android:scaleType="fitCenter"
