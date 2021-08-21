@@ -12,7 +12,7 @@ class EditCommentActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
-        setSupportActionBar(findViewById(R.id.toolbar_view_comments))
+        setSupportActionBar(findViewById(R.id.toolbar_edit_comment))
         initActionBar()
     }
 

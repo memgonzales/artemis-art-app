@@ -26,10 +26,10 @@
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:toolbarId="@+id/toolbar_view_comments">
+                app:toolbarId="@+id/toolbar_edit_comment">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar_view_comments"
+                    android:id="@+id/toolbar_edit_comment"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     tools:layout_collapseMode="pin">
@@ -44,7 +44,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Comments"
+                    android:text="Edit Comment"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
