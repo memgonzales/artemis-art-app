@@ -59,7 +59,14 @@ class ViewPostActivity : AppCompatActivity() {
         val upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
         val dimensions = "$dimHeight x $dimWidth"
-        val tagsString = ""
+        val tagsString = tags?.joinToString(", ")
+
+//        if (tags != null) {
+//            for (i in tags) {
+//                tagsString.plus(i)
+//                tagsString.plus(", ")
+//            }
+//        }
 
         this.civItemViewPostProfilePic.setImageResource(profilePicture)
         this.tvItemViewPostUsername.text = username
