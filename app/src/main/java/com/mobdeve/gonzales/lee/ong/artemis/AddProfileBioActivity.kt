@@ -11,7 +11,6 @@ class AddProfileBioActivity : AppCompatActivity() {
 
     private var tielBio: TextInputEditText? = null
 
-    private var
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_profile_bio)
