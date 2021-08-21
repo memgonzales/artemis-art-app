@@ -53,399 +53,407 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsv_view_post"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_view_post"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_item_view_post"
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nsv_view_post"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="12dp">
+                android:fillViewport="true"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/civ_item_view_post_profile_pic"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:clickable="true"
-                    android:src="@drawable/shoob"
-                    app:civ_border_color="@color/purple_main"
-                    app:civ_border_width="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_user_pic"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_margin"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_post_right_user_pic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.15" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_post_left_margin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.01" />
-
-                <ImageButton
-                    android:id="@+id/ib_item_view_post_bookmark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="6dp"
-                    android:adjustViewBounds="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:backgroundTint="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toBottomOf="@+id/civ_item_view_post_profile_pic"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
-                    app:layout_constraintTop_toTopOf="@+id/civ_item_view_post_profile_pic"
-                    app:srcCompat="@drawable/outline_bookmark_24"
-                    app:tint="@color/pinkish_purple" />
-
-                <TextView
-                    android:id="@+id/tv_item_view_post_username"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="8dp"
-                    android:clickable="true"
-                    android:ellipsize="end"
-                    android:fontFamily="sans-serif-medium"
-                    android:maxLines="1"
-                    android:scrollHorizontally="true"
-                    android:text="shooberino"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/civ_item_view_post_profile_pic"
-                    app:layout_constraintEnd_toStartOf="@+id/ib_item_view_post_bookmark"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_right_user_pic"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.35000002"
-                    app:layout_constraintVertical_chainStyle="packed" />
-
-                <ImageView
-                    android:id="@+id/iv_item_view_post_post"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="12dp"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitXY"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_item_view_post_upvote_counter"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/civ_item_view_post_profile_pic"
-                    app:layout_constraintVertical_bias="1.0"
-                    app:srcCompat="@drawable/magia_record" />
-
-                <TextView
-                    android:id="@+id/tv_item_view_post_upvote_counter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
-                    android:text="100 Upvotes"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toTopOf="@id/cl_item_view_post_upvote"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_item_view_post_dot"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_item_view_post_post" />
-
-                <TextView
-                    android:id="@+id/tv_item_view_post_dot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="•"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_item_view_post_upvote_counter"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_item_view_post_comments"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/tv_item_view_post_upvote_counter"
-                    app:layout_constraintTop_toTopOf="@+id/tv_item_view_post_upvote_counter" />
-
-                <TextView
-                    android:id="@+id/tv_item_view_post_comments"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:text="50 Comments"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_item_view_post_upvote_counter"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/tv_item_view_post_dot"
-                    app:layout_constraintTop_toTopOf="@+id/tv_item_view_post_upvote_counter" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_post_left_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="-99dp"
-                    app:layout_constraintGuide_percent="0.03" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_post_right_margin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.97" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_post_one_third"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.33" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_post_two_thirds"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.66" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_item_view_post_upvote"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="10dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_one_third"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_item_view_post_upvote_counter">
+                    android:id="@+id/cl_item_view_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="12dp">
 
-                    <ImageView
-                        android:id="@+id/iv_item_view_post_upvote"
-                        android:layout_width="wrap_content"
-                        android:layout_height="22dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_item_view_post_profile_pic"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:clickable="true"
+                        android:src="@drawable/shoob"
+                        app:civ_border_color="@color/purple_main"
+                        app:civ_border_width="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_item_view_post_upvote"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_user_pic"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_margin"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/upvote_colored"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_item_view_post_right_user_pic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="0dp"
+                        app:layout_constraintGuide_percent="0.15" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_item_view_post_left_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.01" />
+
+                    <ImageButton
+                        android:id="@+id/ib_item_view_post_bookmark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="6dp"
+                        android:adjustViewBounds="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:backgroundTint="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="@+id/civ_item_view_post_profile_pic"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
+                        app:layout_constraintTop_toTopOf="@+id/civ_item_view_post_profile_pic"
+                        app:srcCompat="@drawable/outline_bookmark_24"
                         app:tint="@color/pinkish_purple" />
 
                     <TextView
-                        android:id="@+id/tv_item_view_post_upvote"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_item_view_post_username"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="7dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="8dp"
+                        android:clickable="true"
+                        android:ellipsize="end"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Upvote"
-                        android:textColor="@color/pinkish_purple"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_item_view_post_upvote"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/iv_item_view_post_upvote"
-                        app:layout_constraintTop_toTopOf="@+id/iv_item_view_post_upvote" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_item_view_post_comment"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    app:layout_constraintBottom_toBottomOf="@+id/cl_item_view_post_upvote"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_two_thirds"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_one_third"
-                    app:layout_constraintTop_toTopOf="@+id/cl_item_view_post_upvote">
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
+                        android:text="shooberino"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/civ_item_view_post_profile_pic"
+                        app:layout_constraintEnd_toStartOf="@+id/ib_item_view_post_bookmark"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_right_user_pic"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.35000002"
+                        app:layout_constraintVertical_chainStyle="packed" />
 
                     <ImageView
-                        android:id="@+id/iv_item_view_post_comment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="22dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_item_view_post_comment"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/outline_mode_comment_24" />
-
-                    <TextView
-                        android:id="@+id/tv_item_view_post_comment"
+                        android:id="@+id/iv_item_view_post_post"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="7dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Comment"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_item_view_post_comment"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitXY"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_item_view_post_upvote_counter"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/civ_item_view_post_profile_pic"
+                        app:layout_constraintVertical_bias="1.0"
+                        app:srcCompat="@drawable/magia_record" />
+
+                    <TextView
+                        android:id="@+id/tv_item_view_post_upvote_counter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:text="100 Upvotes"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@id/cl_item_view_post_upvote"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_item_view_post_dot"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_item_view_post_post" />
+
+                    <TextView
+                        android:id="@+id/tv_item_view_post_dot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="•"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_item_view_post_upvote_counter"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_item_view_post_comments"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/iv_item_view_post_comment"
-                        app:layout_constraintTop_toTopOf="@+id/iv_item_view_post_comment" />
+                        app:layout_constraintStart_toEndOf="@+id/tv_item_view_post_upvote_counter"
+                        app:layout_constraintTop_toTopOf="@+id/tv_item_view_post_upvote_counter" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tv_item_view_post_comments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:text="50 Comments"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_item_view_post_upvote_counter"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tv_item_view_post_dot"
+                        app:layout_constraintTop_toTopOf="@+id/tv_item_view_post_upvote_counter" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_item_view_post_share"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    app:layout_constraintBottom_toBottomOf="@+id/cl_item_view_post_upvote"
-                    app:layout_constraintEnd_toStartOf="@id/gl_item_view_post_right_margin"
-                    app:layout_constraintStart_toStartOf="@id/gl_item_view_post_two_thirds"
-                    app:layout_constraintTop_toTopOf="@+id/cl_item_view_post_upvote">
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_item_view_post_left_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="-99dp"
+                        app:layout_constraintGuide_percent="0.03" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_item_view_post_right_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.97" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_item_view_post_one_third"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.33" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_item_view_post_two_thirds"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.66" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_item_view_post_upvote"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_one_third"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_item_view_post_upvote_counter">
+
+                        <ImageView
+                            android:id="@+id/iv_item_view_post_upvote"
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_item_view_post_upvote"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_chainStyle="packed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/upvote_colored"
+                            app:tint="@color/pinkish_purple" />
+
+                        <TextView
+                            android:id="@+id/tv_item_view_post_upvote"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Upvote"
+                            android:textColor="@color/pinkish_purple"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_item_view_post_upvote"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/iv_item_view_post_upvote"
+                            app:layout_constraintTop_toTopOf="@+id/iv_item_view_post_upvote" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_item_view_post_comment"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toBottomOf="@+id/cl_item_view_post_upvote"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_two_thirds"
+                        app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_one_third"
+                        app:layout_constraintTop_toTopOf="@+id/cl_item_view_post_upvote">
+
+                        <ImageView
+                            android:id="@+id/iv_item_view_post_comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_item_view_post_comment"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_chainStyle="packed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/outline_mode_comment_24" />
+
+                        <TextView
+                            android:id="@+id/tv_item_view_post_comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Comment"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_item_view_post_comment"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/iv_item_view_post_comment"
+                            app:layout_constraintTop_toTopOf="@+id/iv_item_view_post_comment" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_item_view_post_share"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toBottomOf="@+id/cl_item_view_post_upvote"
+                        app:layout_constraintEnd_toStartOf="@id/gl_item_view_post_right_margin"
+                        app:layout_constraintStart_toStartOf="@id/gl_item_view_post_two_thirds"
+                        app:layout_constraintTop_toTopOf="@+id/cl_item_view_post_upvote">
+
+                        <ImageView
+                            android:id="@+id/iv_item_view_post_share"
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_item_view_post_share"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_chainStyle="packed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/outline_share_24" />
+
+                        <TextView
+                            android:id="@+id/tv_item_view_post_share"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Share"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_item_view_post_share"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/iv_item_view_post_share"
+                            app:layout_constraintTop_toTopOf="@+id/iv_item_view_post_share" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/tv_view_post_title_art"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:lineSpacingMultiplier="1.05"
+                        android:text="The Doppel of Silence and Iroha Tamaki"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
+                        app:layout_constraintTop_toBottomOf="@id/cl_item_view_post_upvote"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tv_view_post_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="August 20, 2021"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_view_post_title_art"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tv_view_post_medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Digital Art"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_view_post_date"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tv_view_post_dimen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="1080 x 1080"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_view_post_medium"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tv_view_post_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:lineSpacingMultiplier="1.05"
+                        android:text="Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn't want to hear as it continues its search for something to fill the hole in its heart."
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/gl_item_view_post_right_margin"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_view_post_dimen"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tv_view_post_tags"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:drawablePadding="5dp"
+                        android:includeFontPadding="false"
+                        android:padding="5dp"
+                        android:text="anime, magia-record, shaft, iroha, witches"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/imageView"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_view_post_desc" />
 
                     <ImageView
-                        android:id="@+id/iv_item_view_post_share"
+                        android:id="@+id/imageView"
                         android:layout_width="wrap_content"
-                        android:layout_height="22dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_item_view_post_share"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/outline_share_24" />
-
-                    <TextView
-                        android:id="@+id/tv_item_view_post_share"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="7dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Share"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_item_view_post_share"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/iv_item_view_post_share"
-                        app:layout_constraintTop_toTopOf="@+id/iv_item_view_post_share" />
+                        android:layout_height="0dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_view_post_tags"
+                        app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
+                        app:layout_constraintTop_toTopOf="@+id/tv_view_post_tags"
+                        app:srcCompat="@drawable/outline_label_24" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/tv_view_post_title_art"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:lineSpacingMultiplier="1.05"
-                    android:text="The Doppel of Silence and Iroha Tamaki"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
-                    app:layout_constraintTop_toBottomOf="@id/cl_item_view_post_upvote"
-                    app:layout_constraintVertical_bias="0.0" />
+            </androidx.core.widget.NestedScrollView>
 
-                <TextView
-                    android:id="@+id/tv_view_post_date"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="August 20, 2021"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_view_post_title_art"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/tv_view_post_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="Digital Art"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_view_post_date"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/tv_view_post_dimen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="1080 x 1080"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_view_post_medium"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/tv_view_post_desc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:lineSpacingMultiplier="1.05"
-                    android:text="Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn't want to hear as it continues its search for something to fill the hole in its heart."
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_item_view_post_right_margin"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_view_post_dimen"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/tv_view_post_tags"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:drawablePadding="5dp"
-                    android:includeFontPadding="false"
-                    android:padding="5dp"
-                    android:text="anime, magia-record, shaft, iroha, witches"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_view_post_desc" />
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_view_post_tags"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
-                    app:layout_constraintTop_toTopOf="@+id/tv_view_post_tags"
-                    app:srcCompat="@drawable/outline_label_24" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-
-        </androidx.core.widget.NestedScrollView>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nv_view_post_bottom"
