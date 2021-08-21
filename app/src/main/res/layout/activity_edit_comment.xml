@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_view_comments_root"
+    android:id="@+id/cl_edit_comment_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coord_view_comments"
+        android:id="@+id/coord_edit_comment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,12 +16,12 @@
 
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar_view_comments"
+            android:id="@+id/appbar_edit_comment"
             android:layout_width="match_parent"
             android:layout_height="56dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/ctl_view_comments"
+                android:id="@+id/ctl_edit_comment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
@@ -37,7 +37,7 @@
                 </androidx.appcompat.widget.Toolbar>
 
                 <TextView
-                    android:id="@+id/tv_view_comments_title"
+                    android:id="@+id/tv_edit_comment_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
@@ -54,7 +54,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsv_view_comments"
+            android:id="@+id/nsv_edit_comment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
@@ -62,7 +62,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_view_comments"
+                android:id="@+id/rv_edit_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </androidx.core.widget.NestedScrollView>
@@ -72,7 +72,7 @@
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nv_view_comments_bottom"
+        android:id="@+id/nv_edit_comment_bottom"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
@@ -85,7 +85,7 @@
         app:menu="@menu/menu_bottom_feed">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_view_comments_add"
+            android:id="@+id/fab_edit_comment_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"

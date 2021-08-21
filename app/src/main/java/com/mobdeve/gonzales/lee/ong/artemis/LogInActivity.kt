@@ -35,7 +35,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startBrowsing() {
         this.btnLogIn?.setOnClickListener {
-            val i = Intent(this@LogInActivity, ViewCommentsActivity::class.java)
+            val i = Intent(this@LogInActivity, EditCommentActivity::class.java)
             startActivity(i)
             finish()
         }
