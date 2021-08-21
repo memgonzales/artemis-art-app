@@ -41,6 +41,20 @@
             android:layout_height="match_parent"
             android:backgroundTint="@android:color/black">
 
+            <ProgressBar
+                android:id="@+id/pb_sign_up"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="51dp"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/purple_pics_lighter"
+                android:secondaryProgressTint="@color/pinkish_purple"
+                android:translationZ="10dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_sign_up_pic_top"
                 android:layout_width="match_parent"
