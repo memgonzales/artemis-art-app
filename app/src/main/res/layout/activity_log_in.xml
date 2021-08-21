@@ -16,7 +16,7 @@
         android:indeterminateTint="@color/purple_pics_lighter"
         android:secondaryProgressTint="@color/pinkish_purple"
         android:translationZ="10dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/cl_log_in_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -133,7 +133,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tiet_log_in_username"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="Username/Email"
                 android:inputType="text" />
 
