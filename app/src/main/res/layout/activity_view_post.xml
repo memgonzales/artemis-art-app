@@ -349,7 +349,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/tv_view_post_title_art"
+                        android:id="@+id/tv_item_view_post_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
@@ -365,7 +365,7 @@
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/tv_view_post_date"
+                        android:id="@+id/tv_item_view_post_date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
@@ -375,11 +375,11 @@
                         app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_view_post_title_art"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_item_view_post_title"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/tv_view_post_medium"
+                        android:id="@+id/tv_item_view_post_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
@@ -389,11 +389,11 @@
                         app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_view_post_date"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_item_view_post_date"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/tv_view_post_dimen"
+                        android:id="@+id/tv_item_view_post_dimen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -402,11 +402,11 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_view_post_medium"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_item_view_post_medium"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/tv_view_post_desc"
+                        android:id="@+id/tv_item_view_post_desc"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
@@ -416,11 +416,11 @@
                         app:layout_constraintEnd_toEndOf="@id/gl_item_view_post_right_margin"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_view_post_dimen"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_item_view_post_dimen"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/tv_view_post_tags"
+                        android:id="@+id/tv_item_view_post_tags"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
@@ -432,7 +432,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/gl_item_view_post_right_margin"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/imageView"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_view_post_desc" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_item_view_post_desc" />
 
                     <ImageView
                         android:id="@+id/imageView"
@@ -440,9 +440,9 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="2dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_view_post_tags"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_item_view_post_tags"
                         app:layout_constraintStart_toStartOf="@+id/gl_item_view_post_left_text"
-                        app:layout_constraintTop_toTopOf="@+id/tv_view_post_tags"
+                        app:layout_constraintTop_toTopOf="@+id/tv_item_view_post_tags"
                         app:srcCompat="@drawable/outline_label_24" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

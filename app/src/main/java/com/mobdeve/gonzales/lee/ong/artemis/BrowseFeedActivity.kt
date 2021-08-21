@@ -51,6 +51,8 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         this.feedAdapter = FeedAdapter(this.dataPosts);
+
+
         this.rvFeed.adapter = feedAdapter;
     }
 
