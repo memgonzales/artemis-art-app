@@ -16,11 +16,13 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user1"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="8dp"
             android:background="@color/lightest_gray"
             app:layout_constraintEnd_toStartOf="@+id/gl_search_results_one_fourth"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -32,12 +34,15 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user2"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@color/lightest_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_item_placeholder_search_results_user1"
             app:layout_constraintEnd_toStartOf="@+id/gl_search_results_one_half"
             app:layout_constraintStart_toStartOf="@+id/gl_search_results_one_fourth"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/iv_item_placeholder_search_results_user1" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_search_results_one_half"
@@ -48,12 +53,15 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user3"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
             android:background="@color/lightest_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_item_placeholder_search_results_user4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/gl_search_results_three_fourths"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/iv_item_placeholder_search_results_user4" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_search_results_three_fourths"
@@ -64,12 +72,15 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user4"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@color/lightest_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_item_placeholder_search_results_user2"
             app:layout_constraintEnd_toStartOf="@+id/gl_search_results_three_fourths"
             app:layout_constraintStart_toStartOf="@+id/gl_search_results_one_half"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/iv_item_placeholder_search_results_user2" />
 
         <TextView
             android:id="@+id/textView"
