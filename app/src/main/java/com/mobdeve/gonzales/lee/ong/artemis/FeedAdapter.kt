@@ -2,6 +2,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
@@ -65,6 +66,10 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
                 Keys.KEY_TAGS.name,
                 dataPosts[feedViewHolder.bindingAdapterPosition].tags
             )
+            intent.putExtra(
+                Keys.KEY_BOOKMARK.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].bookmark
+            )
 
             view.context.startActivity(intent)
         }
@@ -80,6 +85,12 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
         holder.setItemFeedTitle(currentPost.title)
         holder.setItemFeedUpvoteCounter(currentPost.numUpvotes.toString() + " upvotes")
         holder.setItemFeedComments(currentPost.numComments.toString() + " comments")
+        holder.setItemFeedBookmark(currentPost.bookmark)
+
+        holder.setItemFeedBookmarkOnClickListener {
+            currentPost.bookmark = !currentPost.bookmark
+            holder.setItemFeedBookmark(currentPost.bookmark)
+        }
     }
 
     override fun getItemCount(): Int {

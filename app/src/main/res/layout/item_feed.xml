@@ -57,8 +57,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/civ_item_feed_profile_pic"
             app:layout_constraintEnd_toStartOf="@+id/gl_item_feed_right_margin"
             app:layout_constraintTop_toTopOf="@+id/civ_item_feed_profile_pic"
-            app:srcCompat="@drawable/outline_bookmark_24"
-            app:tint="@color/pinkish_purple" />
+            app:srcCompat="@drawable/outline_bookmark_border_24" />
 
         <TextView
             android:id="@+id/tv_item_feed_username"
@@ -187,8 +186,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/upvote_colored"
-                app:tint="@color/pinkish_purple" />
+                app:srcCompat="@drawable/upvote_v2" />
 
             <TextView
                 android:id="@+id/tv_item_feed_upvote"
@@ -197,7 +195,6 @@
                 android:layout_marginStart="7dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="Upvote"
-                android:textColor="@color/pinkish_purple"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_item_feed_upvote"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
