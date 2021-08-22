@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     private var logoAnimation: AnimationDrawable? = null
 
     companion object {
-        private const val SPLASH_SCREEN_TIMEOUT = 3000
+        private const val SPLASH_SCREEN_TIMEOUT = 1600
         private const val ANIMATION_FRAME_FADEOUT = 400
     }
 
