@@ -108,7 +108,7 @@ class SignUpActivity : AppCompatActivity() {
                 this
             ) { task ->
                 if (task.isSuccessful) {
-                    db?.getReference(Keys.users.name)
+                    db!!.getReference(Keys.users.name)
                         .child(mAuth!!.currentUser!!.uid)
                         .setValue(user).addOnCompleteListener { task ->
                             if (task.isSuccessful) {

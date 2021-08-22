@@ -5,14 +5,26 @@ class User {
     private var email: String
     private var password: String
     private var userImg: Int
-    private var desc: String
+    private var bio: String
+
+    private var bookmarks: ArrayList<Int>
+    private var userPosts: ArrayList<Int>
+    private var highlights: ArrayList<Int>
+    private var upvotedPosts: ArrayList<Int>
+    private var usersFollowed: ArrayList<Int>
 
     constructor(username: String, email: String, password: String){
         this.username = username
         this.email = email
         this.password = password
         this.userImg = R.drawable.chibi_circle
-        this.desc = ""
+        this.bio = ""
+
+        this.bookmarks = ArrayList<Int>()
+        this.userPosts = ArrayList<Int>()
+        this.highlights = ArrayList<Int>()
+        this.upvotedPosts = ArrayList<Int>()
+        this.usersFollowed = ArrayList<Int>()
     }
 
     fun getUsername(): String {
@@ -31,8 +43,28 @@ class User {
         return this.userImg
     }
 
-    fun getDesc(): String {
-        return this.desc
+    fun getBio(): String {
+        return this.bio
+    }
+
+    fun getBookmarks(): ArrayList<Int>{
+        return this.bookmarks
+    }
+
+    fun getUserPosts(): ArrayList<Int>{
+        return this.userPosts
+    }
+
+    fun getHighlights(): ArrayList<Int>{
+        return this.highlights
+    }
+
+    fun getUpvotedPosts(): ArrayList<Int>{
+        return this.upvotedPosts
+    }
+
+    fun getUsersFolloweded(): ArrayList<Int>{
+        return this.usersFollowed
     }
 }
 
