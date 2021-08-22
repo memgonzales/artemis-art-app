@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_search"
+    android:id="@+id/cl_search_results"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coord_search"
+        android:id="@+id/coord_search_results"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="true"
@@ -17,20 +17,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar_search"
+            android:id="@+id/appbar_search_results"
             android:layout_width="match_parent"
             android:layout_height="56dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/ctl_search"
+                android:id="@+id/ctl_search_results"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:toolbarId="@+id/toolbar_search">
+                app:toolbarId="@+id/toolbar_search_results">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar_search"
+                    android:id="@+id/toolbar_search_results"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:padding="0dp"
@@ -57,18 +57,153 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_search"
+            android:id="@+id/srl_search_results"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.core.widget.NestedScrollView
-                android:id="@+id/nsv_search"
+                android:id="@+id/nsv_search_results"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_search_result_user1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:clickable="true"
+                        android:src="@drawable/shoob"
+                        app:civ_border_color="@color/purple_main"
+                        app:civ_border_width="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/gl_search_results_artworks_top"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_search_results_one_fourth"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_search_results_one_fourth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.25" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_search_result_user2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:clickable="true"
+                        android:src="@drawable/shoob"
+                        app:civ_border_color="@color/purple_main"
+                        app:civ_border_width="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/gl_search_results_artworks_top"
+                        app:layout_constraintEnd_toStartOf="@id/gl_search_results_one_half"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@id/gl_search_results_one_fourth"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_search_results_one_half"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.50" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_search_result_user3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:clickable="true"
+                        android:src="@drawable/shoob"
+                        app:civ_border_color="@color/purple_main"
+                        app:civ_border_width="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/gl_search_results_artworks_top"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_search_results_three_fourths"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/gl_search_results_one_half"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_search_results_three_fourths"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.75" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_search_result_user4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:clickable="true"
+                        android:src="@drawable/shoob"
+                        app:civ_border_color="@color/purple_main"
+                        app:civ_border_width="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/gl_search_results_artworks_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/gl_search_results_three_fourths"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_search_results_artworks_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="90dp" />
+
+                    <TextView
+                        android:id="@+id/tv_search_results_artworks"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Matching Artworks"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/civ_search_result_user4"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/civ_search_result_user1"
+                        app:layout_constraintTop_toBottomOf="@id/gl_search_results_artworks_top"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_search_results"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_search_results_artworks"
+                        app:layout_constraintStart_toStartOf="@+id/tv_search_results_artworks"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_search_results_artworks"
+                        app:layout_constraintVertical_bias="0.50" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
 
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -76,7 +211,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nv_search_bottom"
+        android:id="@+id/nv_search_results_bottom"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
@@ -89,7 +224,7 @@
         app:menu="@menu/menu_bottom_search">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_search_add"
+            android:id="@+id/fab_search_results_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
