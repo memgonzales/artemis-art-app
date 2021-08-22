@@ -16,12 +16,10 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user1"
-            android:layout_width="63dp"
+            android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginStart="4dp"
             android:background="@color/lightest_gray"
             app:layout_constraintEnd_toStartOf="@+id/gl_search_results_one_fourth"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,11 +32,10 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user2"
-            android:layout_width="63dp"
+            android:layout_width="64dp"
             android:layout_height="64dp"
             android:background="@color/lightest_gray"
             app:layout_constraintEnd_toStartOf="@+id/gl_search_results_one_half"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/gl_search_results_one_fourth"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,11 +48,10 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user3"
-            android:layout_width="63dp"
+            android:layout_width="64dp"
             android:layout_height="64dp"
             android:background="@color/lightest_gray"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/gl_search_results_three_fourths"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,11 +64,10 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user4"
-            android:layout_width="63dp"
+            android:layout_width="64dp"
             android:layout_height="64dp"
             android:background="@color/lightest_gray"
             app:layout_constraintEnd_toStartOf="@+id/gl_search_results_three_fourths"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/gl_search_results_one_half"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,12 +75,13 @@
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="14dp"
             android:background="@color/lightest_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_item_placeholder_search_results_user2"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/iv_item_placeholder_search_results_user1"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_item_placeholder_search_results_user1"
             app:layout_constraintVertical_bias="0.0" />
 
