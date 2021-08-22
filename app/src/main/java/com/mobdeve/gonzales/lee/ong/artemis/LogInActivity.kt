@@ -4,8 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -14,6 +16,11 @@ class LogInActivity : AppCompatActivity() {
     private var btnSignUp: Button? = null
     private var btnLogIn: Button? = null
     private var btnTest: Button? = null
+
+    private var tietUsername: TextInputEditText? = null
+    private var tietPassword: TextInputEditText? = null
+
+    private var tvGuest: TextView? = null
 
     //Firebase
     private lateinit var mAuth: FirebaseAuth
@@ -39,6 +46,9 @@ class LogInActivity : AppCompatActivity() {
 
         this.btnTest = findViewById(R.id.btn_test)
         startTesting()
+
+        this.tvGuest = findViewById(R.id.tv_log_in_guest)
+        loginAsGuest()
     }
 
     private fun launchSignUp() {
@@ -50,6 +60,10 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startBrowsing() {
         this.btnLogIn?.setOnClickListener {
+            var username: String? = tietUsername?.getText().toString().trim()
+            var password: String? = tietPassword?.getText().toString().trim()
+
+            this.mAuth.signInWithCustomToken(it).addOnCompleteListener(this)
             /*
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
@@ -77,6 +91,16 @@ class LogInActivity : AppCompatActivity() {
         this.btnTest?.setOnClickListener {
             val i = Intent(this@LogInActivity, ViewCommentsActivity::class.java)
             startActivity(i)
+        }
+    }
+
+    private fun loginAsGuest(){
+        this.tvGuest?.setOnClickListener {
+
+           // this.mAuth.signInAnonymously()
+            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
+            startActivity(i)
+            finish()
         }
     }
 }
