@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".SearchResultsActivity"></activity>
+        <activity android:name=".BrowseFeedFollowedActivity"></activity>
+        <activity
+            android:name=".SearchResultsActivity"
+            android:parentActivityName=".SearchActivity" />
         <activity android:name=".SearchActivity" />
         <activity
             android:name=".ViewPostUnregisteredActivity"
@@ -19,8 +22,8 @@
             android:parentActivityName=".ViewPostUnregisteredActivity" />
         <activity
             android:name=".BrowseFeedUnregisteredActivity"
-            android:parentActivityName=".LogInActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:parentActivityName=".LogInActivity" />
         <activity
             android:name=".ViewBookmarkActivity"
             android:parentActivityName=".BrowseBookmarksActivity" />
@@ -35,8 +38,9 @@
         <activity
             android:name=".ViewPostActivity"
             android:parentActivityName=".BrowseFeedActivity" />
-        <activity android:name=".BrowseFeedActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".BrowseFeedActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".AddProfileSuccessActivity" />
         <activity
             android:name=".AddProfileBioActivity"
