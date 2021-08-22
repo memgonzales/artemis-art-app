@@ -3,17 +3,17 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import com.mobdeve.s14.lee.hylene.androidchallenge1.CustomDate
 
 class Post(
-    val profilePicture: Int,
+
+    var profilePicture: Int,
     val username: String,
     val post: Int,
-    val title: String,
-    val numUpvotes: Int,
-    val numComments: Int,
-    val datePosted: CustomDate,
-    val type: String,
-    val dimHeight: Int,
-    val dimWidth: Int,
-    val description: String,
-    val tags: Array<String>
-
+    var title: String,
+    var numUpvotes: Int,
+    var numComments: Int,
+    var datePosted: CustomDate,
+    var type: String,
+    var dimHeight: Int,
+    var dimWidth: Int,
+    var description: String,
+    var tags: Array<String>
 )
