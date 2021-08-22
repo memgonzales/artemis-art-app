@@ -30,6 +30,9 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_feed_unregistered))
         initShimmer()
+
+        setSupportActionBar(findViewById(R.id.toolbar_feed_unregistered))
+        initActionBar()
     }
 
     private fun initShimmer() {
@@ -61,5 +64,10 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_feed, menu)
 
         return true
+    }
+
+    private fun initActionBar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 }
