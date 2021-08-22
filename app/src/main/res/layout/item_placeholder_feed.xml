@@ -16,25 +16,16 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_item_placeholder_feed_profile_pic"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="0dp"
             android:background="@color/lightest_gray"
             android:clickable="true"
             app:civ_border_color="@color/purple_main"
             app:civ_border_width="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/gl_item_placeholder_feed_right_user_pic"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_placeholder_feed_username"
+            app:layout_constraintDimensionRatio="1"
             app:layout_constraintStart_toStartOf="@+id/gl_item_placeholder_feed_left_text"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_item_placeholder_feed_right_user_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="0dp"
-            app:layout_constraintGuide_percent="0.10" />
+            app:layout_constraintVertical_bias="0.5" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_item_placeholder_feed_left_margin"
@@ -63,7 +54,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/light_gray"
             android:clickable="true"
             android:ellipsize="end"
@@ -71,12 +64,12 @@
             android:maxLines="1"
             android:scrollHorizontally="true"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/civ_item_placeholder_feed_profile_pic"
+            app:layout_constraintBottom_toBottomOf="@id/civ_item_placeholder_feed_profile_pic"
             app:layout_constraintEnd_toStartOf="@+id/ib_item_placeholder_feed_bookmark"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/gl_item_placeholder_feed_right_user_pic"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.35000002"
+            app:layout_constraintStart_toEndOf="@+id/civ_item_placeholder_feed_profile_pic"
+            app:layout_constraintTop_toTopOf="@id/civ_item_placeholder_feed_profile_pic"
+            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <ImageView
