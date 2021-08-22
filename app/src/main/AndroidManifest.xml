@@ -19,7 +19,8 @@
             android:parentActivityName=".ViewPostUnregisteredActivity" />
         <activity
             android:name=".BrowseFeedUnregisteredActivity"
-            android:parentActivityName=".LogInActivity" />
+            android:parentActivityName=".LogInActivity"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ViewBookmarkActivity"
             android:parentActivityName=".BrowseBookmarksActivity" />
@@ -34,7 +35,8 @@
         <activity
             android:name=".ViewPostActivity"
             android:parentActivityName=".BrowseFeedActivity" />
-        <activity android:name=".BrowseFeedActivity" />
+        <activity android:name=".BrowseFeedActivity"
+            android:launchMode="singleTop"/>
         <activity android:name=".AddProfileSuccessActivity" />
         <activity
             android:name=".AddProfileBioActivity"

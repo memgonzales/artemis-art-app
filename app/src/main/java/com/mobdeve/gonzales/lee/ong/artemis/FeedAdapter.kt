@@ -78,6 +78,11 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
             view.context.startActivity(intent)
         }
 
+        feedViewHolder.setItemFeedCommentOnClickListener { view ->
+            val intent = Intent(view.context, ViewCommentsActivity::class.java)
+            view.context.startActivity(intent)
+        }
+
         return feedViewHolder
     }
 
