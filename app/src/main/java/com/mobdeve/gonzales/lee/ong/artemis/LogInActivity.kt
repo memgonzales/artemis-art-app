@@ -32,7 +32,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun launchSignUp() {
         this.btnSignUp?.setOnClickListener {
-            val i = Intent(this@LogInActivity, BrowseFeedUnregisteredActivity::class.java)
+            val i = Intent(this@LogInActivity, SignUpActivity::class.java)
             startActivity(i)
         }
     }
@@ -47,7 +47,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startTesting() {
         this.btnTest?.setOnClickListener {
-            val i = Intent(this@LogInActivity, ViewCommentsUnregisteredActivity::class.java)
+            val i = Intent(this@LogInActivity, BrowseFeedUnregisteredActivity::class.java)
             startActivity(i)
         }
     }
