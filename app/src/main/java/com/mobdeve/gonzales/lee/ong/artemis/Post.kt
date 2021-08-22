@@ -15,5 +15,6 @@ class Post(
     var dimHeight: Int,
     var dimWidth: Int,
     var description: String,
-    var tags: Array<String>
+    var tags: Array<String>,
+    var bookmark: Boolean
 )

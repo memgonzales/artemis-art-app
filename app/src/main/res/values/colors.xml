@@ -26,4 +26,7 @@
 
     <!-- Used in shimmer effect -->
     <color name="lightest_gray">#dddddd</color>
+
+    <!-- Used for default views -->
+    <color name="default_gray">#757575</color>
 </resources>
