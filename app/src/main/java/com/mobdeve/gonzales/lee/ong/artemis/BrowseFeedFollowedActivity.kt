@@ -33,7 +33,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
     }
 
     private fun initShimmer() {
-        this.sflFeed = findViewById(R.id.sfl_feed)
+        this.sflFeed = findViewById(R.id.sfl_feed_followed)
 
         sflFeed.startShimmer()
 
@@ -47,7 +47,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         this.dataPosts = DataHelper.loadPostData();
 
-        this.rvFeed = findViewById(R.id.rv_feed);
+        this.rvFeed = findViewById(R.id.rv_feed_followed);
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         this.feedAdapter = FeedAdapter(this.dataPosts);
