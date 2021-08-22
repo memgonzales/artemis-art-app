@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis" >
-        <activity android:name=".ViewBookmarkActivity" >
-        </activity>
+        <activity android:name=".ViewBookmarkActivity"
+            android:parentActivityName=".BrowseBookmarksActivity" />
         <activity android:name=".BrowseBookmarksActivity" />
         <activity
             android:name=".EditCommentActivity"
