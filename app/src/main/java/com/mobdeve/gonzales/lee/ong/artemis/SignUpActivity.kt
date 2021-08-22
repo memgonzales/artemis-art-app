@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
@@ -20,6 +21,10 @@ class SignUpActivity : AppCompatActivity() {
     private var tietUsername: TextInputEditText? = null
     private var tietEmail: TextInputEditText? = null
     private var tietPassword: TextInputEditText? = null
+
+    private var tilUsername: TextInputLayout? = null
+    private var tilEmail: TextInputLayout? = null
+    private var tilPassword: TextInputLayout? = null
 
     private var pbSignUp: ProgressBar? = null
 
@@ -45,6 +50,10 @@ class SignUpActivity : AppCompatActivity() {
         this.tietUsername = findViewById(R.id.tiet_sign_up_username)
         this.tietEmail = findViewById(R.id.tiet_sign_up_email)
         this.tietPassword = findViewById(R.id.tiet_sign_up_password)
+
+        this.tilUsername = findViewById(R.id.til_sign_up_username)
+        this.tilEmail = findViewById(R.id.til_sign_up_email)
+        this.tilPassword = findViewById(R.id.til_sign_up_password)
 
         this.pbSignUp = findViewById(R.id.pb_sign_up)
         this.btnSignUp = findViewById(R.id.btn_sign_up)
@@ -80,20 +89,21 @@ class SignUpActivity : AppCompatActivity() {
         var hasEmpty: Boolean = false;
 
         if(username.isEmpty()){
-            this.tietUsername?.setError("Required Field")
+            this.tilUsername?.error = "Required"
             this.tietUsername?.requestFocus()
             hasEmpty = true
         }
 
         if(email.isEmpty()){
-            this.tietEmail?.setError("Required Field")
+            this.tilEmail?.error = "Required"
             this.tietEmail?.requestFocus()
             hasEmpty = true
         }
 
         if(password.isEmpty()){
-            this.tietPassword?.setError("Required Field")
+            this.tilPassword?.error = "Required"
             this.tietPassword?.requestFocus()
+
             hasEmpty = true
         }
 
@@ -125,7 +135,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun successfulRegistration(){
         this.pbSignUp?.visibility = View.GONE
-        Toast.makeText(this, "Succesfully Registered", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Successfully registered", Toast.LENGTH_SHORT).show()
 
         val i = Intent(this@SignUpActivity, AddProfilePictureActivity::class.java)
         startActivity(i)
