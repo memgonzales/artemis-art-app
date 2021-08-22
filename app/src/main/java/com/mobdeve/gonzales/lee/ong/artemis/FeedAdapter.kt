@@ -70,6 +70,10 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
                 Keys.KEY_BOOKMARK.name,
                 dataPosts[feedViewHolder.bindingAdapterPosition].bookmark
             )
+            intent.putExtra(
+                Keys.KEY_UPVOTE.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].upvote
+            )
 
             view.context.startActivity(intent)
         }
@@ -86,10 +90,25 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
         holder.setItemFeedUpvoteCounter(currentPost.numUpvotes.toString() + " upvotes")
         holder.setItemFeedComments(currentPost.numComments.toString() + " comments")
         holder.setItemFeedBookmark(currentPost.bookmark)
+        holder.setItemFeedUpvote(currentPost.upvote)
 
         holder.setItemFeedBookmarkOnClickListener {
             currentPost.bookmark = !currentPost.bookmark
             holder.setItemFeedBookmark(currentPost.bookmark)
+        }
+
+        holder.setItemFeedUpvoteOnClickListener {
+            if (currentPost.upvote) {
+                currentPost.upvote = false
+                currentPost.numUpvotes -= 1
+                holder.setItemFeedUpvoteCounter(currentPost.numUpvotes.toString() + " upvotes")
+                holder.setItemFeedUpvote(currentPost.upvote)
+            } else {
+                currentPost.upvote = true
+                currentPost.numUpvotes += 1
+                holder.setItemFeedUpvoteCounter(currentPost.numUpvotes.toString() + " upvotes")
+                holder.setItemFeedUpvote(currentPost.upvote)
+            }
         }
     }
 

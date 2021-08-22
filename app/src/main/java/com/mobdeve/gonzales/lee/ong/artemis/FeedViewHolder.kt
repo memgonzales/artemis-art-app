@@ -1,10 +1,13 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
@@ -17,6 +20,9 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvItemFeedUpvoteCounter: TextView
     private val tvItemFeedComments: TextView
     private val ibItemFeedBookmark: ImageButton
+    private val ivItemFeedUpvote: ImageView
+    private val tvItemFeedUpvote: TextView
+    private val clItemFeedUpvote: ConstraintLayout
 
     fun setItemFeedProfilePic(picture: Int) {
         civItemFeedProfilePic.setImageResource(picture)
@@ -60,6 +66,28 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
+    fun setItemFeedUpvoteOnClickListener(onClickListener: View.OnClickListener) {
+        clItemFeedUpvote.setOnClickListener(onClickListener)
+    }
+
+    fun setItemFeedUpvote(upvote: Boolean) {
+        if (upvote) {
+            ivItemFeedUpvote.setImageResource(R.drawable.upvote_colored)
+            ivItemFeedUpvote.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(ivItemFeedUpvote.context, R.color.pinkish_purple)
+            )
+            tvItemFeedUpvote.setTextColor(ColorStateList.valueOf(
+                ContextCompat.getColor(ivItemFeedUpvote.context, R.color.pinkish_purple)))
+        } else {
+            ivItemFeedUpvote.setImageResource(R.drawable.upvote_v2)
+            ivItemFeedUpvote.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(ivItemFeedUpvote.context, R.color.default_gray)
+            )
+            tvItemFeedUpvote.setTextColor(ColorStateList.valueOf(
+                ContextCompat.getColor(ivItemFeedUpvote.context, R.color.default_gray)))
+        }
+    }
+
     init {
         civItemFeedProfilePic = itemView.findViewById(R.id.civ_item_feed_profile_pic)
         tvItemFeedUsername = itemView.findViewById(R.id.tv_item_feed_username)
@@ -68,5 +96,8 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvItemFeedUpvoteCounter = itemView.findViewById(R.id.tv_item_feed_upvote_counter)
         tvItemFeedComments = itemView.findViewById(R.id.tv_item_feed_comments)
         ibItemFeedBookmark = itemView.findViewById(R.id.ib_item_feed_bookmark)
+        ivItemFeedUpvote = itemView.findViewById(R.id.iv_item_feed_upvote)
+        tvItemFeedUpvote = itemView.findViewById(R.id.tv_item_feed_upvote)
+        clItemFeedUpvote = itemView.findViewById(R.id.cl_item_feed_upvote)
     }
 }

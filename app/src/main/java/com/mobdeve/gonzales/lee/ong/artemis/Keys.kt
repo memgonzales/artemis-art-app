@@ -14,6 +14,7 @@ enum class Keys {
     KEY_DESCRIPTION,
     KEY_TAGS,
     KEY_BOOKMARK,
+    KEY_UPVOTE,
     users,
     bio
 }

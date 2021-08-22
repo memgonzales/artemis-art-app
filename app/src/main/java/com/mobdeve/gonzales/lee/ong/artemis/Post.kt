@@ -16,5 +16,6 @@ class Post(
     var dimWidth: Int,
     var description: String,
     var tags: Array<String>,
-    var bookmark: Boolean
+    var bookmark: Boolean,
+    var upvote: Boolean
 )

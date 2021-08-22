@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -24,6 +25,9 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var tvItemViewPostDescription: TextView
     private lateinit var tvItemViewPostTags: TextView
     private lateinit var ibItemViewPostBookmark: ImageButton
+    private lateinit var ivItemViewPostUpvote: ImageView
+    private lateinit var tvItemViewPostUpvote: TextView
+    private lateinit var clItemViewPostUpvote: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +45,9 @@ class ViewPostActivity : AppCompatActivity() {
         tvItemViewPostDescription = findViewById(R.id.tv_item_view_post_desc)
         tvItemViewPostTags = findViewById(R.id.tv_item_view_post_tags)
         ibItemViewPostBookmark = findViewById(R.id.ib_item_view_post_bookmark)
+        ivItemViewPostUpvote = findViewById(R.id.iv_item_view_post_upvote)
+        tvItemViewPostUpvote = findViewById(R.id.tv_item_view_post_upvote)
+        clItemViewPostUpvote = findViewById(R.id.cl_item_view_post_upvote)
 
         initIntent()
         initComponents()
@@ -53,7 +60,7 @@ class ViewPostActivity : AppCompatActivity() {
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
         val post = intent.getIntExtra(Keys.KEY_POST.name, 0)
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
-        val upvoteCounter = intent.getIntExtra(Keys.KEY_UPVOTES.name, 0)
+        var upvoteCounter = intent.getIntExtra(Keys.KEY_UPVOTES.name, 0)
         val comments = intent.getIntExtra(Keys.KEY_COMMENTS.name, 0)
         val datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name)
         val type = intent.getStringExtra(Keys.KEY_TYPE.name)
@@ -62,6 +69,7 @@ class ViewPostActivity : AppCompatActivity() {
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
         val tags = intent.getStringArrayExtra(Keys.KEY_TAGS.name)
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
+        var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
 
         val upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
@@ -81,10 +89,27 @@ class ViewPostActivity : AppCompatActivity() {
         this.tvItemViewPostTags.text = tagsString
 
         updateBookmark(bookmark)
+        updateUpvote(upvote)
 
         ibItemViewPostBookmark.setOnClickListener(View.OnClickListener {
             bookmark = !bookmark
             updateBookmark(bookmark)
+        })
+
+        clItemViewPostUpvote.setOnClickListener(View.OnClickListener {
+            if (upvote) {
+                upvote = false
+                upvoteCounter -= 1
+                val updatedUpvoteString = "$upvoteCounter upvotes"
+                this.tvItemViewPostUpvoteCounter.text = updatedUpvoteString
+                updateUpvote(upvote)
+            } else {
+                upvote = true
+                upvoteCounter += 1
+                val updatedUpvoteString = "$upvoteCounter upvotes"
+                this.tvItemViewPostUpvoteCounter.text = updatedUpvoteString
+                updateUpvote(upvote)
+            }
         })
     }
 
@@ -99,7 +124,7 @@ class ViewPostActivity : AppCompatActivity() {
     }
 
     private fun updateBookmark(bookmark: Boolean) {
-        if (bookmark) {
+        if(bookmark) {
             this.ibItemViewPostBookmark.setImageResource(R.drawable.outline_bookmark_24)
             this.ibItemViewPostBookmark.imageTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(this.ibItemViewPostBookmark.context, R.color.pinkish_purple)
@@ -109,6 +134,24 @@ class ViewPostActivity : AppCompatActivity() {
             this.ibItemViewPostBookmark.imageTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(this.ibItemViewPostBookmark.context, R.color.default_gray)
             )
+        }
+    }
+
+    private fun updateUpvote(upvote: Boolean) {
+        if (upvote) {
+            ivItemViewPostUpvote.setImageResource(R.drawable.upvote_colored)
+            ivItemViewPostUpvote.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(ivItemViewPostUpvote.context, R.color.pinkish_purple)
+            )
+            tvItemViewPostUpvote.setTextColor(ColorStateList.valueOf(
+                ContextCompat.getColor(tvItemViewPostUpvote.context, R.color.pinkish_purple)))
+        } else {
+            ivItemViewPostUpvote.setImageResource(R.drawable.upvote_v2)
+            ivItemViewPostUpvote.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(ivItemViewPostUpvote.context, R.color.default_gray)
+            )
+            tvItemViewPostUpvote.setTextColor(ColorStateList.valueOf(
+                ContextCompat.getColor(tvItemViewPostUpvote.context, R.color.default_gray)))
         }
     }
 }
