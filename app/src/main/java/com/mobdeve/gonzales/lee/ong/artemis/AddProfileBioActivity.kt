@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -17,6 +18,7 @@ class AddProfileBioActivity : AppCompatActivity() {
     private var btnAddBio: Button? = null
 
     private var tielBio: TextInputEditText? = null
+    private var tvBioSkip: TextView? = null
 
     //Firebase
     private lateinit var user: FirebaseUser
@@ -38,13 +40,16 @@ class AddProfileBioActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
-        this.tielBio = findViewById(R.id.tiel_add_profile_bio)
-
         setSupportActionBar(findViewById(R.id.toolbar_add_profile_bio))
         initActionBar()
 
+        this.tielBio = findViewById(R.id.tiel_add_profile_bio)
+
         this.btnAddBio = findViewById(R.id.btn_add_profile_bio_add)
         launchAddProfilePic()
+
+        this.tvBioSkip = findViewById(R.id.tv_add_profile_bio_skip)
+        skipAddProfilePic()
     }
 
     private fun initActionBar() {
@@ -60,6 +65,15 @@ class AddProfileBioActivity : AppCompatActivity() {
 
             val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
             startActivity(i)
+            finish()
+        }
+    }
+
+    private fun skipAddProfilePic(){
+        this.tvBioSkip?.setOnClickListener{
+            val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
+            startActivity(i)
+            finish()
         }
     }
 }
