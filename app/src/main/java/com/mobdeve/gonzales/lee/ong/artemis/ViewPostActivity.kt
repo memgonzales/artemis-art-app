@@ -1,10 +1,14 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ViewPostActivity : AppCompatActivity() {
@@ -19,6 +23,7 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var tvItemViewPostDimensions: TextView
     private lateinit var tvItemViewPostDescription: TextView
     private lateinit var tvItemViewPostTags: TextView
+    private lateinit var ibItemViewPostBookmark: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +40,7 @@ class ViewPostActivity : AppCompatActivity() {
         tvItemViewPostDimensions = findViewById(R.id.tv_item_view_post_dimen)
         tvItemViewPostDescription = findViewById(R.id.tv_item_view_post_desc)
         tvItemViewPostTags = findViewById(R.id.tv_item_view_post_tags)
+        ibItemViewPostBookmark = findViewById(R.id.ib_item_view_post_bookmark)
 
         initIntent()
         initComponents()
@@ -55,18 +61,12 @@ class ViewPostActivity : AppCompatActivity() {
         val dimWidth = intent.getIntExtra(Keys.KEY_DIM_WIDTH.name, 0)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
         val tags = intent.getStringArrayExtra(Keys.KEY_TAGS.name)
+        var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
 
         val upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
         val dimensions = "$dimHeight x $dimWidth"
         val tagsString = tags?.joinToString(", ")
-
-//        if (tags != null) {
-//            for (i in tags) {
-//                tagsString.plus(i)
-//                tagsString.plus(", ")
-//            }
-//        }
 
         this.civItemViewPostProfilePic.setImageResource(profilePicture)
         this.tvItemViewPostUsername.text = username
@@ -79,6 +79,13 @@ class ViewPostActivity : AppCompatActivity() {
         this.tvItemViewPostDimensions.text = dimensions
         this.tvItemViewPostDescription.text = description
         this.tvItemViewPostTags.text = tagsString
+
+        updateBookmark(bookmark)
+
+        ibItemViewPostBookmark.setOnClickListener(View.OnClickListener {
+            bookmark = !bookmark
+            updateBookmark(bookmark)
+        })
     }
 
     private fun initComponents() {
@@ -89,5 +96,19 @@ class ViewPostActivity : AppCompatActivity() {
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    private fun updateBookmark(bookmark: Boolean) {
+        if (bookmark) {
+            this.ibItemViewPostBookmark.setImageResource(R.drawable.outline_bookmark_24)
+            this.ibItemViewPostBookmark.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(this.ibItemViewPostBookmark.context, R.color.pinkish_purple)
+            )
+        } else {
+            this.ibItemViewPostBookmark.setImageResource(R.drawable.outline_bookmark_border_24)
+            this.ibItemViewPostBookmark.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(this.ibItemViewPostBookmark.context, R.color.default_gray)
+            )
+        }
     }
 }

@@ -21,14 +21,15 @@ object DataHelper {
                 1080,
                 1080,
                 "Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn't want to hear as it continues its search for something to fill the hole in its heart.",
-                arrayTags
+                arrayTags,
+                false
             )
         )
         data.add(
             Post(
                 R.drawable.shoob,
                 "shooberino",
-                R.drawable.magia_record,
+                R.drawable.shibe1,
                 "The Doppel of Silence and Iroha Tamaki from Magia Record",
                 100,
                 50,
@@ -37,14 +38,15 @@ object DataHelper {
                 1080,
                 1080,
                 "Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn't want to hear as it continues its search for something to fill the hole in its heart.",
-                arrayTags
+                arrayTags,
+                false
             )
         )
         data.add(
             Post(
                 R.drawable.shoob,
                 "shooberino",
-                R.drawable.magia_record,
+                R.drawable.shibe4,
                 "The Doppel of Silence and Iroha Tamaki from Magia Record",
                 100,
                 50,
@@ -53,14 +55,15 @@ object DataHelper {
                 1080,
                 1080,
                 "Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn't want to hear as it continues its search for something to fill the hole in its heart.",
-                arrayTags
+                arrayTags,
+                false
             )
         )
         data.add(
             Post(
                 R.drawable.shoob,
                 "shooberino",
-                R.drawable.magia_record,
+                R.drawable.shibe2,
                 "The Doppel of Silence and Iroha Tamaki from Magia Record",
                 100,
                 50,
@@ -69,14 +72,15 @@ object DataHelper {
                 1080,
                 1080,
                 "Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn't want to hear as it continues its search for something to fill the hole in its heart.",
-                arrayTags
+                arrayTags,
+                false
             )
         )
         data.add(
             Post(
                 R.drawable.shoob,
                 "shooberino",
-                R.drawable.magia_record,
+                R.drawable.shibe3,
                 "The Doppel of Silence and Iroha Tamaki from Magia Record",
                 100,
                 50,
@@ -85,7 +89,8 @@ object DataHelper {
                 1080,
                 1080,
                 "Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn't want to hear as it continues its search for something to fill the hole in its heart.",
-                arrayTags
+                arrayTags,
+                true
             )
         )
         return data
