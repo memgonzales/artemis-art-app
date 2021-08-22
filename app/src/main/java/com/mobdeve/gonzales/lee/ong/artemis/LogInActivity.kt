@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import com.google.android.material.textfield.TextInputEditText
@@ -24,6 +25,7 @@ class LogInActivity : AppCompatActivity() {
 
     //Firebase
     private lateinit var mAuth: FirebaseAuth
+    private var customToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +65,22 @@ class LogInActivity : AppCompatActivity() {
             var username: String? = tietUsername?.getText().toString().trim()
             var password: String? = tietPassword?.getText().toString().trim()
 
-            this.mAuth.signInWithCustomToken(it).addOnCompleteListener(this)
+            /*
+            customToken?.let{
+                this.mAuth.signInWithCustomToken(it).addOnCompleteListener(this){ task ->
+                    if (task.isSuccessful){
+                        Toast.makeText(this@LogInActivity, "Hurrah", Toast.LENGTH_SHORT).show()
+                    }
+
+                    else{
+                        Toast.makeText(this@LogInActivity, "Awes", Toast.LENGTH_SHORT).show()
+                    }
+
+
+                }
+            }
+
+             */
             /*
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
@@ -81,9 +98,12 @@ class LogInActivity : AppCompatActivity() {
                     }
                 }
 */
+            /*
             val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
             startActivity(i)
             finish()
+
+             */
         }
     }
 

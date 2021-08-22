@@ -104,9 +104,7 @@ class SignUpActivity : AppCompatActivity() {
         this.pbSignUp?.visibility = View.VISIBLE
 
         this.mAuth!!.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
-            .addOnCompleteListener(
-                this
-            ) { task ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     db!!.getReference(Keys.users.name)
                         .child(mAuth!!.currentUser!!.uid)
