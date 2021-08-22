@@ -100,4 +100,50 @@ object DataHelper {
         )
         return data
     }
+
+    fun loadCommentData(): ArrayList<Comment> {
+        val data = ArrayList<Comment>()
+
+        data.add(
+            Comment(
+                R.drawable.shoob,
+                "shooberino",
+                CustomDate(2021, 7, 20),
+                "Nice post, thanks for sharing"
+            )
+        )
+        data.add(
+            Comment(
+                R.drawable.shibe1,
+                "shibe",
+                CustomDate(2021, 7, 20),
+                "Kewl :D"
+            )
+        )
+        data.add(
+            Comment(
+                R.drawable.shibe2,
+                "shoobie",
+                CustomDate(2021, 7, 20),
+                "Good art"
+            )
+        )
+        data.add(
+            Comment(
+                R.drawable.shibe3,
+                "shib",
+                CustomDate(2021, 7, 20),
+                "XD"
+            )
+        )
+        data.add(
+            Comment(
+                R.drawable.shibe4,
+                "mameshiba",
+                CustomDate(2021, 7, 20),
+                "I am bean dog"
+            )
+        )
+        return data
+    }
 }
