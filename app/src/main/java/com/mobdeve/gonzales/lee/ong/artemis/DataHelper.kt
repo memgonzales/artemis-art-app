@@ -84,7 +84,7 @@ object DataHelper {
             Post(
                 R.drawable.shibe4,
                 "mameshiba",
-                R.drawable.small_test_pic,
+                R.drawable.onto_the_horizon,
                 "8 Bit Rat",
                 1000,
                 1357,
@@ -92,7 +92,7 @@ object DataHelper {
                 "Digital Art",
                 678,
                 1276,
-                "Pixelrat (I do commissions!)",
+                "I do commissions!",
                 arrayTags,
                 true,
                 false

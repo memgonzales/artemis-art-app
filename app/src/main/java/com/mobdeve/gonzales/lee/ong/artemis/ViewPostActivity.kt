@@ -71,7 +71,7 @@ class ViewPostActivity : AppCompatActivity() {
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
         var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
 
-        val upvoteString = "$upvoteCounter upvotes"
+        var upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
         val dimensions = "$dimHeight x $dimWidth"
         val tagsString = tags?.joinToString(", ")
@@ -100,14 +100,14 @@ class ViewPostActivity : AppCompatActivity() {
             if (upvote) {
                 upvote = false
                 upvoteCounter -= 1
-                val updatedUpvoteString = "$upvoteCounter upvotes"
-                this.tvItemViewPostUpvoteCounter.text = updatedUpvoteString
+                upvoteString = "$upvoteCounter upvotes"
+                this.tvItemViewPostUpvoteCounter.text = upvoteString
                 updateUpvote(upvote)
             } else {
                 upvote = true
                 upvoteCounter += 1
-                val updatedUpvoteString = "$upvoteCounter upvotes"
-                this.tvItemViewPostUpvoteCounter.text = updatedUpvoteString
+                upvoteString = "$upvoteCounter upvotes"
+                this.tvItemViewPostUpvoteCounter.text = upvoteString
                 updateUpvote(upvote)
             }
         })
