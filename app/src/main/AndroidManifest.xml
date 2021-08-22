@@ -34,6 +34,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ViewPostActivity"
+            android:launchMode="singleTop"
             android:parentActivityName=".BrowseFeedActivity" />
         <activity android:name=".BrowseFeedActivity"
             android:launchMode="singleTop"/>

@@ -28,6 +28,7 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var ivItemViewPostUpvote: ImageView
     private lateinit var tvItemViewPostUpvote: TextView
     private lateinit var clItemViewPostUpvote: ConstraintLayout
+    private lateinit var clItemViewPostComment: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +49,7 @@ class ViewPostActivity : AppCompatActivity() {
         ivItemViewPostUpvote = findViewById(R.id.iv_item_view_post_upvote)
         tvItemViewPostUpvote = findViewById(R.id.tv_item_view_post_upvote)
         clItemViewPostUpvote = findViewById(R.id.cl_item_view_post_upvote)
+        clItemViewPostComment = findViewById(R.id.cl_item_view_post_comment)
 
         initIntent()
         initComponents()
@@ -110,6 +112,11 @@ class ViewPostActivity : AppCompatActivity() {
                 this.tvItemViewPostUpvoteCounter.text = upvoteString
                 updateUpvote(upvote)
             }
+        })
+
+        clItemViewPostComment.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, ViewCommentsActivity::class.java)
+            startActivity(intent)
         })
     }
 
