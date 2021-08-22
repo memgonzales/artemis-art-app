@@ -9,12 +9,16 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewPostUnregisteredActivity"
-            android:parentActivityName=".BrowseFeedUnregisteredActivity"/>
-        <activity android:name=".ViewCommentsUnregisteredActivity"
-            android:parentActivityName=".ViewPostUnregisteredActivity"/>
-        <activity android:name=".BrowseFeedUnregisteredActivity"
-            android:parentActivityName=".LogInActivity"/>
+        <activity android:name=".SearchActivity"></activity>
+        <activity
+            android:name=".ViewPostUnregisteredActivity"
+            android:parentActivityName=".BrowseFeedUnregisteredActivity" />
+        <activity
+            android:name=".ViewCommentsUnregisteredActivity"
+            android:parentActivityName=".ViewPostUnregisteredActivity" />
+        <activity
+            android:name=".BrowseFeedUnregisteredActivity"
+            android:parentActivityName=".LogInActivity" />
         <activity
             android:name=".ViewBookmarkActivity"
             android:parentActivityName=".BrowseBookmarksActivity" />

@@ -2,4 +2,5 @@
     <string name="app_name">Artemis</string>
     <string name="iv_logo">Placeholder for logo</string>
     <string name="tv_sign_up_clause">By creating an account, you agree to have read and understood the pertinent clauses in the <a href="https://www.privacy.gov.ph/data-privacy-act/">Philippine Data Privacy Act</a>.</string>
+    <string name="tv_search_trivia">Gustav Klimt\'s <i>The Kiss</i> was</string>
 </resources>

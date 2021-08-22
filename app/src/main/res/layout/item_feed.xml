@@ -180,6 +180,7 @@
                 android:layout_height="20dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
+                app:tint="@color/default_gray"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_item_feed_upvote"
                 app:layout_constraintHorizontal_bias="0.5"
