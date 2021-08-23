@@ -206,7 +206,7 @@
                     app:layout_constraintGuide_percent="0.9" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout"
+                    android:id="@+id/til_add_profile_bio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textColorHint="@color/purple_main"
@@ -238,7 +238,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/til_add_profile_bio"
                     app:layout_constraintVertical_bias="0.13" />
 
                 <TextView
