@@ -183,6 +183,7 @@
             android:id="@+id/tv_log_in_guest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:text="Continue as a guest"
             android:textColor="@color/purple_main"
             app:layout_constraintBottom_toBottomOf="parent"
