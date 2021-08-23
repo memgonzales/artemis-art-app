@@ -116,6 +116,19 @@
                         app:layout_constraintGuide_begin="0dp"
                         app:layout_constraintGuide_percent="0.9" />
 
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.39" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/civ_view_profile_logo"
                         android:layout_width="wrap_content"

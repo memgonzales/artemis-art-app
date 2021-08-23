@@ -181,6 +181,7 @@
             app:layout_constraintEnd_toStartOf="@+id/gl_view_comments_right_comment"
             app:layout_constraintStart_toStartOf="@+id/gl_view_comments_left_icon"
             app:layout_constraintTop_toTopOf="@+id/et_add_comment"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_action_send"
             app:tint="@color/purple_main" />
 
