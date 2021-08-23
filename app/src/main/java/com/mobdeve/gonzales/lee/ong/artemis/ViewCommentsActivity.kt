@@ -1,17 +1,21 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.shimmer.ShimmerFrameLayout
 
 class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var dataComments: ArrayList<Comment>
     private lateinit var rvComments: RecyclerView
     private lateinit var commentsAdapter: CommentsAdapter
     private lateinit var llViewCommentsShimmer: LinearLayout
+    private lateinit var sflViewComments: ShimmerFrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +26,20 @@ class ViewCommentsActivity : AppCompatActivity() {
 
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_comments))
+        initShimmer()
         initActionBar()
-        initRecyclerView()
+    }
+
+    private fun initShimmer() {
+        this.sflViewComments = findViewById(R.id.sfl_view_comments)
+
+        sflViewComments.startShimmer()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            initRecyclerView()
+            sflViewComments.visibility = View.GONE
+            rvComments.visibility = View.VISIBLE
+        }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
     private fun initActionBar() {
@@ -41,10 +57,6 @@ class ViewCommentsActivity : AppCompatActivity() {
 
         this.commentsAdapter = CommentsAdapter(this.dataComments)
 
-
         this.rvComments.adapter = commentsAdapter
-
-        this.rvComments.visibility = View.VISIBLE
-        this.llViewCommentsShimmer.visibility = View.GONE
     }
 }
