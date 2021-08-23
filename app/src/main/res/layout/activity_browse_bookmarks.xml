@@ -99,19 +99,19 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
-                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
-                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
-                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
-                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
-                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
-                            <include layout="@layout/item_placeholder_bookmarks"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
                         </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
