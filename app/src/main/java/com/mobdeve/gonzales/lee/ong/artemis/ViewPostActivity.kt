@@ -20,7 +20,7 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var tvItemViewPostUpvoteCounter: TextView
     private lateinit var tvItemViewPostComments: TextView
     private lateinit var tvItemViewPostDatePosted: TextView
-    private lateinit var tvItemViewPostType: TextView
+    private lateinit var tvItemViewPostMedium: TextView
     private lateinit var tvItemViewPostDimensions: TextView
     private lateinit var tvItemViewPostDescription: TextView
     private lateinit var tvItemViewPostTags: TextView
@@ -41,7 +41,7 @@ class ViewPostActivity : AppCompatActivity() {
         tvItemViewPostUpvoteCounter = findViewById(R.id.tv_item_view_post_upvote_counter)
         tvItemViewPostComments = findViewById(R.id.tv_item_view_post_comments)
         tvItemViewPostDatePosted = findViewById(R.id.tv_item_view_post_date)
-        tvItemViewPostType = findViewById(R.id.tv_item_view_post_medium)
+        tvItemViewPostMedium = findViewById(R.id.tv_item_view_post_medium)
         tvItemViewPostDimensions = findViewById(R.id.tv_item_view_post_dimen)
         tvItemViewPostDescription = findViewById(R.id.tv_item_view_post_desc)
         tvItemViewPostTags = findViewById(R.id.tv_item_view_post_tags)
@@ -65,7 +65,7 @@ class ViewPostActivity : AppCompatActivity() {
         var upvoteCounter = intent.getIntExtra(Keys.KEY_NUM_UPVOTES.name, 0)
         val comments = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
         val datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name)
-        val type = intent.getStringExtra(Keys.KEY_TYPE.name)
+        val type = intent.getStringExtra(Keys.KEY_MEDIUM.name)
         val dimHeight = intent.getIntExtra(Keys.KEY_DIM_HEIGHT.name, 0)
         val dimWidth = intent.getIntExtra(Keys.KEY_DIM_WIDTH.name, 0)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
@@ -85,7 +85,7 @@ class ViewPostActivity : AppCompatActivity() {
         this.tvItemViewPostUpvoteCounter.text = upvoteString
         this.tvItemViewPostComments.text = commentString
         this.tvItemViewPostDatePosted.text = datePosted
-        this.tvItemViewPostType.text = type
+        this.tvItemViewPostMedium.text = type
         this.tvItemViewPostDimensions.text = dimensions
         this.tvItemViewPostDescription.text = description
         this.tvItemViewPostTags.text = tagsString

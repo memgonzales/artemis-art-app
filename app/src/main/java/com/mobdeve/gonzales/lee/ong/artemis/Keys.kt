@@ -8,7 +8,7 @@ enum class Keys {
     KEY_NUM_UPVOTES,
     KEY_NUM_COMMENTS,
     KEY_DATE_POSTED,
-    KEY_TYPE,
+    KEY_MEDIUM,
     KEY_DIM_HEIGHT,
     KEY_DIM_WIDTH,
     KEY_DESCRIPTION,

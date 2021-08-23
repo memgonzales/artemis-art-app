@@ -119,7 +119,8 @@ class LogInActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Toast.makeText(this@LogInActivity, "Successfully signed in as guest", Toast.LENGTH_SHORT).show()
 
-                    val i = Intent(this@LogInActivity, BrowseFeedUnregisteredActivity::class.java)
+                //    val i = Intent(this@LogInActivity, BrowseFeedUnregisteredActivity::class.java)
+                    val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
                     startActivity(i)
                 } else {
                     Toast.makeText(this@LogInActivity, "Unable to sign in as guest", Toast.LENGTH_SHORT).show()
