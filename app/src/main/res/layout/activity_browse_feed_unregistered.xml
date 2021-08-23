@@ -9,9 +9,9 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coord_feed_unregistered"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:clipToPadding="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cl_feed_unregistered_note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -90,11 +90,17 @@
                             android:orientation="vertical">
 
                             <include layout="@layout/item_placeholder_feed"></include>
+
                             <include layout="@layout/item_placeholder_feed"></include>
+
                             <include layout="@layout/item_placeholder_feed"></include>
+
                             <include layout="@layout/item_placeholder_feed"></include>
+
                             <include layout="@layout/item_placeholder_feed"></include>
+
                             <include layout="@layout/item_placeholder_feed"></include>
+
                             <include layout="@layout/item_placeholder_feed"></include>
 
                         </LinearLayout>
@@ -114,14 +120,34 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-
             </androidx.core.widget.NestedScrollView>
 
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_feed_unregistered_note"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/purple_main"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/tv_feed_unregistered_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You are browsing as a guest"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
