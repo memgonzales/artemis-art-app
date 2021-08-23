@@ -19,59 +19,59 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
 
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].profilePicture
+                dataPosts[feedViewHolder.bindingAdapterPosition].getProfilePicture()
             )
             intent.putExtra(
                 Keys.KEY_USERNAME.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].username
+                dataPosts[feedViewHolder.bindingAdapterPosition].getUsername()
             )
             intent.putExtra(
                 Keys.KEY_POST.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].post
+                dataPosts[feedViewHolder.bindingAdapterPosition].getPost()
             )
             intent.putExtra(
                 Keys.KEY_TITLE.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].title
+                dataPosts[feedViewHolder.bindingAdapterPosition].getTitle()
             )
             intent.putExtra(
-                Keys.KEY_UPVOTES.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].numUpvotes
+                Keys.KEY_NUM_UPVOTES.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getNumUpvotes()
             )
             intent.putExtra(
-                Keys.KEY_COMMENTS.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].numComments
+                Keys.KEY_NUM_COMMENTS.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getNumComments()
             )
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].datePosted.toStringFull()
+                dataPosts[feedViewHolder.bindingAdapterPosition].getDatePosted().toStringFull()
             )
             intent.putExtra(
-                Keys.KEY_TYPE.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].type
+                Keys.KEY_MEDIUM.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getMedium()
             )
             intent.putExtra(
                 Keys.KEY_DIM_HEIGHT.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].dimHeight
+                dataPosts[feedViewHolder.bindingAdapterPosition].getDimHeight()
             )
             intent.putExtra(
                 Keys.KEY_DIM_WIDTH.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].dimWidth
+                dataPosts[feedViewHolder.bindingAdapterPosition].getDimWidth()
             )
             intent.putExtra(
                 Keys.KEY_DESCRIPTION.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].description
+                dataPosts[feedViewHolder.bindingAdapterPosition].getDescription()
             )
             intent.putExtra(
                 Keys.KEY_TAGS.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].tags
+                dataPosts[feedViewHolder.bindingAdapterPosition].getTags()
             )
             intent.putExtra(
                 Keys.KEY_BOOKMARK.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].bookmark
+                dataPosts[feedViewHolder.bindingAdapterPosition].getBookmark()
             )
             intent.putExtra(
                 Keys.KEY_UPVOTE.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].upvote
+                dataPosts[feedViewHolder.bindingAdapterPosition].getUpvote()
             )
 
             view.context.startActivity(intent)
@@ -87,31 +87,31 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemFeedProfilePic(currentPost.profilePicture)
-        holder.setItemFeedUsername(currentPost.username)
-        holder.setItemFeedPost(currentPost.post)
-        holder.setItemFeedTitle(currentPost.title)
-        holder.setItemFeedUpvoteCounter(currentPost.numUpvotes.toString() + " upvotes")
-        holder.setItemFeedComments(currentPost.numComments.toString() + " comments")
-        holder.setItemFeedBookmark(currentPost.bookmark)
-        holder.setItemFeedUpvote(currentPost.upvote)
+        holder.setItemFeedProfilePic(currentPost.getProfilePicture())
+        holder.setItemFeedUsername(currentPost.getUsername())
+        holder.setItemFeedPost(currentPost.getPost())
+        holder.setItemFeedTitle(currentPost.getTitle())
+        holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
+        holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")
+        holder.setItemFeedBookmark(currentPost.getBookmark())
+        holder.setItemFeedUpvote(currentPost.getUpvote())
 
         holder.setItemFeedBookmarkOnClickListener {
-            currentPost.bookmark = !currentPost.bookmark
-            holder.setItemFeedBookmark(currentPost.bookmark)
+            currentPost.setBookmark(!currentPost.getBookmark())
+            holder.setItemFeedBookmark(currentPost.getBookmark())
         }
 
         holder.setItemFeedUpvoteOnClickListener {
-            if (currentPost.upvote) {
-                currentPost.upvote = false
-                currentPost.numUpvotes -= 1
-                holder.setItemFeedUpvoteCounter(currentPost.numUpvotes.toString() + " upvotes")
-                holder.setItemFeedUpvote(currentPost.upvote)
+            if (currentPost.getUpvote()) {
+                currentPost.setUpvote(false)
+                currentPost.setNumUpvotes(currentPost.getNumUpvotes() - 1)
+                holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
+                holder.setItemFeedUpvote(currentPost.getUpvote())
             } else {
-                currentPost.upvote = true
-                currentPost.numUpvotes += 1
-                holder.setItemFeedUpvoteCounter(currentPost.numUpvotes.toString() + " upvotes")
-                holder.setItemFeedUpvote(currentPost.upvote)
+                currentPost.setUpvote(true)
+                currentPost.setNumUpvotes(currentPost.getNumUpvotes() + 1)
+                holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
+                holder.setItemFeedUpvote(currentPost.getUpvote())
             }
         }
     }
