@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewProfileActivity"></activity>
+        <activity android:name=".ViewHighlightsActivity"></activity>
+        <activity
+            android:name=".EditProfileActivity"
+            android:parentActivityName=".ViewProfileActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ViewProfileActivity" />
         <activity android:name=".ViewUserActivity" />
         <activity android:name=".BrowseFeedFollowedActivity"
             android:launchMode="singleTop"/>
