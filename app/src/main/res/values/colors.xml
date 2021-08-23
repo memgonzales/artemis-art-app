@@ -20,7 +20,9 @@
 
     <!-- Used to denote liked and bookmarked status -->
     <color name="pinkish_purple">#CD3E6F</color>
-    <color name="pinkish_purple_light">#915189</color>
+
+    <!-- Used in fixed bottom buttons -->
+    <color name="pinkish_purple_lighter">#CA688A</color>
 
     <!-- Used in ripple effect of white buttons -->
     <color name="light_gray">#d3d3d3</color>
