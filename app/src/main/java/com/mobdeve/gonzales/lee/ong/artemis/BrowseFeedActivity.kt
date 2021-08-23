@@ -1,11 +1,13 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Menu
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -57,5 +59,12 @@ class BrowseFeedActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_top_with_search, menu)
 
         return true
+    }
+
+    override fun onBackPressed() {
+        val i = Intent(Intent.ACTION_MAIN)
+        i.addCategory(Intent.CATEGORY_HOME)
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(i)
     }
 }

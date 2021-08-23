@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -71,8 +72,16 @@ class AddProfileBioActivity : AppCompatActivity() {
     private fun skipAddProfilePic() {
         this.tvBioSkip.setOnClickListener {
             val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
+            Toast.makeText(this@AddProfileBioActivity, "You may update your profile details through the account tab.",
+                Toast.LENGTH_SHORT).show()
             startActivity(i)
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        val i = Intent(this@AddProfileBioActivity, BrowseFeedActivity::class.java)
+        startActivity(i)
+        finish()
     }
 }

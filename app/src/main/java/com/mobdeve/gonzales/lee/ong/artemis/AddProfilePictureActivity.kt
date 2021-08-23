@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -44,6 +45,13 @@ class AddProfilePictureActivity : AppCompatActivity() {
         })
     }
 
+    override fun onBackPressed() {
+        val i = Intent(this@AddProfilePictureActivity, BrowseFeedActivity::class.java)
+        Toast.makeText(this@AddProfilePictureActivity, "You may update your profile details through the account tab.",
+            Toast.LENGTH_SHORT).show()
+        startActivity(i)
+        finish()
+    }
 
     /*
     fun isPermissionsAllowed(): Boolean {

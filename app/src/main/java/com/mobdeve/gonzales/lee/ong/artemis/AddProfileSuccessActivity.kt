@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 
 class AddProfileSuccessActivity : AppCompatActivity() {
     private lateinit var btnStartBrowsing: Button
@@ -28,5 +29,11 @@ class AddProfileSuccessActivity : AppCompatActivity() {
             startActivity(i)
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        val i = Intent(this@AddProfileSuccessActivity, BrowseFeedActivity::class.java)
+        startActivity(i)
+        finish()
     }
 }
