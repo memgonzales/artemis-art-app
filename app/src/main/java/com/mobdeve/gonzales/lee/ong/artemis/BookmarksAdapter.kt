@@ -53,6 +53,10 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
                 Keys.KEY_DESCRIPTION.name,
                 dataPosts[bookmarksViewHolder.bindingAdapterPosition].getDescription()
             )
+            intent.putExtra(
+                Keys.KEY_BOOKMARK.name,
+                true
+            )
 
             view.context.startActivity(intent)
         }
