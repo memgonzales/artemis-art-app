@@ -18,10 +18,10 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
 
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
         val currentComment = dataComments[position]
-        holder.setItemCommentProfilePic(currentComment.profilePicture)
-        holder.setItemCommentUsername(currentComment.username)
-        holder.setItemCommentDate(currentComment.dateCommented.toStringFull())
-        holder.setItemCommentComment(currentComment.commentBody)
+        holder.setItemCommentProfilePic(currentComment.getProfilePicture())
+        holder.setItemCommentUsername(currentComment.getUsername())
+        holder.setItemCommentDate(currentComment.getDateCommented().toStringFull())
+        holder.setItemCommentComment(currentComment.getCommentBody())
     }
 
     override fun getItemCount(): Int {

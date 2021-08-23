@@ -96,17 +96,17 @@
 
                             <include layout="@layout/item_placeholder_search_results_circle"></include>
 
-                            <include layout="@layout/item_placeholder_search_results_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
-                            <include layout="@layout/item_placeholder_search_results_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
-                            <include layout="@layout/item_placeholder_search_results_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
-                            <include layout="@layout/item_placeholder_search_results_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
-                            <include layout="@layout/item_placeholder_search_results_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
-                            <include layout="@layout/item_placeholder_search_results_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
 
                         </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
