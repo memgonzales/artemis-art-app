@@ -7,9 +7,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ViewBookmarkActivity : AppCompatActivity() {
@@ -22,6 +25,8 @@ class ViewBookmarkActivity : AppCompatActivity() {
     private lateinit var tvItemViewBookmarkDimensions: TextView
     private lateinit var tvItemViewBookmarkDescription: TextView
     private lateinit var ibItemViewBookmarkBookmark: ImageButton
+    private lateinit var bnvViewBookmarkBottom: BottomNavigationView
+    private lateinit var nsvViewBookmark: NestedScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +82,40 @@ class ViewBookmarkActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_bookmark))
         initActionBar()
+        initBottom()
+    }
+
+    private fun initBottom() {
+        this.bnvViewBookmarkBottom = findViewById(R.id.nv_view_bookmark_bottom)
+        this.nsvViewBookmark = findViewById(R.id.nsv_view_bookmark)
+
+        bnvViewBookmarkBottom.setOnItemSelectedListener{ item ->
+            when (item.itemId) {
+                R.id.icon_home_bookmarks -> {
+                    val intent = Intent(this@ViewBookmarkActivity, BrowseFeedActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_follow_bookmarks -> {
+                    val intent = Intent(this@ViewBookmarkActivity, BrowseFeedFollowedActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_bookmark_bookmarks -> {
+                    nsvViewBookmark.fullScroll(ScrollView.FOCUS_UP)
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_user_bookmarks -> {
+                    val intent = Intent(this@ViewBookmarkActivity, ViewProfileActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+            }
+            false
+        }
     }
 
     private fun initActionBar() {
