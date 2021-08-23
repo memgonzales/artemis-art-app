@@ -55,7 +55,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
     }
 
 
-
+    /*
     fun isPermissionsAllowed(): Boolean {
         return if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             false
@@ -104,4 +104,6 @@ class AddProfilePictureActivity : AppCompatActivity() {
             .setNegativeButton("Cancel",null)
             .show()
     }
+
+     */
 }
