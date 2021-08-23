@@ -6,9 +6,11 @@ class Comment {
     private var dateCommented: CustomDate
     private var commentBody: String
 
-    constructor(profilePicture: Int, username: String, dateCommented: CustomDate, commentBody: String) {
+    constructor(profilePicture: Int, username: String, commentBody: String) {
         this.profilePicture = profilePicture
         this.username = username
+
+        var dateCommented: CustomDate = CustomDate()
         this.dateCommented = dateCommented
         this.commentBody = commentBody
     }

@@ -17,5 +17,6 @@ enum class Keys {
     KEY_UPVOTE,
     KEY_DB_USERS,
     KEY_DB_BIO,
-    KEY_DB_USERNAMES
+    KEY_DB_USERNAMES,
+    KEY_DB_COMMENTS
 }
