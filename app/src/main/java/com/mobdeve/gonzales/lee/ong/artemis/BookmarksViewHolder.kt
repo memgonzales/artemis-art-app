@@ -12,7 +12,7 @@ class BookmarksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     init {
-        ivItemSearchResults = itemView.findViewById(R.id.iv_item_search_results)
+        ivItemSearchResults = itemView.findViewById(R.id.iv_item_rectangular_pic_grid)
 
     }
 }
