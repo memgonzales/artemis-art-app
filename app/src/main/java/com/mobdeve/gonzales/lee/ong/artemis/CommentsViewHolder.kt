@@ -1,12 +1,7 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
-import android.content.res.ColorStateList
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 

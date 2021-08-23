@@ -1,9 +1,8 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 
 class ViewCommentsUnregisteredActivity : AppCompatActivity() {
     private lateinit var etAddCommentUnregistered: EditText

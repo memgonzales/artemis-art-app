@@ -1,8 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
-import android.annotation.SuppressLint
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView

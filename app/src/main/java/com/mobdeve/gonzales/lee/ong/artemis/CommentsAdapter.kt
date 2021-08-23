@@ -1,10 +1,9 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import java.util.ArrayList
+import java.util.*
 
 class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
     RecyclerView.Adapter<CommentsViewHolder>() {

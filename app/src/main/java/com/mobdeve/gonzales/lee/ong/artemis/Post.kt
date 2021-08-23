@@ -1,7 +1,5 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
-import com.mobdeve.s14.lee.hylene.androidchallenge1.CustomDate
-
 class Post(
     var profilePicture: Int,
     val username: String,
