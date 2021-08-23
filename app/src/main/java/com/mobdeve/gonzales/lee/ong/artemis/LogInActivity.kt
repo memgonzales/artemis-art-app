@@ -104,13 +104,6 @@ class LogInActivity : AppCompatActivity() {
         }
     }
 
-    private fun startTesting() {
-        this.btnTest.setOnClickListener {
-            val i = Intent(this@LogInActivity, EditCommentActivity::class.java)
-            startActivity(i)
-        }
-    }
-
     private fun loginAsGuest(){
         this.tvGuest.setOnClickListener {
 
@@ -124,6 +117,13 @@ class LogInActivity : AppCompatActivity() {
                     Toast.makeText(this@LogInActivity, "Unable to sign in as guest", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun startTesting() {
+        this.btnTest.setOnClickListener {
+            val i = Intent(this@LogInActivity, SearchActivity::class.java)
+            startActivity(i)
         }
     }
 }
