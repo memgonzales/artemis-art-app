@@ -2,6 +2,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 
 class ViewProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,11 +14,12 @@ class ViewProfileActivity : AppCompatActivity() {
 
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_profile))
-        initActionBar()
     }
 
-    private fun initActionBar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_top_with_search, menu)
+
+        return true
     }
 }
