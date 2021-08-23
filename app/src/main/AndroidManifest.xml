@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".BrowseOwnPosts"></activity>
+        <activity android:name=".AccountManagementActivity"></activity>
+        <activity android:name=".BrowseOwnPosts" />
         <activity android:name=".ViewHighlightsActivity" />
         <activity
             android:name=".EditProfileActivity"
@@ -17,8 +18,9 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ViewProfileActivity" />
         <activity android:name=".ViewUserActivity" />
-        <activity android:name=".BrowseFeedFollowedActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".BrowseFeedFollowedActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".SearchResultsActivity"
             android:parentActivityName=".SearchActivity" />
@@ -36,8 +38,9 @@
         <activity
             android:name=".ViewBookmarkActivity"
             android:parentActivityName=".BrowseBookmarksActivity" />
-        <activity android:name=".BrowseBookmarksActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".BrowseBookmarksActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".EditCommentActivity"
             android:parentActivityName=".ViewCommentsActivity"
