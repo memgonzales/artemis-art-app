@@ -125,6 +125,12 @@ class SignUpActivity : AppCompatActivity() {
                                 failedRegistration()
                             }
                         }
+
+                    /*
+                    db!!.getReference(Keys.usernames.name)
+                        .child(mAuth!!.currentUser!!.uid)
+                        .setValue(user.getUsername())
+                    */
                 } else {
                     failedRegistration()
                 }

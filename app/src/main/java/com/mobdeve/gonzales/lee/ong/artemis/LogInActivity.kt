@@ -117,10 +117,18 @@ class LogInActivity : AppCompatActivity() {
     private fun loginAsGuest(){
         this.tvGuest?.setOnClickListener {
 
-           // this.mAuth.signInAnonymously()
-            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
-            startActivity(i)
-            finish()
+            this.mAuth.signInAnonymously().addOnCompleteListener(this){ task ->
+                if (task.isSuccessful){
+                    Toast.makeText(this@LogInActivity, "Sign In is Successful with Guest Account", Toast.LENGTH_SHORT).show()
+
+                    val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
+                    startActivity(i)
+                }
+
+                else{
+                    Toast.makeText(this@LogInActivity, "Unable to Sign In with Guest Account", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }
