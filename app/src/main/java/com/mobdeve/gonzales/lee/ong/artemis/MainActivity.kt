@@ -12,11 +12,6 @@ import androidx.appcompat.app.AppCompatDelegate
 class MainActivity : AppCompatActivity() {
     private lateinit var logoAnimation: AnimationDrawable
 
-    companion object {
-        private const val SPLASH_SCREEN_TIMEOUT = 1600
-        private const val ANIMATION_FRAME_FADEOUT = 400
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
@@ -38,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun animateSplashScreen() {
-        logoAnimation.setExitFadeDuration(ANIMATION_FRAME_FADEOUT.toInt());
+        logoAnimation.setExitFadeDuration(AnimationDuration.ANIMATION_FRAME_FADEOUT.toInt());
         logoAnimation.start()
     }
 
@@ -47,6 +42,6 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(this@MainActivity, LogInActivity::class.java)
             startActivity(i)
             finish()
-        }, SPLASH_SCREEN_TIMEOUT.toLong())
+        }, AnimationDuration.SPLASH_SCREEN_TIMEOUT.toLong())
     }
 }

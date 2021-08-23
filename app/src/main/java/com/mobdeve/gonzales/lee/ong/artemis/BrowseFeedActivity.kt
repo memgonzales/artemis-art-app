@@ -16,10 +16,6 @@ class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var feedAdapter: FeedAdapter
     private lateinit var sflFeed: ShimmerFrameLayout
 
-    companion object {
-        private const val SHIMMER_TIMEOUT = 3000
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse_feed)
@@ -41,7 +37,7 @@ class BrowseFeedActivity : AppCompatActivity() {
             initRecyclerView()
             sflFeed.visibility = View.GONE
             rvFeed.visibility = View.VISIBLE
-        }, SHIMMER_TIMEOUT.toLong())
+        }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
     private fun initRecyclerView() {
