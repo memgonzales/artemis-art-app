@@ -42,6 +42,7 @@ class ViewCommentsActivity : AppCompatActivity() {
     private fun initFirebase() {
         this.mAuth = Firebase.auth
         this.user = this.mAuth.currentUser!!
+        this.userId = this.user.uid
     }
 
     private fun initComponents() {
@@ -83,8 +84,11 @@ class ViewCommentsActivity : AppCompatActivity() {
     private fun addComment(){
         this.ibAddComment = findViewById(R.id.ib_add_comment)
 
+        /*
         this.ibAddComment.setOnClickListener {
 
         }
+
+         */
     }
 }
