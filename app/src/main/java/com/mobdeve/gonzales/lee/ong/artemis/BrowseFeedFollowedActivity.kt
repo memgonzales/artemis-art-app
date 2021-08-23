@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 
-class BrowseFeedUnregisteredActivity : AppCompatActivity() {
+class BrowseFeedFollowedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
     private lateinit var rvFeed: RecyclerView
     private lateinit var feedAdapter: FeedAdapter
@@ -22,21 +22,18 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_browse_feed_unregistered)
+        setContentView(R.layout.activity_browse_feed_followed)
 
         initComponents()
     }
 
     private fun initComponents() {
-        setSupportActionBar(findViewById(R.id.toolbar_feed_unregistered))
+        setSupportActionBar(findViewById(R.id.toolbar_feed_followed))
         initShimmer()
-
-        setSupportActionBar(findViewById(R.id.toolbar_feed_unregistered))
-        initActionBar()
     }
 
     private fun initShimmer() {
-        this.sflFeed = findViewById(R.id.sfl_feed_unregistered)
+        this.sflFeed = findViewById(R.id.sfl_feed_followed)
 
         sflFeed.startShimmer()
 
@@ -50,7 +47,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         this.dataPosts = DataHelper.loadPostData();
 
-        this.rvFeed = findViewById(R.id.rv_feed_unregistered);
+        this.rvFeed = findViewById(R.id.rv_feed_followed);
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         this.feedAdapter = FeedAdapter(this.dataPosts);
@@ -64,10 +61,5 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_top_with_search, menu)
 
         return true
-    }
-
-    private fun initActionBar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 }

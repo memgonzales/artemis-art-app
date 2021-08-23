@@ -58,7 +58,7 @@ class BrowseFeedActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
-        inflater.inflate(R.menu.menu_feed, menu)
+        inflater.inflate(R.menu.menu_top_with_search, menu)
 
         return true
     }

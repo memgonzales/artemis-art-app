@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_view_user_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coord_view_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_view_user"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:elevation="0dp">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/ctl_view_user"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:toolbarId="@+id/toolbar_view_user">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_view_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+
+                <TextView
+                    android:id="@+id/tv_view_user_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="56dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:text="User Profile"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_view_user"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_view_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/black">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_view_user_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/parabolic_border"
+                    android:paddingBottom="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_view_user_left_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="0dp"
+                        app:layout_constraintGuide_percent="0.1" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_view_user_right_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="0dp"
+                        app:layout_constraintGuide_percent="0.9" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_view_user_logo"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="12dp"
+                        android:adjustViewBounds="false"
+                        android:src="@drawable/shoob"
+                        app:civ_border_color="@android:color/white"
+                        app:civ_border_width="2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_view_user_right_top"
+                        app:layout_constraintStart_toStartOf="@id/gl_view_user_left_top"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="shoobie"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/civ_view_user_logo"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC."
+                        android:textColor="@android:color/white"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_view_user_right_top"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/gl_view_user_left_top"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_view_user_bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_view_user_top"
+                    app:layout_constraintVertical_bias="0.0">
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_view_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="?attr/actionBarSize"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nv_view_user_bottom"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:itemIconTint="@color/purple_navbar_lighter"
+        app:itemTextColor="@color/purple_navbar_lighter"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/menu_bottom_no_shaded">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_view_user_add"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="0dp"
+            app:backgroundTint="@color/purple_navbar_lighter"
+            app:elevation="0dp"
+            app:fabCustomSize="44dp"
+            app:maxImageSize="34dp"
+            app:srcCompat="@android:drawable/ic_input_add"
+            app:tint="@android:color/white" />
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

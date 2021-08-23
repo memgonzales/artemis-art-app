@@ -2,31 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/icon_home_bookmarks"
+        android:id="@+id/icon_home_search_bottom"
         android:icon="@drawable/outline_home_24"
         android:title="Home"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/icon_follow_bookmarks"
+        android:id="@+id/icon_follow_search_bottom"
         android:title="Followed"
         android:icon="@drawable/outline_people_24"
         app:showAsAction = "always"/>
 
     <item
-        android:id="@+id/icon_add_invisible_bookmarks"
+        android:id="@+id/icon_add_invisible_search_bottom"
         android:title=""
         android:enabled="false"
         app:showAsAction = "always"/>
 
     <item
-        android:id="@+id/icon_bookmark_bookmarks"
-        android:icon="@drawable/outline_bookmark_24"
+        android:id="@+id/icon_bookmark_search_bottom"
         android:title="Bookmarks"
-        app:showAsAction="always" />
+        android:icon="@drawable/outline_bookmark_border_24"
+        app:showAsAction = "always"/>
 
     <item
-        android:id="@+id/icon_user_bookmarks"
+        android:id="@+id/icon_user_search_bottom"
         android:title="Profile"
         android:icon="@drawable/outline_account_circle_24"
         app:showAsAction = "always"/>

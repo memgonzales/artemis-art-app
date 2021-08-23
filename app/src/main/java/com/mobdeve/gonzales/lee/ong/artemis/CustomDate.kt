@@ -20,30 +20,24 @@ class CustomDate {
         this.month = month
     }
 
-    // Example output if CustomDate has 2020, 10, 1: Oct 1, 2020
     fun toStringFull(): String {
         return monthString[month] + " " + day_in_month + ", " + year
     }
 
-    // Example output if CustomDate has 2020, 10, 1: Oct 1
-    fun toStringNoYear(): String {
-        return monthString[month] + " " + day_in_month
-    }
-
     companion object {
         private val monthString = arrayOf(
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
+            "January",
+            "February",
+            "March",
+            "April",
             "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
         )
     }
 }
