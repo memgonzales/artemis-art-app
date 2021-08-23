@@ -158,7 +158,6 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_view_comments_comment"
         android:layout_width="match_parent"
@@ -171,9 +170,8 @@
 
         <ImageButton
             android:id="@+id/ib_add_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
@@ -181,8 +179,9 @@
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="@id/et_add_comment"
             app:layout_constraintEnd_toStartOf="@+id/gl_view_comments_right_comment"
-            app:layout_constraintStart_toEndOf="@+id/et_add_comment"
+            app:layout_constraintStart_toStartOf="@+id/gl_view_comments_left_icon"
             app:layout_constraintTop_toTopOf="@+id/et_add_comment"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_action_send"
             app:tint="@color/purple_main" />
 
@@ -193,6 +192,8 @@
             android:ems="10"
             android:hint="Write a comment..."
             android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:scrollbars="vertical"
             android:textColorHint="@color/purple_main"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -214,6 +215,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.97" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_view_comments_left_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="0dp"
+            app:layout_constraintGuide_percent="0.90" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

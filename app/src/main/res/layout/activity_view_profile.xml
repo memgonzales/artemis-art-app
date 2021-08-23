@@ -116,6 +116,19 @@
                         app:layout_constraintGuide_begin="0dp"
                         app:layout_constraintGuide_percent="0.9" />
 
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.39" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/civ_view_profile_logo"
                         android:layout_width="wrap_content"
@@ -162,7 +175,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_view_profile_bottom"
+                    android:id="@+id/cl_view_profile_edit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -176,29 +189,88 @@
                     app:layout_constraintVertical_bias="0.050000012">
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/iv_view_profile_edit_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.03"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_view_profile_edit_left_margin"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/outline_edit_24" />
 
                     <TextView
-                        android:id="@+id/textView6"
+                        android:id="@+id/tv_view_profile_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Edit Details"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.02"
-                        app:layout_constraintStart_toEndOf="@+id/imageView3"
+                        app:layout_constraintHorizontal_bias="0.05"
+                        app:layout_constraintStart_toEndOf="@id/gl_view_profile_edit_left_margin"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.571" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_view_profile_edit_left_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.11" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_view_profile_view_posts"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_view_profile_edit"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <ImageView
+                        android:id="@+id/iv_view_profile_view_posts_icon"
+                        android:layout_width="26dp"
+                        android:layout_height="0dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_view_profile_view_posts"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_view_profile_view_posts_left_margin"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_view_profile_view_posts"
+                        app:srcCompat="@drawable/outline_view_list_24" />
+
+                    <TextView
+                        android:id="@+id/tv_view_profile_view_posts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="View Posts"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.05"
+                        app:layout_constraintStart_toEndOf="@id/gl_view_profile_view_posts_left_margin"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.571" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_view_profile_view_posts_left_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.11" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
