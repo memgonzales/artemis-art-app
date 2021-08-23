@@ -2,7 +2,9 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +23,8 @@ class LogInActivity : AppCompatActivity() {
 
     private lateinit var tvGuest: TextView
 
+    private lateinit var pbLogin: ProgressBar
+
     //Firebase
     private lateinit var mAuth: FirebaseAuth
     //private var customToken: String? = null
@@ -38,6 +42,8 @@ class LogInActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
+        this.pbLogin = findViewById(R.id.pb_log_in)
+
         this.btnSignUp = findViewById(R.id.btn_log_in_sign_up)
         this.launchSignUp()
 
@@ -106,14 +112,19 @@ class LogInActivity : AppCompatActivity() {
 
     private fun loginAsGuest(){
         this.tvGuest.setOnClickListener {
+            this.pbLogin.visibility = View.VISIBLE
 
             this.mAuth.signInAnonymously().addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    this.pbLogin.visibility = View.GONE
                     Toast.makeText(this@LogInActivity, "Successfully signed in as guest", Toast.LENGTH_SHORT).show()
 
                     val i = Intent(this@LogInActivity, BrowseFeedUnregisteredActivity::class.java)
                     startActivity(i)
-                } else {
+                }
+
+                else {
+                    this.pbLogin.visibility = View.GONE
                     Toast.makeText(this@LogInActivity, "Unable to sign in as guest", Toast.LENGTH_SHORT).show()
                 }
             }
