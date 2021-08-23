@@ -34,11 +34,11 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
                 dataPosts[feedViewHolder.bindingAdapterPosition].title
             )
             intent.putExtra(
-                Keys.KEY_UPVOTES.name,
+                Keys.KEY_NUM_UPVOTES.name,
                 dataPosts[feedViewHolder.bindingAdapterPosition].numUpvotes
             )
             intent.putExtra(
-                Keys.KEY_COMMENTS.name,
+                Keys.KEY_NUM_COMMENTS.name,
                 dataPosts[feedViewHolder.bindingAdapterPosition].numComments
             )
             intent.putExtra(
