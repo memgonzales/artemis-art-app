@@ -10,7 +10,7 @@
         android:id="@+id/coord_edit_profile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cl_edit_profile_follow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -64,6 +64,7 @@
                 android:id="@+id/cl_item_comment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="?attr/actionBarSize"
                 android:paddingTop="12dp">
 
                 <androidx.constraintlayout.widget.Guideline
@@ -80,6 +81,77 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.95" />
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_edit_profile_pic"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/shoob"
+                    android:visibility="visible"
+                    app:civ_border_color="@color/purple_main"
+                    app:civ_border_width="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_camera"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_camera"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.02" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_edit_profile_pic_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.9"
+                    android:clickable="true"
+                    android:visibility="visible"
+                    app:backgroundTint="@color/purple_pics_lighter"
+                    app:ensureMinTouchTargetSize="false"
+                    app:fabCustomSize="30dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/civ_edit_profile_pic"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_camera"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_camera"
+                    app:layout_constraintTop_toTopOf="@+id/civ_edit_profile_pic"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:maxImageSize="15dp"
+                    app:srcCompat="@drawable/ic_action_camera_alt"
+                    app:tint="@android:color/white" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_edit_profile_pic_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.9"
+                    android:clickable="true"
+                    android:visibility="visible"
+                    app:backgroundTint="@color/purple_pics_lighter"
+                    app:ensureMinTouchTargetSize="false"
+                    app:fabCustomSize="27dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/civ_item_feed_profile_pic"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_camera"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_camera"
+                    app:layout_constraintTop_toTopOf="@+id/civ_edit_profile_pic"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:maxImageSize="13dp"
+                    app:srcCompat="@drawable/delete_icon2"
+                    app:tint="@android:color/white" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_edit_profile_left_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:layout_constraintGuide_percent="0.38" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_edit_profile_right_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:layout_constraintGuide_percent="0.62" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_edit_profile_username"
                     android:layout_width="0dp"
@@ -91,8 +163,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
                     app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.36"
+                    app:layout_constraintTop_toBottomOf="@+id/civ_edit_profile_pic"
+                    app:layout_constraintVertical_bias="0.04000002"
                     app:startIconDrawable="@drawable/ic_action_person"
                     app:startIconTint="@color/purple_main">
 
@@ -163,7 +235,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout"
+                    android:id="@+id/til_edit_profile_bio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textColorHint="@color/purple_main"
@@ -172,15 +244,18 @@
                     app:counterEnabled="true"
                     app:counterMaxLength="150"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_add_profile_bio"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_password"
                     app:layout_constraintVertical_bias="0.06000000">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tiel_add_profile_bio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Share something about yourself"
-                        android:inputType="text|textPersonName|textMultiLine" />
+                        android:hint="Short Bio"
+                        android:inputType="text|textPersonName|textMultiLine"
+                        android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC." />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

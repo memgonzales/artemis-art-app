@@ -12,7 +12,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
-        setSupportActionBar(findViewById(R.id.toolbar_view_post))
+        setSupportActionBar(findViewById(R.id.toolbar_edit_profile))
         initActionBar()
     }
 
