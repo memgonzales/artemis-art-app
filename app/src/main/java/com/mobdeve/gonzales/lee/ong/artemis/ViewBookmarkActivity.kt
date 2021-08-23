@@ -104,7 +104,9 @@ class ViewBookmarkActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_bookmark_bookmarks -> {
-                    nsvViewBookmark.fullScroll(ScrollView.FOCUS_UP)
+                    val intent = Intent(this@ViewBookmarkActivity, BrowseBookmarksActivity::class.java)
+                    startActivity(intent)
+                    finish()
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_user_bookmarks -> {

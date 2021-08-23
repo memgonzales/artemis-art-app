@@ -1,5 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,9 +8,11 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -23,6 +26,8 @@ class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var commentsAdapter: CommentsAdapter
     private lateinit var llViewCommentsShimmer: LinearLayout
     private lateinit var sflViewComments: ShimmerFrameLayout
+    private lateinit var bnvViewCommentsBottom: BottomNavigationView
+    private lateinit var nsvViewComments: NestedScrollView
 
     private lateinit var ibAddComment: ImageButton
 
@@ -49,6 +54,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_view_comments))
         initShimmer()
         initActionBar()
+        initBottom()
     }
 
     private fun initShimmer() {
@@ -61,6 +67,41 @@ class ViewCommentsActivity : AppCompatActivity() {
             sflViewComments.visibility = View.GONE
             rvComments.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
+    }
+
+    private fun initBottom() {
+        this.bnvViewCommentsBottom = findViewById(R.id.nv_view_comments_bottom)
+        this.nsvViewComments = findViewById(R.id.nsv_view_comments)
+
+        bnvViewCommentsBottom.setOnItemSelectedListener{ item ->
+            when (item.itemId) {
+                R.id.icon_home_feed -> {
+                    val intent = Intent(this@ViewCommentsActivity, BrowseFeedActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_follow_feed -> {
+                    val intent = Intent(this@ViewCommentsActivity, BrowseFeedFollowedActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_bookmark_feed -> {
+                    val intent = Intent(this@ViewCommentsActivity, BrowseBookmarksActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_user_feed -> {
+                    val intent = Intent(this@ViewCommentsActivity, ViewProfileActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+            }
+            false
+        }
     }
 
     private fun initActionBar() {
