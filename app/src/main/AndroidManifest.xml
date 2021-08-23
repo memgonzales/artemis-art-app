@@ -37,7 +37,8 @@
             android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ViewCommentsActivity"
-            android:parentActivityName=".ViewPostActivity" />
+            android:parentActivityName=".ViewPostActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ViewPostActivity"
             android:launchMode="singleTop"
