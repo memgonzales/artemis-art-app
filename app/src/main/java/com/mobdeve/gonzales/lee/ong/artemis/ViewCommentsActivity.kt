@@ -4,11 +4,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var dataComments: ArrayList<Comment>
@@ -17,11 +24,25 @@ class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var llViewCommentsShimmer: LinearLayout
     private lateinit var sflViewComments: ShimmerFrameLayout
 
+    private lateinit var ibAddComment: ImageButton
+
+    //Firebase
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_comments)
 
         initComponents()
+        initFirebase()
+    }
+
+    private fun initFirebase() {
+        this.mAuth = Firebase.auth
+        this.user = this.mAuth.currentUser!!
+        this.userId = this.user.uid
     }
 
     private fun initComponents() {
@@ -58,5 +79,16 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.commentsAdapter = CommentsAdapter(this.dataComments)
 
         this.rvComments.adapter = commentsAdapter
+    }
+
+    private fun addComment(){
+        this.ibAddComment = findViewById(R.id.ib_add_comment)
+
+        /*
+        this.ibAddComment.setOnClickListener {
+
+        }
+
+         */
     }
 }

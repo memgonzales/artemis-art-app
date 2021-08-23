@@ -68,6 +68,10 @@ class User {
     fun getUsersFolloweded(): ArrayList<Int>{
         return this.usersFollowed
     }
+
+    fun getUserComments(): ArrayList<Int>{
+        return this.comments
+    }
 }
 
 
