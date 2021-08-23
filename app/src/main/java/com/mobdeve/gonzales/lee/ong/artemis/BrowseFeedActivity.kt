@@ -6,17 +6,23 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.ScrollView
 import android.widget.Toast
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
     private lateinit var rvFeed: RecyclerView
     private lateinit var feedAdapter: FeedAdapter
     private lateinit var sflFeed: ShimmerFrameLayout
+    private lateinit var bnvFeedBottom: BottomNavigationView
+    private lateinit var nsvFeed: NestedScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +34,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_feed))
         initShimmer()
+        initBottom()
     }
 
     private fun initShimmer() {
@@ -40,6 +47,39 @@ class BrowseFeedActivity : AppCompatActivity() {
             sflFeed.visibility = View.GONE
             rvFeed.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
+    }
+
+    private fun initBottom() {
+        this.bnvFeedBottom = findViewById(R.id.nv_feed_bottom)
+        this.nsvFeed = findViewById(R.id.nsv_feed)
+
+        bnvFeedBottom.setOnItemSelectedListener{ item ->
+            when (item.itemId) {
+                R.id.icon_home_feed -> {
+                    nsvFeed.fullScroll(ScrollView.FOCUS_UP)
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_follow_feed -> {
+                    val intent = Intent(this@BrowseFeedActivity, BrowseFeedFollowedActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_bookmark_feed -> {
+                    val intent = Intent(this@BrowseFeedActivity, BrowseBookmarksActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_user_feed -> {
+                    val intent = Intent(this@BrowseFeedActivity, ViewProfileActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+            }
+            false
+        }
     }
 
     private fun initRecyclerView() {

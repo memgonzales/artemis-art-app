@@ -17,7 +17,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ViewProfileActivity" />
         <activity android:name=".ViewUserActivity" />
-        <activity android:name=".BrowseFeedFollowedActivity" />
+        <activity android:name=".BrowseFeedFollowedActivity"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".SearchResultsActivity"
             android:parentActivityName=".SearchActivity" />
@@ -35,7 +36,8 @@
         <activity
             android:name=".ViewBookmarkActivity"
             android:parentActivityName=".BrowseBookmarksActivity" />
-        <activity android:name=".BrowseBookmarksActivity" />
+        <activity android:name=".BrowseBookmarksActivity"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".EditCommentActivity"
             android:parentActivityName=".ViewCommentsActivity"
