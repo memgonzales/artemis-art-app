@@ -14,7 +14,7 @@
         android:paddingTop="4dp">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/iv_item_placeholder_comment_profile_pic"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
@@ -64,7 +64,7 @@
             app:layout_constraintBottom_toTopOf="@id/tv_item_placeholder_comment_date"
             app:layout_constraintEnd_toStartOf="@+id/gl_item_placeholder_comment_right_margin"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/iv_item_placeholder_comment_profile_pic"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.58000004"
             app:layout_constraintVertical_chainStyle="packed" />
@@ -106,7 +106,7 @@
             app:layout_constraintEnd_toStartOf="@+id/gl_item_placeholder_comment_right_margin"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/gl_item_placeholder_comment_left_text"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_item_placeholder_comment_profile_pic" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
