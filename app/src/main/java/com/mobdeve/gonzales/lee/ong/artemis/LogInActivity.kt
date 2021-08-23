@@ -133,7 +133,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startTesting() {
         this.btnTest.setOnClickListener {
-            val i = Intent(this@LogInActivity, EditProfileActivity::class.java)
+            val i = Intent(this@LogInActivity, ViewHighlightsActivity::class.java)
             startActivity(i)
         }
     }
