@@ -132,7 +132,7 @@
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tv_view_user_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -147,7 +147,7 @@
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/tv_view_user_bio"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -157,7 +157,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/gl_view_profile_right_top"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_view_profile_left_top"
-                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_view_user_username" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -259,7 +259,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/menu_bottom_no_shaded">
+        app:menu="@menu/menu_bottom_profile">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_view_profile_add"
