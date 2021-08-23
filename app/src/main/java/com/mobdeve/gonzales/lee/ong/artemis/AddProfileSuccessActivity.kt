@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 
 class AddProfileSuccessActivity : AppCompatActivity() {
-    private var btnStartBrowsing: Button? = null
+    private lateinit var btnStartBrowsing: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class AddProfileSuccessActivity : AppCompatActivity() {
     }
 
     private fun startBrowsing() {
-        this.btnStartBrowsing?.setOnClickListener {
+        this.btnStartBrowsing.setOnClickListener {
             val i = Intent(this@AddProfileSuccessActivity, BrowseFeedActivity::class.java)
             startActivity(i)
             finish()

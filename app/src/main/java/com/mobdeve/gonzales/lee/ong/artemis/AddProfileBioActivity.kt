@@ -9,16 +9,15 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class AddProfileBioActivity : AppCompatActivity() {
-    private var btnAddBio: Button? = null
+    private lateinit var btnAddBio: Button
 
-    private var tielBio: TextInputEditText? = null
-    private var tvBioSkip: TextView? = null
+    private lateinit var tielBio: TextInputEditText
+    private lateinit var tvBioSkip: TextView
 
     //Firebase
     private lateinit var user: FirebaseUser
@@ -33,7 +32,7 @@ class AddProfileBioActivity : AppCompatActivity() {
         initComponents()
     }
 
-    private fun initFirebase(){
+    private fun initFirebase() {
         this.mAuth = Firebase.auth
         this.user = mAuth.currentUser!!
         this.db = Firebase.database.reference
@@ -58,10 +57,10 @@ class AddProfileBioActivity : AppCompatActivity() {
     }
 
     private fun launchAddProfilePic() {
-        this.btnAddBio?.setOnClickListener {
-            var bio: String = tielBio?.getText().toString().trim()
+        this.btnAddBio.setOnClickListener {
+            val bio: String = tielBio.text.toString().trim()
 
-            this.db.child(Keys.users.name).child(this.user.uid).child(Keys.bio.name).setValue(bio)
+            this.db.child(Keys.KEY_DB_USERS.name).child(this.user.uid).child(Keys.KEY_DB_BIO.name).setValue(bio)
 
             val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
             startActivity(i)
@@ -69,8 +68,8 @@ class AddProfileBioActivity : AppCompatActivity() {
         }
     }
 
-    private fun skipAddProfilePic(){
-        this.tvBioSkip?.setOnClickListener{
+    private fun skipAddProfilePic() {
+        this.tvBioSkip.setOnClickListener {
             val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
             startActivity(i)
             finish()

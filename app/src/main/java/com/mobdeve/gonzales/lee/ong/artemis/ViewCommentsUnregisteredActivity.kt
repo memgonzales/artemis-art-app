@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 
 class ViewCommentsUnregisteredActivity : AppCompatActivity() {
-    private var etAddCommentUnregistered: EditText? = null
+    private lateinit var etAddCommentUnregistered: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +28,6 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
     }
 
     private fun disableEditText() {
-        this.etAddCommentUnregistered?.isEnabled = false
+        this.etAddCommentUnregistered.isEnabled = false
     }
 }

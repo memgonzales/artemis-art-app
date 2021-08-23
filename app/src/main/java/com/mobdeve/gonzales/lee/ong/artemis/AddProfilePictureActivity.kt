@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 
 class AddProfilePictureActivity : AppCompatActivity() {
-    private var btnAddProfilePic: Button? = null
+    private lateinit var btnAddProfilePic: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
     }
 
     private fun launchAddBio() {
-        this.btnAddProfilePic?.setOnClickListener {
+        this.btnAddProfilePic.setOnClickListener {
             val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
             startActivity(i)
         }

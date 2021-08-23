@@ -16,17 +16,17 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class SignUpActivity : AppCompatActivity() {
-    private var btnSignUp: Button? = null
+    private lateinit var btnSignUp: Button
 
-    private var tietUsername: TextInputEditText? = null
-    private var tietEmail: TextInputEditText? = null
-    private var tietPassword: TextInputEditText? = null
+    private lateinit var tietUsername: TextInputEditText
+    private lateinit var tietEmail: TextInputEditText
+    private lateinit var tietPassword: TextInputEditText
 
-    private var tilUsername: TextInputLayout? = null
-    private var tilEmail: TextInputLayout? = null
-    private var tilPassword: TextInputLayout? = null
+    private lateinit var tilUsername: TextInputLayout
+    private lateinit var tilEmail: TextInputLayout
+    private lateinit var tilPassword: TextInputLayout
 
-    private var pbSignUp: ProgressBar? = null
+    private lateinit var pbSignUp: ProgressBar
 
     //Firebase - related
     private lateinit var mAuth: FirebaseAuth
@@ -40,7 +40,7 @@ class SignUpActivity : AppCompatActivity() {
         initFirebase()
     }
 
-    private fun initFirebase(){
+    private fun initFirebase() {
         this.mAuth = Firebase.auth
         this.db = Firebase.database
     }
@@ -71,11 +71,11 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun launchAddProfilePic() {
 
-        this.btnSignUp?.setOnClickListener {
+        this.btnSignUp.setOnClickListener {
 
-                var username: String = tietUsername?.getText().toString().trim()
-                var email: String = tietEmail?.getText().toString().trim()
-                var password: String = tietPassword?.getText().toString().trim()
+                val username: String = tietUsername.text.toString().trim()
+                val email: String = tietEmail.text.toString().trim()
+                val password: String = tietPassword.text.toString().trim()
 
                 if(!checkEmpty(username, email, password)){
 
@@ -85,24 +85,24 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkEmpty(username: String, email: String, password: String): Boolean{
+    private fun checkEmpty(username: String, email: String, password: String): Boolean {
         var hasEmpty: Boolean = false;
 
-        if(username.isEmpty()){
-            this.tilUsername?.error = "Required"
-            this.tietUsername?.requestFocus()
+        if(username.isEmpty()) {
+            this.tilUsername.error = "Required"
+            this.tietUsername.requestFocus()
             hasEmpty = true
         }
 
-        if(email.isEmpty()){
-            this.tilEmail?.error = "Required"
-            this.tietEmail?.requestFocus()
+        if(email.isEmpty()) {
+            this.tilEmail.error = "Required"
+            this.tietEmail.requestFocus()
             hasEmpty = true
         }
 
-        if(password.isEmpty()){
-            this.tilPassword?.error = "Required"
-            this.tietPassword?.requestFocus()
+        if(password.isEmpty()) {
+            this.tilPassword.error = "Required"
+            this.tietPassword.requestFocus()
 
             hasEmpty = true
         }
@@ -110,16 +110,16 @@ class SignUpActivity : AppCompatActivity() {
         return hasEmpty
     }
 
-    private fun storeUser(user: User){
-        this.pbSignUp?.visibility = View.VISIBLE
+    private fun storeUser(user: User) {
+        this.pbSignUp.visibility = View.VISIBLE
 
-        this.mAuth!!.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+        this.mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
             .addOnCompleteListener(
                 this
             ) { task ->
                 if (task.isSuccessful) {
-                    db!!.getReference(Keys.users.name)
-                        .child(mAuth!!.currentUser!!.uid)
+                    db.getReference(Keys.KEY_DB_USERS.name)
+                        .child(mAuth.currentUser!!.uid)
                         .setValue(user).addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 successfulRegistration()
@@ -133,8 +133,8 @@ class SignUpActivity : AppCompatActivity() {
             }
     }
 
-    private fun successfulRegistration(){
-        this.pbSignUp?.visibility = View.GONE
+    private fun successfulRegistration() {
+        this.pbSignUp.visibility = View.GONE
         Toast.makeText(this, "Successfully registered", Toast.LENGTH_SHORT).show()
 
         val i = Intent(this@SignUpActivity, AddProfilePictureActivity::class.java)
@@ -142,8 +142,8 @@ class SignUpActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun failedRegistration(){
-        this.pbSignUp?.visibility = View.GONE
+    private fun failedRegistration() {
+        this.pbSignUp.visibility = View.GONE
         Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
     }
 }

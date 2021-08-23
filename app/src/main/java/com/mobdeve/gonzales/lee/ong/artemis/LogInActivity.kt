@@ -11,9 +11,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LogInActivity : AppCompatActivity() {
-    private var btnSignUp: Button? = null
-    private var btnLogIn: Button? = null
-    private var btnTest: Button? = null
+    private lateinit var btnSignUp: Button
+    private lateinit var btnLogIn: Button
+    private lateinit var btnTest: Button
 
     //Firebase
     private lateinit var mAuth: FirebaseAuth
@@ -74,7 +74,7 @@ class LogInActivity : AppCompatActivity() {
     }
 
     private fun startTesting() {
-        this.btnTest?.setOnClickListener {
+        this.btnTest.setOnClickListener {
             val i = Intent(this@LogInActivity, ViewUserActivity::class.java)
             startActivity(i)
         }

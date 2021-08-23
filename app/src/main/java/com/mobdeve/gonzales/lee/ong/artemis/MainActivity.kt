@@ -10,7 +10,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
 
 class MainActivity : AppCompatActivity() {
-    private var logoAnimation: AnimationDrawable? = null
+    private lateinit var logoAnimation: AnimationDrawable
 
     companion object {
         private const val SPLASH_SCREEN_TIMEOUT = 1600
@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun animateSplashScreen() {
-        logoAnimation!!.setExitFadeDuration(ANIMATION_FRAME_FADEOUT.toInt());
-        logoAnimation!!.start()
+        logoAnimation.setExitFadeDuration(ANIMATION_FRAME_FADEOUT.toInt());
+        logoAnimation.start()
     }
 
     private fun launchLogIn() {
