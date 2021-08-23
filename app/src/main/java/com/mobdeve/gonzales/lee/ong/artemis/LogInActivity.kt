@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -15,8 +18,14 @@ class LogInActivity : AppCompatActivity() {
     private lateinit var btnLogIn: Button
     private lateinit var btnTest: Button
 
+    private lateinit var tietUsername: TextInputEditText
+    private lateinit var tietPassword: TextInputEditText
+
+    private lateinit var tvGuest: TextView
+
     //Firebase
     private lateinit var mAuth: FirebaseAuth
+    private var customToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,17 +48,39 @@ class LogInActivity : AppCompatActivity() {
 
         this.btnTest = findViewById(R.id.btn_test)
         startTesting()
+
+        this.tvGuest = findViewById(R.id.tv_log_in_guest)
+        loginAsGuest()
     }
 
     private fun launchSignUp() {
-        this.btnSignUp?.setOnClickListener {
+        this.btnSignUp.setOnClickListener {
             val i = Intent(this@LogInActivity, SignUpActivity::class.java)
             startActivity(i)
         }
     }
 
     private fun startBrowsing() {
-        this.btnLogIn?.setOnClickListener {
+        this.btnLogIn.setOnClickListener {
+            var username: String? = tietUsername.text.toString().trim()
+            var password: String? = tietPassword.text.toString().trim()
+
+            /*
+            customToken?.let{
+                this.mAuth.signInWithCustomToken(it).addOnCompleteListener(this){ task ->
+                    if (task.isSuccessful){
+                        Toast.makeText(this@LogInActivity, "Hurrah", Toast.LENGTH_SHORT).show()
+                    }
+
+                    else{
+                        Toast.makeText(this@LogInActivity, "Awes", Toast.LENGTH_SHORT).show()
+                    }
+
+
+                }
+            }
+
+             */
             /*
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
@@ -67,9 +98,12 @@ class LogInActivity : AppCompatActivity() {
                     }
                 }
 */
+            /*
             val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
             startActivity(i)
             finish()
+
+             */
         }
     }
 
@@ -77,6 +111,24 @@ class LogInActivity : AppCompatActivity() {
         this.btnTest.setOnClickListener {
             val i = Intent(this@LogInActivity, ViewUserActivity::class.java)
             startActivity(i)
+        }
+    }
+
+    private fun loginAsGuest(){
+        this.tvGuest.setOnClickListener {
+
+            this.mAuth.signInAnonymously().addOnCompleteListener(this){ task ->
+                if (task.isSuccessful){
+                    Toast.makeText(this@LogInActivity, "Sign In is Successful with Guest Account", Toast.LENGTH_SHORT).show()
+
+                    val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
+                    startActivity(i)
+                }
+
+                else{
+                    Toast.makeText(this@LogInActivity, "Unable to Sign In with Guest Account", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }

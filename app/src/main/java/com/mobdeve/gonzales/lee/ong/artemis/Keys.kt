@@ -16,5 +16,6 @@ enum class Keys {
     KEY_BOOKMARK,
     KEY_UPVOTE,
     KEY_DB_USERS,
-    KEY_DB_BIO
+    KEY_DB_BIO,
+    KEY_DB_USERNAMES
 }

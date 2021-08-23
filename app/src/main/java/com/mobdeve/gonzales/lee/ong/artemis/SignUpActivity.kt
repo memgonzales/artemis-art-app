@@ -114,9 +114,7 @@ class SignUpActivity : AppCompatActivity() {
         this.pbSignUp.visibility = View.VISIBLE
 
         this.mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
-            .addOnCompleteListener(
-                this
-            ) { task ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     db.getReference(Keys.KEY_DB_USERS.name)
                         .child(mAuth.currentUser!!.uid)
@@ -127,6 +125,12 @@ class SignUpActivity : AppCompatActivity() {
                                 failedRegistration()
                             }
                         }
+
+                    /*
+                    db!!.getReference(Keys.usernames.name)
+                        .child(mAuth!!.currentUser!!.uid)
+                        .setValue(user.getUsername())
+                    */
                 } else {
                     failedRegistration()
                 }
