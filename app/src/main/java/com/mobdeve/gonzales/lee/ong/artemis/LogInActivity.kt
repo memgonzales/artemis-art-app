@@ -23,7 +23,7 @@ class LogInActivity : AppCompatActivity() {
 
     //Firebase
     private lateinit var mAuth: FirebaseAuth
-    private var customToken: String? = null
+    //private var customToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,8 +60,8 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startBrowsing() {
         this.btnLogIn.setOnClickListener {
-            var username: String? = tietUsername.text.toString().trim()
-            var password: String? = tietPassword.text.toString().trim()
+            //var username: String? = tietUsername.text.toString().trim()
+            //var password: String? = tietPassword.text.toString().trim()
 
             /*
             customToken?.let{
@@ -96,12 +96,12 @@ class LogInActivity : AppCompatActivity() {
                     }
                 }
 */
-            /*
+
             val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
             startActivity(i)
-            finish()
+            // finish()
 
-             */
+
         }
     }
 
