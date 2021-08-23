@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mobdeve.gonzales.lee.ong.artemis">
 
-    <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> -->
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/chibi_square_rounded"
@@ -11,7 +9,8 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewUserActivity"></activity>
+        <activity android:name=".ViewProfileActivity"></activity>
+        <activity android:name=".ViewUserActivity" />
         <activity android:name=".BrowseFeedFollowedActivity" />
         <activity
             android:name=".SearchResultsActivity"
@@ -34,11 +33,11 @@
         <activity
             android:name=".EditCommentActivity"
             android:parentActivityName=".ViewCommentsActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ViewCommentsActivity"
             android:parentActivityName=".ViewPostActivity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ViewPostActivity"
             android:launchMode="singleTop"

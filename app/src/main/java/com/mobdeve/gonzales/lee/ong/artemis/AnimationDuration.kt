@@ -5,6 +5,6 @@ class AnimationDuration {
         const val SPLASH_SCREEN_TIMEOUT = 2600
         const val ANIMATION_FRAME_FADEOUT = 400
         
-        const val SHIMMER_TIMEOUT = 2500
+        const val SHIMMER_TIMEOUT = 2000
     }
 }
