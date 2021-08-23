@@ -33,11 +33,11 @@
         <activity android:name=".BrowseBookmarksActivity" />
         <activity
             android:name=".EditCommentActivity"
-            android:parentActivityName=".ViewCommentsActivity" />
+            android:parentActivityName=".ViewCommentsActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ViewCommentsActivity"
-            android:parentActivityName=".ViewPostActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:parentActivityName=".ViewPostActivity" />
         <activity
             android:name=".ViewPostActivity"
             android:launchMode="singleTop"
