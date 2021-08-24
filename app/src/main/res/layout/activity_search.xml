@@ -77,71 +77,92 @@
                     android:layout_marginBottom="?attr/actionBarSize"
                     android:paddingBottom="?attr/actionBarSize">
 
-                    <Button
-                        android:id="@+id/btn_search_tag1"
-                        android:layout_width="wrap_content"
+                    <HorizontalScrollView
+                        android:id="@+id/horizontalScrollView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/pinkish_purple_lighter"
-                        android:letterSpacing="0.05"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:text="sketch"
-                        android:textAllCaps="false"
-                        android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_search_tag2"
-                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.01" />
+                        app:layout_constraintVertical_bias="0.0">
 
-                    <Button
-                        android:id="@+id/btn_search_tag2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/pinkish_purple_lighter"
-                        android:letterSpacing="0.05"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:text="watercolor"
-                        android:textAllCaps="false"
-                        android:textSize="13sp"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_search_tag3"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btn_search_tag1"
-                        app:layout_constraintTop_toTopOf="@+id/btn_search_tag1" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="4dp">
 
-                    <Button
-                        android:id="@+id/btn_search_tag3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/pinkish_purple_lighter"
-                        android:letterSpacing="0.05"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:text="digital"
-                        android:textAllCaps="false"
-                        android:textSize="13sp"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_search_tag4"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btn_search_tag2"
-                        app:layout_constraintTop_toTopOf="@+id/btn_search_tag2" />
+                            <Button
+                                android:id="@+id/btn_search_tag1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:backgroundTint="@color/pinkish_purple_lighter"
+                                android:letterSpacing="0.05"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:text="sketch"
+                                android:textAllCaps="false"
+                                android:textSize="13sp" />
 
-                    <Button
-                        android:id="@+id/btn_search_tag4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/pinkish_purple_lighter"
-                        android:letterSpacing="0.05"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:text="fanart"
-                        android:textAllCaps="false"
-                        android:textSize="13sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btn_search_tag3"
-                        app:layout_constraintTop_toTopOf="@+id/btn_search_tag3" />
+                            <Button
+                                android:id="@+id/btn_search_tag2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="8dp"
+                                android:backgroundTint="@color/pinkish_purple_lighter"
+                                android:letterSpacing="0.05"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:text="watercolor"
+                                android:textAllCaps="false"
+                                android:textSize="13sp"
+                                tools:layout_marginLeft="8dp" />
+
+                            <Button
+                                android:id="@+id/btn_search_tag3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:backgroundTint="@color/pinkish_purple_lighter"
+                                android:letterSpacing="0.05"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:text="digital"
+                                android:textAllCaps="false"
+                                android:textSize="13sp" />
+
+                            <Button
+                                android:id="@+id/btn_search_tag4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:backgroundTint="@color/pinkish_purple_lighter"
+                                android:letterSpacing="0.05"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:text="fanart"
+                                android:textAllCaps="false"
+                                android:textSize="13sp" />
+
+                            <Button
+                                android:id="@+id/btn_search_tag5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:backgroundTint="@color/pinkish_purple_lighter"
+                                android:letterSpacing="0.05"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:text="abstractart"
+                                android:textAllCaps="false"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline2"
@@ -169,7 +190,7 @@
                         app:layout_constraintEnd_toEndOf="@id/guideline3"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/guideline2"
-                        app:layout_constraintTop_toBottomOf="@+id/btn_search_tag1"
+                        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
                         app:layout_constraintVertical_bias="0.45"
                         app:layout_constraintVertical_chainStyle="packed"
                         app:srcCompat="@drawable/the_kiss" />
