@@ -331,4 +331,69 @@ object DataHelper {
 
         return data
     }
+
+    fun loadOthersHighlightData(): ArrayList<Post> {
+        val data = ArrayList<Post>()
+        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches")
+
+        data.add(
+            Post(
+                R.drawable.shoob,
+                "shooberino",
+                R.drawable.madoka_witch,
+                "Walpurgisnacht",
+                90,
+                10,
+                CustomDate(2021, 7, 20),
+                "Digital Art",
+                900,
+                900,
+                "Pre-Homura Madoka",
+                arrayTags,
+                false,
+                true,
+                true
+            )
+        )
+        data.add(
+            Post(
+                R.drawable.shoob,
+                "shooberino",
+                R.drawable.the_kiss,
+                "The Kiss",
+                90,
+                10,
+                CustomDate(2021, 7, 20),
+                "Digital Art",
+                1000,
+                1000,
+                "Thinking of making a shibe version of this :>",
+                arrayTags,
+                false,
+                true,
+                true
+            )
+        )
+        data.add(
+            Post(
+                R.drawable.shoob,
+                "shooberino",
+                R.drawable.small_test_pic,
+                "8Bit Series Entry 1",
+                90,
+                10,
+                CustomDate(2021, 7, 20),
+                "Digital Art",
+                500,
+                500,
+                "A smol froggo to start your day off right :D",
+                arrayTags,
+                false,
+                true,
+                true
+            )
+        )
+
+        return data
+    }
 }

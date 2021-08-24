@@ -12,8 +12,10 @@
         <activity android:name=".PostAddTagsActivity"
             android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".PostArtworkActivity" />
-        <activity android:name=".ViewOwnHighlightActivity" />
-        <activity android:name=".ViewOthersHighlightActivity" />
+        <activity android:name=".ViewOwnHighlightActivity"
+            android:parentActivityName=".BrowseOwnHighlightsActivity"/>
+        <activity android:name=".ViewOthersHighlightActivity"
+            android:parentActivityName=".ViewUserActivity"/>
         <activity
             android:name=".ViewPostFollowedActivity"
             android:parentActivityName=".BrowseFeedFollowedActivity" />
@@ -35,6 +37,7 @@
             android:name=".BrowseOwnHighlightsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".ViewProfileActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".EditProfileActivity"
@@ -50,7 +53,8 @@
             android:name=".ViewUserActivity"
             android:parentActivityName=".BrowseFeedActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".BrowseFeedFollowedActivity"
             android:configChanges="orientation|keyboardHidden"

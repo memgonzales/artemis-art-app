@@ -22,9 +22,9 @@ class ViewUserActivity : AppCompatActivity() {
     private lateinit var bnvViewUserBottom: BottomNavigationView
     private lateinit var nsvViewUser: NestedScrollView
     private lateinit var dataUser: User
-    private lateinit var dataPosts: ArrayList<Post>
+    private lateinit var dataHighlights: ArrayList<Post>
     private lateinit var rvViewUser: RecyclerView
-    private lateinit var highlightAdapter: BookmarksAdapter
+    private lateinit var highlightAdapter: OthersHighlightAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class ViewUserActivity : AppCompatActivity() {
         this.bnvViewUserBottom = findViewById(R.id.nv_view_user_bottom)
         this.nsvViewUser = findViewById(R.id.nsv_view_user)
         this.dataUser = DataHelper.loadOtherUserData()
-        this.dataPosts = DataHelper.loadBookmarkData()
+        this.dataHighlights = DataHelper.loadOthersHighlightData()
 
         val intent: Intent = intent
         val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
@@ -65,13 +65,10 @@ class ViewUserActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadPostData();
-
         this.rvViewUser = findViewById(R.id.rv_view_user);
         this.rvViewUser.layoutManager = GridLayoutManager(this, 2);
 
-        this.highlightAdapter = BookmarksAdapter(this.dataPosts);
-
+        this.highlightAdapter = OthersHighlightAdapter(this.dataHighlights);
 
         this.rvViewUser.adapter = highlightAdapter;
     }
