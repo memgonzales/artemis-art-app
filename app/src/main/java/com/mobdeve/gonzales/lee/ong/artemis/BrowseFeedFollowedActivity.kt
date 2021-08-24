@@ -1,20 +1,26 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Menu
 import android.view.View
+import android.widget.ScrollView
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BrowseFeedFollowedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
-    private lateinit var rvFeed: RecyclerView
+    private lateinit var rvFollowed: RecyclerView
     private lateinit var feedAdapter: FeedAdapter
-    private lateinit var sflFeed: ShimmerFrameLayout
+    private lateinit var sflFollowed: ShimmerFrameLayout
+    private lateinit var bnvFollowedBottom: BottomNavigationView
+    private lateinit var nsvFollowed: NestedScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,30 +32,61 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_feed_followed))
         initShimmer()
+        initBottom()
     }
 
     private fun initShimmer() {
-        this.sflFeed = findViewById(R.id.sfl_feed_followed)
+        this.sflFollowed = findViewById(R.id.sfl_feed_followed)
 
-        sflFeed.startShimmer()
+        sflFollowed.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
             initRecyclerView()
-            sflFeed.visibility = View.GONE
-            rvFeed.visibility = View.VISIBLE
+            sflFollowed.visibility = View.GONE
+            rvFollowed.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
+    }
+
+    private fun initBottom() {
+        this.bnvFollowedBottom = findViewById(R.id.nv_feed_followed_bottom)
+        this.nsvFollowed = findViewById(R.id.nsv_feed_followed)
+
+        bnvFollowedBottom.setOnItemSelectedListener{ item ->
+            when (item.itemId) {
+                R.id.icon_home_feed_followed -> {
+                    val intent = Intent(this@BrowseFeedFollowedActivity, BrowseFeedActivity::class.java)
+                    startActivity(intent)
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_follow_feed_followed -> {
+                    nsvFollowed.fullScroll(ScrollView.FOCUS_UP)
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_bookmark_feed_followed -> {
+                    val intent = Intent(this@BrowseFeedFollowedActivity, BrowseBookmarksActivity::class.java)
+                    startActivity(intent)
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_user_feed_followed -> {
+                    val intent = Intent(this@BrowseFeedFollowedActivity, ViewProfileActivity::class.java)
+                    startActivity(intent)
+                    return@setOnItemSelectedListener true
+                }
+            }
+            false
+        }
     }
 
     private fun initRecyclerView() {
         this.dataPosts = DataHelper.loadPostData();
 
-        this.rvFeed = findViewById(R.id.rv_feed_followed);
-        this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        this.rvFollowed = findViewById(R.id.rv_feed_followed);
+        this.rvFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         this.feedAdapter = FeedAdapter(this.dataPosts);
 
 
-        this.rvFeed.adapter = feedAdapter;
+        this.rvFollowed.adapter = feedAdapter;
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

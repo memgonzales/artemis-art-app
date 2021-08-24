@@ -9,53 +9,123 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewProfileActivity"></activity>
-        <activity android:name=".ViewUserActivity" />
-        <activity android:name=".BrowseFeedFollowedActivity" />
+        <activity android:name=".PostArtworkActivity"></activity>
+        <activity
+            android:name=".AccountManagementActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BrowseOwnPosts"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewHighlightsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EditProfileActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".ViewProfileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ViewProfileActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewUserActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BrowseFeedFollowedActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SearchResultsActivity"
-            android:parentActivityName=".SearchActivity" />
-        <activity android:name=".SearchActivity" />
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SearchActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewPostUnregisteredActivity"
-            android:parentActivityName=".BrowseFeedUnregisteredActivity" />
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".BrowseFeedUnregisteredActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewCommentsUnregisteredActivity"
-            android:parentActivityName=".ViewPostUnregisteredActivity" />
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".ViewPostUnregisteredActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".BrowseFeedUnregisteredActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
-            android:parentActivityName=".LogInActivity" />
+            android:parentActivityName=".LogInActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewBookmarkActivity"
-            android:parentActivityName=".BrowseBookmarksActivity" />
-        <activity android:name=".BrowseBookmarksActivity" />
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".BrowseBookmarksActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BrowseBookmarksActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EditCommentActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".ViewCommentsActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ViewCommentsActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".ViewPostActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ViewPostActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
-            android:parentActivityName=".BrowseFeedActivity" />
+            android:parentActivityName=".BrowseFeedActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".BrowseFeedActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".AddProfileSuccessActivity" />
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddProfileSuccessActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddProfileBioActivity"
-            android:parentActivityName=".AddProfilePictureActivity" />
-        <activity android:name=".AddProfilePictureActivity" />
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".AddProfilePictureActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddProfilePictureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SignUpActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="Create Account"
-            android:parentActivityName=".LogInActivity" />
-        <activity android:name=".LogInActivity" />
-        <activity android:name=".MainActivity">
+            android:parentActivityName=".LogInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LogInActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

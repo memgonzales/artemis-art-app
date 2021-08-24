@@ -146,4 +146,14 @@ object DataHelper {
 
         return data
     }
+
+    fun loadProfileData(): User {
+        val data = User(
+                "New Shibe",
+                "shinshibe@gmail.com",
+                "shibepassword"
+                 )
+
+        return data
+    }
 }

@@ -192,11 +192,11 @@
                         android:id="@+id/iv_view_profile_edit_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_view_profile_edit"
                         app:layout_constraintEnd_toStartOf="@+id/gl_view_profile_edit_left_margin"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_view_profile_edit"
                         app:srcCompat="@drawable/outline_edit_24" />
 
                     <TextView
@@ -204,8 +204,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="Edit Details"
-                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Edit Profile Details"
+                        android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -254,8 +255,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="View Posts"
-                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="View My Posts"
+                        android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -304,8 +306,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:fontFamily="sans-serif-medium"
                         android:text="Account Management"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -326,6 +329,7 @@
                     android:id="@+id/cl_view_profile_note"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
                     android:background="?attr/selectableItemBackground"
                     android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -333,12 +337,13 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cl_view_profile_delete"
-                    app:layout_constraintVertical_bias="0.26999998">
+                    app:layout_constraintVertical_bias="0.0">
 
                     <TextView
                         android:id="@+id/tv_view_profile_note"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:text="What's New?"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -350,7 +355,7 @@
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tv_view_profile_note_body"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"

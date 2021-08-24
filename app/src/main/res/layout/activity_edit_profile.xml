@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_edit_profile_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coord_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_edit_profile_follow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_edit_profile"
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/ctl_edit_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:toolbarId="@+id/toolbar_edit_profile">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_edit_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    tools:layout_collapseMode="pin">
+
+                </androidx.appcompat.widget.Toolbar>
+
+                <TextView
+                    android:id="@+id/tv_edit_profile_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="56dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:text="Edit Profile"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_edit_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_item_comment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:paddingTop="12dp">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_edit_profile_left_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_edit_profile_right_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_edit_profile_pic"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/shoob"
+                    android:visibility="visible"
+                    app:civ_border_color="@color/purple_main"
+                    app:civ_border_width="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_camera"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_camera"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.02" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_edit_profile_pic_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.9"
+                    android:clickable="true"
+                    android:visibility="visible"
+                    app:backgroundTint="@color/purple_pics_lighter"
+                    app:ensureMinTouchTargetSize="false"
+                    app:fabCustomSize="30dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/civ_edit_profile_pic"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_camera"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_camera"
+                    app:layout_constraintTop_toTopOf="@+id/civ_edit_profile_pic"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:maxImageSize="15dp"
+                    app:srcCompat="@drawable/ic_action_camera_alt"
+                    app:tint="@android:color/white" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_edit_profile_left_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:layout_constraintGuide_percent="0.38" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_edit_profile_right_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:layout_constraintGuide_percent="0.62" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_edit_profile_username"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/purple_main"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:boxStrokeColor="@color/purple_main"
+                    app:counterEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/civ_edit_profile_pic"
+                    app:layout_constraintVertical_bias="0.04000002"
+                    app:startIconDrawable="@drawable/ic_action_person"
+                    app:startIconTint="@color/purple_main">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_edit_profile_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Username"
+                        android:inputType="text"
+                        android:text="shoobie" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_edit_profile_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/purple_main"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:boxStrokeColor="@color/purple_main"
+                    app:counterEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_username"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:startIconDrawable="@drawable/ic_action_email"
+                    app:startIconTint="@color/purple_main">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_edit_profile_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email Address"
+                        android:inputType="text"
+                        android:text="borkin@gmail.com" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_edit_profile_password"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/purple_main"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:boxStrokeColor="@color/purple_main"
+                    app:counterEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_email"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/purple_main"
+                    app:startIconDrawable="@android:drawable/ic_lock_lock"
+                    app:startIconTint="@color/purple_main"
+                    tools:passwordToggleTint="@color/purple_bg"
+                    tools:startIconDrawable="@android:drawable/ic_lock_lock">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_edit_profile_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:text="borkislyf" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_edit_profile_bio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/purple_main"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:boxStrokeColor="@color/purple_main"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="150"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_password"
+                    app:layout_constraintVertical_bias="0.06000000">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiel_add_profile_bio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Short Bio"
+                        android:inputType="text|textPersonName|textMultiLine"
+                        android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC." />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_edit_profile_follow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_edit_profile_left_margin_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_edit_profile_right_margin_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+
+        <Button
+            android:id="@+id/btn_edit_profile_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:text="Save Changes"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin_bottom"
+            app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin_bottom"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
