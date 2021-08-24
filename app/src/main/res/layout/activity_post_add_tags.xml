@@ -2,34 +2,34 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_post_artwork_root"
+    android:id="@+id/cl_post_add_tags_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coord_post_artwork"
+        android:id="@+id/coord_post_add_tags"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/cl_post_artwork_follow"
+        app:layout_constraintBottom_toTopOf="@+id/cl_post_add_tags_follow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar_post_artwork"
+            android:id="@+id/appbar_post_add_tags"
             android:layout_width="match_parent"
             android:layout_height="56dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/ctl_post_artwork"
+                android:id="@+id/ctl_post_add_tags"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:toolbarId="@+id/toolbar_post_artwork">
+                app:toolbarId="@+id/toolbar_post_add_tags">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar_post_artwork"
+                    android:id="@+id/toolbar_post_add_tags"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     tools:layout_collapseMode="pin">
@@ -37,14 +37,14 @@
                 </androidx.appcompat.widget.Toolbar>
 
                 <TextView
-                    android:id="@+id/tv_post_artwork_title"
+                    android:id="@+id/tv_post_add_tags_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Add Details"
+                    android:text="Add Tags"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -54,157 +54,133 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsv_post_artwork"
+            android:id="@+id/nsv_post_add_tags"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_post_artwork"
+                android:id="@+id/cl_post_add_tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/iv_post_artwork_art"
+                    android:id="@+id/iv_post_add_tags_art"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="25dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_desc"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_post_add_tags_right_margin"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/gl_post_add_tags_left_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
                     app:layout_constraintVertical_bias="0.0"
                     app:srcCompat="@drawable/madoka_witch" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_post_artwork_left_margin"
+                    android:id="@+id/gl_post_add_tags_left_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.05" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_post_artwork_right_margin"
+                    android:id="@+id/gl_post_add_tags_right_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.95" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_post_artwork_title"
+                    android:id="@+id/til_post_add_tags_desc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:counterEnabled="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
-                    app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:startIconDrawable="@drawable/outline_title_24"
-                    app:startIconTint="@color/purple_main">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_post_artwork_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Title of Artwork"
-                        android:inputType="text"
-                        android:textStyle="bold" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_post_artwork_desc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
                     android:gravity="top"
                     android:textColorHint="@color/purple_main"
                     app:boxBackgroundColor="@android:color/white"
                     app:boxStrokeColor="@color/purple_main"
                     app:counterEnabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
-                    app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_dimen"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_post_add_tags_right_margin"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
                     app:startIconTint="@color/purple_main">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiel_post_artwork_desc"
+                        android:id="@+id/tiel_post_add_tags_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Describe your artwork"
+                        android:hint="Separate tags by commas"
                         android:inputType="text|textPersonName|textMultiLine" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_post_artwork_medium"
+                <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:counterEnabled="false"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Your post can be searched and discovered by other members of our community through these tags, so make them count! "
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
-                    app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_title"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:startIconDrawable="@drawable/outline_palette_24"
-                    app:startIconTint="@color/purple_main">
+                    app:layout_constraintEnd_toStartOf="@+id/gl_post_add_tags_right_margin"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/gl_post_add_tags_left_margin"
+                    app:layout_constraintTop_toBottomOf="@id/barrier_post_add_tags_top"
+                    app:layout_constraintVertical_bias="0.0" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_post_artwork_medium"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Medium"
-                        android:inputType="text" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_post_artwork_dimen"
+                <ImageView
+                    android:id="@+id/imageView2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:counterEnabled="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
-                    app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_medium"
+                    android:layout_marginStart="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="@+id/til_post_add_tags_desc"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                    app:layout_constraintStart_toStartOf="@+id/gl_post_add_tags_left_margin"
+                    app:layout_constraintTop_toTopOf="@+id/til_post_add_tags_desc"
                     app:layout_constraintVertical_bias="0.0"
-                    app:startIconDrawable="@drawable/outline_square_foot_24"
-                    app:startIconTint="@color/purple_main">
+                    app:srcCompat="@drawable/outline_brush_24"
+                    app:tint="@color/purple_pics_lighter" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_post_artwork_dimen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Dimensions"
-                        android:inputType="text" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.25" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.65" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier_post_add_tags_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="imageView2,til_post_add_tags_desc"
+                    tools:layout_editor_absoluteY="20dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_post_artwork_follow"
+        android:id="@+id/cl_post_add_tags_follow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -216,29 +192,29 @@
 
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_post_artwork_left_margin_bottom"
+            android:id="@+id/gl_post_add_tags_left_margin_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_post_artwork_right_margin_bottom"
+            android:id="@+id/gl_post_add_tags_right_margin_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.95" />
 
         <Button
-            android:id="@+id/btn_post_artwork_save"
+            android:id="@+id/btn_post_add_tags_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:text="Save Details"
+            android:text="Post Artwork"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin_bottom"
-            app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/gl_post_add_tags_right_margin_bottom"
+            app:layout_constraintStart_toStartOf="@+id/gl_post_add_tags_left_margin_bottom"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.9" />
     </androidx.constraintlayout.widget.ConstraintLayout>

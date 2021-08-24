@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewOwnHighlightActivity"></activity>
+        <activity android:name=".PostAddTagsActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".PostArtworkActivity" />
+        <activity android:name=".ViewOwnHighlightActivity" />
         <activity android:name=".ViewOthersHighlightActivity" />
         <activity
             android:name=".ViewPostFollowedActivity"
