@@ -53,161 +53,152 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_post_artwork"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_post_artwork"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:fillViewport="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nsv_post_artwork"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_post_artwork"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+                android:layout_height="wrap_content">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_post_artwork"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_post_artwork_art"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_desc"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/madoka_witch" />
 
-                    <ImageView
-                        android:id="@+id/iv_post_artwork_art"
-                        android:layout_width="0dp"
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_post_artwork_left_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_post_artwork_right_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_post_artwork_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:textColorHint="@color/purple_main"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:boxStrokeColor="@color/purple_main"
+                    app:counterEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:startIconDrawable="@drawable/outline_title_24"
+                    app:startIconTint="@color/purple_main">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_post_artwork_title"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                        app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_desc"
-                        app:layout_constraintVertical_bias="0.0"
-                        app:srcCompat="@drawable/madoka_witch" />
+                        android:hint="Title of Artwork"
+                        android:inputType="text"
+                        android:textStyle="bold" />
 
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/gl_post_artwork_left_margin"
-                        android:layout_width="wrap_content"
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_post_artwork_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="top"
+                    android:textColorHint="@color/purple_main"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:boxStrokeColor="@color/purple_main"
+                    app:counterEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_dimen"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:startIconTint="@color/purple_main">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiel_post_artwork_desc"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.05" />
+                        android:hint="Describe your artwork"
+                        android:inputType="text|textPersonName|textMultiLine" />
 
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/gl_post_artwork_right_margin"
-                        android:layout_width="wrap_content"
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_post_artwork_medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/purple_main"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:boxStrokeColor="@color/purple_main"
+                    app:counterEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_title"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:startIconDrawable="@drawable/outline_palette_24"
+                    app:startIconTint="@color/purple_main">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_post_artwork_medium"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.95" />
+                        android:hint="Medium"
+                        android:inputType="text" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_post_artwork_title"
-                        android:layout_width="0dp"
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_post_artwork_dimen"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/purple_main"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:boxStrokeColor="@color/purple_main"
+                    app:counterEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_medium"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:startIconDrawable="@drawable/outline_square_foot_24"
+                    app:startIconTint="@color/purple_main">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_post_artwork_dimen"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:textColorHint="@color/purple_main"
-                        app:boxBackgroundColor="@android:color/white"
-                        app:boxStrokeColor="@color/purple_main"
-                        app:counterEnabled="false"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
-                        app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"
-                        app:startIconDrawable="@drawable/outline_title_24"
-                        app:startIconTint="@color/purple_main">
+                        android:hint="Dimensions"
+                        android:inputType="text" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tiet_post_artwork_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Title of Artwork"
-                            android:inputType="text"
-                            android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_post_artwork_desc"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:gravity="top"
-                        android:textColorHint="@color/purple_main"
-                        app:boxBackgroundColor="@android:color/white"
-                        app:boxStrokeColor="@color/purple_main"
-                        app:counterEnabled="false"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
-                        app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                        app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_dimen"
-                        app:layout_constraintVertical_bias="0.0"
-                        app:startIconTint="@color/purple_main">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tiel_post_artwork_desc"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Describe your artwork"
-                            android:inputType="text|textPersonName|textMultiLine" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_post_artwork_medium"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColorHint="@color/purple_main"
-                        app:boxBackgroundColor="@android:color/white"
-                        app:boxStrokeColor="@color/purple_main"
-                        app:counterEnabled="false"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
-                        app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                        app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_title"
-                        app:layout_constraintVertical_bias="0.0"
-                        app:startIconDrawable="@drawable/outline_palette_24"
-                        app:startIconTint="@color/purple_main">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tiet_post_artwork_medium"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Medium"
-                            android:inputType="text" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_post_artwork_dimen"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColorHint="@color/purple_main"
-                        app:boxBackgroundColor="@android:color/white"
-                        app:boxStrokeColor="@color/purple_main"
-                        app:counterEnabled="false"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
-                        app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                        app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_medium"
-                        app:layout_constraintVertical_bias="0.0"
-                        app:startIconDrawable="@drawable/outline_square_foot_24"
-                        app:startIconTint="@color/purple_main">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tiet_post_artwork_dimen"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Dimensions"
-                            android:inputType="text" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.core.widget.NestedScrollView>
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
