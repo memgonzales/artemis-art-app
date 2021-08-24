@@ -220,6 +220,7 @@ object DataHelper {
 
         data.add(
             Comment(
+                "1",
                 R.drawable.shoob,
                 "shooberino",
                 //CustomDate(2021, 7, 20),
@@ -228,6 +229,7 @@ object DataHelper {
         )
         data.add(
             Comment(
+                "2",
                 R.drawable.shibe1,
                 "shibe",
                // CustomDate(2021, 7, 20),
@@ -236,6 +238,7 @@ object DataHelper {
         )
         data.add(
             Comment(
+                "3",
                 R.drawable.shibe2,
                 "shoobie",
                // CustomDate(2021, 7, 20),
@@ -244,6 +247,7 @@ object DataHelper {
         )
         data.add(
             Comment(
+                "4",
                 R.drawable.shibe3,
                 "shib",
                // CustomDate(2021, 7, 20),
@@ -252,6 +256,7 @@ object DataHelper {
         )
         data.add(
             Comment(
+                "5",
                 R.drawable.shibe4,
                 "mameshiba",
                // CustomDate(2021, 7, 20),

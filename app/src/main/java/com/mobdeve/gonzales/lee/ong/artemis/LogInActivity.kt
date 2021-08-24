@@ -8,8 +8,11 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class LogInActivity : AppCompatActivity() {
@@ -17,8 +20,8 @@ class LogInActivity : AppCompatActivity() {
     private lateinit var btnLogIn: Button
     private lateinit var btnTest: Button
 
-    //private lateinit var tietUsername: TextInputEditText
-    //private lateinit var tietPassword: TextInputEditText
+    private lateinit var tietUsername: TextInputEditText
+    private lateinit var tietPassword: TextInputEditText
 
     private lateinit var tvGuest: TextView
 
@@ -26,6 +29,7 @@ class LogInActivity : AppCompatActivity() {
 
     //Firebase
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
     //private var customToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +42,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun initFirebase(){
         this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
     }
 
     private fun initComponents() {
@@ -65,9 +70,17 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startBrowsing() {
         this.btnLogIn.setOnClickListener {
-           // var username: String? = tietUsername.text.toString().trim()
-           // var password: String? = tietPassword.text.toString().trim()
+            this.tietUsername = findViewById(R.id.tiet_log_in_username)
+            this.tietPassword = findViewById(R.id.tiet_log_in_password)
 
+            var username: String? = tietUsername.text.toString().trim()
+            var password: String? = tietPassword.text.toString().trim()
+
+            //Toast.makeText(this, "Working", Toast.LENGTH_SHORT).show()
+            //val userDB = this.db.child(Keys.KEY_DB_USERS.name)
+            //val usernameLogin = userDB.orderByChild(Keys.KEY_DB_USERNAMES.name).equalTo(username)
+
+            //Toast.makeText(this, "Check: " + usernameLogin, Toast.LENGTH_SHORT).show()
             /*
             customToken?.let{
                 this.mAuth.signInWithCustomToken(it).addOnCompleteListener(this){ task ->
@@ -101,9 +114,12 @@ class LogInActivity : AppCompatActivity() {
                     }
                 }
 */
+
             val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
             startActivity(i)
-           // finish()
+
+
+            finish()
 
 
         }

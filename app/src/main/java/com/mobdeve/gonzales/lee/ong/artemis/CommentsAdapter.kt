@@ -20,7 +20,7 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
         val currentComment = dataComments[position]
         holder.setItemCommentProfilePic(currentComment.getProfilePicture())
         holder.setItemCommentUsername(currentComment.getUsername())
-        holder.setItemCommentDate(currentComment.getDateCommented().toStringFull())
+        holder.setItemCommentDate(currentComment.getDateCommented())
         holder.setItemCommentComment(currentComment.getCommentBody())
     }
 

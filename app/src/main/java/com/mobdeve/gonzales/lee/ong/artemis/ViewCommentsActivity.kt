@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -37,6 +40,7 @@ class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var user: FirebaseUser
     private lateinit var userId: String
+    private lateinit var db: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +54,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.mAuth = Firebase.auth
         this.user = this.mAuth.currentUser!!
         this.userId = this.user.uid
+        this.db = Firebase.database.reference
     }
 
     private fun initComponents() {
@@ -124,22 +129,49 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.rvComments.adapter = commentsAdapter
     }
 
-    private fun addComment(){
+    private fun addComment(comment: Comment){
+        val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
+        val postKey = commentDB.push().key!!
+
+        Toast.makeText(this, "Working: " + postKey, Toast.LENGTH_LONG).apply{setGravity(Gravity.CENTER, 0, 0); show() }
+
+        /*
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
+        val userKey = userDB.push().key!!
+
+        val user: User = User("Check", "check@gmail.com", "123456")
+        userDB.child(userKey).setValue(user)
+
+         */
+        commentDB.child(postKey).setValue(comment)
+        /*
+        commentDB.child(postKey).setValue(comment)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful){
+                    Toast.makeText(this, "Working", Toast.LENGTH_LONG).apply{setGravity(Gravity.CENTER, 0, 0); show() }
+                }
+
+                else{
+                    Toast.makeText(this, "Ripp", Toast.LENGTH_LONG).apply{setGravity(Gravity.CENTER, 0, 0); show() }
+
+                }
+            }
+
+         */
+
+    }
+
+    fun onClick(v: View) {
         this.ibAddComment = findViewById(R.id.ib_add_comment)
         this.etComment = findViewById(R.id.et_add_comment)
 
-        /*
-        this.ibAddComment.setOnClickListener { View ->
+        if (v.id == R.id.ib_add_comment) {
+            val commentText: String = etComment.text.toString().trim()
+            val comment: Comment = Comment("123456", R.drawable.chibi_circle, "yey", commentText)
+            addComment(comment)
 
         }
-        
-         */
-
-        /*
-        this.ibAddComment.setOnClickListener {
-
-        }
-
-         */
     }
+
+
 }

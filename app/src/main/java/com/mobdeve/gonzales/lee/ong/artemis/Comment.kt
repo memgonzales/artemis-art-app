@@ -1,17 +1,19 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 class Comment {
+    private var postId: String
     private var profilePicture: Int
     private var username: String
-    private var dateCommented: CustomDate
+    private var dateCommented: String
     private var commentBody: String
 
-    constructor(profilePicture: Int, username: String, commentBody: String) {
+    constructor(postId: String, profilePicture: Int, username: String, commentBody: String) {
+        this.postId = postId
         this.profilePicture = profilePicture
         this.username = username
 
         var dateCommented: CustomDate = CustomDate()
-        this.dateCommented = dateCommented
+        this.dateCommented = dateCommented.toStringFull()
         this.commentBody = commentBody
     }
 
@@ -23,7 +25,7 @@ class Comment {
         return this.username
     }
 
-    fun getDateCommented(): CustomDate {
+    fun getDateCommented(): String {
         return this.dateCommented
     }
 
@@ -39,7 +41,7 @@ class Comment {
         this.username = name
     }
 
-    fun setDateCommented(dateCommented: CustomDate) {
+    fun setDateCommented(dateCommented: String) {
         this.dateCommented = dateCommented
     }
 
