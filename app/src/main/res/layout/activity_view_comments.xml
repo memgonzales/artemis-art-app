@@ -176,6 +176,7 @@
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="onClick"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="@id/et_add_comment"
             app:layout_constraintEnd_toStartOf="@+id/gl_view_comments_right_comment"
