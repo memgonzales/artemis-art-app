@@ -9,11 +9,17 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewPostFollowedActivity"></activity>
+        <activity android:name=".ViewOwnHighlightActivity"></activity>
+        <activity android:name=".ViewOthersHighlightActivity" />
+        <activity
+            android:name=".ViewPostFollowedActivity"
+            android:parentActivityName=".BrowseFeedFollowedActivity" />
         <activity
             android:name=".ViewCommentsFollowedActivity"
             android:configChanges="orientation|keyboardHidden" />
-        <activity android:name=".PostArtworkActivity" />
+        <activity
+            android:name=".PostArtworkActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".AccountManagementActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -23,7 +29,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ViewHighlightsActivity"
+            android:name=".BrowseHighlightsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
