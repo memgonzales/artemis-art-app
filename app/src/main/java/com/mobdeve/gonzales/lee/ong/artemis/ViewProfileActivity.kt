@@ -33,8 +33,8 @@ class ViewProfileActivity : AppCompatActivity() {
 
     private fun initContent() {
         this.civViewProfileProfilePicture = findViewById(R.id.civ_view_profile_logo)
-        this.tvViewProfileUsername = findViewById(R.id.tv_view_user_username)
-        this.tvViewProfileBio = findViewById(R.id.tv_view_user_bio)
+        this.tvViewProfileUsername = findViewById(R.id.tv_view_profile_username)
+        this.tvViewProfileBio = findViewById(R.id.tv_view_profile_bio)
         this.clViewProfileEdit = findViewById(R.id.cl_view_profile_edit)
         this.clViewProfileViewPosts = findViewById(R.id.cl_view_profile_view_posts)
         this.clViewProfileDelete = findViewById(R.id.cl_view_profile_delete)
@@ -74,9 +74,6 @@ class ViewProfileActivity : AppCompatActivity() {
     }
 
     private fun initBottom() {
-        this.bnvViewProfileBottom = findViewById(R.id.nv_view_profile_bottom)
-        this.nsvViewProfile = findViewById(R.id.nsv_view_profile)
-
         bnvViewProfileBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
                 R.id.icon_home_profile -> {

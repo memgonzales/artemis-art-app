@@ -156,4 +156,14 @@ object DataHelper {
 
         return data
     }
+
+    fun loadOtherUserData(): User {
+        val data = User(
+            "Sample Shibe",
+            "bestdoggo@gmail.com",
+            "shibepassword"
+        )
+
+        return data
+    }
 }
