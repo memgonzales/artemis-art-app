@@ -78,10 +78,4 @@ class AddProfileBioActivity : AppCompatActivity() {
             finish()
         }
     }
-
-    override fun onBackPressed() {
-        val i = Intent(this@AddProfileBioActivity, BrowseFeedActivity::class.java)
-        startActivity(i)
-        finish()
-    }
 }
