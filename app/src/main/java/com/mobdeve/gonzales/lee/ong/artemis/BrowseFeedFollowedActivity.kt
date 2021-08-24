@@ -56,7 +56,6 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
                 R.id.icon_home_feed_followed -> {
                     val intent = Intent(this@BrowseFeedFollowedActivity, BrowseFeedActivity::class.java)
                     startActivity(intent)
-                    finish()
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_follow_feed_followed -> {
@@ -66,13 +65,11 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
                 R.id.icon_bookmark_feed_followed -> {
                     val intent = Intent(this@BrowseFeedFollowedActivity, BrowseBookmarksActivity::class.java)
                     startActivity(intent)
-                    finish()
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_user_feed_followed -> {
                     val intent = Intent(this@BrowseFeedFollowedActivity, ViewProfileActivity::class.java)
                     startActivity(intent)
-                    finish()
                     return@setOnItemSelectedListener true
                 }
             }
