@@ -147,6 +147,7 @@
                     android:layout_height="wrap_content"
                     android:text="WARNING!"
                     android:textColor="@color/pinkish_purple"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_account_management_right_margin"
