@@ -82,19 +82,16 @@ class ViewProfileActivity : AppCompatActivity() {
                 R.id.icon_home_profile -> {
                     val intent = Intent(this@ViewProfileActivity, BrowseFeedActivity::class.java)
                     startActivity(intent)
-                    finish()
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_follow_profile -> {
                     val intent = Intent(this@ViewProfileActivity, BrowseFeedFollowedActivity::class.java)
                     startActivity(intent)
-                    finish()
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_bookmark_profile -> {
                     val intent = Intent(this@ViewProfileActivity, BrowseBookmarksActivity::class.java)
                     startActivity(intent)
-                    finish()
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_user_profile -> {

@@ -57,13 +57,11 @@ class BrowseBookmarksActivity : AppCompatActivity() {
                 R.id.icon_home_bookmarks -> {
                     val intent = Intent(this@BrowseBookmarksActivity, BrowseFeedActivity::class.java)
                     startActivity(intent)
-                    finish()
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_follow_bookmarks -> {
                     val intent = Intent(this@BrowseBookmarksActivity, BrowseFeedFollowedActivity::class.java)
                     startActivity(intent)
-                    finish()
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_bookmark_bookmarks -> {
@@ -73,7 +71,6 @@ class BrowseBookmarksActivity : AppCompatActivity() {
                 R.id.icon_user_bookmarks -> {
                     val intent = Intent(this@BrowseBookmarksActivity, ViewProfileActivity::class.java)
                     startActivity(intent)
-                    finish()
                     return@setOnItemSelectedListener true
                 }
             }
@@ -98,12 +95,5 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_top_with_search, menu)
 
         return true
-    }
-
-    override fun onBackPressed() {
-        val i = Intent(Intent.ACTION_MAIN)
-        i.addCategory(Intent.CATEGORY_HOME)
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(i)
     }
 }
