@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewOthersHighlightActivity"></activity>
+        <activity android:name=".ViewOwnHighlightActivity"></activity>
+        <activity android:name=".ViewOthersHighlightActivity" />
         <activity
             android:name=".ViewPostFollowedActivity"
             android:parentActivityName=".BrowseFeedFollowedActivity" />
@@ -28,7 +29,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ViewHighlightsActivity"
+            android:name=".BrowseHighlightsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
