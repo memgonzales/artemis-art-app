@@ -4,9 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Gravity
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +33,8 @@ class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var nsvViewComments: NestedScrollView
 
     private lateinit var ibAddComment: ImageButton
+
+    private lateinit var etComment: EditText
 
     //Firebase
     private lateinit var mAuth: FirebaseAuth
@@ -122,14 +127,19 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.rvComments.adapter = commentsAdapter
     }
 
-    private fun addComment(){
+    private fun addComment() {
+        this.etComment = findViewById((R.id.et_add_comment))
         this.ibAddComment = findViewById(R.id.ib_add_comment)
 
-        /*
-        this.ibAddComment.setOnClickListener {
+//        this.ibAddComment.setOnClickListener {
+//            val commentText: String = etComment.text.toString().trim()
+//            Toast.makeText(this, "Working", Toast.LENGTH_LONG).apply{setGravity(Gravity.CENTER, 0, 0); show() }
+//        }
+    }
 
+    fun onClick(v: View) {
+        if (v.id == R.id.ib_add_comment) {
+            Toast.makeText(this, "Working", Toast.LENGTH_LONG).apply{setGravity(Gravity.CENTER, 0, 0); show() }
         }
-
-         */
     }
 }
