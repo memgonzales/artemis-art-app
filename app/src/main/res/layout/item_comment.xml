@@ -103,7 +103,7 @@
             app:layout_constraintEnd_toStartOf="@+id/gl_item_comment_right_margin"
             app:layout_constraintStart_toEndOf="@+id/tv_item_comment_username"
             app:layout_constraintTop_toTopOf="@+id/tv_item_comment_username"
-            app:srcCompat="@drawable/outline_edit_24" />
+            app:srcCompat="@drawable/outline_more_vert_24" />
 
         <TextView
             android:id="@+id/tv_item_comment_comment"
