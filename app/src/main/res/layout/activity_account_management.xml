@@ -101,7 +101,7 @@
                         android:layout_marginStart="10dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="Delete My Account"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="@+id/gl_account_management_delete_left_margin"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -118,6 +118,7 @@
                     android:id="@+id/tv_account_management_delete_note"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:text="This action will irreversibly delete all information associated with your account, including your posts and comments, from the database."
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/gl_account_management_right_margin"
