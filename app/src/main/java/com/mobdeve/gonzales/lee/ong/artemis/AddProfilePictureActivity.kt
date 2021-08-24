@@ -7,11 +7,12 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 class AddProfilePictureActivity : AppCompatActivity() {
     private lateinit var btnAddProfilePic: Button
-
+    private lateinit var fabAddProfilePic: FloatingActionButton
     private lateinit var civUploadImg: CircleImageView
     private lateinit var ivCameraPic: ImageView
 
@@ -39,10 +40,8 @@ class AddProfilePictureActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadImg(){
-        this.ivCameraPic.setOnClickListener(View.OnClickListener {
+    private fun launchBottomDialog() {
 
-        })
     }
 
     override fun onBackPressed() {

@@ -337,26 +337,6 @@
                     app:srcCompat="@drawable/ic_action_camera_alt"
                     app:tint="@android:color/white" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab_add_profile_pic_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.9"
-                    android:clickable="true"
-                    android:visibility="visible"
-                    app:backgroundTint="@color/purple_pics_lighter"
-                    app:ensureMinTouchTargetSize="false"
-                    app:fabCustomSize="27dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/civ_add_profile_profile_pic"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_pic_right_camera"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_add_profile_pic_left_camera"
-                    app:layout_constraintTop_toTopOf="@+id/civ_add_profile_profile_pic"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:maxImageSize="13dp"
-                    app:srcCompat="@drawable/delete_icon2"
-                    app:tint="@android:color/white" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
