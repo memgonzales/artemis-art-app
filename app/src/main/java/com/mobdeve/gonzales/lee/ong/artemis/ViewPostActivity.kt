@@ -7,9 +7,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ViewPostActivity : AppCompatActivity() {
@@ -29,6 +32,8 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var tvItemViewPostUpvote: TextView
     private lateinit var clItemViewPostUpvote: ConstraintLayout
     private lateinit var clItemViewPostComment: ConstraintLayout
+    private lateinit var bnvViewPostBottom: BottomNavigationView
+    private lateinit var nsvViewPost: NestedScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,6 +128,42 @@ class ViewPostActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_post))
         initActionBar()
+        initBottom()
+    }
+
+    private fun initBottom() {
+        this.bnvViewPostBottom = findViewById(R.id.nv_view_post_bottom)
+        this.nsvViewPost = findViewById(R.id.nsv_view_post)
+
+        bnvViewPostBottom.setOnItemSelectedListener{ item ->
+            when (item.itemId) {
+                R.id.icon_home_feed -> {
+                    val intent = Intent(this@ViewPostActivity, BrowseFeedActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_follow_feed -> {
+                    val intent = Intent(this@ViewPostActivity, BrowseFeedFollowedActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_bookmark_feed -> {
+                    val intent = Intent(this@ViewPostActivity, BrowseBookmarksActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.icon_user_feed -> {
+                    val intent = Intent(this@ViewPostActivity, ViewProfileActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+            }
+            false
+        }
     }
 
     private fun initActionBar() {
