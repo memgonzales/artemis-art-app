@@ -15,10 +15,11 @@ class Post {
     private var tags: Array<String>
     private var bookmark: Boolean
     private var upvote: Boolean
+    private var highlight: Boolean
 
     constructor(profilePicture: Int, username: String, post: Int, title: String, numUpvotes: Int,
                 numComments: Int, datePosted: CustomDate, medium: String, dimHeight: Int, dimWidth: Int,
-                description: String, tags: Array<String>, bookmark: Boolean, upvote: Boolean) {
+                description: String, tags: Array<String>, bookmark: Boolean, upvote: Boolean, highlight: Boolean) {
         this.profilePicture = profilePicture
         this.username = username
         this.post = post
@@ -33,6 +34,7 @@ class Post {
         this.tags = tags
         this.bookmark = bookmark
         this.upvote = upvote
+        this.highlight = highlight
     }
 
     fun getProfilePicture(): Int {
@@ -91,6 +93,11 @@ class Post {
         return this.upvote
     }
 
+    fun getHighlight(): Boolean {
+        return this.highlight
+    }
+
+
     fun setProfilePicture(picture: Int) {
         this.profilePicture = profilePicture
     }
@@ -145,5 +152,9 @@ class Post {
 
     fun setUpvote(upvote: Boolean) {
         this.upvote = upvote
+    }
+
+    fun setHighlight(highlight: Boolean) {
+        this.highlight = highlight
     }
 }

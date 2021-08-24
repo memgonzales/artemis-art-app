@@ -3,16 +3,16 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class ViewHighlightsActivity : AppCompatActivity() {
+class PostAddTagsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_highlights)
+        setContentView(R.layout.activity_post_add_tags)
 
         initComponents()
     }
 
     private fun initComponents() {
-        setSupportActionBar(findViewById(R.id.toolbar_highlights))
+        setSupportActionBar(findViewById(R.id.toolbar_post_add_tags))
         initActionBar()
     }
 

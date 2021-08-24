@@ -9,18 +9,54 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".PostArtworkActivity"></activity>
+        <activity android:name=".ViewOwnPostActivity"></activity>
+        <activity
+            android:name=".PostAddTagsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".PostArtworkActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ViewOwnHighlightActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".BrowseOwnHighlightsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewOthersHighlightActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".ViewUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EditPostActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ViewPostFollowedActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".BrowseFeedFollowedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewCommentsFollowedActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PostArtworkActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".AccountManagementActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".ViewProfileActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BrowseOwnPosts"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ViewHighlightsActivity"
+            android:name=".BrowseOwnHighlightsActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".ViewProfileActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".EditProfileActivity"
@@ -35,6 +71,7 @@
         <activity
             android:name=".ViewUserActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BrowseFeedFollowedActivity"

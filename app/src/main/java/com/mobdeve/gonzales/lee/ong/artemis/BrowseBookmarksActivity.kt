@@ -79,7 +79,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadPostData();
+        this.dataPosts = DataHelper.loadBookmarkData();
 
         this.rvBookmarks = findViewById(R.id.rv_bookmarks);
         this.rvBookmarks.layoutManager = GridLayoutManager(this, 2);

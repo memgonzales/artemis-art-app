@@ -114,6 +114,21 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
                 holder.setItemFeedUpvote(currentPost.getUpvote())
             }
         }
+
+        holder.setItemFeedProfileOnClickListener { view ->
+            val intent = Intent(view.context, ViewUserActivity::class.java)
+
+            intent.putExtra(
+                Keys.KEY_PROFILE_PICTURE.name,
+                currentPost.getProfilePicture()
+            )
+            intent.putExtra(
+                Keys.KEY_USERNAME.name,
+                currentPost.getUsername()
+            )
+
+            view.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

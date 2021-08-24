@@ -29,6 +29,21 @@ class User {
         this.comments = ArrayList<Int>()
     }
 
+    constructor(username: String, email: String, password: String, userImg: Int, bio: String){
+        this.username = username
+        this.email = email
+        this.password = password
+        this.userImg = userImg
+        this.bio = bio
+
+        this.bookmarks = ArrayList<Int>()
+        this.userPosts = ArrayList<Int>()
+        this.highlights = ArrayList<Int>()
+        this.upvotedPosts = ArrayList<Int>()
+        this.usersFollowed = ArrayList<Int>()
+        this.comments = ArrayList<Int>()
+    }
+
     fun getUsername(): String {
         return this.username
     }
@@ -65,7 +80,7 @@ class User {
         return this.upvotedPosts
     }
 
-    fun getUsersFolloweded(): ArrayList<Int>{
+    fun getUsersFollowed(): ArrayList<Int>{
         return this.usersFollowed
     }
 
