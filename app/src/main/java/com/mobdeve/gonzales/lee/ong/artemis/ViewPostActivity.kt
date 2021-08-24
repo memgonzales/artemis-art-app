@@ -123,6 +123,36 @@ class ViewPostActivity : AppCompatActivity() {
             val intent = Intent(this, ViewCommentsActivity::class.java)
             startActivity(intent)
         })
+
+        civItemViewPostProfilePic.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, ViewUserActivity::class.java)
+
+            intent.putExtra(
+                Keys.KEY_PROFILE_PICTURE.name,
+                profilePicture
+            )
+            intent.putExtra(
+                Keys.KEY_USERNAME.name,
+                username
+            )
+
+            startActivity(intent)
+        })
+
+        tvItemViewPostUsername.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, ViewUserActivity::class.java)
+
+            intent.putExtra(
+                Keys.KEY_PROFILE_PICTURE.name,
+                profilePicture
+            )
+            intent.putExtra(
+                Keys.KEY_USERNAME.name,
+                username
+            )
+
+            startActivity(intent)
+        })
     }
 
     private fun initComponents() {

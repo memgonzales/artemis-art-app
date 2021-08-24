@@ -5,54 +5,53 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Menu
 import android.view.View
 import android.widget.ScrollView
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class BrowseBookmarksActivity : AppCompatActivity() {
+class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
-    private lateinit var rvBookmarks: RecyclerView
-    private lateinit var bookmarksAdapter: BookmarksAdapter
-    private lateinit var sflBookmarks: ShimmerFrameLayout
-    private lateinit var bnvBookmarksBottom: BottomNavigationView
-    private lateinit var nsvBookmarks: NestedScrollView
+    private lateinit var rvHighlights: RecyclerView
+    private lateinit var highlightsAdapter: HighlightsAdapter
+    private lateinit var sflHighlights: ShimmerFrameLayout
+    private lateinit var bnvHighlightsBottom: BottomNavigationView
+    private lateinit var nsvHighlights: NestedScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_browse_bookmarks)
+        setContentView(R.layout.activity_view_highlights)
 
         initComponents()
     }
 
     private fun initComponents() {
-        setSupportActionBar(findViewById(R.id.toolbar_bookmarks))
+        setSupportActionBar(findViewById(R.id.toolbar_highlights))
+        initActionBar()
         initShimmer()
         initBottom()
     }
 
     private fun initShimmer() {
-        this.sflBookmarks = findViewById(R.id.sfl_bookmarks)
+        this.sflHighlights = findViewById(R.id.sfl_highlights)
 
-        sflBookmarks.startShimmer()
+        sflHighlights.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
             initRecyclerView()
-            sflBookmarks.visibility = View.GONE
-            rvBookmarks.visibility = View.VISIBLE
+            sflHighlights.visibility = View.GONE
+            rvHighlights.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
     private fun initBottom() {
-        this.bnvBookmarksBottom = findViewById(R.id.nv_bookmarks_bottom)
-        this.nsvBookmarks = findViewById(R.id.nsv_bookmarks)
+        this.bnvHighlightsBottom = findViewById(R.id.nv_highlights_bottom)
+        this.nsvHighlights = findViewById(R.id.nsv_highlights)
 
-        bnvBookmarksBottom.setOnItemSelectedListener{ item ->
+        bnvHighlightsBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
                 R.id.icon_home_bookmarks -> {
                     val intent = Intent(this@BrowseBookmarksActivity, BrowseFeedActivity::class.java)
@@ -79,21 +78,19 @@ class BrowseBookmarksActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadBookmarkData();
+        this.dataPosts = DataHelper.loadHighlightsData();
 
-        this.rvBookmarks = findViewById(R.id.rv_bookmarks);
-        this.rvBookmarks.layoutManager = GridLayoutManager(this, 2);
+        this.rvHighlights = findViewById(R.id.rv_highlights);
+        this.rvHighlights.layoutManager = GridLayoutManager(this, 2);
 
-        this.bookmarksAdapter = BookmarksAdapter(this.dataPosts);
+        this.highlightsAdapter = HighlightsAdapter(this.dataPosts);
 
 
-        this.rvBookmarks.adapter = bookmarksAdapter;
+        this.rvHighlights.adapter = highlightsAdapter;
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_top_with_search, menu)
-
-        return true
+    private fun initActionBar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 }

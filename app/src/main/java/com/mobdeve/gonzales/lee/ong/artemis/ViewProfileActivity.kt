@@ -63,7 +63,7 @@ class ViewProfileActivity : AppCompatActivity() {
         })
 
         btnViewProfileHighlights.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@ViewProfileActivity, BrowseHighlightsActivity::class.java)
+            val intent = Intent(this@ViewProfileActivity, BrowseOwnHighlightsActivity::class.java)
             startActivity(intent)
         })
     }

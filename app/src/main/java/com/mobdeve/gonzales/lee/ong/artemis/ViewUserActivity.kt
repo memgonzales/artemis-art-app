@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,7 +24,7 @@ class ViewUserActivity : AppCompatActivity() {
     private lateinit var dataUser: User
     private lateinit var dataPosts: ArrayList<Post>
     private lateinit var rvViewUser: RecyclerView
-    private lateinit var feedAdapter: FeedAdapter
+    private lateinit var highlightAdapter: BookmarksAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +42,14 @@ class ViewUserActivity : AppCompatActivity() {
         this.bnvViewUserBottom = findViewById(R.id.nv_view_user_bottom)
         this.nsvViewUser = findViewById(R.id.nsv_view_user)
         this.dataUser = DataHelper.loadOtherUserData()
-        this.dataPosts = DataHelper.loadPostData()
+        this.dataPosts = DataHelper.loadBookmarkData()
 
-        this.civViewUserProfilePicture.setImageResource(dataUser.getUserImg())
-        this.tvViewUserUsername.text = dataUser.getUsername()
+        val intent: Intent = intent
+        val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
+
+        this.civViewUserProfilePicture.setImageResource(profilePicture)
+        this.tvViewUserUsername.text = username
         this.tvViewUserBio.text = dataUser.getBio()
 
         btnViewUserFollow.setOnClickListener(View.OnClickListener {
@@ -63,12 +68,12 @@ class ViewUserActivity : AppCompatActivity() {
         this.dataPosts = DataHelper.loadPostData();
 
         this.rvViewUser = findViewById(R.id.rv_view_user);
-        this.rvViewUser.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        this.rvViewUser.layoutManager = GridLayoutManager(this, 2);
 
-        this.feedAdapter = FeedAdapter(this.dataPosts);
+        this.highlightAdapter = BookmarksAdapter(this.dataPosts);
 
 
-        this.rvViewUser.adapter = feedAdapter;
+        this.rvViewUser.adapter = highlightAdapter;
     }
 
     private fun initBottom() {

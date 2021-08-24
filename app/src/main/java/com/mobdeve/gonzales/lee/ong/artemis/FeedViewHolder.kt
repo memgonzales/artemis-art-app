@@ -91,6 +91,11 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         clItemFeedComment.setOnClickListener(onClickListener)
     }
 
+    fun setItemFeedProfileOnClickListener(onClickListener: View.OnClickListener) {
+        civItemFeedProfilePic.setOnClickListener(onClickListener)
+        tvItemFeedUsername.setOnClickListener(onClickListener)
+    }
+
     init {
         civItemFeedProfilePic = itemView.findViewById(R.id.civ_item_feed_profile_pic)
         tvItemFeedUsername = itemView.findViewById(R.id.tv_item_feed_username)

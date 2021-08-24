@@ -78,7 +78,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadPostData();
+        this.dataPosts = DataHelper.loadFollowedData();
 
         this.rvFollowed = findViewById(R.id.rv_feed_followed);
         this.rvFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
