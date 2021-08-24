@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".PostAddTagsActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".PostArtworkActivity" />
+        <activity android:name=".EditPostActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".PostAddTagsActivity"
+            android:parentActivityName=".PostArtworkActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ViewOwnHighlightActivity" />
         <activity android:name=".ViewOthersHighlightActivity" />
         <activity
@@ -48,8 +51,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ViewUserActivity"
-            android:parentActivityName=".BrowseFeedActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".BrowseFeedActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BrowseFeedFollowedActivity"

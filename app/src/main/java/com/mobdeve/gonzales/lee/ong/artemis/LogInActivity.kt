@@ -132,7 +132,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startTesting() {
         this.btnTest.setOnClickListener {
-            val i = Intent(this@LogInActivity, PostAddTagsActivity::class.java)
+            val i = Intent(this@LogInActivity, EditPostActivity::class.java)
             startActivity(i)
         }
     }
