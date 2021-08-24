@@ -9,12 +9,15 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewPostFollowedActivity"
+        <activity android:name=".ViewOthersHighlightActivity"></activity>
+        <activity
+            android:name=".ViewPostFollowedActivity"
             android:parentActivityName=".BrowseFeedFollowedActivity" />
         <activity
             android:name=".ViewCommentsFollowedActivity"
             android:configChanges="orientation|keyboardHidden" />
-        <activity android:name=".PostArtworkActivity"
+        <activity
+            android:name=".PostArtworkActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".AccountManagementActivity"

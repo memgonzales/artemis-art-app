@@ -84,7 +84,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                        app:layout_constraintTop_toBottomOf="@id/til_post_artwork_dimen"
+                        app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_desc"
                         app:layout_constraintVertical_bias="0.0"
                         app:srcCompat="@drawable/madoka_witch" />
 
@@ -116,6 +116,7 @@
                         app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0"
+                        app:startIconDrawable="@drawable/outline_title_24"
                         app:startIconTint="@color/purple_main">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -132,6 +133,7 @@
                         android:id="@+id/til_post_artwork_desc"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:gravity="top"
                         android:textColorHint="@color/purple_main"
                         app:boxBackgroundColor="@android:color/white"
@@ -140,7 +142,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
                         app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                        app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_title"
+                        app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_dimen"
                         app:layout_constraintVertical_bias="0.0"
                         app:startIconTint="@color/purple_main">
 
@@ -157,7 +159,6 @@
                         android:id="@+id/til_post_artwork_medium"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:textColorHint="@color/purple_main"
                         app:boxBackgroundColor="@android:color/white"
                         app:boxStrokeColor="@color/purple_main"
@@ -165,7 +166,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin"
                         app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin"
-                        app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_desc"
+                        app:layout_constraintTop_toBottomOf="@+id/til_post_artwork_title"
                         app:layout_constraintVertical_bias="0.0"
                         app:startIconDrawable="@drawable/outline_palette_24"
                         app:startIconTint="@color/purple_main">
