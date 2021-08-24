@@ -3,6 +3,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
@@ -31,23 +32,28 @@ class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var etComment: EditText
 
     //Firebase
+    /*
     private lateinit var mAuth: FirebaseAuth
     private lateinit var user: FirebaseUser
     private lateinit var db: DatabaseReference
+
+     */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_comments)
 
         initComponents()
-        initFirebase()
+       // initFirebase()
     }
-
+/*
     private fun initFirebase() {
         this.mAuth = Firebase.auth
         this.user = this.mAuth.currentUser!!
         this.db = Firebase.database.reference
     }
+
+ */
 
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_comments))
@@ -93,12 +99,30 @@ class ViewCommentsActivity : AppCompatActivity() {
 
             val commentText: String = etComment.text.toString().trim()
 
+            Toast.makeText(this, "Working", Toast.LENGTH_LONG).apply {setGravity(Gravity.CENTER, 0, 0); show() }
+
+            /*
             if (!commentText.isEmpty()){
                 val comment: Comment = Comment(R.drawable.chibi_circle, "yey", commentText)
 
-                this.db
-                    .child(Keys.KEY_DB_COMMENTS.name)
-                    .add
+                val postKey = this.db.child(Keys.KEY_DB_COMMENTS.name).push().key!!
+
+                Toast.makeText(this@ViewCommentsActivity, "CHECK " + postKey, Toast.LENGTH_SHORT).show()
+                //this.db.child(Keys.KEY_DB_COMMENTS.name).child(postKey).setValue(comment)
+                /*
+                this.db.child(Keys.KEY_DB_COMMENTS.name).push().setValue(comment)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful){
+                            Toast.makeText(this, "Commented Successfully", Toast.LENGTH_SHORT).show()
+                        }
+
+                        else{
+                            Toast.makeText(this, "Failed to Comment", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+
+                 */
                 /*
                 this.db
                     .child(Keys.KEY_DB_USERS.name)
@@ -114,6 +138,8 @@ class ViewCommentsActivity : AppCompatActivity() {
 
                  */
             }
+
+             */
         }
     }
 }
