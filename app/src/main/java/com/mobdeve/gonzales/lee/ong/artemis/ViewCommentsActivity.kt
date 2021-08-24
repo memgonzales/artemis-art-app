@@ -133,32 +133,17 @@ class ViewCommentsActivity : AppCompatActivity() {
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
         val postKey = commentDB.push().key!!
 
-        Toast.makeText(this, "Working: " + postKey, Toast.LENGTH_LONG).apply{setGravity(Gravity.CENTER, 0, 0); show() }
-
-        /*
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
-        val userKey = userDB.push().key!!
-
-        val user: User = User("Check", "check@gmail.com", "123456")
-        userDB.child(userKey).setValue(user)
-
-         */
-        commentDB.child(postKey).setValue(comment)
-        /*
         commentDB.child(postKey).setValue(comment)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    Toast.makeText(this, "Working", Toast.LENGTH_LONG).apply{setGravity(Gravity.CENTER, 0, 0); show() }
+                    Toast.makeText(this, "Working", Toast.LENGTH_LONG).show()
                 }
 
                 else{
-                    Toast.makeText(this, "Ripp", Toast.LENGTH_LONG).apply{setGravity(Gravity.CENTER, 0, 0); show() }
+                    Toast.makeText(this, "Ripp", Toast.LENGTH_LONG).show()
 
                 }
             }
-
-         */
-
     }
 
     fun onClick(v: View) {
@@ -167,9 +152,15 @@ class ViewCommentsActivity : AppCompatActivity() {
 
         if (v.id == R.id.ib_add_comment) {
             val commentText: String = etComment.text.toString().trim()
-            val comment: Comment = Comment("123456", R.drawable.chibi_circle, "yey", commentText)
-            addComment(comment)
 
+            if (!commentText.isEmpty()){
+                val comment: Comment = Comment("1", R.drawable.chibi_circle, "yey", commentText)
+                addComment(comment)
+            }
+
+            else{
+                Toast.makeText(this, "Kindly input a comment that has at least one character", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

@@ -17,6 +17,10 @@ class Comment {
         this.commentBody = commentBody
     }
 
+    fun getPostId(): String {
+        return this.postId
+    }
+
     fun getProfilePicture(): Int {
         return this.profilePicture
     }
