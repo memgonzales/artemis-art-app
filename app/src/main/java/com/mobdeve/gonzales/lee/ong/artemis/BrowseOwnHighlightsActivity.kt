@@ -53,21 +53,22 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
 
         bnvHighlightsBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
-                R.id.icon_home_bookmarks -> {
+                R.id.icon_home_profile -> {
                     val intent = Intent(this@BrowseOwnHighlightsActivity, BrowseFeedActivity::class.java)
                     startActivity(intent)
                     return@setOnItemSelectedListener true
                 }
-                R.id.icon_follow_bookmarks -> {
+                R.id.icon_follow_profile -> {
                     val intent = Intent(this@BrowseOwnHighlightsActivity, BrowseFeedFollowedActivity::class.java)
                     startActivity(intent)
                     return@setOnItemSelectedListener true
                 }
-                R.id.icon_bookmark_bookmarks -> {
-                    nsvHighlights.fullScroll(ScrollView.FOCUS_UP)
+                R.id.icon_bookmark_profile -> {
+                    val intent = Intent(this@BrowseOwnHighlightsActivity, BrowseBookmarksActivity::class.java)
+                    startActivity(intent)
                     return@setOnItemSelectedListener true
                 }
-                R.id.icon_user_bookmarks -> {
+                R.id.icon_user_profile -> {
                     val intent = Intent(this@BrowseOwnHighlightsActivity, ViewProfileActivity::class.java)
                     startActivity(intent)
                     return@setOnItemSelectedListener true
