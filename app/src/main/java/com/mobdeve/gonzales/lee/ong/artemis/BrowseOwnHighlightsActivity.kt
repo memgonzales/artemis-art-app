@@ -23,7 +23,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_highlights)
+        setContentView(R.layout.activity_browse_highlights)
 
         initComponents()
     }
@@ -54,21 +54,21 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         bnvHighlightsBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
                 R.id.icon_home_bookmarks -> {
-                    val intent = Intent(this@BrowseBookmarksActivity, BrowseFeedActivity::class.java)
+                    val intent = Intent(this@BrowseOwnHighlightsActivity, BrowseFeedActivity::class.java)
                     startActivity(intent)
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_follow_bookmarks -> {
-                    val intent = Intent(this@BrowseBookmarksActivity, BrowseFeedFollowedActivity::class.java)
+                    val intent = Intent(this@BrowseOwnHighlightsActivity, BrowseFeedFollowedActivity::class.java)
                     startActivity(intent)
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_bookmark_bookmarks -> {
-                    nsvBookmarks.fullScroll(ScrollView.FOCUS_UP)
+                    nsvHighlights.fullScroll(ScrollView.FOCUS_UP)
                     return@setOnItemSelectedListener true
                 }
                 R.id.icon_user_bookmarks -> {
-                    val intent = Intent(this@BrowseBookmarksActivity, ViewProfileActivity::class.java)
+                    val intent = Intent(this@BrowseOwnHighlightsActivity, ViewProfileActivity::class.java)
                     startActivity(intent)
                     return@setOnItemSelectedListener true
                 }
