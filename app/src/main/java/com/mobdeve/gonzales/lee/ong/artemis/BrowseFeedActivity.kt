@@ -127,7 +127,6 @@ class BrowseFeedActivity : AppCompatActivity() {
 
     fun onClick(v: View) {
         if (v.id == R.id.fab_feed_add) {
-            Toast.makeText(this, "Checking", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
             startActivity(intent)
         }
