@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.security.Key
 
 class LogInActivity : AppCompatActivity() {
     private lateinit var btnSignUp: Button
@@ -82,13 +82,54 @@ class LogInActivity : AppCompatActivity() {
 
             val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
-            userDB.orderByChild(Keys.username.name).equalTo(username).get()
-                .addOnCompleteListener { dataSnapshot ->
+            userDB.orderByChild(Keys.username.name).equalTo(username)
+                .addListenerForSingleValueEvent(object: ValueEventListener{
+                    override fun onDataChange(dataSnapshot: DataSnapshot){
 
-                }
+                        if (dataSnapshot.childrenCount > 0){
+                            for (userSnap in dataSnapshot.children){
+                                var key = userSnap.key!!
+                                var user = userDB.child(key).child(Keys.username.name).get()
+                                var pw = userDB.child(key).child(Keys.password.name).get()
+
+                                if (user.equals(username) && pw.equals(password)){
+                                    Toast.makeText(this@LogInActivity, "hurrrah", Toast.LENGTH_SHORT).show()
+                                }
+
+                                else{
+                                    Toast.makeText(this@LogInActivity, "Invalid username/password", Toast.LENGTH_SHORT).show()
+                                }
+
+                            }
+                        }
+
+                        else{
+                            Toast.makeText(this@LogInActivity, "Invalid username/password", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
 
 
 
+                    /*
+                .addChildEventListener(object: ChildEventListener{
+                    override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                        var user = snapshot.getValue()
+                        var pw = userDB.child(snapshot.key!!).child(Keys.password.name).get()
+
+                        if (username.equals(user) && password.equals(pw)){
+                            Toast.makeText(this@LogInActivity, "hurrayy", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                })
+
+                     */
             //Toast.makeText(this, "Check: " + usernameLogin, Toast.LENGTH_SHORT).show()
             /*
             customToken?.let{
@@ -123,6 +164,7 @@ class LogInActivity : AppCompatActivity() {
                     }
                 }
 */
+
 
             val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
             startActivity(i)
