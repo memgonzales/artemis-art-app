@@ -53,7 +53,7 @@ class ViewProfileActivity : AppCompatActivity() {
         })
 
         clViewProfileViewPosts.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@ViewProfileActivity, BrowseOwnPosts::class.java)
+            val intent = Intent(this@ViewProfileActivity, BrowseOwnPostsActivity::class.java)
             startActivity(intent)
         })
 

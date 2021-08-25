@@ -50,8 +50,9 @@
             android:parentActivityName=".ViewProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BrowseOwnPosts"
+            android:name=".BrowseOwnPostsActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".ViewProfileActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BrowseOwnHighlightsActivity"

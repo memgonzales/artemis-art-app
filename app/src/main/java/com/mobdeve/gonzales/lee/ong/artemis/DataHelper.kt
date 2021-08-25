@@ -310,7 +310,7 @@ object DataHelper {
                 "Iconic low res gappy",
                 arrayTags,
                 false,
-                true,
+                false,
                 true
             )
         )
@@ -329,7 +329,7 @@ object DataHelper {
                 "Almost time for stone ocean!!",
                 arrayTags,
                 false,
-                true,
+                false,
                 true
             )
         )
@@ -396,6 +396,71 @@ object DataHelper {
                 false,
                 true,
                 true
+            )
+        )
+
+        return data
+    }
+
+    fun loadOwnPostsData(): ArrayList<Post> {
+        val data = ArrayList<Post>()
+        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches")
+
+        data.add(
+            Post(
+                R.drawable.tofu_chan,
+                "Tobe",
+                R.drawable.surprised_gappy,
+                "Josuk8",
+                90,
+                10,
+                CustomDate(2021, 7, 20),
+                "Digital Art",
+                900,
+                900,
+                "Iconic low res gappy",
+                arrayTags,
+                false,
+                false,
+                true
+            )
+        )
+        data.add(
+            Post(
+                R.drawable.tofu_chan,
+                "Tobe",
+                R.drawable.so_key_visual,
+                "Stone Ocean 2021 Key Visual",
+                90,
+                10,
+                CustomDate(2021, 7, 20),
+                "Digital Art",
+                900,
+                900,
+                "Almost time for stone ocean!!",
+                arrayTags,
+                false,
+                false,
+                true
+            )
+        )
+        data.add(
+            Post(
+                R.drawable.tofu_chan,
+                "Tobe",
+                R.drawable.starry_night_full,
+                "Wavey",
+                90,
+                10,
+                CustomDate(2021, 7, 20),
+                "Painting",
+                1014,
+                1280,
+                "Wavey :D",
+                arrayTags,
+                false,
+                false,
+                false
             )
         )
 
