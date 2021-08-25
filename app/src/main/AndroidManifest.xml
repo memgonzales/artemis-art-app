@@ -56,6 +56,7 @@
             android:name=".BrowseOwnPostsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".ViewProfileActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BrowseOwnHighlightsActivity"
