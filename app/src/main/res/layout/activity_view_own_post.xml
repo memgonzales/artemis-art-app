@@ -166,7 +166,7 @@
                         android:layout_marginRight="4dp"
                         android:text="100 Upvotes"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toTopOf="@id/cl_item_view_own_post_upvote"
+                        app:layout_constraintBottom_toTopOf="@id/cl_item_view_own_post_highlight"
                         app:layout_constraintEnd_toStartOf="@+id/tv_item_view_own_post_dot"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintHorizontal_chainStyle="packed"
@@ -227,7 +227,7 @@
                         app:layout_constraintGuide_percent="0.66" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cl_item_view_own_post_upvote"
+                        android:id="@+id/cl_item_view_own_post_highlight"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
@@ -273,10 +273,10 @@
                         android:layout_height="35dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        app:layout_constraintBottom_toBottomOf="@+id/cl_item_view_own_post_upvote"
+                        app:layout_constraintBottom_toBottomOf="@+id/cl_item_view_own_post_highlight"
                         app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_two_thirds"
                         app:layout_constraintStart_toStartOf="@+id/gl_item_view_own_post_one_third"
-                        app:layout_constraintTop_toTopOf="@+id/cl_item_view_own_post_upvote">
+                        app:layout_constraintTop_toTopOf="@+id/cl_item_view_own_post_highlight">
 
                         <ImageView
                             android:id="@+id/iv_item_view_own_post_comment"
@@ -314,10 +314,10 @@
                         android:layout_height="35dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        app:layout_constraintBottom_toBottomOf="@+id/cl_item_view_own_post_upvote"
+                        app:layout_constraintBottom_toBottomOf="@+id/cl_item_view_own_post_highlight"
                         app:layout_constraintEnd_toStartOf="@id/gl_item_view_own_post_right_margin"
                         app:layout_constraintStart_toStartOf="@id/gl_item_view_own_post_two_thirds"
-                        app:layout_constraintTop_toTopOf="@+id/cl_item_view_own_post_upvote">
+                        app:layout_constraintTop_toTopOf="@+id/cl_item_view_own_post_highlight">
 
                         <ImageView
                             android:id="@+id/iv_item_view_own_post_share"
@@ -362,7 +362,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_right_margin"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_item_view_own_post_left_text"
-                        app:layout_constraintTop_toBottomOf="@id/cl_item_view_own_post_upvote"
+                        app:layout_constraintTop_toBottomOf="@id/cl_item_view_own_post_highlight"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView

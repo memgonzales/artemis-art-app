@@ -58,7 +58,7 @@ class EditPostActivity : AppCompatActivity() {
         val medium = intent.getStringExtra(Keys.KEY_MEDIUM.name)
         val dimension = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
-        val tags = intent.getStringArrayExtra(Keys.KEY_TAGS.name)
+        val tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)
         val postImg = intent.getIntExtra(Keys.KEY_POST.name, 0)
 
         val tagsString = tags?.joinToString(", ")

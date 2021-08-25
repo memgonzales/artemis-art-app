@@ -55,7 +55,18 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
                 Keys.KEY_TAGS.name,
                 dataPosts[ownPostsViewHolder.bindingAdapterPosition].getTags()
             )
-
+            intent.putExtra(
+                Keys.KEY_NUM_UPVOTES.name,
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getNumUpvotes()
+            )
+            intent.putExtra(
+                Keys.KEY_NUM_COMMENTS.name,
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getNumComments()
+            )
+            intent.putExtra(
+                Keys.KEY_HIGHLIGHT.name,
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getHighlight()
+            )
 
             view.context.startActivity(intent)
         }
