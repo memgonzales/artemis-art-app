@@ -27,7 +27,7 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
             )
             intent.putExtra(
                 Keys.KEY_POST.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getPost()
+                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getPostImg()
             )
             intent.putExtra(
                 Keys.KEY_TITLE.name,
@@ -35,7 +35,7 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
             )
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getDatePosted().toStringFull()
+                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getDatePosted()
             )
             intent.putExtra(
                 Keys.KEY_MEDIUM.name,
@@ -43,11 +43,7 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
             )
             intent.putExtra(
                 Keys.KEY_DIM_HEIGHT.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getDimHeight()
-            )
-            intent.putExtra(
-                Keys.KEY_DIM_WIDTH.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getDimWidth()
+                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getDimensions()
             )
             intent.putExtra(
                 Keys.KEY_DESCRIPTION.name,
@@ -66,7 +62,7 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
 
     override fun onBindViewHolder(holder: BookmarksViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemSearchResults(currentPost.getPost())
+        holder.setItemSearchResults(currentPost.getPostImg())
     }
 
     override fun getItemCount(): Int {

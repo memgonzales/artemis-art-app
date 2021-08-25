@@ -11,6 +11,7 @@ enum class Keys {
     KEY_MEDIUM,
     KEY_DIM_HEIGHT,
     KEY_DIM_WIDTH,
+    KEY_DIMENSIONS,
     KEY_DESCRIPTION,
     KEY_TAGS,
     KEY_BOOKMARK,

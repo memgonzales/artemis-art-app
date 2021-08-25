@@ -12,8 +12,7 @@ class Comment {
         this.profilePicture = profilePicture
         this.username = username
 
-        var dateCommented: CustomDate = CustomDate()
-        this.dateCommented = dateCommented.toStringFull()
+        this.dateCommented = CustomDate().toStringFull()
         this.commentBody = commentBody
     }
 

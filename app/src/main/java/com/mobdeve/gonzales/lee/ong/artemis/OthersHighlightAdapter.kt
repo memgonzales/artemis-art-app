@@ -27,7 +27,7 @@ class OthersHighlightAdapter(private val dataPosts: ArrayList<Post>) :
             )
             intent.putExtra(
                 Keys.KEY_POST.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getPost()
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getPostImg()
             )
             intent.putExtra(
                 Keys.KEY_TITLE.name,
@@ -35,19 +35,15 @@ class OthersHighlightAdapter(private val dataPosts: ArrayList<Post>) :
             )
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDatePosted().toStringFull()
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDatePosted()
             )
             intent.putExtra(
                 Keys.KEY_MEDIUM.name,
                 dataPosts[highlightsViewHolder.bindingAdapterPosition].getMedium()
             )
             intent.putExtra(
-                Keys.KEY_DIM_HEIGHT.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDimHeight()
-            )
-            intent.putExtra(
-                Keys.KEY_DIM_WIDTH.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDimWidth()
+                Keys.KEY_DIMENSIONS.name,
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDimensions()
             )
             intent.putExtra(
                 Keys.KEY_DESCRIPTION.name,
@@ -62,7 +58,7 @@ class OthersHighlightAdapter(private val dataPosts: ArrayList<Post>) :
 
     override fun onBindViewHolder(holder: HighlightsViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemSearchResults(currentPost.getPost())
+        holder.setItemSearchResults(currentPost.getPostImg())
     }
 
     override fun getItemCount(): Int {
