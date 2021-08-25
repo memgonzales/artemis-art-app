@@ -114,7 +114,7 @@
                     app:startIconTint="@color/purple_main">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiel_post_add_tags_desc"
+                        android:id="@+id/tiet_post_add_tags_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Separate tags by commas"
@@ -211,6 +211,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
+            android:clickable="false"
             android:text="Post Artwork"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_post_add_tags_right_margin_bottom"
