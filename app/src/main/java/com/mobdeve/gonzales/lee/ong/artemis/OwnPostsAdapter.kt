@@ -3,6 +3,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
 
@@ -76,9 +77,15 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
         holder.setOwnPostComments(currentPost.getNumComments().toString() + " comments")
         holder.setOwnPostHighlight(currentPost.getHighlight())
 
-        holder.setOwnPostHighlightOnClickListener {
-            currentPost.setHighlight(!currentPost.getHighlight())
-            holder.setOwnPostHighlight(currentPost.getHighlight())
+        holder.setOwnPostHighlightOnClickListener { view ->
+            if (currentPost.getHighlight()) {
+                currentPost.setHighlight(false)
+                holder.setOwnPostHighlight(currentPost.getHighlight())
+            } else {
+                currentPost.setHighlight(true)
+                holder.setOwnPostHighlight(currentPost.getHighlight())
+                Toast.makeText(view.context, "Added to your Highlights", Toast.LENGTH_SHORT).show()
+            }
         }
 
         holder.setOwnPostProfileOnClickListener { view ->
