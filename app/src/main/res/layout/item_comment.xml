@@ -77,7 +77,8 @@
             app:layout_constraintStart_toStartOf="@+id/gl_item_comment_right_user_pic"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.133"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="wrap" />
 
         <TextView
             android:id="@+id/tv_item_comment_date"
@@ -99,10 +100,11 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:backgroundTint="@android:color/transparent"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_item_comment_date"
+            app:layout_constraintBottom_toBottomOf="@+id/civ_item_comment_profile_pic"
             app:layout_constraintEnd_toStartOf="@+id/gl_item_comment_right_margin"
-            app:layout_constraintStart_toEndOf="@+id/tv_item_comment_username"
-            app:layout_constraintTop_toTopOf="@+id/tv_item_comment_username"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/civ_item_comment_profile_pic"
+            app:layout_constraintTop_toTopOf="@+id/civ_item_comment_profile_pic"
             app:srcCompat="@drawable/outline_more_vert_24" />
 
         <TextView
