@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -77,8 +78,16 @@ class LogInActivity : AppCompatActivity() {
             var password: String? = tietPassword.text.toString().trim()
 
             //Toast.makeText(this, "Working", Toast.LENGTH_SHORT).show()
-            //val userDB = this.db.child(Keys.KEY_DB_USERS.name)
-            //val usernameLogin = userDB.orderByChild(Keys.KEY_DB_USERNAMES.name).equalTo(username)
+            /*
+            val userDB = this.db.child(Keys.KEY_DB_USERS.name)
+
+            userDB.orderByChild(Keys.KEY_DB_USERNAMES.name).equalTo(username).get()
+                .addOnCompleteListener { dataSnapshot ->
+
+                }
+
+
+             */
 
             //Toast.makeText(this, "Check: " + usernameLogin, Toast.LENGTH_SHORT).show()
             /*

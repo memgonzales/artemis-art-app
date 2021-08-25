@@ -136,14 +136,15 @@ class ViewCommentsActivity : AppCompatActivity() {
         commentDB.child(postKey).setValue(comment)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    Toast.makeText(this, "Working", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Commented Successfully", Toast.LENGTH_LONG).show()
                 }
 
                 else{
-                    Toast.makeText(this, "Ripp", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Failed to Comment", Toast.LENGTH_LONG).show()
 
                 }
             }
+
     }
 
     fun onClick(v: View) {
