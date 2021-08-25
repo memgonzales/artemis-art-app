@@ -24,6 +24,11 @@ class PostAddTagsActivity : AppCompatActivity() {
     private lateinit var userId: String
     private lateinit var db: DatabaseReference
 
+    private lateinit var title: String
+    private lateinit var medium: String
+    private lateinit var dimensions: String
+    private lateinit var desc: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_add_tags)
@@ -43,7 +48,8 @@ class PostAddTagsActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_post_add_tags))
         initActionBar()
 
-        addTags()
+        initDetails()
+        addTagsAndPost()
     }
 
     private fun initActionBar() {
@@ -51,27 +57,44 @@ class PostAddTagsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    override fun onBackPressed() {
+        val i = Intent(this, PostArtworkActivity::class.java)
+        /*
+        val i = Intent(Intent.ACTION_MAIN)
+        i.addCategory(Intent.CATEGORY_HOME)
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+*/
 
-    private fun addTags(){
+        i.putExtra(Keys.KEY_TITLE.name, title)
+        i.putExtra(Keys.KEY_MEDIUM.name, medium)
+        i.putExtra(Keys.KEY_DIMENSIONS.name, dimensions)
+        i.putExtra(Keys.KEY_DESCRIPTION.name, desc)
+
+
+        startActivity(i)
+    }
+
+    private fun initDetails(){
+        this.title = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
+        this.medium = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
+        this.dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
+        this.desc = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
+    }
+
+    private fun addTagsAndPost(){
         this.tietTags = findViewById(R.id.tiet_post_add_tags_desc)
         this.btnAddTag = findViewById(R.id.btn_post_add_tags_save)
 
         this.btnAddTag.setOnClickListener {
             var tags: ArrayList<String> = tietTags.text.toString().trim().split(',').toCollection(ArrayList())
-            //var allTags: Array<String> = tag.toTypedArray()
-            //var allTages: ArrayList<String> = ArrayList<String>()
-            val title: String = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
-            val medium: String = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
-            val dimension: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
-            val desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
 
-            Toast.makeText(this, "title: " + title, Toast.LENGTH_SHORT).show()
-           // Toast.makeText(this, "med: " + medium, Toast.LENGTH_SHORT).show()
-            //Toast.makeText(this, "dimension: " + dimension, Toast.LENGTH_SHORT).show()
-           // Toast.makeText(this, "desc: " + desc, Toast.LENGTH_SHORT).show()
-            //Toast.makeText(this, "tags: " + allTags, Toast.LENGTH_SHORT).show()
+            var title: String = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
+            var medium: String = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
+            var dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
+            var desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
+
             val post: Post = Post(R.drawable.chibi_circle, "bio2", title, R.drawable.magia_record,
-                                medium, dimension, desc, tags)
+                                medium, dimensions, desc, tags)
 
             val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
             val postKey = postDB.push().key!!
