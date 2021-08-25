@@ -38,6 +38,8 @@ class PostAddTagsActivity : AppCompatActivity() {
         this.btnAddTag.setOnClickListener {
             var tag = tietTags.text.toString().trim().split(',')
             Toast.makeText(this, "Check: " + tag, Toast.LENGTH_SHORT).show()
+
+
         }
     }
 }

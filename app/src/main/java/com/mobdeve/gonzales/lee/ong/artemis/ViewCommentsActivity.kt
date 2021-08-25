@@ -62,6 +62,8 @@ class ViewCommentsActivity : AppCompatActivity() {
         initShimmer()
         initActionBar()
         initBottom()
+
+        addComment()
     }
 
     private fun initShimmer() {
@@ -143,32 +145,26 @@ class ViewCommentsActivity : AppCompatActivity() {
                 else{
                     this.pbComment.visibility = View.VISIBLE
                     Toast.makeText(this, "Failed to Comment", Toast.LENGTH_LONG).show()
-
                 }
             }
-
     }
 
-    fun onClick(v: View) {
+    private fun addComment() {
         this.ibAddComment = findViewById(R.id.ib_add_comment)
         this.etComment = findViewById(R.id.et_add_comment)
         this.pbComment = findViewById(R.id.pb_view_comments)
 
-        if (v.id == R.id.ib_add_comment) {
+        this.ibAddComment.setOnClickListener {
             val commentText: String = etComment.text.toString().trim()
 
-            if (!commentText.isEmpty()){
+            if (!commentText.isEmpty()) {
                 this.pbComment.visibility = View.VISIBLE
 
                 val comment: Comment = Comment("1", R.drawable.chibi_circle, "yey", commentText)
                 addComment(comment)
-            }
-
-            else{
+            } else {
                 Toast.makeText(this, "Comments should not be blank", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
-
 }

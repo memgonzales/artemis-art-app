@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
@@ -23,6 +24,8 @@ class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var sflFeed: ShimmerFrameLayout
     private lateinit var bnvFeedBottom: BottomNavigationView
     private lateinit var nsvFeed: NestedScrollView
+
+    private lateinit var fabAddPost: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,8 @@ class BrowseFeedActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_feed))
         initShimmer()
         initBottom()
+
+        addPost()
     }
 
     private fun initShimmer() {
@@ -125,8 +130,10 @@ class BrowseFeedActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun onClick(v: View) {
-        if (v.id == R.id.fab_feed_add) {
+    private fun addPost(){
+        this.fabAddPost = findViewById(R.id.fab_feed_add)
+
+        this.fabAddPost.setOnClickListener {
             val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
             startActivity(intent)
         }
