@@ -11,7 +11,8 @@
         android:theme="@style/Theme.Artemis">
         <activity android:name=".ViewUserUnregisteredActivity"></activity>
         <activity android:name=".ViewOthersHighlightUnregisteredActivity" />
-        <activity android:name=".ViewOwnPostActivity" />
+        <activity android:name=".ViewOwnPostActivity"
+            android:parentActivityName=".BrowseOwnPostsActivity"/>
         <activity
             android:name=".PostAddTagsActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -52,8 +53,9 @@
             android:parentActivityName=".ViewProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BrowseOwnPosts"
+            android:name=".BrowseOwnPostsActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".ViewProfileActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BrowseOwnHighlightsActivity"

@@ -55,7 +55,7 @@ class HighlightsAdapter(private val dataPosts: ArrayList<Post>) :
             )
             intent.putExtra(
                 Keys.KEY_HIGHLIGHT.name,
-                true
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getHighlight()
             )
 
             view.context.startActivity(intent)
