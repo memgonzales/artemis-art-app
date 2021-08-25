@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_post_add_tags_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:onClick="onClick">
+    android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coord_post_add_tags"
@@ -212,7 +211,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:clickable="true"
+            android:clickable="false"
             android:text="Post Artwork"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_post_add_tags_right_margin_bottom"

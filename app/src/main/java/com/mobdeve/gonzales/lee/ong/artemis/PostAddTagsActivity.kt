@@ -21,6 +21,8 @@ class PostAddTagsActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_post_add_tags))
         initActionBar()
+
+        addTags()
     }
 
     private fun initActionBar() {
@@ -28,22 +30,14 @@ class PostAddTagsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
-    /*
+
     private fun addTags(){
         this.tietTags = findViewById(R.id.tiet_post_add_tags_desc)
         this.btnAddTag = findViewById(R.id.btn_post_add_tags_save)
 
         this.btnAddTag.setOnClickListener {
-            //var tag = tietTags.text.toString().trim().split(',')
-            Toast.makeText(this, "Check: ", Toast.LENGTH_SHORT).show()
+            var tag = tietTags.text.toString().trim().split(',')
+            Toast.makeText(this, "Check: " + tag, Toast.LENGTH_SHORT).show()
         }
     }
-
-    fun onClick(v: View){
-        if (v.id == R.id.btn_post_add_tags_save){
-            Toast.makeText(this, "Check: ", Toast.LENGTH_SHORT).show()a
-        }
-    }
-
-     */
 }
