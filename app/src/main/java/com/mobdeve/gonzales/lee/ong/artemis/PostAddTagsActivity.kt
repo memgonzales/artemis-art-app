@@ -58,18 +58,16 @@ class PostAddTagsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val i = Intent(this, PostArtworkActivity::class.java)
-        /*
         val i = Intent(Intent.ACTION_MAIN)
         i.addCategory(Intent.CATEGORY_HOME)
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-*/
+        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        i.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
 
         i.putExtra(Keys.KEY_TITLE.name, title)
         i.putExtra(Keys.KEY_MEDIUM.name, medium)
         i.putExtra(Keys.KEY_DIMENSIONS.name, dimensions)
         i.putExtra(Keys.KEY_DESCRIPTION.name, desc)
-
 
         startActivity(i)
     }

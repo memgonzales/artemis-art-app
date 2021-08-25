@@ -74,20 +74,20 @@ class LogInActivity : AppCompatActivity() {
             this.tietUsername = findViewById(R.id.tiet_log_in_username)
             this.tietPassword = findViewById(R.id.tiet_log_in_password)
 
-            var username: String? = tietUsername.text.toString().trim()
-            var password: String? = tietPassword.text.toString().trim()
+            var username: String = tietUsername.text.toString().trim()
+            var password: String = tietPassword.text.toString().trim()
+
 
             //Toast.makeText(this, "Working", Toast.LENGTH_SHORT).show()
-            /*
+
             val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
-            userDB.orderByChild(Keys.KEY_DB_USERNAMES.name).equalTo(username).get()
+            userDB.orderByChild(Keys.username.name).equalTo(username).get()
                 .addOnCompleteListener { dataSnapshot ->
 
                 }
 
 
-             */
 
             //Toast.makeText(this, "Check: " + usernameLogin, Toast.LENGTH_SHORT).show()
             /*

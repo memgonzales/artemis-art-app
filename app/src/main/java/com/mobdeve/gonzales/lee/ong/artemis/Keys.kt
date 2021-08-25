@@ -17,6 +17,7 @@ enum class Keys {
     KEY_HIGHLIGHT,
 
     KEY_DB_USERS,
+    username,
     bio,
     KEY_DB_POSTS,
     KEY_DB_COMMENTS
