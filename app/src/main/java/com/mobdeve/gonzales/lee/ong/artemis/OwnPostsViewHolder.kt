@@ -60,7 +60,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             )
             tvOwnPostHighlight.setTextColor(
                 ColorStateList.valueOf(
-                ContextCompat.getColor(tvOwnPostHighlight.context, R.color.pinkish_purple)))
+                    ContextCompat.getColor(tvOwnPostHighlight.context, R.color.pinkish_purple)))
         } else {
             ivOwnPostHighlight.setImageResource(R.drawable.outline_star_border_24)
             ivOwnPostHighlight.imageTintList = ColorStateList.valueOf(
@@ -68,7 +68,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             )
             tvOwnPostHighlight.setTextColor(
                 ColorStateList.valueOf(
-                ContextCompat.getColor(tvOwnPostHighlight.context, R.color.default_gray)))
+                    ContextCompat.getColor(tvOwnPostHighlight.context, R.color.default_gray)))
         }
     }
 
@@ -82,16 +82,15 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     init {
-        civItemFeedProfilePic = itemView.findViewById(R.id.civ_item_feed_profile_pic)
-        tvItemFeedUsername = itemView.findViewById(R.id.tv_item_feed_username)
-        ivItemFeedPost = itemView.findViewById(R.id.iv_item_feed_post)
-        tvItemFeedTitle = itemView.findViewById(R.id.tv_item_feed_title)
-        tvItemFeedUpvoteCounter = itemView.findViewById(R.id.tv_item_feed_upvote_counter)
-        tvItemFeedComments = itemView.findViewById(R.id.tv_item_feed_comments)
-        ibItemFeedBookmark = itemView.findViewById(R.id.ib_item_feed_bookmark)
-        ivItemFeedUpvote = itemView.findViewById(R.id.iv_item_feed_upvote)
-        tvItemFeedUpvote = itemView.findViewById(R.id.tv_item_feed_upvote)
-        clItemFeedUpvote = itemView.findViewById(R.id.cl_item_feed_upvote)
-        clItemFeedComment = itemView.findViewById(R.id.cl_item_feed_comment)
+        civOwnPostProfilePic = itemView.findViewById(R.id.civ_item_own_post_profile_pic)
+        tvOwnPostUsername = itemView.findViewById(R.id.tv_item_own_post_username)
+        ivOwnPostPost = itemView.findViewById(R.id.iv_item_own_post_post)
+        tvOwnPostTitle = itemView.findViewById(R.id.tv_item_own_post_title)
+        tvOwnPostUpvoteCounter = itemView.findViewById(R.id.tv_item_own_post_upvote_counter)
+        tvOwnPostComments = itemView.findViewById(R.id.tv_item_own_post_comments)
+        ivOwnPostHighlight = itemView.findViewById(R.id.iv_item_own_post_highlight)
+        tvOwnPostHighlight = itemView.findViewById(R.id.tv_item_own_post_highlight)
+        clOwnPostHighlight = itemView.findViewById(R.id.cl_item_own_post_highlight)
+        clOwnPostComment = itemView.findViewById(R.id.cl_item_own_post_comment)
     }
 }
