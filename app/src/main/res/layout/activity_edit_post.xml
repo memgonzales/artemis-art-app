@@ -140,7 +140,7 @@
                     app:startIconTint="@color/purple_main">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiel_edit_artwork_desc"
+                        android:id="@+id/tiet_edit_artwork_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Describe your artwork"
@@ -166,7 +166,7 @@
                     app:startIconTint="@color/purple_main">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiel_edit_artwork_tags"
+                        android:id="@+id/tiet_edit_artwork_tags"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Separate tags by commas"

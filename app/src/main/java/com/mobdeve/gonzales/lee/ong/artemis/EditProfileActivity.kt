@@ -40,7 +40,7 @@ class EditProfileActivity : AppCompatActivity() {
         this.btnEditProfileSave = findViewById(R.id.btn_edit_profile_save)
 
         btnEditProfileSave.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@EditProfileActivity, "Your profile details have been updated.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@EditProfileActivity, ViewProfileActivity::class.java)
             startActivity(intent)
             finish()
@@ -59,12 +59,12 @@ class EditProfileActivity : AppCompatActivity() {
             this.clDialogProfilePictureDelete = btmProfilePicture.findViewById(R.id.cl_dialog_profile_picture_delete)!!
 
             clDialogProfilePictureEdit.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@EditProfileActivity, "Profile picture is edited.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@EditProfileActivity, "Profile picture is edited", Toast.LENGTH_SHORT).show()
                 btmProfilePicture.dismiss()
             })
 
             clDialogProfilePictureDelete.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@EditProfileActivity, "Profile picture is deleted.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@EditProfileActivity, "Profile picture is deleted", Toast.LENGTH_SHORT).show()
                 btmProfilePicture.dismiss()
             })
 

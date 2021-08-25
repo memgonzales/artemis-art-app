@@ -33,6 +33,7 @@
             android:name=".EditPostActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
+            android:parentActivityName=".BrowseOwnPostsActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ViewPostFollowedActivity"
@@ -62,6 +63,7 @@
             android:name=".BrowseOwnHighlightsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".ViewProfileActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".EditProfileActivity"
