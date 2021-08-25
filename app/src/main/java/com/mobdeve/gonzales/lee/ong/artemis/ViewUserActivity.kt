@@ -3,6 +3,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -21,7 +22,6 @@ class ViewUserActivity : AppCompatActivity() {
     private lateinit var btnViewUserFollow: Button
     private lateinit var bnvViewUserBottom: BottomNavigationView
     private lateinit var nsvViewUser: NestedScrollView
-    private lateinit var dataUser: User
     private lateinit var dataHighlights: ArrayList<Post>
     private lateinit var rvViewUser: RecyclerView
     private lateinit var highlightAdapter: OthersHighlightAdapter
@@ -41,16 +41,16 @@ class ViewUserActivity : AppCompatActivity() {
         this.btnViewUserFollow = findViewById(R.id.btn_view_user_follow)
         this.bnvViewUserBottom = findViewById(R.id.nv_view_user_bottom)
         this.nsvViewUser = findViewById(R.id.nsv_view_user)
-        this.dataUser = DataHelper.loadOtherUserData()
         this.dataHighlights = DataHelper.loadOthersHighlightData()
 
         val intent: Intent = intent
         val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
+        val bio = intent.getStringExtra(Keys.KEY_BIO.name)
 
         this.civViewUserProfilePicture.setImageResource(profilePicture)
         this.tvViewUserUsername.text = username
-        this.tvViewUserBio.text = dataUser.getBio()
+        this.tvViewUserBio.text = bio
 
         btnViewUserFollow.setOnClickListener(View.OnClickListener {
             Toast.makeText(this@ViewUserActivity, "User followed.", Toast.LENGTH_SHORT).show()
@@ -104,5 +104,20 @@ class ViewUserActivity : AppCompatActivity() {
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        when(id) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            } else -> {
+            return super.onOptionsItemSelected(item)
+        }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

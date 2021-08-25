@@ -136,7 +136,6 @@
             android:name=".ViewPostActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
-            android:parentActivityName=".BrowseFeedActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BrowseFeedActivity"

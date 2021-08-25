@@ -270,18 +270,6 @@ object DataHelper {
         return data
     }
 
-    fun loadOtherUserData(): User {
-        val data = User(
-            "shiberino",
-            "bestdoggo@gmail.com",
-            "shibepassword",
-            R.drawable.shoob,
-            "Hello, world!"
-        )
-
-        return data
-    }
-
     fun loadHighlightsData(): ArrayList<Post> {
         val data = ArrayList<Post>()
         val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
