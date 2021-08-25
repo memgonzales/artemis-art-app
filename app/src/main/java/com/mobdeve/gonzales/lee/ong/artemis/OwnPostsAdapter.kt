@@ -51,6 +51,10 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
                 Keys.KEY_DESCRIPTION.name,
                 dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDescription()
             )
+            intent.putExtra(
+                Keys.KEY_TAGS.name,
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getTags()
+            )
 
             view.context.startActivity(intent)
         }
