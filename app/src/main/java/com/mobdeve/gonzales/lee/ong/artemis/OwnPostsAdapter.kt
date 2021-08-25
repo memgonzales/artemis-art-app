@@ -7,67 +7,89 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
 
 class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
-    RecyclerView.Adapter<HighlightsViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HighlightsViewHolder {
+    RecyclerView.Adapter<OwnPostsViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OwnPostsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_own_post, parent, false)
 
-        val highlightsViewHolder = HighlightsViewHolder(itemView)
+        val ownPostsViewHolder = OwnPostsViewHolder(itemView)
 
         itemView.setOnClickListener { view ->
             val intent = Intent(view.context, ViewOwnPostActivity::class.java)
 
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getProfilePicture()
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getProfilePicture()
             )
             intent.putExtra(
                 Keys.KEY_USERNAME.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getUsername()
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getUsername()
             )
             intent.putExtra(
                 Keys.KEY_POST.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getPost()
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getPost()
             )
             intent.putExtra(
                 Keys.KEY_TITLE.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getTitle()
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getTitle()
             )
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDatePosted()
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDatePosted()
                     .toStringFull()
             )
             intent.putExtra(
                 Keys.KEY_MEDIUM.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getMedium()
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getMedium()
             )
             intent.putExtra(
                 Keys.KEY_DIM_HEIGHT.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDimHeight()
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDimHeight()
             )
             intent.putExtra(
                 Keys.KEY_DIM_WIDTH.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDimWidth()
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDimWidth()
             )
             intent.putExtra(
                 Keys.KEY_DESCRIPTION.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDescription()
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDescription()
             )
             intent.putExtra(
                 Keys.KEY_HIGHLIGHT.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getHighlight()
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getHighlight()
             )
 
             view.context.startActivity(intent)
         }
 
-        return highlightsViewHolder
+        ownPostsViewHolder.setOwnPostCommentOnClickListener { view ->
+            val intent = Intent(view.context, ViewCommentsActivity::class.java)
+            view.context.startActivity(intent)
+        }
+
+        return ownPostsViewHolder
     }
 
-    override fun onBindViewHolder(holder: HighlightsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: OwnPostsViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemSearchResults(currentPost.getPost())
+
+        holder.setOwnPostProfilePic(currentPost.getProfilePicture())
+        holder.setOwnPostUsername(currentPost.getUsername())
+        holder.setOwnPostPost(currentPost.getPost())
+        holder.setOwnPostTitle(currentPost.getTitle())
+        holder.setOwnPostUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
+        holder.setOwnPostComments(currentPost.getNumComments().toString() + " comments")
+        holder.setOwnPostHighlight(currentPost.getHighlight())
+
+        holder.setOwnPostHighlightOnClickListener {
+            currentPost.setHighlight(!currentPost.getHighlight())
+            holder.setOwnPostHighlight(currentPost.getHighlight())
+        }
+
+        holder.setOwnPostProfileOnClickListener { view ->
+            val intent = Intent(view.context, ViewProfileActivity::class.java)
+            view.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -11,7 +11,8 @@
         android:theme="@style/Theme.Artemis">
         <activity android:name=".ViewUserUnregisteredActivity"></activity>
         <activity android:name=".ViewOthersHighlightUnregisteredActivity" />
-        <activity android:name=".ViewOwnPostActivity" />
+        <activity android:name=".ViewOwnPostActivity"
+            android:parentActivityName=".BrowseOwnPostsActivity"/>
         <activity
             android:name=".PostAddTagsActivity"
             android:configChanges="orientation|keyboardHidden"
