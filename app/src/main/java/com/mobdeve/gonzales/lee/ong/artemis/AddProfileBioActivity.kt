@@ -61,7 +61,7 @@ class AddProfileBioActivity : AppCompatActivity() {
         this.btnAddBio.setOnClickListener {
             val bio: String = tielBio.text.toString().trim()
 
-            this.db.child(Keys.KEY_DB_USERS.name).child(this.user.uid).child(Keys.KEY_DB_BIO.name).setValue(bio)
+            this.db.child(Keys.KEY_DB_USERS.name).child(this.user.uid).child(Keys.KEY_DB_USERS_BIO.name).setValue(bio)
 
             val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
             startActivity(i)

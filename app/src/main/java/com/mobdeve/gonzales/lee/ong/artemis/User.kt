@@ -7,12 +7,12 @@ class User {
     private var userImg: Int
     private var bio: String
 
-    private var bookmarks: ArrayList<Int>
-    private var userPosts: ArrayList<Int>
-    private var highlights: ArrayList<Int>
-    private var upvotedPosts: ArrayList<Int>
-    private var usersFollowed: ArrayList<Int>
-    private var comments: ArrayList<Int>
+    private var bookmarks: ArrayList<String>
+    private var userPosts: ArrayList<String>
+    private var highlights: ArrayList<String>
+    private var upvotedPosts: ArrayList<String>
+    private var usersFollowed: ArrayList<String>
+    private var comments: ArrayList<String>
 
     constructor(username: String, email: String, password: String){
         this.username = username
@@ -21,12 +21,12 @@ class User {
         this.userImg = R.drawable.chibi_circle
         this.bio = ""
 
-        this.bookmarks = ArrayList<Int>()
-        this.userPosts = ArrayList<Int>()
-        this.highlights = ArrayList<Int>()
-        this.upvotedPosts = ArrayList<Int>()
-        this.usersFollowed = ArrayList<Int>()
-        this.comments = ArrayList<Int>()
+        this.bookmarks = ArrayList<String>()
+        this.userPosts = ArrayList<String>()
+        this.highlights = ArrayList<String>()
+        this.upvotedPosts = ArrayList<String>()
+        this.usersFollowed = ArrayList<String>()
+        this.comments = ArrayList<String>()
     }
 
     constructor(username: String, email: String, password: String, userImg: Int, bio: String){
@@ -36,12 +36,12 @@ class User {
         this.userImg = userImg
         this.bio = bio
 
-        this.bookmarks = ArrayList<Int>()
-        this.userPosts = ArrayList<Int>()
-        this.highlights = ArrayList<Int>()
-        this.upvotedPosts = ArrayList<Int>()
-        this.usersFollowed = ArrayList<Int>()
-        this.comments = ArrayList<Int>()
+        this.bookmarks = ArrayList<String>()
+        this.userPosts = ArrayList<String>()
+        this.highlights = ArrayList<String>()
+        this.upvotedPosts = ArrayList<String>()
+        this.usersFollowed = ArrayList<String>()
+        this.comments = ArrayList<String>()
     }
 
     fun getUsername(): String {
@@ -64,27 +64,27 @@ class User {
         return this.bio
     }
 
-    fun getBookmarks(): ArrayList<Int>{
+    fun getBookmarks(): ArrayList<String>{
         return this.bookmarks
     }
 
-    fun getUserPosts(): ArrayList<Int>{
+    fun getUserPosts(): ArrayList<String>{
         return this.userPosts
     }
 
-    fun getHighlights(): ArrayList<Int>{
+    fun getHighlights(): ArrayList<String>{
         return this.highlights
     }
 
-    fun getUpvotedPosts(): ArrayList<Int>{
+    fun getUpvotedPosts(): ArrayList<String>{
         return this.upvotedPosts
     }
 
-    fun getUsersFollowed(): ArrayList<Int>{
+    fun getUsersFollowed(): ArrayList<String>{
         return this.usersFollowed
     }
 
-    fun getUserComments(): ArrayList<Int>{
+    fun getUserComments(): ArrayList<String>{
         return this.comments
     }
 }
