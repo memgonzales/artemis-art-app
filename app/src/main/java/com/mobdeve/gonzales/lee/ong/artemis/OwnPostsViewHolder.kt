@@ -60,7 +60,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             )
             tvOwnPostHighlight.setTextColor(
                 ColorStateList.valueOf(
-                ContextCompat.getColor(tvOwnPostHighlight.context, R.color.pinkish_purple)))
+                    ContextCompat.getColor(tvOwnPostHighlight.context, R.color.pinkish_purple)))
         } else {
             ivOwnPostHighlight.setImageResource(R.drawable.outline_star_border_24)
             ivOwnPostHighlight.imageTintList = ColorStateList.valueOf(
@@ -68,7 +68,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             )
             tvOwnPostHighlight.setTextColor(
                 ColorStateList.valueOf(
-                ContextCompat.getColor(tvOwnPostHighlight.context, R.color.default_gray)))
+                    ContextCompat.getColor(tvOwnPostHighlight.context, R.color.default_gray)))
         }
     }
 

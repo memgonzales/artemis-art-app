@@ -5,14 +5,12 @@ import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.ScrollView
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ViewPostActivity : AppCompatActivity() {
@@ -34,6 +32,8 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var clItemViewPostComment: ConstraintLayout
     private lateinit var bnvViewPostBottom: BottomNavigationView
     private lateinit var nsvViewPost: NestedScrollView
+
+    private lateinit var fabAddPost: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,8 +71,7 @@ class ViewPostActivity : AppCompatActivity() {
         val comments = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
         val datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name)
         val type = intent.getStringExtra(Keys.KEY_MEDIUM.name)
-        val dimHeight = intent.getIntExtra(Keys.KEY_DIM_HEIGHT.name, 0)
-        val dimWidth = intent.getIntExtra(Keys.KEY_DIM_WIDTH.name, 0)
+        val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
         val tags = intent.getStringArrayExtra(Keys.KEY_TAGS.name)
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
@@ -80,7 +79,6 @@ class ViewPostActivity : AppCompatActivity() {
 
         var upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
-        val dimensions = "$dimHeight x $dimWidth"
         val tagsString = tags?.joinToString(", ")
 
         this.civItemViewPostProfilePic.setImageResource(profilePicture)
@@ -230,6 +228,14 @@ class ViewPostActivity : AppCompatActivity() {
             )
             tvItemViewPostUpvote.setTextColor(ColorStateList.valueOf(
                 ContextCompat.getColor(tvItemViewPostUpvote.context, R.color.default_gray)))
+        }
+    }
+
+    private fun addPost(){
+        this.fabAddPost = findViewById(R.id.fab_view_post_add)
+
+        this.fabAddPost.setOnClickListener {
+            Toast.makeText(this, "Checking", Toast.LENGTH_SHORT).show()
         }
     }
 }

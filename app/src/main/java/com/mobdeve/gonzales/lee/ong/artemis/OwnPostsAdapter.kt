@@ -27,7 +27,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
             )
             intent.putExtra(
                 Keys.KEY_POST.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getPost()
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getPostImg()
             )
             intent.putExtra(
                 Keys.KEY_TITLE.name,
@@ -36,19 +36,14 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
                 dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDatePosted()
-                    .toStringFull()
             )
             intent.putExtra(
                 Keys.KEY_MEDIUM.name,
                 dataPosts[ownPostsViewHolder.bindingAdapterPosition].getMedium()
             )
             intent.putExtra(
-                Keys.KEY_DIM_HEIGHT.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDimHeight()
-            )
-            intent.putExtra(
-                Keys.KEY_DIM_WIDTH.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDimWidth()
+                Keys.KEY_DIMENSIONS.name,
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDimensions()
             )
             intent.putExtra(
                 Keys.KEY_DESCRIPTION.name,
@@ -75,7 +70,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
 
         holder.setOwnPostProfilePic(currentPost.getProfilePicture())
         holder.setOwnPostUsername(currentPost.getUsername())
-        holder.setOwnPostPost(currentPost.getPost())
+        holder.setOwnPostPost(currentPost.getPostImg())
         holder.setOwnPostTitle(currentPost.getTitle())
         holder.setOwnPostUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setOwnPostComments(currentPost.getNumComments().toString() + " comments")
