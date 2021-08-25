@@ -51,10 +51,6 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
                 Keys.KEY_DESCRIPTION.name,
                 dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDescription()
             )
-            intent.putExtra(
-                Keys.KEY_HIGHLIGHT.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getHighlight()
-            )
 
             view.context.startActivity(intent)
         }
@@ -100,29 +96,40 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
             dialog.setContentView(dialogView)
 
             val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_own_post_edit)
-            val highlight: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_own_post_highlight)
             val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_own_post_delete)
 
             edit.setOnClickListener{ view ->
-                Toast.makeText(view.context, "edit button clicked", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
-            }
-
-            highlight.setOnClickListener { view ->
-                if (currentPost.getHighlight()) {
-                    currentPost.setHighlight(false)
-                    holder.setOwnPostHighlight(currentPost.getHighlight())
-                } else {
-                    currentPost.setHighlight(true)
-                    holder.setOwnPostHighlight(currentPost.getHighlight())
-                    Toast.makeText(view.context, "Added to your Highlights", Toast.LENGTH_SHORT).show()
-                }
-
-                dialog.dismiss()
+                val intent = Intent(view.context, EditPostActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_TITLE.name,
+                    currentPost.getTitle()
+                )
+                intent.putExtra(
+                    Keys.KEY_MEDIUM.name,
+                    currentPost.getMedium()
+                )
+                intent.putExtra(
+                    Keys.KEY_DIMENSIONS.name,
+                    currentPost.getDimensions()
+                )
+                intent.putExtra(
+                    Keys.KEY_DESCRIPTION.name,
+                    currentPost.getDescription()
+                )
+                intent.putExtra(
+                    Keys.KEY_TAGS.name,
+                    currentPost.getTags()
+                )
+                intent.putExtra(
+                    Keys.KEY_POST.name,
+                    currentPost.getPostImg()
+                )
+                view.context.startActivity(intent)
             }
 
             delete.setOnClickListener { view ->
-                Toast.makeText(view.context, "delete button clicked", Toast.LENGTH_SHORT).show()
+                Toast.makeText(view.context, "Your post has been deleted", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
 
