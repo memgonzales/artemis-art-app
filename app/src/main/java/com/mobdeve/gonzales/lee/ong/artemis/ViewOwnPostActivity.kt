@@ -22,7 +22,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private lateinit var tvItemViewOwnPostMedium: TextView
     private lateinit var tvItemViewOwnPostDimensions: TextView
     private lateinit var tvItemViewOwnPostDescription: TextView
-//    private lateinit var tvItemViewOwnPostTags: TextView
+    private lateinit var tvItemViewOwnPostTags: TextView
     private lateinit var ibItemViewOwnPostOptions: ImageButton
 
     private lateinit var btmViewOwnPost: BottomSheetDialog
@@ -41,7 +41,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
         this.tvItemViewOwnPostMedium = findViewById(R.id.tv_item_view_own_post_medium)
         this.tvItemViewOwnPostDimensions = findViewById(R.id.tv_item_view_own_post_dimen)
         this.tvItemViewOwnPostDescription = findViewById(R.id.tv_item_view_own_post_desc)
-//        this.tvItemViewOwnPostTags = findViewById(R.id.tv_item_view_own_post_tags)
+        this.tvItemViewOwnPostTags = findViewById(R.id.tv_item_view_own_post_tags)
         this.ibItemViewOwnPostOptions = findViewById(R.id.ib_item_view_own_post_options)
         this.btmViewOwnPost = BottomSheetDialog(this@ViewOwnPostActivity)
 
@@ -51,7 +51,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_own_post))
         initActionBar()
-        // initIntent()
+         initIntent()
     }
 
     private fun initIntent() {
@@ -65,9 +65,9 @@ class ViewOwnPostActivity : AppCompatActivity() {
         var medium: String = intent.getStringExtra(Keys.KEY_MEDIUM.name)!!
         var dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)!!
         var description: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)!!
-//        var tags: Array<String> = intent.getStringArrayExtra(Keys.KEY_TAGS.name)!!
+        var tags: Array<String> = intent.getStringArrayExtra(Keys.KEY_TAGS.name)!!
 
-//        var tagsString: String = tags?.joinToString(", ")
+        var tagsString: String = tags?.joinToString(", ")
 
         this.civItemViewOwnPostProfilePic.setImageResource(profilePicture)
         this.tvItemViewOwnPostUsername.text = username
@@ -77,7 +77,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
         this.tvItemViewOwnPostMedium.text = medium
         this.tvItemViewOwnPostDimensions.text = dimensions
         this.tvItemViewOwnPostDescription.text = description
-//        this.tvItemViewOwnPostTags.text = tagsString
+        this.tvItemViewOwnPostTags.text = tagsString
 
         civItemViewOwnPostProfilePic.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, ViewProfileActivity::class.java)
