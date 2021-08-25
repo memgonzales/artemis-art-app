@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
 
-class HighlightsAdapter(private val dataPosts: ArrayList<Post>) :
+class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<HighlightsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HighlightsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val itemView = inflater.inflate(R.layout.item_rectangular_pic_grid, parent, false)
+        val itemView = inflater.inflate(R.layout.item_own_post, parent, false)
 
         val highlightsViewHolder = HighlightsViewHolder(itemView)
 
         itemView.setOnClickListener { view ->
-            val intent = Intent(view.context, ViewOwnHighlightActivity::class.java)
+            val intent = Intent(view.context, ViewOwnPostActivity::class.java)
 
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
@@ -35,7 +35,8 @@ class HighlightsAdapter(private val dataPosts: ArrayList<Post>) :
             )
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDatePosted().toStringFull()
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDatePosted()
+                    .toStringFull()
             )
             intent.putExtra(
                 Keys.KEY_MEDIUM.name,

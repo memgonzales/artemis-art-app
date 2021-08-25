@@ -55,7 +55,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_feed"
+            android:id="@+id/srl_view_comments_unregistered"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -95,7 +95,9 @@
                             android:orientation="vertical">
 
                             <include layout="@layout/item_placeholder_comment"></include>
+
                             <include layout="@layout/item_placeholder_comment"></include>
+
                             <include layout="@layout/item_placeholder_comment"></include>
 
                         </LinearLayout>
@@ -149,7 +151,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
             </androidx.core.widget.NestedScrollView>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -158,12 +159,11 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_view_comments_unregistered_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/nv_view_comments_unregistered_bottom"
+        app:layout_constraintBottom_toTopOf="@id/cl_view_comments_unregistered_unregistered_note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -215,6 +215,29 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.97" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_view_comments_unregistered_unregistered_note"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/purple_main"
+        app:layout_constraintBottom_toTopOf="@+id/nv_view_comments_unregistered_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/coord_view_comments_unregistered"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/tv_view_comments_unregistered_unregistered_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You are browsing as a guest"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

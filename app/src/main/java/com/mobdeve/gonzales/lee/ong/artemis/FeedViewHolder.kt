@@ -76,14 +76,14 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 ContextCompat.getColor(ivItemFeedUpvote.context, R.color.pinkish_purple)
             )
             tvItemFeedUpvote.setTextColor(ColorStateList.valueOf(
-                ContextCompat.getColor(ivItemFeedUpvote.context, R.color.pinkish_purple)))
+                ContextCompat.getColor(tvItemFeedUpvote.context, R.color.pinkish_purple)))
         } else {
             ivItemFeedUpvote.setImageResource(R.drawable.upvote_v2)
             ivItemFeedUpvote.imageTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(ivItemFeedUpvote.context, R.color.default_gray)
             )
             tvItemFeedUpvote.setTextColor(ColorStateList.valueOf(
-                ContextCompat.getColor(ivItemFeedUpvote.context, R.color.default_gray)))
+                ContextCompat.getColor(tvItemFeedUpvote.context, R.color.default_gray)))
         }
     }
 

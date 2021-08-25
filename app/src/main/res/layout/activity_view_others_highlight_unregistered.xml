@@ -2,34 +2,34 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_view_own_post"
+    android:id="@+id/cl_view_others_highlight_unregistered"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coord_view_own_post"
+        android:id="@+id/coord_view_others_highlight_unregistered"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_view_others_highlight_unregistered_note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar_view_own_post"
+            android:id="@+id/appbar_view_others_highlight_unregistered"
             android:layout_width="match_parent"
             android:layout_height="56dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/ctl_view_own_post"
+                android:id="@+id/ctl_view_others_highlight_unregistered"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:toolbarId="@+id/toolbar_view_own_post">
+                app:toolbarId="@+id/toolbar_view_others_highlight_unregistered">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar_view_own_post"
+                    android:id="@+id/toolbar_view_others_highlight_unregistered"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     tools:layout_collapseMode="pin">
@@ -37,14 +37,14 @@
                 </androidx.appcompat.widget.Toolbar>
 
                 <TextView
-                    android:id="@+id/tv_view_own_post_title"
+                    android:id="@+id/tv_view_others_highlight_unregistered_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="View Post"
+                    android:text="View Highlight"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -54,7 +54,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsv_view_own_post"
+            android:id="@+id/nsv_view_others_highlight_unregistered"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
@@ -62,14 +62,13 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_item_view_own_post"
+                android:id="@+id/cl_item_view_others_highlight_unregistered"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="12dp"
-                android:paddingBottom="24dp">
+                android:paddingTop="12dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/civ_item_view_own_post_profile_pic"
+                    android:id="@+id/civ_item_view_others_highlight_unregistered_profile_pic"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:clickable="true"
@@ -77,14 +76,14 @@
                     app:civ_border_color="@color/purple_main"
                     app:civ_border_width="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_right_user_pic"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_user_pic"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_own_post_left_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_others_highlight_unregistered_left_margin"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_own_post_right_user_pic"
+                    android:id="@+id/gl_item_view_others_highlight_unregistered_right_user_pic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -92,33 +91,17 @@
                     app:layout_constraintGuide_percent="0.10" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_own_post_left_margin"
+                    android:id="@+id/gl_item_view_others_highlight_unregistered_left_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.01" />
 
-                <ImageButton
-                    android:id="@+id/ib_item_view_own_post_options"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    android:adjustViewBounds="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:backgroundTint="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toBottomOf="@+id/civ_item_view_own_post_profile_pic"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_right_margin"
-                    app:layout_constraintTop_toTopOf="@+id/civ_item_view_own_post_profile_pic"
-                    app:srcCompat="@drawable/outline_more_vert_24" />
-
                 <TextView
-                    android:id="@+id/tv_item_view_own_post_username"
+                    android:id="@+id/tv_item_view_others_highlight_unregistered_username"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:layout_marginEnd="8dp"
                     android:clickable="true"
                     android:ellipsize="end"
                     android:fontFamily="sans-serif-medium"
@@ -126,16 +109,15 @@
                     android:scrollHorizontally="true"
                     android:text="shooberino"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/civ_item_view_own_post_profile_pic"
-                    app:layout_constraintEnd_toStartOf="@+id/ib_item_view_own_post_options"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_own_post_right_user_pic"
+                    app:layout_constraintBottom_toBottomOf="@+id/civ_item_view_others_highlight_unregistered_profile_pic"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_margin"
+                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_user_pic"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.35000002"
                     app:layout_constraintVertical_chainStyle="packed" />
 
                 <ImageView
-                    android:id="@+id/iv_item_view_own_post_post"
+                    android:id="@+id/iv_item_view_others_highlight_unregistered_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -144,11 +126,11 @@
                     android:scaleType="fitXY"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/civ_item_view_own_post_profile_pic"
+                    app:layout_constraintTop_toBottomOf="@+id/civ_item_view_others_highlight_unregistered_profile_pic"
                     app:srcCompat="@drawable/magia_record" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_own_post_left_text"
+                    android:id="@+id/gl_item_view_others_highlight_unregistered_left_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -156,28 +138,28 @@
                     app:layout_constraintGuide_percent="0.03" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_own_post_right_margin"
+                    android:id="@+id/gl_item_view_others_highlight_unregistered_right_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.97" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_own_post_one_third"
+                    android:id="@+id/gl_item_view_others_highlight_unregistered_one_third"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.33" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_item_view_own_post_two_thirds"
+                    android:id="@+id/gl_item_view_others_highlight_unregistered_two_thirds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.66" />
 
                 <TextView
-                    android:id="@+id/tv_item_view_own_post_title"
+                    android:id="@+id/tv_item_view_others_highlight_unregistered_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
@@ -186,42 +168,42 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_right_margin"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_margin"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_own_post_left_text"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_item_view_own_post_post"
+                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_others_highlight_unregistered_left_text"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_item_view_others_highlight_unregistered_post"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/tv_item_view_own_post_date"
+                    android:id="@+id/tv_item_view_others_highlight_unregistered_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="August 20, 2021"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_right_margin"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_margin"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_own_post_left_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_item_view_own_post_title"
+                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_others_highlight_unregistered_left_text"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_item_view_others_highlight_unregistered_title"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/tv_item_view_own_post_medium"
+                    android:id="@+id/tv_item_view_others_highlight_unregistered_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="Digital Art"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_right_margin"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_margin"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_own_post_left_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_item_view_own_post_date"
+                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_others_highlight_unregistered_left_text"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_item_view_others_highlight_unregistered_date"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/tv_item_view_own_post_dimen"
+                    android:id="@+id/tv_item_view_others_highlight_unregistered_dimen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
@@ -229,33 +211,57 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_own_post_left_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_item_view_own_post_medium"
+                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_others_highlight_unregistered_left_text"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_item_view_others_highlight_unregistered_medium"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/tv_item_view_own_post_desc"
+                    android:id="@+id/tv_item_view_others_highlight_unregistered_desc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
-                    android:layout_marginBottom="?attr/actionBarSize"
+                    android:layout_marginBottom="24dp"
                     android:lineSpacingMultiplier="1.05"
                     android:text="Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn't want to hear as it continues its search for something to fill the hole in its heart."
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_item_view_own_post_right_margin"
+                    app:layout_constraintEnd_toEndOf="@id/gl_item_view_others_highlight_unregistered_right_margin"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_own_post_left_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_item_view_own_post_dimen"
+                    app:layout_constraintStart_toStartOf="@+id/gl_item_view_others_highlight_unregistered_left_text"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_item_view_others_highlight_unregistered_dimen"
                     app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
 
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_view_others_highlight_unregistered_note"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/purple_main"
+        app:layout_constraintBottom_toTopOf="@+id/nv_view_others_highlight_unregistered_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/tv_view_others_highlight_unregistered_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You are browsing as a guest"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nv_view_own_post_bottom"
+        android:id="@+id/nv_view_others_highlight_unregistered_bottom"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
@@ -265,10 +271,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/menu_bottom_profile">
+        app:menu="@menu/menu_bottom_feed">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_view_own_post_add"
+            android:id="@+id/fab_view_others_highlight_unregistered_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
