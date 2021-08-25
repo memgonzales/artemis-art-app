@@ -111,10 +111,12 @@
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/civ_item_view_others_highlight_unregistered_profile_pic"
                     app:layout_constraintEnd_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_margin"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_user_pic"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.35000002"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintWidth_default="wrap" />
 
                 <ImageView
                     android:id="@+id/iv_item_view_others_highlight_unregistered_post"
