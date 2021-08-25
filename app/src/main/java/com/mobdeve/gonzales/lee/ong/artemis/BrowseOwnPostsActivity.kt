@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class BrowseOwnPostsActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
     private lateinit var rvBrowseOwnPosts: RecyclerView
-    private lateinit var ownPostsAdapter: HighlightsAdapter
+    private lateinit var ownPostsAdapter: OwnPostsAdapter
     private lateinit var sflBrowseOwnPosts: ShimmerFrameLayout
     private lateinit var bnvBrowseOwnPostsBottom: BottomNavigationView
 
@@ -82,7 +82,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         this.rvBrowseOwnPosts = findViewById(R.id.rv_browse_own_posts);
         this.rvBrowseOwnPosts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        this.ownPostsAdapter = HighlightsAdapter(this.dataPosts);
+        this.ownPostsAdapter = OwnPostsAdapter(this.dataPosts);
 
 
         this.rvBrowseOwnPosts.adapter = ownPostsAdapter;

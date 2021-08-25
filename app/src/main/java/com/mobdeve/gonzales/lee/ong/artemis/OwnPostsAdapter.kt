@@ -27,7 +27,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
             )
             intent.putExtra(
                 Keys.KEY_POST.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getPostImg()
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getPost()
             )
             intent.putExtra(
                 Keys.KEY_TITLE.name,
@@ -36,14 +36,19 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
                 dataPosts[highlightsViewHolder.bindingAdapterPosition].getDatePosted()
+                    .toStringFull()
             )
             intent.putExtra(
                 Keys.KEY_MEDIUM.name,
                 dataPosts[highlightsViewHolder.bindingAdapterPosition].getMedium()
             )
             intent.putExtra(
-                Keys.KEY_DIMENSIONS.name,
-                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDimensions()
+                Keys.KEY_DIM_HEIGHT.name,
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDimHeight()
+            )
+            intent.putExtra(
+                Keys.KEY_DIM_WIDTH.name,
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getDimWidth()
             )
             intent.putExtra(
                 Keys.KEY_DESCRIPTION.name,
@@ -62,7 +67,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
 
     override fun onBindViewHolder(holder: HighlightsViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemSearchResults(currentPost.getPostImg())
+        holder.setItemSearchResults(currentPost.getPost())
     }
 
     override fun getItemCount(): Int {

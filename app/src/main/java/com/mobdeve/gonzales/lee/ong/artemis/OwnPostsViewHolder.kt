@@ -24,20 +24,6 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val clOwnPostHighlight: ConstraintLayout
     private val clOwnPostComment: ConstraintLayout
 
-    init {
-        civItemFeedProfilePic = itemView.findViewById(R.id.civ_item_feed_profile_pic)
-        tvItemFeedUsername = itemView.findViewById(R.id.tv_item_feed_username)
-        ivItemFeedPost = itemView.findViewById(R.id.iv_item_feed_post)
-        tvItemFeedTitle = itemView.findViewById(R.id.tv_item_feed_title)
-        tvItemFeedUpvoteCounter = itemView.findViewById(R.id.tv_item_feed_upvote_counter)
-        tvItemFeedComments = itemView.findViewById(R.id.tv_item_feed_comments)
-        ibItemFeedBookmark = itemView.findViewById(R.id.ib_item_feed_bookmark)
-        ivItemFeedUpvote = itemView.findViewById(R.id.iv_item_feed_upvote)
-        tvItemFeedUpvote = itemView.findViewById(R.id.tv_item_feed_upvote)
-        clItemFeedUpvote = itemView.findViewById(R.id.cl_item_feed_upvote)
-        clItemFeedComment = itemView.findViewById(R.id.cl_item_feed_comment)
-    }
-
     fun setOwnPostProfilePic(picture: Int) {
         civOwnPostProfilePic.setImageResource(picture)
     }
@@ -93,5 +79,19 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun setOwnPostProfileOnClickListener(onClickListener: View.OnClickListener) {
         civOwnPostProfilePic.setOnClickListener(onClickListener)
         tvOwnPostUsername.setOnClickListener(onClickListener)
+    }
+
+    init {
+        civItemFeedProfilePic = itemView.findViewById(R.id.civ_item_feed_profile_pic)
+        tvItemFeedUsername = itemView.findViewById(R.id.tv_item_feed_username)
+        ivItemFeedPost = itemView.findViewById(R.id.iv_item_feed_post)
+        tvItemFeedTitle = itemView.findViewById(R.id.tv_item_feed_title)
+        tvItemFeedUpvoteCounter = itemView.findViewById(R.id.tv_item_feed_upvote_counter)
+        tvItemFeedComments = itemView.findViewById(R.id.tv_item_feed_comments)
+        ibItemFeedBookmark = itemView.findViewById(R.id.ib_item_feed_bookmark)
+        ivItemFeedUpvote = itemView.findViewById(R.id.iv_item_feed_upvote)
+        tvItemFeedUpvote = itemView.findViewById(R.id.tv_item_feed_upvote)
+        clItemFeedUpvote = itemView.findViewById(R.id.cl_item_feed_upvote)
+        clItemFeedComment = itemView.findViewById(R.id.cl_item_feed_comment)
     }
 }
