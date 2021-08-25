@@ -1,11 +1,12 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import java.util.*
+import kotlin.collections.ArrayList
 
 object DataHelper {
     fun loadPostData(): ArrayList<Post> {
         val data = ArrayList<Post>()
-        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches")
+        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
         data.add(
             Post(
@@ -102,7 +103,7 @@ object DataHelper {
 
     fun loadFollowedData(): ArrayList<Post> {
         val data = ArrayList<Post>()
-        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches")
+        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
         data.add(
             Post(
@@ -146,7 +147,7 @@ object DataHelper {
 
     fun loadBookmarkData(): ArrayList<Post> {
         val data = ArrayList<Post>()
-        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches")
+        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
         data.add(
             Post(
@@ -283,7 +284,7 @@ object DataHelper {
 
     fun loadHighlightsData(): ArrayList<Post> {
         val data = ArrayList<Post>()
-        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches")
+        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
         data.add(
             Post(
@@ -327,7 +328,7 @@ object DataHelper {
 
     fun loadOthersHighlightData(): ArrayList<Post> {
         val data = ArrayList<Post>()
-        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches")
+        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
         data.add(
             Post(
@@ -389,7 +390,7 @@ object DataHelper {
 
     fun loadOwnPostsData(): ArrayList<Post> {
         val data = ArrayList<Post>()
-        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches")
+        val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
         data.add(
             Post(

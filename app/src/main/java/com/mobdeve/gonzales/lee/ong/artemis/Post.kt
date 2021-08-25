@@ -11,7 +11,7 @@ class Post {
     private var medium: String
     private var dimensions: String
     private var description: String
-    private var tags: Array<String>
+    private var tags: ArrayList<String>
 
     private var bookmark: Boolean
     private var upvote: Boolean
@@ -24,7 +24,7 @@ class Post {
     private var numComments: Int
 
     constructor(profilePicture: Int, username: String, title: String, postImg: Int,
-                medium: String, dimensions: String, description: String, tags: Array<String>
+                medium: String, dimensions: String, description: String, tags: ArrayList<String>
                 /* bookmark: Boolean, upvote: Boolean, highlight: Boolean,
                 numUpvotes: Int, numComments: Int*/){
 
@@ -53,7 +53,7 @@ class Post {
 
     constructor(profilePicture: Int, username: String, postImg: Int, title: String, numUpvotes: Int,
                 numComments: Int, datePosted: String, medium: String, dimensions: String,
-                description: String, tags: Array<String>, bookmark: Boolean, upvote: Boolean, highlight: Boolean) {
+                description: String, tags: ArrayList<String>, bookmark: Boolean, upvote: Boolean, highlight: Boolean) {
 
         this.profilePicture = profilePicture
         this.username = username
@@ -106,7 +106,7 @@ class Post {
         return this.description
     }
 
-    fun getTags(): Array<String> {
+    fun getTags(): ArrayList<String> {
         return this.tags
     }
 
@@ -174,7 +174,7 @@ class Post {
         this.description = description
     }
 
-    fun setTags(tags: Array<String>) {
+    fun setTags(tags: ArrayList<String>) {
         this.tags = tags
     }
 
