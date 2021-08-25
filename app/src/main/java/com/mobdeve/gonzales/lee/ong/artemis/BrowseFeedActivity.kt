@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
@@ -103,5 +104,13 @@ class BrowseFeedActivity : AppCompatActivity() {
         i.addCategory(Intent.CATEGORY_HOME)
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(i)
+    }
+
+    fun onClick(v: View) {
+        if (v.id == R.id.fab_feed_add) {
+            Toast.makeText(this, "Checking", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

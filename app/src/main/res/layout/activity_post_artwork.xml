@@ -138,7 +138,7 @@
                     app:startIconTint="@color/purple_main">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiel_post_artwork_desc"
+                        android:id="@+id/tiet_post_artwork_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Describe your artwork"
