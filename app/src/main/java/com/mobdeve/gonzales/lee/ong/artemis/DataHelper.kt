@@ -272,10 +272,10 @@ object DataHelper {
 
     fun loadOtherUserData(): User {
         val data = User(
-            "Sample Shibe",
+            "shiberino",
             "bestdoggo@gmail.com",
             "shibepassword",
-            R.drawable.tofu_chan,
+            R.drawable.shoob,
             "Hello, world!"
         )
 
@@ -444,6 +444,48 @@ object DataHelper {
                 false,
                 false,
                 false
+            )
+        )
+
+        return data
+    }
+
+    fun loadSearchUserData(): ArrayList<User> {
+        val data = ArrayList<User>()
+        data.add(
+            User(
+            "Tobe",
+            "shinshibe@gmail.com",
+            "shibepassword",
+            R.drawable.tofu_chan,
+            "Minnasan, konnichiwa! It's me, Tofu-chan!"
+            )
+        )
+        data.add(
+            User(
+                "shiberino",
+                "bestdoggo@gmail.com",
+                "shibepassword",
+                R.drawable.shoob,
+                "Hello, world!"
+            )
+        )
+        data.add(
+            User(
+                "shibe",
+                "shibainu@gmail.com",
+                "shibepassword456",
+                R.drawable.shibe1,
+                "I wanna be an artist doggo."
+            )
+        )
+        data.add(
+            User(
+                "shoobie",
+                "nipponinu@gmail.com",
+                "shibepassword123",
+                R.drawable.shibe2,
+                "Ohaiyou~"
             )
         )
 
