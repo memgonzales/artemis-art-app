@@ -143,6 +143,20 @@
                     app:layout_constraintStart_toStartOf="@+id/gl_edit_comment_left_text"
                     app:layout_constraintTop_toBottomOf="@+id/civ_edit_comment_profile_pic" />
 
+                <ProgressBar
+                    android:id="@+id/pb_edit_comment"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="51dp"
+                    android:layout_height="wrap_content"
+                    android:indeterminateTint="@color/purple_pics_lighter"
+                    android:secondaryProgressTint="@color/pinkish_purple"
+                    android:translationZ="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>

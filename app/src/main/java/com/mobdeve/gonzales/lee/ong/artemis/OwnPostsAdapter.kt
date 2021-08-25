@@ -56,6 +56,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
                 dataPosts[ownPostsViewHolder.bindingAdapterPosition].getTags()
             )
 
+
             view.context.startActivity(intent)
         }
 

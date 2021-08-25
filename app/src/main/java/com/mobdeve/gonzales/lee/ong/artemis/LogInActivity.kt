@@ -155,7 +155,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startTesting() {
         this.btnTest.setOnClickListener {
-            val i = Intent(this@LogInActivity, ViewCommentsActivity::class.java)
+            val i = Intent(this@LogInActivity, ViewOwnPostActivity::class.java)
             startActivity(i)
         }
     }

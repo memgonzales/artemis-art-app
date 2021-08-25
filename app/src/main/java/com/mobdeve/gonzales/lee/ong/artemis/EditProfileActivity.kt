@@ -11,6 +11,9 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textfield.TextInputEditText
+import de.hdodenhof.circleimageview.CircleImageView
+import org.w3c.dom.Text
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var fabEditProfilePicEdit: FloatingActionButton
@@ -19,7 +22,11 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var clDialogProfilePictureDelete: ConstraintLayout
     private lateinit var btnEditProfileSave: Button
 
-    private lateinit var etEditProfileUsername: EditText
+    private lateinit var civEditProfilePic: CircleImageView
+    private lateinit var tietEditProfileUsername: TextInputEditText
+    private lateinit var tietEditProfileEmail: TextInputEditText
+    private lateinit var tietEditProfilePassword: TextInputEditText
+    private lateinit var tietEditProfileBio: TextInputEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +39,13 @@ class EditProfileActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_edit_profile))
         initActionBar()
 
-        this.etEditProfileUsername = findViewById(R.id.tiet_edit_profile_username)
-        this.etEditProfileUsername.isFocusable = false
+        this.civEditProfilePic = findViewById(R.id.civ_edit_profile_pic)
+        this.tietEditProfileUsername = findViewById(R.id.tiet_edit_profile_username)
+        this.tietEditProfileEmail = findViewById(R.id.tiet_edit_profile_email)
+        this.tietEditProfilePassword = findViewById(R.id.tiet_edit_profile_password)
+        this.tietEditProfileBio = findViewById(R.id.tiet_edit_profile_bio)
+
+        this.tietEditProfileUsername.isFocusable = false
 
         this.fabEditProfilePicEdit = findViewById(R.id.fab_edit_profile_pic_edit)
         this.btmProfilePicture = BottomSheetDialog(this@EditProfileActivity)
@@ -46,9 +58,20 @@ class EditProfileActivity : AppCompatActivity() {
             finish()
         })
 
+        initContent()
         launchDialog()
     }
 
+    private fun initContent() {
+        var dataProfile = DataHelper.loadProfileData()
+
+        this.civEditProfilePic.setImageResource(dataProfile.getUserImg())
+        this.tietEditProfileUsername.setText(dataProfile.getUsername())
+        this.tietEditProfileEmail.setText(dataProfile.getEmail())
+        this.tietEditProfilePassword.setText(dataProfile.getPassword())
+        this.tietEditProfileBio.setText(dataProfile.getBio())
+    }
+    
     private fun launchDialog() {
         val view = LayoutInflater.from(this@EditProfileActivity).inflate(R.layout.dialog_profile_picture, null)
 

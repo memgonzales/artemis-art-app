@@ -46,6 +46,7 @@
                     android:backgroundTint="@android:color/white"
                     android:ems="10"
                     android:hint="Search by tag or username"
+                    android:imeOptions="actionSearch"
                     android:inputType="textPersonName"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white"
