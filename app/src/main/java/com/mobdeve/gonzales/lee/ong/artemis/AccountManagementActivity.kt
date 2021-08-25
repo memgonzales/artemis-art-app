@@ -1,13 +1,12 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ScrollView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AccountManagementActivity : AppCompatActivity() {
@@ -27,11 +26,26 @@ class AccountManagementActivity : AppCompatActivity() {
         this.bnvAccountManagementBottom = findViewById(R.id.nv_account_management_bottom)
 
         clAccountManagementDelete.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@AccountManagementActivity, "Account deleted.", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
-            startActivity(intent)
-            finish()
+            deleteDialog()
         })
+    }
+
+    private fun deleteDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Delete Profile")
+        builder.setMessage("Are you sure you want to delete your profile? This action cannot be reversed.")
+        builder.setPositiveButton(
+            "Yes"
+        ) { dialog, which ->
+            Toast.makeText(this@AccountManagementActivity, "Account deleted", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+        builder.setNegativeButton(
+            "No"
+        ) { dialog, which -> }
+        builder.create().show()
     }
 
     private fun initComponents() {
