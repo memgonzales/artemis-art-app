@@ -25,7 +25,6 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
     private lateinit var tvItemViewOwnHighlightDescription: TextView
     private lateinit var ibItemViewOwnHighlightHighlight: ImageButton
     private lateinit var bnvViewOwnHighlightBottom: BottomNavigationView
-    private lateinit var nsvViewOwnHighlight: NestedScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,7 +118,6 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
 
     private fun initBottom() {
         this.bnvViewOwnHighlightBottom = findViewById(R.id.nv_view_own_highlight_bottom)
-        this.nsvViewOwnHighlight = findViewById(R.id.nsv_view_own_highlight)
 
         bnvViewOwnHighlightBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
@@ -163,6 +161,7 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
             this.ibItemViewOwnHighlightHighlight.imageTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(this.ibItemViewOwnHighlightHighlight.context, R.color.pinkish_purple)
             )
+            Toast.makeText(this@ViewOwnHighlightActivity, "Added to your Highlights", Toast.LENGTH_SHORT).show()
         } else {
             this.ibItemViewOwnHighlightHighlight.setImageResource(R.drawable.outline_star_border_24)
             this.ibItemViewOwnHighlightHighlight.imageTintList = ColorStateList.valueOf(
