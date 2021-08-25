@@ -230,12 +230,4 @@ class ViewPostActivity : AppCompatActivity() {
                 ContextCompat.getColor(tvItemViewPostUpvote.context, R.color.default_gray)))
         }
     }
-
-    private fun addPost(){
-        this.fabAddPost = findViewById(R.id.fab_view_post_add)
-
-        this.fabAddPost.setOnClickListener {
-            Toast.makeText(this, "Checking", Toast.LENGTH_SHORT).show()
-        }
-    }
 }

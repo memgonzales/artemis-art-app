@@ -114,7 +114,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                 return true
             } else -> {
             return super.onOptionsItemSelected(item)
-            }
+        }
         }
 
         return super.onOptionsItemSelected(item)
@@ -123,5 +123,13 @@ class BrowseFeedActivity : AppCompatActivity() {
     private fun launchSearch() {
         val intent = Intent(this@BrowseFeedActivity, SearchActivity::class.java)
         startActivity(intent)
+    }
+
+    fun onClick(v: View) {
+        if (v.id == R.id.fab_feed_add) {
+            Toast.makeText(this, "Checking", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

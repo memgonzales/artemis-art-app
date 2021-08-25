@@ -154,6 +154,7 @@
             android:layout_gravity="center"
             android:clickable="true"
             android:elevation="0dp"
+            android:onClick="onClick"
             app:backgroundTint="@color/purple_navbar_lighter"
             app:elevation="0dp"
             app:fabCustomSize="44dp"
