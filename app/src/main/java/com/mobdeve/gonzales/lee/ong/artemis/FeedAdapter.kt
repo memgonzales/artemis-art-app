@@ -27,7 +27,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
             )
             intent.putExtra(
                 Keys.KEY_POST.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getPost()
+                dataPosts[feedViewHolder.bindingAdapterPosition].getPostImg()
             )
             intent.putExtra(
                 Keys.KEY_TITLE.name,
@@ -43,19 +43,15 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
             )
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getDatePosted().toStringFull()
+                dataPosts[feedViewHolder.bindingAdapterPosition].getDatePosted()
             )
             intent.putExtra(
                 Keys.KEY_MEDIUM.name,
                 dataPosts[feedViewHolder.bindingAdapterPosition].getMedium()
             )
             intent.putExtra(
-                Keys.KEY_DIM_HEIGHT.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getDimHeight()
-            )
-            intent.putExtra(
-                Keys.KEY_DIM_WIDTH.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getDimWidth()
+                Keys.KEY_DIMENSIONS.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getDimensions()
             )
             intent.putExtra(
                 Keys.KEY_DESCRIPTION.name,
@@ -89,7 +85,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
         val currentPost = dataPosts[position]
         holder.setItemFeedProfilePic(currentPost.getProfilePicture())
         holder.setItemFeedUsername(currentPost.getUsername())
-        holder.setItemFeedPost(currentPost.getPost())
+        holder.setItemFeedPost(currentPost.getPostImg())
         holder.setItemFeedTitle(currentPost.getTitle())
         holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")

@@ -4,14 +4,12 @@ class Post {
     private var profilePicture: Int
     private var username: String
 
-    private var post: Int
+    private var postImg: Int
     private var title: String
     private var datePosted: String
 
     private var medium: String
     private var dimensions: String
-    //private var dimHeight: Int
-    //private var dimWidth: Int
     private var description: String
     private var tags: Array<String>
 
@@ -25,7 +23,7 @@ class Post {
     private var numUpvotes: Int
     private var numComments: Int
 
-    constructor(profilePicture: Int, username: String, title: String, post: Int,
+    constructor(profilePicture: Int, username: String, title: String, postImg: Int,
                 medium: String, dimensions: String, description: String, tags: Array<String>
                 /* bookmark: Boolean, upvote: Boolean, highlight: Boolean,
                 numUpvotes: Int, numComments: Int*/){
@@ -33,7 +31,7 @@ class Post {
         this.profilePicture = profilePicture
         this.username = username
 
-        this.post = post
+        this.postImg = postImg
         this.title = title
         this.datePosted = CustomDate().toStringFull()
 
@@ -53,6 +51,29 @@ class Post {
         this.numComments = 0
     }
 
+    constructor(profilePicture: Int, username: String, postImg: Int, title: String, numUpvotes: Int,
+                numComments: Int, datePosted: String, medium: String, dimensions: String,
+                description: String, tags: Array<String>, bookmark: Boolean, upvote: Boolean, highlight: Boolean) {
+
+        this.profilePicture = profilePicture
+        this.username = username
+        this.postImg = postImg
+        this.title = title
+        this.numUpvotes = numUpvotes
+        this.numComments = numComments
+        this.datePosted = datePosted
+        this.medium = medium
+        this.dimensions = dimensions
+        this.description = description
+        this.tags = tags
+        this.bookmark = bookmark
+        this.upvote = upvote
+        this.highlight = highlight
+
+        this.upvoteUsers = ArrayList<String>()
+        this.comments = ArrayList<String>()
+    }
+
     fun getProfilePicture(): Int {
         return this.profilePicture
     }
@@ -61,8 +82,8 @@ class Post {
         return this.username
     }
 
-    fun getPost(): Int {
-        return this.post
+    fun getPostImg(): Int {
+        return this.postImg
     }
 
     fun getTitle(): String {
@@ -77,7 +98,7 @@ class Post {
         return this.medium
     }
 
-    fun getDimsions(): String {
+    fun getDimensions(): String {
         return this.dimensions
     }
 
@@ -129,8 +150,8 @@ class Post {
         this.username = name
     }
 
-    fun setPost(post: Int) {
-        this.post = post
+    fun setPostImg(postImg: Int) {
+        this.postImg = postImg
     }
 
     fun setTitle(title: String) {
@@ -190,25 +211,7 @@ class Post {
 
 
     /*
-    constructor(profilePicture: Int, username: String, post: Int, title: String, numUpvotes: Int,
-                numComments: Int, datePosted: CustomDate, medium: String, dimHeight: Int, dimWidth: Int,
-                description: String, tags: Array<String>, bookmark: Boolean, upvote: Boolean, highlight: Boolean) {
-        this.profilePicture = profilePicture
-        this.username = username
-        this.postImg = post
-        this.title = title
-        this.numUpvotes = numUpvotes
-        this.numComments = numComments
-        this.datePosted = datePosted
-        this.medium = medium
-        this.dimHeight = dimHeight
-        this.dimWidth = dimWidth
-        this.description = description
-        this.tags = tags
-        this.bookmark = bookmark
-        this.upvote = upvote
-        this.highlight = highlight
-    }
+
 
 
 
