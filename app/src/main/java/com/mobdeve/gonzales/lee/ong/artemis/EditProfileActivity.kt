@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -18,6 +19,8 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var clDialogProfilePictureDelete: ConstraintLayout
     private lateinit var btnEditProfileSave: Button
 
+    private lateinit var etEditProfileUsername: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
@@ -28,6 +31,9 @@ class EditProfileActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_edit_profile))
         initActionBar()
+
+        this.etEditProfileUsername = findViewById(R.id.tiet_edit_profile_username)
+        this.etEditProfileUsername.isFocusable = false
 
         this.fabEditProfilePicEdit = findViewById(R.id.fab_edit_profile_pic_edit)
         this.btmProfilePicture = BottomSheetDialog(this@EditProfileActivity)
