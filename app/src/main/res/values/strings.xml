@@ -3,5 +3,5 @@
     <string name="iv_logo">Placeholder for logo</string>
     <string name="tv_sign_up_clause"><b>Your username cannot be changed once your account is created</b>.\n\nBy creating an account, you agree to have read and understood the pertinent clauses in the <a href="https://www.privacy.gov.ph/data-privacy-act/">Philippine Data Privacy Act</a>.</string>
     <string name="tv_search_trivia">Gustav Klimt\'s <i>The Kiss</i> inspired one of the frames in the opening theme of the anime <i>Elfen Lied</i></string>
-    <string name="tv_view_profile_about">The <b>Highlights</b> feature is</string>
+    <string name="tv_view_profile_about">The <b>Highlights</b> feature is a gallery where other users can see your selected posts upon visiting your profile. Add a post to your Highlights by clicking the star icon on your post.</string>
 </resources>

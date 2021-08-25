@@ -42,7 +42,7 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
                 dataPosts[bookmarksViewHolder.bindingAdapterPosition].getMedium()
             )
             intent.putExtra(
-                Keys.KEY_DIM_HEIGHT.name,
+                Keys.KEY_DIMENSIONS.name,
                 dataPosts[bookmarksViewHolder.bindingAdapterPosition].getDimensions()
             )
             intent.putExtra(
