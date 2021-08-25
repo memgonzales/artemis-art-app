@@ -50,11 +50,8 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
         val datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name)
         val type = intent.getStringExtra(Keys.KEY_MEDIUM.name)
-        val dimHeight = intent.getIntExtra(Keys.KEY_DIM_HEIGHT.name, 0)
-        val dimWidth = intent.getIntExtra(Keys.KEY_DIM_WIDTH.name, 0)
+        val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
-
-        val dimensions = "$dimHeight x $dimWidth"
 
         this.civItemViewOthersHighlightProfilePic.setImageResource(profilePicture)
         this.tvItemViewOthersHighlightUsername.text = username
