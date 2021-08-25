@@ -10,7 +10,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.hdodenhof.circleimageview.CircleImageView
@@ -36,8 +35,8 @@ class ViewUserActivity : AppCompatActivity() {
 
     private fun initContent() {
         this.civViewUserProfilePicture = findViewById(R.id.civ_view_user_logo)
-        this.tvViewUserUsername = findViewById(R.id.tv_view_profile_username)
-        this.tvViewUserBio = findViewById(R.id.tv_view_profile_bio)
+        this.tvViewUserUsername = findViewById(R.id.tv_view_user_unregistered_username)
+        this.tvViewUserBio = findViewById(R.id.tv_view_user_unregistered_bio)
         this.btnViewUserFollow = findViewById(R.id.btn_view_user_follow)
         this.bnvViewUserBottom = findViewById(R.id.nv_view_user_bottom)
         this.nsvViewUser = findViewById(R.id.nsv_view_user)
@@ -115,7 +114,7 @@ class ViewUserActivity : AppCompatActivity() {
                 return true
             } else -> {
             return super.onOptionsItemSelected(item)
-        }
+            }
         }
 
         return super.onOptionsItemSelected(item)

@@ -33,8 +33,8 @@ class ViewProfileActivity : AppCompatActivity() {
 
     private fun initContent() {
         this.civViewProfileProfilePicture = findViewById(R.id.civ_view_profile_logo)
-        this.tvViewProfileUsername = findViewById(R.id.tv_view_profile_username)
-        this.tvViewProfileBio = findViewById(R.id.tv_view_profile_bio)
+        this.tvViewProfileUsername = findViewById(R.id.tv_view_user_unregistered_username)
+        this.tvViewProfileBio = findViewById(R.id.tv_view_user_unregistered_bio)
         this.clViewProfileEdit = findViewById(R.id.cl_view_profile_edit)
         this.clViewProfileViewPosts = findViewById(R.id.cl_view_profile_view_posts)
         this.clViewProfileDelete = findViewById(R.id.cl_view_profile_delete)

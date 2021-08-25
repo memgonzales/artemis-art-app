@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewUserUnregisteredActivity"></activity>
-        <activity android:name=".ViewOthersHighlightUnregisteredActivity" />
+        <activity android:name=".ViewUserUnregisteredActivity"
+            android:launchMode="singleTop"></activity>
+        <activity android:name=".ViewOthersHighlightUnregisteredActivity"
+            android:parentActivityName=".ViewUserUnregisteredActivity"/>
         <activity android:name=".ViewOwnPostActivity"
             android:parentActivityName=".BrowseOwnPostsActivity"/>
         <activity
@@ -98,6 +100,7 @@
             android:name=".ViewPostUnregisteredActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".BrowseFeedUnregisteredActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ViewCommentsUnregisteredActivity"

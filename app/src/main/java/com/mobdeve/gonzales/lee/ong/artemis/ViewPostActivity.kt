@@ -240,7 +240,7 @@ class ViewPostActivity : AppCompatActivity() {
                 return true
             } else -> {
             return super.onOptionsItemSelected(item)
-        }
+            }
         }
 
         return super.onOptionsItemSelected(item)
