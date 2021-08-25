@@ -212,10 +212,11 @@ object DataHelper {
         data.add(
             Comment(
                 "1",
-                R.drawable.shoob,
-                "shooberino",
-                //CustomDate(2021, 7, 20),
-                "Nice post, thanks for sharing"
+                R.drawable.tofu_chan,
+                "Tobe",
+            //    CustomDate(2021, 7, 20),
+                "Nice post, thanks for sharing",
+                true
             )
         )
         data.add(
@@ -223,8 +224,9 @@ object DataHelper {
                 "2",
                 R.drawable.shibe1,
                 "shibe",
-               // CustomDate(2021, 7, 20),
-                "Kewl :D"
+            //    CustomDate(2021, 7, 20),
+                "Kewl :D",
+                false
             )
         )
         data.add(
@@ -233,7 +235,8 @@ object DataHelper {
                 R.drawable.shibe2,
                 "shoobie",
                // CustomDate(2021, 7, 20),
-                "Good art"
+                "Good art",
+            false
             )
         )
         data.add(
@@ -242,7 +245,8 @@ object DataHelper {
                 R.drawable.shibe3,
                 "shib",
                // CustomDate(2021, 7, 20),
-                "XD"
+                "XD",
+            false
             )
         )
         data.add(
@@ -251,7 +255,8 @@ object DataHelper {
                 R.drawable.shibe4,
                 "mameshiba",
                // CustomDate(2021, 7, 20),
-                "I am bean dog"
+                "I am bean dog",
+            false
             )
         )
 

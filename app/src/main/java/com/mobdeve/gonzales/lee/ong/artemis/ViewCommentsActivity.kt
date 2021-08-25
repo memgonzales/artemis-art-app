@@ -160,7 +160,7 @@ class ViewCommentsActivity : AppCompatActivity() {
             if (!commentText.isEmpty()) {
                 this.pbComment.visibility = View.VISIBLE
 
-                val comment: Comment = Comment("1", R.drawable.chibi_circle, "yey", commentText)
+                val comment: Comment = Comment("1", R.drawable.chibi_circle, "yey", commentText, true)
                 addComment(comment)
             } else {
                 Toast.makeText(this, "Comments should not be blank", Toast.LENGTH_SHORT).show()
