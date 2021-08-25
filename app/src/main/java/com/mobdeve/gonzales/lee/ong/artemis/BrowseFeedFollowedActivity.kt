@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ScrollView
 import androidx.core.widget.NestedScrollView
@@ -94,5 +95,25 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_top_with_search, menu)
 
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        when(id) {
+            R.id.menu_feed_search -> {
+                launchSearch()
+                return true
+            } else -> {
+            return super.onOptionsItemSelected(item)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun launchSearch() {
+        val intent = Intent(this@BrowseFeedFollowedActivity, SearchActivity::class.java)
+        startActivity(intent)
     }
 }

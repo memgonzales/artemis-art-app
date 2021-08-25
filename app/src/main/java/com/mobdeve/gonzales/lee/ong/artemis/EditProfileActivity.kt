@@ -40,7 +40,7 @@ class EditProfileActivity : AppCompatActivity() {
         this.btnEditProfileSave = findViewById(R.id.btn_edit_profile_save)
 
         btnEditProfileSave.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@EditProfileActivity, "Profile changes are saved.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@EditProfileActivity, "Your profile details have been updated.", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@EditProfileActivity, ViewProfileActivity::class.java)
             startActivity(intent)
             finish()

@@ -1,16 +1,16 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ScrollView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -95,5 +95,25 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_top_with_search, menu)
 
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        when(id) {
+            R.id.menu_feed_search -> {
+                launchSearch()
+                return true
+            } else -> {
+                return super.onOptionsItemSelected(item)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun launchSearch() {
+        val intent = Intent(this@BrowseBookmarksActivity, SearchActivity::class.java)
+        startActivity(intent)
     }
 }

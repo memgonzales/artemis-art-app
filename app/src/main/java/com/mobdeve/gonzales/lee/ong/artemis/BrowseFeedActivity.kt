@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
@@ -104,6 +103,26 @@ class BrowseFeedActivity : AppCompatActivity() {
         i.addCategory(Intent.CATEGORY_HOME)
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(i)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        when(id) {
+            R.id.menu_feed_search -> {
+                launchSearch()
+                return true
+            } else -> {
+            return super.onOptionsItemSelected(item)
+        }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun launchSearch() {
+        val intent = Intent(this@BrowseFeedActivity, SearchActivity::class.java)
+        startActivity(intent)
     }
 
     fun onClick(v: View) {
