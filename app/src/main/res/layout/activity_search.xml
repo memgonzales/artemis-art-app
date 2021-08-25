@@ -37,7 +37,7 @@
                     tools:layout_collapseMode="pin"/>
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName"
+                    android:id="@+id/et_search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="56dp"

@@ -3,6 +3,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import com.google.android.material.textfield.TextInputEditText
 
@@ -47,14 +48,29 @@ class PostArtworkActivity : AppCompatActivity() {
             var dimensions = tietDimensions.text.toString().trim()
             var desc = tietDescription.text.toString().trim()
 
-            val intent = Intent(this, PostAddTagsActivity::class.java)
+            val intent = Intent(this@PostArtworkActivity, PostAddTagsActivity::class.java)
 
             intent.putExtra(Keys.KEY_TITLE.name, title)
             intent.putExtra(Keys.KEY_MEDIUM.name, medium)
             intent.putExtra(Keys.KEY_DIMENSIONS.name, dimensions)
             intent.putExtra(Keys.KEY_DESCRIPTION.name, desc)
 
-            view.context.startActivity(intent)
+            startActivity(intent)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        when(id) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            } else -> {
+            return super.onOptionsItemSelected(item)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
