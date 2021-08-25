@@ -32,7 +32,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_dialog_comment_edit"
+            android:id="@+id/cl_dialog_own_post_edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
@@ -72,7 +72,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_dialog_comment_highlight"
+            android:id="@+id/cl_dialog_own_post_highlight"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
@@ -82,7 +82,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_dialog_comment_edit"
+            app:layout_constraintTop_toBottomOf="@+id/cl_dialog_own_post_edit"
             app:layout_constraintVertical_bias="0.0">
 
             <TextView
@@ -112,7 +112,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_dialog_comment_delete"
+            android:id="@+id/cl_dialog_own_post_delete"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
@@ -121,7 +121,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_dialog_comment_highlight">
+            app:layout_constraintTop_toBottomOf="@+id/cl_dialog_own_post_highlight">
 
             <TextView
                 android:id="@+id/tv_dialog_comment_delete"

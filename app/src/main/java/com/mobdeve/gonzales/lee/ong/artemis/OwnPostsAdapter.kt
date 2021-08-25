@@ -92,6 +92,37 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
             val intent = Intent(view.context, ViewProfileActivity::class.java)
             view.context.startActivity(intent)
         }
+
+        holder.setOwnPostOptionsOnClickListener { view ->
+            val dialogView = LayoutInflater.from(view.context).inflate(R.layout.dialog_own_post, null)
+            val dialog = holder.getOwnPostOptions()
+            dialog.setContentView(dialogView)
+
+            holder.setOwnPostDialogEditOnClickListener{ view ->
+                Toast.makeText(view.context, "Dialog button clicked", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+
+            holder.setOwnPostDialogHighlightOnClickListener{ view ->
+                if (currentPost.getHighlight()) {
+                    currentPost.setHighlight(false)
+                    holder.setOwnPostHighlight(currentPost.getHighlight())
+                } else {
+                    currentPost.setHighlight(true)
+                    holder.setOwnPostHighlight(currentPost.getHighlight())
+                    Toast.makeText(view.context, "Added to your Highlights", Toast.LENGTH_SHORT).show()
+                }
+
+                dialog.dismiss()
+            }
+
+            holder.setOwnPostDialogDeleteOnClickListener{ view ->
+                Toast.makeText(view.context, "Delete button clicked", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+
+            dialog.show()
+        }
     }
 
     override fun getItemCount(): Int {

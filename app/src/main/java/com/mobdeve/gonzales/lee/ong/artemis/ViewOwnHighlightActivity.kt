@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -70,8 +71,14 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
         updateHighlight(highlight)
 
         ibItemViewOwnHighlightHighlight.setOnClickListener(View.OnClickListener {
-            highlight = !highlight
-            updateHighlight(highlight)
+            if (highlight) {
+                highlight = false
+                updateHighlight(highlight)
+            } else {
+                highlight = true
+                updateHighlight(highlight)
+                Toast.makeText(this@ViewOwnHighlightActivity, "Added to your Highlights", Toast.LENGTH_SHORT).show()
+            }
         })
 
         civItemViewOwnHighlightProfilePic.setOnClickListener(View.OnClickListener {

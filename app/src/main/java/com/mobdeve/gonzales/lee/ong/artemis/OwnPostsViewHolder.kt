@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import de.hdodenhof.circleimageview.CircleImageView
 
 class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -24,6 +25,13 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvOwnPostHighlight: TextView
     private val clOwnPostHighlight: ConstraintLayout
     private val clOwnPostComment: ConstraintLayout
+
+    private val ibItemOwnPostOptions: ImageButton
+    private val btmItemOwnPostOptions: BottomSheetDialog
+
+    private val clDialogOwnPostEdit: ConstraintLayout
+    private val clDialogOwnPostHighlight: ConstraintLayout
+    private val clDialogOwnPostDelete: ConstraintLayout
 
     fun setOwnPostProfilePic(picture: Int) {
         civOwnPostProfilePic.setImageResource(picture)
@@ -82,6 +90,26 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvOwnPostUsername.setOnClickListener(onClickListener)
     }
 
+    fun setOwnPostOptionsOnClickListener(onClickListener: View.OnClickListener) {
+        ibItemOwnPostOptions.setOnClickListener(onClickListener)
+    }
+
+    fun getOwnPostOptions(): BottomSheetDialog {
+        return this.btmItemOwnPostOptions
+    }
+
+    fun setOwnPostDialogEditOnClickListener(onClickListener: View.OnClickListener) {
+        clDialogOwnPostEdit.setOnClickListener(onClickListener)
+    }
+
+    fun setOwnPostDialogHighlightOnClickListener(onClickListener: View.OnClickListener) {
+        clDialogOwnPostHighlight.setOnClickListener(onClickListener)
+    }
+
+    fun setOwnPostDialogDeleteOnClickListener(onClickListener: View.OnClickListener) {
+        clDialogOwnPostDelete.setOnClickListener(onClickListener)
+    }
+
     init {
         civOwnPostProfilePic = itemView.findViewById(R.id.civ_item_own_post_profile_pic)
         tvOwnPostUsername = itemView.findViewById(R.id.tv_item_own_post_username)
@@ -93,5 +121,10 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvOwnPostHighlight = itemView.findViewById(R.id.tv_item_own_post_highlight)
         clOwnPostHighlight = itemView.findViewById(R.id.cl_item_own_post_highlight)
         clOwnPostComment = itemView.findViewById(R.id.cl_item_own_post_comment)
+        ibItemOwnPostOptions = itemView.findViewById(R.id.ib_item_own_post_options)
+        btmItemOwnPostOptions = BottomSheetDialog(itemView.context)
+        clDialogOwnPostEdit = btmItemOwnPostOptions.findViewById(R.id.cl_dialog_own_post_edit)!!
+        clDialogOwnPostHighlight = btmItemOwnPostOptions.findViewById(R.id.cl_dialog_own_post_highlight)!!
+        clDialogOwnPostDelete = btmItemOwnPostOptions.findViewById(R.id.cl_dialog_own_post_delete)!!
     }
 }
