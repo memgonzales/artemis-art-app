@@ -238,6 +238,20 @@
                         android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC." />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <ProgressBar
+                    android:id="@+id/pb_edit_profile"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="51dp"
+                    android:layout_height="wrap_content"
+                    android:indeterminateTint="@color/purple_pics_lighter"
+                    android:secondaryProgressTint="@color/pinkish_purple"
+                    android:translationZ="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
