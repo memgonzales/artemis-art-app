@@ -1,5 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -38,7 +39,6 @@ class PostAddTagsActivity : AppCompatActivity() {
         this.btnAddTag.setOnClickListener {
             var tag = tietTags.text.toString().trim().split(',')
             Toast.makeText(this, "Check: " + tag, Toast.LENGTH_SHORT).show()
-
 
         }
     }
