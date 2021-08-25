@@ -25,13 +25,13 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var tvItemViewPostDimensions: TextView
     private lateinit var tvItemViewPostDescription: TextView
     private lateinit var tvItemViewPostTags: TextView
+
     private lateinit var ibItemViewPostBookmark: ImageButton
     private lateinit var ivItemViewPostUpvote: ImageView
     private lateinit var tvItemViewPostUpvote: TextView
     private lateinit var clItemViewPostUpvote: ConstraintLayout
     private lateinit var clItemViewPostComment: ConstraintLayout
     private lateinit var bnvViewPostBottom: BottomNavigationView
-    private lateinit var nsvViewPost: NestedScrollView
 
     private lateinit var fabAddPost: FloatingActionButton
 
@@ -70,10 +70,10 @@ class ViewPostActivity : AppCompatActivity() {
         var upvoteCounter = intent.getIntExtra(Keys.KEY_NUM_UPVOTES.name, 0)
         val comments = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
         val datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name)
-        val type = intent.getStringExtra(Keys.KEY_MEDIUM.name)
+        val medium = intent.getStringExtra(Keys.KEY_MEDIUM.name)
         val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
-        val tags = intent.getStringArrayExtra(Keys.KEY_TAGS.name)
+        val tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
         var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
 
@@ -88,7 +88,7 @@ class ViewPostActivity : AppCompatActivity() {
         this.tvItemViewPostUpvoteCounter.text = upvoteString
         this.tvItemViewPostComments.text = commentString
         this.tvItemViewPostDatePosted.text = datePosted
-        this.tvItemViewPostMedium.text = type
+        this.tvItemViewPostMedium.text = medium
         this.tvItemViewPostDimensions.text = dimensions
         this.tvItemViewPostDescription.text = description
         this.tvItemViewPostTags.text = tagsString
@@ -161,7 +161,6 @@ class ViewPostActivity : AppCompatActivity() {
 
     private fun initBottom() {
         this.bnvViewPostBottom = findViewById(R.id.nv_view_post_bottom)
-        this.nsvViewPost = findViewById(R.id.nsv_view_post)
 
         bnvViewPostBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {

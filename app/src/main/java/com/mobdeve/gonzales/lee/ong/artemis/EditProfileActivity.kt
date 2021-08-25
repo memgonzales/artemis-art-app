@@ -71,7 +71,7 @@ class EditProfileActivity : AppCompatActivity() {
         this.tietEditProfilePassword.setText(dataProfile.getPassword())
         this.tietEditProfileBio.setText(dataProfile.getBio())
     }
-    
+
     private fun launchDialog() {
         val view = LayoutInflater.from(this@EditProfileActivity).inflate(R.layout.dialog_profile_picture, null)
 

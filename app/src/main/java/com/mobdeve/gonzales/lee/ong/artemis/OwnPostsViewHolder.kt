@@ -102,26 +102,6 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         return this.clDialogOwnPostEdit
     }
 
-    fun getDialogOwnPostHighlight(): ConstraintLayout {
-        return this.clDialogOwnPostHighlight
-    }
-
-    fun getDialogOwnPostDelete(): ConstraintLayout {
-        return this.clDialogOwnPostDelete
-    }
-/*
-    fun setOwnPostDialogEditOnClickListener(onClickListener: View.OnClickListener) {
-        clDialogOwnPostEdit.setOnClickListener(onClickListener)
-    }
-
-    fun setOwnPostDialogHighlightOnClickListener(onClickListener: View.OnClickListener) {
-        clDialogOwnPostHighlight.setOnClickListener(onClickListener)
-    }
-
-    fun setOwnPostDialogDeleteOnClickListener(onClickListener: View.OnClickListener) {
-        clDialogOwnPostDelete.setOnClickListener(onClickListener)
-    }
-*/
     init {
         civOwnPostProfilePic = itemView.findViewById(R.id.civ_item_own_post_profile_pic)
         tvOwnPostUsername = itemView.findViewById(R.id.tv_item_own_post_username)
