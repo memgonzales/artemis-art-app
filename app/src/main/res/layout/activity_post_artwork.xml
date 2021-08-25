@@ -234,7 +234,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:text="Save Details"
+            android:text="Next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin_bottom"
             app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin_bottom"

@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".ViewOwnPostActivity"></activity>
+        <activity android:name=".ViewUserUnregisteredActivity"></activity>
+        <activity android:name=".ViewOthersHighlightUnregisteredActivity" />
+        <activity android:name=".ViewOwnPostActivity" />
         <activity
             android:name=".PostAddTagsActivity"
             android:configChanges="orientation|keyboardHidden"
