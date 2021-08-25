@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
 
@@ -98,12 +99,16 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
             val dialog = holder.getOwnPostOptions()
             dialog.setContentView(dialogView)
 
-            holder.setOwnPostDialogEditOnClickListener{ view ->
-                Toast.makeText(view.context, "Dialog button clicked", Toast.LENGTH_SHORT).show()
+            val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_own_post_edit)
+            val highlight: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_own_post_highlight)
+            val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_own_post_delete)
+
+            edit.setOnClickListener{ view ->
+                Toast.makeText(view.context, "edit button clicked", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
 
-            holder.setOwnPostDialogHighlightOnClickListener{ view ->
+            highlight.setOnClickListener { view ->
                 if (currentPost.getHighlight()) {
                     currentPost.setHighlight(false)
                     holder.setOwnPostHighlight(currentPost.getHighlight())
@@ -116,8 +121,8 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
                 dialog.dismiss()
             }
 
-            holder.setOwnPostDialogDeleteOnClickListener{ view ->
-                Toast.makeText(view.context, "Delete button clicked", Toast.LENGTH_SHORT).show()
+            delete.setOnClickListener { view ->
+                Toast.makeText(view.context, "delete button clicked", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
 

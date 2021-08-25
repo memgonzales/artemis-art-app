@@ -29,9 +29,9 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ibItemOwnPostOptions: ImageButton
     private val btmItemOwnPostOptions: BottomSheetDialog
 
-    private val clDialogOwnPostEdit: ConstraintLayout
-    private val clDialogOwnPostHighlight: ConstraintLayout
-    private val clDialogOwnPostDelete: ConstraintLayout
+    private lateinit var clDialogOwnPostEdit: ConstraintLayout
+    private lateinit var clDialogOwnPostHighlight: ConstraintLayout
+    private lateinit var clDialogOwnPostDelete: ConstraintLayout
 
     fun setOwnPostProfilePic(picture: Int) {
         civOwnPostProfilePic.setImageResource(picture)
@@ -98,6 +98,18 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         return this.btmItemOwnPostOptions
     }
 
+    fun getDialogOwnPostEdit(): ConstraintLayout {
+        return this.clDialogOwnPostEdit
+    }
+
+    fun getDialogOwnPostHighlight(): ConstraintLayout {
+        return this.clDialogOwnPostHighlight
+    }
+
+    fun getDialogOwnPostDelete(): ConstraintLayout {
+        return this.clDialogOwnPostDelete
+    }
+/*
     fun setOwnPostDialogEditOnClickListener(onClickListener: View.OnClickListener) {
         clDialogOwnPostEdit.setOnClickListener(onClickListener)
     }
@@ -109,7 +121,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun setOwnPostDialogDeleteOnClickListener(onClickListener: View.OnClickListener) {
         clDialogOwnPostDelete.setOnClickListener(onClickListener)
     }
-
+*/
     init {
         civOwnPostProfilePic = itemView.findViewById(R.id.civ_item_own_post_profile_pic)
         tvOwnPostUsername = itemView.findViewById(R.id.tv_item_own_post_username)
@@ -123,8 +135,5 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         clOwnPostComment = itemView.findViewById(R.id.cl_item_own_post_comment)
         ibItemOwnPostOptions = itemView.findViewById(R.id.ib_item_own_post_options)
         btmItemOwnPostOptions = BottomSheetDialog(itemView.context)
-        clDialogOwnPostEdit = btmItemOwnPostOptions.findViewById(R.id.cl_dialog_own_post_edit)!!
-        clDialogOwnPostHighlight = btmItemOwnPostOptions.findViewById(R.id.cl_dialog_own_post_highlight)!!
-        clDialogOwnPostDelete = btmItemOwnPostOptions.findViewById(R.id.cl_dialog_own_post_delete)!!
     }
 }
