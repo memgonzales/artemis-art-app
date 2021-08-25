@@ -1,15 +1,13 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +33,8 @@ class ViewCommentsActivity : AppCompatActivity() {
 
     private lateinit var ibAddComment: ImageButton
     private lateinit var etComment: EditText
+
+    private lateinit var pbComment: ProgressBar
 
     //Firebase
     private lateinit var mAuth: FirebaseAuth
@@ -136,10 +136,12 @@ class ViewCommentsActivity : AppCompatActivity() {
         commentDB.child(postKey).setValue(comment)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
+                    this.pbComment.visibility = View.GONE
                     Toast.makeText(this, "Commented Successfully", Toast.LENGTH_LONG).show()
                 }
 
                 else{
+                    this.pbComment.visibility = View.VISIBLE
                     Toast.makeText(this, "Failed to Comment", Toast.LENGTH_LONG).show()
 
                 }
@@ -150,11 +152,14 @@ class ViewCommentsActivity : AppCompatActivity() {
     fun onClick(v: View) {
         this.ibAddComment = findViewById(R.id.ib_add_comment)
         this.etComment = findViewById(R.id.et_add_comment)
+        this.pbComment = findViewById(R.id.pb_view_comments)
 
         if (v.id == R.id.ib_add_comment) {
             val commentText: String = etComment.text.toString().trim()
 
             if (!commentText.isEmpty()){
+                this.pbComment.visibility = View.VISIBLE
+
                 val comment: Comment = Comment("1", R.drawable.chibi_circle, "yey", commentText)
                 addComment(comment)
             }
