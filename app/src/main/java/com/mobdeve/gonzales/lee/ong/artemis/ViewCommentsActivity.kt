@@ -160,7 +160,7 @@ class ViewCommentsActivity : AppCompatActivity() {
             }
 
             else{
-                Toast.makeText(this, "Kindly input a comment", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Comments should not be blank", Toast.LENGTH_SHORT).show()
             }
         }
     }
