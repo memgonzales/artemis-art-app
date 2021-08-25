@@ -51,7 +51,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_own_post))
         initActionBar()
-        initIntent()
+        // initIntent()
     }
 
     private fun initIntent() {
