@@ -221,7 +221,7 @@
                     app:layout_constraintVertical_bias="0.06000000">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiel_add_profile_bio"
+                        android:id="@+id/tiet_edit_profile_bio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Share something about yourself"
