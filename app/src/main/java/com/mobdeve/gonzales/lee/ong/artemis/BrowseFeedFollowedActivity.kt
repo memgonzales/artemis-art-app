@@ -24,7 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class BrowseFeedFollowedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
     private lateinit var rvFollowed: RecyclerView
-    private lateinit var feedAdapter: FeedAdapter
+    private lateinit var feedFollowedAdapter: FeedFollowedAdapter
     private lateinit var sflFollowed: ShimmerFrameLayout
     private lateinit var bnvFollowedBottom: BottomNavigationView
     private lateinit var nsvFollowed: NestedScrollView
@@ -117,10 +117,10 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         this.rvFollowed = findViewById(R.id.rv_feed_followed);
         this.rvFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        this.feedAdapter = FeedAdapter(this.dataPosts);
+        this.feedFollowedAdapter = FeedFollowedAdapter(this.dataPosts);
 
 
-        this.rvFollowed.adapter = feedAdapter;
+        this.rvFollowed.adapter = feedFollowedAdapter;
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

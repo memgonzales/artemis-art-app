@@ -170,7 +170,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <ImageButton
-            android:id="@+id/ib_add_comment"
+            android:id="@+id/ib_add_comment_followed"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -196,7 +196,7 @@
             android:textColorHint="@color/purple_main"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ib_add_comment"
+            app:layout_constraintEnd_toStartOf="@+id/ib_add_comment_followed"
             app:layout_constraintStart_toStartOf="@id/gl_view_comments_unregistered_left_comment"
             app:layout_constraintTop_toTopOf="parent" />
 

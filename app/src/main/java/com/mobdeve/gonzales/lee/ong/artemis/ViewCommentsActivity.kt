@@ -1,17 +1,14 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -23,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -34,7 +30,6 @@ class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var llViewCommentsShimmer: LinearLayout
     private lateinit var sflViewComments: ShimmerFrameLayout
     private lateinit var bnvViewCommentsBottom: BottomNavigationView
-    private lateinit var nsvViewComments: NestedScrollView
 
     private lateinit var btmAddPost: BottomSheetDialog
     private lateinit var fabAddPost: FloatingActionButton
@@ -112,7 +107,6 @@ class ViewCommentsActivity : AppCompatActivity() {
 
     private fun initBottom() {
         this.bnvViewCommentsBottom = findViewById(R.id.nv_view_comments_bottom)
-        this.nsvViewComments = findViewById(R.id.nsv_view_comments)
 
         bnvViewCommentsBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
@@ -163,7 +157,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.rvComments.adapter = commentsAdapter
     }
 
-    private fun addComment(comment: Comment){
+    private fun addComment(comment: Comment) {
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
         val postKey = commentDB.push().key!!
 
@@ -182,8 +176,8 @@ class ViewCommentsActivity : AppCompatActivity() {
     }
 
     private fun addComment() {
-        this.ibAddComment = findViewById(R.id.ib_add_comment)
-        this.etComment = findViewById(R.id.et_add_comment)
+        this.ibAddComment = findViewById(R.id.ib_add_comment_followed)
+        this.etComment = findViewById(R.id.et_add_comment_followed)
         this.pbComment = findViewById(R.id.pb_view_comments)
 
         this.ibAddComment.setOnClickListener {
