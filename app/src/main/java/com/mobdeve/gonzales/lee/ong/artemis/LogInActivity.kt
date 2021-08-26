@@ -8,6 +8,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.common.FirstPartyScopes
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -74,26 +75,70 @@ class LogInActivity : AppCompatActivity() {
             this.tietUsername = findViewById(R.id.tiet_log_in_username)
             this.tietPassword = findViewById(R.id.tiet_log_in_password)
 
+            this.pbLogin.visibility = View.VISIBLE
+
             var username: String = tietUsername.text.toString().trim()
             var password: String = tietPassword.text.toString().trim()
 
+            this.mAuth.signInWithEmailAndPassword(username, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful){
+                        this.pbLogin.visibility = View.GONE
+                        Toast.makeText(this@LogInActivity, "Login Successfully", Toast.LENGTH_SHORT).show()
+                        val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
+                        startActivity(i)
+                        finish()
+                    }
 
+                    else{
+                        this.pbLogin.visibility = View.GONE
+                        Toast.makeText(this@LogInActivity, "Invalid email/password", Toast.LENGTH_SHORT).show()
+                    }
+                }
             //Toast.makeText(this, "Working", Toast.LENGTH_SHORT).show()
 
+            /*
             val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
             userDB.orderByChild(Keys.username.name).equalTo(username)
+                .addValueEventListener(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        if (snapshot.childrenCount > 0){
+                            for (userSnap in snapshot.children){
+                                var user = userSnap.child(Keys.username.name).get()
+                                var key = userSnap.key!!
+
+                                Toast.makeText(this@LogInActivity, "ch: " + user, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
+             */
+                    /*
                 .addListenerForSingleValueEvent(object: ValueEventListener{
                     override fun onDataChange(dataSnapshot: DataSnapshot){
 
                         if (dataSnapshot.childrenCount > 0){
                             for (userSnap in dataSnapshot.children){
+
                                 var key = userSnap.key!!
-                                var user = userDB.child(key).child(Keys.username.name).get()
-                                var pw = userDB.child(key).child(Keys.password.name).get()
+                                var user = userSnap.child(Keys.username.name).getValue()
+                                //var pw = userDB.child(key).child(Keys.password.name).get()
+
+                                Toast.makeText(this@LogInActivity, "check: " + user, Toast.LENGTH_SHORT).show()
 
                                 if (user.equals(username) && pw.equals(password)){
                                     Toast.makeText(this@LogInActivity, "hurrrah", Toast.LENGTH_SHORT).show()
+                                    val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
+                                    startActivity(i)
+                                    finish()
                                 }
 
                                 else{
@@ -114,22 +159,52 @@ class LogInActivity : AppCompatActivity() {
                     }
                 })
 
+                     */
 
 
-                    /*
+        /*
+
                 .addChildEventListener(object: ChildEventListener{
                     override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                        var user = snapshot.getValue()
+                        //snapshot.getValue() -> children of the User class
+                        var user = userDB.child(snapshot.key!!).child(Keys.username.name).get()
                         var pw = userDB.child(snapshot.key!!).child(Keys.password.name).get()
 
+                        Toast.makeText(this@LogInActivity, "ch:" + pw, Toast.LENGTH_SHORT).show()
+                        /*
                         if (username.equals(user) && password.equals(pw)){
                             Toast.makeText(this@LogInActivity, "hurrayy", Toast.LENGTH_SHORT).show()
                         }
 
-                    }
-                })
+                        else{
+                            Toast.makeText(this@LogInActivity, "grh", Toast.LENGTH_SHORT).show()
+                        }
 
-                     */
+                         */
+
+                    }
+
+
+
+                    override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onChildRemoved(snapshot: DataSnapshot) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+ */
+
             //Toast.makeText(this, "Check: " + usernameLogin, Toast.LENGTH_SHORT).show()
             /*
             customToken?.let{
@@ -166,9 +241,7 @@ class LogInActivity : AppCompatActivity() {
 */
 
 
-            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
-            startActivity(i)
-            finish()
+
 
 
         }
