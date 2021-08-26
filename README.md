@@ -16,32 +16,32 @@ This project uses the following module dependencies:
 
 Dependency | Version | Description | License
 -- | -- | -- | --
-`com.android.tools.build:gradle` | 4.2.1 | | 
-`org.jetbrains.kotlin:kotlin-gradle-plugin` | 1.5.0 | |
-`com.google.gms:google-services` | 4.3.10 | |
+`com.android.tools.build:gradle` | 4.2.1 | | Apache License 2.0
+`org.jetbrains.kotlin:kotlin-gradle-plugin` | 1.5.0 | | Apache License 2.0
+`com.google.gms:google-services` | 4.3.10 | | Apache License 2.0
 
 It also uses the following app dependencies:
 
 Dependency | Version | Description | License
 -- | -- | -- | --
-`org.jetbrains.kotlin:kotlin-stdlib` | 1.5.0 | | 
-`androidx.core:core-ktx` | 1.5.0 | |
-`androidx.appcompat:appcompat` | 1.3.1. | |
-`com.google.android.material:material` | 1.4.0 | | 
-`androidx.constraintlayout:constraintlayout` | 2.0.4 | |
-`androidx.coordinatorlayout:coordinatorlayout` | 1.1.0 | |
-`com.facebook.shimmer:shimmer` | 0.5.0 | |
-`de.hdodenhof:circleimageview` | 3.1.0 | |
-`com.google.android.material:material` | 1.2.1 | |
-`androidx.legacy:legacy-support-v4` | 1.0.0 | | 
-`com.google.firebase:firebase-auth-ktx` | 21.0.1 | | 
-`com.google.firebase:firebase-database-ktx` | 20.0.1 | |
-`com.google.firebase:firebase-config-ktx` | 21.0.1 | |
-`com.google.firebase:firebase-storage-ktx` | 20.0.0 | |
-`junit:junit` | 4.+ | |
-`androidx.test.ext:junit` | 1.1.3 | |
-`androidx.test.espresso:espresso-core` | 3.4.0 | |
-`androidx.recyclerview:recyclerview` | 1.2.1 | |
+`org.jetbrains.kotlin:kotlin-stdlib` | 1.5.0 | | Apache License 2.0
+`androidx.core:core-ktx` | 1.5.0 | | Apache License 2.0
+`androidx.appcompat:appcompat` | 1.3.1. | | Apache License 2.0
+`com.google.android.material:material` | 1.4.0 | | Apache License 2.0
+`androidx.constraintlayout:constraintlayout` | 2.0.4 | | Apache License 2.0
+`androidx.coordinatorlayout:coordinatorlayout` | 1.1.0 | | Apache License 2.0
+`com.facebook.shimmer:shimmer` | 0.5.0 | | BSD License
+`de.hdodenhof:circleimageview` | 3.1.0 | | Apache License 2.0
+`com.google.android.material:material` | 1.2.1 | | Apache License 2.0
+`androidx.legacy:legacy-support-v4` | 1.0.0 | | Apache License 2.0
+`com.google.firebase:firebase-auth-ktx` | 21.0.1 | | Apache License 2.0
+`com.google.firebase:firebase-database-ktx` | 20.0.1 | | Apache License 2.0
+`com.google.firebase:firebase-config-ktx` | 21.0.1 | | Apache License 2.0
+`com.google.firebase:firebase-storage-ktx` | 20.0.0 | | Apache License 2.0
+`junit:junit` | 4.+ | | Eclipse Public License 1.0
+`androidx.test.ext:junit` | 1.1.3 | | Eclipse Public License 1.0 <br/> Apache License 2.0
+`androidx.test.espresso:espresso-core` | 3.4.0 | | Apache License 2.0
+`androidx.recyclerview:recyclerview` | 1.2.1 | | Apache License 2.0
 
 ## Authors
 - <b>Mark Edward M. Gonzales</b> <br/>
