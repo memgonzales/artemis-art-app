@@ -4,6 +4,8 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageButton
@@ -12,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import de.hdodenhof.circleimageview.CircleImageView
@@ -39,6 +42,8 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private lateinit var btmViewOwnPost: BottomSheetDialog
     private lateinit var clDialogViewOwnPostEdit: ConstraintLayout
     private lateinit var clDialogViewOwnPostDelete: ConstraintLayout
+
+    private lateinit var srlViewOwnPost: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +77,25 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_own_post))
         initActionBar()
+        initSwipeRefresh()
+    }
+
+    private fun initSwipeRefresh() {
+        this.srlViewOwnPost = findViewById(R.id.srl_view_own_post)
+        srlViewOwnPost.setOnRefreshListener {
+            onRefresh();
+        }
+
+        srlViewOwnPost.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
+    }
+
+    private fun onRefresh() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            srlViewOwnPost.isRefreshing = false
+        }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
     private fun initIntent() {

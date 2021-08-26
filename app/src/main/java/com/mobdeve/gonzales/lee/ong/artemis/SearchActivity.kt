@@ -65,6 +65,7 @@ class SearchActivity : AppCompatActivity() {
         btnSearchTag5.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
             startActivity(intent)
+            finish()
         })
 
         etSearchBar.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
