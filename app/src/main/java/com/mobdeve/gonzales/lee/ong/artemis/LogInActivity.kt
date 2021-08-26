@@ -79,75 +79,79 @@ class LogInActivity : AppCompatActivity() {
 
             var username: String = tietUsername.text.toString().trim()
             var password: String = tietPassword.text.toString().trim()
-            /*
-            val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
-            userDB.orderByChild(Keys.username.name).equalTo(username)
-                .addListenerForSingleValueEvent(object: ValueEventListener{
-                    override fun onDataChange(dataSnapshot: DataSnapshot){
+            if (!checkEmpty(username, password)){
+                if (username.contains('@')){
+                    loginWithEmail(username, password)
+                }
 
-                        if (dataSnapshot.childrenCount > 0){
-                            for (userSnap in dataSnapshot.children){
+                else{
+                    loginWithUsername(username, password)
+                }
+            }
+        }
+    }
 
-                                var key = userSnap.key!!
-                                var user = userSnap.child(Keys.username.name).getValue()!!
-                                var pw = userDB.child(key).child(Keys.password.name).get()
+    private fun loginWithEmail(username: String, password: String){
+        this.mAuth.signInWithEmailAndPassword(username, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful){
+                    loginSuccessfully()
+                }
 
-                                Toast.makeText(this@LogInActivity, "check: " + user, Toast.LENGTH_SHORT).show()
+                else{
+                    loginFailed()
+                }
+            }
+    }
 
-                                if (user.equals(username) && pw.equals(password)){
-                                    Toast.makeText(this@LogInActivity, "hurrrah", Toast.LENGTH_SHORT).show()
-                                    val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
-                                    startActivity(i)
-                                    finish()
-                                }
+    private fun loginWithUsername(username: String, password: String){
 
-                                else{
-                                    Toast.makeText(this@LogInActivity, "Invalid username/password", Toast.LENGTH_SHORT).show()
-                                }
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
+        userDB.orderByChild(Keys.username.name).equalTo(username)
+            .addListenerForSingleValueEvent(object: ValueEventListener{
+                override fun onDataChange(dataSnapshot: DataSnapshot){
+
+                    if (dataSnapshot.childrenCount > 0){
+                        for (userSnap in dataSnapshot.children){
+
+                            var user = dataSnapshot.child(userSnap.key!!).child(Keys.username.name).getValue().toString()
+                            var pw = dataSnapshot.child(userSnap.key!!).child(Keys.password.name).getValue().toString()
+
+                            if (user.equals(username) && pw.equals(password)){
+                                loginSuccessfully()
+                            }
+
+                            else{
+                                loginFailed()
                             }
                         }
-
-                        else{
-                            Toast.makeText(this@LogInActivity, "Invalid username/password", Toast.LENGTH_SHORT).show()
-                        }
-
                     }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+                    else{
+                        loginFailed()
                     }
-                })
 
-             */
+                }
 
-            /*
-            if (!checkEmpty(username, password)){
-                this.mAuth.signInWithEmailAndPassword(username, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful){
-                            this.pbLogin.visibility = View.GONE
-                            Toast.makeText(this@LogInActivity, "Login Successfully", Toast.LENGTH_SHORT).show()
-                            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
-                            startActivity(i)
-                            finish()
-                        }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+    }
 
-                        else{
-                            this.pbLogin.visibility = View.GONE
-                            Toast.makeText(this@LogInActivity, "Invalid email/password", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-            }
+    private fun loginSuccessfully(){
+        this.pbLogin.visibility = View.GONE
+        Toast.makeText(this@LogInActivity, "Login Successfullly", Toast.LENGTH_SHORT).show()
+        val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
+        startActivity(i)
+        finish()
+    }
 
-             */
-
-            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
-            startActivity(i)
-            finish()
-
-        }
+    private fun loginFailed(){
+        this.pbLogin.visibility = View.GONE
+        Toast.makeText(this@LogInActivity, "Invalid username/password", Toast.LENGTH_SHORT).show()
     }
 
     private fun checkEmpty(username: String, password: String): Boolean{

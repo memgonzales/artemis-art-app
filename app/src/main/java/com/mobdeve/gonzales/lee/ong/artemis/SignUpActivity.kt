@@ -1,12 +1,12 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -34,6 +34,8 @@ class SignUpActivity : AppCompatActivity() {
     //Firebase - related
     private lateinit var mAuth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
+
+    private var usernameExists: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +83,6 @@ class SignUpActivity : AppCompatActivity() {
                 val password: String = tietPassword.text.toString().trim()
 
                 if(validCredentials(username, email, password)){
-
                     var user: User = User(username, email, password)
                     storeUser(user)
                 }
@@ -102,8 +103,11 @@ class SignUpActivity : AppCompatActivity() {
             this.tietUsername.requestFocus()
             isValid = false
         }
+
+
         /*
-        if(!username.isEmpty() && usernameExists(username)){
+        if(!username.isEmpty() ){
+            usernameExists(username)
             this.tilUsername.error = "Username has been already been taken"
             this.tietUsername.requestFocus()
             isValid = false
@@ -132,8 +136,8 @@ class SignUpActivity : AppCompatActivity() {
         return isValid
     }
 
+    private fun usernameExists(username: String){
 
-    private fun usernameExists(username: String): Boolean{
         var userExists: Boolean = false
 
         var userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
@@ -143,6 +147,16 @@ class SignUpActivity : AppCompatActivity() {
         check.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
+                if (snapshot.childrenCount  > 0){
+                    setUserExists(true)
+                }
+
+                else{
+                    setUserExists(false)
+                }
+               // ]Toast.makeText(this@SignUpActivity, "ch: " + snapshot.childrenCount, Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(this@SignUpActivity, "chec: " + usernameExists, Toast.LENGTH_SHORT).show()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -150,6 +164,8 @@ class SignUpActivity : AppCompatActivity() {
             }
 
         })
+
+
         /*
         check.addValueEventListener(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -167,10 +183,11 @@ class SignUpActivity : AppCompatActivity() {
 
          */
 
-
-        return userExists
     }
 
+    private fun setUserExists(username: Boolean){
+        this.usernameExists = username
+    }
 
 
     private fun storeUser(user: User) {
