@@ -11,7 +11,10 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -77,7 +80,7 @@ class SignUpActivity : AppCompatActivity() {
                 val email: String = tietEmail.text.toString().trim()
                 val password: String = tietPassword.text.toString().trim()
 
-                if(!checkEmpty(username, email, password)){
+                if(validCredentials(username, email, password)){
 
                     var user: User = User(username, email, password)
                     storeUser(user)
@@ -85,30 +88,90 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkEmpty(username: String, email: String, password: String): Boolean {
-        var hasEmpty: Boolean = false;
+    private fun validCredentials(username: String, email: String, password: String): Boolean {
+        var isValid: Boolean = true;
 
         if(username.isEmpty()) {
             this.tilUsername.error = "Required"
             this.tietUsername.requestFocus()
-            hasEmpty = true
+            isValid = false
         }
+
+        if (!username.isEmpty() && username.length < 4){
+            this.tilUsername.error = "Username should have at least 4 characters"
+            this.tietUsername.requestFocus()
+            isValid = false
+        }
+        /*
+        if(!username.isEmpty() && usernameExists(username)){
+            this.tilUsername.error = "Username has been already been taken"
+            this.tietUsername.requestFocus()
+            isValid = false
+        }
+        
+         */
 
         if(email.isEmpty()) {
             this.tilEmail.error = "Required"
             this.tietEmail.requestFocus()
-            hasEmpty = true
+            isValid = false
         }
 
         if(password.isEmpty()) {
             this.tilPassword.error = "Required"
             this.tietPassword.requestFocus()
-
-            hasEmpty = true
+            isValid = false
         }
 
-        return hasEmpty
+        if(!password.isEmpty() && password.length < 6){
+            this.tilPassword.error = "Password should have at least 6 characters"
+            this.tietPassword.requestFocus()
+            isValid = false
+        }
+
+        return isValid
     }
+
+
+    private fun usernameExists(username: String): Boolean{
+        var userExists: Boolean = false
+
+        var userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
+
+        var check = userDB.orderByChild(Keys.username.name).equalTo(username)
+
+        check.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        /*
+        check.addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.childrenCount > 0) {
+                        userExists = true
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
+
+         */
+
+
+        return userExists
+    }
+
+
 
     private fun storeUser(user: User) {
         this.pbSignUp.visibility = View.VISIBLE
