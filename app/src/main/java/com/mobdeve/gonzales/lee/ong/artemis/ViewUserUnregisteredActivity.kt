@@ -12,6 +12,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ViewUserUnregisteredActivity : AppCompatActivity() {
@@ -20,10 +21,11 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
     private lateinit var tvViewUserUnregisteredBio: TextView
     private lateinit var btnViewUserUnregisteredFollow: Button
     private lateinit var bnvViewUserUnregisteredBottom: BottomNavigationView
-    private lateinit var nsvViewUnregisteredUser: NestedScrollView
     private lateinit var dataHighlights: ArrayList<Post>
     private lateinit var rvViewUnregisteredUser: RecyclerView
     private lateinit var unregisteredHighlightAdapter: OthersHighlightAdapterUnregistered
+
+    private lateinit var fabAddPost: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +40,6 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         this.tvViewUserUnregisteredUsername = findViewById(R.id.tv_view_user_unregistered_username)
         this.tvViewUserUnregisteredBio = findViewById(R.id.tv_view_user_unregistered_bio)
         this.btnViewUserUnregisteredFollow = findViewById(R.id.btn_view_user_unregistered_follow)
-        this.bnvViewUserUnregisteredBottom = findViewById(R.id.nv_view_user_unregistered_bottom)
-        this.nsvViewUnregisteredUser = findViewById(R.id.nsv_view_user_unregistered)
         this.dataHighlights = DataHelper.loadOthersHighlightData()
 
         val intent: Intent = intent
@@ -73,6 +73,9 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
     }
 
     private fun initBottom() {
+        this.bnvViewUserUnregisteredBottom = findViewById(R.id.nv_view_user_unregistered_bottom)
+        this.fabAddPost = findViewById(R.id.fab_view_user_unregistered_add)
+
         bnvViewUserUnregisteredBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
                 R.id.icon_home_feed -> {
@@ -92,6 +95,10 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
             }
             false
         }
+
+        fabAddPost.setOnClickListener(View.OnClickListener {
+            Toast.makeText(this@ViewUserUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun initActionBar() {
