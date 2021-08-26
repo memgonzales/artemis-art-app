@@ -4,12 +4,15 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
@@ -35,6 +38,8 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var bnvViewPostBottom: BottomNavigationView
 
     private lateinit var fabAddPost: FloatingActionButton
+
+    private lateinit var srlViewPost: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -157,7 +162,26 @@ class ViewPostActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_post))
         initActionBar()
+        initSwipeRefresh()
         initBottom()
+    }
+
+    private fun initSwipeRefresh() {
+        this.srlViewPost = findViewById(R.id.srl_view_post)
+        srlViewPost.setOnRefreshListener {
+            onRefresh();
+        }
+
+        srlViewPost.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
+    }
+
+    private fun onRefresh() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            srlViewPost.isRefreshing = false
+        }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
     private fun initBottom() {
