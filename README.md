@@ -55,3 +55,4 @@ Dependency | Version | Description | License
 - <b>Phoebe Clare L. Ong</b> <br/>
   phoebs_ong@dlsu.edu.ph
 
+Assets (images and XML-based layouts) are properties of their respective owners. Attribution is found in the file `credits.txt`.
