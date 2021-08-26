@@ -149,13 +149,14 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
-        setSupportActionBar(findViewById(R.id.toolbar_view_post))
+        setSupportActionBar(findViewById(R.id.toolbar_view_post_unregistered))
         initActionBar()
         initBottom()
     }
 
     private fun initBottom() {
         this.bnvViewPostUnregisteredBottom = findViewById(R.id.nv_view_post_unregistered_bottom)
+        this.fabAddPost = findViewById(R.id.fab_view_post_unregistered_add)
 
         bnvViewPostUnregisteredBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
@@ -177,6 +178,10 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
             }
             false
         }
+
+        fabAddPost.setOnClickListener(View.OnClickListener {
+            Toast.makeText(this@ViewPostUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun initActionBar() {

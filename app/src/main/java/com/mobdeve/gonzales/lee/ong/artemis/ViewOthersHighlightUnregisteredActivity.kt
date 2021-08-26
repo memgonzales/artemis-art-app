@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
@@ -20,7 +21,9 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
     private lateinit var tvItemViewOthersHighlightUnregisteredMedium: TextView
     private lateinit var tvItemViewOthersHighlightUnregisteredDimensions: TextView
     private lateinit var tvItemViewOthersHighlightUnregisteredDescription: TextView
+
     private lateinit var bnvViewOthersHighlightUnregisteredBottom: BottomNavigationView
+    private lateinit var fabAddPost: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +110,7 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
 
     private fun initBottom() {
         this.bnvViewOthersHighlightUnregisteredBottom = findViewById(R.id.nv_view_others_highlight_unregistered_bottom)
+        this.fabAddPost = findViewById(R.id.fab_view_others_highlight_unregistered_add)
 
         bnvViewOthersHighlightUnregisteredBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
@@ -128,6 +132,10 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
             }
             false
         }
+
+        fabAddPost.setOnClickListener(View.OnClickListener {
+            Toast.makeText(this@ViewOthersHighlightUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun initActionBar() {

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ViewCommentsUnregisteredActivity : AppCompatActivity() {
     private lateinit var dataComments: ArrayList<Comment>
@@ -27,6 +28,8 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
     private lateinit var etAddCommentUnregistered: EditText
 
     private lateinit var ibAddComment: ImageButton
+
+    private lateinit var fabAddPost: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,7 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
 
     private fun initBottom() {
         this.bnvViewCommentsUnregisteredBottom = findViewById(R.id.nv_view_comments_unregistered_bottom)
+        this.fabAddPost = findViewById(R.id.fab_view_comments_unregistered_add)
 
         bnvViewCommentsUnregisteredBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
@@ -79,6 +83,10 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
             }
             false
         }
+
+        fabAddPost.setOnClickListener(View.OnClickListener {
+            Toast.makeText(this@ViewCommentsUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun initActionBar() {
