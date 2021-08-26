@@ -3,6 +3,8 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
@@ -10,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
@@ -35,6 +38,8 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
 
     private lateinit var fabAddPost: FloatingActionButton
 
+    private lateinit var srlViewPostUnregisterd: SwipeRefreshLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_post_unregistered)
@@ -57,6 +62,25 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
 
         initIntent()
         initComponents()
+        initSwipeRefresh()
+    }
+
+    private fun initSwipeRefresh() {
+        this.srlViewPostUnregisterd = findViewById(R.id.srl_view_post_unregistered)
+        srlViewPostUnregisterd.setOnRefreshListener {
+            onRefresh();
+        }
+
+        srlViewPostUnregisterd.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
+    }
+
+    private fun onRefresh() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            srlViewPostUnregisterd.isRefreshing = false
+        }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
     private fun initIntent() {

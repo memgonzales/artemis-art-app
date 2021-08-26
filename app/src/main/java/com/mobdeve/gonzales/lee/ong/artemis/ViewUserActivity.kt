@@ -3,6 +3,8 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -11,6 +13,7 @@ import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -24,6 +27,8 @@ class ViewUserActivity : AppCompatActivity() {
     private lateinit var dataHighlights: ArrayList<Post>
     private lateinit var rvViewUser: RecyclerView
     private lateinit var highlightAdapter: OthersHighlightAdapter
+
+    private lateinit var srlViewUser: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +66,7 @@ class ViewUserActivity : AppCompatActivity() {
         initActionBar()
         initRecyclerView()
         initBottom()
+        initSwipeRefresh()
     }
 
     private fun initRecyclerView() {
@@ -70,6 +76,24 @@ class ViewUserActivity : AppCompatActivity() {
         this.highlightAdapter = OthersHighlightAdapter(this.dataHighlights);
 
         this.rvViewUser.adapter = highlightAdapter;
+    }
+
+    private fun initSwipeRefresh() {
+        this.srlViewUser = findViewById(R.id.srl_view_user)
+        srlViewUser.setOnRefreshListener {
+            onRefresh();
+        }
+
+        srlViewUser.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
+    }
+
+    private fun onRefresh() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            srlViewUser.isRefreshing = false
+        }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
     private fun initBottom() {

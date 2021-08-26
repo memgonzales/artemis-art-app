@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,6 +32,8 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
 
     private lateinit var fabAddPost: FloatingActionButton
 
+    private lateinit var srlViewCommentsUnregisterd: SwipeRefreshLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_comments_unregistered)
@@ -43,6 +46,7 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
         initShimmer()
         initActionBar()
         initBottom()
+        initSwipeRefresh()
 
         disableEditText()
     }
@@ -57,6 +61,24 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
             sflViewComments.visibility = View.GONE
             rvComments.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
+    }
+
+    private fun initSwipeRefresh() {
+        this.srlViewCommentsUnregisterd = findViewById(R.id.srl_view_comments_unregistered)
+        srlViewCommentsUnregisterd.setOnRefreshListener {
+            onRefresh();
+        }
+
+        srlViewCommentsUnregisterd.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
+    }
+
+    private fun onRefresh() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            srlViewCommentsUnregisterd.isRefreshing = false
+        }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
     private fun initBottom() {
