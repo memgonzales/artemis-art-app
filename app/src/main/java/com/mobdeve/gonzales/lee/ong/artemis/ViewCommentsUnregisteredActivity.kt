@@ -129,7 +129,7 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
 
     private fun disableEditText() {
         this.etAddCommentUnregistered = findViewById(R.id.et_add_comment_unregistered)
-        this.ibAddComment = findViewById(R.id.ib_add_comment_followed)
+        this.ibAddComment = findViewById(R.id.ib_add_comment_unregistered)
 
         this.etAddCommentUnregistered.isEnabled = false
         this.ibAddComment.setOnClickListener(View.OnClickListener {
