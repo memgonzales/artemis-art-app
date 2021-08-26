@@ -55,7 +55,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_feed"
+            android:id="@+id/srl_view_comments_followed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
