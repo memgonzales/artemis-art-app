@@ -3,6 +3,8 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -11,6 +13,7 @@ import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
@@ -24,6 +27,8 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
     private lateinit var dataHighlights: ArrayList<Post>
     private lateinit var rvViewUnregisteredUser: RecyclerView
     private lateinit var unregisteredHighlightAdapter: OthersHighlightAdapterUnregistered
+
+    private lateinit var srlViewUserUnregistered: SwipeRefreshLayout
 
     private lateinit var fabAddPost: FloatingActionButton
 
@@ -61,6 +66,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         initActionBar()
         initRecyclerView()
         initBottom()
+        initSwipeRefresh()
     }
 
     private fun initRecyclerView() {
@@ -70,6 +76,24 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         this.unregisteredHighlightAdapter = OthersHighlightAdapterUnregistered(this.dataHighlights);
 
         this.rvViewUnregisteredUser.adapter = unregisteredHighlightAdapter;
+    }
+
+    private fun initSwipeRefresh() {
+        this.srlViewUserUnregistered = findViewById(R.id.srl_view_user_unregistered)
+        srlViewUserUnregistered.setOnRefreshListener {
+            onRefresh();
+        }
+
+        srlViewUserUnregistered.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
+    }
+
+    private fun onRefresh() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            srlViewUserUnregistered.isRefreshing = false
+        }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
     private fun initBottom() {
