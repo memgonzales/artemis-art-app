@@ -210,7 +210,7 @@
                         android:id="@+id/tiet_sign_up_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Username"
+                        android:hint="Username (at least 4 characters)"
                         android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -262,7 +262,7 @@
                         android:id="@+id/tiet_sign_up_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Password"
+                        android:hint="Password (at least 6 characters)"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
