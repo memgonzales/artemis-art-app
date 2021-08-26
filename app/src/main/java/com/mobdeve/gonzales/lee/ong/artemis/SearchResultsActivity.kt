@@ -6,17 +6,22 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 class SearchResultsActivity : AppCompatActivity() {
@@ -31,6 +36,11 @@ class SearchResultsActivity : AppCompatActivity() {
     private lateinit var searchAdapter: SearchResultsAdapter
     private lateinit var sflSearch: ShimmerFrameLayout
     private lateinit var bnvSearchBottom: BottomNavigationView
+
+    private lateinit var btmAddPost: BottomSheetDialog
+    private lateinit var fabAddPost: FloatingActionButton
+    private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+    private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     private lateinit var srlSearchResults: SwipeRefreshLayout
 
@@ -47,6 +57,7 @@ class SearchResultsActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_search_results))
         initShimmer()
         initBottom()
+        addPost()
         initActionBar()
 
         initSwipeRefresh()
@@ -224,4 +235,33 @@ class SearchResultsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    private fun addPost() {
+        this.btmAddPost = BottomSheetDialog(this@SearchResultsActivity)
+        this.fabAddPost = findViewById(R.id.fab_search_results_add)
+
+        val view = LayoutInflater.from(this@SearchResultsActivity).inflate(R.layout.dialog_post_artwork, null)
+
+        this.fabAddPost.setOnClickListener {
+            btmAddPost.setContentView(view)
+
+            this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
+            this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
+
+            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@SearchResultsActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@SearchResultsActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@SearchResultsActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@SearchResultsActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            btmAddPost.show()
+        }
+    }
 }

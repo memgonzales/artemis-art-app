@@ -2,16 +2,24 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class AccountManagementActivity : AppCompatActivity() {
     private lateinit var clAccountManagementDelete: ConstraintLayout
     private lateinit var bnvAccountManagementBottom: BottomNavigationView
+
+    private lateinit var btmAddPost: BottomSheetDialog
+    private lateinit var fabAddPost: FloatingActionButton
+    private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+    private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +43,7 @@ class AccountManagementActivity : AppCompatActivity() {
         builder.setTitle("Delete Profile")
         builder.setMessage("Are you sure you want to delete your profile? This action cannot be reversed.")
         builder.setPositiveButton(
-            "Yes"
+            "Delete"
         ) { dialog, which ->
             Toast.makeText(this@AccountManagementActivity, "Account deleted", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
@@ -43,7 +51,7 @@ class AccountManagementActivity : AppCompatActivity() {
             startActivity(intent)
         }
         builder.setNegativeButton(
-            "No"
+            "Cancel"
         ) { dialog, which -> }
         builder.create().show()
     }
@@ -51,6 +59,7 @@ class AccountManagementActivity : AppCompatActivity() {
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_account_management))
         initBottom()
+        addPost()
         initActionBar()
     }
 
@@ -85,5 +94,35 @@ class AccountManagementActivity : AppCompatActivity() {
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    private fun addPost() {
+        this.btmAddPost = BottomSheetDialog(this@AccountManagementActivity)
+        this.fabAddPost = findViewById(R.id.fab_account_management_add)
+
+        val view = LayoutInflater.from(this@AccountManagementActivity).inflate(R.layout.dialog_post_artwork, null)
+
+        this.fabAddPost.setOnClickListener {
+            btmAddPost.setContentView(view)
+
+            this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
+            this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
+
+            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@AccountManagementActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@AccountManagementActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@AccountManagementActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@AccountManagementActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            btmAddPost.show()
+        }
     }
 }

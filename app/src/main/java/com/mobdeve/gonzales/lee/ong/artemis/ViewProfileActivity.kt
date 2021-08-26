@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,6 +22,7 @@ class ViewProfileActivity : AppCompatActivity() {
     private lateinit var clViewProfileEdit: ConstraintLayout
     private lateinit var clViewProfileViewPosts: ConstraintLayout
     private lateinit var clViewProfileDelete: ConstraintLayout
+    private lateinit var clViewProfileLogout: ConstraintLayout
     private lateinit var btnViewProfileHighlights: Button
 
     private lateinit var bnvViewProfileBottom: BottomNavigationView
@@ -49,6 +51,7 @@ class ViewProfileActivity : AppCompatActivity() {
         this.clViewProfileEdit = findViewById(R.id.cl_view_profile_edit)
         this.clViewProfileViewPosts = findViewById(R.id.cl_view_profile_view_posts)
         this.clViewProfileDelete = findViewById(R.id.cl_view_profile_delete)
+        this.clViewProfileLogout = findViewById(R.id.cl_view_profile_logout)
         this.btnViewProfileHighlights = findViewById(R.id.btn_view_profile_highlights)
         this.bnvViewProfileBottom = findViewById(R.id.nv_view_profile_bottom)
         this.nsvViewProfile = findViewById(R.id.nsv_view_profile)
@@ -71,6 +74,10 @@ class ViewProfileActivity : AppCompatActivity() {
         clViewProfileDelete.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@ViewProfileActivity, AccountManagementActivity::class.java)
             startActivity(intent)
+        })
+
+        clViewProfileLogout.setOnClickListener(View.OnClickListener {
+            logoutDialog()
         })
 
         btnViewProfileHighlights.setOnClickListener(View.OnClickListener {
@@ -146,5 +153,23 @@ class ViewProfileActivity : AppCompatActivity() {
 
             btmAddPost.show()
         }
+    }
+
+    private fun logoutDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Log out")
+        builder.setMessage("Do you want to log out?")
+        builder.setPositiveButton(
+            "Log out"
+        ) { dialog, which ->
+            Toast.makeText(this@ViewProfileActivity, "You have been logged out", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@ViewProfileActivity, LogInActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+        builder.setNegativeButton(
+            "Cancel"
+        ) { dialog, which -> }
+        builder.create().show()
     }
 }

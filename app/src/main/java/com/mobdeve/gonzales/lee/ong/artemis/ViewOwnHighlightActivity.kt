@@ -91,32 +91,12 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
         })
 
         civItemViewOwnHighlightProfilePic.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, ViewUserActivity::class.java)
-
-            intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-
+            val intent = Intent(this, ViewProfileActivity::class.java)
             startActivity(intent)
         })
 
         tvItemViewOwnHighlightUsername.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, ViewUserActivity::class.java)
-
-            intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-
+            val intent = Intent(this, ViewProfileActivity::class.java)
             startActivity(intent)
         })
     }
@@ -171,7 +151,6 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
             this.ibItemViewOwnHighlightHighlight.imageTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(this.ibItemViewOwnHighlightHighlight.context, R.color.pinkish_purple)
             )
-            Toast.makeText(this@ViewOwnHighlightActivity, "Added to your Highlights", Toast.LENGTH_SHORT).show()
         } else {
             this.ibItemViewOwnHighlightHighlight.setImageResource(R.drawable.outline_star_border_24)
             this.ibItemViewOwnHighlightHighlight.imageTintList = ColorStateList.valueOf(

@@ -5,14 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
@@ -21,6 +26,11 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private lateinit var sflHighlights: ShimmerFrameLayout
     private lateinit var bnvHighlightsBottom: BottomNavigationView
     private lateinit var nsvHighlights: NestedScrollView
+
+    private lateinit var btmAddPost: BottomSheetDialog
+    private lateinit var fabAddPost: FloatingActionButton
+    private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+    private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     private lateinit var srlHighlights: SwipeRefreshLayout
 
@@ -36,6 +46,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         initActionBar()
         initShimmer()
         initBottom()
+        addPost()
         initSwipeRefresh()
     }
 
@@ -115,5 +126,35 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    private fun addPost() {
+        this.btmAddPost = BottomSheetDialog(this@BrowseOwnHighlightsActivity)
+        this.fabAddPost = findViewById(R.id.fab_browse_highlights_add)
+
+        val view = LayoutInflater.from(this@BrowseOwnHighlightsActivity).inflate(R.layout.dialog_post_artwork, null)
+
+        this.fabAddPost.setOnClickListener {
+            btmAddPost.setContentView(view)
+
+            this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
+            this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
+
+            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@BrowseOwnHighlightsActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@BrowseOwnHighlightsActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@BrowseOwnHighlightsActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@BrowseOwnHighlightsActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            btmAddPost.show()
+        }
     }
 }

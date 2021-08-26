@@ -5,16 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ScrollView
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class BrowseFeedFollowedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
@@ -25,6 +30,11 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
     private lateinit var nsvFollowed: NestedScrollView
 
     private lateinit var srlFeedFollowed: SwipeRefreshLayout
+
+    private lateinit var btmAddPost: BottomSheetDialog
+    private lateinit var fabAddPost: FloatingActionButton
+    private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+    private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +47,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_feed_followed))
         initShimmer()
         initBottom()
+        addPost()
         initSwipeRefresh()
     }
 
@@ -137,5 +148,35 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
     private fun launchSearch() {
         val intent = Intent(this@BrowseFeedFollowedActivity, SearchActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun addPost() {
+        this.btmAddPost = BottomSheetDialog(this@BrowseFeedFollowedActivity)
+        this.fabAddPost = findViewById(R.id.fab_feed_followed_add)
+
+        val view = LayoutInflater.from(this@BrowseFeedFollowedActivity).inflate(R.layout.dialog_post_artwork, null)
+
+        this.fabAddPost.setOnClickListener {
+            btmAddPost.setContentView(view)
+
+            this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
+            this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
+
+            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@BrowseFeedFollowedActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@BrowseFeedFollowedActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@BrowseFeedFollowedActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@BrowseFeedFollowedActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            btmAddPost.show()
+        }
     }
 }
