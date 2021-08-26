@@ -84,9 +84,9 @@ class SignUpActivity : AppCompatActivity() {
                 val password: String = tietPassword.text.toString().trim()
 
                 if(validCredentials(username, email, password)){
-                    checkUser(username)
-                    //var user: User = User(username, email, password)
-                    //storeUser(user)
+                    //checkUser(username)
+                    var user: User = User(username, email, password)
+                    storeUser(user)
                 }
         }
     }
