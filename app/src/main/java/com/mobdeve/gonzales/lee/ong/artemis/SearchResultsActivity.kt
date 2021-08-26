@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.hdodenhof.circleimageview.CircleImageView
@@ -31,6 +32,8 @@ class SearchResultsActivity : AppCompatActivity() {
     private lateinit var sflSearch: ShimmerFrameLayout
     private lateinit var bnvSearchBottom: BottomNavigationView
 
+    private lateinit var srlSearchResults: SwipeRefreshLayout
+
     private lateinit var etSearchBar: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +48,8 @@ class SearchResultsActivity : AppCompatActivity() {
         initShimmer()
         initBottom()
         initActionBar()
+
+        initSwipeRefresh()
     }
 
     private fun initShimmer() {
@@ -62,6 +67,24 @@ class SearchResultsActivity : AppCompatActivity() {
             civSearchResultUser3.visibility = View.VISIBLE
             civSearchResultUser4.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
+    }
+
+    private fun initSwipeRefresh() {
+        this.srlSearchResults = findViewById(R.id.srl_search_results)
+        srlSearchResults.setOnRefreshListener {
+            onRefresh();
+        }
+
+        srlSearchResults.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
+    }
+
+    private fun onRefresh() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            srlSearchResults.isRefreshing = false
+        }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
     private fun initBottom() {
