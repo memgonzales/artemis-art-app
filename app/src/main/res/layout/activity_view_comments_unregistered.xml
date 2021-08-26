@@ -163,7 +163,7 @@
         android:id="@+id/cl_view_comments_unregistered_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/cl_view_comments_unregistered_unregistered_note"
+        app:layout_constraintBottom_toTopOf="@id/nv_view_comments_unregistered_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -171,28 +171,31 @@
 
         <ImageButton
             android:id="@+id/ib_add_comment_followed"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="onClick"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@id/et_add_comment_unregistered"
+            app:layout_constraintBottom_toBottomOf="@id/et_add_comment_followed"
             app:layout_constraintEnd_toStartOf="@+id/gl_view_comments_unregistered_right_comment"
-            app:layout_constraintStart_toEndOf="@+id/et_add_comment_unregistered"
-            app:layout_constraintTop_toTopOf="@+id/et_add_comment_unregistered"
+            app:layout_constraintStart_toStartOf="@+id/gl_view_comments_unregistered_left_icon"
+            app:layout_constraintTop_toTopOf="@+id/et_add_comment_followed"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_action_send"
             app:tint="@color/purple_main" />
 
         <EditText
-            android:id="@+id/et_add_comment_unregistered"
+            android:id="@+id/et_add_comment_followed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Only registered users can comment"
+            android:hint="Log in or sign up to comment"
             android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:scrollbars="vertical"
             android:textColorHint="@color/purple_main"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -215,30 +218,16 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.97" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_view_comments_unregistered_unregistered_note"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/purple_main"
-        app:layout_constraintBottom_toTopOf="@+id/nv_view_comments_unregistered_bottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/coord_view_comments_unregistered"
-        app:layout_constraintVertical_bias="1.0">
-
-        <TextView
-            android:id="@+id/tv_view_comments_unregistered_unregistered_note"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_view_comments_unregistered_left_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You are browsing as a guest"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="0dp"
+            app:layout_constraintGuide_percent="0.90" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nv_view_comments_unregistered_bottom"
