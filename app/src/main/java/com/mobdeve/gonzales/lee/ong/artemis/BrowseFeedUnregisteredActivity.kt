@@ -41,6 +41,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_feed_unregistered))
         initShimmer()
         initBottom()
+        initActionBar()
         initSwipeRefresh()
 
         addPost()
@@ -75,6 +76,12 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
             srlFeedUnregistered.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
+
+    private fun initActionBar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
 
     private fun initBottom() {
         this.bnvFeedBottom = findViewById(R.id.nv_feed_unregistered_bottom)
@@ -117,13 +124,6 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_top_with_search, menu)
 
         return true
-    }
-
-    override fun onBackPressed() {
-        val i = Intent(Intent.ACTION_MAIN)
-        i.addCategory(Intent.CATEGORY_HOME)
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(i)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

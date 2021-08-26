@@ -47,34 +47,12 @@
             app:srcCompat="@drawable/logo_non_splash" />
 
         <TextView
-            android:id="@+id/tv_log_in_art"
+            android:id="@+id/tv_log_in_banner"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fontFamily="@font/delius"
-            android:gravity="end"
-            android:text="Art"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:autoSizeMaxTextSize="45sp"
-            app:autoSizeMinTextSize="20sp"
-            app:autoSizeStepGranularity="1sp"
-            app:autoSizeTextType="uniform"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_log_in_emis"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_log_in_emis"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_log_in_emis"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/tv_log_in_emis"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/delius"
-            android:gravity="left"
-            android:text="emis"
+            android:gravity="center"
+            android:text="@string/tv_log_in_banner"
             android:textColor="@color/white"
             app:autoSizeMaxTextSize="45sp"
             app:autoSizeMinTextSize="20sp"
@@ -82,8 +60,7 @@
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toTopOf="@+id/gl_log_in_bottom_header"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tv_log_in_art"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/gl_log_in_bottom_logo" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -100,6 +77,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.97" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

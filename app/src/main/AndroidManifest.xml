@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".SearchResultsUnregisteredActivity"
-            android:parentActivityName=".SearchUnregisteredActivity"></activity>
+        <activity
+            android:name=".SearchResultsUnregisteredActivity"
+            android:parentActivityName=".SearchUnregisteredActivity" />
         <activity android:name=".SearchUnregisteredActivity" />
         <activity
             android:name=".ViewUserUnregisteredActivity"
