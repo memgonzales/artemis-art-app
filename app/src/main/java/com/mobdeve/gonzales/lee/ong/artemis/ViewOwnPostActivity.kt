@@ -37,6 +37,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private lateinit var tvItemViewOwnPostHighlight: TextView
     private lateinit var clItemViewOwnPostHighlight: ConstraintLayout
     private lateinit var clItemViewOwnPostComment: ConstraintLayout
+    private lateinit var clItemViewOwnPostShare: ConstraintLayout
     private lateinit var bnvViewOwnPostBottom: BottomNavigationView
 
     private lateinit var ibItemViewOwnPostOptions: ImageButton
@@ -71,6 +72,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
         this.tvItemViewOwnPostHighlight = findViewById(R.id.tv_item_view_own_post_highlight)
         this.clItemViewOwnPostHighlight = findViewById(R.id.cl_item_view_own_post_highlight)
         this.clItemViewOwnPostComment = findViewById(R.id.cl_item_view_own_post_comment)
+        this.clItemViewOwnPostShare = findViewById(R.id.cl_item_view_own_post_share)
 
         this.ibItemViewOwnPostOptions = findViewById(R.id.ib_item_view_own_post_options)
         this.btmViewOwnPost = BottomSheetDialog(this@ViewOwnPostActivity)
@@ -155,33 +157,17 @@ class ViewOwnPostActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
+        clItemViewOwnPostShare.setOnClickListener(View.OnClickListener {
+            Toast.makeText(this@ViewOwnPostActivity,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
+        })
+
         civItemViewOwnPostProfilePic.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, ViewProfileActivity::class.java)
-
-            intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-
             startActivity(intent)
         })
 
         tvItemViewOwnPostUsername.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, ViewUserActivity::class.java)
-
-            intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-
+            val intent = Intent(this, ViewProfileActivity::class.java)
             startActivity(intent)
         })
 

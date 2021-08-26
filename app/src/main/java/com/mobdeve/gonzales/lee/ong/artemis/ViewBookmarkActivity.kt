@@ -91,6 +91,10 @@ class ViewBookmarkActivity : AppCompatActivity() {
                 Keys.KEY_USERNAME.name,
                 username
             )
+            intent.putExtra(
+                Keys.KEY_BIO.name,
+                "Dummy bio"
+            )
 
             startActivity(intent)
         })
@@ -105,6 +109,10 @@ class ViewBookmarkActivity : AppCompatActivity() {
             intent.putExtra(
                 Keys.KEY_USERNAME.name,
                 username
+            )
+            intent.putExtra(
+                Keys.KEY_BIO.name,
+                "Dummy bio"
             )
 
             startActivity(intent)

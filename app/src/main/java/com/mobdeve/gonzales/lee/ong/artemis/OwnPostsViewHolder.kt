@@ -25,6 +25,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvOwnPostHighlight: TextView
     private val clOwnPostHighlight: ConstraintLayout
     private val clOwnPostComment: ConstraintLayout
+    private val clOwnPostShare: ConstraintLayout
 
     private val ibItemOwnPostOptions: ImageButton
     private val btmItemOwnPostOptions: BottomSheetDialog
@@ -81,6 +82,10 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         clOwnPostComment.setOnClickListener(onClickListener)
     }
 
+    fun setOwnPostShareOnClickListener(onClickListener: View.OnClickListener) {
+        clOwnPostShare.setOnClickListener(onClickListener)
+    }
+
     fun setOwnPostProfileOnClickListener(onClickListener: View.OnClickListener) {
         civOwnPostProfilePic.setOnClickListener(onClickListener)
         tvOwnPostUsername.setOnClickListener(onClickListener)
@@ -105,6 +110,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvOwnPostHighlight = itemView.findViewById(R.id.tv_item_own_post_highlight)
         clOwnPostHighlight = itemView.findViewById(R.id.cl_item_own_post_highlight)
         clOwnPostComment = itemView.findViewById(R.id.cl_item_own_post_comment)
+        clOwnPostShare = itemView.findViewById(R.id.cl_item_own_post_share)
         ibItemOwnPostOptions = itemView.findViewById(R.id.ib_item_own_post_options)
         btmItemOwnPostOptions = BottomSheetDialog(itemView.context)
     }

@@ -3,6 +3,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
@@ -111,6 +112,10 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
             }
         }
 
+        holder.setItemFeedShareOnClickListener { view ->
+            Toast.makeText(view.context,"Post shared on Facebook", Toast.LENGTH_SHORT).show();
+        }
+
         holder.setItemFeedProfileOnClickListener { view ->
             val intent = Intent(view.context, ViewUserActivity::class.java)
 
@@ -121,6 +126,10 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
             intent.putExtra(
                 Keys.KEY_USERNAME.name,
                 currentPost.getUsername()
+            )
+            intent.putExtra(
+                Keys.KEY_BIO.name,
+                "Dummy bio"
             )
 
             view.context.startActivity(intent)

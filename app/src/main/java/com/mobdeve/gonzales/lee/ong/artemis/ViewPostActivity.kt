@@ -36,6 +36,7 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var tvItemViewPostUpvote: TextView
     private lateinit var clItemViewPostUpvote: ConstraintLayout
     private lateinit var clItemViewPostComment: ConstraintLayout
+    private lateinit var clItemViewPostShare: ConstraintLayout
     private lateinit var bnvViewPostBottom: BottomNavigationView
 
     private lateinit var btmAddPost: BottomSheetDialog
@@ -65,6 +66,7 @@ class ViewPostActivity : AppCompatActivity() {
         tvItemViewPostUpvote = findViewById(R.id.tv_item_view_post_upvote)
         clItemViewPostUpvote = findViewById(R.id.cl_item_view_post_upvote)
         clItemViewPostComment = findViewById(R.id.cl_item_view_post_comment)
+        clItemViewPostShare = findViewById(R.id.cl_item_view_post_share)
 
         initIntent()
         initComponents()
@@ -132,6 +134,10 @@ class ViewPostActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
+        clItemViewPostShare.setOnClickListener(View.OnClickListener {
+            Toast.makeText(this@ViewPostActivity,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
+        })
+
         civItemViewPostProfilePic.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
@@ -142,6 +148,10 @@ class ViewPostActivity : AppCompatActivity() {
             intent.putExtra(
                 Keys.KEY_USERNAME.name,
                 username
+            )
+            intent.putExtra(
+                Keys.KEY_BIO.name,
+                "Dummy bio"
             )
 
             startActivity(intent)
@@ -157,6 +167,10 @@ class ViewPostActivity : AppCompatActivity() {
             intent.putExtra(
                 Keys.KEY_USERNAME.name,
                 username
+            )
+            intent.putExtra(
+                Keys.KEY_BIO.name,
+                "Dummy bio"
             )
 
             startActivity(intent)

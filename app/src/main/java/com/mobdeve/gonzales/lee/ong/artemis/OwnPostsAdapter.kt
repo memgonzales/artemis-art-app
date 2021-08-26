@@ -101,6 +101,10 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
             }
         }
 
+        holder.setOwnPostShareOnClickListener { view ->
+            Toast.makeText(view.context,"Post shared on Facebook", Toast.LENGTH_SHORT).show();
+        }
+
         holder.setOwnPostProfileOnClickListener { view ->
             val intent = Intent(view.context, ViewProfileActivity::class.java)
             view.context.startActivity(intent)
