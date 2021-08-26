@@ -165,12 +165,12 @@ class ViewCommentsActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     this.pbComment.visibility = View.GONE
-                    Toast.makeText(this, "Commented Successfully", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Commented successfully", Toast.LENGTH_LONG).show()
                 }
 
                 else{
                     this.pbComment.visibility = View.VISIBLE
-                    Toast.makeText(this, "Failed to Comment", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Failed to comment", Toast.LENGTH_LONG).show()
                 }
             }
     }

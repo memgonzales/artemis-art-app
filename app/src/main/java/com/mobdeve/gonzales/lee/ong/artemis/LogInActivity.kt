@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.FirstPartyScopes
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -24,6 +25,9 @@ class LogInActivity : AppCompatActivity() {
 
     private lateinit var tietUsername: TextInputEditText
     private lateinit var tietPassword: TextInputEditText
+
+    private lateinit var tilUsername: TextInputLayout
+    private lateinit var tilPassword: TextInputLayout
 
     private lateinit var tvGuest: TextView
 
@@ -75,6 +79,9 @@ class LogInActivity : AppCompatActivity() {
             this.tietUsername = findViewById(R.id.tiet_log_in_username)
             this.tietPassword = findViewById(R.id.tiet_log_in_password)
 
+            this.tilUsername = findViewById(R.id.til_log_in_username)
+            this.tilPassword = findViewById(R.id.til_log_in_password)
+
             this.pbLogin.visibility = View.VISIBLE
 
             var username: String = tietUsername.text.toString().trim()
@@ -96,14 +103,14 @@ class LogInActivity : AppCompatActivity() {
         var hasEmpty: Boolean = false
 
         if (username.isEmpty()){
-            this.tietUsername.error = "Required"
+            this.tilUsername.error = "Required"
             this.tietUsername.requestFocus()
             hasEmpty = true
         }
 
 
         if(password.isEmpty()){
-            this.tietPassword.error = "Required"
+            this.tilPassword.error = "Required"
             this.tietPassword.requestFocus()
             hasEmpty = true
         }
@@ -196,7 +203,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startTesting() {
         this.btnTest.setOnClickListener {
-            val i = Intent(this@LogInActivity, ViewPostUnregisteredActivity::class.java)
+            val i = Intent(this@LogInActivity, ViewCommentsUnregisteredActivity::class.java)
             startActivity(i)
         }
     }

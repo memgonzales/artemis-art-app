@@ -67,7 +67,7 @@ class ViewUserActivity : AppCompatActivity() {
         this.tvViewUserBio.text = bio
 
         btnViewUserFollow.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewUserActivity, "User followed.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ViewUserActivity, "User followed", Toast.LENGTH_SHORT).show()
         })
     }
 
