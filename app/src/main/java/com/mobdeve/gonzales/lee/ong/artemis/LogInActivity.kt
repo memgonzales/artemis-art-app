@@ -79,49 +79,10 @@ class LogInActivity : AppCompatActivity() {
 
             var username: String = tietUsername.text.toString().trim()
             var password: String = tietPassword.text.toString().trim()
-
-            this.mAuth.signInWithEmailAndPassword(username, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful){
-                        this.pbLogin.visibility = View.GONE
-                        Toast.makeText(this@LogInActivity, "Login Successfully", Toast.LENGTH_SHORT).show()
-                        val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
-                        startActivity(i)
-                        finish()
-                    }
-
-                    else{
-                        this.pbLogin.visibility = View.GONE
-                        Toast.makeText(this@LogInActivity, "Invalid email/password", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            //Toast.makeText(this, "Working", Toast.LENGTH_SHORT).show()
-
             /*
             val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
             userDB.orderByChild(Keys.username.name).equalTo(username)
-                .addValueEventListener(object: ValueEventListener{
-                    override fun onDataChange(snapshot: DataSnapshot) {
-
-                        if (snapshot.childrenCount > 0){
-                            for (userSnap in snapshot.children){
-                                var user = userSnap.child(Keys.username.name).get()
-                                var key = userSnap.key!!
-
-                                Toast.makeText(this@LogInActivity, "ch: " + user, Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
-
-                })
-
-             */
-                    /*
                 .addListenerForSingleValueEvent(object: ValueEventListener{
                     override fun onDataChange(dataSnapshot: DataSnapshot){
 
@@ -129,8 +90,8 @@ class LogInActivity : AppCompatActivity() {
                             for (userSnap in dataSnapshot.children){
 
                                 var key = userSnap.key!!
-                                var user = userSnap.child(Keys.username.name).getValue()
-                                //var pw = userDB.child(key).child(Keys.password.name).get()
+                                var user = userSnap.child(Keys.username.name).getValue()!!
+                                var pw = userDB.child(key).child(Keys.password.name).get()
 
                                 Toast.makeText(this@LogInActivity, "check: " + user, Toast.LENGTH_SHORT).show()
 
@@ -159,92 +120,53 @@ class LogInActivity : AppCompatActivity() {
                     }
                 })
 
-                     */
+             */
 
-
-        /*
-
-                .addChildEventListener(object: ChildEventListener{
-                    override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                        //snapshot.getValue() -> children of the User class
-                        var user = userDB.child(snapshot.key!!).child(Keys.username.name).get()
-                        var pw = userDB.child(snapshot.key!!).child(Keys.password.name).get()
-
-                        Toast.makeText(this@LogInActivity, "ch:" + pw, Toast.LENGTH_SHORT).show()
-                        /*
-                        if (username.equals(user) && password.equals(pw)){
-                            Toast.makeText(this@LogInActivity, "hurrayy", Toast.LENGTH_SHORT).show()
+            /*
+            if (!checkEmpty(username, password)){
+                this.mAuth.signInWithEmailAndPassword(username, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful){
+                            this.pbLogin.visibility = View.GONE
+                            Toast.makeText(this@LogInActivity, "Login Successfully", Toast.LENGTH_SHORT).show()
+                            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
+                            startActivity(i)
+                            finish()
                         }
 
                         else{
-                            Toast.makeText(this@LogInActivity, "grh", Toast.LENGTH_SHORT).show()
+                            this.pbLogin.visibility = View.GONE
+                            Toast.makeText(this@LogInActivity, "Invalid email/password", Toast.LENGTH_SHORT).show()
                         }
-
-                         */
-
                     }
-
-
-
-                    override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onChildRemoved(snapshot: DataSnapshot) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
-
-                })
- */
-
-            //Toast.makeText(this, "Check: " + usernameLogin, Toast.LENGTH_SHORT).show()
-            /*
-            customToken?.let{
-                this.mAuth.signInWithCustomToken(it).addOnCompleteListener(this){ task ->
-                    if (task.isSuccessful){
-                        Toast.makeText(this@LogInActivity, "Hurrah", Toast.LENGTH_SHORT).show()
-                    }
-
-                    else{
-                        Toast.makeText(this@LogInActivity, "Awes", Toast.LENGTH_SHORT).show()
-                    }
-
-
-                }
             }
 
              */
-            /*
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success")
-                        val user = auth.currentUser
-                        updateUI(user)
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show()
-                        updateUI(null)
-                    }
-                }
-*/
 
-
-
-
+            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
+            startActivity(i)
+            finish()
 
         }
+    }
+
+    private fun checkEmpty(username: String, password: String): Boolean{
+        var hasEmpty: Boolean = false
+
+        if (username.isEmpty()){
+            this.tietUsername.error = "Required"
+            this.tietUsername.requestFocus()
+            hasEmpty = true
+        }
+
+
+        if(password.isEmpty()){
+            this.tietPassword.error = "Required"
+            this.tietPassword.requestFocus()
+            hasEmpty = true
+        }
+
+        return false
     }
 
     private fun loginAsGuest(){
