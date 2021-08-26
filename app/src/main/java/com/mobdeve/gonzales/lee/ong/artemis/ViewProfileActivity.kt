@@ -157,7 +157,7 @@ class ViewProfileActivity : AppCompatActivity() {
 
     private fun logoutDialog() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Log out")
+        builder.setTitle("Log Out")
         builder.setMessage("Do you want to log out?")
         builder.setPositiveButton(
             "Log out"
