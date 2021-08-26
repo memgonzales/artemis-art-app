@@ -108,7 +108,7 @@ class SignUpActivity : AppCompatActivity() {
             this.tietUsername.requestFocus()
             isValid = false
         }
-        
+
          */
 
         if(email.isEmpty()) {
