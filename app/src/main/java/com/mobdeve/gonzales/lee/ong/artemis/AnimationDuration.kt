@@ -7,6 +7,6 @@ class AnimationDuration {
 
         /* Hardcoded temporarily prior to database-driven implementation */
         const val SHIMMER_TIMEOUT = 2000
-        const val REFRESH_TIMEOUT = 1000
+        const val REFRESH_TIMEOUT = 1500
     }
 }

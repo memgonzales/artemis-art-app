@@ -87,6 +87,11 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         srlBookmarks.setOnRefreshListener {
             onRefresh();
         }
+
+        srlBookmarks.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
     }
 
     private fun onRefresh() {
