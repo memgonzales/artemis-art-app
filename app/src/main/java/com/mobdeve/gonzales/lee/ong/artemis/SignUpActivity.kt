@@ -2,6 +2,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -121,6 +122,12 @@ class SignUpActivity : AppCompatActivity() {
             isValid = false
         }
 
+        if(!email.isEmpty() && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            this.tilEmail.error = "Invalid email address"
+            this.tietEmail.requestFocus()
+            isValid = false
+        }
+
         if(password.isEmpty()) {
             this.tilPassword.error = "Required"
             this.tietPassword.requestFocus()
@@ -142,17 +149,16 @@ class SignUpActivity : AppCompatActivity() {
 
         var userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
 
-        var check = userDB.orderByChild(Keys.username.name).equalTo(username)
-
-        check.addListenerForSingleValueEvent(object: ValueEventListener{
+        userDB.orderByChild(Keys.username.name).equalTo(username)
+            .addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 if (snapshot.childrenCount  > 0){
-                    setUserExists(true)
+
                 }
 
                 else{
-                    setUserExists(false)
+
                 }
                // ]Toast.makeText(this@SignUpActivity, "ch: " + snapshot.childrenCount, Toast.LENGTH_SHORT).show()
 
@@ -165,30 +171,7 @@ class SignUpActivity : AppCompatActivity() {
 
         })
 
-
-        /*
-        check.addValueEventListener(object: ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.childrenCount > 0) {
-                        userExists = true
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
-            })
-
-
-         */
-
     }
-
-    private fun setUserExists(username: Boolean){
-        this.usernameExists = username
-    }
-
 
     private fun storeUser(user: User) {
         this.pbSignUp.visibility = View.VISIBLE
@@ -206,12 +189,9 @@ class SignUpActivity : AppCompatActivity() {
                             }
                         }
 
-                    /*
-                    db!!.getReference(Keys.usernames.name)
-                        .child(mAuth!!.currentUser!!.uid)
-                        .setValue(user.getUsername())
-                    */
-                } else {
+                }
+
+                else {
                     failedRegistration()
                 }
             }

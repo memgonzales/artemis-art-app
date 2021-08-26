@@ -92,6 +92,25 @@ class LogInActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkEmpty(username: String, password: String): Boolean{
+        var hasEmpty: Boolean = false
+
+        if (username.isEmpty()){
+            this.tietUsername.error = "Required"
+            this.tietUsername.requestFocus()
+            hasEmpty = true
+        }
+
+
+        if(password.isEmpty()){
+            this.tietPassword.error = "Required"
+            this.tietPassword.requestFocus()
+            hasEmpty = true
+        }
+
+        return false
+    }
+
     private fun loginWithEmail(username: String, password: String){
         this.mAuth.signInWithEmailAndPassword(username, password)
             .addOnCompleteListener { task ->
@@ -151,26 +170,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun loginFailed(){
         this.pbLogin.visibility = View.GONE
-        Toast.makeText(this@LogInActivity, "Invalid username/password", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun checkEmpty(username: String, password: String): Boolean{
-        var hasEmpty: Boolean = false
-
-        if (username.isEmpty()){
-            this.tietUsername.error = "Required"
-            this.tietUsername.requestFocus()
-            hasEmpty = true
-        }
-
-
-        if(password.isEmpty()){
-            this.tietPassword.error = "Required"
-            this.tietPassword.requestFocus()
-            hasEmpty = true
-        }
-
-        return false
+        Toast.makeText(this@LogInActivity, "Invalid username/email/password", Toast.LENGTH_SHORT).show()
     }
 
     private fun loginAsGuest(){
