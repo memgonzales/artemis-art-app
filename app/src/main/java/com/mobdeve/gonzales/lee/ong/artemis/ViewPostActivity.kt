@@ -6,14 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.widget.NestedScrollView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -35,9 +36,13 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var tvItemViewPostUpvote: TextView
     private lateinit var clItemViewPostUpvote: ConstraintLayout
     private lateinit var clItemViewPostComment: ConstraintLayout
+    private lateinit var clItemViewPostShare: ConstraintLayout
     private lateinit var bnvViewPostBottom: BottomNavigationView
 
+    private lateinit var btmAddPost: BottomSheetDialog
     private lateinit var fabAddPost: FloatingActionButton
+    private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+    private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     private lateinit var srlViewPost: SwipeRefreshLayout
 
@@ -61,6 +66,7 @@ class ViewPostActivity : AppCompatActivity() {
         tvItemViewPostUpvote = findViewById(R.id.tv_item_view_post_upvote)
         clItemViewPostUpvote = findViewById(R.id.cl_item_view_post_upvote)
         clItemViewPostComment = findViewById(R.id.cl_item_view_post_comment)
+        clItemViewPostShare = findViewById(R.id.cl_item_view_post_share)
 
         initIntent()
         initComponents()
@@ -128,6 +134,10 @@ class ViewPostActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
+        clItemViewPostShare.setOnClickListener(View.OnClickListener {
+            Toast.makeText(this@ViewPostActivity,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
+        })
+
         civItemViewPostProfilePic.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
@@ -138,6 +148,10 @@ class ViewPostActivity : AppCompatActivity() {
             intent.putExtra(
                 Keys.KEY_USERNAME.name,
                 username
+            )
+            intent.putExtra(
+                Keys.KEY_BIO.name,
+                "Dummy bio"
             )
 
             startActivity(intent)
@@ -154,6 +168,10 @@ class ViewPostActivity : AppCompatActivity() {
                 Keys.KEY_USERNAME.name,
                 username
             )
+            intent.putExtra(
+                Keys.KEY_BIO.name,
+                "Dummy bio"
+            )
 
             startActivity(intent)
         })
@@ -164,6 +182,7 @@ class ViewPostActivity : AppCompatActivity() {
         initActionBar()
         initSwipeRefresh()
         initBottom()
+        addPost()
     }
 
     private fun initSwipeRefresh() {
@@ -268,5 +287,35 @@ class ViewPostActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun addPost() {
+        this.btmAddPost = BottomSheetDialog(this@ViewPostActivity)
+        this.fabAddPost = findViewById(R.id.fab_view_post_add)
+
+        val view = LayoutInflater.from(this@ViewPostActivity).inflate(R.layout.dialog_post_artwork, null)
+
+        this.fabAddPost.setOnClickListener {
+            btmAddPost.setContentView(view)
+
+            this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
+            this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
+
+            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@ViewPostActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@ViewPostActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@ViewPostActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@ViewPostActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            btmAddPost.show()
+        }
     }
 }

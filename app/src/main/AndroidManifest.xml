@@ -46,11 +46,13 @@
         <activity
             android:name=".ViewPostFollowedActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
             android:parentActivityName=".BrowseFeedFollowedActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ViewCommentsFollowedActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".ViewPostFollowedActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PostArtworkActivity"

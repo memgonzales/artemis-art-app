@@ -1,25 +1,25 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.NestedScrollView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -30,7 +30,11 @@ class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var llViewCommentsShimmer: LinearLayout
     private lateinit var sflViewComments: ShimmerFrameLayout
     private lateinit var bnvViewCommentsBottom: BottomNavigationView
-    private lateinit var nsvViewComments: NestedScrollView
+
+    private lateinit var btmAddPost: BottomSheetDialog
+    private lateinit var fabAddPost: FloatingActionButton
+    private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+    private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     private lateinit var ibAddComment: ImageButton
     private lateinit var etComment: EditText
@@ -65,6 +69,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         initShimmer()
         initActionBar()
         initBottom()
+        addPost()
         initSwipeRefresh()
 
         addComment()
@@ -102,7 +107,6 @@ class ViewCommentsActivity : AppCompatActivity() {
 
     private fun initBottom() {
         this.bnvViewCommentsBottom = findViewById(R.id.nv_view_comments_bottom)
-        this.nsvViewComments = findViewById(R.id.nsv_view_comments)
 
         bnvViewCommentsBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
@@ -153,7 +157,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.rvComments.adapter = commentsAdapter
     }
 
-    private fun addComment(comment: Comment){
+    private fun addComment(comment: Comment) {
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
         val postKey = commentDB.push().key!!
 
@@ -172,8 +176,8 @@ class ViewCommentsActivity : AppCompatActivity() {
     }
 
     private fun addComment() {
-        this.ibAddComment = findViewById(R.id.ib_add_comment)
-        this.etComment = findViewById(R.id.et_add_comment)
+        this.ibAddComment = findViewById(R.id.ib_add_comment_followed)
+        this.etComment = findViewById(R.id.et_add_comment_followed)
         this.pbComment = findViewById(R.id.pb_view_comments)
 
         this.ibAddComment.setOnClickListener {
@@ -187,6 +191,36 @@ class ViewCommentsActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Comments should not be blank", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun addPost() {
+        this.btmAddPost = BottomSheetDialog(this@ViewCommentsActivity)
+        this.fabAddPost = findViewById(R.id.fab_view_comments_add)
+
+        val view = LayoutInflater.from(this@ViewCommentsActivity).inflate(R.layout.dialog_post_artwork, null)
+
+        this.fabAddPost.setOnClickListener {
+            btmAddPost.setContentView(view)
+
+            this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
+            this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
+
+            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@ViewCommentsActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@ViewCommentsActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@ViewCommentsActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@ViewCommentsActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            btmAddPost.show()
         }
     }
 }

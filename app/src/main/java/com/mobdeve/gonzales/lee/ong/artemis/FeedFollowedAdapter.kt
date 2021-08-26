@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import java.util.*
+import java.util.ArrayList
 
-class FeedAdapter(private val dataPosts: ArrayList<Post>) :
+class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<FeedViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -16,7 +16,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
         val feedViewHolder = FeedViewHolder(itemView)
 
         itemView.setOnClickListener { view ->
-            val intent = Intent(view.context, ViewPostActivity::class.java)
+            val intent = Intent(view.context, ViewPostFollowedActivity::class.java)
 
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
@@ -75,7 +75,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
         }
 
         feedViewHolder.setItemFeedCommentOnClickListener { view ->
-            val intent = Intent(view.context, ViewCommentsActivity::class.java)
+            val intent = Intent(view.context, ViewCommentsFollowedActivity::class.java)
             view.context.startActivity(intent)
         }
 

@@ -4,14 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -131,7 +129,7 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
 
     private fun disableEditText() {
         this.etAddCommentUnregistered = findViewById(R.id.et_add_comment_unregistered)
-        this.ibAddComment = findViewById(R.id.ib_add_comment)
+        this.ibAddComment = findViewById(R.id.ib_add_comment_followed)
 
         this.etAddCommentUnregistered.isEnabled = false
         this.ibAddComment.setOnClickListener(View.OnClickListener {
