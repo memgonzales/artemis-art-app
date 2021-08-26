@@ -43,8 +43,6 @@ class EditPostActivity : AppCompatActivity() {
 
         btnEditArtworkSave.setOnClickListener(View.OnClickListener {
             Toast.makeText(this@EditPostActivity, "Your post details have been updated", Toast.LENGTH_SHORT).show()
-        //    val intent = Intent(this@EditPostActivity, BrowseOwnPostsActivity::class.java)
-        //    startActivity(intent)
             finish()
         })
 

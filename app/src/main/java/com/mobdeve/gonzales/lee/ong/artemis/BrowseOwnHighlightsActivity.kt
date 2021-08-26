@@ -25,7 +25,6 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private lateinit var highlightsAdapter: HighlightsAdapter
     private lateinit var sflHighlights: ShimmerFrameLayout
     private lateinit var bnvHighlightsBottom: BottomNavigationView
-    private lateinit var nsvHighlights: NestedScrollView
 
     private lateinit var btmAddPost: BottomSheetDialog
     private lateinit var fabAddPost: FloatingActionButton
@@ -82,7 +81,6 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
 
     private fun initBottom() {
         this.bnvHighlightsBottom = findViewById(R.id.nv_highlights_bottom)
-        this.nsvHighlights = findViewById(R.id.nsv_highlights)
 
         bnvHighlightsBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {

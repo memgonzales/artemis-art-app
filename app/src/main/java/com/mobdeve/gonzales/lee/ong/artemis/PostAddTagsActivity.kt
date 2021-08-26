@@ -100,13 +100,13 @@ class PostAddTagsActivity : AppCompatActivity() {
             postDB.child(postKey).setValue(post)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful){
-                        Toast.makeText(this, "Posted Successfully", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Posted successfully", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@PostAddTagsActivity, BrowseFeedActivity::class.java)
                         startActivity(intent)
                     }
 
                     else{
-                        Toast.makeText(this, "Failed to Post", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Failed to post", Toast.LENGTH_LONG).show()
                     }
                 }
         }

@@ -65,7 +65,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val i = Intent(this@AddProfilePictureActivity, BrowseFeedActivity::class.java)
-        Toast.makeText(this@AddProfilePictureActivity, "You may update your profile details through the account tab.",
+        Toast.makeText(this@AddProfilePictureActivity, "You may update your profile details through the account tab",
             Toast.LENGTH_SHORT).show()
         startActivity(i)
         finish()

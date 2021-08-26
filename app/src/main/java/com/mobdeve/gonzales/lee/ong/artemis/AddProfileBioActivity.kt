@@ -72,7 +72,7 @@ class AddProfileBioActivity : AppCompatActivity() {
     private fun skipAddProfilePic() {
         this.tvBioSkip.setOnClickListener {
             val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
-            Toast.makeText(this@AddProfileBioActivity, "You may update your profile details through the account tab.",
+            Toast.makeText(this@AddProfileBioActivity, "You may update your profile details through the account tab",
                 Toast.LENGTH_SHORT).show()
             startActivity(i)
             finish()

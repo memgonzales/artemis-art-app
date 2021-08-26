@@ -24,9 +24,7 @@ class Post {
     private var numComments: Int
 
     constructor(profilePicture: Int, username: String, title: String, postImg: Int,
-                medium: String, dimensions: String, description: String, tags: ArrayList<String>
-                /* bookmark: Boolean, upvote: Boolean, highlight: Boolean,
-                numUpvotes: Int, numComments: Int*/){
+                medium: String, dimensions: String, description: String, tags: ArrayList<String>) {
 
         this.profilePicture = profilePicture
         this.username = username
@@ -140,8 +138,6 @@ class Post {
 
 
 
-
-
     fun setProfilePicture(picture: Int) {
         this.profilePicture = profilePicture
     }
@@ -205,136 +201,4 @@ class Post {
     fun setNumComments(numComments: Int) {
         this.numComments = numComments
     }
-
-
-
-
-
-    /*
-
-
-
-
-    fun getProfilePicture(): Int {
-        return this.profilePicture
-    }
-
-    fun getUsername(): String {
-        return this.username
-    }
-
-    fun getPost(): Int {
-        return this.postImg
-    }
-
-    fun getTitle(): String {
-        return this.title
-    }
-
-    fun getNumUpvotes(): Int {
-        return this.numUpvotes
-    }
-
-    fun getNumComments(): Int {
-        return this.numComments
-    }
-
-    fun getDatePosted(): CustomDate {
-        return this.datePosted
-    }
-
-    fun getMedium(): String {
-        return this.medium
-    }
-
-    fun getDimHeight(): Int {
-        return this.dimHeight
-    }
-
-    fun getDimWidth(): Int {
-        return this.dimWidth
-    }
-
-    fun getDescription(): String {
-        return this.description
-    }
-
-    fun getTags(): Array<String> {
-        return this.tags
-    }
-
-    fun getBookmark(): Boolean {
-        return this.bookmark
-    }
-
-    fun getUpvote(): Boolean {
-        return this.upvote
-    }
-
-    fun getHighlight(): Boolean {
-        return this.highlight
-    }
-
-
-    fun setProfilePicture(picture: Int) {
-        this.profilePicture = profilePicture
-    }
-
-    fun setUsername(name: String) {
-        this.username = name
-    }
-
-    fun setPost(post: Int) {
-        this.postImg = post
-    }
-
-    fun setTitle(title: String) {
-        this.title = title
-    }
-
-    fun setNumUpvotes(numUpvotes: Int) {
-        this.numUpvotes = numUpvotes
-    }
-
-    fun setNumComments(numComments: Int) {
-        this.numComments = numComments
-    }
-
-    fun setDatePosted(datePosted: CustomDate) {
-        this.datePosted = datePosted
-    }
-
-    fun setMedium(medium: String) {
-        this.medium = medium
-    }
-
-    fun setDimHeight(height: Int) {
-        this.dimHeight = height
-    }
-
-    fun setDimWidth(width: Int) {
-        this.dimWidth = width
-    }
-
-    fun setDescription(description: String) {
-        this.description = description
-    }
-
-    fun setTags(tags: Array<String>) {
-        this.tags = tags
-    }
-
-    fun setBookmark(bookmark: Boolean) {
-        this.bookmark = bookmark
-    }
-
-    fun setUpvote(upvote: Boolean) {
-        this.upvote = upvote
-    }
-
-    fun setHighlight(highlight: Boolean) {
-        this.highlight = highlight
-    }
-
-     */
 }

@@ -143,7 +143,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun loginSuccessfully(){
         this.pbLogin.visibility = View.GONE
-        Toast.makeText(this@LogInActivity, "Login Successfullly", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@LogInActivity, "Logged in successfully", Toast.LENGTH_SHORT).show()
         val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
         startActivity(i)
         finish()
