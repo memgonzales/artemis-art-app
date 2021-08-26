@@ -171,8 +171,8 @@ class ViewOwnPostActivity : AppCompatActivity() {
         this.ibItemViewOwnPostOptions.setOnClickListener {
             btmViewOwnPost.setContentView(view)
 
-            this.clDialogViewOwnPostEdit = btmViewOwnPost.findViewById(R.id.cl_dialog_item_comment_edit)!!
-            this.clDialogViewOwnPostDelete = btmViewOwnPost.findViewById(R.id.cl_dialog_item_comment_delete)!!
+            this.clDialogViewOwnPostEdit = btmViewOwnPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
+            this.clDialogViewOwnPostDelete = btmViewOwnPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
             clDialogViewOwnPostEdit.setOnClickListener(View.OnClickListener {
                 btmViewOwnPost.dismiss()

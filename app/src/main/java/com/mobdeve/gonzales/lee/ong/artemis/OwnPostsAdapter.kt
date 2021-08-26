@@ -111,8 +111,8 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
             val dialog = holder.getOwnPostOptions()
             dialog.setContentView(dialogView)
 
-            val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_item_comment_edit)
-            val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_item_comment_delete)
+            val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_gallery)
+            val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_photo)
 
             edit.setOnClickListener{ view ->
                 dialog.dismiss()
