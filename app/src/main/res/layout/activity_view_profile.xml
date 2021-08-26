@@ -145,7 +145,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_view_profile_username"
+                        android:id="@+id/tv_view_user_unregistered_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -160,7 +160,7 @@
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/tv_view_profile_bio"
+                        android:id="@+id/tv_view_user_unregistered_bio"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -170,7 +170,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/gl_view_profile_right_top"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_view_profile_left_top"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_view_profile_username" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_view_user_unregistered_username" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -21,7 +21,6 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
     private lateinit var tvItemViewOthersHighlightDimensions: TextView
     private lateinit var tvItemViewOthersHighlightDescription: TextView
     private lateinit var bnvViewOthersHighlightBottom: BottomNavigationView
-    private lateinit var nsvViewOthersHighlight: NestedScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +72,10 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
                 Keys.KEY_USERNAME.name,
                 username
             )
+            intent.putExtra(
+                Keys.KEY_BIO.name,
+                "Dummy bio"
+            )
 
             startActivity(intent)
         })
@@ -88,6 +91,10 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
                 Keys.KEY_USERNAME.name,
                 username
             )
+            intent.putExtra(
+                Keys.KEY_BIO.name,
+                "Dummy bio"
+            )
 
             startActivity(intent)
         })
@@ -100,7 +107,6 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
 
     private fun initBottom() {
         this.bnvViewOthersHighlightBottom = findViewById(R.id.nv_view_others_highlight_bottom)
-        this.nsvViewOthersHighlight = findViewById(R.id.nsv_view_others_highlight)
 
         bnvViewOthersHighlightBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {

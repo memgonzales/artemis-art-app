@@ -22,6 +22,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvItemFeedUpvote: TextView
     private val clItemFeedUpvote: ConstraintLayout
     private val clItemFeedComment: ConstraintLayout
+    private val clItemFeedShare: ConstraintLayout
 
     fun setItemFeedProfilePic(picture: Int) {
         civItemFeedProfilePic.setImageResource(picture)
@@ -91,6 +92,10 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         clItemFeedComment.setOnClickListener(onClickListener)
     }
 
+    fun setItemFeedShareOnClickListener(onClickListener: View.OnClickListener) {
+        clItemFeedShare.setOnClickListener(onClickListener)
+    }
+
     fun setItemFeedProfileOnClickListener(onClickListener: View.OnClickListener) {
         civItemFeedProfilePic.setOnClickListener(onClickListener)
         tvItemFeedUsername.setOnClickListener(onClickListener)
@@ -108,5 +113,6 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvItemFeedUpvote = itemView.findViewById(R.id.tv_item_feed_upvote)
         clItemFeedUpvote = itemView.findViewById(R.id.cl_item_feed_upvote)
         clItemFeedComment = itemView.findViewById(R.id.cl_item_feed_comment)
+        clItemFeedShare = itemView.findViewById(R.id.cl_item_feed_share)
     }
 }

@@ -29,10 +29,6 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ibItemOwnPostOptions: ImageButton
     private val btmItemOwnPostOptions: BottomSheetDialog
 
-    private lateinit var clDialogOwnPostEdit: ConstraintLayout
-    private lateinit var clDialogOwnPostHighlight: ConstraintLayout
-    private lateinit var clDialogOwnPostDelete: ConstraintLayout
-
     fun setOwnPostProfilePic(picture: Int) {
         civOwnPostProfilePic.setImageResource(picture)
     }
@@ -96,10 +92,6 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun getOwnPostOptions(): BottomSheetDialog {
         return this.btmItemOwnPostOptions
-    }
-
-    fun getDialogOwnPostEdit(): ConstraintLayout {
-        return this.clDialogOwnPostEdit
     }
 
     init {

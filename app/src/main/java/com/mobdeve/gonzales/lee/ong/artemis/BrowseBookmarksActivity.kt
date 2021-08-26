@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -22,6 +23,8 @@ class BrowseBookmarksActivity : AppCompatActivity() {
     private lateinit var sflBookmarks: ShimmerFrameLayout
     private lateinit var bnvBookmarksBottom: BottomNavigationView
     private lateinit var nsvBookmarks: NestedScrollView
+
+    private lateinit var srlBookmarks: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_bookmarks))
         initShimmer()
         initBottom()
+        initSwipeRefresh()
     }
 
     private fun initShimmer() {
@@ -76,6 +80,24 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             }
             false
         }
+    }
+
+    private fun initSwipeRefresh() {
+        this.srlBookmarks = findViewById(R.id.srl_bookmarks)
+        srlBookmarks.setOnRefreshListener {
+            onRefresh();
+        }
+
+        srlBookmarks.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
+    }
+
+    private fun onRefresh() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            srlBookmarks.isRefreshing = false
+        }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
     private fun initRecyclerView() {

@@ -14,7 +14,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ViewOwnPostActivity : AppCompatActivity() {
@@ -172,8 +171,8 @@ class ViewOwnPostActivity : AppCompatActivity() {
         this.ibItemViewOwnPostOptions.setOnClickListener {
             btmViewOwnPost.setContentView(view)
 
-            this.clDialogViewOwnPostEdit = btmViewOwnPost.findViewById(R.id.cl_dialog_own_post_edit)!!
-            this.clDialogViewOwnPostDelete = btmViewOwnPost.findViewById(R.id.cl_dialog_own_post_delete)!!
+            this.clDialogViewOwnPostEdit = btmViewOwnPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
+            this.clDialogViewOwnPostDelete = btmViewOwnPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
             clDialogViewOwnPostEdit.setOnClickListener(View.OnClickListener {
                 btmViewOwnPost.dismiss()

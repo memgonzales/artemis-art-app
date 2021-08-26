@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -35,6 +36,8 @@ class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var etComment: EditText
 
     private lateinit var pbComment: ProgressBar
+
+    private lateinit var srlViewComments: SwipeRefreshLayout
 
     //Firebase
     private lateinit var mAuth: FirebaseAuth
@@ -62,6 +65,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         initShimmer()
         initActionBar()
         initBottom()
+        initSwipeRefresh()
 
         addComment()
     }
@@ -76,6 +80,24 @@ class ViewCommentsActivity : AppCompatActivity() {
             sflViewComments.visibility = View.GONE
             rvComments.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
+    }
+
+    private fun initSwipeRefresh() {
+        this.srlViewComments = findViewById(R.id.srl_view_comments)
+        srlViewComments.setOnRefreshListener {
+            onRefresh();
+        }
+
+        srlViewComments.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
+    }
+
+    private fun onRefresh() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            srlViewComments.isRefreshing = false
+        }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
     private fun initBottom() {
@@ -160,7 +182,7 @@ class ViewCommentsActivity : AppCompatActivity() {
             if (!commentText.isEmpty()) {
                 this.pbComment.visibility = View.VISIBLE
 
-                val comment: Comment = Comment("1", R.drawable.chibi_circle, "yey", commentText)
+                val comment: Comment = Comment("1", R.drawable.chibi_circle, "yey", commentText, true)
                 addComment(comment)
             } else {
                 Toast.makeText(this, "Comments should not be blank", Toast.LENGTH_SHORT).show()

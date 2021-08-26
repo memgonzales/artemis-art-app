@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -228,5 +229,20 @@ class ViewPostActivity : AppCompatActivity() {
             tvItemViewPostUpvote.setTextColor(ColorStateList.valueOf(
                 ContextCompat.getColor(tvItemViewPostUpvote.context, R.color.default_gray)))
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        when(id) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            } else -> {
+            return super.onOptionsItemSelected(item)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

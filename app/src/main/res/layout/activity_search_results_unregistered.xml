@@ -2,42 +2,42 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_search_results_root"
+    android:id="@+id/cl_search_unregistered_results_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coord_search_results"
+        android:id="@+id/coord_search_unregistered_results"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:clipToPadding="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cl_search_results_unregistered_unregistered_note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar_search_results"
+            android:id="@+id/appbar_search_unregistered_results"
             android:layout_width="match_parent"
             android:layout_height="56dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/ctl_search_results"
+                android:id="@+id/ctl_search_unregistered_results"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:toolbarId="@+id/toolbar_search_results">
+                app:toolbarId="@+id/toolbar_search_unregistered_results">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar_search_results"
+                    android:id="@+id/toolbar_search_unregistered_results"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:padding="0dp"
-                    tools:layout_collapseMode="pin"/>
+                    tools:layout_collapseMode="pin" />
 
                 <EditText
-                    android:id="@+id/et_search_results_bar"
+                    android:id="@+id/et_search_unregistered_results_bar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="56dp"
@@ -58,27 +58,27 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_search_results"
+            android:id="@+id/srl_search_unregistered_results"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.core.widget.NestedScrollView
-                android:id="@+id/nsv_search_results"
+                android:id="@+id/nsv_search_unregistered_results"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_search_reults"
+                    android:id="@+id/cl_search_unregistered_reults"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="8dp">
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/sfl_search_results"
+                        android:id="@+id/sfl_search_unregistered_results"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingTop="2dp"
@@ -89,7 +89,7 @@
                         tools:ignore="MissingConstraints">
 
                         <LinearLayout
-                            android:id="@+id/ll_search_results_shimmer"
+                            android:id="@+id/ll_search_unregistered_results_shimmer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -115,7 +115,7 @@
 
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/civ_search_result_user1"
+                        android:id="@+id/civ_search_unregistered_result_user1"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="10dp"
@@ -127,22 +127,22 @@
                         android:visibility="gone"
                         app:civ_border_color="@color/purple_main"
                         app:civ_border_width="0dp"
-                        app:layout_constraintBottom_toTopOf="@+id/gl_search_results_artworks_top"
-                        app:layout_constraintEnd_toStartOf="@+id/gl_search_results_one_fourth"
+                        app:layout_constraintBottom_toTopOf="@+id/gl_search_unregistered_results_artworks_top"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_search_unregistered_results_one_fourth"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/gl_search_results_one_fourth"
+                        android:id="@+id/gl_search_unregistered_results_one_fourth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintGuide_percent="0.25" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/civ_search_result_user2"
+                        android:id="@+id/civ_search_unregistered_result_user2"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="10dp"
@@ -154,22 +154,22 @@
                         android:visibility="gone"
                         app:civ_border_color="@color/purple_main"
                         app:civ_border_width="0dp"
-                        app:layout_constraintBottom_toTopOf="@+id/gl_search_results_artworks_top"
-                        app:layout_constraintEnd_toStartOf="@id/gl_search_results_one_half"
+                        app:layout_constraintBottom_toTopOf="@+id/gl_search_unregistered_results_artworks_top"
+                        app:layout_constraintEnd_toStartOf="@id/gl_search_unregistered_results_one_half"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="@id/gl_search_results_one_fourth"
+                        app:layout_constraintStart_toStartOf="@id/gl_search_unregistered_results_one_fourth"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/gl_search_results_one_half"
+                        android:id="@+id/gl_search_unregistered_results_one_half"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintGuide_percent="0.50" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/civ_search_result_user3"
+                        android:id="@+id/civ_search_unregistered_result_user3"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="10dp"
@@ -181,22 +181,22 @@
                         android:visibility="gone"
                         app:civ_border_color="@color/purple_main"
                         app:civ_border_width="0dp"
-                        app:layout_constraintBottom_toTopOf="@+id/gl_search_results_artworks_top"
-                        app:layout_constraintEnd_toStartOf="@+id/gl_search_results_three_fourths"
+                        app:layout_constraintBottom_toTopOf="@+id/gl_search_unregistered_results_artworks_top"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_search_unregistered_results_three_fourths"
                         app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="@+id/gl_search_results_one_half"
+                        app:layout_constraintStart_toStartOf="@+id/gl_search_unregistered_results_one_half"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/gl_search_results_three_fourths"
+                        android:id="@+id/gl_search_unregistered_results_three_fourths"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintGuide_percent="0.75" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/civ_search_result_user4"
+                        android:id="@+id/civ_search_unregistered_result_user4"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="10dp"
@@ -208,22 +208,22 @@
                         android:visibility="gone"
                         app:civ_border_color="@color/purple_main"
                         app:civ_border_width="0dp"
-                        app:layout_constraintBottom_toTopOf="@+id/gl_search_results_artworks_top"
+                        app:layout_constraintBottom_toTopOf="@+id/gl_search_unregistered_results_artworks_top"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="@+id/gl_search_results_three_fourths"
+                        app:layout_constraintStart_toStartOf="@+id/gl_search_unregistered_results_three_fourths"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/gl_search_results_artworks_top"
+                        android:id="@+id/gl_search_unregistered_results_artworks_top"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         app:layout_constraintGuide_begin="90dp" />
 
                     <TextView
-                        android:id="@+id/tv_search_results_artworks"
+                        android:id="@+id/tv_search_unregistered_results_artworks"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -233,23 +233,23 @@
                         android:textSize="16sp"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/civ_search_result_user4"
+                        app:layout_constraintEnd_toEndOf="@+id/civ_search_unregistered_result_user4"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="@+id/civ_search_result_user1"
-                        app:layout_constraintTop_toBottomOf="@id/gl_search_results_artworks_top"
+                        app:layout_constraintStart_toStartOf="@+id/civ_search_unregistered_result_user1"
+                        app:layout_constraintTop_toBottomOf="@id/gl_search_unregistered_results_artworks_top"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_search_results"
+                        android:id="@+id/rv_search_unregistered_results"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="?attr/actionBarSize"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_search_results_artworks"
-                        app:layout_constraintStart_toStartOf="@+id/tv_search_results_artworks"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_search_results_artworks"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_search_unregistered_results_artworks"
+                        app:layout_constraintStart_toStartOf="@+id/tv_search_unregistered_results_artworks"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_search_unregistered_results_artworks"
                         app:layout_constraintVertical_bias="0.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
@@ -259,8 +259,32 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_search_results_unregistered_unregistered_note"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/purple_main"
+        app:layout_constraintBottom_toTopOf="@+id/nv_search_unregistered_results_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/tv_search_results_unregistered_unregistered_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You are browsing as a guest"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nv_search_results_bottom"
+        android:id="@+id/nv_search_unregistered_results_bottom"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
@@ -273,7 +297,7 @@
         app:menu="@menu/menu_bottom_no_shaded">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_search_results_add"
+            android:id="@+id/fab_search_unregistered_results_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"

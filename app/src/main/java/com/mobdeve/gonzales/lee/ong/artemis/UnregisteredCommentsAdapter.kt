@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import java.util.*
+import java.util.ArrayList
 
-class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
+class UnregisteredCommentsAdapter(private val dataComments: ArrayList<Comment>) :
     RecyclerView.Adapter<CommentsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -29,7 +29,7 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
         holder.setItemCommentEdit(currentComment.getEditable())
 
         holder.setItemCommentProfileOnClickListener { view ->
-            val intent = Intent(view.context, ViewUserActivity::class.java)
+            val intent = Intent(view.context, ViewUserUnregisteredActivity::class.java)
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 currentComment.getProfilePicture()
@@ -43,40 +43,6 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
                 "Dummy bio"
             )
             view.context.startActivity(intent)
-        }
-
-        holder.setItemCommentOptionsOnClickListener { view ->
-            val dialogView = LayoutInflater.from(view.context).inflate(R.layout.dialog_comment, null)
-            val dialog = holder.getItemCommentOptions()
-            dialog.setContentView(dialogView)
-
-            val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_gallery)
-            val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_photo)
-
-            edit.setOnClickListener{ view ->
-                dialog.dismiss()
-                val intent = Intent(view.context, EditCommentActivity::class.java)
-                intent.putExtra(
-                    Keys.KEY_PROFILE_PICTURE.name,
-                    currentComment.getProfilePicture()
-                )
-                intent.putExtra(
-                    Keys.KEY_USERNAME.name,
-                    currentComment.getUsername()
-                )
-                intent.putExtra(
-                    Keys.KEY_COMMENT_BODY.name,
-                    currentComment.getCommentBody()
-                )
-                view.context.startActivity(intent)
-            }
-
-            delete.setOnClickListener { view ->
-                Toast.makeText(view.context, "Your comment has been deleted", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            }
-
-            dialog.show()
         }
     }
 

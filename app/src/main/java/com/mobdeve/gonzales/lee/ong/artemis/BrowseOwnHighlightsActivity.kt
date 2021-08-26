@@ -10,6 +10,7 @@ import android.view.View
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -20,6 +21,8 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private lateinit var sflHighlights: ShimmerFrameLayout
     private lateinit var bnvHighlightsBottom: BottomNavigationView
     private lateinit var nsvHighlights: NestedScrollView
+
+    private lateinit var srlHighlights: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         initActionBar()
         initShimmer()
         initBottom()
+        initSwipeRefresh()
     }
 
     private fun initShimmer() {
@@ -45,6 +49,24 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
             sflHighlights.visibility = View.GONE
             rvHighlights.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
+    }
+
+    private fun initSwipeRefresh() {
+        this.srlHighlights = findViewById(R.id.srl_highlights)
+        srlHighlights.setOnRefreshListener {
+            onRefresh();
+        }
+
+        srlHighlights.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
+    }
+
+    private fun onRefresh() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            srlHighlights.isRefreshing = false
+        }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
     private fun initBottom() {

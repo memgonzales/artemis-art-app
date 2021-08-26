@@ -6,14 +6,17 @@ class Comment {
     private var username: String
     private var dateCommented: String
     private var commentBody: String
+    private var editable: Boolean
 
-    constructor(postId: String, profilePicture: Int, username: String, commentBody: String) {
+    constructor(postId: String, profilePicture: Int, username: String, commentBody: String,
+                editable: Boolean) {
         this.postId = postId
         this.profilePicture = profilePicture
         this.username = username
 
         this.dateCommented = CustomDate().toStringFull()
         this.commentBody = commentBody
+        this.editable = editable
     }
 
     fun getPostId(): String {
@@ -36,19 +39,7 @@ class Comment {
         return this.commentBody
     }
 
-    fun setProfilePicture(picture: Int) {
-        this.profilePicture = profilePicture
-    }
-
-    fun setUsername(name: String) {
-        this.username = name
-    }
-
-    fun setDateCommented(dateCommented: String) {
-        this.dateCommented = dateCommented
-    }
-
-    fun setCommentBody(comment: String) {
-        this.commentBody = comment
+    fun getEditable(): Boolean {
+        return this.editable
     }
 }
