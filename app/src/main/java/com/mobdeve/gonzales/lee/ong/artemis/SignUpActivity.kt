@@ -84,6 +84,7 @@ class SignUpActivity : AppCompatActivity() {
                 val password: String = tietPassword.text.toString().trim()
 
                 if(validCredentials(username, email, password)){
+                    //checkUser(username)
                     var user: User = User(username, email, password)
                     storeUser(user)
                 }
@@ -143,9 +144,7 @@ class SignUpActivity : AppCompatActivity() {
         return isValid
     }
 
-    private fun usernameExists(username: String){
-
-        var userExists: Boolean = false
+    private fun checkUser(username: String){
 
         var userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
 
@@ -154,15 +153,12 @@ class SignUpActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 if (snapshot.childrenCount  > 0){
-
+                    usernameExists = true
                 }
 
                 else{
 
                 }
-               // ]Toast.makeText(this@SignUpActivity, "ch: " + snapshot.childrenCount, Toast.LENGTH_SHORT).show()
-
-                Toast.makeText(this@SignUpActivity, "chec: " + usernameExists, Toast.LENGTH_SHORT).show()
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -88,13 +88,17 @@ class LogInActivity : AppCompatActivity() {
             var password: String = tietPassword.text.toString().trim()
 
             if (!checkEmpty(username, password)){
-                if (username.contains('@')){
+                if (android.util.Patterns.EMAIL_ADDRESS.matcher(username).matches()){
                     loginWithEmail(username, password)
                 }
 
                 else{
                     loginWithUsername(username, password)
                 }
+            }
+
+            else{
+                this.pbLogin.visibility = View.GONE
             }
         }
     }
@@ -107,7 +111,6 @@ class LogInActivity : AppCompatActivity() {
             this.tietUsername.requestFocus()
             hasEmpty = true
         }
-
 
         if(password.isEmpty()){
             this.tilPassword.error = "Required"
