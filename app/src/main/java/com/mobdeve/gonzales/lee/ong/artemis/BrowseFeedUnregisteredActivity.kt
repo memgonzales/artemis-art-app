@@ -142,7 +142,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
     }
 
     private fun launchSearch() {
-        val intent = Intent(this@BrowseFeedUnregisteredActivity, SearchActivity::class.java)
+        val intent = Intent(this@BrowseFeedUnregisteredActivity, SearchUnregisteredActivity::class.java)
         startActivity(intent)
     }
 
