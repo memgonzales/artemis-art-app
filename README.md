@@ -9,7 +9,7 @@ Users also have the option to bookmark their favorite artworks made by other use
 The application development is divided into two phases:
 Phase | Duration | Description
 -- | -- | --
-1 (Beta Demo) | 2 weeks | Completion of front-end views or layouts for all the activities, and implementation of either at least one API feature or all the database helpers (however, only the schemas are needed for apps that use remote database)
+1 (Beta Demo) | 2 weeks | Completion of front-end views or layouts for all the activities, and implementation of either at least one API feature or all the database helpers (however, only the schemas are needed for apps that use a remote database)
 
 ## Dependencies
 This project uses the following module dependencies:
