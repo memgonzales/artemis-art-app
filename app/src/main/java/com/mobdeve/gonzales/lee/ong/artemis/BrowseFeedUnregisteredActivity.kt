@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -24,6 +25,8 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
     private lateinit var sflFeed: ShimmerFrameLayout
     private lateinit var bnvFeedBottom: BottomNavigationView
     private lateinit var nsvFeed: NestedScrollView
+
+    private lateinit var srlFeedUnregistered: SwipeRefreshLayout
 
     private lateinit var fabAddPost: FloatingActionButton
 
@@ -38,6 +41,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_feed_unregistered))
         initShimmer()
         initBottom()
+        initSwipeRefresh()
 
         addPost()
     }
@@ -52,6 +56,24 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
             sflFeed.visibility = View.GONE
             rvFeed.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
+    }
+
+    private fun initSwipeRefresh() {
+        this.srlFeedUnregistered = findViewById(R.id.srl_feed_unregistered)
+        srlFeedUnregistered.setOnRefreshListener {
+            onRefresh();
+        }
+
+        srlFeedUnregistered.setColorSchemeResources(R.color.purple_main,
+            R.color.pinkish_purple,
+            R.color.purple_pics_lighter,
+            R.color.pinkish_purple_lighter);
+    }
+
+    private fun onRefresh() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            srlFeedUnregistered.isRefreshing = false
+        }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
     private fun initBottom() {
