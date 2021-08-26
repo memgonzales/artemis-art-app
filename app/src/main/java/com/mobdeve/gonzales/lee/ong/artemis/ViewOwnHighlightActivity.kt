@@ -4,14 +4,18 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ViewOwnHighlightActivity : AppCompatActivity() {
@@ -25,6 +29,11 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
     private lateinit var tvItemViewOwnHighlightDescription: TextView
     private lateinit var ibItemViewOwnHighlightHighlight: ImageButton
     private lateinit var bnvViewOwnHighlightBottom: BottomNavigationView
+
+    private lateinit var btmAddPost: BottomSheetDialog
+    private lateinit var fabAddPost: FloatingActionButton
+    private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+    private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +52,7 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
         initIntent()
         initComponents()
         initBottom()
+        addPost()
     }
 
     private fun initIntent() {
@@ -167,6 +177,36 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
             this.ibItemViewOwnHighlightHighlight.imageTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(this.ibItemViewOwnHighlightHighlight.context, R.color.default_gray)
             )
+        }
+    }
+
+    private fun addPost() {
+        this.btmAddPost = BottomSheetDialog(this@ViewOwnHighlightActivity)
+        this.fabAddPost = findViewById(R.id.fab_view_own_highlight_add)
+
+        val view = LayoutInflater.from(this@ViewOwnHighlightActivity).inflate(R.layout.dialog_post_artwork, null)
+
+        this.fabAddPost.setOnClickListener {
+            btmAddPost.setContentView(view)
+
+            this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
+            this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
+
+            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@ViewOwnHighlightActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@ViewOwnHighlightActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@ViewOwnHighlightActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@ViewOwnHighlightActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            btmAddPost.show()
         }
     }
 }

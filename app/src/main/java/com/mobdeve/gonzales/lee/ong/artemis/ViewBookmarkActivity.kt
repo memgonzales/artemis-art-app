@@ -4,15 +4,15 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.ScrollView
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ViewBookmarkActivity : AppCompatActivity() {
@@ -27,6 +27,11 @@ class ViewBookmarkActivity : AppCompatActivity() {
     private lateinit var ibItemViewBookmarkBookmark: ImageButton
     private lateinit var bnvViewBookmarkBottom: BottomNavigationView
     private lateinit var nsvViewBookmark: NestedScrollView
+
+    private lateinit var btmAddPost: BottomSheetDialog
+    private lateinit var fabAddPost: FloatingActionButton
+    private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+    private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,6 +115,7 @@ class ViewBookmarkActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_view_bookmark))
         initActionBar()
         initBottom()
+        addPost()
     }
 
     private fun initBottom() {
@@ -163,6 +169,36 @@ class ViewBookmarkActivity : AppCompatActivity() {
             this.ibItemViewBookmarkBookmark.imageTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(this.ibItemViewBookmarkBookmark.context, R.color.default_gray)
             )
+        }
+    }
+
+    private fun addPost() {
+        this.btmAddPost = BottomSheetDialog(this@ViewBookmarkActivity)
+        this.fabAddPost = findViewById(R.id.fab_view_bookmark_add)
+
+        val view = LayoutInflater.from(this@ViewBookmarkActivity).inflate(R.layout.dialog_post_artwork, null)
+
+        this.fabAddPost.setOnClickListener {
+            btmAddPost.setContentView(view)
+
+            this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
+            this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
+
+            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@ViewBookmarkActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@ViewBookmarkActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@ViewBookmarkActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@ViewBookmarkActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            btmAddPost.show()
         }
     }
 }

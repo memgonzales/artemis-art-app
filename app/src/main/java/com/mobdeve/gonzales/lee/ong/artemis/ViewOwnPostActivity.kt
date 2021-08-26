@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ViewOwnPostActivity : AppCompatActivity() {
@@ -42,6 +43,11 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private lateinit var btmViewOwnPost: BottomSheetDialog
     private lateinit var clDialogViewOwnPostEdit: ConstraintLayout
     private lateinit var clDialogViewOwnPostDelete: ConstraintLayout
+
+    private lateinit var btmAddPost: BottomSheetDialog
+    private lateinit var fabAddPost: FloatingActionButton
+    private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+    private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     private lateinit var srlViewOwnPost: SwipeRefreshLayout
 
@@ -72,6 +78,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
         initIntent()
         initComponents()
         initBottom()
+        addPost()
     }
 
     private fun initComponents() {
@@ -296,6 +303,36 @@ class ViewOwnPostActivity : AppCompatActivity() {
             this.tvItemViewOwnPostHighlight.setTextColor(ColorStateList.valueOf(
                 ContextCompat.getColor(this.tvItemViewOwnPostHighlight.context, R.color.default_gray))
             )
+        }
+    }
+
+    private fun addPost() {
+        this.btmAddPost = BottomSheetDialog(this@ViewOwnPostActivity)
+        this.fabAddPost = findViewById(R.id.fab_view_own_post_add)
+
+        val view = LayoutInflater.from(this@ViewOwnPostActivity).inflate(R.layout.dialog_post_artwork, null)
+
+        this.fabAddPost.setOnClickListener {
+            btmAddPost.setContentView(view)
+
+            this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
+            this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
+
+            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@ViewOwnPostActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@ViewOwnPostActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
+                Toast.makeText(this@ViewOwnPostActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+                btmAddPost.dismiss()
+                val intent = Intent(this@ViewOwnPostActivity, PostArtworkActivity::class.java)
+                startActivity(intent)
+            })
+
+            btmAddPost.show()
         }
     }
 }
