@@ -163,7 +163,7 @@
         android:id="@+id/cl_view_comments_unregistered_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/nv_view_comments_unregistered_bottom"
+        app:layout_constraintBottom_toTopOf="@+id/cl_view_comments_unregistered_unregistered_note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -226,6 +226,29 @@
             app:layout_constraintGuide_begin="0dp"
             app:layout_constraintGuide_percent="0.90" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_view_comments_unregistered_unregistered_note"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/purple_main"
+        app:layout_constraintBottom_toTopOf="@+id/nv_view_comments_unregistered_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/tv_view_comments_unregistered_unregistered_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You are browsing as a guest"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
