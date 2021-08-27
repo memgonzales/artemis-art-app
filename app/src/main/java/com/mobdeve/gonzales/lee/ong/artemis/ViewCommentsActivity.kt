@@ -157,7 +157,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.rvComments.adapter = commentsAdapter
     }
 
-    private fun addComment(comment: Comment) {
+    private fun addCommentDB(comment: Comment) {
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
         val postKey = commentDB.push().key!!
 
@@ -166,6 +166,7 @@ class ViewCommentsActivity : AppCompatActivity() {
                 if (task.isSuccessful){
                     this.pbComment.visibility = View.GONE
                     Toast.makeText(this, "Commented successfully", Toast.LENGTH_LONG).show()
+                    this.etComment.text.clear()
                 }
 
                 else{
@@ -187,7 +188,8 @@ class ViewCommentsActivity : AppCompatActivity() {
                 this.pbComment.visibility = View.VISIBLE
 
                 val comment: Comment = Comment("1", R.drawable.chibi_circle, "yey", commentText, true)
-                addComment(comment)
+                addCommentDB(comment)
+
             } else {
                 Toast.makeText(this, "Comments should not be blank", Toast.LENGTH_SHORT).show()
             }
