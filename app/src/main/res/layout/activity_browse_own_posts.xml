@@ -100,6 +100,42 @@
                         </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
 
+                    <ImageView
+                        android:id="@+id/iv_browse_own_posts_none"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:adjustViewBounds="true"
+                        android:alpha="0.6"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_browse_own_posts_none"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_browse_own_posts_none"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/tv_browse_own_posts_none"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.08"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        app:srcCompat="@drawable/logo_recolored" />
+
+                    <TextView
+                        android:id="@+id/tv_browse_own_posts_none"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:alpha="0.6"
+                        android:text="No posts just yet"
+                        android:textColor="@color/purple_main"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_browse_own_posts_none" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_browse_own_posts"
                         android:layout_width="match_parent"

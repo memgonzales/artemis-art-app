@@ -239,6 +239,42 @@
                         app:layout_constraintTop_toBottomOf="@id/gl_search_unregistered_results_artworks_top"
                         app:layout_constraintVertical_bias="0.0" />
 
+                    <ImageView
+                        android:id="@+id/iv_search_results_unregistered_none"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:adjustViewBounds="true"
+                        android:alpha="0.6"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_search_results_unregistered_none"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_search_results_unregistered_none"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/tv_search_results_unregistered_none"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.14"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        app:srcCompat="@drawable/logo_recolored" />
+
+                    <TextView
+                        android:id="@+id/tv_search_results_unregistered_none"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:alpha="0.6"
+                        android:text="No matching results"
+                        android:textColor="@color/purple_main"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_search_results_unregistered_none" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_search_unregistered_results"
                         android:layout_width="0dp"
