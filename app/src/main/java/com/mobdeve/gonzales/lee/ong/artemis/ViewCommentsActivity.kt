@@ -176,6 +176,16 @@ class ViewCommentsActivity : AppCompatActivity() {
             }
     }
 
+    /*
+    private fun addCommentToUserDB(commentId: String){
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
+        val userKey = "kWI0ojJ9RaPoJZbkPAR9dQGvVPf2"
+
+        userDB.child(userKey).child(Keys.comments.name).set
+    }
+
+     */
+
     private fun addComment() {
         this.ibAddComment = findViewById(R.id.ib_add_comment_followed)
         this.etComment = findViewById(R.id.et_add_comment_followed)

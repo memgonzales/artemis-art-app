@@ -22,6 +22,7 @@ enum class Keys {
     username,
     password,
     bio,
+    comments,
     KEY_DB_POSTS,
     KEY_DB_COMMENTS
 }

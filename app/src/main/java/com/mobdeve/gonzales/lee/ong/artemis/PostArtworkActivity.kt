@@ -20,6 +20,16 @@ class PostArtworkActivity : AppCompatActivity() {
 
     private lateinit var btnDetails: Button
 
+    /*
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode == RESULT_OK){
+
+        }
+    }
+
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_artwork)

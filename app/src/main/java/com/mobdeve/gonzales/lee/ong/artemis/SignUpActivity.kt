@@ -157,6 +157,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 
+    /*
     private fun checkUser(username: String){
 
         var userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
@@ -177,6 +178,8 @@ class SignUpActivity : AppCompatActivity() {
 
         })
     }
+    
+     */
 
     private fun storeUser(user: User) {
         this.pbSignUp.visibility = View.VISIBLE
