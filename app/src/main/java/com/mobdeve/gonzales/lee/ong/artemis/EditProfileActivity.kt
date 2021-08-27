@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import org.w3c.dom.Text
 
@@ -27,6 +28,9 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var tietEditProfileEmail: TextInputEditText
     private lateinit var tietEditProfilePassword: TextInputEditText
     private lateinit var tietEditProfileBio: TextInputEditText
+
+    private lateinit var tilEditProfileEmail: TextInputLayout
+    private lateinit var tilEditProfilePassword: TextInputLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +49,9 @@ class EditProfileActivity : AppCompatActivity() {
         this.tietEditProfilePassword = findViewById(R.id.tiet_edit_profile_password)
         this.tietEditProfileBio = findViewById(R.id.tiet_edit_profile_bio)
 
+        this.tilEditProfileEmail = findViewById(R.id.til_edit_profile_email)
+        this.tilEditProfilePassword = findViewById(R.id.til_edit_profile_password)
+
         this.tietEditProfileUsername.isFocusable = false
 
         this.fabEditProfilePicEdit = findViewById(R.id.fab_edit_profile_pic_edit)
@@ -52,10 +59,7 @@ class EditProfileActivity : AppCompatActivity() {
         this.btnEditProfileSave = findViewById(R.id.btn_edit_profile_save)
 
         btnEditProfileSave.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@EditProfileActivity, ViewProfileActivity::class.java)
-            startActivity(intent)
-            finish()
+            checkEmpty()
         })
 
         initContent()
@@ -98,5 +102,41 @@ class EditProfileActivity : AppCompatActivity() {
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    private fun checkEmpty() {
+        var email: String = tietEditProfileEmail.text.toString().trim()
+        var password: String = tietEditProfilePassword.text.toString().trim()
+
+        if (email.isEmpty()) {
+            tilEditProfileEmail.error = "Required"
+            tilEditProfileEmail.requestFocus()
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.setDisplayShowHomeEnabled(false)
+        }
+
+        else {
+            tilEditProfileEmail.error = null
+        }
+
+        if (password.isEmpty()) {
+            tilEditProfilePassword.error = "Required"
+            tilEditProfilePassword.requestFocus()
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.setDisplayShowHomeEnabled(false)
+        }
+
+        else {
+            tilEditProfilePassword.error = null
+        }
+
+        if (!email.isEmpty() && !password.isEmpty()) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setDisplayShowHomeEnabled(true)
+            Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@EditProfileActivity, ViewProfileActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }
