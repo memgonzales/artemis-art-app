@@ -96,6 +96,7 @@ class SignUpActivity : AppCompatActivity() {
                 if(validCredentials(username, email, password)){
                     //checkUser(username)
                     var user: User = User(username, email, password)
+                   // var user: User = User()
                     storeUser(user)
                 }
         }

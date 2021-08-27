@@ -139,7 +139,6 @@ class LogInActivity : AppCompatActivity() {
     }
 
     private fun loginWithUsername(username: String, password: String){
-
         val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
         userDB.orderByChild(Keys.username.name).equalTo(username)

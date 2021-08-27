@@ -197,7 +197,7 @@ class ViewCommentsActivity : AppCompatActivity() {
             if (!commentText.isEmpty()) {
                 this.pbComment.visibility = View.VISIBLE
 
-                val comment: Comment = Comment("1", R.drawable.chibi_circle, "yey", commentText, true)
+                val comment: Comment = Comment("1", R.drawable.tofu_chan, "Tobe", commentText, true)
                 addCommentDB(comment)
 
             } else {

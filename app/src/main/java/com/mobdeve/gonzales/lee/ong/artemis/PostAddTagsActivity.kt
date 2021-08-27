@@ -98,7 +98,7 @@ class PostAddTagsActivity : AppCompatActivity() {
                 var dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
                 var desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
 
-                val post: Post = Post(R.drawable.chibi_circle, "bio2", title, R.drawable.magia_record,
+                val post: Post = Post(R.drawable.tofu_chan, "Tobe", title, R.drawable.magia_record,
                     medium, dimensions, desc, allTags)
 
                 this.pbAddPost.visibility = View.VISIBLE
