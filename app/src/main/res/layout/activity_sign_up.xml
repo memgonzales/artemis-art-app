@@ -283,7 +283,6 @@
                     android:id="@+id/tv_sign_up_privacy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:autoLink="web"
                     android:gravity="center"
                     android:text="@string/tv_sign_up_clause"
                     android:textSize="12sp"

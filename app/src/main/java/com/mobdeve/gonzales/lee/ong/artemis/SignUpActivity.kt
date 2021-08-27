@@ -3,9 +3,11 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
@@ -32,6 +34,8 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var pbSignUp: ProgressBar
 
+    private lateinit var tvSignUpPrivacy: TextView
+
     //Firebase - related
     private lateinit var mAuth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
@@ -44,6 +48,12 @@ class SignUpActivity : AppCompatActivity() {
 
         initComponents()
         initFirebase()
+        initLink()
+    }
+
+    private fun initLink() {
+        tvSignUpPrivacy = findViewById(R.id.tv_sign_up_privacy)
+        tvSignUpPrivacy.movementMethod = LinkMovementMethod.getInstance();
     }
 
     private fun initFirebase() {
