@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -19,6 +20,8 @@ class AddProfilePictureActivity : AppCompatActivity() {
 
     private lateinit var civUploadImg: CircleImageView
     private lateinit var ivCameraPic: ImageView
+
+    private lateinit var tvSkipUpload: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,9 @@ class AddProfilePictureActivity : AppCompatActivity() {
         this.fabAddProfilePicEdit = findViewById(R.id.fab_add_profile_pic_edit)
         this.btmProfilePicture = BottomSheetDialog(this@AddProfilePictureActivity)
         launchDialog()
+
+        this.tvSkipUpload = findViewById(R.id.tv_add_profile_pic_skip)
+        onSkipUpload()
     }
 
     private fun launchAddBio() {
@@ -57,11 +63,14 @@ class AddProfilePictureActivity : AppCompatActivity() {
         }
     }
 
+    /*
     private fun uploadImg(){
         this.ivCameraPic.setOnClickListener(View.OnClickListener {
 
         })
     }
+
+     */
 
     override fun onBackPressed() {
         val i = Intent(this@AddProfilePictureActivity, BrowseFeedActivity::class.java)
@@ -69,6 +78,16 @@ class AddProfilePictureActivity : AppCompatActivity() {
             Toast.LENGTH_SHORT).show()
         startActivity(i)
         finish()
+    }
+
+    private fun onSkipUpload(){
+        this.tvSkipUpload.setOnClickListener {
+            val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
+            Toast.makeText(this@AddProfilePictureActivity, "You may update your profile details through the account tab",
+                Toast.LENGTH_SHORT).show()
+            startActivity(i)
+            finish()
+        }
     }
 
     /*

@@ -121,6 +121,9 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
             edit.setOnClickListener{ view ->
                 dialog.dismiss()
                 val intent = Intent(view.context, EditPostActivity::class.java)
+                val tags = currentPost.getTags()
+                val tagsString = tags.joinToString(", ")
+
                 intent.putExtra(
                     Keys.KEY_TITLE.name,
                     currentPost.getTitle()
@@ -139,7 +142,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
                 )
                 intent.putExtra(
                     Keys.KEY_TAGS.name,
-                    currentPost.getTags()
+                    tagsString
                 )
                 intent.putExtra(
                     Keys.KEY_POST.name,

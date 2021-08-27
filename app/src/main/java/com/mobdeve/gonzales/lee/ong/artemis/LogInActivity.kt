@@ -82,12 +82,12 @@ class LogInActivity : AppCompatActivity() {
             this.tilUsername = findViewById(R.id.til_log_in_username)
             this.tilPassword = findViewById(R.id.til_log_in_password)
 
-            this.pbLogin.visibility = View.VISIBLE
-
             var username: String = tietUsername.text.toString().trim()
             var password: String = tietPassword.text.toString().trim()
 
             if (!checkEmpty(username, password)){
+                this.pbLogin.visibility = View.VISIBLE
+
                 if (android.util.Patterns.EMAIL_ADDRESS.matcher(username).matches()){
                     loginWithEmail(username, password)
                 }
@@ -95,10 +95,6 @@ class LogInActivity : AppCompatActivity() {
                 else{
                     loginWithUsername(username, password)
                 }
-            }
-
-            else{
-                this.pbLogin.visibility = View.GONE
             }
         }
     }
@@ -112,13 +108,21 @@ class LogInActivity : AppCompatActivity() {
             hasEmpty = true
         }
 
+        else{
+            this.tilUsername.error = null
+        }
+
         if(password.isEmpty()){
             this.tilPassword.error = "Required"
             this.tietPassword.requestFocus()
             hasEmpty = true
         }
 
-        return false
+        else{
+            this.tilPassword.error = null
+        }
+
+        return hasEmpty
     }
 
     private fun loginWithEmail(username: String, password: String){
@@ -165,7 +169,7 @@ class LogInActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    loginFailed()
                 }
             })
     }
