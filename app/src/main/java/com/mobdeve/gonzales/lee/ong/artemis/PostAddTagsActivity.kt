@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -28,6 +29,8 @@ class PostAddTagsActivity : AppCompatActivity() {
     private lateinit var medium: String
     private lateinit var dimensions: String
     private lateinit var desc: String
+
+    private lateinit var pbAddPost: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,32 +86,58 @@ class PostAddTagsActivity : AppCompatActivity() {
         this.tietTags = findViewById(R.id.tiet_post_add_tags_desc)
         this.btnAddTag = findViewById(R.id.btn_post_add_tags_save)
 
+        this.pbAddPost = findViewById(R.id.pb_post_add_tags)
+
         this.btnAddTag.setOnClickListener {
-            var tags: ArrayList<String> = tietTags.text.toString().trim().split(',').toCollection(ArrayList())
+            var tags: String = tietTags.text.toString().trim()
 
-            var title: String = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
-            var medium: String = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
-            var dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
-            var desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
+            if (!checkEmpty(tags)){
+                var allTags: ArrayList<String> = tags.split(',').toCollection(ArrayList())
+                var title: String = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
+                var medium: String = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
+                var dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
+                var desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
 
-            val post: Post = Post(R.drawable.chibi_circle, "bio2", title, R.drawable.magia_record,
-                                medium, dimensions, desc, tags)
+                val post: Post = Post(R.drawable.chibi_circle, "bio2", title, R.drawable.magia_record,
+                    medium, dimensions, desc, allTags)
 
-            val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-            val postKey = postDB.push().key!!
+                this.pbAddPost.visibility = View.VISIBLE
 
-            postDB.child(postKey).setValue(post)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful){
-                        Toast.makeText(this, "Posted successfully", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this@PostAddTagsActivity, BrowseFeedActivity::class.java)
-                        startActivity(intent)
+                val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+                val postKey = postDB.push().key!!
+
+                postDB.child(postKey).setValue(post)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful){
+                            this.pbAddPost.visibility = View.GONE
+                            Toast.makeText(this, "Posted successfully", Toast.LENGTH_LONG).show()
+                            val intent = Intent(this@PostAddTagsActivity, BrowseFeedActivity::class.java)
+                            startActivity(intent)
+                        }
+
+                        else{
+                            this.pbAddPost.visibility = View.GONE
+                            Toast.makeText(this, "Failed to post", Toast.LENGTH_LONG).show()
+                        }
                     }
-
-                    else{
-                        Toast.makeText(this, "Failed to post", Toast.LENGTH_LONG).show()
-                    }
-                }
+            }
         }
+
+    }
+
+    private fun checkEmpty(tags: String): Boolean{
+        var hasEmpty: Boolean = false
+
+        if (tags.isEmpty()){
+            this.tietTags.error = "There should be at least one tag"
+            this.tietTags.requestFocus()
+            hasEmpty = true
+        }
+
+        else{
+            this.tietTags.error = null
+        }
+
+        return hasEmpty
     }
 }
