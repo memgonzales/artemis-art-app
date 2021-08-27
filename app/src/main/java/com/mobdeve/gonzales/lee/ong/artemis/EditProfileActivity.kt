@@ -111,8 +111,6 @@ class EditProfileActivity : AppCompatActivity() {
         if (email.isEmpty()) {
             tilEditProfileEmail.error = "Required"
             tilEditProfileEmail.requestFocus()
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            supportActionBar?.setDisplayShowHomeEnabled(false)
         }
 
         else {
@@ -122,8 +120,6 @@ class EditProfileActivity : AppCompatActivity() {
         if (password.isEmpty()) {
             tilEditProfilePassword.error = "Required"
             tilEditProfilePassword.requestFocus()
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            supportActionBar?.setDisplayShowHomeEnabled(false)
         }
 
         else {
@@ -131,8 +127,6 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         if (!email.isEmpty() && !password.isEmpty()) {
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            supportActionBar?.setDisplayShowHomeEnabled(true)
             Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@EditProfileActivity, ViewProfileActivity::class.java)
             startActivity(intent)
