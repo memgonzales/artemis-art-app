@@ -117,6 +117,10 @@ class SignUpActivity : AppCompatActivity() {
 
          */
 
+        if (!username.isEmpty() && username.length >= 4){
+            this.tilUsername.error = null
+        }
+
         if(email.isEmpty()) {
             this.tilEmail.error = "Required"
             this.tietEmail.requestFocus()
@@ -127,6 +131,10 @@ class SignUpActivity : AppCompatActivity() {
             this.tilEmail.error = "Invalid email address"
             this.tietEmail.requestFocus()
             isValid = false
+        }
+
+        if(!email.isEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            this.tilEmail.error = null
         }
 
         if(password.isEmpty()) {
@@ -141,10 +149,14 @@ class SignUpActivity : AppCompatActivity() {
             isValid = false
         }
 
+        if(!password.isEmpty() && password.length >= 6){
+            this.tilPassword.error = null
+        }
+
         return isValid
     }
 
-    /*
+
     private fun checkUser(username: String){
 
         var userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
@@ -157,9 +169,6 @@ class SignUpActivity : AppCompatActivity() {
                     usernameExists = true
                 }
 
-                else{
-
-                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -167,10 +176,7 @@ class SignUpActivity : AppCompatActivity() {
             }
 
         })
-
     }
-
-     */
 
     private fun storeUser(user: User) {
         this.pbSignUp.visibility = View.VISIBLE
