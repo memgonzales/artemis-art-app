@@ -183,7 +183,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun loginFailed(){
         this.pbLogin.visibility = View.GONE
-        Toast.makeText(this@LogInActivity, "Invalid username/email/password", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@LogInActivity, "Invalid credentials", Toast.LENGTH_SHORT).show()
     }
 
     private fun loginAsGuest(){
