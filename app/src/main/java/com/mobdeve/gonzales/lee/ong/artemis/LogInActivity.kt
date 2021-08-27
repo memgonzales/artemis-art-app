@@ -112,13 +112,21 @@ class LogInActivity : AppCompatActivity() {
             hasEmpty = true
         }
 
+        else{
+            this.tilUsername.error = null
+        }
+
         if(password.isEmpty()){
             this.tilPassword.error = "Required"
             this.tietPassword.requestFocus()
             hasEmpty = true
         }
 
-        return false
+        else{
+            this.tilPassword.error = null
+        }
+
+        return hasEmpty
     }
 
     private fun loginWithEmail(username: String, password: String){
@@ -165,7 +173,7 @@ class LogInActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    loginFailed()
                 }
             })
     }
