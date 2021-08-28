@@ -125,8 +125,8 @@ class LogInActivity : AppCompatActivity() {
         return hasEmpty
     }
 
-    private fun loginWithEmail(username: String, password: String){
-        this.mAuth.signInWithEmailAndPassword(username, password)
+    private fun loginWithEmail(email: String, password: String){
+        this.mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     loginSuccessfully()
@@ -146,8 +146,13 @@ class LogInActivity : AppCompatActivity() {
                 override fun onDataChange(dataSnapshot: DataSnapshot){
 
                     if (dataSnapshot.childrenCount > 0){
+
                         for (userSnap in dataSnapshot.children){
 
+                            var email = dataSnapshot.child(userSnap.key!!).child(Keys.email.name).getValue().toString()
+                            loginWithEmail(email, password)
+
+                            /*
                             var user = dataSnapshot.child(userSnap.key!!).child(Keys.username.name).getValue().toString()
                             var pw = dataSnapshot.child(userSnap.key!!).child(Keys.password.name).getValue().toString()
 
@@ -158,12 +163,15 @@ class LogInActivity : AppCompatActivity() {
                             else{
                                 loginFailed()
                             }
+
+                             */
                         }
                     }
 
                     else{
                         loginFailed()
                     }
+
 
                 }
 

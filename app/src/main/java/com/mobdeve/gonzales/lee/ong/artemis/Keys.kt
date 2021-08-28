@@ -20,6 +20,7 @@ enum class Keys {
 
     KEY_DB_USERS,
     username,
+    email,
     password,
     bio,
     comments,

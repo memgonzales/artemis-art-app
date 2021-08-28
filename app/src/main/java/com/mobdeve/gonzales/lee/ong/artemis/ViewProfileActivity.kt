@@ -147,7 +147,7 @@ class ViewProfileActivity : AppCompatActivity() {
     }
 
     private fun launchSearch() {
-        val intent = Intent(this@BrowseFeedActivity, SearchActivity::class.java)
+        val intent = Intent(this@ViewProfileActivity, SearchActivity::class.java)
         startActivity(intent)
     }
 
