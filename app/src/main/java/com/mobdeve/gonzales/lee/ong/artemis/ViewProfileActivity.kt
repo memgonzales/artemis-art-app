@@ -41,13 +41,20 @@ class ViewProfileActivity : AppCompatActivity() {
 
     private lateinit var dataUser: User
 
+    private lateinit var mAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_profile)
 
+        initFirebase()
         initContent()
         initComponents()
         addPost()
+    }
+
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
     }
 
     private fun initContent() {
@@ -188,6 +195,7 @@ class ViewProfileActivity : AppCompatActivity() {
         builder.setPositiveButton(
             "Log out"
         ) { dialog, which ->
+            this.mAuth.signOut()
             Toast.makeText(this@ViewProfileActivity, "You have been logged out", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@ViewProfileActivity, LogInActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

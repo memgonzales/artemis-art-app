@@ -8,9 +8,16 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
     private lateinit var logoAnimation: AnimationDrawable
+
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -18,7 +25,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initSplashScreen()
+        initFirebase()
         launchLogIn()
+    }
+
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -39,9 +51,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun launchLogIn() {
         Handler(Looper.getMainLooper()).postDelayed({
-            val i = Intent(this@MainActivity, LogInActivity::class.java)
-            startActivity(i)
-            finish()
+
+            if(this.mAuth.currentUser != null){
+                val i = Intent(this@MainActivity, BrowseFeedActivity::class.java)
+                startActivity(i)
+                finish()
+            }
+
+            else{
+                val i = Intent(this@MainActivity, LogInActivity::class.java)
+                startActivity(i)
+                finish()
+            }
+
         }, AnimationDuration.SPLASH_SCREEN_TIMEOUT.toLong())
     }
 }

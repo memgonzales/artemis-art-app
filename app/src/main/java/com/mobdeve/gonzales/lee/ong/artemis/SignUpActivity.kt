@@ -110,26 +110,31 @@ class SignUpActivity : AppCompatActivity() {
             isValid = false
         }
 
-        if (!username.isEmpty() && username.length < 4){
+            if (!username.isEmpty() && username.length < 4){
             this.tilUsername.error = "Username should have at least 4 characters"
             this.tietUsername.requestFocus()
             isValid = false
         }
 
 
-        /*
         if(!username.isEmpty() ){
-            usernameExists(username)
-            this.tilUsername.error = "Username has been already been taken"
-            this.tietUsername.requestFocus()
-            isValid = false
+            checkUser(username)
+
+            Toast.makeText(this, "ch: " + this.tilUsername.error, Toast.LENGTH_SHORT).show()
+            if(this.tilUsername.error != null){
+                isValid = false
+            }
+            //this.tilUsername.error = "Username has been already been taken"
+            //this.tietUsername.requestFocus()
+
         }
 
-         */
-
+/*
         if (!username.isEmpty() && username.length >= 4){
             this.tilUsername.error = null
         }
+
+ */
 
         if(email.isEmpty()) {
             this.tilEmail.error = "Required"
@@ -166,8 +171,6 @@ class SignUpActivity : AppCompatActivity() {
         return isValid
     }
 
-
-    /*
     private fun checkUser(username: String){
 
         var userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
@@ -177,7 +180,7 @@ class SignUpActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 if (snapshot.childrenCount  > 0){
-                    usernameExists = true
+                    usernameExists()
                 }
 
             }
@@ -188,8 +191,11 @@ class SignUpActivity : AppCompatActivity() {
 
         })
     }
-    
-     */
+
+    private fun usernameExists(){
+        this.tilUsername.error = "Username has been already been taken"
+        this.tietUsername.requestFocus()
+    }
 
     private fun storeUser(user: User) {
         this.pbSignUp.visibility = View.VISIBLE
