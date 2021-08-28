@@ -18,7 +18,7 @@ class User {
         this.username = username
         this.email = email
         this.password = password
-        this.userImg = R.drawable.chibi_circle
+        this.userImg = R.drawable.chibi_artemis_hd
         this.bio = ""
 
         this.bookmarks = ArrayList<String>()
