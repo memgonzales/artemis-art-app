@@ -62,10 +62,15 @@ class AddProfileBioActivity : AppCompatActivity() {
             val bio: String = tielBio.text.toString().trim()
 
             this.db.child(Keys.KEY_DB_USERS.name).child(this.user.uid).child(Keys.bio.name).setValue(bio)
+                .addOnSuccessListener {
+                    val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
+                    startActivity(i)
+                    finish()
+                }
+                .addOnFailureListener{
+                    Toast.makeText(this@AddProfileBioActivity, "Unable to add your bio right now, try again later", Toast.LENGTH_SHORT).show()
+                }
 
-            val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
-            startActivity(i)
-            finish()
         }
     }
 

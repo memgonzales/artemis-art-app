@@ -19,6 +19,7 @@ enum class Keys {
     KEY_COMMENT_BODY,
 
     KEY_DB_USERS,
+    userImg,
     username,
     email,
     password,

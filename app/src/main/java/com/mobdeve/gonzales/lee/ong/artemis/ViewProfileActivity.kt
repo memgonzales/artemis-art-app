@@ -195,10 +195,11 @@ class ViewProfileActivity : AppCompatActivity() {
         builder.setPositiveButton(
             "Log out"
         ) { dialog, which ->
-            this.mAuth.signOut()
             Toast.makeText(this@ViewProfileActivity, "You have been logged out", Toast.LENGTH_SHORT).show()
+
+            this.mAuth.signOut()
             val intent = Intent(this@ViewProfileActivity, LogInActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
         builder.setNegativeButton(

@@ -11,6 +11,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class AccountManagementActivity : AppCompatActivity() {
     private lateinit var clAccountManagementDelete: ConstraintLayout
@@ -21,12 +26,20 @@ class AccountManagementActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: FirebaseDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_management)
 
         initContent()
         initComponents()
+    }
+
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database
     }
 
     private fun initContent() {
@@ -45,10 +58,21 @@ class AccountManagementActivity : AppCompatActivity() {
         builder.setPositiveButton(
             "Delete"
         ) { dialog, which ->
-            Toast.makeText(this@AccountManagementActivity, "Account deleted", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+            
+            this.mAuth.currentUser!!.delete()
+                .addOnCompleteListener(this) { task ->
+                    if(task.isSuccessful){
+                        Toast.makeText(this@AccountManagementActivity, "Account deleted", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                    }
+
+                    else{
+                        Toast.makeText(this@AccountManagementActivity, "Failed to delete account", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
         }
         builder.setNegativeButton(
             "Cancel"

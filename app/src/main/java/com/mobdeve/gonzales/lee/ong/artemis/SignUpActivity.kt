@@ -117,6 +117,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
 
+        /*
         if(!username.isEmpty() ){
             checkUser(username)
 
@@ -128,6 +129,8 @@ class SignUpActivity : AppCompatActivity() {
             //this.tietUsername.requestFocus()
 
         }
+
+         */
 
 /*
         if (!username.isEmpty() && username.length >= 4){
