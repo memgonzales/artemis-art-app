@@ -55,6 +55,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                 finalPhoto
             )
 
+            btmAddPost.dismiss()
             startActivity(intent)
         }
     }
