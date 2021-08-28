@@ -102,6 +102,7 @@ class EditProfileActivity : AppCompatActivity() {
                 var email: String = snapshot.child(Keys.email.name).getValue().toString()
                 var pw: String = snapshot.child(Keys.password.name).getValue().toString()
                 var bio: String = snapshot.child(Keys.bio.name).getValue().toString()
+                //var bio: String = snapshot.child("userPosts").getValue().toString()
 
                 civEditProfilePic.setImageResource(profPic)
                 tietEditProfileUsername.setText(username)

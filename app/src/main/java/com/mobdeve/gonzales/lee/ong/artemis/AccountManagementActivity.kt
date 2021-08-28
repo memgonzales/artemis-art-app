@@ -1,4 +1,3 @@
-
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
@@ -12,6 +11,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class AccountManagementActivity : AppCompatActivity() {
     private lateinit var clAccountManagementDelete: ConstraintLayout
@@ -22,12 +28,25 @@ class AccountManagementActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var ref: DatabaseReference
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_management)
 
+        initFirebase()
         initContent()
         initComponents()
+    }
+
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.ref = Firebase.database.reference
+        this.user = this.mAuth.currentUser!!
+        this.userId = this.user.uid
     }
 
     private fun initContent() {
@@ -45,15 +64,41 @@ class AccountManagementActivity : AppCompatActivity() {
         builder.setMessage("Are you sure you want to delete your profile? This action cannot be reversed.")
         builder.setPositiveButton(
             "Delete"
-        ) { _, _ ->
+        ) { dialog, which ->
+
             Toast.makeText(this@AccountManagementActivity, "Account deleted", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+
+            /*
+            this.ref.child(Keys.KEY_DB_USERS.name).child(this.userId).removeValue()
+                .addOnSuccessListener {
+                    this.user.delete()
+                        .addOnCompleteListener(this) { task ->
+                            if(task.isSuccessful){
+                                Toast.makeText(this@AccountManagementActivity, "Account deleted", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                startActivity(intent)
+                            }
+
+                            else{
+                                Toast.makeText(this@AccountManagementActivity, "Failed to delete accountaaa", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                }
+                .addOnFailureListener{
+                    Toast.makeText(this@AccountManagementActivity, "Failed to delete accountdsfds", Toast.LENGTH_SHORT).show()
+                }
+
+
+             */
+
         }
         builder.setNegativeButton(
             "Cancel"
-        ) { _, _ -> }
+        ) { dialog, which -> }
         builder.create().show()
     }
 
