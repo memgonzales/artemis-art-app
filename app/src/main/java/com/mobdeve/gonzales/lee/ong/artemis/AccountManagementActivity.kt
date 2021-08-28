@@ -44,7 +44,7 @@ class AccountManagementActivity : AppCompatActivity() {
         builder.setMessage("Are you sure you want to delete your profile? This action cannot be reversed.")
         builder.setPositiveButton(
             "Delete"
-        ) { dialog, which ->
+        ) { _, _ ->
             Toast.makeText(this@AccountManagementActivity, "Account deleted", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -52,7 +52,7 @@ class AccountManagementActivity : AppCompatActivity() {
         }
         builder.setNegativeButton(
             "Cancel"
-        ) { dialog, which -> }
+        ) { _, _ -> }
         builder.create().show()
     }
 

@@ -85,7 +85,7 @@
                     android:id="@+id/civ_edit_profile_pic"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/shoob"
+                    android:src="@drawable/chibi_artemis_hd"
                     android:visibility="visible"
                     app:civ_border_color="@color/purple_main"
                     app:civ_border_width="0dp"
