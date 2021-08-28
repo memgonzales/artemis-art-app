@@ -2,10 +2,12 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -19,22 +21,21 @@ class PostArtworkActivity : AppCompatActivity() {
     private lateinit var tietDescription: TextInputEditText
 
     private lateinit var btnDetails: Button
+    private lateinit var ivPostArtworkArt: ImageView
 
-    /*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if(resultCode == RESULT_OK){
-
-        }
-    }
-
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_artwork)
 
         initComponents()
+        fetchPhoto()
+    }
+
+    private fun fetchPhoto() {
+        ivPostArtworkArt = findViewById(R.id.iv_post_artwork_art)
+
+        val finalPhoto: Bitmap? = intent.getParcelableExtra(Keys.KEY_POST_ARTWORK.name)
+        ivPostArtworkArt.setImageBitmap(finalPhoto)
     }
 
     private fun initComponents() {

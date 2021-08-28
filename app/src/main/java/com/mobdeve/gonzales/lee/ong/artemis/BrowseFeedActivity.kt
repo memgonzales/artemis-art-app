@@ -1,16 +1,22 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +41,24 @@ class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var fabAddPost: FloatingActionButton
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
+
+    private var cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            val bundle: Bundle? = data?.extras
+            val finalPhoto: Bitmap? = bundle?.get("data") as Bitmap?
+
+            val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_POST_ARTWORK.name,
+                finalPhoto
+            )
+
+            btmAddPost.dismiss()
+            startActivity(intent)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,13 +91,13 @@ class BrowseFeedActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlFeed = findViewById(R.id.srl_feed)
         srlFeed.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlFeed.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -178,10 +202,12 @@ class BrowseFeedActivity : AppCompatActivity() {
             })
 
             clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@BrowseFeedActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
-                btmAddPost.dismiss()
-                val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
-                startActivity(intent)
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
+                    cameraLauncher.launch(intent)
+                } else {
+                    Toast.makeText(this@BrowseFeedActivity, "Camera app cannot be found", Toast.LENGTH_SHORT).show()
+                }
             })
 
             btmAddPost.show()

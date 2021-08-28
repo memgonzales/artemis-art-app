@@ -18,6 +18,8 @@ enum class Keys {
     KEY_BIO,
     KEY_COMMENT_BODY,
 
+    KEY_POST_ARTWORK,
+
     KEY_DB_USERS,
     userImg,
     username,
