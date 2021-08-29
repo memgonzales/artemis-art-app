@@ -52,17 +52,9 @@ class MainActivity : AppCompatActivity() {
     private fun launchLogIn() {
         Handler(Looper.getMainLooper()).postDelayed({
 
-            if(this.mAuth.currentUser != null){
-                val i = Intent(this@MainActivity, BrowseFeedActivity::class.java)
-                startActivity(i)
-                finish()
-            }
-
-            else{
-                val i = Intent(this@MainActivity, LogInActivity::class.java)
-                startActivity(i)
-                finish()
-            }
+            val i = Intent(this@MainActivity, LogInActivity::class.java)
+            startActivity(i)
+            finish()
 
         }, AnimationDuration.SPLASH_SCREEN_TIMEOUT.toLong())
     }
