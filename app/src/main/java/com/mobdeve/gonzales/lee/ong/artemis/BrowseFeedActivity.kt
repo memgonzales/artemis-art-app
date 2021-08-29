@@ -57,7 +57,7 @@ class BrowseFeedActivity : AppCompatActivity() {
             val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
             intent.putExtra(
                 Keys.KEY_POST_ARTWORK.name,
-                photoFile?.absolutePath
+                photoFile.absolutePath
             )
 
              startActivity(intent)
@@ -212,7 +212,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                                             android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 photoFile = getPhotoFile(DefaultStrings.PHOTO_DEFAULT_FILE_NAME)
 
-                val fileProvider = FileProvider.getUriForFile(this, DefaultStrings.PACKAGE_NAME, photoFile!!)
+                val fileProvider = FileProvider.getUriForFile(this, DefaultStrings.PACKAGE_NAME, photoFile)
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
                 if (ContextCompat.checkSelfPermission(this.applicationContext, permissions[0]) != PackageManager.PERMISSION_GRANTED
