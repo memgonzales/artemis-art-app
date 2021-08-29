@@ -66,29 +66,16 @@ class AccountManagementActivity : AppCompatActivity() {
             "Delete"
         ) { dialog, which ->
 
-            Toast.makeText(this@AccountManagementActivity, "Account deleted", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            this.user.delete()
+                .addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        ref.child(Keys.KEY_DB_USERS.name).child(this.userId).removeValue()
+                        deleteSuccessfully()
+                    }
 
-            this.ref.child(Keys.KEY_DB_USERS.name).child(this.userId).removeValue()
-                .addOnSuccessListener {
-                    this.user.delete()
-                        .addOnCompleteListener(this) { task ->
-                            if(task.isSuccessful){
-                                Toast.makeText(this@AccountManagementActivity, "Account deleted", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                startActivity(intent)
-                            }
-
-                            else{
-                                Toast.makeText(this@AccountManagementActivity, "Failed to delete accountaaa", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                }
-                .addOnFailureListener{
-                    Toast.makeText(this@AccountManagementActivity, "Failed to delete accountdsfds", Toast.LENGTH_SHORT).show()
+                    else{
+                        deleteFailed()
+                    }
                 }
         }
 
@@ -96,6 +83,17 @@ class AccountManagementActivity : AppCompatActivity() {
             "Cancel"
         ) { dialog, which -> }
         builder.create().show()
+    }
+
+    private fun deleteSuccessfully(){
+        Toast.makeText(applicationContext, "Account deleted", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+    }
+
+    private fun deleteFailed(){
+        Toast.makeText(applicationContext, "Failed to delete account", Toast.LENGTH_SHORT).show()
     }
 
     private fun initComponents() {
