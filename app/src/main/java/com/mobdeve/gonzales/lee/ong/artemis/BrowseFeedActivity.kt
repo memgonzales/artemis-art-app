@@ -2,6 +2,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -55,7 +58,6 @@ class BrowseFeedActivity : AppCompatActivity() {
                 finalPhoto
             )
 
-            btmAddPost.dismiss()
             startActivity(intent)
         }
     }
@@ -171,7 +173,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                 return true
             } else -> {
             return super.onOptionsItemSelected(item)
-            }
+        }
         }
 
         return super.onOptionsItemSelected(item)
@@ -203,14 +205,58 @@ class BrowseFeedActivity : AppCompatActivity() {
 
             clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
-                    cameraLauncher.launch(intent)
+                val permissions = arrayOf(android.Manifest.permission.CAMERA)
+
+                if (ContextCompat.checkSelfPermission(this.applicationContext, android.Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this@BrowseFeedActivity, permissions, 202)
+
+
                 } else {
-                    Toast.makeText(this@BrowseFeedActivity, "Camera app cannot be found", Toast.LENGTH_SHORT).show()
+                    if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
+                        cameraLauncher.launch(intent)
+                    } else {
+                        Toast.makeText(
+                            this@BrowseFeedActivity,
+                            "Camera app cannot be found",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             })
 
             btmAddPost.show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+            202 -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                    if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
+                        cameraLauncher.launch(intent)
+                    } else {
+                        Toast.makeText(
+                            this@BrowseFeedActivity,
+                            "Camera app cannot be found",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        this@BrowseFeedActivity,
+                        "Sad",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                return
+            }
         }
     }
 }
