@@ -71,7 +71,6 @@ class AccountManagementActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
 
-            /*
             this.ref.child(Keys.KEY_DB_USERS.name).child(this.userId).removeValue()
                 .addOnSuccessListener {
                     this.user.delete()
@@ -91,11 +90,8 @@ class AccountManagementActivity : AppCompatActivity() {
                 .addOnFailureListener{
                     Toast.makeText(this@AccountManagementActivity, "Failed to delete accountdsfds", Toast.LENGTH_SHORT).show()
                 }
-
-
-             */
-
         }
+
         builder.setNegativeButton(
             "Cancel"
         ) { dialog, which -> }
