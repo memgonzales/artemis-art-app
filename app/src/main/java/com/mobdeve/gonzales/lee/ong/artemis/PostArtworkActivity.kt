@@ -1,18 +1,18 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
+
 
 class PostArtworkActivity : AppCompatActivity() {
     private lateinit var tietTitle: TextInputEditText
@@ -28,14 +28,37 @@ class PostArtworkActivity : AppCompatActivity() {
         setContentView(R.layout.activity_post_artwork)
 
         initComponents()
+
         fetchPhoto()
     }
 
+
     private fun fetchPhoto() {
         ivPostArtworkArt = findViewById(R.id.iv_post_artwork_art)
+        val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
 
-        val finalPhoto: Bitmap? = intent.getParcelableExtra(Keys.KEY_POST_ARTWORK.name)
-        ivPostArtworkArt.setImageBitmap(finalPhoto)
+        /* Taken from https://www.py4u.net/discuss/611150 */
+        val bounds = BitmapFactory.Options()
+        bounds.inJustDecodeBounds = true
+        BitmapFactory.decodeFile(photoPath, bounds)
+
+        val opts = BitmapFactory.Options()
+        val bm = BitmapFactory.decodeFile(photoPath, opts)
+        val exif = ExifInterface(photoPath!!)
+        val orientString: String? = exif.getAttribute(ExifInterface.TAG_ORIENTATION)
+        val orientation = orientString?.toInt() ?: ExifInterface.ORIENTATION_NORMAL
+
+        var rotationAngle = 0
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270
+
+        val matrix = Matrix()
+        matrix.setRotate(rotationAngle.toFloat(), bm.width.toFloat() / 2, bm.height.toFloat() / 2)
+        val rotatedBitmap =
+            Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true)
+
+        ivPostArtworkArt.setImageBitmap(rotatedBitmap)
     }
 
     private fun initComponents() {

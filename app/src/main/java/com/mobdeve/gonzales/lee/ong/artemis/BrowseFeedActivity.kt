@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
@@ -21,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +32,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.io.File
 
 class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
@@ -45,20 +49,18 @@ class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    private lateinit var photoFile: File
+
     private var cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            val bundle: Bundle? = data?.extras
-            val finalPhoto: Bitmap? = bundle?.get("data") as Bitmap?
-
             val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
             intent.putExtra(
                 Keys.KEY_POST_ARTWORK.name,
-                finalPhoto
+                photoFile?.absolutePath
             )
 
-            startActivity(intent)
+             startActivity(intent)
         }
     }
 
@@ -208,11 +210,15 @@ class BrowseFeedActivity : AppCompatActivity() {
                 val permissions = arrayOf(android.Manifest.permission.CAMERA,
                                             android.Manifest.permission.READ_EXTERNAL_STORAGE,
                                             android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                photoFile = getPhotoFile(DefaultStrings.PHOTO_DEFAULT_FILE_NAME)
+
+                val fileProvider = FileProvider.getUriForFile(this, DefaultStrings.PACKAGE_NAME, photoFile!!)
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
                 if (ContextCompat.checkSelfPermission(this.applicationContext, permissions[0]) != PackageManager.PERMISSION_GRANTED
                     || ContextCompat.checkSelfPermission(this.applicationContext, permissions[1]) != PackageManager.PERMISSION_GRANTED
                     || ContextCompat.checkSelfPermission(this.applicationContext, permissions[2]) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this@BrowseFeedActivity, permissions, RequestCodes.REQUEST_CODE_POST_CAMERA)
+                    ActivityCompat.requestPermissions(this@BrowseFeedActivity, permissions, RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal)
 
                 } else {
                     if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
@@ -231,11 +237,16 @@ class BrowseFeedActivity : AppCompatActivity() {
         }
     }
 
+    private fun getPhotoFile(name: String): File {
+        val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(name, ".jpg", storageDirectory)
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
-            RequestCodes.REQUEST_CODE_POST_CAMERA -> {
+            RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED
                     && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
