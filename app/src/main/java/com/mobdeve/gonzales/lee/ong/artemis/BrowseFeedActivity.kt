@@ -205,12 +205,14 @@ class BrowseFeedActivity : AppCompatActivity() {
 
             clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                val permissions = arrayOf(android.Manifest.permission.CAMERA)
+                val permissions = arrayOf(android.Manifest.permission.CAMERA,
+                                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-                if (ContextCompat.checkSelfPermission(this.applicationContext, android.Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this@BrowseFeedActivity, permissions, 202)
-
+                if (ContextCompat.checkSelfPermission(this.applicationContext, permissions[0]) != PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(this.applicationContext, permissions[1]) != PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(this.applicationContext, permissions[2]) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this@BrowseFeedActivity, permissions, RequestCodes.REQUEST_CODE_POST_CAMERA)
 
                 } else {
                     if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
@@ -233,10 +235,10 @@ class BrowseFeedActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
-            202 -> {
-                // If request is cancelled, the result arrays are empty.
-                if ((grantResults.isNotEmpty() &&
-                            grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+            RequestCodes.REQUEST_CODE_POST_CAMERA -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
                     if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
@@ -251,8 +253,8 @@ class BrowseFeedActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(
                         this@BrowseFeedActivity,
-                        "Sad",
-                        Toast.LENGTH_SHORT
+                        "Insufficient permissions to take a photo",
+                        Toast.LENGTH_LONG
                     ).show()
                 }
                 return
