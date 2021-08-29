@@ -12,7 +12,7 @@ class User {
     private var highlights: ArrayList<String>
     private var upvotedPosts: ArrayList<String>
     private var usersFollowed: ArrayList<String>
-    private var comments: ArrayList<String>
+    private var userComments: ArrayList<String>
 
     constructor(username: String, email: String, password: String){
         this.username = username
@@ -26,7 +26,7 @@ class User {
         this.highlights = ArrayList<String>()
         this.upvotedPosts = ArrayList<String>()
         this.usersFollowed = ArrayList<String>()
-        this.comments = ArrayList<String>()
+        this.userComments = ArrayList<String>()
     }
 
     constructor(username: String, email: String, password: String, userImg: Int, bio: String){
@@ -41,7 +41,7 @@ class User {
         this.highlights = ArrayList<String>()
         this.upvotedPosts = ArrayList<String>()
         this.usersFollowed = ArrayList<String>()
-        this.comments = ArrayList<String>()
+        this.userComments = ArrayList<String>()
     }
 
     fun getUsername(): String {
@@ -85,7 +85,7 @@ class User {
     }
 
     fun getUserComments(): ArrayList<String>{
-        return this.comments
+        return this.userComments
     }
 }
 

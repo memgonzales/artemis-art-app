@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -12,13 +13,18 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
+import java.net.PasswordAuthentication
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var fabEditProfilePicEdit: FloatingActionButton
@@ -36,12 +42,19 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var tilEditProfileEmail: TextInputLayout
     private lateinit var tilEditProfilePassword: TextInputLayout
 
+    private lateinit var pbEditProfile: ProgressBar
+
     //Firebase
     private lateinit var mAuth: FirebaseAuth
     private lateinit var ref: DatabaseReference
+    private lateinit var db: FirebaseDatabase
 
     private lateinit var user: FirebaseUser
     private lateinit var userId: String
+
+    private lateinit var credentials: AuthCredential
+    private lateinit var origEmail: String
+    private lateinit var origPw: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +67,7 @@ class EditProfileActivity : AppCompatActivity() {
     private fun initFirebase(){
         this.mAuth = Firebase.auth
         this.ref = Firebase.database.reference
+        this.db = Firebase.database
 
         this.user = this.mAuth.currentUser!!
         this.userId = this.user.uid
@@ -78,60 +92,62 @@ class EditProfileActivity : AppCompatActivity() {
         this.btmProfilePicture = BottomSheetDialog(this@EditProfileActivity)
         this.btnEditProfileSave = findViewById(R.id.btn_edit_profile_save)
 
+        this.pbEditProfile = findViewById(R.id.pb_edit_profile)
+
         btnEditProfileSave.setOnClickListener(View.OnClickListener {
+            var username: String = tietEditProfileUsername.text.toString().trim()
             var profPic: Int = civEditProfilePic.id
             var email: String = tietEditProfileEmail.text.toString().trim()
             var password: String = tietEditProfilePassword.text.toString().trim()
             var bio: String = tietEditProfileBio.text.toString().trim()
 
+
             if(!checkEmpty(email, password)){
-                updateProfile(profPic, email, password, bio)
+                pbEditProfile.visibility = View.VISIBLE
+                updateProfile(profPic, username, email, password, bio)
             }
 
         })
 
         initContent()
+        //getCredentials()
         launchDialog()
     }
 
+    private fun getCredentials(){
+        this.origEmail = tietEditProfileEmail.text.toString().trim()
+        this.origPw = tietEditProfilePassword.text.toString().trim()
+
+        this.credentials = EmailAuthProvider.getCredential(this.origEmail, this.origPw)
+    }
+
     private fun initContent(){
+        this.pbEditProfile.visibility = View.VISIBLE
+
         this.ref.child(Keys.KEY_DB_USERS.name).child(this.userId).addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                pbEditProfile.visibility = View.GONE
+
                 var profPic: Int = snapshot.child(Keys.userImg.name).getValue().toString().toInt()
                 var username: String = snapshot.child(Keys.username.name).getValue().toString()
                 var email: String = snapshot.child(Keys.email.name).getValue().toString()
                 var pw: String = snapshot.child(Keys.password.name).getValue().toString()
                 var bio: String = snapshot.child(Keys.bio.name).getValue().toString()
-                //var bio: String = snapshot.child("userPosts").getValue().toString()
 
                 civEditProfilePic.setImageResource(profPic)
                 tietEditProfileUsername.setText(username)
                 tietEditProfileEmail.setText(email)
                 tietEditProfilePassword.setText(pw)
                 tietEditProfileBio.setText(bio)
+
             }
 
             override fun onCancelled(error: DatabaseError) {
+                pbEditProfile.visibility = View.GONE
                 Toast.makeText(applicationContext, "Failed to Access User", Toast.LENGTH_SHORT).show()
             }
         })
     }
-
-    /*
-
-       private fun initContent() {
-           var dataProfile = DataHelper.loadProfileData()
-
-           this.civEditProfilePic.setImageResource(dataProfile.getUserImg())
-           this.tietEditProfileUsername.setText(dataProfile.getUsername())
-           this.tietEditProfileEmail.setText(dataProfile.getEmail())
-           this.tietEditProfilePassword.setText(dataProfile.getPassword())
-           this.tietEditProfileBio.setText(dataProfile.getBio())
-       }
-
-
-
-     */
 
     private fun launchDialog() {
         val view = LayoutInflater.from(this@EditProfileActivity).inflate(R.layout.dialog_profile_picture, null)
@@ -185,33 +201,48 @@ class EditProfileActivity : AppCompatActivity() {
         return hasEmpty
     }
 
-    private fun updateProfile(userImg: Int, email: String, password: String, bio: String){
+    private fun updateProfile(userImg: Int, username: String, email: String, password: String, bio: String){
 
-        val userDB = this.ref.child(Keys.KEY_DB_USERS.name).child(userId)
-
-        userDB.child(Keys.userImg.name).setValue(userImg)
+        updateUserDB(userImg, username, email, password, bio)
+        /*
+        user.reauthenticate(this.credentials)
             .addOnSuccessListener {
-                userDB.child(Keys.email.name).setValue(email)
+                user.updateEmail(email)
                     .addOnSuccessListener {
-                        userDB.child(Keys.password.name).setValue(password)
+                        user!!.updatePassword(password)
                             .addOnSuccessListener {
-                                userDB.child(Keys.bio.name).setValue(bio)
-                                    .addOnSuccessListener {
-                                        updateSuccessfully()
-                                    }
-                                    .addOnFailureListener{
-                                        updateFailed()
-                                    }
+                                updateUserDB(userImg, username, email, password, bio)
                             }
-                            .addOnFailureListener{
-                                updateFailed()
+                            .addOnFailureListener {
+                                Toast.makeText(this, "pw", Toast.LENGTH_SHORT).show()
                             }
                     }
-                    .addOnFailureListener{
-                        updateFailed()
+                    .addOnFailureListener {
+                        Toast.makeText(this, "email", Toast.LENGTH_SHORT).show()
                     }
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
+                updateFailed()
+            }
+
+         */
+
+    }
+
+    private fun updateUserDB(userImg: Int, username: String, email: String, password: String, bio: String){
+        val userDB = ref.child(Keys.KEY_DB_USERS.name).child(userId)
+
+        val updates: HashMap<String, Any> = hashMapOf<String, Any>()
+        updates.put(Keys.userImg.name, userImg)
+        updates.put(Keys.email.name, email)
+        updates.put(Keys.password.name, password)
+        updates.put(Keys.bio.name, bio)
+
+        userDB.updateChildren(updates)
+            .addOnSuccessListener {
+                updateSuccessfully()
+            }
+            .addOnFailureListener {
                 updateFailed()
             }
     }

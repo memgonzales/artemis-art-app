@@ -21,12 +21,19 @@ enum class Keys {
     KEY_POST_ARTWORK,
 
     KEY_DB_USERS,
-    userImg,
     username,
     email,
     password,
+    userImg,
     bio,
-    comments,
+
+    bookmarks,
+    userPosts,
+    highlights,
+    upvotedPosts,
+    usersFollowed,
+    userComments,
+
     KEY_DB_POSTS,
     KEY_DB_COMMENTS
 }

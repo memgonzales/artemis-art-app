@@ -110,7 +110,7 @@ class SignUpActivity : AppCompatActivity() {
             isValid = false
         }
 
-            if (!username.isEmpty() && username.length < 4){
+        else if (username.length < 4){
             this.tilUsername.error = "Username should have at least 4 characters"
             this.tietUsername.requestFocus()
             isValid = false
@@ -118,6 +118,7 @@ class SignUpActivity : AppCompatActivity() {
 
 
         /*
+
         if(!username.isEmpty() ){
             checkUser(username)
 
@@ -132,12 +133,12 @@ class SignUpActivity : AppCompatActivity() {
 
          */
 
-/*
+
         if (!username.isEmpty() && username.length >= 4){
             this.tilUsername.error = null
         }
 
- */
+
 
         if(email.isEmpty()) {
             this.tilEmail.error = "Required"
@@ -145,7 +146,7 @@ class SignUpActivity : AppCompatActivity() {
             isValid = false
         }
 
-        if(!email.isEmpty() && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             this.tilEmail.error = "Invalid email address"
             this.tietEmail.requestFocus()
             isValid = false
@@ -161,7 +162,7 @@ class SignUpActivity : AppCompatActivity() {
             isValid = false
         }
 
-        if(!password.isEmpty() && password.length < 6){
+        else if(password.length < 6){
             this.tilPassword.error = "Password should have at least 6 characters"
             this.tietPassword.requestFocus()
             isValid = false
@@ -189,7 +190,7 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(this@SignUpActivity, "asdsadas", Toast.LENGTH_SHORT).show()
             }
 
         })

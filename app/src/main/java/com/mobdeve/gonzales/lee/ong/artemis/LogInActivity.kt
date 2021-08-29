@@ -146,12 +146,13 @@ class LogInActivity : AppCompatActivity() {
             .addListenerForSingleValueEvent(object: ValueEventListener{
                 override fun onDataChange(dataSnapshot: DataSnapshot){
 
+                    Toast.makeText(this@LogInActivity, "ch: " + dataSnapshot.childrenCount, Toast.LENGTH_SHORT).show()
                     if (dataSnapshot.childrenCount > 0){
 
                         for (userSnap in dataSnapshot.children){
 
                             var email = dataSnapshot.child(userSnap.key!!).child(Keys.email.name).getValue().toString()
-                            loginWithEmail(email, password)
+                           // loginWithEmail(email, password)
 
                             /*
                             var user = dataSnapshot.child(userSnap.key!!).child(Keys.username.name).getValue().toString()
@@ -170,14 +171,15 @@ class LogInActivity : AppCompatActivity() {
                     }
 
                     else{
-                        loginFailed()
+                      //  loginFailed()
                     }
 
 
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    loginFailed()
+                    //loginFailed()
+                    Toast.makeText(this@LogInActivity, "fkjafkl", Toast.LENGTH_SHORT).show()
                 }
             })
     }
