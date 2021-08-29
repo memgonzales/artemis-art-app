@@ -235,7 +235,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Short Bio"
                         android:inputType="text|textPersonName|textMultiLine"
-                        android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC." />
+                        android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC."
+                        android:maxLength="150"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ProgressBar
