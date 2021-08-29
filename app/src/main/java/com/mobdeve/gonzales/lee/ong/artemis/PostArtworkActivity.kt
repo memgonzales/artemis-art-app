@@ -80,6 +80,7 @@ class PostArtworkActivity : AppCompatActivity() {
         this.tietDimensions = findViewById(R.id.tiet_post_artwork_dimen)
         this.tietDescription = findViewById(R.id.tiet_post_artwork_desc)
 
+        /*
         if (intent.extras != null){
             var title: String = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
             var medium: String = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
@@ -91,6 +92,8 @@ class PostArtworkActivity : AppCompatActivity() {
             this.tietDimensions.setText(dimensions)
             this.tietDescription.setText(desc)
         }
+
+         */
 
     }
 

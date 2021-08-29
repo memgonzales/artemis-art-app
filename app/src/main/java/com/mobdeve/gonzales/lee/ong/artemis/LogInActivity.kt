@@ -224,4 +224,14 @@ class LogInActivity : AppCompatActivity() {
             startActivity(i)
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+
+        if(this.mAuth.currentUser != null){
+            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
+            startActivity(i)
+            finish()
+        }
+    }
 }
