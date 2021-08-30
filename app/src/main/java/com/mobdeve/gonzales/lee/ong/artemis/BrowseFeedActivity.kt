@@ -252,6 +252,11 @@ class BrowseFeedActivity : AppCompatActivity() {
                     && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+                    photoFile = getPhotoFile(DefaultStrings.PHOTO_DEFAULT_FILE_NAME)
+
+                    val fileProvider = FileProvider.getUriForFile(this, DefaultStrings.PACKAGE_NAME, photoFile)
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
+
                     if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
                         cameraLauncher.launch(intent)
                     } else {
