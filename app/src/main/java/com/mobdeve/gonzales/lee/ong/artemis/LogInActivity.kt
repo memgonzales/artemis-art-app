@@ -1,6 +1,7 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.se.omapi.Session
 import android.view.View
@@ -38,6 +39,8 @@ class LogInActivity : AppCompatActivity() {
     //Firebase
     private lateinit var mAuth: FirebaseAuth
     private lateinit var db: DatabaseReference
+
+    private lateinit var sp: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -233,5 +236,9 @@ class LogInActivity : AppCompatActivity() {
             startActivity(i)
             finish()
         }
+    }
+
+    private fun loadData(){
+
     }
 }
