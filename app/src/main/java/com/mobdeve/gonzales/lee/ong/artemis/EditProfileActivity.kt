@@ -201,10 +201,8 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun updateProfile(userImg: Int, email: String, password: String, bio: String){
 
-       // updateUserDB(userImg, username, email, password, bio)
-
-
-        this.ref.child(Keys.KEY_DB_USERS.name).child(this.userId).addValueEventListener(object: ValueEventListener{
+        this.ref.child(Keys.KEY_DB_USERS.name).child(this.userId)
+            .addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 var e: String = snapshot.child(Keys.email.name).getValue().toString()
@@ -212,20 +210,24 @@ class EditProfileActivity : AppCompatActivity() {
 
                 credentials = EmailAuthProvider.getCredential(e, pw)
 
-                user.reauthenticate(credentials)
+                user.reauthenticateAndRetrieveData(credentials)
                     .addOnSuccessListener {
-                        user.updateEmail(email)
+
+                        user.updatePassword(password)
                             .addOnSuccessListener {
-                                user.updatePassword(password)
+
+                                user.updateEmail(email)
                                     .addOnSuccessListener {
+
                                         updateUserDB(userImg, email, password, bio)
+                                        updateSuccessfully()
                                     }
                                     .addOnFailureListener {
-                                        Toast.makeText(applicationContext, "pw", Toast.LENGTH_SHORT).show()
+                                        updateFailed()
                                     }
                             }
                             .addOnFailureListener {
-                                Toast.makeText(applicationContext, "email", Toast.LENGTH_SHORT).show()
+                                updateFailed()
                             }
                     }
                     .addOnFailureListener {

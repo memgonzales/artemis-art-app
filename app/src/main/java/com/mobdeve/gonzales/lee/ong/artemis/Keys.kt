@@ -35,5 +35,25 @@ enum class Keys {
     userComments,
 
     KEY_DB_POSTS,
+    profilePicture,
+    postImg,
+    title,
+    datePosted,
+
+    medium,
+    dimensions,
+    description,
+    tags,
+
+    bookmark,
+    upvote,
+    highlight,
+
+    upvoteUsers,
+    comments,
+
+    numUpvotes,
+    numComments,
+
     KEY_DB_COMMENTS
 }

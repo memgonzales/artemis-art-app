@@ -32,10 +32,15 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.io.File
 
 class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
+    //private lateinit var dataPosts: MutableList<Post>
+
     private lateinit var rvFeed: RecyclerView
     private lateinit var feedAdapter: FeedAdapter
     private lateinit var sflFeed: ShimmerFrameLayout
@@ -50,6 +55,8 @@ class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     private lateinit var photoFile: File
+
+    private lateinit var ref: DatabaseReference
 
     private var cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult ->
@@ -68,7 +75,12 @@ class BrowseFeedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse_feed)
 
+        initFirebase()
         initComponents()
+    }
+
+    private fun initFirebase(){
+        this.ref = Firebase.database.reference
     }
 
     private fun initComponents() {
@@ -143,13 +155,73 @@ class BrowseFeedActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         this.dataPosts = DataHelper.loadPostData();
 
+
         this.rvFeed = findViewById(R.id.rv_feed);
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        this.feedAdapter = FeedAdapter(this.dataPosts);
+        this.feedAdapter = FeedAdapter(dataPosts);
 
 
         this.rvFeed.adapter = feedAdapter;
+
+        initContent()
+    }
+
+    private fun initContent(){
+        this.ref.child(Keys.KEY_DB_POSTS.name).addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                //dataPosts = mutableListOf<Post>()
+                //var onePost: Post = snapshot.getValue<Post>()
+                for (post in snapshot.children){
+
+
+                    //var title = post.child(post.key!!).child(Keys.title.name).getValue().toString()
+                    /*
+                    var profilePicture = post.child(post.key!!).child(Keys.profilePicture.name).getValue().toString().toInt()
+                    var username = post.child(post.key!!).child(Keys.username.name).getValue().toString()
+                    var postImg = post.child(post.key!!).child(Keys.postImg.name).getValue().toString().toInt()
+                    var title = post.child(post.key!!).child(Keys.title.name).getValue().toString()
+                    var datePosted = post.child(post.key!!).child(Keys.datePosted.name).getValue().toString()
+
+                    var medium = post.child(post.key!!).child(Keys.medium.name).getValue().toString()
+                    var dimensions = post.child(post.key!!).child(Keys.dimensions.name).getValue().toString()
+                    var description = post.child(post.key!!).child(Keys.description.name).getValue().toString()
+                    var tags = getList(post.child(post.key!!).child(Keys.tags.name).getValue().toString())
+
+                    var bookmark = post.child(post.key!!).child(Keys.bookmark.name).getValue().toString().toBoolean()
+                    var upvote = post.child(post.key!!).child(Keys.upvote.name).getValue().toString().toBoolean()
+                    var highlight = post.child(post.key!!).child(Keys.highlight.name).getValue().toString().toBoolean()
+
+                    var upvoteUsers = post.child(post.key!!).child(Keys.upvoteUsers.name).getValue().toString()
+                    var comments = post.child(post.key!!).child(Keys.comments.name).getValue().toString()
+
+                    var numUpvotes = post.child(post.key!!).child(Keys.numUpvotes.name).getValue().toString().toInt()
+                    var numComments = post.child(post.key!!).child(Keys.numComments.name).getValue().toString().toInt()
+
+                    var onepost: Post = Post(profilePicture, username, postImg, title, numUpvotes,
+                        numComments, datePosted, medium, dimensions,
+                        description, tags, bookmark, upvote, highlight)
+
+                    dataPosts.add(onepost)
+
+                     */
+                    Toast.makeText(applicationContext, "ch: " + title, Toast.LENGTH_SHORT).show()
+                }
+
+                //initRecyclerView(dataPosts)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+                Toast.makeText(applicationContext, "err: ", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    private fun getList(str: String): ArrayList<String>{
+        return str.substring(1, str.length-1).split(",").toCollection(ArrayList<String>())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

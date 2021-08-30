@@ -1,6 +1,7 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -31,6 +32,9 @@ class PostAddTagsActivity : AppCompatActivity() {
     private lateinit var desc: String
 
     private lateinit var pbAddPost: ProgressBar
+
+    private lateinit var sp: SharedPreferences
+    private lateinit var spEditor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,5 +143,10 @@ class PostAddTagsActivity : AppCompatActivity() {
         }
 
         return hasEmpty
+    }
+
+    override fun onPause() {
+        super.onPause()
+
     }
 }

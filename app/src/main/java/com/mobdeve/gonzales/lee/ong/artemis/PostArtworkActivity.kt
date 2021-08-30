@@ -1,6 +1,7 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
@@ -22,6 +23,9 @@ class PostArtworkActivity : AppCompatActivity() {
 
     private lateinit var btnDetails: Button
     private lateinit var ivPostArtworkArt: ImageView
+
+    private lateinit var sp: SharedPreferences
+    private lateinit var spEditor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,5 +136,11 @@ class PostArtworkActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+
     }
 }
