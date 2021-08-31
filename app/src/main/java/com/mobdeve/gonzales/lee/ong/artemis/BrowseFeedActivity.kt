@@ -164,7 +164,7 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         this.rvFeed.adapter = feedAdapter;
 
-        initContent()
+        //initContent()
     }
 
     private fun initContent(){
@@ -173,8 +173,8 @@ class BrowseFeedActivity : AppCompatActivity() {
 
                 //dataPosts = mutableListOf<Post>()
                 //var onePost: Post = snapshot.getValue<Post>()
-                for (post in snapshot.children){
-
+                for (postSnap in snapshot.children){
+                    //var post: Post = postSnap.getValue().to
 
                     //var title = post.child(post.key!!).child(Keys.title.name).getValue().toString()
                     /*

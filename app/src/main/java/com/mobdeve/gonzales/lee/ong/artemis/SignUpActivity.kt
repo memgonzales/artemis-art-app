@@ -95,14 +95,14 @@ class SignUpActivity : AppCompatActivity() {
                 val password: String = tietPassword.text.toString().trim()
 
                 if(validCredentials(username, email, password)){
-                    //checkUser(username)
-                    var user: User = User(username, email, password)
-                    storeUser(user)
+                    signUp(username, email, password)
+                    //var user: User = User(username, email, password)
+                    //storeUser(user)
                 }
         }
     }
 
-    private fun validCredentials(username: String, email: String, password: String): Boolean {
+    private fun validCredentials(username: String, email: String, password: String): Boolean{
         var isValid: Boolean = true;
 
         if(username.isEmpty()) {
@@ -117,28 +117,22 @@ class SignUpActivity : AppCompatActivity() {
             isValid = false
         }
 
-
-        /*
-
-        if(!username.isEmpty() ){
+        else{
+            this.tilUsername.error = null
+            /*
             checkUser(username)
 
             Toast.makeText(this, "ch: " + this.tilUsername.error, Toast.LENGTH_SHORT).show()
-            if(this.tilUsername.error != null){
+            if(this.tilUsername.error != null) {
                 isValid = false
             }
-            //this.tilUsername.error = "Username has been already been taken"
-            //this.tietUsername.requestFocus()
 
+            else{
+                this.tilUsername.error = null
+            }
+
+             */
         }
-
-         */
-
-
-        if (!username.isEmpty() && username.length >= 4){
-            this.tilUsername.error = null
-        }
-
 
 
         if(email.isEmpty()) {
@@ -153,9 +147,10 @@ class SignUpActivity : AppCompatActivity() {
             isValid = false
         }
 
-        if(!email.isEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        else{
             this.tilEmail.error = null
         }
+
 
         if(password.isEmpty()) {
             this.tilPassword.error = "Required"
@@ -169,37 +164,77 @@ class SignUpActivity : AppCompatActivity() {
             isValid = false
         }
 
-        if(!password.isEmpty() && password.length >= 6){
+        else{
             this.tilPassword.error = null
         }
 
         return isValid
     }
 
-    private fun checkUser(username: String){
+    private fun signUp(username: String, email: String, password: String){
 
         var userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
 
         userDB.orderByChild(Keys.username.name).equalTo(username)
             .addListenerForSingleValueEvent(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
+                override fun onDataChange(snapshot: DataSnapshot) {
 
-                if (snapshot.childrenCount  > 0){
-                    usernameExists()
+                    if (snapshot.exists()){
+                        usernameExists()
+                        checkEmail(email, username, password)
+                        failedRegistration()
+                    }
+
+                    else{
+                        checkEmail(email, username, password)
+                       // var user: User = User(username, email, password)
+                        //storeUser(user)
+                    }
+
                 }
 
-            }
+                override fun onCancelled(error: DatabaseError) {
+                    pbSignUp.visibility = View.GONE
+                    Toast.makeText(this@SignUpActivity, "Unable to load data. Please try again later", Toast.LENGTH_SHORT).show()
+                }
 
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@SignUpActivity, "asdsadas", Toast.LENGTH_SHORT).show()
-            }
+            })
+    }
 
-        })
+    private fun checkEmail(email: String, username: String, password: String){
+
+        var userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
+
+        userDB.orderByChild(Keys.email.name).equalTo(email)
+            .addListenerForSingleValueEvent(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    if (snapshot.exists()){
+                        emailExists()
+                    }
+
+                    else{
+                        var user: User = User(username, email, password)
+                        storeUser(user)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    pbSignUp.visibility = View.GONE
+                    Toast.makeText(this@SignUpActivity, "Unable to load data. Please try again later", Toast.LENGTH_SHORT).show()
+                }
+
+            })
     }
 
     private fun usernameExists(){
         this.tilUsername.error = "Username has been already been taken"
         this.tietUsername.requestFocus()
+    }
+
+    private fun emailExists(){
+        this.tilEmail.error = "The email was registered before"
+        this.tietEmail.requestFocus()
     }
 
     private fun storeUser(user: User) {
@@ -214,19 +249,12 @@ class SignUpActivity : AppCompatActivity() {
                             if (task.isSuccessful) {
                                 successfulRegistration()
 
-                                /*
-                                this.mAuth.currentUser?.updateProfile(UserProfileChangeRequest
-                                    .Builder()
-                                    .setDisplayName(user.getUsername())
-                                    .build())
+                            }
 
-                                 */
-
-                            } else {
+                            else {
                                 failedRegistration()
                             }
                         }
-
                 }
 
                 else {

@@ -53,8 +53,6 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var userId: String
 
     private lateinit var credentials: AuthCredential
-    private lateinit var origEmail: String
-    private lateinit var origPw: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,7 +94,6 @@ class EditProfileActivity : AppCompatActivity() {
 
         btnEditProfileSave.setOnClickListener(View.OnClickListener {
 
-         //   Toast.makeText(this, "ch: " + origEmail, Toast.LENGTH_SHORT ).show()
             var username: String = tietEditProfileUsername.text.toString().trim()
             var profPic: Int = civEditProfilePic.id
             var email: String = tietEditProfileEmail.text.toString().trim()
