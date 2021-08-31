@@ -168,12 +168,23 @@ class BrowseFeedActivity : AppCompatActivity() {
     }
 
     private fun initContent(){
-        this.ref.child(Keys.KEY_DB_POSTS.name).addListenerForSingleValueEvent(object: ValueEventListener{
+        val postDB = this.ref.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 //dataPosts = mutableListOf<Post>()
                 //var onePost: Post = snapshot.getValue<Post>()
-                for (postSnap in snapshot.children){
+                //for (postSnap in snapshot.children){
+                if(snapshot.exists()){
+                    val posts = mutableListOf<Post>()
+
+                    for(postSnap in snapshot.children){
+                        val post = postSnap.getValue(Post::class.java)
+                        post?.setPostId(postSnap.key!!)
+                        post?.let { posts.add(it) }
+                    }
+
                     //var post: Post = postSnap.getValue().to
 
                     //var title = post.child(post.key!!).child(Keys.title.name).getValue().toString()
@@ -220,6 +231,35 @@ class BrowseFeedActivity : AppCompatActivity() {
         })
     }
 
+    private fun getRealtimeUpdates(){
+        val postDB = this.ref.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addChildEventListener(object: ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                var post = snapshot.getValue(Post::class.java)
+                post?.setPostId(snapshot.key!!)
+
+
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
     private fun getList(str: String): ArrayList<String>{
         return str.substring(1, str.length-1).split(",").toCollection(ArrayList<String>())
     }

@@ -1,6 +1,7 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 class Post {
+    private lateinit var postId: String
     private var profilePicture: Int
     private var username: String
 
@@ -72,6 +73,10 @@ class Post {
         this.comments = ArrayList<String>()
     }
 
+    fun getPostId(): String{
+        return this.postId
+    }
+
     fun getProfilePicture(): Int {
         return this.profilePicture
     }
@@ -137,6 +142,9 @@ class Post {
     }
 
 
+    fun setPostId(id: String){
+        this.postId = id
+    }
 
     fun setProfilePicture(picture: Int) {
         this.profilePicture = profilePicture

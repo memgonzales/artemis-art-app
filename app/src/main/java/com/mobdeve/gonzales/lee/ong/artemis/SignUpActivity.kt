@@ -2,7 +2,6 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.Button
@@ -13,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -41,8 +39,6 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
 
-    private var usernameExists: Boolean = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -54,7 +50,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun initLink() {
         tvSignUpPrivacy = findViewById(R.id.tv_sign_up_privacy)
-        tvSignUpPrivacy.movementMethod = LinkMovementMethod.getInstance();
+        tvSignUpPrivacy.movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun initFirebase() {
@@ -96,14 +92,12 @@ class SignUpActivity : AppCompatActivity() {
 
                 if(validCredentials(username, email, password)){
                     signUp(username, email, password)
-                    //var user: User = User(username, email, password)
-                    //storeUser(user)
                 }
         }
     }
 
     private fun validCredentials(username: String, email: String, password: String): Boolean{
-        var isValid: Boolean = true;
+        var isValid = true
 
         if(username.isEmpty()) {
             this.tilUsername.error = "Required"
@@ -119,19 +113,6 @@ class SignUpActivity : AppCompatActivity() {
 
         else{
             this.tilUsername.error = null
-            /*
-            checkUser(username)
-
-            Toast.makeText(this, "ch: " + this.tilUsername.error, Toast.LENGTH_SHORT).show()
-            if(this.tilUsername.error != null) {
-                isValid = false
-            }
-
-            else{
-                this.tilUsername.error = null
-            }
-
-             */
         }
 
 
@@ -173,7 +154,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun signUp(username: String, email: String, password: String){
 
-        var userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
+        val userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
 
         userDB.orderByChild(Keys.username.name).equalTo(username)
             .addListenerForSingleValueEvent(object: ValueEventListener{
@@ -181,14 +162,12 @@ class SignUpActivity : AppCompatActivity() {
 
                     if (snapshot.exists()){
                         usernameExists()
-                        checkEmail(email, username, password)
+                        checkEmail(true, email, username, password)
                         failedRegistration()
                     }
 
                     else{
-                        checkEmail(email, username, password)
-                       // var user: User = User(username, email, password)
-                        //storeUser(user)
+                        checkEmail(false, email, username, password)
                     }
 
                 }
@@ -201,9 +180,9 @@ class SignUpActivity : AppCompatActivity() {
             })
     }
 
-    private fun checkEmail(email: String, username: String, password: String){
+    private fun checkEmail(err: Boolean, email: String, username: String, password: String){
 
-        var userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
+        val userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
 
         userDB.orderByChild(Keys.email.name).equalTo(email)
             .addListenerForSingleValueEvent(object: ValueEventListener{
@@ -214,8 +193,10 @@ class SignUpActivity : AppCompatActivity() {
                     }
 
                     else{
-                        var user: User = User(username, email, password)
-                        storeUser(user)
+                        if(!err){
+                            val user = User(username, email, password)
+                            storeUser(user)
+                        }
                     }
                 }
 
@@ -248,7 +229,6 @@ class SignUpActivity : AppCompatActivity() {
                         .setValue(user).addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 successfulRegistration()
-
                             }
 
                             else {
