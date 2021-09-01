@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
@@ -33,14 +34,23 @@ class PostArtworkActivity : AppCompatActivity() {
 
         initComponents()
 
-        //fetchPhoto()
+        fetchPhoto()
     }
 
-/*
     private fun fetchPhoto() {
         ivPostArtworkArt = findViewById(R.id.iv_post_artwork_art)
+
+        val photoSource: String? = intent.getStringExtra(Keys.KEY_POST_FROM.name)
         val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
 
+        if (photoSource == DefaultStrings.FROM_CAMERA) {
+            fetchFromCamera(photoPath);
+        } else if (photoSource == DefaultStrings.FROM_GALLERY) {
+            fetchFromGallery(photoPath);
+        }
+    }
+
+    private fun fetchFromCamera(photoPath: String?) {
         /* Taken from https://www.py4u.net/discuss/611150 */
         val bounds = BitmapFactory.Options()
         bounds.inJustDecodeBounds = true
@@ -65,7 +75,10 @@ class PostArtworkActivity : AppCompatActivity() {
         ivPostArtworkArt.setImageBitmap(rotatedBitmap)
     }
 
- */
+    private fun fetchFromGallery(photoPath: String?) {
+        val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
+        ivPostArtworkArt.setImageURI(Uri.parse(photoPath!!))
+    }
 
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_post_artwork))
