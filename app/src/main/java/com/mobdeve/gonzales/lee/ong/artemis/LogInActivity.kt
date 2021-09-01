@@ -205,7 +205,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startTesting() {
         this.btnTest.setOnClickListener {
-            val i = Intent(this@LogInActivity, SignUpActivity::class.java)
+            val i = Intent(this@LogInActivity, EditEmailActivity::class.java)
             startActivity(i)
         }
     }

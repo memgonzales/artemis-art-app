@@ -2,9 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mobdeve.gonzales.lee.ong.artemis">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <queries>
+
+        <!-- Browser -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+
+            <data android:scheme="http" />
+        </intent>
+
+        <!-- Camera -->
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+
+        <!-- Gallery -->
+        <intent>
+            <action android:name="android.intent.action.GET_CONTENT" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -15,8 +35,8 @@
         android:theme="@style/Theme.Artemis">
 
         <provider
-            android:authorities="com.mobdeve.gonzales.lee.ong.artemis"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.mobdeve.gonzales.lee.ong.artemis"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -24,12 +44,17 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
+        <activity android:name=".EditEmailActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".EditProfileActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SearchResultsUnregisteredActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".SearchUnregisteredActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".SearchUnregisteredActivity"
+        <activity
+            android:name=".SearchUnregisteredActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
@@ -83,8 +108,8 @@
         <activity
             android:name=".PostArtworkActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".AccountManagementActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -218,24 +243,5 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
-
-    <queries>
-        <!-- Browser -->
-        <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="http" />
-        </intent>
-
-        <!-- Camera -->
-        <intent>
-            <action android:name="android.media.action.IMAGE_CAPTURE" />
-        </intent>
-
-        <!-- Gallery -->
-        <intent>
-            <action android:name="android.intent.action.GET_CONTENT" />
-        </intent>
-    </queries>
 
 </manifest>
