@@ -44,7 +44,11 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".EditEmailActivity"
+        <activity android:name=".EditPasswordActivity"
+            android:parentActivityName=".EditProfileActivity" />
+
+        <activity
+            android:name=".EditEmailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".EditProfileActivity"
             android:screenOrientation="portrait" />
