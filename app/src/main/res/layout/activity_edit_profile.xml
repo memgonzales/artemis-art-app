@@ -159,62 +159,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_edit_profile_email"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:counterEnabled="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
-                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_username"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:startIconDrawable="@drawable/ic_action_email"
-                    app:startIconTint="@color/purple_main">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_edit_profile_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Email Address"
-                        android:inputType="text"
-                        android:text="borkin@gmail.com" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_edit_profile_password"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:counterEnabled="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
-                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_email"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/purple_main"
-                    app:startIconDrawable="@android:drawable/ic_lock_lock"
-                    app:startIconTint="@color/purple_main"
-                    tools:passwordToggleTint="@color/purple_bg"
-                    tools:startIconDrawable="@android:drawable/ic_lock_lock">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_edit_profile_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Password (at least 6 characters)"
-                        android:inputType="textPassword"
-                        android:text="borkislyf" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_edit_profile_bio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -226,8 +170,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
                     app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_password"
-                    app:layout_constraintVertical_bias="0.06000000">
+                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_username"
+                    app:layout_constraintVertical_bias="0.05">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tiet_edit_profile_bio"
@@ -235,8 +179,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Short Bio"
                         android:inputType="text|textPersonName|textMultiLine"
-                        android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC."
-                        android:maxLength="150"/>
+                        android:maxLength="150"
+                        android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC." />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ProgressBar
