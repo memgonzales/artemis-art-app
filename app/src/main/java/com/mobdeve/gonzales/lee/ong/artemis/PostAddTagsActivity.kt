@@ -64,11 +64,13 @@ class PostAddTagsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /*
     override fun onBackPressed() {
         val i = Intent(Intent.ACTION_MAIN)
         i.addCategory(Intent.CATEGORY_HOME)
         //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
+        i.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
+        /*
         i.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
 
         i.putExtra(Keys.KEY_TITLE.name, title)
@@ -76,8 +78,13 @@ class PostAddTagsActivity : AppCompatActivity() {
         i.putExtra(Keys.KEY_DIMENSIONS.name, dimensions)
         i.putExtra(Keys.KEY_DESCRIPTION.name, desc)
 
+
+         */
         startActivity(i)
     }
+     */
+
+
 
     private fun initDetails(){
         this.title = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
@@ -97,10 +104,12 @@ class PostAddTagsActivity : AppCompatActivity() {
 
             if (!checkEmpty(tags)){
                 var allTags: ArrayList<String> = tags.split(',').toCollection(ArrayList())
+
                 var title: String = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
                 var medium: String = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
                 var dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
                 var desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
+
 
                 val post: Post = Post(R.drawable.tofu_chan, "Tobe", title, R.drawable.magia_record,
                     medium, dimensions, desc, allTags)
@@ -114,14 +123,14 @@ class PostAddTagsActivity : AppCompatActivity() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful){
                             this.pbAddPost.visibility = View.GONE
-                            Toast.makeText(this, "Posted successfully", Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, "Posted successfully", Toast.LENGTH_LONG).show()
                             val intent = Intent(this@PostAddTagsActivity, BrowseFeedActivity::class.java)
                             startActivity(intent)
                         }
 
                         else{
                             this.pbAddPost.visibility = View.GONE
-                            Toast.makeText(this, "Failed to post", Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, "Failed to post: ", Toast.LENGTH_LONG).show()
                         }
                     }
             }
@@ -145,8 +154,11 @@ class PostAddTagsActivity : AppCompatActivity() {
         return hasEmpty
     }
 
+    /*
     override fun onPause() {
         super.onPause()
 
     }
+
+     */
 }
