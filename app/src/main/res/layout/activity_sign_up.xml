@@ -266,6 +266,32 @@
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_sign_up_confirm_password"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/purple_main"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:boxStrokeColor="@color/purple_main"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
+                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
+                    app:layout_constraintTop_toBottomOf="@+id/til_sign_up_password"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/purple_main"
+                    app:startIconDrawable="@drawable/baseline_enhanced_encryption_24"
+                    app:startIconTint="@color/purple_main"
+                    tools:passwordToggleTint="@color/purple_bg">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_sign_up_confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Confirm Password"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <Button
                     android:id="@+id/btn_sign_up"
                     android:layout_width="0dp"
@@ -277,7 +303,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/gl_sign_up_left"
                     app:layout_constraintTop_toBottomOf="@+id/til_sign_up_password"
-                    app:layout_constraintVertical_bias="0.060000002" />
+                    app:layout_constraintVertical_bias="0.41000003" />
 
                 <TextView
                     android:id="@+id/tv_sign_up_privacy"
