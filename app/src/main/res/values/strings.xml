@@ -5,4 +5,6 @@
     <string name="tv_search_trivia">Gustav Klimt\'s <i>The Kiss</i> inspired one of the frames in the opening theme of the anime <i>Elfen Lied</i></string>
     <string name="tv_view_profile_about">The <b>Highlights</b> feature is a gallery where other users can see your selected posts upon visiting your profile. Add a post to your Highlights by clicking the star icon on your post.</string>
     <string name="tv_log_in_banner"><b>Art</b>emis</string>
+    <string name="facebook_app_id">453277879102504</string>
+    <string name="fb_login_protocol_scheme">fb453277879102504</string>
 </resources>
