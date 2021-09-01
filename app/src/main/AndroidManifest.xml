@@ -36,6 +36,7 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
+        <activity android:name=".CaptionPlacer"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -47,9 +48,9 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".EditPasswordActivity"
+        <activity
+            android:name=".EditPasswordActivity"
             android:parentActivityName=".EditProfileActivity" />
-
         <activity
             android:name=".EditEmailActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -59,8 +60,8 @@
             android:name=".SearchResultsUnregisteredActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".SearchUnregisteredActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SearchUnregisteredActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -159,8 +160,8 @@
             android:name=".SearchResultsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".SearchActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SearchActivity"
             android:configChanges="orientation|keyboardHidden"
