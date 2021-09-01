@@ -61,11 +61,114 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_item_comment"
+                android:id="@+id/cl_edit_profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="?attr/actionBarSize"
                 android:paddingTop="12dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_edit_profile_edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:padding="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_bio"
+                    app:layout_constraintVertical_bias="0.05">
+
+                    <ImageView
+                        android:id="@+id/iv_edit_profile_edit_email_icon"
+                        android:layout_width="26dp"
+                        android:layout_height="0dp"
+                        android:adjustViewBounds="true"
+                        android:cropToPadding="false"
+                        android:paddingLeft="1dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_edit_email_left_margin"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:srcCompat="@drawable/outline_email_24"
+                        app:tint="@color/default_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_edit_profile_edit_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Change Email Address"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_edit_email_left_margin"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_edit_profile_edit_email_left_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.12" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_edit_profile_edit_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_edit_profile_edit_email"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <ImageView
+                        android:id="@+id/iv_edit_profile_edit_password_icon"
+                        android:layout_width="26dp"
+                        android:layout_height="0dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_edit_password_left_margin"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/outline_lock_24"
+                        app:tint="@color/default_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_edit_profile_edit_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Change Password"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_edit_password_left_margin"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_edit_profile_edit_password_left_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.12" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/gl_edit_profile_left_margin"
@@ -159,62 +262,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_edit_profile_email"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:counterEnabled="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
-                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_username"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:startIconDrawable="@drawable/ic_action_email"
-                    app:startIconTint="@color/purple_main">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_edit_profile_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Email Address"
-                        android:inputType="text"
-                        android:text="borkin@gmail.com" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_edit_profile_password"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:counterEnabled="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
-                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_email"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/purple_main"
-                    app:startIconDrawable="@android:drawable/ic_lock_lock"
-                    app:startIconTint="@color/purple_main"
-                    tools:passwordToggleTint="@color/purple_bg"
-                    tools:startIconDrawable="@android:drawable/ic_lock_lock">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_edit_profile_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Password (at least 6 characters)"
-                        android:inputType="textPassword"
-                        android:text="borkislyf" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_edit_profile_bio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -226,8 +273,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
                     app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_password"
-                    app:layout_constraintVertical_bias="0.06000000">
+                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_username"
+                    app:layout_constraintVertical_bias="0.05">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tiet_edit_profile_bio"
@@ -235,8 +282,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Short Bio"
                         android:inputType="text|textPersonName|textMultiLine"
-                        android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC."
-                        android:maxLength="150"/>
+                        android:maxLength="150"
+                        android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC." />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ProgressBar

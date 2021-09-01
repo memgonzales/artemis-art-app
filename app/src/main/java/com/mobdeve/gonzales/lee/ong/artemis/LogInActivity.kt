@@ -3,23 +3,19 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.se.omapi.Session
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.common.FirstPartyScopes
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.security.Key
 
 class LogInActivity : AppCompatActivity() {
     private lateinit var btnSignUp: Button
@@ -205,7 +201,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startTesting() {
         this.btnTest.setOnClickListener {
-            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
+            val i = Intent(this@LogInActivity, SearchResultsUnregisteredActivity::class.java)
             startActivity(i)
         }
     }

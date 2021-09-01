@@ -7,6 +7,7 @@ Users also have the option to bookmark their favorite artworks made by other use
 **Artemis** is the major course output in a mobile development class. The students are tasked to create an Android app of their choice, provided that it satisfied the minimum requirement of being connected to a remote server or featuring at least two of the following services: telephony, local database, geolocation, touch gestures that are non-native to the views used, camera usage, canvas or graphics-related applications, motion sensors, service that runs on the background, and usage of third-party APIs.
 
 The application development is divided into two phases:
+
 Phase | Duration | Description
 -- | -- | --
 1 (Beta Demo) | 2 weeks | Completion of front-end views or layouts for all the activities, and implementation of either at least one API feature or all the database helpers (however, only the schemas are needed for apps that use a remote database)
