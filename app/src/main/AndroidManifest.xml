@@ -56,6 +56,7 @@
             android:name=".SearchResultsUnregisteredActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".SearchUnregisteredActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchUnregisteredActivity"
@@ -155,6 +156,7 @@
             android:name=".SearchResultsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".SearchActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchActivity"
