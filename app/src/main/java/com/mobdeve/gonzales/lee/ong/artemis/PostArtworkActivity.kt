@@ -33,10 +33,10 @@ class PostArtworkActivity : AppCompatActivity() {
 
         initComponents()
 
-        fetchPhoto()
+        //fetchPhoto()
     }
 
-
+/*
     private fun fetchPhoto() {
         ivPostArtworkArt = findViewById(R.id.iv_post_artwork_art)
         val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
@@ -65,6 +65,8 @@ class PostArtworkActivity : AppCompatActivity() {
         ivPostArtworkArt.setImageBitmap(rotatedBitmap)
     }
 
+ */
+
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_post_artwork))
         initActionBar()
@@ -79,10 +81,7 @@ class PostArtworkActivity : AppCompatActivity() {
     }
 
     private fun initDetails(){
-        this.tietTitle = findViewById(R.id.tiet_post_artwork_title)
-        this.tietMedium = findViewById(R.id.tiet_post_artwork_medium)
-        this.tietDimensions = findViewById(R.id.tiet_post_artwork_dimen)
-        this.tietDescription = findViewById(R.id.tiet_post_artwork_desc)
+
 
         /*
         if (intent.extras != null){
@@ -102,6 +101,10 @@ class PostArtworkActivity : AppCompatActivity() {
     }
 
     private fun addDetails(){
+        this.tietTitle = findViewById(R.id.tiet_post_artwork_title)
+        this.tietMedium = findViewById(R.id.tiet_post_artwork_medium)
+        this.tietDimensions = findViewById(R.id.tiet_post_artwork_dimen)
+        this.tietDescription = findViewById(R.id.tiet_post_artwork_desc)
 
         this.btnDetails = findViewById(R.id.btn_post_artwork_save)
 
@@ -111,6 +114,7 @@ class PostArtworkActivity : AppCompatActivity() {
             var medium = tietMedium.text.toString().trim()
             var dimensions = tietDimensions.text.toString().trim()
             var desc = tietDescription.text.toString().trim()
+
 
             val intent = Intent(this, PostAddTagsActivity::class.java)
 
@@ -138,9 +142,12 @@ class PostArtworkActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    /*
     override fun onResume() {
         super.onResume()
 
 
     }
+
+     */
 }

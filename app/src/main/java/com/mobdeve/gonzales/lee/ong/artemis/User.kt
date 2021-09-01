@@ -1,7 +1,7 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 class User {
-    private lateinit var userId: String
+   // private lateinit var userId: String
     private var username: String
     private var email: String
     private var password: String
@@ -51,9 +51,12 @@ class User {
          */
     }
 
+    /*
     fun getUserId(): String{
         return this.userId
     }
+
+     */
 
     fun getUsername(): String {
         return this.username
@@ -102,10 +105,12 @@ class User {
 
 
 
-
+/*
     fun setUserId(userId: String){
         this.userId = userId
     }
+
+ */
 
     fun setUsername(username: String) {
         this.username = username

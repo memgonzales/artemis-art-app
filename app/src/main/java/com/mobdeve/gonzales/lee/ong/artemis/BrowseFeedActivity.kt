@@ -39,7 +39,6 @@ import java.io.File
 
 class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
-    //private lateinit var dataPosts: MutableList<Post>
 
     private lateinit var rvFeed: RecyclerView
     private lateinit var feedAdapter: FeedAdapter
@@ -153,71 +152,67 @@ class BrowseFeedActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadPostData();
+        //this.dataPosts = DataHelper.loadPostData();
 
 
         this.rvFeed = findViewById(R.id.rv_feed);
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        this.feedAdapter = FeedAdapter(dataPosts);
+        //this.feedAdapter = FeedAdapter(dataPosts);
 
 
-        this.rvFeed.adapter = feedAdapter;
+       // this.rvFeed.adapter = feedAdapter;
 
-        //initContent()
+        initContent()
+
     }
 
     private fun initContent(){
+        this.dataPosts = arrayListOf<Post>()
+
         val postDB = this.ref.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                //dataPosts = mutableListOf<Post>()
-                //var onePost: Post = snapshot.getValue<Post>()
-                //for (postSnap in snapshot.children){
                 if(snapshot.exists()){
-                    val posts = mutableListOf<Post>()
 
                     for(postSnap in snapshot.children){
-                        val post = postSnap.getValue(Post::class.java)
-                        post?.setPostId(postSnap.key!!)
-                        post?.let { posts.add(it) }
+
+                        var userImg = postSnap.child(Keys.profilePicture.name).getValue().toString().toInt()
+                        var username = postSnap.child(Keys.username.name).getValue().toString()
+
+                        var postImg = postSnap.child(Keys.postImg.name).getValue().toString().toInt()
+                        var title = postSnap.child(Keys.title.name).getValue().toString()
+                        var datePosted = postSnap.child(Keys.datePosted.name).getValue().toString()
+
+                        var medium = postSnap.child(Keys.medium.name).getValue().toString()
+                        var dimensions = postSnap.child(Keys.dimensions.name).getValue().toString()
+                        var desc = postSnap.child(Keys.description.name).getValue().toString()
+                        var tags = getList(postSnap.child(Keys.tags.name).getValue().toString())
+
+                        var bookmark = postSnap.child(Keys.bookmarks.name).getValue().toString().toBoolean()
+                        var upvote = postSnap.child(Keys.upvote.name).getValue().toString().toBoolean()
+                        var highlights = postSnap.child(Keys.highlights.name).getValue().toString().toBoolean()
+
+                        var upvoteUsers = postSnap.child(Keys.upvoteUsers.name).getValue().toString()
+                        var comments = postSnap.child(Keys.comments.name).getValue().toString()
+
+                        var numUpvotes = postSnap.child(Keys.numUpvotes.name).getValue().toString().toInt()
+                        var numComment = postSnap.child(Keys.numComments.name).getValue().toString().toInt()
+
+                        var post = Post(userImg, username, postImg, title, numUpvotes, numComment,
+                            datePosted, medium, dimensions, desc, tags, bookmark, upvote, highlights)
+
+                        dataPosts.add(post!!)
+
                     }
 
-                    //var post: Post = postSnap.getValue().to
 
-                    //var title = post.child(post.key!!).child(Keys.title.name).getValue().toString()
-                    /*
-                    var profilePicture = post.child(post.key!!).child(Keys.profilePicture.name).getValue().toString().toInt()
-                    var username = post.child(post.key!!).child(Keys.username.name).getValue().toString()
-                    var postImg = post.child(post.key!!).child(Keys.postImg.name).getValue().toString().toInt()
-                    var title = post.child(post.key!!).child(Keys.title.name).getValue().toString()
-                    var datePosted = post.child(post.key!!).child(Keys.datePosted.name).getValue().toString()
+                    feedAdapter = FeedAdapter(dataPosts);
+                    rvFeed.adapter = feedAdapter;
 
-                    var medium = post.child(post.key!!).child(Keys.medium.name).getValue().toString()
-                    var dimensions = post.child(post.key!!).child(Keys.dimensions.name).getValue().toString()
-                    var description = post.child(post.key!!).child(Keys.description.name).getValue().toString()
-                    var tags = getList(post.child(post.key!!).child(Keys.tags.name).getValue().toString())
-
-                    var bookmark = post.child(post.key!!).child(Keys.bookmark.name).getValue().toString().toBoolean()
-                    var upvote = post.child(post.key!!).child(Keys.upvote.name).getValue().toString().toBoolean()
-                    var highlight = post.child(post.key!!).child(Keys.highlight.name).getValue().toString().toBoolean()
-
-                    var upvoteUsers = post.child(post.key!!).child(Keys.upvoteUsers.name).getValue().toString()
-                    var comments = post.child(post.key!!).child(Keys.comments.name).getValue().toString()
-
-                    var numUpvotes = post.child(post.key!!).child(Keys.numUpvotes.name).getValue().toString().toInt()
-                    var numComments = post.child(post.key!!).child(Keys.numComments.name).getValue().toString().toInt()
-
-                    var onepost: Post = Post(profilePicture, username, postImg, title, numUpvotes,
-                        numComments, datePosted, medium, dimensions,
-                        description, tags, bookmark, upvote, highlight)
-
-                    dataPosts.add(onepost)
-
-                     */
-                    Toast.makeText(applicationContext, "ch: " + title, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(applicationContext, "ch: " + title, Toast.LENGTH_SHORT).show()
                 }
 
                 //initRecyclerView(dataPosts)
@@ -227,7 +222,6 @@ class BrowseFeedActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
                 Toast.makeText(applicationContext, "err: ", Toast.LENGTH_SHORT).show()
             }
-
         })
     }
 
@@ -237,7 +231,7 @@ class BrowseFeedActivity : AppCompatActivity() {
         postDB.addChildEventListener(object: ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 var post = snapshot.getValue(Post::class.java)
-                post?.setPostId(snapshot.key!!)
+               // post?.setPostId(snapshot.key!!)
 
 
             }
