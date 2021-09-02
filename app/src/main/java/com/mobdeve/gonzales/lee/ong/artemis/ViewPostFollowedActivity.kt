@@ -2,17 +2,16 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -111,12 +110,12 @@ class ViewPostFollowedActivity : AppCompatActivity() {
         updateBookmark(bookmark)
         updateUpvote(upvote)
 
-        ibItemViewPostFollowedBookmark.setOnClickListener(View.OnClickListener {
+        ibItemViewPostFollowedBookmark.setOnClickListener {
             bookmark = !bookmark
             updateBookmark(bookmark)
-        })
+        }
 
-        clItemViewPostFollowedUpvote.setOnClickListener(View.OnClickListener {
+        clItemViewPostFollowedUpvote.setOnClickListener {
             if (upvote) {
                 upvote = false
                 upvoteCounter -= 1
@@ -130,18 +129,22 @@ class ViewPostFollowedActivity : AppCompatActivity() {
                 this.tvItemViewPostFollowedUpvoteCounter.text = upvoteString
                 updateUpvote(upvote)
             }
-        })
+        }
 
-        clItemViewPostFollowedComment.setOnClickListener(View.OnClickListener {
+        clItemViewPostFollowedComment.setOnClickListener {
             val intent = Intent(this, ViewCommentsFollowedActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        clItemViewPostFollowedShare.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewPostFollowedActivity,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
-        })
+        clItemViewPostFollowedShare.setOnClickListener {
+            Toast.makeText(
+                this@ViewPostFollowedActivity,
+                "Post shared on Facebook",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
-        civItemViewPostFollowedProfilePic.setOnClickListener(View.OnClickListener {
+        civItemViewPostFollowedProfilePic.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
@@ -158,9 +161,9 @@ class ViewPostFollowedActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
 
-        tvItemViewPostFollowedUsername.setOnClickListener(View.OnClickListener {
+        tvItemViewPostFollowedUsername.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
@@ -177,7 +180,7 @@ class ViewPostFollowedActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
     }
 
     private fun initComponents() {
@@ -191,13 +194,13 @@ class ViewPostFollowedActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlViewPostFollowed = findViewById(R.id.srl_view_post_followed)
         srlViewPostFollowed.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlViewPostFollowed.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -251,18 +254,14 @@ class ViewPostFollowedActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             } else -> {
-            return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
             }
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun addPost() {
@@ -277,19 +276,27 @@ class ViewPostFollowedActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewPostFollowedActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@ViewPostFollowedActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewPostFollowedActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewPostFollowedActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@ViewPostFollowedActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewPostFollowedActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }
