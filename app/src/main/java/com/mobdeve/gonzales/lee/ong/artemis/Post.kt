@@ -141,7 +141,7 @@ class Post {
 
 
     fun setProfilePicture(picture: Int) {
-        this.profilePicture = profilePicture
+        this.profilePicture = picture
     }
 
     fun setUsername(name: String) {
