@@ -1,11 +1,8 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -110,9 +107,9 @@ class AccountManagementActivity : AppCompatActivity() {
     private fun initDeleteDialog() {
         this.clAccountManagementDelete = findViewById(R.id.cl_account_management_delete)
 
-        clAccountManagementDelete.setOnClickListener(View.OnClickListener {
+        clAccountManagementDelete.setOnClickListener {
             deleteDialog()
-        })
+        }
     }
 
     /**
@@ -201,19 +198,27 @@ class AccountManagementActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@AccountManagementActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@AccountManagementActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@AccountManagementActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@AccountManagementActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@AccountManagementActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@AccountManagementActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }

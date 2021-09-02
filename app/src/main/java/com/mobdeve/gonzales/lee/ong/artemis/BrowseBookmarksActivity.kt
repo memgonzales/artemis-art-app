@@ -109,18 +109,14 @@ class BrowseBookmarksActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             R.id.menu_feed_search -> {
                 launchSearch()
-                return true
+                true
             } else -> {
-                return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
             }
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun launchSearch() {

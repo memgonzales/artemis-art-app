@@ -13,7 +13,8 @@ class BottomMenuUtil {
         const val FOLLOW: Int = 2
         const val BOOKMARK: Int = 3
         const val USER: Int = 4
-        const val INVALID: Int = -1
+
+        private const val INVALID: Int = -1
 
         private fun getPosition(itemId: Int): Int {
             when (itemId) {
