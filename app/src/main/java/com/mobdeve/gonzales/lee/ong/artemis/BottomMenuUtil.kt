@@ -185,5 +185,25 @@ class BottomMenuUtil {
                 false
             }
         }
+
+        fun setFinishBottomMenuListenersUnregistered(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
+            bnv.setOnItemSelectedListener { item ->
+                when (getPosition(item.itemId)) {
+                    HOME -> {
+                        val intent = Intent(packageContext, BrowseFeedUnregisteredActivity::class.java)
+                        from.startActivity(intent)
+                        from.finish()
+                        return@setOnItemSelectedListener true
+                    }
+                    FOLLOW, BOOKMARK, USER -> {
+                        Toast.makeText(packageContext,
+                            "Log in or create an account to use this feature",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+                false
+            }
+        }
     }
 }

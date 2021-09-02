@@ -1,13 +1,11 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.widget.NestedScrollView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
@@ -64,7 +62,7 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
         this.tvItemViewOthersHighlightUnregisteredDimensions.text = dimensions
         this.tvItemViewOthersHighlightUnregisteredDescription.text = description
 
-        civItemViewOthersHighlightUnregisteredProfilePic.setOnClickListener(View.OnClickListener {
+        civItemViewOthersHighlightUnregisteredProfilePic.setOnClickListener {
             val intent = Intent(this, ViewUserUnregisteredActivity::class.java)
 
             intent.putExtra(
@@ -81,9 +79,9 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
 
-        tvItemViewOthersHighlightUnregisteredUsername.setOnClickListener(View.OnClickListener {
+        tvItemViewOthersHighlightUnregisteredUsername.setOnClickListener {
             val intent = Intent(this, ViewUserUnregisteredActivity::class.java)
 
             intent.putExtra(
@@ -100,7 +98,7 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
     }
 
     private fun initComponents() {
@@ -112,30 +110,16 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
         this.bnvViewOthersHighlightUnregisteredBottom = findViewById(R.id.nv_view_others_highlight_unregistered_bottom)
         this.fabAddPost = findViewById(R.id.fab_view_others_highlight_unregistered_add)
 
-        bnvViewOthersHighlightUnregisteredBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_feed -> {
-                    val intent = Intent(this@ViewOthersHighlightUnregisteredActivity, BrowseFeedUnregisteredActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_feed -> {
-                    Toast.makeText(this@ViewOthersHighlightUnregisteredActivity, "Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-                R.id.icon_bookmark_feed -> {
-                    Toast.makeText(this@ViewOthersHighlightUnregisteredActivity, "Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-                R.id.icon_user_feed -> {
-                    Toast.makeText(this@ViewOthersHighlightUnregisteredActivity, "Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListenersUnregistered(bnvViewOthersHighlightUnregisteredBottom, this,
+            this@ViewOthersHighlightUnregisteredActivity)
 
-        fabAddPost.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewOthersHighlightUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-        })
+        fabAddPost.setOnClickListener {
+            Toast.makeText(
+                this@ViewOthersHighlightUnregisteredActivity,
+                "Log in or create an account to use this feature",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun initActionBar() {
