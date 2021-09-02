@@ -113,7 +113,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>) :
         }
 
         holder.setItemFeedShareOnClickListener { view ->
-            Toast.makeText(view.context,"Post shared on Facebook", Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.context,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
         }
 
         holder.setItemFeedProfileOnClickListener { view ->
