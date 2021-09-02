@@ -66,8 +66,7 @@ class ViewProfileActivity : AppCompatActivity() {
         this.clViewProfileDelete = findViewById(R.id.cl_view_profile_delete)
         this.clViewProfileLogout = findViewById(R.id.cl_view_profile_logout)
         this.btnViewProfileHighlights = findViewById(R.id.btn_view_profile_highlights)
-        this.bnvViewProfileBottom = findViewById(R.id.nv_view_profile_bottom)
-        this.nsvViewProfile = findViewById(R.id.nsv_view_profile)
+
         this.dataUser = DataHelper.loadProfileData()
 
         this.civViewProfileProfilePicture.setImageResource(dataUser.getUserImg())
@@ -105,30 +104,11 @@ class ViewProfileActivity : AppCompatActivity() {
     }
 
     private fun initBottom() {
-        bnvViewProfileBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_profile -> {
-                    val intent = Intent(this@ViewProfileActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_profile -> {
-                    val intent = Intent(this@ViewProfileActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_profile -> {
-                    val intent = Intent(this@ViewProfileActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_profile -> {
-                    nsvViewProfile.fullScroll(ScrollView.FOCUS_UP)
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        this.bnvViewProfileBottom = findViewById(R.id.nv_view_profile_bottom)
+        this.nsvViewProfile = findViewById(R.id.nsv_view_profile)
+
+        BottomMenuUtil.setScrollBottomBottomMenuListeners(bnvViewProfileBottom, nsvViewProfile,
+            BottomMenuUtil.USER, this, this@ViewProfileActivity)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

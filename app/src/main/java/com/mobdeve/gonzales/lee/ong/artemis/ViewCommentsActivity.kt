@@ -108,35 +108,8 @@ class ViewCommentsActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvViewCommentsBottom = findViewById(R.id.nv_view_comments_bottom)
 
-        bnvViewCommentsBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_feed -> {
-                    val intent = Intent(this@ViewCommentsActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_feed -> {
-                    val intent = Intent(this@ViewCommentsActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_feed -> {
-                    val intent = Intent(this@ViewCommentsActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_feed -> {
-                    val intent = Intent(this@ViewCommentsActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListeners(bnvViewCommentsBottom, this,
+            this@ViewCommentsActivity)
     }
 
     private fun initActionBar() {

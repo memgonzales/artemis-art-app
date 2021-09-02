@@ -80,31 +80,8 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvHighlightsBottom = findViewById(R.id.nv_highlights_bottom)
 
-        bnvHighlightsBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_profile -> {
-                    val intent = Intent(this@BrowseOwnHighlightsActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_profile -> {
-                    val intent = Intent(this@BrowseOwnHighlightsActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_profile -> {
-                    val intent = Intent(this@BrowseOwnHighlightsActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_profile -> {
-                    val intent = Intent(this@BrowseOwnHighlightsActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setBottomMenuListeners(bnvHighlightsBottom, this,
+            this@BrowseOwnHighlightsActivity)
     }
 
     private fun initRecyclerView() {

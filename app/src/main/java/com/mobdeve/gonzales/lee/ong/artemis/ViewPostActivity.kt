@@ -218,35 +218,8 @@ class ViewPostActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvViewPostBottom = findViewById(R.id.nv_view_post_bottom)
 
-        bnvViewPostBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_feed -> {
-                    val intent = Intent(this@ViewPostActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_feed -> {
-                    val intent = Intent(this@ViewPostActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_feed -> {
-                    val intent = Intent(this@ViewPostActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_feed -> {
-                    val intent = Intent(this@ViewPostActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListeners(bnvViewPostBottom, this,
+            this@ViewPostActivity)
     }
 
     private fun initActionBar() {

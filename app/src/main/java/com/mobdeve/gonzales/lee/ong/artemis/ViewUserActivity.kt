@@ -53,8 +53,7 @@ class ViewUserActivity : AppCompatActivity() {
         this.tvViewUserUsername = findViewById(R.id.tv_view_user_unregistered_username)
         this.tvViewUserBio = findViewById(R.id.tv_view_user_unregistered_bio)
         this.btnViewUserFollow = findViewById(R.id.btn_view_user_follow)
-        this.bnvViewUserBottom = findViewById(R.id.nv_view_user_bottom)
-        this.nsvViewUser = findViewById(R.id.nsv_view_user)
+
         this.dataHighlights = DataHelper.loadOthersHighlightData()
 
         val intent: Intent = intent
@@ -107,31 +106,11 @@ class ViewUserActivity : AppCompatActivity() {
     }
 
     private fun initBottom() {
-        bnvViewUserBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_search_bottom -> {
-                    val intent = Intent(this@ViewUserActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_search_bottom -> {
-                    val intent = Intent(this@ViewUserActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_search_bottom -> {
-                    val intent = Intent(this@ViewUserActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_search_bottom -> {
-                    val intent = Intent(this@ViewUserActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        this.bnvViewUserBottom = findViewById(R.id.nv_view_user_bottom)
+        this.nsvViewUser = findViewById(R.id.nsv_view_user)
+
+        BottomMenuUtil.setBottomMenuListeners(bnvViewUserBottom, this,
+            this@ViewUserActivity)
     }
 
     private fun initActionBar() {

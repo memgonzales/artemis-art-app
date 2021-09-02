@@ -67,7 +67,8 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         this.bnvBookmarksBottom = findViewById(R.id.nv_bookmarks_bottom)
         this.nsvBookmarks = findViewById(R.id.nsv_bookmarks)
 
-        BottomMenuUtil.setBottomMenuListeners(bnvBookmarksBottom, this, this@BrowseBookmarksActivity)
+        BottomMenuUtil.setScrollBottomBottomMenuListeners(bnvBookmarksBottom, nsvBookmarks,
+            BottomMenuUtil.BOOKMARK, this, this@BrowseBookmarksActivity)
     }
 
     private fun initSwipeRefresh() {

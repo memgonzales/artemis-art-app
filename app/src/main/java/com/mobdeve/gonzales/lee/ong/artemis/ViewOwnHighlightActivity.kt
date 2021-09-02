@@ -109,35 +109,8 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvViewOwnHighlightBottom = findViewById(R.id.nv_view_own_highlight_bottom)
 
-        bnvViewOwnHighlightBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_profile -> {
-                    val intent = Intent(this@ViewOwnHighlightActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_profile -> {
-                    val intent = Intent(this@ViewOwnHighlightActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_profile -> {
-                    val intent = Intent(this@ViewOwnHighlightActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_profile -> {
-                    val intent = Intent(this@ViewOwnHighlightActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListeners(bnvViewOwnHighlightBottom, this,
+            this@ViewOwnHighlightActivity)
     }
 
     private fun initActionBar() {

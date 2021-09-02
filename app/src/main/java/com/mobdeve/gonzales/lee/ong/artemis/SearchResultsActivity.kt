@@ -101,31 +101,8 @@ class SearchResultsActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvSearchBottom = findViewById(R.id.nv_search_results_bottom)
 
-        bnvSearchBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_search_bottom -> {
-                    val intent = Intent(this@SearchResultsActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_search_bottom -> {
-                    val intent = Intent(this@SearchResultsActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_search_bottom -> {
-                    val intent = Intent(this@SearchResultsActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_search_bottom -> {
-                    val intent = Intent(this@SearchResultsActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setBottomMenuListeners(bnvSearchBottom, this,
+            this@SearchResultsActivity)
     }
 
     private fun initContents() {

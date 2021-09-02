@@ -85,30 +85,8 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         this.bnvFollowedBottom = findViewById(R.id.nv_feed_followed_bottom)
         this.nsvFollowed = findViewById(R.id.nsv_feed_followed)
 
-        bnvFollowedBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_feed_followed -> {
-                    val intent = Intent(this@BrowseFeedFollowedActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_feed_followed -> {
-                    nsvFollowed.fullScroll(ScrollView.FOCUS_UP)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_feed_followed -> {
-                    val intent = Intent(this@BrowseFeedFollowedActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_feed_followed -> {
-                    val intent = Intent(this@BrowseFeedFollowedActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setScrollBottomBottomMenuListeners(bnvFollowedBottom, nsvFollowed,
+            BottomMenuUtil.FOLLOW, this, this@BrowseFeedFollowedActivity)
     }
 
     private fun initRecyclerView() {

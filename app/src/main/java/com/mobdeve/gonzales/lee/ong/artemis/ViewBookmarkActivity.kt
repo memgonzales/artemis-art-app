@@ -130,35 +130,8 @@ class ViewBookmarkActivity : AppCompatActivity() {
         this.bnvViewBookmarkBottom = findViewById(R.id.nv_view_bookmark_bottom)
         this.nsvViewBookmark = findViewById(R.id.nsv_view_bookmark)
 
-        bnvViewBookmarkBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_bookmarks -> {
-                    val intent = Intent(this@ViewBookmarkActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_bookmarks -> {
-                    val intent = Intent(this@ViewBookmarkActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_bookmarks -> {
-                    val intent = Intent(this@ViewBookmarkActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_bookmarks -> {
-                    val intent = Intent(this@ViewBookmarkActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListeners(bnvViewBookmarkBottom, this,
+            this@ViewBookmarkActivity)
     }
 
     private fun initActionBar() {

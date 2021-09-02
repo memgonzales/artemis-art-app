@@ -177,7 +177,8 @@ class AccountManagementActivity : AppCompatActivity() {
      */
     private fun initBottom() {
         this.bnvAccountManagementBottom = findViewById(R.id.nv_account_management_bottom)
-        BottomMenuUtil.setBottomMenuListeners(bnvAccountManagementBottom, this, this@AccountManagementActivity)
+        BottomMenuUtil.setBottomMenuListeners(bnvAccountManagementBottom, this,
+            this@AccountManagementActivity)
     }
 
     /**

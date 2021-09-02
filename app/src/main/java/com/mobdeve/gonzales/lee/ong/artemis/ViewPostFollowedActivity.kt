@@ -214,35 +214,8 @@ class ViewPostFollowedActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvViewPostFollowedBottom = findViewById(R.id.nv_view_post_followed_bottom)
 
-        bnvViewPostFollowedBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_feed_followed -> {
-                    val intent = Intent(this@ViewPostFollowedActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_feed_followed -> {
-                    val intent = Intent(this@ViewPostFollowedActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_feed_followed -> {
-                    val intent = Intent(this@ViewPostFollowedActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_feed_followed -> {
-                    val intent = Intent(this@ViewPostFollowedActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListeners(bnvViewPostFollowedBottom, this,
+            this@ViewPostFollowedActivity)
     }
 
     private fun updateBookmark(bookmark: Boolean) {

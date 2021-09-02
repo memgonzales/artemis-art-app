@@ -3,15 +3,17 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.widget.ScrollView
+import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BottomMenuUtil {
     companion object {
-        private const val HOME: Int = 1
-        private const val FOLLOW: Int = 2
-        private const val BOOKMARK: Int = 3
-        private const val USER: Int = 4
-        private const val INVALID: Int = -1
+        const val HOME: Int = 1
+        const val FOLLOW: Int = 2
+        const val BOOKMARK: Int = 3
+        const val USER: Int = 4
+        const val INVALID: Int = -1
 
         private fun getPosition(itemId: Int): Int {
             when (itemId) {
@@ -39,8 +41,8 @@ class BottomMenuUtil {
             return INVALID
         }
 
-        fun setBottomMenuListeners(bnvAccountManagementBottom: BottomNavigationView, from: Activity, packageContext: Context) {
-            bnvAccountManagementBottom.setOnItemSelectedListener{ item ->
+        fun setBottomMenuListeners(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
+            bnv.setOnItemSelectedListener{ item ->
                 when (getPosition(item.itemId)) {
                     HOME -> {
                         val intent = Intent(packageContext, BrowseFeedActivity::class.java)
@@ -60,6 +62,84 @@ class BottomMenuUtil {
                     USER -> {
                         val intent = Intent(packageContext, ViewProfileActivity::class.java)
                         from.startActivity(intent)
+                        return@setOnItemSelectedListener true
+                    }
+                }
+                false
+            }
+        }
+
+        fun setFinishBottomMenuListeners(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
+            bnv.setOnItemSelectedListener{ item ->
+                when (getPosition(item.itemId)) {
+                    HOME -> {
+                        val intent = Intent(packageContext, BrowseFeedActivity::class.java)
+                        from.startActivity(intent)
+                        from.finish()
+                        return@setOnItemSelectedListener true
+                    }
+                    FOLLOW -> {
+                        val intent = Intent(packageContext, BrowseFeedFollowedActivity::class.java)
+                        from.startActivity(intent)
+                        from.finish()
+                        return@setOnItemSelectedListener true
+                    }
+                    BOOKMARK -> {
+                        val intent = Intent(packageContext, BrowseBookmarksActivity::class.java)
+                        from.startActivity(intent)
+                        from.finish()
+                        return@setOnItemSelectedListener true
+                    }
+                    USER -> {
+                        val intent = Intent(packageContext, ViewProfileActivity::class.java)
+                        from.startActivity(intent)
+                        from.finish()
+                        return@setOnItemSelectedListener true
+                    }
+                }
+                false
+            }
+        }
+
+        fun setScrollBottomBottomMenuListeners(bnv: BottomNavigationView, nsv: NestedScrollView, scroll: Int, from: Activity, packageContext: Context) {
+            bnv.setOnItemSelectedListener { item ->
+                when (getPosition(item.itemId)) {
+                    HOME -> {
+                        if (scroll == HOME) {
+                            nsv.fullScroll(ScrollView.FOCUS_UP)
+                        } else {
+                            val intent = Intent(packageContext, BrowseFeedActivity::class.java)
+                            from.startActivity(intent)
+                        }
+
+                        return@setOnItemSelectedListener true
+                    }
+                    FOLLOW -> {
+                        if (scroll == FOLLOW) {
+                            nsv.fullScroll(ScrollView.FOCUS_UP)
+                        } else {
+                            val intent =
+                                Intent(packageContext, BrowseFeedFollowedActivity::class.java)
+                            from.startActivity(intent)
+                        }
+                        return@setOnItemSelectedListener true
+                    }
+                    BOOKMARK -> {
+                        if (scroll == BOOKMARK) {
+                            nsv.fullScroll(ScrollView.FOCUS_UP)
+                        } else {
+                            val intent = Intent(packageContext, BrowseBookmarksActivity::class.java)
+                            from.startActivity(intent)
+                        }
+                        return@setOnItemSelectedListener true
+                    }
+                    USER -> {
+                        if (scroll == USER) {
+                            nsv.fullScroll(ScrollView.FOCUS_UP)
+                        } else {
+                            val intent = Intent(packageContext, ViewProfileActivity::class.java)
+                            from.startActivity(intent)
+                        }
                         return@setOnItemSelectedListener true
                     }
                 }

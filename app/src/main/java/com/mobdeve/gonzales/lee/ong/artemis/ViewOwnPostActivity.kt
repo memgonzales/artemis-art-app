@@ -241,35 +241,8 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvViewOwnPostBottom = findViewById(R.id.nv_view_own_post_bottom)
 
-        bnvViewOwnPostBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_profile -> {
-                    val intent = Intent(this@ViewOwnPostActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_profile -> {
-                    val intent = Intent(this@ViewOwnPostActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_profile -> {
-                    val intent = Intent(this@ViewOwnPostActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_profile -> {
-                    val intent = Intent(this@ViewOwnPostActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListeners(bnvViewOwnPostBottom, this,
+            this@ViewOwnPostActivity)
     }
 
     private fun updateHighlight(highlight: Boolean) {
