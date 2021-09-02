@@ -23,6 +23,9 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.net.PasswordAuthentication
 
@@ -42,15 +45,20 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var tilEditProfileEmail: TextInputLayout
     private lateinit var tilEditProfilePassword: TextInputLayout
 
+    private lateinit var clEditProfileEmail: ConstraintLayout
+    private lateinit var clEditProfilePassword: ConstraintLayout
+
     private lateinit var pbEditProfile: ProgressBar
 
     //Firebase
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var ref: DatabaseReference
-    private lateinit var db: FirebaseDatabase
+    private lateinit var db: DatabaseReference
 
     private lateinit var user: FirebaseUser
     private lateinit var userId: String
+
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageRef: StorageReference
 
     private lateinit var credentials: AuthCredential
 
@@ -58,17 +66,19 @@ class EditProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
-//        initFirebase()
+        initFirebase()
         initComponents()
     }
 
     private fun initFirebase(){
         this.mAuth = Firebase.auth
-        this.ref = Firebase.database.reference
-        this.db = Firebase.database
+        this.db = Firebase.database.reference
 
         this.user = this.mAuth.currentUser!!
         this.userId = this.user.uid
+
+        this.storage = Firebase.storage
+        this.storageRef = this.storage.reference
     }
 
     private fun initComponents() {
@@ -83,56 +93,69 @@ class EditProfileActivity : AppCompatActivity() {
 
         this.fabEditProfilePicEdit = findViewById(R.id.fab_edit_profile_pic_edit)
         this.btmProfilePicture = BottomSheetDialog(this@EditProfileActivity)
+
         this.btnEditProfileSave = findViewById(R.id.btn_edit_profile_save)
+        this.clEditProfileEmail = findViewById(R.id.cl_edit_profile_edit_email);
+        this.clEditProfilePassword = findViewById(R.id.cl_edit_profile_edit_password);
 
         this.pbEditProfile = findViewById(R.id.pb_edit_profile)
 
-//        btnEditProfileSave.setOnClickListener(View.OnClickListener {
-//
+        btnEditProfileSave.setOnClickListener {
 //            var username: String = tietEditProfileUsername.text.toString().trim()
 //            var profPic: Int = civEditProfilePic.id
 //            var email: String = tietEditProfileEmail.text.toString().trim()
 //            var password: String = tietEditProfilePassword.text.toString().trim()
-//            var bio: String = tietEditProfileBio.text.toString().trim()
-//
-//
+
+            var bio: String = tietEditProfileBio.text.toString().trim()
+            this.updateBio(bio)
+
+
 //            if(!checkEmpty(email, password)){
 //                pbEditProfile.visibility = View.VISIBLE
 //                updateProfile(profPic, email, password, bio)
 //            }
+        }
+
+        clEditProfileEmail.setOnClickListener {
+            val intent = Intent(this@EditProfileActivity, EditEmailActivity::class.java)
+            startActivity(intent)
+        }
+
+        clEditProfilePassword.setOnClickListener {
+            val intent = Intent(this@EditProfileActivity, EditPasswordActivity::class.java)
+            startActivity(intent)
+        }
 //
-//        })
-//
-//        initContent()
+        initContent()
         launchDialog()
     }
 
-//    private fun initContent(){
-//        this.pbEditProfile.visibility = View.VISIBLE
-//
-//        this.ref.child(Keys.KEY_DB_USERS.name).child(this.userId).addValueEventListener(object: ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                pbEditProfile.visibility = View.GONE
-//
+    private fun initContent(){
+        this.pbEditProfile.visibility = View.VISIBLE
+
+        this.db.child(Keys.KEY_DB_USERS.name).child(this.userId).addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                pbEditProfile.visibility = View.GONE
+
 //                var profPic: Int = snapshot.child(Keys.userImg.name).getValue().toString().toInt()
-//                var username: String = snapshot.child(Keys.username.name).getValue().toString()
+                var username: String = snapshot.child(Keys.username.name).getValue().toString()
 //                var email: String = snapshot.child(Keys.email.name).getValue().toString()
 //                var pw: String = snapshot.child(Keys.password.name).getValue().toString()
-//                var bio: String = snapshot.child(Keys.bio.name).getValue().toString()
+                var bio: String = snapshot.child(Keys.bio.name).getValue().toString()
 //
 //                civEditProfilePic.setImageResource(profPic)
-//                tietEditProfileUsername.setText(username)
+                tietEditProfileUsername.setText(username)
 //                tietEditProfileEmail.setText(email)
 //                tietEditProfilePassword.setText(pw)
-//                tietEditProfileBio.setText(bio)
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                pbEditProfile.visibility = View.GONE
-//                Toast.makeText(applicationContext, "Failed to Access User", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
+                tietEditProfileBio.setText(bio)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                pbEditProfile.visibility = View.GONE
+                Toast.makeText(applicationContext, "Failed to Access User", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 
     private fun launchDialog() {
         val view = LayoutInflater.from(this@EditProfileActivity).inflate(R.layout.dialog_profile_picture, null)
@@ -252,15 +275,28 @@ class EditProfileActivity : AppCompatActivity() {
 //            }
 //    }
 //
-//    private fun updateSuccessfully(){
-//        Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
-//
-//        val intent = Intent(this@EditProfileActivity, ViewProfileActivity::class.java)
-//        startActivity(intent)
-//        finish()
-//    }
-//
-//    private fun updateFailed(){
-//        Toast.makeText(this@EditProfileActivity, "Failed to update your profile details", Toast.LENGTH_SHORT).show()
-//    }
+    private fun updateSuccessfully(){
+        Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
+
+        val intent = Intent(this@EditProfileActivity, ViewProfileActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun updateFailed(){
+        Toast.makeText(this@EditProfileActivity, "Failed to update your profile details", Toast.LENGTH_SHORT).show()
+    }
+
+
+    private fun updateBio(bio: String){
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
+
+        userDB.child(Keys.bio.name).setValue(bio)
+            .addOnSuccessListener {
+                updateSuccessfully()
+            }
+            .addOnFailureListener{
+                updateFailed()
+            }
+    }
 }

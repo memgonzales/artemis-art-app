@@ -63,15 +63,6 @@ class AddProfilePictureActivity : AppCompatActivity() {
         }
     }
 
-    /*
-    private fun uploadImg(){
-        this.ivCameraPic.setOnClickListener(View.OnClickListener {
-
-        })
-    }
-
-     */
-
     override fun onBackPressed() {
         val i = Intent(this@AddProfilePictureActivity, BrowseFeedActivity::class.java)
         Toast.makeText(this@AddProfilePictureActivity, "You may update your profile details through the account tab",
@@ -89,56 +80,4 @@ class AddProfilePictureActivity : AppCompatActivity() {
             finish()
         }
     }
-
-    /*
-    fun isPermissionsAllowed(): Boolean {
-        return if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            false
-        } else true
-    }
-
-    fun askForPermissions(): Boolean {
-        if (!isPermissionsAllowed()) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this as Activity,Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                showPermissionDeniedDialog()
-            } else {
-                ActivityCompat.requestPermissions(this as Activity,arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),REQUEST_CODE)
-            }
-            return false
-        }
-        return true
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<String>,grantResults: IntArray) {
-        when (requestCode) {
-            REQUEST_CODE -> {
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission is granted, you can perform your operation here
-                } else {
-                    // permission is denied, you can ask for permission again, if you want
-                    //  askForPermissions()
-                }
-                return
-            }
-        }
-    }
-
-    private fun showPermissionDeniedDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Permission Denied")
-            .setMessage("Permission is denied, Please allow permissions from App Settings.")
-            .setPositiveButton("App Settings",
-                DialogInterface.OnClickListener { dialogInterface, i ->
-                    // send to app settings if permission is denied permanently
-                    val intent = Intent()
-                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                    val uri = Uri.fromParts("package", getPackageName(), null)
-                    intent.data = uri
-                    startActivity(intent)
-                })
-            .setNegativeButton("Cancel",null)
-            .show()
-    }
-
-     */
 }
