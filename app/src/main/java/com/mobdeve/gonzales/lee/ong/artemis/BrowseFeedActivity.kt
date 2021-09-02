@@ -64,7 +64,7 @@ class BrowseFeedActivity : AppCompatActivity() {
 
             intent.putExtra(
                 Keys.KEY_POST_FROM.name,
-                DefaultStrings.FROM_CAMERA
+                PostArtworkUtil.FROM_CAMERA
             )
 
             startActivity(intent)
@@ -82,7 +82,7 @@ class BrowseFeedActivity : AppCompatActivity() {
 
             intent.putExtra(
                 Keys.KEY_POST_FROM.name,
-                DefaultStrings.FROM_GALLERY
+                PostArtworkUtil.FROM_GALLERY
             )
 
             startActivity(intent)
@@ -326,10 +326,10 @@ class BrowseFeedActivity : AppCompatActivity() {
                     android.Manifest.permission.READ_EXTERNAL_STORAGE,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE
                 )
-                photoFile = getPhotoFile(DefaultStrings.PHOTO_DEFAULT_FILE_NAME)
+                photoFile = getPhotoFile(PostArtworkUtil.PHOTO_DEFAULT_FILE_NAME)
 
                 val fileProvider =
-                    FileProvider.getUriForFile(this, DefaultStrings.PACKAGE_NAME, photoFile)
+                    FileProvider.getUriForFile(this, PostArtworkUtil.PACKAGE_NAME, photoFile)
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
                 if (ContextCompat.checkSelfPermission(
@@ -384,9 +384,9 @@ class BrowseFeedActivity : AppCompatActivity() {
                     && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
-                    photoFile = getPhotoFile(DefaultStrings.PHOTO_DEFAULT_FILE_NAME)
+                    photoFile = getPhotoFile(PostArtworkUtil.PHOTO_DEFAULT_FILE_NAME)
 
-                    val fileProvider = FileProvider.getUriForFile(this, DefaultStrings.PACKAGE_NAME, photoFile)
+                    val fileProvider = FileProvider.getUriForFile(this, PostArtworkUtil.PACKAGE_NAME, photoFile)
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
                     if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {

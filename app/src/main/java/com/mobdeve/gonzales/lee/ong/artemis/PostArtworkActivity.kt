@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 
@@ -43,9 +42,9 @@ class PostArtworkActivity : AppCompatActivity() {
         val photoSource: String? = intent.getStringExtra(Keys.KEY_POST_FROM.name)
         val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
 
-        if (photoSource == DefaultStrings.FROM_CAMERA) {
+        if (photoSource == PostArtworkUtil.FROM_CAMERA) {
             fetchFromCamera(photoPath);
-        } else if (photoSource == DefaultStrings.FROM_GALLERY) {
+        } else if (photoSource == PostArtworkUtil.FROM_GALLERY) {
             fetchFromGallery(photoPath);
         }
     }
