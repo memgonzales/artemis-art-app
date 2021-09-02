@@ -3,10 +3,6 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -16,16 +12,14 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.ScrollView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -159,8 +153,8 @@ class BrowseFeedActivity : AppCompatActivity() {
         //this.dataPosts = DataHelper.loadPostData();
 
 
-        this.rvFeed = findViewById(R.id.rv_feed);
-        this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        this.rvFeed = findViewById(R.id.rv_feed)
+        this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         //this.feedAdapter = FeedAdapter(dataPosts);
 
@@ -183,38 +177,38 @@ class BrowseFeedActivity : AppCompatActivity() {
 
                     for(postSnap in snapshot.children){
 
-                        var userImg = postSnap.child(Keys.profilePicture.name).getValue().toString().toInt()
-                        var username = postSnap.child(Keys.username.name).getValue().toString()
+                        val userImg = postSnap.child(Keys.profilePicture.name).getValue().toString().toInt()
+                        val username = postSnap.child(Keys.username.name).getValue().toString()
 
-                        var postImg = postSnap.child(Keys.postImg.name).getValue().toString().toInt()
-                        var title = postSnap.child(Keys.title.name).getValue().toString()
-                        var datePosted = postSnap.child(Keys.datePosted.name).getValue().toString()
+                        val postImg = postSnap.child(Keys.postImg.name).getValue().toString().toInt()
+                        val title = postSnap.child(Keys.title.name).getValue().toString()
+                        val datePosted = postSnap.child(Keys.datePosted.name).getValue().toString()
 
-                        var medium = postSnap.child(Keys.medium.name).getValue().toString()
-                        var dimensions = postSnap.child(Keys.dimensions.name).getValue().toString()
-                        var desc = postSnap.child(Keys.description.name).getValue().toString()
-                        var tags = getList(postSnap.child(Keys.tags.name).getValue().toString())
+                        val medium = postSnap.child(Keys.medium.name).getValue().toString()
+                        val dimensions = postSnap.child(Keys.dimensions.name).getValue().toString()
+                        val desc = postSnap.child(Keys.description.name).getValue().toString()
+                        val tags = getList(postSnap.child(Keys.tags.name).getValue().toString())
 
-                        var bookmark = postSnap.child(Keys.bookmarks.name).getValue().toString().toBoolean()
-                        var upvote = postSnap.child(Keys.upvote.name).getValue().toString().toBoolean()
-                        var highlights = postSnap.child(Keys.highlights.name).getValue().toString().toBoolean()
+                        val bookmark = postSnap.child(Keys.bookmarks.name).getValue().toString().toBoolean()
+                        val upvote = postSnap.child(Keys.upvote.name).getValue().toString().toBoolean()
+                        val highlights = postSnap.child(Keys.highlights.name).getValue().toString().toBoolean()
 
-                        var upvoteUsers = postSnap.child(Keys.upvoteUsers.name).getValue().toString()
-                        var comments = postSnap.child(Keys.comments.name).getValue().toString()
+                        val upvoteUsers = postSnap.child(Keys.upvoteUsers.name).getValue().toString()
+                        val comments = postSnap.child(Keys.comments.name).getValue().toString()
 
-                        var numUpvotes = postSnap.child(Keys.numUpvotes.name).getValue().toString().toInt()
-                        var numComment = postSnap.child(Keys.numComments.name).getValue().toString().toInt()
+                        val numUpvotes = postSnap.child(Keys.numUpvotes.name).getValue().toString().toInt()
+                        val numComment = postSnap.child(Keys.numComments.name).getValue().toString().toInt()
 
-                        var post = Post(userImg, username, postImg, title, numUpvotes, numComment,
+                        val post = Post(userImg, username, postImg, title, numUpvotes, numComment,
                             datePosted, medium, dimensions, desc, tags, bookmark, upvote, highlights)
 
-                        dataPosts.add(post!!)
+                        dataPosts.add(post)
 
                     }
 
 
-                    feedAdapter = FeedAdapter(dataPosts);
-                    rvFeed.adapter = feedAdapter;
+                    feedAdapter = FeedAdapter(dataPosts)
+                    rvFeed.adapter = feedAdapter
 
                     //Toast.makeText(applicationContext, "ch: " + title, Toast.LENGTH_SHORT).show()
                     //initRecyclerView(dataPosts)
@@ -277,18 +271,14 @@ class BrowseFeedActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             R.id.menu_feed_search -> {
                 launchSearch()
-                return true
+                true
             } else -> {
-            return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
+            }
         }
-        }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun launchSearch() {
@@ -308,34 +298,59 @@ class BrowseFeedActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
+            clDialogPostArtworkGallery.setOnClickListener {
                 val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
 
-                if (ContextCompat.checkSelfPermission(this.applicationContext, permissions[0]) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this@BrowseFeedActivity, permissions, RequestCodes.REQUEST_CODE_POST_GALLERY.ordinal)
+                if (ContextCompat.checkSelfPermission(
+                        this.applicationContext,
+                        permissions[0]
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    ActivityCompat.requestPermissions(
+                        this@BrowseFeedActivity,
+                        permissions,
+                        RequestCodes.REQUEST_CODE_POST_GALLERY.ordinal
+                    )
                 } else {
                     val intent = Intent(Intent.ACTION_PICK)
                     intent.type = "image/*"
 
                     galleryLauncher.launch(intent)
                 }
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                val permissions = arrayOf(android.Manifest.permission.CAMERA,
-                                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            clDialogPostArtworkPhoto.setOnClickListener {
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                val permissions = arrayOf(
+                    android.Manifest.permission.CAMERA,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
                 photoFile = getPhotoFile(DefaultStrings.PHOTO_DEFAULT_FILE_NAME)
 
-                val fileProvider = FileProvider.getUriForFile(this, DefaultStrings.PACKAGE_NAME, photoFile)
+                val fileProvider =
+                    FileProvider.getUriForFile(this, DefaultStrings.PACKAGE_NAME, photoFile)
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
-                if (ContextCompat.checkSelfPermission(this.applicationContext, permissions[0]) != PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(this.applicationContext, permissions[1]) != PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(this.applicationContext, permissions[2]) != PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(
+                        this.applicationContext,
+                        permissions[0]
+                    ) != PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(
+                        this.applicationContext,
+                        permissions[1]
+                    ) != PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(
+                        this.applicationContext,
+                        permissions[2]
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
 
-                        ActivityCompat.requestPermissions(this@BrowseFeedActivity, permissions, RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal)
+                    ActivityCompat.requestPermissions(
+                        this@BrowseFeedActivity,
+                        permissions,
+                        RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal
+                    )
 
                 } else {
                     if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
@@ -348,7 +363,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                         ).show()
                     }
                 }
-            })
+            }
 
             btmAddPost.show()
         }
@@ -367,7 +382,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED
                     && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
-                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
                     photoFile = getPhotoFile(DefaultStrings.PHOTO_DEFAULT_FILE_NAME)
 
