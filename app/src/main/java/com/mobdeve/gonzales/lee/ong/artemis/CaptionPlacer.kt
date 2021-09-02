@@ -8,39 +8,26 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlin.math.sqrt
 
 /**
- * This class contains a method to place text on top of a bitmap (image), for use in adding attribution
- * to artworks shared on the Facebook account of the user.
+ * Class containing a method (defined inside a companion object) to overlay a text on a
+ * bitmap (image).
  *
- * Since this method is defined inside a companion object, the syntax for calling it is:
- *
- * <code>CaptionPlacer.placeCaption(picture, firstLine, secondLine)</code>
+ * This is intended to be used in adding attribution to an artwork that a user shares on
+ * their Facebook account
  */
-class CaptionPlacer : AppCompatActivity() {
-    private lateinit var ivOldImage: ImageView
-    private lateinit var ivNewImage: ImageView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.caption_placer)
-
-        initComponents()
-        addCaptionSample()
-    }
-
-    private fun initComponents() {
-        ivOldImage = findViewById(R.id.iv_old_image)
-        ivNewImage = findViewById(R.id.iv_new_image)
-    }
-
-    private fun addCaptionSample() {
-        val oldImageBitmapDrawable = ivOldImage.drawable as BitmapDrawable
-        val oldImageBitmap = oldImageBitmapDrawable.bitmap
-
-        val newImageBitmap = placeCaption(oldImageBitmap, "@shibe", "On Artemis")
-        ivNewImage.setImageBitmap(newImageBitmap)
-    }
-
+class CaptionPlacer {
+    /**
+     * Companion object containing a method to overlay a text on a bitmap (image)
+     */
     companion object {
+        /**
+         * Overlays two lines of text on a solid background drawn at the bottom of a bitmap (image)
+         *
+         * @param picture image on which the text is to be overlain
+         * @param firstLine first line of text to be placed
+         * @param secondLine second line of text to be placed
+         *
+         * @return bitmap with the two lines of text overlain on the original image
+         */
         fun placeCaption(picture: Bitmap, firstLine: String, secondLine: String): Bitmap {
             val paintRectangle = Paint()
             val paintText = Paint()
