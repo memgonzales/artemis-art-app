@@ -2,6 +2,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +17,13 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.share.Sharer
+import com.facebook.share.model.SharePhoto
+import com.facebook.share.model.SharePhotoContent
+import com.facebook.share.widget.ShareDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -48,6 +56,9 @@ class ViewPostFollowedActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     private lateinit var srlViewPostFollowed: SwipeRefreshLayout
+
+    private lateinit var cmFacebook: CallbackManager
+    private lateinit var sdFacebook: ShareDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,7 +149,7 @@ class ViewPostFollowedActivity : AppCompatActivity() {
         })
 
         clItemViewPostFollowedShare.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewPostFollowedActivity,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
+            shareOnFacebook()
         })
 
         civItemViewPostFollowedProfilePic.setOnClickListener(View.OnClickListener {
@@ -292,6 +303,46 @@ class ViewPostFollowedActivity : AppCompatActivity() {
             })
 
             btmAddPost.show()
+        }
+    }
+
+    /**
+     * Shares the posted artwork on the user's Facebook account.
+     */
+    private fun shareOnFacebook() {
+        cmFacebook = CallbackManager.Factory.create()
+        sdFacebook = ShareDialog(this@ViewPostFollowedActivity)
+
+        sdFacebook.registerCallback(cmFacebook, object : FacebookCallback<Sharer.Result?> {
+            override fun onSuccess(result: Sharer.Result?) {
+                Toast.makeText(this@ViewPostFollowedActivity, "Shared on Facebook", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onCancel() {
+                Toast.makeText(this@ViewPostFollowedActivity, "Sharing cancelled", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onError(error: FacebookException) {
+                Toast.makeText(this@ViewPostFollowedActivity, "Sharing error occurred", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        if (ShareDialog.canShow(SharePhotoContent::class.java)) {
+            val bitmapDrawable = ivItemViewPostFollowedPost.drawable as BitmapDrawable
+            val bitmap = bitmapDrawable.bitmap
+            val username = "@" + tvItemViewPostFollowedUsername.text.toString()
+            val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "Posted on Artemis")
+            val sharePhoto = SharePhoto.Builder()
+                .setBitmap(captionedImage)
+                .build()
+            val sharePhotoContent = SharePhotoContent.Builder()
+                .addPhoto(sharePhoto)
+                .build()
+            sdFacebook.show(sharePhotoContent)
+
+            Toast.makeText(this@ViewPostFollowedActivity, "Opening Facebook", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this@ViewPostFollowedActivity, "Unable to share post", Toast.LENGTH_SHORT).show()
         }
     }
 }

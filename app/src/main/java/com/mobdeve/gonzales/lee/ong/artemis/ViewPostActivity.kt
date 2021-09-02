@@ -55,8 +55,8 @@ class ViewPostActivity : AppCompatActivity() {
 
     private lateinit var srlViewPost: SwipeRefreshLayout
 
-    private lateinit var callbackManager: CallbackManager
-    private lateinit var shareDialog: ShareDialog
+    private lateinit var cmFacebook: CallbackManager
+    private lateinit var sdFacebook: ShareDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -304,11 +304,14 @@ class ViewPostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Shares the posted artwork on the user's Facebook account.
+     */
     private fun shareOnFacebook() {
-        callbackManager = CallbackManager.Factory.create()
-        shareDialog = ShareDialog(this@ViewPostActivity)
+        cmFacebook = CallbackManager.Factory.create()
+        sdFacebook = ShareDialog(this@ViewPostActivity)
 
-        shareDialog.registerCallback(callbackManager, object : FacebookCallback<Sharer.Result?> {
+        sdFacebook.registerCallback(cmFacebook, object : FacebookCallback<Sharer.Result?> {
             override fun onSuccess(result: Sharer.Result?) {
                 Toast.makeText(this@ViewPostActivity, "Shared on Facebook", Toast.LENGTH_SHORT).show()
             }
@@ -333,7 +336,7 @@ class ViewPostActivity : AppCompatActivity() {
             val sharePhotoContent = SharePhotoContent.Builder()
                 .addPhoto(sharePhoto)
                 .build()
-            shareDialog.show(sharePhotoContent)
+            sdFacebook.show(sharePhotoContent)
 
             Toast.makeText(this@ViewPostActivity, "Opening Facebook", Toast.LENGTH_SHORT).show()
         } else {
