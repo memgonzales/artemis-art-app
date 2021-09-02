@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -72,29 +71,29 @@ class ViewProfileActivity : AppCompatActivity() {
         this.tvViewProfileUsername.text = dataUser.getUsername()
         this.tvViewProfileBio.text = dataUser.getBio()
 
-        clViewProfileEdit.setOnClickListener(View.OnClickListener {
+        clViewProfileEdit.setOnClickListener {
             val intent = Intent(this@ViewProfileActivity, EditProfileActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        clViewProfileViewPosts.setOnClickListener(View.OnClickListener {
+        clViewProfileViewPosts.setOnClickListener {
             val intent = Intent(this@ViewProfileActivity, BrowseOwnPostsActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        clViewProfileDelete.setOnClickListener(View.OnClickListener {
+        clViewProfileDelete.setOnClickListener {
             val intent = Intent(this@ViewProfileActivity, AccountManagementActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        clViewProfileLogout.setOnClickListener(View.OnClickListener {
+        clViewProfileLogout.setOnClickListener {
             logoutDialog()
-        })
+        }
 
-        btnViewProfileHighlights.setOnClickListener(View.OnClickListener {
+        btnViewProfileHighlights.setOnClickListener {
             val intent = Intent(this@ViewProfileActivity, BrowseOwnHighlightsActivity::class.java)
             startActivity(intent)
-        })
+        }
     }
 
     private fun initComponents() {
@@ -118,18 +117,14 @@ class ViewProfileActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             R.id.menu_feed_search -> {
                 launchSearch()
-                return true
+                true
             } else -> {
-            return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
             }
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun launchSearch() {
@@ -149,19 +144,27 @@ class ViewProfileActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewProfileActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@ViewProfileActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewProfileActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewProfileActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@ViewProfileActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewProfileActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }
@@ -173,7 +176,7 @@ class ViewProfileActivity : AppCompatActivity() {
         builder.setMessage("Do you want to log out?")
         builder.setPositiveButton(
             "Log out"
-        ) { dialog, which ->
+        ) { _, _ ->
             Toast.makeText(this@ViewProfileActivity, "You have been logged out", Toast.LENGTH_SHORT).show()
 
             this.mAuth.signOut()
@@ -183,7 +186,7 @@ class ViewProfileActivity : AppCompatActivity() {
         }
         builder.setNegativeButton(
             "Cancel"
-        ) { dialog, which -> }
+        ) { _, _ -> }
         builder.create().show()
     }
 }
