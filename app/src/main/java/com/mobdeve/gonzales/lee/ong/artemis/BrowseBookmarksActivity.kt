@@ -67,30 +67,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         this.bnvBookmarksBottom = findViewById(R.id.nv_bookmarks_bottom)
         this.nsvBookmarks = findViewById(R.id.nsv_bookmarks)
 
-        bnvBookmarksBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_bookmarks -> {
-                    val intent = Intent(this@BrowseBookmarksActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_bookmarks -> {
-                    val intent = Intent(this@BrowseBookmarksActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_bookmarks -> {
-                    nsvBookmarks.fullScroll(ScrollView.FOCUS_UP)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_bookmarks -> {
-                    val intent = Intent(this@BrowseBookmarksActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setBottomMenuListeners(bnvBookmarksBottom, this, this@BrowseBookmarksActivity)
     }
 
     private fun initSwipeRefresh() {
