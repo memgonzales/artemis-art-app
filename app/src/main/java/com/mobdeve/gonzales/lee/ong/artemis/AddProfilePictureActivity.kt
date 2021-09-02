@@ -29,7 +29,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
      * Button for editing the profile picture
      */
     private lateinit var fabAddProfilePicEdit: FloatingActionButton
-    
+
     private lateinit var btmProfilePicture: BottomSheetDialog
 
     private lateinit var civUploadImg: CircleImageView
