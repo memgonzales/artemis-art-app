@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -120,12 +119,12 @@ class ViewPostActivity : AppCompatActivity() {
         updateBookmark(bookmark)
         updateUpvote(upvote)
 
-        ibItemViewPostBookmark.setOnClickListener(View.OnClickListener {
+        ibItemViewPostBookmark.setOnClickListener {
             bookmark = !bookmark
             updateBookmark(bookmark)
-        })
+        }
 
-        clItemViewPostUpvote.setOnClickListener(View.OnClickListener {
+        clItemViewPostUpvote.setOnClickListener {
             if (upvote) {
                 upvote = false
                 upvoteCounter -= 1
@@ -139,18 +138,18 @@ class ViewPostActivity : AppCompatActivity() {
                 this.tvItemViewPostUpvoteCounter.text = upvoteString
                 updateUpvote(upvote)
             }
-        })
+        }
 
-        clItemViewPostComment.setOnClickListener(View.OnClickListener {
+        clItemViewPostComment.setOnClickListener {
             val intent = Intent(this, ViewCommentsActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        clItemViewPostShare.setOnClickListener(View.OnClickListener {
+        clItemViewPostShare.setOnClickListener {
             shareOnFacebook()
-        })
+        }
 
-        civItemViewPostProfilePic.setOnClickListener(View.OnClickListener {
+        civItemViewPostProfilePic.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
@@ -167,9 +166,9 @@ class ViewPostActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
 
-        tvItemViewPostUsername.setOnClickListener(View.OnClickListener {
+        tvItemViewPostUsername.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
@@ -186,7 +185,7 @@ class ViewPostActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
     }
 
     private fun initComponents() {
@@ -200,13 +199,13 @@ class ViewPostActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlViewPost = findViewById(R.id.srl_view_post)
         srlViewPost.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlViewPost.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -260,18 +259,14 @@ class ViewPostActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             } else -> {
-            return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
             }
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun addPost() {
@@ -286,19 +281,27 @@ class ViewPostActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewPostActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@ViewPostActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewPostActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewPostActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@ViewPostActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewPostActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }
