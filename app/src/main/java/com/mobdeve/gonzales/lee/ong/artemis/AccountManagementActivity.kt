@@ -21,20 +21,57 @@ import com.google.firebase.ktx.Firebase
 /**
  * Class handling the functionalities related to account management.
  *
- * @constructor Creates an activity for account management
+ * @constructor Creates an activity for account management.
  */
 class AccountManagementActivity : AppCompatActivity() {
+    /**
+     * Clickable layout for account deletion.
+     */
     private lateinit var clAccountManagementDelete: ConstraintLayout
+
+    /**
+     * Bottom navigation view with menu selection for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvAccountManagementBottom: BottomNavigationView
 
+    /**
+     * Bottom sheet dialog for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Layout in the bottom sheet dialog for choosing an artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Layout in the bottom sheet dialog for taking a photo of the artwork using the Camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var ref: DatabaseReference
+
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Identifier of the user in the Firebase database.
+     */
     private lateinit var userId: String
 
     /**
@@ -42,7 +79,8 @@ class AccountManagementActivity : AppCompatActivity() {
      *
      * @param savedInstanceState  If the activity is being re-initialized after previously being
      * shut down then this Bundle contains the data it most recently supplied in
-     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is null. This value may be null.
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
