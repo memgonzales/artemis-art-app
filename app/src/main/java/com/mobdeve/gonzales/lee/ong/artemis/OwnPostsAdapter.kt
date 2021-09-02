@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import java.util.ArrayList
+import java.util.*
 
 class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<OwnPostsViewHolder>() {
@@ -102,7 +102,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
         }
 
         holder.setOwnPostShareOnClickListener { view ->
-            Toast.makeText(view.context,"Post shared on Facebook", Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.context,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
         }
 
         holder.setOwnPostProfileOnClickListener { view ->
