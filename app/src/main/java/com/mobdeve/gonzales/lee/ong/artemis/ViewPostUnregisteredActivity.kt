@@ -1,16 +1,15 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -68,13 +67,13 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlViewPostUnregisterd = findViewById(R.id.srl_view_post_unregistered)
         srlViewPostUnregisterd.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlViewPostUnregisterd.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -90,7 +89,7 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
         val post = intent.getIntExtra(Keys.KEY_POST.name, 0)
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
-        var upvoteCounter = intent.getIntExtra(Keys.KEY_NUM_UPVOTES.name, 0)
+        val upvoteCounter = intent.getIntExtra(Keys.KEY_NUM_UPVOTES.name, 0)
         val comments = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
         val datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name)
         val medium = intent.getStringExtra(Keys.KEY_MEDIUM.name)
@@ -100,7 +99,7 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
         var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
 
-        var upvoteString = "$upvoteCounter upvotes"
+        val upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
         val tagsString = tags?.joinToString(", ")
 
@@ -116,24 +115,36 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         this.tvItemViewPostUnregisteredDescription.text = description
         this.tvItemViewPostUnregisteredTags.text = tagsString
 
-        ibItemViewPostUnregisteredBookmark.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewPostUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-        })
+        ibItemViewPostUnregisteredBookmark.setOnClickListener {
+            Toast.makeText(
+                this@ViewPostUnregisteredActivity,
+                "Log in or create an account to use this feature",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
-        clItemViewPostUnregisteredUpvote.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewPostUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-        })
+        clItemViewPostUnregisteredUpvote.setOnClickListener {
+            Toast.makeText(
+                this@ViewPostUnregisteredActivity,
+                "Log in or create an account to use this feature",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
-        clItemViewPostUnregisteredComment.setOnClickListener(View.OnClickListener {
+        clItemViewPostUnregisteredComment.setOnClickListener {
             val intent = Intent(this, ViewCommentsUnregisteredActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        clItemViewPostUnregisteredShare.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewPostUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-        })
+        clItemViewPostUnregisteredShare.setOnClickListener {
+            Toast.makeText(
+                this@ViewPostUnregisteredActivity,
+                "Log in or create an account to use this feature",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
-        civItemViewPostUnregisteredProfilePic.setOnClickListener(View.OnClickListener {
+        civItemViewPostUnregisteredProfilePic.setOnClickListener {
             val intent = Intent(this, ViewUserUnregisteredActivity::class.java)
 
             intent.putExtra(
@@ -150,9 +161,9 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
 
-        tvItemViewPostUnregisteredUsername.setOnClickListener(View.OnClickListener {
+        tvItemViewPostUnregisteredUsername.setOnClickListener {
             val intent = Intent(this, ViewUserUnregisteredActivity::class.java)
 
             intent.putExtra(
@@ -169,7 +180,7 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
     }
 
     private fun initComponents() {
@@ -203,9 +214,13 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
             false
         }
 
-        fabAddPost.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewPostUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-        })
+        fabAddPost.setOnClickListener {
+            Toast.makeText(
+                this@ViewPostUnregisteredActivity,
+                "Log in or create an account to use this feature",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun initActionBar() {
@@ -214,17 +229,13 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             } else -> {
-            return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
             }
         }
-
-        return super.onOptionsItemSelected(item)
     }
 }
