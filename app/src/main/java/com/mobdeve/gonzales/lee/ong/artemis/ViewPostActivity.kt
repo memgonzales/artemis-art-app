@@ -2,7 +2,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,13 +10,22 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.share.Sharer
+import com.facebook.share.model.SharePhoto
+import com.facebook.share.model.SharePhotoContent
+import com.facebook.share.widget.ShareDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
+
 
 class ViewPostActivity : AppCompatActivity() {
     private lateinit var civItemViewPostProfilePic: CircleImageView
@@ -45,6 +54,9 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     private lateinit var srlViewPost: SwipeRefreshLayout
+
+    private lateinit var callbackManager: CallbackManager
+    private lateinit var shareDialog: ShareDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,7 +147,7 @@ class ViewPostActivity : AppCompatActivity() {
         })
 
         clItemViewPostShare.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewPostActivity,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
+            shareOnFacebook()
         })
 
         civItemViewPostProfilePic.setOnClickListener(View.OnClickListener {
@@ -316,6 +328,43 @@ class ViewPostActivity : AppCompatActivity() {
             })
 
             btmAddPost.show()
+        }
+    }
+
+    private fun shareOnFacebook() {
+        callbackManager = CallbackManager.Factory.create()
+        shareDialog = ShareDialog(this@ViewPostActivity)
+
+        shareDialog.registerCallback(callbackManager, object : FacebookCallback<Sharer.Result?> {
+            override fun onSuccess(result: Sharer.Result?) {
+                Toast.makeText(this@ViewPostActivity, "Share successful", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onCancel() {
+                Toast.makeText(this@ViewPostActivity, "Share cancelled", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onError(error: FacebookException) {
+                Toast.makeText(this@ViewPostActivity, "Share error occurred", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        if (ShareDialog.canShow(SharePhotoContent::class.java)) {
+            val bitmapDrawable = ivItemViewPostPost.drawable as BitmapDrawable
+            val bitmap = bitmapDrawable.bitmap
+            val username = tvItemViewPostUsername.text.toString()
+            val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "On Artemis")
+            val sharePhoto = SharePhoto.Builder()
+                .setBitmap(captionedImage)
+                .build()
+            val sharePhotoContent = SharePhotoContent.Builder()
+                .addPhoto(sharePhoto)
+                .build()
+            shareDialog.show(sharePhotoContent)
+
+            Toast.makeText(this@ViewPostActivity, "Post shared on Facebook", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this@ViewPostActivity, "Unable to share post", Toast.LENGTH_SHORT).show()
         }
     }
 }
