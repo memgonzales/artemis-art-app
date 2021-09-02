@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_item_placeholder_search_results"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,6 +15,7 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user1"
+            android:contentDescription="@string/iv_item_placeholder_search_results_user1"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginEnd="8dp"
@@ -34,6 +34,7 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user2"
+            android:contentDescription="@string/iv_item_placeholder_search_results_user2"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginStart="8dp"
@@ -53,6 +54,7 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user3"
+            android:contentDescription="@string/iv_item_placeholder_search_results_user3"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginStart="8dp"
@@ -72,6 +74,7 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_search_results_user4"
+            android:contentDescription="@string/iv_item_placeholder_search_results_user4"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginStart="8dp"

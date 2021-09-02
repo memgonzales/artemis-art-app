@@ -44,7 +44,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Account Management"
+                    android:text="@string/tv_account_management_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -78,10 +78,12 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.015">
+                    app:layout_constraintVertical_bias="0.015"
+                    android:focusable="true">
 
                     <ImageView
                         android:id="@+id/iv_account_management_delete_icon"
+                        android:contentDescription="@string/iv_account_management_delete_icon"
                         android:layout_width="26dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="true"
@@ -100,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Delete My Account"
+                        android:text="@string/tv_account_management_delete"
                         android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="@+id/gl_account_management_delete_left_margin"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -119,7 +121,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="This action will irreversibly delete all information associated with your account, including your posts and comments, from the database."
+                    android:text="@string/tv_account_management_delete_note"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/gl_account_management_right_margin"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -145,7 +147,7 @@
                     android:id="@+id/tv_account_management_caveat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="WARNING!"
+                    android:text="@string/tv_account_management_caveat"
                     android:textColor="@color/pinkish_purple"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -178,6 +180,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_account_management_add"
+            android:contentDescription="@string/fab_account_management_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
@@ -188,7 +191,8 @@
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:focusable="true" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

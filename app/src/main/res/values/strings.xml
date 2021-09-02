@@ -7,4 +7,15 @@
     <string name="tv_log_in_banner"><b>Art</b>emis</string>
     <string name="facebook_app_id">453277879102504</string>
     <string name="fb_login_protocol_scheme">fb453277879102504</string>
+    <string name="tv_account_management_title">Account Management</string>
+    <string name="iv_account_management_delete_icon">Delete icon</string>
+    <string name="tv_account_management_delete">Delete My Account</string>
+    <string name="tv_account_management_delete_note">This action will irreversibly delete all information associated with your account, including your posts and comments, from the database.</string>
+    <string name="tv_account_management_caveat">WARNING!</string>
+    <string name="fab_account_management_add">Add Button</string>
+    <string name="iv_item_rectangular_pic_grid">Rectangular picture</string>
+    <string name="iv_item_placeholder_search_results_user1">Placeholder search results - user 1</string>
+    <string name="iv_item_placeholder_search_results_user2">Search results placeholder - user 2</string>
+    <string name="iv_item_placeholder_search_results_user3">Search results placeholder - user 3</string>
+    <string name="iv_item_placeholder_search_results_user4">Search results placeholder - user 4</string>
 </resources>
