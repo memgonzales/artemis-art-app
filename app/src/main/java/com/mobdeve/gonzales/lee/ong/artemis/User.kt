@@ -1,20 +1,72 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+/**
+ * Class representing a user and specifying the attributes associated with it.
+ */
 class User {
    // private lateinit var userId: String
+    /**
+     * Username of the user.
+     */
     private var username: String
+
+    /**
+     * Email address of the user.
+     */
     private var email: String
+
+    /**
+     * Password of the user.
+     */
     private var password: String
+
+    /**
+     * Profile picture of the user.
+     */
     private var userImg: Int
+
+    /**
+     * Short bio of the user.
+     */
     private var bio: String
 
+    /**
+     * Identifiers of the posts bookmarked by the user.
+     */
     private lateinit var bookmarks: ArrayList<String>
+
+    /**
+     * Identifiers of the posts created by the user.
+     */
     private lateinit var userPosts: ArrayList<String>
+
+    /**
+     * Identifiers of the highlights posted by the user.
+     */
     private lateinit var highlights: ArrayList<String>
+
+    /**
+     * Identifiers of the posts upvoted by the user.
+     */
     private lateinit var upvotedPosts: ArrayList<String>
+
+    /**
+     * Identifiers of the users followed by the user.
+     */
     private lateinit var usersFollowed: ArrayList<String>
+
+    /**
+     * Identifiers of the comments written by the user.
+     */
     private lateinit var userComments: ArrayList<String>
 
+    /**
+     * Creates a user given a username, email address, and password.
+     *
+     * @param username username of the user
+     * @param email email address of the user
+     * @param password password of the user
+     */
     constructor(username: String, email: String, password: String){
         this.username = username
         this.email = email
@@ -33,6 +85,15 @@ class User {
          */
     }
 
+    /**
+     * Creates a user given a username, email address, password, profile picture, and short bio.
+     *
+     * @param username username of the user
+     * @param email email address of the user
+     * @param password password of the user
+     * @param userImg profile picture of the user
+     * @param bio short bio of the user
+     */
     constructor(username: String, email: String, password: String, userImg: Int, bio: String){
         this.username = username
         this.email = email
@@ -58,22 +119,47 @@ class User {
 
      */
 
+    /**
+     * Returns the username of the user.
+     *
+     * @return username of the user
+     */
     fun getUsername(): String {
         return this.username
     }
 
+    /**
+     * Returns the email address of the user.
+     *
+     * @return email address of the user
+     */
     fun getEmail(): String {
         return this.email
     }
 
+    /**
+     * Returns the password of the user.
+     *
+     * @return password of the user
+     */
     fun getPassword(): String {
         return this.password
     }
 
+    /**
+     * Returns the profile picture of the user.
+     *
+     * @return profile picture of the user
+     */
     fun getUserImg(): Int {
         return this.userImg
     }
 
+    /**
+     * Returns the short bio of the user.
+     *
+     * @return short bio of the user
+     */
     fun getBio(): String {
         return this.bio
     }
@@ -86,6 +172,11 @@ class User {
         return this.userPosts
     }
 
+    /**
+     * Returns the identifiers of the highlights posted by the user
+     *
+     * @return identifiers of the highlights posted by the user
+     */
     fun getHighlights(): ArrayList<String>{
         return this.highlights
     }
