@@ -43,9 +43,9 @@ class PostArtworkActivity : AppCompatActivity() {
         val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
 
         if (photoSource == PostArtworkUtil.FROM_CAMERA) {
-            fetchFromCamera(photoPath);
+            fetchFromCamera(photoPath)
         } else if (photoSource == PostArtworkUtil.FROM_GALLERY) {
-            fetchFromGallery(photoPath);
+            fetchFromGallery()
         }
     }
 
@@ -74,7 +74,7 @@ class PostArtworkActivity : AppCompatActivity() {
         ivPostArtworkArt.setImageBitmap(rotatedBitmap)
     }
 
-    private fun fetchFromGallery(photoPath: String?) {
+    private fun fetchFromGallery() {
         val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
         ivPostArtworkArt.setImageURI(Uri.parse(photoPath!!))
     }
@@ -122,10 +122,10 @@ class PostArtworkActivity : AppCompatActivity() {
 
         this.btnDetails.setOnClickListener { view ->
 
-            var title = tietTitle.text.toString().trim()
-            var medium = tietMedium.text.toString().trim()
-            var dimensions = tietDimensions.text.toString().trim()
-            var desc = tietDescription.text.toString().trim()
+            val title = tietTitle.text.toString().trim()
+            val medium = tietMedium.text.toString().trim()
+            val dimensions = tietDimensions.text.toString().trim()
+            val desc = tietDescription.text.toString().trim()
 
 
             val intent = Intent(this, PostAddTagsActivity::class.java)
@@ -140,18 +140,14 @@ class PostArtworkActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             } else -> {
-            return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
             }
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     /*
