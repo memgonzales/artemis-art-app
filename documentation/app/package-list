@@ -30,7 +30,7 @@ $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/db/#/
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/initActionBar/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/init-action-bar.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/initComponents/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/init-components.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/initFirebase/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/init-firebase.html
-$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/launchAddProfilePic/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/launch-add-profile-pic.html
+$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/launchAddBio/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/launch-add-bio.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/mAuth/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/m-auth.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/onCreate/#android.os.Bundle?/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/on-create.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/skipAddProfilePic/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/skip-add-profile-pic.html
@@ -226,11 +226,6 @@ $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/CaptionPlacer.Companion///P
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/CaptionPlacer.Companion/placeCaption/#android.graphics.Bitmap#kotlin.String#kotlin.String/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-caption-placer/-companion/place-caption.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/CaptionPlacer///PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-caption-placer/index.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/CaptionPlacer/CaptionPlacer/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-caption-placer/-caption-placer.html
-$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/CaptionPlacer/addCaptionSample/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-caption-placer/add-caption-sample.html
-$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/CaptionPlacer/initComponents/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-caption-placer/init-components.html
-$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/CaptionPlacer/ivNewImage/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-caption-placer/iv-new-image.html
-$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/CaptionPlacer/ivOldImage/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-caption-placer/iv-old-image.html
-$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/CaptionPlacer/onCreate/#android.os.Bundle?/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-caption-placer/on-create.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/Comment///PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-comment/index.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/Comment/Comment/#kotlin.String#kotlin.Int#kotlin.String#kotlin.String#kotlin.Boolean/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-comment/-comment.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/Comment/commentBody/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-comment/comment-body.html
@@ -1120,6 +1115,7 @@ $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/ViewPostAc
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/addPost/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/add-post.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/bnvViewPostBottom/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/bnv-view-post-bottom.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/btmAddPost/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/btm-add-post.html
+$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/callbackManager/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/callback-manager.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/civItemViewPostProfilePic/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/civ-item-view-post-profile-pic.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/clDialogPostArtworkGallery/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/cl-dialog-post-artwork-gallery.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/clDialogPostArtworkPhoto/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/cl-dialog-post-artwork-photo.html
@@ -1138,6 +1134,8 @@ $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/ivItemView
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/onCreate/#android.os.Bundle?/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/on-create.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/onOptionsItemSelected/#android.view.MenuItem/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/on-options-item-selected.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/onRefresh/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/on-refresh.html
+$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/shareDialog/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/share-dialog.html
+$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/shareOnFacebook/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/share-on-facebook.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/srlViewPost/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/srl-view-post.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/tvItemViewPostComments/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/tv-item-view-post-comments.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/ViewPostActivity/tvItemViewPostDatePosted/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-view-post-activity/tv-item-view-post-date-posted.html

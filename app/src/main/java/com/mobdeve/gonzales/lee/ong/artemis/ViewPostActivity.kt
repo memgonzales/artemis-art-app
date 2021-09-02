@@ -352,7 +352,7 @@ class ViewPostActivity : AppCompatActivity() {
         if (ShareDialog.canShow(SharePhotoContent::class.java)) {
             val bitmapDrawable = ivItemViewPostPost.drawable as BitmapDrawable
             val bitmap = bitmapDrawable.bitmap
-            val username = tvItemViewPostUsername.text.toString()
+            val username = "@" + tvItemViewPostUsername.text.toString()
             val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "On Artemis")
             val sharePhoto = SharePhoto.Builder()
                 .setBitmap(captionedImage)
