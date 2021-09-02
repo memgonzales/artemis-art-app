@@ -19,6 +19,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
+/**
+ * This class handles the functionalities related to account management.
+ */
 class AccountManagementActivity : AppCompatActivity() {
     private lateinit var clAccountManagementDelete: ConstraintLayout
     private lateinit var bnvAccountManagementBottom: BottomNavigationView

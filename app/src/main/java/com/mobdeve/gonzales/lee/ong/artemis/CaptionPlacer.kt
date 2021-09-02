@@ -8,13 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlin.math.sqrt
 
 /**
- * This class contains a static method to place text on top of a bitmap (image),
- * for use in adding attribution to artworks shared on the Facebook account
- * of the user.
+ * This class contains a method to place text on top of a bitmap (image), for use in adding attribution
+ * to artworks shared on the Facebook account of the user.
  *
- * CALLING THE METHOD: CaptionPlacer.placeCaption(picture, firstLine, secondLine)
+ * Since this method is defined inside a companion object, the syntax for calling it is:
  *
- * The private methods, alongside caption_placer.xml, show a sample usage.
+ * <code>CaptionPlacer.placeCaption(picture, firstLine, secondLine)</code>
  */
 class CaptionPlacer : AppCompatActivity() {
     private lateinit var ivOldImage: ImageView
