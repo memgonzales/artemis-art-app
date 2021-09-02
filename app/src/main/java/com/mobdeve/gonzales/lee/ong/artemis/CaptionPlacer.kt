@@ -1,10 +1,9 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
-import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.os.Bundle
-import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import kotlin.math.sqrt
 
 /**
@@ -41,10 +40,16 @@ class CaptionPlacer {
 
             val newPicture: Bitmap = picture.copy(Bitmap.Config.ARGB_8888, true)
             val canvas = Canvas(newPicture)
+
+            /* Make the font size scale by computing it against the dimensions of the canvas */
             paintText.textSize = sqrt((canvas.width * canvas.height).toDouble()).toFloat() / 20
+
+            /* Draw the rectangular overlay */
             canvas.drawRect(0F,
                 (newPicture.height * 8.25/10).toFloat(),
                 newPicture.width.toFloat(), newPicture.height.toFloat(), paintRectangle)
+
+            /* Draw the two lines of text */
             canvas.drawText(firstLine,
                 (newPicture.width / 16).toFloat(), (newPicture.height * 9/10).toFloat(), paintText)
             canvas.drawText(secondLine,
