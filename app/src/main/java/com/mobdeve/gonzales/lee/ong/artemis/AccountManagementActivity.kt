@@ -15,12 +15,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 /**
- * This class handles the functionalities related to account management.
+ * Class handling the functionalities related to account management.
+ *
+ * @constructor Creates an activity for account management
  */
 class AccountManagementActivity : AppCompatActivity() {
     private lateinit var clAccountManagementDelete: ConstraintLayout
@@ -36,15 +37,26 @@ class AccountManagementActivity : AppCompatActivity() {
     private lateinit var user: FirebaseUser
     private lateinit var userId: String
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is null. This value may be null.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_management)
 
         initFirebase()
-        initContent()
+        initDeleteDialog()
+        initBottom()
         initComponents()
     }
 
+    /**
+     * Initializes the Firebase-related components.
+     */
     private fun initFirebase(){
         this.mAuth = Firebase.auth
         this.ref = Firebase.database.reference
@@ -52,22 +64,27 @@ class AccountManagementActivity : AppCompatActivity() {
         this.userId = this.user.uid
     }
 
-    private fun initContent() {
+    /**
+     * Launches a confirmation dialog when the Delete Account button is clicked.
+     */
+    private fun initDeleteDialog() {
         this.clAccountManagementDelete = findViewById(R.id.cl_account_management_delete)
-        this.bnvAccountManagementBottom = findViewById(R.id.nv_account_management_bottom)
 
         clAccountManagementDelete.setOnClickListener(View.OnClickListener {
             deleteDialog()
         })
     }
 
+    /**
+     * Creates the confirmation dialog when the Delete Account button is clicked.
+     */
     private fun deleteDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Delete Profile")
         builder.setMessage("Are you sure you want to delete your profile? This action cannot be reversed.")
         builder.setPositiveButton(
             "Delete"
-        ) { dialog, which ->
+        ) { _, _ ->
 
             this.user.delete()
                 .addOnCompleteListener { task ->
@@ -84,10 +101,13 @@ class AccountManagementActivity : AppCompatActivity() {
 
         builder.setNegativeButton(
             "Cancel"
-        ) { dialog, which -> }
+        ) { _, _ -> }
         builder.create().show()
     }
 
+    /**
+     * Defines the behavior when the account is successfully deleted.
+     */
     private fun deleteSuccessfully(){
         Toast.makeText(applicationContext, "Account deleted", Toast.LENGTH_SHORT).show()
         val intent = Intent(this@AccountManagementActivity, LogInActivity::class.java)
@@ -95,10 +115,16 @@ class AccountManagementActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /**
+     * Defines the behavior when the account deletion fails.
+     */
     private fun deleteFailed(){
         Toast.makeText(applicationContext, "Failed to delete account", Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_account_management))
         initBottom()
@@ -106,7 +132,12 @@ class AccountManagementActivity : AppCompatActivity() {
         initActionBar()
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
+        this.bnvAccountManagementBottom = findViewById(R.id.nv_account_management_bottom)
+
         bnvAccountManagementBottom.setOnItemSelectedListener{ item ->
             when (item.itemId) {
                 R.id.icon_home_profile -> {
@@ -134,6 +165,9 @@ class AccountManagementActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)

@@ -16,7 +16,7 @@ $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AccountManagementActivity/f
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AccountManagementActivity/initActionBar/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-account-management-activity/init-action-bar.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AccountManagementActivity/initBottom/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-account-management-activity/init-bottom.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AccountManagementActivity/initComponents/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-account-management-activity/init-components.html
-$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AccountManagementActivity/initContent/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-account-management-activity/init-content.html
+$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AccountManagementActivity/initDeleteDialog/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-account-management-activity/init-delete-dialog.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AccountManagementActivity/initFirebase/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-account-management-activity/init-firebase.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AccountManagementActivity/mAuth/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-account-management-activity/m-auth.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AccountManagementActivity/onCreate/#android.os.Bundle?/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-account-management-activity/on-create.html
