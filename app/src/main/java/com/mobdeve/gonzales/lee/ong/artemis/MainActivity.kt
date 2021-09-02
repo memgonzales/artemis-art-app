@@ -2,16 +2,14 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun animateSplashScreen() {
-        logoAnimation.setExitFadeDuration(AnimationDuration.ANIMATION_FRAME_FADEOUT.toInt());
+        logoAnimation.setExitFadeDuration(AnimationDuration.ANIMATION_FRAME_FADEOUT)
         logoAnimation.start()
     }
 

@@ -103,7 +103,7 @@ class BottomMenuUtil {
             }
         }
 
-        fun setScrollBottomBottomMenuListeners(bnv: BottomNavigationView, nsv: NestedScrollView, scroll: Int, from: Activity, packageContext: Context) {
+        fun setScrollBottomMenuListeners(bnv: BottomNavigationView, nsv: NestedScrollView, scroll: Int, from: Activity, packageContext: Context) {
             bnv.setOnItemSelectedListener { item ->
                 when (getPosition(item.itemId)) {
                     HOME -> {
@@ -149,11 +149,50 @@ class BottomMenuUtil {
             }
         }
 
-        fun setScrollBottomBottomMenuListenersUnregistered(bnv: BottomNavigationView, nsv: NestedScrollView, packageContext: Context) {
+        fun setScrollBottomMenuListenersUnregistered(bnv: BottomNavigationView, nsv: NestedScrollView, packageContext: Context) {
             bnv.setOnItemSelectedListener { item ->
                 when (getPosition(item.itemId)) {
                     HOME -> {
                         nsv.fullScroll(ScrollView.FOCUS_UP)
+                        return@setOnItemSelectedListener true
+                    }
+                    FOLLOW, BOOKMARK, USER -> {
+                        Toast.makeText(packageContext,
+                            "Log in or create an account to use this feature",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+                false
+            }
+        }
+
+        fun setBottomMenuListenersUnregistered(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
+            bnv.setOnItemSelectedListener { item ->
+                when (getPosition(item.itemId)) {
+                    HOME -> {
+                        val intent = Intent(packageContext, BrowseFeedUnregisteredActivity::class.java)
+                        from.startActivity(intent)
+                        return@setOnItemSelectedListener true
+                    }
+                    FOLLOW, BOOKMARK, USER -> {
+                        Toast.makeText(packageContext,
+                            "Log in or create an account to use this feature",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+                false
+            }
+        }
+
+        fun setFinishBottomMenuListenersUnregistered(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
+            bnv.setOnItemSelectedListener { item ->
+                when (getPosition(item.itemId)) {
+                    HOME -> {
+                        val intent = Intent(packageContext, BrowseFeedUnregisteredActivity::class.java)
+                        from.startActivity(intent)
+                        from.finish()
                         return@setOnItemSelectedListener true
                     }
                     FOLLOW, BOOKMARK, USER -> {

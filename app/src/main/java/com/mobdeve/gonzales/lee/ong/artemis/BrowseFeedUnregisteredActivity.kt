@@ -86,7 +86,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         this.bnvFeedBottom = findViewById(R.id.nv_feed_unregistered_bottom)
         this.nsvFeed = findViewById(R.id.nsv_feed_unregistered)
 
-        BottomMenuUtil.setScrollBottomBottomMenuListenersUnregistered(bnvFeedBottom,
+        BottomMenuUtil.setScrollBottomMenuListenersUnregistered(bnvFeedBottom,
             nsvFeed, this@BrowseFeedUnregisteredActivity)
     }
 

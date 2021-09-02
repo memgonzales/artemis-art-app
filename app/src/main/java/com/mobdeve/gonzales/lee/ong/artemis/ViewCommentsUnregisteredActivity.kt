@@ -64,13 +64,13 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlViewCommentsUnregisterd = findViewById(R.id.srl_view_comments_unregistered)
         srlViewCommentsUnregisterd.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlViewCommentsUnregisterd.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -104,9 +104,13 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
             false
         }
 
-        fabAddPost.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewCommentsUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-        })
+        fabAddPost.setOnClickListener {
+            Toast.makeText(
+                this@ViewCommentsUnregisteredActivity,
+                "Log in or create an account to use this feature",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun initActionBar() {
@@ -132,8 +136,12 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
         this.ibAddComment = findViewById(R.id.ib_add_comment_unregistered)
 
         this.etAddCommentUnregistered.isEnabled = false
-        this.ibAddComment.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewCommentsUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-        })
+        this.ibAddComment.setOnClickListener {
+            Toast.makeText(
+                this@ViewCommentsUnregisteredActivity,
+                "Log in or create an account to use this feature",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }

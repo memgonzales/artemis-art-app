@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ScrollView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
@@ -85,7 +84,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         this.bnvFollowedBottom = findViewById(R.id.nv_feed_followed_bottom)
         this.nsvFollowed = findViewById(R.id.nsv_feed_followed)
 
-        BottomMenuUtil.setScrollBottomBottomMenuListeners(bnvFollowedBottom, nsvFollowed,
+        BottomMenuUtil.setScrollBottomMenuListeners(bnvFollowedBottom, nsvFollowed,
             BottomMenuUtil.FOLLOW, this, this@BrowseFeedFollowedActivity)
     }
 

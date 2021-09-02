@@ -33,32 +33,32 @@ class User {
     /**
      * Identifiers of the posts bookmarked by the user.
      */
-    private lateinit var bookmarks: ArrayList<String>
+    private var bookmarks: ArrayList<String>
 
     /**
      * Identifiers of the posts created by the user.
      */
-    private lateinit var userPosts: ArrayList<String>
+    private var userPosts: ArrayList<String>
 
     /**
      * Identifiers of the highlights posted by the user.
      */
-    private lateinit var highlights: ArrayList<String>
+    private var highlights: ArrayList<String>
 
     /**
      * Identifiers of the posts upvoted by the user.
      */
-    private lateinit var upvotedPosts: ArrayList<String>
+    private var upvotedPosts: ArrayList<String>
 
     /**
      * Identifiers of the users followed by the user.
      */
-    private lateinit var usersFollowed: ArrayList<String>
+    private var usersFollowed: ArrayList<String>
 
     /**
      * Identifiers of the comments written by the user.
      */
-    private lateinit var userComments: ArrayList<String>
+    private var userComments: ArrayList<String>
 
     /**
      * Creates a user given a username, email address, and password.

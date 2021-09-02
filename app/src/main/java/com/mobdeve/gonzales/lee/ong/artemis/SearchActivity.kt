@@ -1,17 +1,16 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -51,43 +50,43 @@ class SearchActivity : AppCompatActivity() {
 
         this.etSearchBar = findViewById(R.id.et_search_bar)
 
-        btnSearchTag1.setOnClickListener(View.OnClickListener {
+        btnSearchTag1.setOnClickListener {
             val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
             startActivity(intent)
             finish()
-        })
+        }
 
-        btnSearchTag2.setOnClickListener(View.OnClickListener {
+        btnSearchTag2.setOnClickListener {
             val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
             startActivity(intent)
             finish()
-        })
+        }
 
-        btnSearchTag3.setOnClickListener(View.OnClickListener {
+        btnSearchTag3.setOnClickListener {
             val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
             startActivity(intent)
             finish()
-        })
+        }
 
-        btnSearchTag4.setOnClickListener(View.OnClickListener {
+        btnSearchTag4.setOnClickListener {
             val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
             startActivity(intent)
             finish()
-        })
+        }
 
-        btnSearchTag5.setOnClickListener(View.OnClickListener {
+        btnSearchTag5.setOnClickListener {
             val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
             startActivity(intent)
             finish()
-        })
+        }
 
-        etSearchBar.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        etSearchBar.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, event ->
             if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                 val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
                 startActivity(intent)
             }
             return@OnEditorActionListener false
-        });
+        })
 
         initActionBar()
         initBottom()
@@ -100,18 +99,14 @@ class SearchActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             } else -> {
-            return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
             }
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun initBottom() {
@@ -156,19 +151,27 @@ class SearchActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@SearchActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@SearchActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@SearchActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@SearchActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@SearchActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@SearchActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }

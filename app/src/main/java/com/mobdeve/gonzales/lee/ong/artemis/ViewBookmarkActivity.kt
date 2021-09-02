@@ -2,11 +2,10 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
@@ -75,12 +74,12 @@ class ViewBookmarkActivity : AppCompatActivity() {
 
         updateBookmark(bookmark)
 
-        ibItemViewBookmarkBookmark.setOnClickListener(View.OnClickListener {
+        ibItemViewBookmarkBookmark.setOnClickListener {
             bookmark = !bookmark
             updateBookmark(bookmark)
-        })
+        }
 
-        civItemViewBookmarkProfilePic.setOnClickListener(View.OnClickListener {
+        civItemViewBookmarkProfilePic.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
@@ -97,9 +96,9 @@ class ViewBookmarkActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
 
-        tvItemViewBookmarkUsername.setOnClickListener(View.OnClickListener {
+        tvItemViewBookmarkUsername.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
@@ -116,7 +115,7 @@ class ViewBookmarkActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
     }
 
     private fun initComponents() {
@@ -165,19 +164,27 @@ class ViewBookmarkActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewBookmarkActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@ViewBookmarkActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewBookmarkActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewBookmarkActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@ViewBookmarkActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewBookmarkActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }

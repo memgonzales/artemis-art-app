@@ -2,12 +2,12 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -100,18 +100,18 @@ class PostAddTagsActivity : AppCompatActivity() {
         this.pbAddPost = findViewById(R.id.pb_post_add_tags)
 
         this.btnAddTag.setOnClickListener {
-            var tags: String = tietTags.text.toString().trim()
+            val tags: String = tietTags.text.toString().trim()
 
             if (!checkEmpty(tags)){
-                var allTags: ArrayList<String> = tags.split(',').toCollection(ArrayList())
+                val allTags: ArrayList<String> = tags.split(',').toCollection(ArrayList())
 
-                var title: String = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
-                var medium: String = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
-                var dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
-                var desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
+                val title: String = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
+                val medium: String = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
+                val dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
+                val desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
 
 
-                val post: Post = Post(R.drawable.tofu_chan, "Tobe", title, R.drawable.magia_record,
+                val post = Post(R.drawable.tofu_chan, "Tobe", title, R.drawable.magia_record,
                     medium, dimensions, desc, allTags)
 
                 this.pbAddPost.visibility = View.VISIBLE
@@ -139,7 +139,7 @@ class PostAddTagsActivity : AppCompatActivity() {
     }
 
     private fun checkEmpty(tags: String): Boolean{
-        var hasEmpty: Boolean = false
+        var hasEmpty = false
 
         if (tags.isEmpty()){
             this.tietTags.error = "There should be at least one tag"

@@ -65,7 +65,7 @@ class SignUpActivity : AppCompatActivity() {
         this.tietUsername = findViewById(R.id.tiet_sign_up_username)
         this.tietEmail = findViewById(R.id.tiet_sign_up_email)
         this.tietPassword = findViewById(R.id.tiet_sign_up_password)
-        this.tietConfirmPassword = findViewById(R.id.tiet_sign_up_confirm_password);
+        this.tietConfirmPassword = findViewById(R.id.tiet_sign_up_confirm_password)
 
         this.tilUsername = findViewById(R.id.til_sign_up_username)
         this.tilEmail = findViewById(R.id.til_sign_up_email)
@@ -104,20 +104,20 @@ class SignUpActivity : AppCompatActivity() {
     private fun validCredentials(username: String, email: String, password: String, confirmPw: String): Boolean{
         var isValid = true
 
-        if(username.isEmpty()) {
-            this.tilUsername.error = "Required"
-            this.tietUsername.requestFocus()
-            isValid = false
-        }
-
-        else if (username.length < 4){
-            this.tilUsername.error = "Username should have at least 4 characters"
-            this.tietUsername.requestFocus()
-            isValid = false
-        }
-
-        else{
-            this.tilUsername.error = null
+        when {
+            username.isEmpty() -> {
+                this.tilUsername.error = "Required"
+                this.tietUsername.requestFocus()
+                isValid = false
+            }
+            username.length < 4 -> {
+                this.tilUsername.error = "Username should have at least 4 characters"
+                this.tietUsername.requestFocus()
+                isValid = false
+            }
+            else -> {
+                this.tilUsername.error = null
+            }
         }
 
 
@@ -140,38 +140,38 @@ class SignUpActivity : AppCompatActivity() {
 
 
 
-        if(password.isEmpty()) {
-            this.tilPassword.error = "Required"
-            this.tietPassword.requestFocus()
-            isValid = false
+        when {
+            password.isEmpty() -> {
+                this.tilPassword.error = "Required"
+                this.tietPassword.requestFocus()
+                isValid = false
+            }
+            password.length < 6 -> {
+                this.tilPassword.error = "Password should have at least 6 characters"
+                this.tietPassword.requestFocus()
+                isValid = false
+            }
+            else -> {
+                this.tilPassword.error = null
+            }
         }
 
-        else if(password.length < 6){
-            this.tilPassword.error = "Password should have at least 6 characters"
-            this.tietPassword.requestFocus()
-            isValid = false
-        }
-
-        else{
-            this.tilPassword.error = null
-        }
 
 
-
-        if(confirmPw.isEmpty()){
-            this.tilConfirmPassword.error = "Required"
-            this.tietConfirmPassword.requestFocus()
-            isValid = false
-        }
-
-        else if (!password.equals(confirmPw)){
-            this.tilConfirmPassword.error = "Passwords do not match"
-            this.tietConfirmPassword.requestFocus()
-            isValid = false
-        }
-
-        else{
-            this.tilConfirmPassword.error = null
+        when {
+            confirmPw.isEmpty() -> {
+                this.tilConfirmPassword.error = "Required"
+                this.tietConfirmPassword.requestFocus()
+                isValid = false
+            }
+            password != confirmPw -> {
+                this.tilConfirmPassword.error = "Passwords do not match"
+                this.tietConfirmPassword.requestFocus()
+                isValid = false
+            }
+            else -> {
+                this.tilConfirmPassword.error = null
+            }
         }
 
 
