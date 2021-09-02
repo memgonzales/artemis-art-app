@@ -15,10 +15,10 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 /**
- * Class handling the functionalities related to adding a short bio during user profile
+ * Class handling the functionalities related to adding a short bio as part of user profile
  * customization after signing up.
  *
- * @constructor Creates an activity for adding a short bio during user profile customization
+ * @constructor Creates an activity for adding a short bio as part of user profile customization
  * after signing up.
  */
 class AddProfileBioActivity : AppCompatActivity() {

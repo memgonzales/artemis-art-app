@@ -30,6 +30,7 @@ class CaptionPlacer {
         fun placeCaption(picture: Bitmap, firstLine: String, secondLine: String): Bitmap {
             val paintRectangle = Paint()
             val paintText = Paint()
+            val paintTextSmall = Paint()
 
             paintRectangle.style = Paint.Style.FILL
             paintRectangle.color = Color.BLACK
@@ -38,11 +39,15 @@ class CaptionPlacer {
             paintText.style = Paint.Style.FILL
             paintText.color = Color.WHITE
 
+            paintTextSmall.style = Paint.Style.FILL
+            paintTextSmall.color = Color.WHITE
+
             val newPicture: Bitmap = picture.copy(Bitmap.Config.ARGB_8888, true)
             val canvas = Canvas(newPicture)
 
             /* Make the font size scale by computing it against the dimensions of the canvas */
             paintText.textSize = sqrt((canvas.width * canvas.height).toDouble()).toFloat() / 20
+            paintTextSmall.textSize = sqrt((canvas.width * canvas.height).toDouble()).toFloat() / 25
 
             /* Draw the rectangular overlay */
             canvas.drawRect(0F,
@@ -51,9 +56,9 @@ class CaptionPlacer {
 
             /* Draw the two lines of text */
             canvas.drawText(firstLine,
-                (newPicture.width / 16).toFloat(), (newPicture.height * 9/10).toFloat(), paintText)
+                (newPicture.width / 16).toFloat(), (newPicture.height * 8.9/10).toFloat(), paintText)
             canvas.drawText(secondLine,
-                (newPicture.width / 16).toFloat(), (newPicture.height * 9.7/10).toFloat(), paintText)
+                (newPicture.width / 16).toFloat(), (newPicture.height * 9.7/10).toFloat(), paintTextSmall)
 
             return newPicture
         }

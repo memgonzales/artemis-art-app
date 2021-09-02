@@ -3,7 +3,6 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -13,8 +12,22 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
+/**
+ * Class handling the functionalities related to adding a profile picture as part of user profile
+ * customization after signing up.
+ *
+ * @constructor Creates an activity for adding a profile picture as part of user profile customization
+ * after signing up
+ */
 class AddProfilePictureActivity : AppCompatActivity() {
+    /**
+     * Button for adding the profile picture
+     */
     private lateinit var btnAddProfilePic: Button
+
+    /**
+     *
+     */
     private lateinit var fabAddProfilePicEdit: FloatingActionButton
     private lateinit var btmProfilePicture: BottomSheetDialog
 

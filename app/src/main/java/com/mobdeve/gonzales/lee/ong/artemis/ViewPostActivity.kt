@@ -337,15 +337,15 @@ class ViewPostActivity : AppCompatActivity() {
 
         shareDialog.registerCallback(callbackManager, object : FacebookCallback<Sharer.Result?> {
             override fun onSuccess(result: Sharer.Result?) {
-                Toast.makeText(this@ViewPostActivity, "Share successful", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ViewPostActivity, "Shared on Facebook", Toast.LENGTH_SHORT).show()
             }
 
             override fun onCancel() {
-                Toast.makeText(this@ViewPostActivity, "Share cancelled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ViewPostActivity, "Sharing cancelled", Toast.LENGTH_SHORT).show()
             }
 
             override fun onError(error: FacebookException) {
-                Toast.makeText(this@ViewPostActivity, "Share error occurred", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ViewPostActivity, "Sharing error occurred", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -353,7 +353,7 @@ class ViewPostActivity : AppCompatActivity() {
             val bitmapDrawable = ivItemViewPostPost.drawable as BitmapDrawable
             val bitmap = bitmapDrawable.bitmap
             val username = "@" + tvItemViewPostUsername.text.toString()
-            val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "On Artemis")
+            val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "Posted on Artemis")
             val sharePhoto = SharePhoto.Builder()
                 .setBitmap(captionedImage)
                 .build()
@@ -362,7 +362,7 @@ class ViewPostActivity : AppCompatActivity() {
                 .build()
             shareDialog.show(sharePhotoContent)
 
-            Toast.makeText(this@ViewPostActivity, "Post shared on Facebook", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ViewPostActivity, "Opening Facebook", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this@ViewPostActivity, "Unable to share post", Toast.LENGTH_SHORT).show()
         }
