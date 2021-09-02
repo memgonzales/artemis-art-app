@@ -2,16 +2,15 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -92,13 +91,13 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlViewOwnPost = findViewById(R.id.srl_view_own_post)
         srlViewOwnPost.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlViewOwnPost.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -141,35 +140,40 @@ class ViewOwnPostActivity : AppCompatActivity() {
 
         updateHighlight(highlight)
 
-        clItemViewOwnPostHighlight.setOnClickListener(View.OnClickListener {
+        clItemViewOwnPostHighlight.setOnClickListener {
             if (highlight) {
                 highlight = false
                 updateHighlight(highlight)
             } else {
                 highlight = true
                 updateHighlight(highlight)
-                Toast.makeText(this@ViewOwnPostActivity, "Added to your Highlights", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@ViewOwnPostActivity,
+                    "Added to your Highlights",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-        })
+        }
 
-        clItemViewOwnPostComment.setOnClickListener(View.OnClickListener {
+        clItemViewOwnPostComment.setOnClickListener {
             val intent = Intent(this, ViewCommentsActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        clItemViewOwnPostShare.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewOwnPostActivity,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
-        })
+        clItemViewOwnPostShare.setOnClickListener {
+            Toast.makeText(this@ViewOwnPostActivity, "Post shared on Facebook", Toast.LENGTH_SHORT)
+                .show()
+        }
 
-        civItemViewOwnPostProfilePic.setOnClickListener(View.OnClickListener {
+        civItemViewOwnPostProfilePic.setOnClickListener {
             val intent = Intent(this, ViewProfileActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        tvItemViewOwnPostUsername.setOnClickListener(View.OnClickListener {
+        tvItemViewOwnPostUsername.setOnClickListener {
             val intent = Intent(this, ViewProfileActivity::class.java)
             startActivity(intent)
-        })
+        }
 
         val editTitle: String = title.toString()
         val editMedium: String = medium.toString()
@@ -191,7 +195,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
             this.clDialogViewOwnPostEdit = btmViewOwnPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogViewOwnPostDelete = btmViewOwnPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogViewOwnPostEdit.setOnClickListener(View.OnClickListener {
+            clDialogViewOwnPostEdit.setOnClickListener {
                 btmViewOwnPost.dismiss()
                 val intent = Intent(this@ViewOwnPostActivity, EditPostActivity::class.java)
 
@@ -221,13 +225,17 @@ class ViewOwnPostActivity : AppCompatActivity() {
                 )
                 startActivity(intent)
                 finish()
-            })
+            }
 
-            clDialogViewOwnPostDelete.setOnClickListener(View.OnClickListener {
+            clDialogViewOwnPostDelete.setOnClickListener {
                 btmViewOwnPost.dismiss()
-                Toast.makeText(this@ViewOwnPostActivity, "Your post has been deleted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@ViewOwnPostActivity,
+                    "Your post has been deleted",
+                    Toast.LENGTH_SHORT
+                ).show()
                 finish()
-            })
+            }
 
             btmViewOwnPost.show()
         }
@@ -277,19 +285,27 @@ class ViewOwnPostActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewOwnPostActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@ViewOwnPostActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewOwnPostActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewOwnPostActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@ViewOwnPostActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewOwnPostActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }
