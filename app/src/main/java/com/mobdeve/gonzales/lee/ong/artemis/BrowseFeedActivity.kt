@@ -145,7 +145,7 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.bnvFeedBottom = findViewById(R.id.nv_feed_bottom)
         this.nsvFeed = findViewById(R.id.nsv_feed)
 
-        BottomMenuUtil.setScrollBottomBottomMenuListeners(bnvFeedBottom, nsvFeed,
+        BottomMenuUtil.setScrollBottomMenuListeners(bnvFeedBottom, nsvFeed,
             BottomMenuUtil.HOME, this, this@BrowseFeedActivity)
     }
 

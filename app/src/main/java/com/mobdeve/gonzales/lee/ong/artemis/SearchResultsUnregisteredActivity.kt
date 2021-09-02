@@ -1,7 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -74,13 +74,13 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlSearchResults = findViewById(R.id.srl_search_unregistered_results)
         srlSearchResults.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlSearchResults.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -93,25 +93,8 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
         this.bnvSearchBottom = findViewById(R.id.nv_search_unregistered_results_bottom)
         this.fabAddPost = findViewById(R.id.fab_search_unregistered_results_add)
 
-        bnvSearchBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_search_bottom -> {
-                    val intent = Intent(this@SearchResultsUnregisteredActivity, BrowseFeedUnregisteredActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_search_bottom -> {
-                    Toast.makeText(this@SearchResultsUnregisteredActivity, "Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-                R.id.icon_bookmark_search_bottom -> {
-                    Toast.makeText(this@SearchResultsUnregisteredActivity, "Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-                R.id.icon_user_search_bottom -> {
-                    Toast.makeText(this@SearchResultsUnregisteredActivity, "Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setBottomMenuListenersUnregistered(bnvSearchBottom,
+            this,this@SearchResultsUnregisteredActivity)
 
         fabAddPost.setOnClickListener {
             Toast.makeText(this@SearchResultsUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
@@ -119,8 +102,8 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
     }
 
     private fun initContents() {
-        this.dataPosts = DataHelper.loadPostDataUnregistered();
-        this.dataUsers = DataHelper.loadSearchUserData();
+        this.dataPosts = DataHelper.loadPostDataUnregistered()
+        this.dataUsers = DataHelper.loadSearchUserData()
 
         this.civSearchResultUser1 = findViewById(R.id.civ_search_unregistered_result_user1)
         this.civSearchResultUser2 = findViewById(R.id.civ_search_unregistered_result_user2)
@@ -134,8 +117,11 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
         this.civSearchResultUser3.setImageResource(dataUsers[2].getUserImg())
         this.civSearchResultUser4.setImageResource(dataUsers[3].getUserImg())
 
-        civSearchResultUser1.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@SearchResultsUnregisteredActivity, ViewUserUnregisteredActivity::class.java)
+        civSearchResultUser1.setOnClickListener {
+            val intent = Intent(
+                this@SearchResultsUnregisteredActivity,
+                ViewUserUnregisteredActivity::class.java
+            )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataUsers[0].getUserImg()
@@ -149,10 +135,13 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                 dataUsers[0].getBio()
             )
             startActivity(intent)
-        })
+        }
 
-        civSearchResultUser2.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@SearchResultsUnregisteredActivity, ViewUserUnregisteredActivity::class.java)
+        civSearchResultUser2.setOnClickListener {
+            val intent = Intent(
+                this@SearchResultsUnregisteredActivity,
+                ViewUserUnregisteredActivity::class.java
+            )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataUsers[1].getUserImg()
@@ -166,10 +155,13 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                 dataUsers[1].getBio()
             )
             startActivity(intent)
-        })
+        }
 
-        civSearchResultUser3.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@SearchResultsUnregisteredActivity, ViewUserUnregisteredActivity::class.java)
+        civSearchResultUser3.setOnClickListener {
+            val intent = Intent(
+                this@SearchResultsUnregisteredActivity,
+                ViewUserUnregisteredActivity::class.java
+            )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataUsers[2].getUserImg()
@@ -183,10 +175,13 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                 dataUsers[2].getBio()
             )
             startActivity(intent)
-        })
+        }
 
-        civSearchResultUser4.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@SearchResultsUnregisteredActivity, ViewUserUnregisteredActivity::class.java)
+        civSearchResultUser4.setOnClickListener {
+            val intent = Intent(
+                this@SearchResultsUnregisteredActivity,
+                ViewUserUnregisteredActivity::class.java
+            )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataUsers[3].getUserImg()
@@ -200,7 +195,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                 dataUsers[3].getBio()
             )
             startActivity(intent)
-        })
+        }
 
         this.rvSearch = findViewById(R.id.rv_search_unregistered_results)
         this.rvSearch.layoutManager = GridLayoutManager(this, 2)
@@ -211,7 +206,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
 
         this.etSearchBar = findViewById(R.id.et_search_unregistered_results_bar)
 
-        etSearchBar.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        etSearchBar.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, event ->
             if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                 val intent = Intent(this@SearchResultsUnregisteredActivity, SearchResultsUnregisteredActivity::class.java)
                 startActivity(intent)

@@ -66,7 +66,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         this.bnvBookmarksBottom = findViewById(R.id.nv_bookmarks_bottom)
         this.nsvBookmarks = findViewById(R.id.nsv_bookmarks)
 
-        BottomMenuUtil.setScrollBottomBottomMenuListeners(bnvBookmarksBottom, nsvBookmarks,
+        BottomMenuUtil.setScrollBottomMenuListeners(bnvBookmarksBottom, nsvBookmarks,
             BottomMenuUtil.BOOKMARK, this, this@BrowseBookmarksActivity)
     }
 

@@ -1,7 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -107,7 +106,7 @@ class ViewProfileActivity : AppCompatActivity() {
         this.bnvViewProfileBottom = findViewById(R.id.nv_view_profile_bottom)
         this.nsvViewProfile = findViewById(R.id.nsv_view_profile)
 
-        BottomMenuUtil.setScrollBottomBottomMenuListeners(bnvViewProfileBottom, nsvViewProfile,
+        BottomMenuUtil.setScrollBottomMenuListeners(bnvViewProfileBottom, nsvViewProfile,
             BottomMenuUtil.USER, this, this@ViewProfileActivity)
     }
 
