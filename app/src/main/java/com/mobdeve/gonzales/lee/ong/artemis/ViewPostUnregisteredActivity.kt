@@ -193,26 +193,8 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         this.bnvViewPostUnregisteredBottom = findViewById(R.id.nv_view_post_unregistered_bottom)
         this.fabAddPost = findViewById(R.id.fab_view_post_unregistered_add)
 
-        bnvViewPostUnregisteredBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_feed -> {
-                    val intent = Intent(this@ViewPostUnregisteredActivity, BrowseFeedUnregisteredActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_feed -> {
-                    Toast.makeText(this@ViewPostUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-                R.id.icon_bookmark_feed -> {
-                    Toast.makeText(this@ViewPostUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-                R.id.icon_user_feed -> {
-                    Toast.makeText(this@ViewPostUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListenersUnregistered(bnvViewPostUnregisteredBottom, this,
+            this@ViewPostUnregisteredActivity)
 
         fabAddPost.setOnClickListener {
             Toast.makeText(
