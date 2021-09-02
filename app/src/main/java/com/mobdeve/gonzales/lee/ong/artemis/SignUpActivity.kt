@@ -195,7 +195,6 @@ class SignUpActivity : AppCompatActivity() {
                     else{
                         checkEmail(false, email, username, password)
                     }
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -206,7 +205,7 @@ class SignUpActivity : AppCompatActivity() {
             })
     }
 
-    private fun checkEmail(err: Boolean, email: String, username: String, password: String){
+    private fun checkEmail(userExists: Boolean, email: String, username: String, password: String){
 
         val userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
 
@@ -219,7 +218,7 @@ class SignUpActivity : AppCompatActivity() {
                     }
 
                     else{
-                        if(!err){
+                        if (!userExists){
                             val user = User(username, email, password)
                             storeUser(user)
                         }

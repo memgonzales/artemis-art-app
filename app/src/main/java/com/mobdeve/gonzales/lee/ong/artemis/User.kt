@@ -4,13 +4,10 @@ package com.mobdeve.gonzales.lee.ong.artemis
  * Class representing a user and specifying the attributes associated with it.
  */
 class User {
-<<<<<<< HEAD
-=======
-   // private lateinit var userId: String
+
     /**
      * Username of the user.
      */
->>>>>>> 107f7d0260b024df7c76944178cff020dbe80dac
     private var username: String
 
     /**
