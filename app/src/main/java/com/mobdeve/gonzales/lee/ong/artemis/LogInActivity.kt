@@ -82,8 +82,8 @@ class LogInActivity : AppCompatActivity() {
             this.tilUsername = findViewById(R.id.til_log_in_username)
             this.tilPassword = findViewById(R.id.til_log_in_password)
 
-            var username: String = tietUsername.text.toString().trim()
-            var password: String = tietPassword.text.toString().trim()
+            val username: String = tietUsername.text.toString().trim()
+            val password: String = tietPassword.text.toString().trim()
 
             if (!checkEmpty(username, password)){
                 this.pbLogin.visibility = View.VISIBLE
@@ -100,7 +100,7 @@ class LogInActivity : AppCompatActivity() {
     }
 
     private fun checkEmpty(username: String, password: String): Boolean{
-        var hasEmpty: Boolean = false
+        var hasEmpty = false
 
         if (username.isEmpty()){
             this.tilUsername.error = "Required"
@@ -148,7 +148,7 @@ class LogInActivity : AppCompatActivity() {
                     if(dataSnapshot.exists()) {
                         for (userSnap in dataSnapshot.children) {
 
-                            var email = dataSnapshot.child(userSnap.key!!).child(Keys.email.name).getValue().toString()
+                            val email = dataSnapshot.child(userSnap.key!!).child(Keys.email.name).getValue().toString()
                             loginWithEmail(email, password)
 
                         }
