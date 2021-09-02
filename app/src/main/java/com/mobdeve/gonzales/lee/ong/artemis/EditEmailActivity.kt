@@ -1,12 +1,12 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.AuthCredential
@@ -20,7 +20,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 
 class EditEmailActivity : AppCompatActivity() {
     private lateinit var tilEditEmail: TextInputLayout
@@ -76,7 +75,7 @@ class EditEmailActivity : AppCompatActivity() {
         this.pbEditEmail = findViewById(R.id.pb_edit_email)
 
         this.btnEditEmail.setOnClickListener {
-            var email: String = this.tietNewEmail.text.toString().trim()
+            val email: String = this.tietNewEmail.text.toString().trim()
 
             if(validEmail(email)){
                 updateEmail(email.lowercase())
@@ -90,7 +89,7 @@ class EditEmailActivity : AppCompatActivity() {
     }
 
     private fun validEmail(email: String): Boolean{
-        var isValid: Boolean = true
+        var isValid = true
 
         if (email.isEmpty()) {
             this.tilNewEmail.error = "Required"
@@ -119,8 +118,8 @@ class EditEmailActivity : AppCompatActivity() {
         userDB.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                var e: String = snapshot.child(Keys.email.name).getValue().toString()
-                var pw: String = snapshot.child(Keys.password.name).getValue().toString()
+                val e: String = snapshot.child(Keys.email.name).getValue().toString()
+                val pw: String = snapshot.child(Keys.password.name).getValue().toString()
 
                 credentials = EmailAuthProvider.getCredential(e, pw)
 
