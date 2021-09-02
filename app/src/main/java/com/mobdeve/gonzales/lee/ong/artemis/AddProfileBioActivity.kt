@@ -22,14 +22,34 @@ import com.google.firebase.ktx.Firebase
  * after signing up.
  */
 class AddProfileBioActivity : AppCompatActivity() {
+    /**
+     * Button for adding the short bio.
+     */
     private lateinit var btnAddBio: Button
 
+    /**
+     * Field for entering the short bio.
+     */
     private lateinit var tielBio: TextInputEditText
+
+    /**
+     * Clickable text view for skipping the addition of a short bio.
+     */
     private lateinit var tvBioSkip: TextView
 
-    //Firebase
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: DatabaseReference
 
     /**
