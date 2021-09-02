@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import java.util.ArrayList
+import java.util.*
 
 class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<FeedViewHolder>() {
@@ -113,7 +113,7 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>) :
         }
 
         holder.setItemFeedShareOnClickListener { view ->
-            Toast.makeText(view.context,"Post shared on Facebook", Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.context,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
         }
 
         holder.setItemFeedProfileOnClickListener { view ->
