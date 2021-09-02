@@ -1,15 +1,14 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ScrollView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -62,13 +61,13 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlFeedUnregistered = findViewById(R.id.srl_feed_unregistered)
         srlFeedUnregistered.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlFeedUnregistered.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -87,36 +86,20 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         this.bnvFeedBottom = findViewById(R.id.nv_feed_unregistered_bottom)
         this.nsvFeed = findViewById(R.id.nsv_feed_unregistered)
 
-        bnvFeedBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_feed -> {
-                    nsvFeed.fullScroll(ScrollView.FOCUS_UP)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_feed -> {
-                    Toast.makeText(this@BrowseFeedUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-                R.id.icon_bookmark_feed -> {
-                    Toast.makeText(this@BrowseFeedUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-                R.id.icon_user_feed -> {
-                    Toast.makeText(this@BrowseFeedUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setScrollBottomBottomMenuListenersUnregistered(bnvFeedBottom,
+            nsvFeed, this@BrowseFeedUnregisteredActivity)
     }
 
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadPostDataUnregistered();
+        this.dataPosts = DataHelper.loadPostDataUnregistered()
 
-        this.rvFeed = findViewById(R.id.rv_feed_unregistered);
-        this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        this.rvFeed = findViewById(R.id.rv_feed_unregistered)
+        this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        this.unregisteredFeedAdapter = UnregisteredFeedAdapter(this.dataPosts);
+        this.unregisteredFeedAdapter = UnregisteredFeedAdapter(this.dataPosts)
 
 
-        this.rvFeed.adapter = unregisteredFeedAdapter;
+        this.rvFeed.adapter = unregisteredFeedAdapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -127,18 +110,14 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             R.id.menu_feed_search -> {
                 launchSearch()
-                return true
+                true
             } else -> {
-            return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
             }
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun launchSearch() {

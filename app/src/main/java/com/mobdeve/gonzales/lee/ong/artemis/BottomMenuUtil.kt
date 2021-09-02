@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.widget.ScrollView
+import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -143,6 +144,24 @@ class BottomMenuUtil {
                         }
                         return@setOnItemSelectedListener true
                     }
+                }
+                false
+            }
+        }
+
+        fun setScrollBottomBottomMenuListenersUnregistered(bnv: BottomNavigationView, nsv: NestedScrollView, packageContext: Context) {
+            bnv.setOnItemSelectedListener { item ->
+                when (getPosition(item.itemId)) {
+                    HOME -> {
+                        nsv.fullScroll(ScrollView.FOCUS_UP)
+                        return@setOnItemSelectedListener true
+                    }
+                    FOLLOW, BOOKMARK, USER -> {
+                        Toast.makeText(packageContext,
+                            "Log in or create an account to use this feature",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
                 }
                 false
             }
