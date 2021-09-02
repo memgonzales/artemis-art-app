@@ -26,10 +26,12 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var tietUsername: TextInputEditText
     private lateinit var tietEmail: TextInputEditText
     private lateinit var tietPassword: TextInputEditText
+    private lateinit var tietConfirmPassword: TextInputEditText
 
     private lateinit var tilUsername: TextInputLayout
     private lateinit var tilEmail: TextInputLayout
     private lateinit var tilPassword: TextInputLayout
+    private lateinit var tilConfirmPassword: TextInputLayout
 
     private lateinit var pbSignUp: ProgressBar
 
@@ -63,10 +65,12 @@ class SignUpActivity : AppCompatActivity() {
         this.tietUsername = findViewById(R.id.tiet_sign_up_username)
         this.tietEmail = findViewById(R.id.tiet_sign_up_email)
         this.tietPassword = findViewById(R.id.tiet_sign_up_password)
+        this.tietConfirmPassword = findViewById(R.id.tiet_sign_up_confirm_password);
 
         this.tilUsername = findViewById(R.id.til_sign_up_username)
         this.tilEmail = findViewById(R.id.til_sign_up_email)
         this.tilPassword = findViewById(R.id.til_sign_up_password)
+        this.tilConfirmPassword = findViewById(R.id.til_sign_up_confirm_password)
 
         this.pbSignUp = findViewById(R.id.pb_sign_up)
         this.btnSignUp = findViewById(R.id.btn_sign_up)
@@ -89,14 +93,15 @@ class SignUpActivity : AppCompatActivity() {
                 val username: String = tietUsername.text.toString().trim()
                 val email: String = tietEmail.text.toString().trim()
                 val password: String = tietPassword.text.toString().trim()
+                val confirmPw: String = tietConfirmPassword.text.toString().trim()
 
-                if(validCredentials(username, email, password)){
+                if(validCredentials(username, email, password, confirmPw)){
                     signUp(username, email.lowercase(), password)
                 }
         }
     }
 
-    private fun validCredentials(username: String, email: String, password: String): Boolean{
+    private fun validCredentials(username: String, email: String, password: String, confirmPw: String): Boolean{
         var isValid = true
 
         if(username.isEmpty()) {
@@ -116,6 +121,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
 
+
         if(email.isEmpty()) {
             this.tilEmail.error = "Required"
             this.tietEmail.requestFocus()
@@ -133,6 +139,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
 
+
         if(password.isEmpty()) {
             this.tilPassword.error = "Required"
             this.tietPassword.requestFocus()
@@ -148,6 +155,25 @@ class SignUpActivity : AppCompatActivity() {
         else{
             this.tilPassword.error = null
         }
+
+
+
+        if(confirmPw.isEmpty()){
+            this.tilConfirmPassword.error = "Required"
+            this.tietConfirmPassword.requestFocus()
+            isValid = false
+        }
+
+        else if (!password.equals(confirmPw)){
+            this.tilConfirmPassword.error = "Passwords do not match"
+            this.tietConfirmPassword.requestFocus()
+            isValid = false
+        }
+
+        else{
+            this.tilConfirmPassword.error = null
+        }
+
 
         return isValid
     }

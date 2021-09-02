@@ -123,6 +123,7 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             initRecyclerView()
+            //initContent()
             sflFeed.visibility = View.GONE
             rvFeed.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
@@ -186,7 +187,7 @@ class BrowseFeedActivity : AppCompatActivity() {
         //this.feedAdapter = FeedAdapter(dataPosts);
 
 
-       // this.rvFeed.adapter = feedAdapter;
+        //this.rvFeed.adapter = feedAdapter;
 
         initContent()
 
@@ -238,14 +239,14 @@ class BrowseFeedActivity : AppCompatActivity() {
                     rvFeed.adapter = feedAdapter;
 
                     //Toast.makeText(applicationContext, "ch: " + title, Toast.LENGTH_SHORT).show()
+                    //initRecyclerView(dataPosts)
                 }
 
                 //initRecyclerView(dataPosts)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-                Toast.makeText(applicationContext, "err: ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
             }
         })
     }

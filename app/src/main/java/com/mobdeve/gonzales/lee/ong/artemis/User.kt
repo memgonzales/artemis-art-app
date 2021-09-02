@@ -1,7 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 class User {
-   // private lateinit var userId: String
     private var username: String
     private var email: String
     private var password: String
@@ -22,7 +21,6 @@ class User {
         this.userImg = R.drawable.chibi_artemis_hd
         this.bio = ""
 
-        /*
         this.bookmarks = ArrayList<String>()
         this.userPosts = ArrayList<String>()
         this.highlights = ArrayList<String>()
@@ -30,7 +28,6 @@ class User {
         this.usersFollowed = ArrayList<String>()
         this.userComments = ArrayList<String>()
 
-         */
     }
 
     constructor(username: String, email: String, password: String, userImg: Int, bio: String){
@@ -40,7 +37,6 @@ class User {
         this.userImg = userImg
         this.bio = bio
 
-        /*
         this.bookmarks = ArrayList<String>()
         this.userPosts = ArrayList<String>()
         this.highlights = ArrayList<String>()
@@ -48,15 +44,8 @@ class User {
         this.usersFollowed = ArrayList<String>()
         this.userComments = ArrayList<String>()
 
-         */
     }
 
-    /*
-    fun getUserId(): String{
-        return this.userId
-    }
-
-     */
 
     fun getUsername(): String {
         return this.username
@@ -104,13 +93,6 @@ class User {
 
 
 
-
-/*
-    fun setUserId(userId: String){
-        this.userId = userId
-    }
-
- */
 
     fun setUsername(username: String) {
         this.username = username
