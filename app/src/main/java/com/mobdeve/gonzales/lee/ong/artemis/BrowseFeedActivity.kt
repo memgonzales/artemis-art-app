@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -24,6 +25,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -66,7 +68,30 @@ class BrowseFeedActivity : AppCompatActivity() {
                 photoFile.absolutePath
             )
 
-             startActivity(intent)
+            intent.putExtra(
+                Keys.KEY_POST_FROM.name,
+                DefaultStrings.FROM_CAMERA
+            )
+
+            startActivity(intent)
+        }
+    }
+
+    private var galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_POST_ARTWORK.name,
+                result.data?.data.toString()
+            )
+
+            intent.putExtra(
+                Keys.KEY_POST_FROM.name,
+                DefaultStrings.FROM_GALLERY
+            )
+
+            startActivity(intent)
         }
     }
 
@@ -305,10 +330,16 @@ class BrowseFeedActivity : AppCompatActivity() {
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
             clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@BrowseFeedActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
-                btmAddPost.dismiss()
-                val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
-                startActivity(intent)
+                val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+
+                if (ContextCompat.checkSelfPermission(this.applicationContext, permissions[0]) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this@BrowseFeedActivity, permissions, RequestCodes.REQUEST_CODE_POST_GALLERY.ordinal)
+                } else {
+                    val intent = Intent(Intent.ACTION_PICK)
+                    intent.type = "image/*"
+
+                    galleryLauncher.launch(intent)
+                }
             })
 
             clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
@@ -324,7 +355,8 @@ class BrowseFeedActivity : AppCompatActivity() {
                 if (ContextCompat.checkSelfPermission(this.applicationContext, permissions[0]) != PackageManager.PERMISSION_GRANTED
                     || ContextCompat.checkSelfPermission(this.applicationContext, permissions[1]) != PackageManager.PERMISSION_GRANTED
                     || ContextCompat.checkSelfPermission(this.applicationContext, permissions[2]) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this@BrowseFeedActivity, permissions, RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal)
+
+                        ActivityCompat.requestPermissions(this@BrowseFeedActivity, permissions, RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal)
 
                 } else {
                     if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
@@ -380,6 +412,21 @@ class BrowseFeedActivity : AppCompatActivity() {
                     ).show()
                 }
                 return
+            }
+
+            RequestCodes.REQUEST_CODE_POST_GALLERY.ordinal -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    val intent = Intent(Intent.ACTION_PICK)
+                    intent.type = "image/*"
+
+                    galleryLauncher.launch(intent)
+                } else {
+                    Toast.makeText(
+                        this@BrowseFeedActivity,
+                        "Insufficient permissions to access your photos",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
     }

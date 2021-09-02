@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id 'org.jetbrains.dokka'
 }
 
 android {
@@ -30,6 +31,24 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+}
+
+tasks.withType(dokkaHtml.getClass()).configureEach {
+    pluginsMapConfiguration.set(
+            ["org.jetbrains.dokka.base.DokkaBase": """{ "separateInheritedMembers": true}"""]
+    )
+}
+
+tasks.dokkaHtml.configure {
+    outputDirectory.set(file("../documentation"))
+}
+
+dokkaHtml.configure {
+    dokkaSourceSets {
+        named("main") {
+            includeNonPublic.set(true)
+        }
     }
 }
 

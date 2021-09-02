@@ -19,6 +19,7 @@ enum class Keys {
     KEY_COMMENT_BODY,
 
     KEY_POST_ARTWORK,
+    KEY_POST_FROM,
 
     KEY_DB_USERS,
     username,
