@@ -45,7 +45,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Artemis"
+                    android:text="@string/tv_feed_unregistered_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -89,19 +89,19 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed" />
 
-                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed" />
 
-                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed" />
 
-                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed" />
 
-                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed" />
 
-                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed" />
 
-                            <include layout="@layout/item_placeholder_feed"></include>
+                            <include layout="@layout/item_placeholder_feed" />
 
                         </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
@@ -142,7 +142,7 @@
             android:id="@+id/tv_feed_unregistered_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You are browsing as a guest"
+            android:text="@string/tv_feed_unregistered_note"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -165,6 +165,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_feed_unregistered_add"
+            android:contentDescription="@string/fab_feed_unregistered_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
@@ -175,7 +176,8 @@
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:focusable="true" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

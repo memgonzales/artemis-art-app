@@ -186,4 +186,7 @@
     <string name="iv_feed_followed_logo">Logo</string>
     <string name="tv_feed_followed_title">Artemis</string>
     <string name="fab_feed_followed_add">Feed followed - add</string>
+    <string name="tv_feed_unregistered_title">Artemis</string>
+    <string name="fab_feed_unregistered_add">Feed unregistered - add</string>
+    <string name="tv_feed_unregistered_note">You are browsing as a guest</string>
 </resources>
