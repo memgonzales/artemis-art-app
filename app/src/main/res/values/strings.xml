@@ -210,4 +210,9 @@
     <string name="tiet_edit_email_address">shinshibe@gmail.com</string>
     <string name="tiet_edit_email_new">New Email Address</string>
     <string name="btn_edit_email_confirm">Confirm Change</string>
+    <string name="tv_edit_password_title">Change Password</string>
+    <string name="tiet_edit_password">Old Password</string>
+    <string name="tiet_edit_password_new">New Password</string>
+    <string name="tiet_edit_password_new_confirm">Confirm New Password</string>
+    <string name="btn_edit_password_confirm">Confirm Change</string>
 </resources>
