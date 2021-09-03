@@ -161,4 +161,11 @@
     <string name="tv_search_unregistered_art_trivia">#ArtTrivia</string>
     <string name="tv_search_unregistered_unregistered_note">You are browsing as a guest</string>
     <string name="fab_search_unregistered_add">Search unregistered - add</string>
+    <string name="tv_post_artwork_title">Add Details</string>
+    <string name="iv_post_artwork_art">Post Artwork</string>
+    <string name="tiet_post_artwork_title">Title of Artwork</string>
+    <string name="tiet_post_artwork_desc">Describe your artwork</string>
+    <string name="tiet_post_artwork_medium">Medium</string>
+    <string name="tiet_post_artwork_dimen">Dimensions</string>
+    <string name="btn_post_artwork_save">Next</string>
 </resources>
