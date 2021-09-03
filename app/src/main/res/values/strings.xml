@@ -41,4 +41,14 @@
     <string name="iv_add_profile_pic_progress2">Progress 2</string>
     <string name="iv_add_profile_pic_progress3">Progress 3</string>
     <string name="fab_add_profile_pic_edit">FAB for profile pic edit</string>
+    <string name="tv_add_profile_success_create">Welcome</string>
+    <string name="tv_add_profile_success_community">Your Artemis account has been successfully created</string>
+    <string name="iv_add_profile_success_logo">Add Profile Success - Logo</string>
+    <string name="iv_add_profile_success_camera">Add Profile Success - Camera</string>
+    <string name="tv_add_profile_success_photo">Congratulations!</string>
+    <string name="tv_add_profile_success_desc">You have finished customizing your user profile. You may also update these details at a later time by going to your profile settings.</string>
+    <string name="btn_add_profile_browse">Start Browsing</string>
+    <string name="iv_add_profile_success_progress1">Progress 1</string>
+    <string name="iv_add_profile_success_progress2">Progress 2</string>
+    <string name="iv_add_profile_success_progress3">Progress 3</string>
 </resources>

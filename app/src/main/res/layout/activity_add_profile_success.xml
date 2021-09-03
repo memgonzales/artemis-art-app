@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coord_add_profile_success"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,7 +23,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_add_profile_success"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+                android:layout_height="?attr/actionBarSize" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -61,7 +60,7 @@
                     android:layout_height="0dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="bottom"
-                    android:text="Welcome"
+                    android:text="@string/tv_add_profile_success_create"
                     android:textColor="@color/white"
                     app:autoSizeMaxTextSize="30sp"
                     app:autoSizeMinTextSize="18sp"
@@ -80,7 +79,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="20dp"
-                    android:text="Your Artemis account has been successfully created"
+                    android:text="@string/tv_add_profile_success_community"
                     android:textColor="@android:color/white"
                     app:autoSizeMaxTextSize="14sp"
                     app:autoSizeMinTextSize="5sp"
@@ -89,7 +88,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_success_right_top"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/ig_add_profile_success_logo"
+                    app:layout_constraintStart_toEndOf="@+id/iv_add_profile_success_logo"
                     app:layout_constraintTop_toBottomOf="@id/gl_add_profile_success_top_account"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -126,7 +125,8 @@
                     app:layout_constraintGuide_percent="0.52" />
 
                 <ImageView
-                    android:id="@+id/ig_add_profile_success_logo"
+                    android:id="@+id/iv_add_profile_success_logo"
+                    android:contentDescription="@string/iv_add_profile_success_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:adjustViewBounds="true"
@@ -168,6 +168,7 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_success_camera"
+                    android:contentDescription="@string/iv_add_profile_success_camera"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -185,7 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Congratulations!"
+                    android:text="@string/tv_add_profile_success_photo"
                     android:textColor="@color/purple_main"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -200,7 +201,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="You have finished customizing your user profile. You may also update these details at a later time by going to your profile settings."
+                    android:text="@string/tv_add_profile_success_desc"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_success_right"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -221,7 +222,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/purple_main"
-                    android:text="Start Browsing"
+                    android:text="@string/btn_add_profile_browse"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_success_right"
                     app:layout_constraintHorizontal_bias="0.497"
@@ -247,6 +248,7 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_success_progress1"
+                    android:contentDescription="@string/iv_add_profile_success_progress1"
                     android:layout_width="wrap_content"
                     android:layout_height="12dp"
                     android:adjustViewBounds="true"
@@ -261,6 +263,7 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_success_progress2"
+                    android:contentDescription="@string/iv_add_profile_success_progress2"
                     android:layout_width="wrap_content"
                     android:layout_height="12dp"
                     android:adjustViewBounds="true"
@@ -275,6 +278,7 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_success_progress3"
+                    android:contentDescription="@string/iv_add_profile_success_progress3"
                     android:layout_width="wrap_content"
                     android:layout_height="12dp"
                     android:adjustViewBounds="true"
