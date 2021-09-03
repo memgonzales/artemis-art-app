@@ -201,4 +201,8 @@
     <string name="tv_log_in_guest">Continue as a guest</string>
     <string name="btn_log_in_sign_up">Create Account</string>
     <string name="btn_test">testing never stops</string>
+    <string name="tv_edit_comment_title">Edit Comment</string>
+    <string name="tv_edit_comment_username">shooberino</string>
+    <string name="et_edit_comment">The light from the lantern at the end of the Doppel\'s tail can call forth a myriad of illusions, and the scissors are said to cause great devastation in the near futures of those who have been harmed by them.</string>
+    <string name="btn_edit_comment_save">Save Changes</string>
 </resources>
