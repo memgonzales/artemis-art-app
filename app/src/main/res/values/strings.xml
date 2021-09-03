@@ -68,4 +68,17 @@
     <string name="tv_item_comment_date">August 20, 2021</string>
     <string name="ib_item_comment_edit">Item comment - edit</string>
     <string name="tv_item_comment_comment">The light from the lantern at the end of the Doppel\'s tail can call forth a myriad of illusions, and the scissors are said to cause great devastation in the near futures of those who have been harmed by them.</string>
+    <string name="ib_item_feed_bookmark">Item feed - bookmark</string>
+    <string name="tv_item_feed_username">shooberino</string>
+    <string name="iv_item_feed_post">Item feed - post</string>
+    <string name="tv_item_feed_upvote_counter">100 Upvotes</string>
+    <string name="tv_item_feed_dot">•</string>
+    <string name="tv_item_feed_comments">50 Comments</string>
+    <string name="iv_item_feed_upvote">Item feed - upvote</string>
+    <string name="tv_item_feed_upvote">Upvote</string>
+    <string name="iv_item_feed_comment">Item feed - comment</string>
+    <string name="tv_item_feed_comment">Comment</string>
+    <string name="tv_item_feed_share">Share</string>
+    <string name="iv_item_feed_share">Item feed - share</string>
+    <string name="tv_item_feed_title">The Doppel of Silence and Iroha Tamaki from Magia Record</string>
 </resources>
