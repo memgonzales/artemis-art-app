@@ -29,4 +29,16 @@
     <string name="iv_add_profile_bio_progress1">Progress 1</string>
     <string name="iv_add_profile_bio_progress2">Progress 2</string>
     <string name="iv_add_profile_bio_progress3">Progress 3</string>
+    <string name="tv_add_profile_pic_create">Welcome</string>
+    <string name="tv_add_profile_pic_community">Your Artemis account has been successfully created</string>
+    <string name="iv_add_profile_pic_logo">Add Profile Pic Logo</string>
+    <string name="iv_add_profile_pic_camera">Add Profile Pic - Camera</string>
+    <string name="tv_add_profile_pic_photo">Add Profile Picture</string>
+    <string name="tv_add_profile_pic_desc">A picture is worth a thousand words. Choose a photo that represents yourself or your art</string>
+    <string name="btn_add_profile_pic_add">Set as Profile Picture</string>
+    <string name="tv_add_profile_pic_skip">Upload a picture later</string>
+    <string name="iv_add_profile_pic_progress1">Progress 1</string>
+    <string name="iv_add_profile_pic_progress2">Progress 2</string>
+    <string name="iv_add_profile_pic_progress3">Progress 3</string>
+    <string name="fab_add_profile_pic_edit">FAB for profile pic edit</string>
 </resources>
