@@ -23,7 +23,7 @@
     <string name="iv_add_profile_bio_logo">Bio logo</string>
     <string name="iv_add_profile_bio_pen">Add profile - bio pen</string>
     <string name="tv_add_profile_bio">Add Short Bio</string>
-    <string name="tiet_edit_profile_bio">Share something about yourself</string>
+    <string name="tiet_add_profile_bio">Share something about yourself</string>
     <string name="btn_add_profile_bio_add">ADD BIO</string>
     <string name="tv_add_profile_bio_skip">Write a bio later</string>
     <string name="iv_add_profile_bio_progress1">Progress 1</string>
@@ -228,4 +228,16 @@
     <string name="tiet_edit_artwork_dimen">Dimensions</string>
     <string name="tiet_edit_artwork_dimen_val">1024 x 1024</string>
     <string name="btn_edit_artwork_save">Save Changes</string>
+    <string name="tv_edit_profile_title">Edit Profile</string>
+    <string name="cl_edit_profile_edit_email">Edit profile - edit email</string>
+    <string name="iv_edit_profile_edit_email_icon">Edit profile - edit email icon</string>
+    <string name="tv_edit_profile_edit_email">Change Email Address</string>
+    <string name="iv_edit_profile_edit_password_icon">Edit profile - edit password icon</string>
+    <string name="tv_edit_profile_edit_password">Change Password</string>
+    <string name="fab_edit_profile_pic_edit">Edit profile pic - edit</string>
+    <string name="tiet_edit_profile_username">Username (cannot be edited)</string>
+    <string name="tiet_edit_profile_username_val">shoobie</string>
+    <string name="tiet_edit_profile_bio">Short Bio</string>
+    <string name="tiet_edit_profile_bio_val">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</string>
+    <string name="btn_edit_profile_save">Save Changes</string>
 </resources>

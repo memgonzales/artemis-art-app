@@ -222,10 +222,10 @@
                     app:layout_constraintVertical_bias="0.06000000">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_edit_profile_bio"
+                        android:id="@+id/tiet_add_profile_bio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/tiet_edit_profile_bio"
+                        android:hint="@string/tiet_add_profile_bio"
                         android:inputType="text|textPersonName|textMultiLine"
                         android:maxLength="150"/>
                     

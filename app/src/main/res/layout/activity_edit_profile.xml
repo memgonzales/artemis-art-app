@@ -44,7 +44,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Edit Profile"
+                    android:text="@string/tv_edit_profile_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -69,6 +69,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_edit_profile_edit_email"
+                    android:contentDescription="@string/cl_edit_profile_edit_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -78,10 +79,12 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_bio"
-                    app:layout_constraintVertical_bias="0.05">
+                    app:layout_constraintVertical_bias="0.05"
+                    android:focusable="true">
 
                     <ImageView
                         android:id="@+id/iv_edit_profile_edit_email_icon"
+                        android:contentDescription="@string/iv_edit_profile_edit_email_icon"
                         android:layout_width="26dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="true"
@@ -106,7 +109,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Change Email Address"
+                        android:text="@string/tv_edit_profile_edit_email"
                         android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_edit_email_left_margin"
@@ -131,10 +134,12 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cl_edit_profile_edit_email"
-                    app:layout_constraintVertical_bias="0.0">
+                    app:layout_constraintVertical_bias="0.0"
+                    android:focusable="true">
 
                     <ImageView
                         android:id="@+id/iv_edit_profile_edit_password_icon"
+                        android:contentDescription="@string/iv_edit_profile_edit_password_icon"
                         android:layout_width="26dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="true"
@@ -155,7 +160,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Change Password"
+                        android:text="@string/tv_edit_profile_edit_password"
                         android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_edit_password_left_margin"
@@ -201,6 +206,7 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_edit_profile_pic_edit"
+                    android:contentDescription="@string/fab_edit_profile_pic_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.9"
@@ -217,7 +223,8 @@
                     app:layout_constraintVertical_bias="1.0"
                     app:maxImageSize="15dp"
                     app:srcCompat="@drawable/ic_action_camera_alt"
-                    app:tint="@android:color/white" />
+                    app:tint="@android:color/white"
+                    android:focusable="true" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/gl_edit_profile_left_camera"
@@ -255,9 +262,9 @@
                         android:id="@+id/tiet_edit_profile_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Username (cannot be edited)"
+                        android:hint="@string/tiet_edit_profile_username"
                         android:inputType="text"
-                        android:text="shoobie" />
+                        android:text="@string/tiet_edit_profile_username_val" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -280,10 +287,10 @@
                         android:id="@+id/tiet_edit_profile_bio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Short Bio"
+                        android:hint="@string/tiet_edit_profile_bio"
                         android:inputType="text|textPersonName|textMultiLine"
                         android:maxLength="150"
-                        android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC." />
+                        android:text="@string/tiet_edit_profile_bio_val" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ProgressBar
@@ -340,7 +347,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:text="Save Changes"
+            android:text="@string/btn_edit_profile_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin_bottom"
             app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin_bottom"
