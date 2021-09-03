@@ -315,4 +315,25 @@
     <string name="ib_item_view_bookmark_bookmark">View bookmark - bookmark</string>
     <string name="tv_item_view_bookmark_title">The Doppel of Silence and Iroha Tamaki</string>
     <string name="tv_item_view_bookmark_username">shooberino</string>
+    <string name="tv_view_post_followed_title">View Post</string>
+    <string name="ib_item_view_post_followed_bookmark">View post followed - bookmark</string>
+    <string name="tv_item_view_post_followed_username">shooberino</string>
+    <string name="iv_item_view_post_followed_post">View post followed - post</string>
+    <string name="tv_item_view_post_followed_upvote_counter">100 Upvotes</string>
+    <string name="tv_item_view_post_followed_dot">•</string>
+    <string name="tv_item_view_post_followed_comments">50 Comments</string>
+    <string name="iv_item_view_post_followed_upvote">View post followed - upvote</string>
+    <string name="tv_item_view_post_followed_upvote">Upvote</string>
+    <string name="iv_item_view_post_followed_comment">View post followed - comment</string>
+    <string name="tv_item_view_post_followed_comment">Comment</string>
+    <string name="iv_item_view_post_followed_share">View post followed - share</string>
+    <string name="tv_item_view_post_followed_share">Share</string>
+    <string name="tv_item_view_post_followed_title">The Doppel of Silence and Iroha Tamaki</string>
+    <string name="tv_item_view_post_followed_date">August 20, 2021</string>
+    <string name="tv_item_view_post_followed_medium">Digital Art</string>
+    <string name="tv_item_view_post_followed_dimen">1080 x 1080</string>
+    <string name="tv_item_view_post_followed_desc">Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn\'t want to hear as it continues its search for something to fill the hole in its heart.</string>
+    <string name="tv_item_view_post_followed_tags">anime, magia-record, shaft, iroha, witches</string>
+    <string name="iv_view_post_followed_tags">View post followed - tags</string>
+    <string name="fab_view_post_followed_add">View post followed - add</string>
 </resources>
