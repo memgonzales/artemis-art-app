@@ -88,4 +88,9 @@
     <string name="iv_dialog_profile_picture_camera">Dialog profile picture - camera</string>
     <string name="tv_dialog_profile_picture_picture_delete">Remove Picture</string>
     <string name="iv_dialog_profile_picture_delete">Dialog profile picture - delete</string>
+    <string name="tv_dialog_comment_header">Post Artwork</string>
+    <string name="tv_dialog_comment_edit">Upload from Gallery</string>
+    <string name="iv_dialog_comment_edit">Dialog comment - edit</string>
+    <string name="tv_dialog_comment_delete">Take a Photo</string>
+    <string name="iv_dialog_comment_delete">Dialog comment - delete</string>
 </resources>
