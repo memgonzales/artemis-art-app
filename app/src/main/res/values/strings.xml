@@ -205,4 +205,9 @@
     <string name="tv_edit_comment_username">shooberino</string>
     <string name="et_edit_comment">The light from the lantern at the end of the Doppel\'s tail can call forth a myriad of illusions, and the scissors are said to cause great devastation in the near futures of those who have been harmed by them.</string>
     <string name="btn_edit_comment_save">Save Changes</string>
+    <string name="tv_edit_email_title">Change Email Address</string>
+    <string name="tiet_edit_email">Old Email Address</string>
+    <string name="tiet_edit_email_address">shinshibe@gmail.com</string>
+    <string name="tiet_edit_email_new">New Email Address</string>
+    <string name="btn_edit_email_confirm">Confirm Change</string>
 </resources>

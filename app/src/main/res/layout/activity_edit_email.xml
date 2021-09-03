@@ -43,7 +43,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Change Email Address"
+                    android:text="@string/tv_edit_email_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -116,9 +116,9 @@
                         android:id="@+id/tiet_edit_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Old Email Address"
+                        android:hint="@string/tiet_edit_email"
                         android:inputType="text"
-                        android:text="shinshibe@gmail.com" />
+                        android:text="@string/tiet_edit_email_address" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,7 +142,7 @@
                         android:id="@+id/tiet_edit_email_new"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="New Email Address"
+                        android:hint="@string/tiet_edit_email_new"
                         android:inputType="text|textEmailAddress" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -166,7 +166,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Confirm Change"
+                    android:text="@string/btn_edit_email_confirm"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_edit_email_right_margin"
                     app:layout_constraintStart_toStartOf="@+id/gl_edit_email_left_margin"
