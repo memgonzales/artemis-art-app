@@ -120,4 +120,9 @@
     <string name="iv_dialog_comment_edit">Dialog comment - edit</string>
     <string name="tv_dialog_comment_delete">Delete Comment</string>
     <string name="iv_dialog_comment_delete">Dialog comment - delete</string>
+    <string name="iv_browse_bookmarks_none">Browse bookmarks - none</string>
+    <string name="tv_browse_bookmarks_none">No bookmarks just yet</string>
+    <string name="fab_bookmarks_add">Add bookmarks</string>
+    <string name="tv_bookmarks_title">Artemis</string>
+    <string name="iv_bookmarks_logo">Bookmarks logo</string>
 </resources>
