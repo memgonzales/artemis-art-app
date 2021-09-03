@@ -110,4 +110,9 @@
     <string name="tv_item_own_post_upvote_counter">100 Upvotes</string>
     <string name="iv_item_own_post_highlight">Item own post - highlight</string>
     <string name="iv_item_own_post_comment">Item own post - comment</string>
+    <string name="tv_dialog_own_post_header">My Post</string>
+    <string name="tv_dialog_own_post_edit">Edit Details</string>
+    <string name="iv_dialog_own_post_edit">Dialog own post - edit</string>
+    <string name="tv_dialog_own_post_delete">Delete Post</string>
+    <string name="iv_dialog_own_post_delete">Dialog own post - delete</string>
 </resources>
