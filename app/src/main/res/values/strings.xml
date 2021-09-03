@@ -125,4 +125,8 @@
     <string name="fab_bookmarks_add">Add bookmarks</string>
     <string name="tv_bookmarks_title">Artemis</string>
     <string name="iv_bookmarks_logo">Bookmarks logo</string>
+    <string name="tv_browse_own_posts_title">View My Posts</string>
+    <string name="iv_browse_own_posts_none">Browse own posts - none</string>
+    <string name="tv_browse_own_posts_none">No posts just yet</string>
+    <string name="fab_browse_own_posts_add">Browse own posts - add</string>
 </resources>
