@@ -251,4 +251,19 @@
     <string name="tv_view_user_unregistered_bio">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</string>
     <string name="tv_view_user_unregistered_username">shoobie</string>
     <string name="tv_view_user_title">User Profile</string>
+    <string name="tv_view_profile_title">Artemis</string>
+    <string name="fab_view_profile_add">View profile - add</string>
+    <string name="btn_view_profile_highlights">View Highlights</string>
+    <string name="tv_view_profile_note">What\'s New?</string>
+    <string name="tv_view_profile_logout">Log Out</string>
+    <string name="v_view_profile_logout_icon">View profile - logout</string>
+    <string name="iv_view_profile_delete_icon">View profile - delete</string>
+    <string name="tv_view_profile_delete">Account Management</string>
+    <string name="iv_view_profile_view_posts_icon">View profile - view posts</string>
+    <string name="tv_view_profile_view_posts">View My Posts</string>
+    <string name="tv_view_profile_edit">Edit Profile Details</string>
+    <string name="iv_view_profile_edit_icon">View profile - edit</string>
+    <string name="tv_view_user_unregistered_bio">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</string>
+    <string name="tv_view_user_unregistered_username">shoobie</string>
+    <string name="iv_view_profile_logo">View profile logo</string>
 </resources>
