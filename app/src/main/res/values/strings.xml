@@ -180,4 +180,7 @@
     <string name="tv_search_results_unregistered_none">No matching results</string>
     <string name="tv_search_results_unregistered_unregistered_note">You are browsing as a guest</string>
     <string name="fab_search_unregistered_results_add">Search unregistered results - add</string>
+    <string name="iv_feed_logo">Logo</string>
+    <string name="tv_feed_title">Artemis</string>
+    <string name="fab_feed_add">Feed - add</string>
 </resources>
