@@ -361,4 +361,25 @@
     <string name="tv_item_view_own_highlight_medium">Digital Art</string>
     <string name="tv_item_view_own_highlight_dimen">1080 x 1080</string>
     <string name="tv_item_view_own_highlight_desc">Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn\'t want to hear as it continues its search for something to fill the hole in its heart.</string>
+    <string name="tv_view_own_post_title">View Post</string>
+    <string name="ib_item_view_own_post_options">View own post - options</string>
+    <string name="tv_item_view_own_post_username">shooberino</string>
+    <string name="iv_item_view_own_post_post">View own post - post</string>
+    <string name="tv_item_view_own_post_upvote_counter">100 Upvotes</string>
+    <string name="tv_item_view_own_post_dot">•</string>
+    <string name="tv_item_view_own_post_comments">50 Comments</string>
+    <string name="iv_item_view_own_post_highlight">View own post - highlight</string>
+    <string name="tv_item_view_own_post_highlight">Highlight</string>
+    <string name="iv_item_view_own_post_comment">View own post - comment</string>
+    <string name="tv_item_view_own_post_comment">Comment</string>
+    <string name="iv_item_view_own_post_share">View own post - share</string>
+    <string name="tv_item_view_own_post_share">Share</string>
+    <string name="tv_item_view_own_post_title">The Doppel of Silence and Iroha Tamaki</string>
+    <string name="tv_item_view_own_post_date">August 20, 2021</string>
+    <string name="tv_item_view_own_post_medium">Digital Art</string>
+    <string name="tv_item_view_own_post_dimen">1080 x 1080</string>
+    <string name="tv_item_view_own_post_desc">Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn\'t want to hear as it continues its search for something to fill the hole in its heart.</string>
+    <string name="tv_item_view_own_post_tags">anime, magia-record, shaft, iroha, witches</string>
+    <string name="iv_view_own_post_tag">View own post - tag</string>
+    <string name="fab_view_own_post_add">View own post - add</string>
 </resources>
