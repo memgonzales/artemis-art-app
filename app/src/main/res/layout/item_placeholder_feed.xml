@@ -36,6 +36,7 @@
 
         <ImageButton
             android:id="@+id/ib_item_placeholder_feed_bookmark"
+            android:contentDescription="@string/ib_item_placeholder_feed_bookmark"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="3dp"
@@ -69,10 +70,12 @@
             app:layout_constraintStart_toEndOf="@+id/civ_item_placeholder_feed_profile_pic"
             app:layout_constraintTop_toTopOf="@id/civ_item_placeholder_feed_profile_pic"
             app:layout_constraintVertical_bias="0.5"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            android:focusable="true" />
 
         <ImageView
             android:id="@+id/iv_item_placeholder_feed_post"
+            android:contentDescription="@string/iv_item_placeholder_feed_post"
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:layout_marginTop="8dp"
@@ -90,9 +93,9 @@
             android:id="@+id/tv_item_placeholder_feed_upvote_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="4dp"
+            android:layout_marginEnd="4dp"
             android:background="@color/lightest_gray"
-            android:text="100 Upvotes"
+            android:text="@string/tv_item_placeholder_feed_upvote_counter"
             android:textColor="@color/lightest_gray"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/cl_item_placeholder_feed_upvote"
@@ -106,7 +109,7 @@
             android:id="@+id/tv_item_placeholder_feed_dot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="•"
+            android:text="@string/tv_item_placeholder_feed_dot"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/tv_item_placeholder_feed_upvote_counter"
             app:layout_constraintEnd_toStartOf="@+id/tv_item_placeholder_feed_comments"
@@ -118,9 +121,9 @@
             android:id="@+id/tv_item_placeholder_feed_comments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:background="@color/lightest_gray"
-            android:text="50 Comments"
+            android:text="@string/tv_item_placeholder_feed_comments"
             android:textColor="@color/lightest_gray"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_item_placeholder_feed_upvote_counter"
@@ -167,7 +170,8 @@
             android:clickable="true"
             app:layout_constraintEnd_toStartOf="@+id/gl_item_placeholder_feed_one_third"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_item_placeholder_feed_upvote_counter">
+            app:layout_constraintTop_toBottomOf="@id/tv_item_placeholder_feed_upvote_counter"
+            android:focusable="true">
 
             <ImageView
                 android:id="@+id/iv_item_placeholder_feed_upvote"
@@ -181,7 +185,8 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/pinkish_purple" />
+                app:tint="@color/pinkish_purple"
+                android:contentDescription="@string/iv_item_placeholder_feed_upvote" />
 
             <TextView
                 android:id="@+id/tv_item_placeholder_feed_upvote"
@@ -190,7 +195,7 @@
                 android:layout_marginStart="7dp"
                 android:background="@color/lightest_gray"
                 android:fontFamily="sans-serif-medium"
-                android:text="Upvote"
+                android:text="@string/tv_item_placeholder_feed_upvote"
                 android:textColor="@color/lightest_gray"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_item_placeholder_feed_upvote"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -209,10 +214,12 @@
             app:layout_constraintBottom_toBottomOf="@+id/cl_item_placeholder_feed_upvote"
             app:layout_constraintEnd_toStartOf="@+id/gl_item_placeholder_feed_two_thirds"
             app:layout_constraintStart_toStartOf="@+id/gl_item_placeholder_feed_one_third"
-            app:layout_constraintTop_toTopOf="@+id/cl_item_placeholder_feed_upvote">
+            app:layout_constraintTop_toTopOf="@+id/cl_item_placeholder_feed_upvote"
+            android:focusable="true">
 
             <ImageView
                 android:id="@+id/iv_item_placeholder_feed_comment"
+                android:contentDescription="@string/iv_item_placeholder_feed_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:adjustViewBounds="true"
@@ -232,7 +239,7 @@
                 android:layout_marginStart="7dp"
                 android:background="@color/lightest_gray"
                 android:fontFamily="sans-serif-medium"
-                android:text="Comment"
+                android:text="@string/tv_item_placeholder_feed_comment"
                 android:textColor="@color/lightest_gray"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_item_placeholder_feed_comment"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -251,10 +258,12 @@
             app:layout_constraintBottom_toBottomOf="@+id/cl_item_placeholder_feed_upvote"
             app:layout_constraintEnd_toStartOf="@id/gl_item_placeholder_feed_right_margin"
             app:layout_constraintStart_toStartOf="@id/gl_item_placeholder_feed_two_thirds"
-            app:layout_constraintTop_toTopOf="@+id/cl_item_placeholder_feed_upvote">
+            app:layout_constraintTop_toTopOf="@+id/cl_item_placeholder_feed_upvote"
+            android:focusable="true">
 
             <ImageView
                 android:id="@+id/iv_item_placeholder_feed_share"
+                android:contentDescription="@string/iv_item_placeholder_feed_share"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:adjustViewBounds="true"
@@ -274,7 +283,7 @@
                 android:layout_marginStart="7dp"
                 android:background="@color/lightest_gray"
                 android:fontFamily="sans-serif-medium"
-                android:text="Share"
+                android:text="@string/tv_item_placeholder_feed_share"
                 android:textColor="@color/lightest_gray"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_item_placeholder_feed_share"
                 app:layout_constraintEnd_toEndOf="parent"

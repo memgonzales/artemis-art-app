@@ -53,4 +53,15 @@
     <string name="iv_add_profile_success_progress3">Progress 3</string>
     <string name="iv_item_placeholder_search_results_1">Search Result 1</string>
     <string name="iv_item_placeholder_search_results_2">Search Result 2</string>
+    <string name="ib_item_placeholder_feed_bookmark">Placeholder feed bookmark</string>
+    <string name="tv_item_placeholder_feed_share">Share</string>
+    <string name="iv_item_placeholder_feed_post">Item placeholder feed - post</string>
+    <string name="tv_item_placeholder_feed_upvote_counter">100 Upvotes</string>
+    <string name="tv_item_placeholder_feed_dot">•</string>
+    <string name="tv_item_placeholder_feed_comments">50 Comments</string>
+    <string name="iv_item_placeholder_feed_upvote">Item placeholder feed - upvote</string>
+    <string name="tv_item_placeholder_feed_upvote">Upvote</string>
+    <string name="iv_item_placeholder_feed_comment">Item placeholder feed - comment</string>
+    <string name="tv_item_placeholder_feed_comment">Comment</string>
+    <string name="iv_item_placeholder_feed_share">Item placeholder feed - share</string>
 </resources>
