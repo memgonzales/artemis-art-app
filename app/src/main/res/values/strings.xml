@@ -168,4 +168,10 @@
     <string name="tiet_post_artwork_medium">Medium</string>
     <string name="tiet_post_artwork_dimen">Dimensions</string>
     <string name="btn_post_artwork_save">Next</string>
+    <string name="tv_post_add_tags_title">Add Tags</string>
+    <string name="iv_post_add_tags_art">Post add tags</string>
+    <string name="tiet_post_add_tags_desc">Separate tags by commas</string>
+    <string name="tv_post_add_tags_note">Your post can be searched and discovered by other members of our community through these tags, so make them count!</string>
+    <string name="iv_post_add_tags_logo">Post add tags - logo</string>
+    <string name="btn_post_add_tags_save">Post Artwork</string>
 </resources>
