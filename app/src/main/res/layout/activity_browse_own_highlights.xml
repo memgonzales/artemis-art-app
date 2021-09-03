@@ -45,7 +45,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="View Highlights"
+                    android:text="@string/tv_highlights_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -90,25 +90,26 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
                         </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <ImageView
                         android:id="@+id/iv_browse_highlights_none"
+                        android:contentDescription="@string/iv_browse_highlights_none"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -132,7 +133,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:alpha="0.6"
-                        android:text="No highlights just yet"
+                        android:text="@string/tv_browse_highlights_none"
                         android:textColor="@color/purple_main"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -181,6 +182,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_browse_highlights_add"
+            android:contentDescription="@string/fab_browse_highlights_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
@@ -191,7 +193,8 @@
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:focusable="true" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

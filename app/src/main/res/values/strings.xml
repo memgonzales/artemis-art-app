@@ -129,4 +129,8 @@
     <string name="iv_browse_own_posts_none">Browse own posts - none</string>
     <string name="tv_browse_own_posts_none">No posts just yet</string>
     <string name="fab_browse_own_posts_add">Browse own posts - add</string>
+    <string name="tv_highlights_title">View Highlights</string>
+    <string name="iv_browse_highlights_none">Browse highlights - none</string>
+    <string name="tv_browse_highlights_none">No highlights just yet</string>
+    <string name="fab_browse_highlights_add">Browse highlights - add</string>
 </resources>
