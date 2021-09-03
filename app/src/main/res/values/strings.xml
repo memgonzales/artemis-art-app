@@ -242,14 +242,10 @@
     <string name="btn_edit_profile_save">Save Changes</string>
     <string name="tv_view_user_unregistered_title">User Profile</string>
     <string name="v_view_user_unregistered_username">shoobie</string>
-    <string name="tv_view_user_unregistered_bio">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</string>
     <string name="btn_view_user_unregistered_follow">Follow User</string>
-    <string name="tv_view_others_highlight_unregistered_note">You are browsing as a guest</string>
     <string name="fab_view_user_unregistered_add">View user unregistered - add</string>
     <string name="fab_view_user_add">View user - add</string>
     <string name="btn_view_user_follow">Follow User</string>
-    <string name="tv_view_user_unregistered_bio">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</string>
-    <string name="tv_view_user_unregistered_username">shoobie</string>
     <string name="tv_view_user_title">User Profile</string>
     <string name="tv_view_profile_title">Artemis</string>
     <string name="fab_view_profile_add">View profile - add</string>
@@ -340,7 +336,7 @@
     <string name="iv_view_comments_followed_no_comment">View comments followed - none</string>
     <string name="tv_view_comments_followed_no_comment">No comments just yet</string>
     <string name="ib_add_comment_followed">Add comment followed</string>
-    <string name="et_add_comment_followed">Write a comment...</string>
+    <string name="et_add_comment_followed">Write a comment…</string>
     <string name="fab_view_comments_followed_add">View comments followed - add</string>
     <string name="tv_view_others_highlight_title">View Highlight</string>
     <string name="tv_item_view_others_highlight_username">shooberino</string>
