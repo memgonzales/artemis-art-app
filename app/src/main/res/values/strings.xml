@@ -240,4 +240,10 @@
     <string name="tiet_edit_profile_bio">Short Bio</string>
     <string name="tiet_edit_profile_bio_val">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</string>
     <string name="btn_edit_profile_save">Save Changes</string>
+    <string name="tv_view_user_unregistered_title">User Profile</string>
+    <string name="v_view_user_unregistered_username">shoobie</string>
+    <string name="tv_view_user_unregistered_bio">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</string>
+    <string name="btn_view_user_unregistered_follow">Follow User</string>
+    <string name="tv_view_others_highlight_unregistered_note">You are browsing as a guest</string>
+    <string name="fab_view_user_unregistered_add">View user unregistered - add</string>
 </resources>
