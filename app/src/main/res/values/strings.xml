@@ -81,4 +81,11 @@
     <string name="tv_item_feed_share">Share</string>
     <string name="iv_item_feed_share">Item feed - share</string>
     <string name="tv_item_feed_title">The Doppel of Silence and Iroha Tamaki from Magia Record</string>
+    <string name="tv_dialog_profile_picture_header">Profile Picture</string>
+    <string name="tv_dialog_profile_picture_edit">Upload from Gallery</string>
+    <string name="iv_dialog_profile_picture_edit">Dialog profile picture - edit</string>
+    <string name="tv_dialog_profile_picture_camera">Take a Photo</string>
+    <string name="iv_dialog_profile_picture_camera">Dialog profile picture - camera</string>
+    <string name="tv_dialog_profile_picture_picture_delete">Remove Picture</string>
+    <string name="iv_dialog_profile_picture_delete">Dialog profile picture - delete</string>
 </resources>
