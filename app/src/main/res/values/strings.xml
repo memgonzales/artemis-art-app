@@ -51,4 +51,6 @@
     <string name="iv_add_profile_success_progress1">Progress 1</string>
     <string name="iv_add_profile_success_progress2">Progress 2</string>
     <string name="iv_add_profile_success_progress3">Progress 3</string>
+    <string name="iv_item_placeholder_search_results_1">Search Result 1</string>
+    <string name="iv_item_placeholder_search_results_2">Search Result 2</string>
 </resources>
