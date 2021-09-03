@@ -298,4 +298,11 @@
     <string name="tv_item_view_others_highlight_unregistered_desc">Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn\'t want to hear as it continues its search for something to fill the hole in its heart.</string>
     <string name="tv_view_others_highlight_unregistered_note">You are browsing as a guest</string>
     <string name="fab_view_others_highlight_unregistered_add">View others highlight unregistered - add</string>
+    <string name="tv_view_comments_unregistered_title">Comments</string>
+    <string name="iv_view_comments_unregistered_no_comment">View comments unregistered - none</string>
+    <string name="tv_view_comments_unregistered_no_comment">No comments_unregistered just yet</string>
+    <string name="fab_view_comments_unregistered_add">View comments unregistered - add</string>
+    <string name="tv_view_comments_unregistered_unregistered_note">You are browsing as a guest</string>
+    <string name="et_add_comment_unregistered">Log in or sign up to comment</string>
+    <string name="ib_add_comment_unregistered">Add comment unregistered</string>
 </resources>
