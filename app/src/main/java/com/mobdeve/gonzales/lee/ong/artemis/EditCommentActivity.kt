@@ -2,13 +2,11 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputEditText
 import de.hdodenhof.circleimageview.CircleImageView
 
 class EditCommentActivity : AppCompatActivity() {
@@ -33,10 +31,14 @@ class EditCommentActivity : AppCompatActivity() {
         this.etEditComment = findViewById(R.id.et_edit_comment)
         this.btnEditCommentSave = findViewById(R.id.btn_edit_comment_save)
 
-        btnEditCommentSave.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@EditCommentActivity, "Your comment has been updated", Toast.LENGTH_SHORT).show()
+        btnEditCommentSave.setOnClickListener {
+            Toast.makeText(
+                this@EditCommentActivity,
+                "Your comment has been updated",
+                Toast.LENGTH_SHORT
+            ).show()
             finish()
-        })
+        }
 
         initIntent()
     }

@@ -62,13 +62,13 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlHighlights = findViewById(R.id.srl_highlights)
         srlHighlights.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlHighlights.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -80,43 +80,20 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvHighlightsBottom = findViewById(R.id.nv_highlights_bottom)
 
-        bnvHighlightsBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_profile -> {
-                    val intent = Intent(this@BrowseOwnHighlightsActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_profile -> {
-                    val intent = Intent(this@BrowseOwnHighlightsActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_profile -> {
-                    val intent = Intent(this@BrowseOwnHighlightsActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_profile -> {
-                    val intent = Intent(this@BrowseOwnHighlightsActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setBottomMenuListeners(bnvHighlightsBottom, this,
+            this@BrowseOwnHighlightsActivity)
     }
 
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadHighlightsData();
+        this.dataPosts = DataHelper.loadHighlightsData()
 
-        this.rvHighlights = findViewById(R.id.rv_highlights);
-        this.rvHighlights.layoutManager = GridLayoutManager(this, 2);
+        this.rvHighlights = findViewById(R.id.rv_highlights)
+        this.rvHighlights.layoutManager = GridLayoutManager(this, 2)
 
-        this.highlightsAdapter = HighlightsAdapter(this.dataPosts);
+        this.highlightsAdapter = HighlightsAdapter(this.dataPosts)
 
 
-        this.rvHighlights.adapter = highlightsAdapter;
+        this.rvHighlights.adapter = highlightsAdapter
     }
 
     private fun initActionBar() {
@@ -136,19 +113,29 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@BrowseOwnHighlightsActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@BrowseOwnHighlightsActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
-                val intent = Intent(this@BrowseOwnHighlightsActivity, PostArtworkActivity::class.java)
+                val intent =
+                    Intent(this@BrowseOwnHighlightsActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@BrowseOwnHighlightsActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@BrowseOwnHighlightsActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
-                val intent = Intent(this@BrowseOwnHighlightsActivity, PostArtworkActivity::class.java)
+                val intent =
+                    Intent(this@BrowseOwnHighlightsActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }

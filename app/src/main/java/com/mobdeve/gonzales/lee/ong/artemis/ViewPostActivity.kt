@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -55,8 +54,8 @@ class ViewPostActivity : AppCompatActivity() {
 
     private lateinit var srlViewPost: SwipeRefreshLayout
 
-    private lateinit var callbackManager: CallbackManager
-    private lateinit var shareDialog: ShareDialog
+    private lateinit var cmFacebook: CallbackManager
+    private lateinit var sdFacebook: ShareDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,12 +119,12 @@ class ViewPostActivity : AppCompatActivity() {
         updateBookmark(bookmark)
         updateUpvote(upvote)
 
-        ibItemViewPostBookmark.setOnClickListener(View.OnClickListener {
+        ibItemViewPostBookmark.setOnClickListener {
             bookmark = !bookmark
             updateBookmark(bookmark)
-        })
+        }
 
-        clItemViewPostUpvote.setOnClickListener(View.OnClickListener {
+        clItemViewPostUpvote.setOnClickListener {
             if (upvote) {
                 upvote = false
                 upvoteCounter -= 1
@@ -139,18 +138,18 @@ class ViewPostActivity : AppCompatActivity() {
                 this.tvItemViewPostUpvoteCounter.text = upvoteString
                 updateUpvote(upvote)
             }
-        })
+        }
 
-        clItemViewPostComment.setOnClickListener(View.OnClickListener {
+        clItemViewPostComment.setOnClickListener {
             val intent = Intent(this, ViewCommentsActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        clItemViewPostShare.setOnClickListener(View.OnClickListener {
+        clItemViewPostShare.setOnClickListener {
             shareOnFacebook()
-        })
+        }
 
-        civItemViewPostProfilePic.setOnClickListener(View.OnClickListener {
+        civItemViewPostProfilePic.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
@@ -167,9 +166,9 @@ class ViewPostActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
 
-        tvItemViewPostUsername.setOnClickListener(View.OnClickListener {
+        tvItemViewPostUsername.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
@@ -186,7 +185,7 @@ class ViewPostActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
     }
 
     private fun initComponents() {
@@ -200,13 +199,13 @@ class ViewPostActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlViewPost = findViewById(R.id.srl_view_post)
         srlViewPost.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlViewPost.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -218,35 +217,8 @@ class ViewPostActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvViewPostBottom = findViewById(R.id.nv_view_post_bottom)
 
-        bnvViewPostBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_feed -> {
-                    val intent = Intent(this@ViewPostActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_feed -> {
-                    val intent = Intent(this@ViewPostActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_feed -> {
-                    val intent = Intent(this@ViewPostActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_feed -> {
-                    val intent = Intent(this@ViewPostActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListeners(bnvViewPostBottom, this,
+            this@ViewPostActivity)
     }
 
     private fun initActionBar() {
@@ -287,18 +259,14 @@ class ViewPostActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             } else -> {
-            return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
             }
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun addPost() {
@@ -313,39 +281,50 @@ class ViewPostActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewPostActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@ViewPostActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewPostActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewPostActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@ViewPostActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewPostActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }
     }
 
+    /**
+     * Shares the posted artwork on the user's Facebook account.
+     */
     private fun shareOnFacebook() {
-        callbackManager = CallbackManager.Factory.create()
-        shareDialog = ShareDialog(this@ViewPostActivity)
+        cmFacebook = CallbackManager.Factory.create()
+        sdFacebook = ShareDialog(this@ViewPostActivity)
 
-        shareDialog.registerCallback(callbackManager, object : FacebookCallback<Sharer.Result?> {
+        sdFacebook.registerCallback(cmFacebook, object : FacebookCallback<Sharer.Result?> {
             override fun onSuccess(result: Sharer.Result?) {
-                Toast.makeText(this@ViewPostActivity, "Share successful", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ViewPostActivity, "Shared on Facebook", Toast.LENGTH_SHORT).show()
             }
 
             override fun onCancel() {
-                Toast.makeText(this@ViewPostActivity, "Share cancelled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ViewPostActivity, "Sharing cancelled", Toast.LENGTH_SHORT).show()
             }
 
             override fun onError(error: FacebookException) {
-                Toast.makeText(this@ViewPostActivity, "Share error occurred", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ViewPostActivity, "Sharing error occurred", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -353,16 +332,16 @@ class ViewPostActivity : AppCompatActivity() {
             val bitmapDrawable = ivItemViewPostPost.drawable as BitmapDrawable
             val bitmap = bitmapDrawable.bitmap
             val username = "@" + tvItemViewPostUsername.text.toString()
-            val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "On Artemis")
+            val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "Posted on Artemis")
             val sharePhoto = SharePhoto.Builder()
                 .setBitmap(captionedImage)
                 .build()
             val sharePhotoContent = SharePhotoContent.Builder()
                 .addPhoto(sharePhoto)
                 .build()
-            shareDialog.show(sharePhotoContent)
+            sdFacebook.show(sharePhotoContent)
 
-            Toast.makeText(this@ViewPostActivity, "Post shared on Facebook", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ViewPostActivity, "Opening Facebook", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this@ViewPostActivity, "Unable to share post", Toast.LENGTH_SHORT).show()
         }

@@ -1,16 +1,14 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.widget.NestedScrollView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -56,9 +54,13 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         this.tvViewUserUnregisteredUsername.text = username
         this.tvViewUserUnregisteredBio.text = bio
 
-        btnViewUserUnregisteredFollow.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewUserUnregisteredActivity, "Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-        })
+        btnViewUserUnregisteredFollow.setOnClickListener {
+            Toast.makeText(
+                this@ViewUserUnregisteredActivity,
+                "Log in or create an account to use this feature",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun initComponents() {
@@ -70,24 +72,24 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        this.rvViewUnregisteredUser = findViewById(R.id.rv_view_user_unregistered);
-        this.rvViewUnregisteredUser.layoutManager = GridLayoutManager(this, 2);
+        this.rvViewUnregisteredUser = findViewById(R.id.rv_view_user_unregistered)
+        this.rvViewUnregisteredUser.layoutManager = GridLayoutManager(this, 2)
 
-        this.unregisteredHighlightAdapter = OthersHighlightAdapterUnregistered(this.dataHighlights);
+        this.unregisteredHighlightAdapter = OthersHighlightAdapterUnregistered(this.dataHighlights)
 
-        this.rvViewUnregisteredUser.adapter = unregisteredHighlightAdapter;
+        this.rvViewUnregisteredUser.adapter = unregisteredHighlightAdapter
     }
 
     private fun initSwipeRefresh() {
         this.srlViewUserUnregistered = findViewById(R.id.srl_view_user_unregistered)
         srlViewUserUnregistered.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlViewUserUnregistered.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -120,9 +122,13 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
             false
         }
 
-        fabAddPost.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewUserUnregisteredActivity,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
-        })
+        fabAddPost.setOnClickListener {
+            Toast.makeText(
+                this@ViewUserUnregisteredActivity,
+                "Log in or create an account to use this feature",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun initActionBar() {
@@ -131,17 +137,13 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             } else -> {
-            return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
             }
         }
-
-        return super.onOptionsItemSelected(item)
     }
 }

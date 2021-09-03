@@ -82,31 +82,8 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvBrowseOwnPostsBottom = findViewById(R.id.nv_browse_own_posts_bottom)
 
-        bnvBrowseOwnPostsBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_profile -> {
-                    val intent = Intent(this@BrowseOwnPostsActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_profile -> {
-                    val intent = Intent(this@BrowseOwnPostsActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_profile -> {
-                    val intent = Intent(this@BrowseOwnPostsActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_profile -> {
-                    val intent = Intent(this@BrowseOwnPostsActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setBottomMenuListeners(bnvBrowseOwnPostsBottom, this,
+            this@BrowseOwnPostsActivity)
     }
 
     private fun initRecyclerView() {

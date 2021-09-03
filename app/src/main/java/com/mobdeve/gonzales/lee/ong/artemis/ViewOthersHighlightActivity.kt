@@ -1,16 +1,13 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -72,7 +69,7 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
         this.tvItemViewOthersHighlightDimensions.text = dimensions
         this.tvItemViewOthersHighlightDescription.text = description
 
-        civItemViewOthersHighlightProfilePic.setOnClickListener(View.OnClickListener {
+        civItemViewOthersHighlightProfilePic.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
@@ -89,9 +86,9 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
 
-        tvItemViewOthersHighlightUsername.setOnClickListener(View.OnClickListener {
+        tvItemViewOthersHighlightUsername.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
@@ -108,7 +105,7 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
-        })
+        }
     }
 
     private fun initComponents() {
@@ -119,35 +116,8 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvViewOthersHighlightBottom = findViewById(R.id.nv_view_others_highlight_bottom)
 
-        bnvViewOthersHighlightBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_search_bottom -> {
-                    val intent = Intent(this@ViewOthersHighlightActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_search_bottom -> {
-                    val intent = Intent(this@ViewOthersHighlightActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_search_bottom -> {
-                    val intent = Intent(this@ViewOthersHighlightActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_search_bottom -> {
-                    val intent = Intent(this@ViewOthersHighlightActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListeners(bnvViewOthersHighlightBottom, this,
+            this@ViewOthersHighlightActivity)
     }
 
     private fun initActionBar() {
@@ -167,19 +137,29 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewOthersHighlightActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@ViewOthersHighlightActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
-                val intent = Intent(this@ViewOthersHighlightActivity, PostArtworkActivity::class.java)
+                val intent =
+                    Intent(this@ViewOthersHighlightActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewOthersHighlightActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@ViewOthersHighlightActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
-                val intent = Intent(this@ViewOthersHighlightActivity, PostArtworkActivity::class.java)
+                val intent =
+                    Intent(this@ViewOthersHighlightActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }

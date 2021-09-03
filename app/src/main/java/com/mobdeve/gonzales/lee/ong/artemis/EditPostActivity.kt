@@ -1,16 +1,11 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 
 class EditPostActivity : AppCompatActivity() {
@@ -41,10 +36,14 @@ class EditPostActivity : AppCompatActivity() {
         this.ivEditArtworkPost = findViewById(R.id.iv_edit_artwork_art)
         this.btnEditArtworkSave = findViewById(R.id.btn_edit_artwork_save)
 
-        btnEditArtworkSave.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@EditPostActivity, "Your post details have been updated", Toast.LENGTH_SHORT).show()
+        btnEditArtworkSave.setOnClickListener {
+            Toast.makeText(
+                this@EditPostActivity,
+                "Your post details have been updated",
+                Toast.LENGTH_SHORT
+            ).show()
             finish()
-        })
+        }
 
         initIntent()
     }

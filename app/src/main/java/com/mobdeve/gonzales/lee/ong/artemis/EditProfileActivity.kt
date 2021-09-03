@@ -14,20 +14,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
-import java.net.PasswordAuthentication
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var fabEditProfilePicEdit: FloatingActionButton
@@ -95,8 +91,8 @@ class EditProfileActivity : AppCompatActivity() {
         this.btmProfilePicture = BottomSheetDialog(this@EditProfileActivity)
 
         this.btnEditProfileSave = findViewById(R.id.btn_edit_profile_save)
-        this.clEditProfileEmail = findViewById(R.id.cl_edit_profile_edit_email);
-        this.clEditProfilePassword = findViewById(R.id.cl_edit_profile_edit_password);
+        this.clEditProfileEmail = findViewById(R.id.cl_edit_profile_edit_email)
+        this.clEditProfilePassword = findViewById(R.id.cl_edit_profile_edit_password)
 
         this.pbEditProfile = findViewById(R.id.pb_edit_profile)
 
@@ -106,7 +102,7 @@ class EditProfileActivity : AppCompatActivity() {
 //            var email: String = tietEditProfileEmail.text.toString().trim()
 //            var password: String = tietEditProfilePassword.text.toString().trim()
 
-            var bio: String = tietEditProfileBio.text.toString().trim()
+            val bio: String = tietEditProfileBio.text.toString().trim()
             this.updateBio(bio)
 
 
@@ -138,10 +134,10 @@ class EditProfileActivity : AppCompatActivity() {
                 pbEditProfile.visibility = View.GONE
 
 //                var profPic: Int = snapshot.child(Keys.userImg.name).getValue().toString().toInt()
-                var username: String = snapshot.child(Keys.username.name).getValue().toString()
+                val username: String = snapshot.child(Keys.username.name).getValue().toString()
 //                var email: String = snapshot.child(Keys.email.name).getValue().toString()
 //                var pw: String = snapshot.child(Keys.password.name).getValue().toString()
-                var bio: String = snapshot.child(Keys.bio.name).getValue().toString()
+                val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
 //
 //                civEditProfilePic.setImageResource(profPic)
                 tietEditProfileUsername.setText(username)
@@ -166,15 +162,23 @@ class EditProfileActivity : AppCompatActivity() {
             this.clDialogProfilePictureEdit = btmProfilePicture.findViewById(R.id.cl_dialog_profile_picture_edit)!!
             this.clDialogProfilePictureDelete = btmProfilePicture.findViewById(R.id.cl_dialog_profile_picture_delete)!!
 
-            clDialogProfilePictureEdit.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@EditProfileActivity, "Profile picture is edited", Toast.LENGTH_SHORT).show()
+            clDialogProfilePictureEdit.setOnClickListener {
+                Toast.makeText(
+                    this@EditProfileActivity,
+                    "Profile picture is edited",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmProfilePicture.dismiss()
-            })
+            }
 
-            clDialogProfilePictureDelete.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@EditProfileActivity, "Profile picture is deleted", Toast.LENGTH_SHORT).show()
+            clDialogProfilePictureDelete.setOnClickListener {
+                Toast.makeText(
+                    this@EditProfileActivity,
+                    "Profile picture is deleted",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmProfilePicture.dismiss()
-            })
+            }
 
             btmProfilePicture.show()
         }

@@ -93,13 +93,13 @@ class ViewCommentsActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlViewComments = findViewById(R.id.srl_view_comments)
         srlViewComments.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlViewComments.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -111,35 +111,8 @@ class ViewCommentsActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvViewCommentsBottom = findViewById(R.id.nv_view_comments_bottom)
 
-        bnvViewCommentsBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_feed -> {
-                    val intent = Intent(this@ViewCommentsActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_feed -> {
-                    val intent = Intent(this@ViewCommentsActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_feed -> {
-                    val intent = Intent(this@ViewCommentsActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_feed -> {
-                    val intent = Intent(this@ViewCommentsActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListeners(bnvViewCommentsBottom, this,
+            this@ViewCommentsActivity)
     }
 
     private fun initActionBar() {
@@ -272,10 +245,10 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.ibAddComment.setOnClickListener {
             val commentText: String = etComment.text.toString().trim()
 
-            if (!commentText.isEmpty()) {
+            if (commentText.isNotEmpty()) {
                 this.pbComment.visibility = View.VISIBLE
 
-                val comment: Comment = Comment("1", R.drawable.tofu_chan, "Tobe", commentText, true)
+                val comment = Comment("1", R.drawable.tofu_chan, "Tobe", commentText, true)
                 addCommentDB(comment)
 
             } else {
@@ -296,19 +269,27 @@ class ViewCommentsActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewCommentsActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@ViewCommentsActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewCommentsActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewCommentsActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@ViewCommentsActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewCommentsActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }

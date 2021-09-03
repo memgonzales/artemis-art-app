@@ -79,9 +79,9 @@ class EditPasswordActivity : AppCompatActivity() {
         this.pbEditPw = findViewById(R.id.pb_edit_password)
 
         this.btnEditPw.setOnClickListener {
-            var pw: String = this.tietEditPw.text.toString().trim()
-            var newPw: String = this.tietNewPw.text.toString().trim()
-            var confirmPw: String = this.tietConfirmPw.text.toString().trim()
+            val pw: String = this.tietEditPw.text.toString().trim()
+            val newPw: String = this.tietNewPw.text.toString().trim()
+            val confirmPw: String = this.tietConfirmPw.text.toString().trim()
 
             if (validPassword(pw, newPw, confirmPw)){
                 updatePassword(pw, newPw)
@@ -95,57 +95,57 @@ class EditPasswordActivity : AppCompatActivity() {
     }
 
     private fun validPassword(pw: String, newPw: String, confirmPw: String): Boolean{
-        var isValid: Boolean = true
+        var isValid = true
 
-        if(pw.isEmpty()){
-            this.tilEditPw.error = "Required"
-            isValid = false
-        }
-
-        else if(pw.length < 6){
-            this.tilEditPw.error = "Password should have at least 6 characters"
-            this.tietEditPw.requestFocus()
-            isValid = false
-        }
-
-        else{
-            this.tilEditPw.error = null
-        }
-
-
-
-        if(newPw.isEmpty()) {
-            this.tilNewPw.error = "Required"
-            this.tietNewPw.requestFocus()
-            isValid = false
-        }
-
-        else if(newPw.length < 6){
-            this.tilNewPw.error = "Password should have at least 6 characters"
-            this.tietNewPw.requestFocus()
-            isValid = false
-        }
-
-        else{
-            this.tilNewPw.error = null
+        when {
+            pw.isEmpty() -> {
+                this.tilEditPw.error = "Required"
+                isValid = false
+            }
+            pw.length < 6 -> {
+                this.tilEditPw.error = "Password should have at least 6 characters"
+                this.tietEditPw.requestFocus()
+                isValid = false
+            }
+            else -> {
+                this.tilEditPw.error = null
+            }
         }
 
 
 
-        if(confirmPw.isEmpty()){
-            this.tilConfirmPw.error = "Required"
-            this.tietConfirmPw.requestFocus()
-            isValid = false
+        when {
+            newPw.isEmpty() -> {
+                this.tilNewPw.error = "Required"
+                this.tietNewPw.requestFocus()
+                isValid = false
+            }
+            newPw.length < 6 -> {
+                this.tilNewPw.error = "Password should have at least 6 characters"
+                this.tietNewPw.requestFocus()
+                isValid = false
+            }
+            else -> {
+                this.tilNewPw.error = null
+            }
         }
 
-        else if (!newPw.equals(confirmPw)){
-            this.tilConfirmPw.error = "Password do not match with your new password"
-            this.tietConfirmPw.requestFocus()
-            isValid = false
-        }
 
-        else{
-            this.tilConfirmPw.error = null
+
+        when {
+            confirmPw.isEmpty() -> {
+                this.tilConfirmPw.error = "Required"
+                this.tietConfirmPw.requestFocus()
+                isValid = false
+            }
+            newPw != confirmPw -> {
+                this.tilConfirmPw.error = "Password do not match with your new password"
+                this.tietConfirmPw.requestFocus()
+                isValid = false
+            }
+            else -> {
+                this.tilConfirmPw.error = null
+            }
         }
 
         return isValid
@@ -159,8 +159,8 @@ class EditPasswordActivity : AppCompatActivity() {
         userDB.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                var e: String = snapshot.child(Keys.email.name).getValue().toString()
-                var pw: String = snapshot.child(Keys.password.name).getValue().toString()
+                val e: String = snapshot.child(Keys.email.name).getValue().toString()
+                val pw: String = snapshot.child(Keys.password.name).getValue().toString()
 
                 credentials = EmailAuthProvider.getCredential(e, pw)
 

@@ -2,12 +2,14 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.content.res.ColorStateList
+
+import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,6 +17,13 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.share.Sharer
+import com.facebook.share.model.SharePhoto
+import com.facebook.share.model.SharePhotoContent
+import com.facebook.share.widget.ShareDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -51,6 +60,9 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     private lateinit var srlViewOwnPost: SwipeRefreshLayout
+
+    private lateinit var cmFacebook: CallbackManager
+    private lateinit var sdFacebook: ShareDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,13 +104,13 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlViewOwnPost = findViewById(R.id.srl_view_own_post)
         srlViewOwnPost.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlViewOwnPost.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -141,35 +153,39 @@ class ViewOwnPostActivity : AppCompatActivity() {
 
         updateHighlight(highlight)
 
-        clItemViewOwnPostHighlight.setOnClickListener(View.OnClickListener {
+        clItemViewOwnPostHighlight.setOnClickListener {
             if (highlight) {
                 highlight = false
                 updateHighlight(highlight)
             } else {
                 highlight = true
                 updateHighlight(highlight)
-                Toast.makeText(this@ViewOwnPostActivity, "Added to your Highlights", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@ViewOwnPostActivity,
+                    "Added to your Highlights",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-        })
+        }
 
-        clItemViewOwnPostComment.setOnClickListener(View.OnClickListener {
+        clItemViewOwnPostComment.setOnClickListener {
             val intent = Intent(this, ViewCommentsActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        clItemViewOwnPostShare.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@ViewOwnPostActivity,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
-        })
+        clItemViewOwnPostShare.setOnClickListener {
+            shareOnFacebook()
+        }
 
-        civItemViewOwnPostProfilePic.setOnClickListener(View.OnClickListener {
+        civItemViewOwnPostProfilePic.setOnClickListener {
             val intent = Intent(this, ViewProfileActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        tvItemViewOwnPostUsername.setOnClickListener(View.OnClickListener {
+        tvItemViewOwnPostUsername.setOnClickListener {
             val intent = Intent(this, ViewProfileActivity::class.java)
             startActivity(intent)
-        })
+        }
 
         val editTitle: String = title.toString()
         val editMedium: String = medium.toString()
@@ -191,7 +207,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
             this.clDialogViewOwnPostEdit = btmViewOwnPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogViewOwnPostDelete = btmViewOwnPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogViewOwnPostEdit.setOnClickListener(View.OnClickListener {
+            clDialogViewOwnPostEdit.setOnClickListener {
                 btmViewOwnPost.dismiss()
                 val intent = Intent(this@ViewOwnPostActivity, EditPostActivity::class.java)
 
@@ -221,13 +237,17 @@ class ViewOwnPostActivity : AppCompatActivity() {
                 )
                 startActivity(intent)
                 finish()
-            })
+            }
 
-            clDialogViewOwnPostDelete.setOnClickListener(View.OnClickListener {
+            clDialogViewOwnPostDelete.setOnClickListener {
                 btmViewOwnPost.dismiss()
-                Toast.makeText(this@ViewOwnPostActivity, "Your post has been deleted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@ViewOwnPostActivity,
+                    "Your post has been deleted",
+                    Toast.LENGTH_SHORT
+                ).show()
                 finish()
-            })
+            }
 
             btmViewOwnPost.show()
         }
@@ -241,35 +261,8 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvViewOwnPostBottom = findViewById(R.id.nv_view_own_post_bottom)
 
-        bnvViewOwnPostBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_profile -> {
-                    val intent = Intent(this@ViewOwnPostActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_profile -> {
-                    val intent = Intent(this@ViewOwnPostActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_profile -> {
-                    val intent = Intent(this@ViewOwnPostActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_profile -> {
-                    val intent = Intent(this@ViewOwnPostActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListeners(bnvViewOwnPostBottom, this,
+            this@ViewOwnPostActivity)
     }
 
     private fun updateHighlight(highlight: Boolean) {
@@ -304,21 +297,69 @@ class ViewOwnPostActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewOwnPostActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@ViewOwnPostActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewOwnPostActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewOwnPostActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@ViewOwnPostActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@ViewOwnPostActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
+        }
+    }
+
+    /**
+     * Shares the posted artwork on the user's Facebook account.
+     */
+    private fun shareOnFacebook() {
+        cmFacebook = CallbackManager.Factory.create()
+        sdFacebook = ShareDialog(this@ViewOwnPostActivity)
+
+        sdFacebook.registerCallback(cmFacebook, object : FacebookCallback<Sharer.Result?> {
+            override fun onSuccess(result: Sharer.Result?) {
+                Toast.makeText(this@ViewOwnPostActivity, "Shared on Facebook", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onCancel() {
+                Toast.makeText(this@ViewOwnPostActivity, "Sharing cancelled", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onError(error: FacebookException) {
+                Toast.makeText(this@ViewOwnPostActivity, "Sharing error occurred", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        if (ShareDialog.canShow(SharePhotoContent::class.java)) {
+            val bitmapDrawable = ivItemViewOwnPostPostImg.drawable as BitmapDrawable
+            val bitmap = bitmapDrawable.bitmap
+            val username = "@" + tvItemViewOwnPostUsername.text.toString()
+            val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "Posted on Artemis")
+            val sharePhoto = SharePhoto.Builder()
+                .setBitmap(captionedImage)
+                .build()
+            val sharePhotoContent = SharePhotoContent.Builder()
+                .addPhoto(sharePhoto)
+                .build()
+            sdFacebook.show(sharePhotoContent)
+
+            Toast.makeText(this@ViewOwnPostActivity, "Opening Facebook", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this@ViewOwnPostActivity, "Unable to share post", Toast.LENGTH_SHORT).show()
         }
     }
 }

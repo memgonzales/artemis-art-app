@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import java.util.ArrayList
+import java.util.*
 
 class UnregisteredFeedAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<FeedViewHolder>() {
@@ -94,15 +94,15 @@ class UnregisteredFeedAdapter(private val dataPosts: ArrayList<Post>) :
         holder.setItemFeedUpvote(currentPost.getUpvote())
 
         holder.setItemFeedBookmarkOnClickListener { view ->
-            Toast.makeText(view.context,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.context,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
         }
 
         holder.setItemFeedUpvoteOnClickListener { view ->
-            Toast.makeText(view.context,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.context,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
         }
 
         holder.setItemFeedShareOnClickListener { view ->
-            Toast.makeText(view.context,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.context,"Log in or create an account to use this feature", Toast.LENGTH_SHORT).show()
         }
 
         holder.setItemFeedProfileOnClickListener { view ->

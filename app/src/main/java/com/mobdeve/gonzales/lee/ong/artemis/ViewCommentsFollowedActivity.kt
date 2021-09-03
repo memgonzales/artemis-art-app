@@ -1,13 +1,13 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -90,13 +90,13 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlViewCommentsFollowed = findViewById(R.id.srl_view_comments_followed)
         srlViewCommentsFollowed.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlViewCommentsFollowed.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -108,35 +108,8 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
     private fun initBottom() {
         this.bnvViewCommentsFollowedBottom = findViewById(R.id.nv_view_comments_followed_bottom)
 
-        bnvViewCommentsFollowedBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_feed_followed -> {
-                    val intent = Intent(this@ViewCommentsFollowedActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_feed_followed -> {
-                    val intent = Intent(this@ViewCommentsFollowedActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_feed_followed -> {
-                    val intent = Intent(this@ViewCommentsFollowedActivity, BrowseBookmarksActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_feed_followed -> {
-                    val intent = Intent(this@ViewCommentsFollowedActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setFinishBottomMenuListeners(bnvViewCommentsFollowedBottom, this,
+            this@ViewCommentsFollowedActivity)
     }
 
     private fun initActionBar() {
@@ -183,10 +156,10 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         this.ibAddComment.setOnClickListener {
             val commentText: String = etComment.text.toString().trim()
 
-            if (!commentText.isEmpty()) {
+            if (commentText.isNotEmpty()) {
                 this.pbComment.visibility = View.VISIBLE
 
-                val comment: Comment = Comment("1", R.drawable.chibi_circle, "yey", commentText, true)
+                val comment = Comment("1", R.drawable.chibi_circle, "yey", commentText, true)
                 addComment(comment)
             } else {
                 Toast.makeText(this, "Comments should not be blank", Toast.LENGTH_SHORT).show()
@@ -206,19 +179,29 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewCommentsFollowedActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@ViewCommentsFollowedActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
-                val intent = Intent(this@ViewCommentsFollowedActivity, PostArtworkActivity::class.java)
+                val intent =
+                    Intent(this@ViewCommentsFollowedActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@ViewCommentsFollowedActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@ViewCommentsFollowedActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
-                val intent = Intent(this@ViewCommentsFollowedActivity, PostArtworkActivity::class.java)
+                val intent =
+                    Intent(this@ViewCommentsFollowedActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }

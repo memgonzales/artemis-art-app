@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ScrollView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -67,42 +66,20 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         this.bnvBookmarksBottom = findViewById(R.id.nv_bookmarks_bottom)
         this.nsvBookmarks = findViewById(R.id.nsv_bookmarks)
 
-        bnvBookmarksBottom.setOnItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.icon_home_bookmarks -> {
-                    val intent = Intent(this@BrowseBookmarksActivity, BrowseFeedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_follow_bookmarks -> {
-                    val intent = Intent(this@BrowseBookmarksActivity, BrowseFeedFollowedActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_bookmark_bookmarks -> {
-                    nsvBookmarks.fullScroll(ScrollView.FOCUS_UP)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.icon_user_bookmarks -> {
-                    val intent = Intent(this@BrowseBookmarksActivity, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
+        BottomMenuUtil.setScrollBottomMenuListeners(bnvBookmarksBottom, nsvBookmarks,
+            BottomMenuUtil.BOOKMARK, this, this@BrowseBookmarksActivity)
     }
 
     private fun initSwipeRefresh() {
         this.srlBookmarks = findViewById(R.id.srl_bookmarks)
         srlBookmarks.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlBookmarks.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     private fun onRefresh() {
@@ -112,15 +89,15 @@ class BrowseBookmarksActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadBookmarkData();
+        this.dataPosts = DataHelper.loadBookmarkData()
 
-        this.rvBookmarks = findViewById(R.id.rv_bookmarks);
-        this.rvBookmarks.layoutManager = GridLayoutManager(this, 2);
+        this.rvBookmarks = findViewById(R.id.rv_bookmarks)
+        this.rvBookmarks.layoutManager = GridLayoutManager(this, 2)
 
-        this.bookmarksAdapter = BookmarksAdapter(this.dataPosts);
+        this.bookmarksAdapter = BookmarksAdapter(this.dataPosts)
 
 
-        this.rvBookmarks.adapter = bookmarksAdapter;
+        this.rvBookmarks.adapter = bookmarksAdapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -131,18 +108,14 @@ class BrowseBookmarksActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when(id) {
+        return when(item.itemId) {
             R.id.menu_feed_search -> {
                 launchSearch()
-                return true
+                true
             } else -> {
-                return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
             }
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun launchSearch() {
@@ -162,19 +135,27 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             this.clDialogPostArtworkGallery = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
-            clDialogPostArtworkGallery.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@BrowseBookmarksActivity, "Photo chosen from the gallery", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkGallery.setOnClickListener {
+                Toast.makeText(
+                    this@BrowseBookmarksActivity,
+                    "Photo chosen from the gallery",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@BrowseBookmarksActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
-            clDialogPostArtworkPhoto.setOnClickListener(View.OnClickListener {
-                Toast.makeText(this@BrowseBookmarksActivity, "Photo taken with the device camera", Toast.LENGTH_SHORT).show()
+            clDialogPostArtworkPhoto.setOnClickListener {
+                Toast.makeText(
+                    this@BrowseBookmarksActivity,
+                    "Photo taken with the device camera",
+                    Toast.LENGTH_SHORT
+                ).show()
                 btmAddPost.dismiss()
                 val intent = Intent(this@BrowseBookmarksActivity, PostArtworkActivity::class.java)
                 startActivity(intent)
-            })
+            }
 
             btmAddPost.show()
         }
