@@ -215,4 +215,17 @@
     <string name="tiet_edit_password_new">New Password</string>
     <string name="tiet_edit_password_new_confirm">Confirm New Password</string>
     <string name="btn_edit_password_confirm">Confirm Change</string>
+    <string name="tv_edit_artwork_title">Edit Details</string>
+    <string name="iv_edit_artwork_art">Edit Artwork</string>
+    <string name="tiet_edit_artwork_title">Title of Artwork</string>
+    <string name="tiet_edit_artwork_title_val">Kirsten</string>
+    <string name="tiet_edit_artwork_desc">Describe your artwork</string>
+    <string name="tiet_edit_artwork_desc_val">Kirsten (Elly) is a box witch with a covetous nature. She is a staunchly reclusive witch. Anything she covets will all be locked away in glass. Her prisoners\' thoughts are laid bare.</string>
+    <string name="tiet_edit_artwork_tags">Separate tags by commas</string>
+    <string name="tiet_edit_artwork_tags_val">anime, madoka-magica, kirsten, elly, digital, witch, official-art</string>
+    <string name="tiet_edit_artwork_medium">Medium</string>
+    <string name="tiet_edit_artwork_medium_val">Digital</string>
+    <string name="tiet_edit_artwork_dimen">Dimensions</string>
+    <string name="tiet_edit_artwork_dimen_val">1024 x 1024</string>
+    <string name="btn_edit_artwork_save">Save Changes</string>
 </resources>

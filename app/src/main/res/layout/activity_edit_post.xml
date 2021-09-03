@@ -44,7 +44,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Edit Details"
+                    android:text="@string/tv_edit_artwork_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -67,6 +67,7 @@
 
                 <ImageView
                     android:id="@+id/iv_edit_artwork_art"
+                    android:contentDescription="@string/iv_edit_artwork_art"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
@@ -116,9 +117,9 @@
                         android:id="@+id/tiet_edit_artwork_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Title of Artwork"
+                        android:hint="@string/tiet_edit_artwork_title"
                         android:inputType="text"
-                        android:text="Kirsten" />
+                        android:text="@string/tiet_edit_artwork_title_val" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -143,9 +144,9 @@
                         android:id="@+id/tiet_edit_artwork_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Describe your artwork"
+                        android:hint="@string/tiet_edit_artwork_desc"
                         android:inputType="text|textPersonName|textMultiLine"
-                        android:text="Kirsten (Elly) is a box witch with a covetous nature. She is a staunchly reclusive witch. Anything she covets will all be locked away in glass. Her prisoners' thoughts are laid bare." />
+                        android:text="@string/tiet_edit_artwork_desc_val" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,9 +170,9 @@
                         android:id="@+id/tiet_edit_artwork_tags"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Separate tags by commas"
+                        android:hint="@string/tiet_edit_artwork_tags"
                         android:inputType="text|textPersonName|textMultiLine"
-                        android:text="anime, madoka-magica, kirsten, elly, digital, witch, official-art" />
+                        android:text="@string/tiet_edit_artwork_tags_val" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -195,9 +196,9 @@
                         android:id="@+id/tiet_edit_artwork_medium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Medium"
+                        android:hint="@string/tiet_edit_artwork_medium"
                         android:inputType="text"
-                        android:text="Digital" />
+                        android:text="@string/tiet_edit_artwork_medium_val" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -221,9 +222,9 @@
                         android:id="@+id/tiet_edit_artwork_dimen"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Dimensions"
+                        android:hint="@string/tiet_edit_artwork_dimen"
                         android:inputType="text"
-                        android:text="1024 x 1024" />
+                        android:text="@string/tiet_edit_artwork_dimen_val" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -279,7 +280,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:text="Save Changes"
+            android:text="@string/btn_edit_artwork_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_edit_artwork_right_margin_bottom"
             app:layout_constraintStart_toStartOf="@+id/gl_edit_artwork_left_margin_bottom"
