@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_dialog_comment"
+    android:id="@+id/ll_dialog_post_artwork"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="bottom"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_dialog_comment"
+        android:id="@+id/cl_dialog_post_artwork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -17,11 +17,11 @@
         android:focusable="true">
 
         <TextView
-            android:id="@+id/tv_dialog_comment_header"
+            android:id="@+id/tv_dialog_post_artwork_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/tv_dialog_comment_header"
+            android:text="@string/tv_dialog_post_artwork_header"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -42,26 +42,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_dialog_comment_header"
+            app:layout_constraintTop_toBottomOf="@id/tv_dialog_post_artwork_header"
             app:layout_constraintVertical_bias="0.19999999"
             android:focusable="true">
 
             <TextView
-                android:id="@+id/tv_dialog_comment_edit"
+                android:id="@+id/tv_dialog_post_artwork_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/tv_dialog_comment_edit"
+                android:text="@string/tv_dialog_post_artwork_edit"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/iv_dialog_comment_edit"
+                app:layout_constraintStart_toEndOf="@+id/iv_dialog_post_artwork_edit"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/iv_dialog_comment_edit"
-                android:contentDescription="@string/iv_dialog_comment_edit"
+                android:id="@+id/iv_dialog_post_artwork_edit"
+                android:contentDescription="@string/iv_dialog_post_artwork_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -87,21 +87,21 @@
             android:focusable="true">
 
             <TextView
-                android:id="@+id/tv_dialog_comment_delete"
+                android:id="@+id/tv_dialog_post_artwork_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/tv_dialog_comment_delete"
+                android:text="@string/tv_dialog_post_artwork_delete"
                 android:textSize="17sp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_dialog_comment_delete"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_dialog_post_artwork_delete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/iv_dialog_comment_delete"
-                app:layout_constraintTop_toTopOf="@+id/iv_dialog_comment_delete" />
+                app:layout_constraintStart_toEndOf="@+id/iv_dialog_post_artwork_delete"
+                app:layout_constraintTop_toTopOf="@+id/iv_dialog_post_artwork_delete" />
 
             <ImageView
-                android:id="@+id/iv_dialog_comment_delete"
-                android:contentDescription="@string/iv_dialog_comment_delete"
+                android:id="@+id/iv_dialog_post_artwork_delete"
+                android:contentDescription="@string/iv_dialog_post_artwork_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"

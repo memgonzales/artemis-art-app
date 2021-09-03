@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_dialog_comment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,10 +13,11 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:paddingTop="15dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        android:focusable="true">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tv_dialog_comment_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -32,7 +32,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_dialog_post_artwork_gallery"
+            android:id="@+id/cl_dialog_comment_gallery"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
@@ -42,7 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView5"
+            app:layout_constraintTop_toBottomOf="@id/tv_dialog_comment_header"
             app:layout_constraintVertical_bias="0.19999999">
 
             <TextView
@@ -72,7 +72,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_dialog_post_artwork_photo"
+            android:id="@+id/cl_dialog_comment_photo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
@@ -81,7 +81,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_dialog_post_artwork_gallery">
+            app:layout_constraintTop_toBottomOf="@id/cl_dialog_comment_gallery">
 
             <TextView
                 android:id="@+id/tv_dialog_comment_delete"
