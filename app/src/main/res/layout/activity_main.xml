@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed-light"
         android:gravity="center"
-        android:text="Copyright &#xA9; 2021\n Mark Edward Gonzales, Hylene Jules Lee, Phoebe Clare Ong"
+        android:text="@string/tv_splash_copyright"
         android:textColor="@android:color/white"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -150,4 +150,5 @@
     <string name="tiet_sign_up_password">Password (at least 6 characters)</string>
     <string name="tiet_sign_up_confirm_password">Confirm Password</string>
     <string name="btn_sign_up">Create Account</string>
+    <string name="tv_splash_copyright">Copyright © 2021\n Mark Edward Gonzales, Hylene Jules Lee, Phoebe Clare Ong</string>
 </resources>
