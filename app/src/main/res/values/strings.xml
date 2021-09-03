@@ -194,4 +194,11 @@
     <string name="iv_search_results_none">Search results - none</string>
     <string name="tv_search_results_none">No matching results</string>
     <string name="fab_search_results_add">Search results - add</string>
+    <string name="iv_log_in_logo">Logo</string>
+    <string name="tiet_log_in_username">Username/Email</string>
+    <string name="tiet_log_in_password">Password</string>
+    <string name="btn_log_in">Log In</string>
+    <string name="tv_log_in_guest">Continue as a guest</string>
+    <string name="btn_log_in_sign_up">Create Account</string>
+    <string name="btn_test">testing never stops</string>
 </resources>
