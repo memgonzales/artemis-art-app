@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Comment"
+            android:text="@string/tv_dialog_comment_header"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,14 +43,15 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_dialog_comment_header"
-            app:layout_constraintVertical_bias="0.19999999">
+            app:layout_constraintVertical_bias="0.19999999"
+            android:focusable="true">
 
             <TextView
                 android:id="@+id/tv_dialog_comment_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Edit Comment"
+                android:text="@string/tv_dialog_comment_edit"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +61,7 @@
 
             <ImageView
                 android:id="@+id/iv_dialog_comment_edit"
+                android:contentDescription="@string/iv_dialog_comment_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -81,14 +83,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_dialog_comment_gallery">
+            app:layout_constraintTop_toBottomOf="@id/cl_dialog_comment_gallery"
+            android:focusable="true">
 
             <TextView
                 android:id="@+id/tv_dialog_comment_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Delete Comment"
+                android:text="@string/tv_dialog_comment_delete"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_dialog_comment_delete"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -98,6 +101,7 @@
 
             <ImageView
                 android:id="@+id/iv_dialog_comment_delete"
+                android:contentDescription="@string/iv_dialog_comment_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"

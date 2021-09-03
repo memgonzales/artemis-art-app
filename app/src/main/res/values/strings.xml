@@ -115,4 +115,9 @@
     <string name="iv_dialog_own_post_edit">Dialog own post - edit</string>
     <string name="tv_dialog_own_post_delete">Delete Post</string>
     <string name="iv_dialog_own_post_delete">Dialog own post - delete</string>
+    <string name="tv_dialog_comment_header">Comment</string>
+    <string name="tv_dialog_comment_edit">Edit Comment</string>
+    <string name="iv_dialog_comment_edit">Dialog comment - edit</string>
+    <string name="tv_dialog_comment_delete">Delete Comment</string>
+    <string name="iv_dialog_comment_delete">Dialog comment - delete</string>
 </resources>
