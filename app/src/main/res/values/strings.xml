@@ -151,4 +151,14 @@
     <string name="tiet_sign_up_confirm_password">Confirm Password</string>
     <string name="btn_sign_up">Create Account</string>
     <string name="tv_splash_copyright">Copyright © 2021\n Mark Edward Gonzales, Hylene Jules Lee, Phoebe Clare Ong</string>
+    <string name="et_search_unregistered_bar">Search by tag or username</string>
+    <string name="btn_search_unregistered_tag1">sketch</string>
+    <string name="btn_search_unregistered_tag2">watercolor</string>
+    <string name="btn_search_unregistered_tag3">digital</string>
+    <string name="btn_search_unregistered_tag4">fanart</string>
+    <string name="btn_search_unregistered_tag5">abstractart</string>
+    <string name="iv_search_unregistered_art_trivia">Search unregistered - art trivia</string>
+    <string name="tv_search_unregistered_art_trivia">#ArtTrivia</string>
+    <string name="tv_search_unregistered_unregistered_note">You are browsing as a guest</string>
+    <string name="fab_search_unregistered_add">Search unregistered - add</string>
 </resources>
