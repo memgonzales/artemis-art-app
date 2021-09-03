@@ -154,16 +154,22 @@ class User {
         return this.bio
     }
 
+    /**
+     * Returns the identifiers of the posts bookmarked by the user.
+     */
     fun getBookmarks(): ArrayList<String>{
         return this.bookmarks
     }
 
+    /**
+     * Returns the identifiers of the posts created by the user.
+     */
     fun getUserPosts(): ArrayList<String>{
         return this.userPosts
     }
 
     /**
-     * Returns the identifiers of the highlights posted by the user
+     * Returns the identifiers of the highlights posted by the user.
      *
      * @return identifiers of the highlights posted by the user
      */
@@ -171,20 +177,26 @@ class User {
         return this.highlights
     }
 
+    /**
+     * Returns the identifiers of the posts upvoted by the user.
+     */
     fun getUpvotedPosts(): ArrayList<String>{
         return this.upvotedPosts
     }
 
+    /**
+     * Returns the identifiers of the users followed by the user.
+     */
     fun getUsersFollowed(): ArrayList<String>{
         return this.usersFollowed
     }
 
+    /**
+     * Returns the identifiers of the comments written by the user.
+     */
     fun getUserComments(): ArrayList<String>{
         return this.userComments
     }
-
-
-
 
     fun setUsername(username: String) {
         this.username = username
