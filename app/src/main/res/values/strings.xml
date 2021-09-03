@@ -342,4 +342,13 @@
     <string name="ib_add_comment_followed">Add comment followed</string>
     <string name="et_add_comment_followed">Write a comment...</string>
     <string name="fab_view_comments_followed_add">View comments followed - add</string>
+    <string name="tv_view_others_highlight_title">View Highlight</string>
+    <string name="tv_item_view_others_highlight_username">shooberino</string>
+    <string name="iv_item_view_others_highlight_post">View others highlight - post</string>
+    <string name="tv_item_view_others_highlight_title">The Doppel of Silence and Iroha Tamaki</string>
+    <string name="tv_item_view_others_highlight_date">August 20, 2021</string>
+    <string name="tv_item_view_others_highlight_medium">Digital Art</string>
+    <string name="tv_item_view_others_highlight_dimen">1080 x 1080</string>
+    <string name="tv_item_view_others_highlight_desc">Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn\'t want to hear as it continues its search for something to fill the hole in its heart.</string>
+    <string name="fab_view_others_highlight_add">View others highlight - add</string>
 </resources>
