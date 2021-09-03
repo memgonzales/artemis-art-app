@@ -133,4 +133,13 @@
     <string name="iv_browse_highlights_none">Browse highlights - none</string>
     <string name="tv_browse_highlights_none">No highlights just yet</string>
     <string name="fab_browse_highlights_add">Browse highlights - add</string>
+    <string name="et_search_bar">Search by tag or username</string>
+    <string name="btn_search_tag1">sketch</string>
+    <string name="btn_search_tag2">watercolor</string>
+    <string name="btn_search_tag3">digital</string>
+    <string name="btn_search_tag4">fanart</string>
+    <string name="btn_search_tag5">abstractart</string>
+    <string name="iv_search_art_trivia">Art trivia</string>
+    <string name="tv_search_art_trivia">#ArtTrivia</string>
+    <string name="fab_search_add">Search - add</string>
 </resources>
