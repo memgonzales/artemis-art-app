@@ -142,4 +142,12 @@
     <string name="iv_search_art_trivia">Art trivia</string>
     <string name="tv_search_art_trivia">#ArtTrivia</string>
     <string name="fab_search_add">Search - add</string>
+    <string name="iv_sign_up_logo">Sign up - logo</string>
+    <string name="tv_sign_up_create">Create Account</string>
+    <string name="tv_sign_up_community">Join our community of art lovers</string>
+    <string name="tiet_sign_up_username">Username (at least 4 characters)</string>
+    <string name="tiet_sign_up_email">Email Address</string>
+    <string name="tiet_sign_up_password">Password (at least 6 characters)</string>
+    <string name="tiet_sign_up_confirm_password">Confirm Password</string>
+    <string name="btn_sign_up">Create Account</string>
 </resources>

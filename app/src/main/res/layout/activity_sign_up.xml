@@ -24,7 +24,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_sign_up"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+                android:layout_height="?attr/actionBarSize" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -70,6 +70,7 @@
 
                 <ImageView
                     android:id="@+id/iv_sign_up_logo"
+                    android:contentDescription="@string/iv_sign_up_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:adjustViewBounds="true"
@@ -87,7 +88,7 @@
                     android:layout_height="0dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="bottom"
-                    android:text="Create Account"
+                    android:text="@string/tv_sign_up_create"
                     android:textColor="@color/white"
                     app:autoSizeMaxTextSize="30sp"
                     app:autoSizeMinTextSize="18sp"
@@ -107,7 +108,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="20dp"
-                    android:text="Join our community of art lovers"
+                    android:text="@string/tv_sign_up_community"
                     android:textColor="@android:color/white"
                     app:autoSizeMaxTextSize="14sp"
                     app:autoSizeMinTextSize="12sp"
@@ -210,7 +211,7 @@
                         android:id="@+id/tiet_sign_up_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Username (at least 4 characters)"
+                        android:hint="@string/tiet_sign_up_username"
                         android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -234,7 +235,7 @@
                         android:id="@+id/tiet_sign_up_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email Address"
+                        android:hint="@string/tiet_sign_up_email"
                         android:inputType="text|textEmailAddress" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -262,7 +263,7 @@
                         android:id="@+id/tiet_sign_up_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Password (at least 6 characters)"
+                        android:hint="@string/tiet_sign_up_password"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -288,7 +289,7 @@
                         android:id="@+id/tiet_sign_up_confirm_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Confirm Password"
+                        android:hint="@string/tiet_sign_up_confirm_password"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -297,7 +298,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/purple_main"
-                    android:text="Create Account"
+                    android:text="@string/btn_sign_up"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right"
                     app:layout_constraintHorizontal_bias="0.0"
