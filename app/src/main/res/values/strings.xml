@@ -97,4 +97,17 @@
     <string name="tv_item_placeholder_comment_username">shooberino</string>
     <string name="tv_item_placeholder_comment_date">August 20, 2021</string>
     <string name="ib_item_placeholder_comment_edit">Item placeholder comment - edit</string>
+    <string name="tv_item_own_post_title">The Doppel of Silence and Iroha Tamaki from Magia Record</string>
+    <string name="tv_item_own_post_share">Share</string>
+    <string name="tv_item_own_post_comment">Comment</string>
+    <string name="iv_item_own_post_share">Item own post - share</string>
+    <string name="tv_item_own_post_highlight">Highlight</string>
+    <string name="tv_item_own_post_comments">50 Comments</string>
+    <string name="tv_item_own_post_dot">•</string>
+    <string name="ib_item_own_post_options">Item own post - options</string>
+    <string name="tv_item_own_post_username">shooberino</string>
+    <string name="iv_item_own_post_post">Item own post - post</string>
+    <string name="tv_item_own_post_upvote_counter">100 Upvotes</string>
+    <string name="iv_item_own_post_highlight">Item own post - highlight</string>
+    <string name="iv_item_own_post_comment">Item own post - comment</string>
 </resources>
