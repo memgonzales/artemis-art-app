@@ -336,4 +336,10 @@
     <string name="tv_item_view_post_followed_tags">anime, magia-record, shaft, iroha, witches</string>
     <string name="iv_view_post_followed_tags">View post followed - tags</string>
     <string name="fab_view_post_followed_add">View post followed - add</string>
+    <string name="tv_view_comments_followed_title">Comments</string>
+    <string name="iv_view_comments_followed_no_comment">View comments followed - none</string>
+    <string name="tv_view_comments_followed_no_comment">No comments just yet</string>
+    <string name="ib_add_comment_followed">Add comment followed</string>
+    <string name="et_add_comment_followed">Write a comment...</string>
+    <string name="fab_view_comments_followed_add">View comments followed - add</string>
 </resources>
