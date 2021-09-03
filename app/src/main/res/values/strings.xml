@@ -183,4 +183,7 @@
     <string name="iv_feed_logo">Logo</string>
     <string name="tv_feed_title">Artemis</string>
     <string name="fab_feed_add">Feed - add</string>
+    <string name="iv_feed_followed_logo">Logo</string>
+    <string name="tv_feed_followed_title">Artemis</string>
+    <string name="fab_feed_followed_add">Feed followed - add</string>
 </resources>
