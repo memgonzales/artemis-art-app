@@ -64,4 +64,8 @@
     <string name="iv_item_placeholder_feed_comment">Item placeholder feed - comment</string>
     <string name="tv_item_placeholder_feed_comment">Comment</string>
     <string name="iv_item_placeholder_feed_share">Item placeholder feed - share</string>
+    <string name="tv_item_comment_username">shooberino</string>
+    <string name="tv_item_comment_date">August 20, 2021</string>
+    <string name="ib_item_comment_edit">Item comment - edit</string>
+    <string name="tv_item_comment_comment">The light from the lantern at the end of the Doppel\'s tail can call forth a myriad of illusions, and the scissors are said to cause great devastation in the near futures of those who have been harmed by them.</string>
 </resources>
