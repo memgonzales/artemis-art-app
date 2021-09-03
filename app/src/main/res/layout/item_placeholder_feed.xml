@@ -1,6 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_item_placeholder_feed"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,7 +24,8 @@
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintStart_toStartOf="@+id/gl_item_placeholder_feed_left_text"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.5"
+            android:focusable="true" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_item_placeholder_feed_left_margin"
