@@ -174,4 +174,10 @@
     <string name="tv_post_add_tags_note">Your post can be searched and discovered by other members of our community through these tags, so make them count!</string>
     <string name="iv_post_add_tags_logo">Post add tags - logo</string>
     <string name="btn_post_add_tags_save">Post Artwork</string>
+    <string name="et_search_unregistered_results_bar">Search by tag or username</string>
+    <string name="tv_search_unregistered_results_artworks">Matching Artworks</string>
+    <string name="iv_search_results_unregistered_none">Search results unregistered - none</string>
+    <string name="tv_search_results_unregistered_none">No matching results</string>
+    <string name="tv_search_results_unregistered_unregistered_note">You are browsing as a guest</string>
+    <string name="fab_search_unregistered_results_add">Search unregistered results - add</string>
 </resources>
