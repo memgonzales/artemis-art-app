@@ -189,4 +189,9 @@
     <string name="tv_feed_unregistered_title">Artemis</string>
     <string name="fab_feed_unregistered_add">Feed unregistered - add</string>
     <string name="tv_feed_unregistered_note">You are browsing as a guest</string>
+    <string name="et_search_results_bar">Search by tag or username</string>
+    <string name="tv_search_results_artworks">Matching Artworks</string>
+    <string name="iv_search_results_none">Search results - none</string>
+    <string name="tv_search_results_none">No matching results</string>
+    <string name="fab_search_results_add">Search results - add</string>
 </resources>
