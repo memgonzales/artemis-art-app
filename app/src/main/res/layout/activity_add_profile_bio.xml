@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coord_add_profile_bio"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,7 +23,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_add_profile_bio"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+                android:layout_height="?attr/actionBarSize" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -61,7 +60,7 @@
                     android:layout_height="0dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="bottom"
-                    android:text="Welcome"
+                    android:text="@string/tv_add_profile_bio_create"
                     android:textColor="@color/white"
                     app:autoSizeMaxTextSize="30sp"
                     app:autoSizeMinTextSize="18sp"
@@ -80,7 +79,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="20dp"
-                    android:text="Your Artemis account has been successfully created"
+                    android:text="@string/tv_add_profile_bio_community"
                     android:textColor="@android:color/white"
                     app:autoSizeMaxTextSize="14sp"
                     app:autoSizeMinTextSize="5sp"
@@ -127,6 +126,7 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_bio_logo"
+                    android:contentDescription="@string/iv_add_profile_bio_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:adjustViewBounds="true"
@@ -168,6 +168,7 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_bio_pen"
+                    android:contentDescription="@string/iv_add_profile_bio_pen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -185,7 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Add Short Bio"
+                    android:text="@string/tv_add_profile_bio"
                     android:textColor="@color/purple_main"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -224,7 +225,7 @@
                         android:id="@+id/tiet_edit_profile_bio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Share something about yourself"
+                        android:hint="@string/tiet_edit_profile_bio"
                         android:inputType="text|textPersonName|textMultiLine"
                         android:maxLength="150"/>
                     
@@ -235,7 +236,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/purple_main"
-                    android:text="ADD BIO"
+                    android:text="@string/btn_add_profile_bio_add"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right"
                     app:layout_constraintHorizontal_bias="0.497"
@@ -247,7 +248,7 @@
                     android:id="@+id/tv_add_profile_bio_skip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Write a bio later"
+                    android:text="@string/tv_add_profile_bio_skip"
                     android:textColor="@color/purple_main"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -273,6 +274,7 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_bio_progress1"
+                    android:contentDescription="@string/iv_add_profile_bio_progress1"
                     android:layout_width="wrap_content"
                     android:layout_height="12dp"
                     android:adjustViewBounds="true"
@@ -287,6 +289,7 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_bio_progress2"
+                    android:contentDescription="@string/iv_add_profile_bio_progress2"
                     android:layout_width="wrap_content"
                     android:layout_height="12dp"
                     android:adjustViewBounds="true"
@@ -301,6 +304,7 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_bio_progress3"
+                    android:contentDescription="@string/iv_add_profile_bio_progress3"
                     android:layout_width="wrap_content"
                     android:layout_height="12dp"
                     android:adjustViewBounds="true"

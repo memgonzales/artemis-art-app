@@ -18,4 +18,15 @@
     <string name="iv_item_placeholder_search_results_user2">Search results placeholder - user 2</string>
     <string name="iv_item_placeholder_search_results_user3">Search results placeholder - user 3</string>
     <string name="iv_item_placeholder_search_results_user4">Search results placeholder - user 4</string>
+    <string name="tv_add_profile_bio_create">Welcome</string>
+    <string name="tv_add_profile_bio_community">Your Artemis account has been successfully created</string>
+    <string name="iv_add_profile_bio_logo">Bio logo</string>
+    <string name="iv_add_profile_bio_pen">Add profile - bio pen</string>
+    <string name="tv_add_profile_bio">Add Short Bio</string>
+    <string name="tiet_edit_profile_bio">Share something about yourself</string>
+    <string name="btn_add_profile_bio_add">ADD BIO</string>
+    <string name="tv_add_profile_bio_skip">Write a bio later</string>
+    <string name="iv_add_profile_bio_progress1">Progress 1</string>
+    <string name="iv_add_profile_bio_progress2">Progress 2</string>
+    <string name="iv_add_profile_bio_progress3">Progress 3</string>
 </resources>
