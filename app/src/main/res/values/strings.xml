@@ -93,4 +93,8 @@
     <string name="iv_dialog_comment_edit">Dialog comment - edit</string>
     <string name="tv_dialog_comment_delete">Take a Photo</string>
     <string name="iv_dialog_comment_delete">Dialog comment - delete</string>
+    <string name="iv_item_placeholder_comment_profile_pic">Item placeholder comment - profile pic</string>
+    <string name="tv_item_placeholder_comment_username">shooberino</string>
+    <string name="tv_item_placeholder_comment_date">August 20, 2021</string>
+    <string name="ib_item_placeholder_comment_edit">Item placeholder comment - edit</string>
 </resources>
