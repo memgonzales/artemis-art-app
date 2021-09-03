@@ -151,7 +151,7 @@ class EditPasswordActivity : AppCompatActivity() {
         return isValid
     }
 
-    private fun updatePassword(password: String, newPw: String){
+    private fun updatePassword(oldPw: String, newPw: String){
         pbEditPw.visibility = View.VISIBLE
 
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
@@ -164,7 +164,11 @@ class EditPasswordActivity : AppCompatActivity() {
 
                 credentials = EmailAuthProvider.getCredential(e, pw)
 
-                if (pw.equals(password)){
+                if (!oldPw.equals(pw)){
+                    invalidOldPw()
+                }
+
+                else{
                     user.reauthenticateAndRetrieveData(credentials)
                         .addOnSuccessListener {
                             user.updatePassword(newPw)
@@ -182,9 +186,13 @@ class EditPasswordActivity : AppCompatActivity() {
                         }
                 }
 
+                /*
                 else{
-                    invalidOldPw()
+                    pbEditPw.visibility = View.GONE
+                   // Toast.makeText(this@EditPasswordActivity, "Invalid Old Password", Toast.LENGTH_SHORT).show()
                 }
+
+                 */
 
             }
 
