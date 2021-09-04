@@ -1,10 +1,10 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 class Post {
-    private var profilePicture: Int
+    private var profilePicture: String
     private var username: String
 
-    private var postImg: Int
+    private var postImg: String
     private var title: String
     private var datePosted: String
 
@@ -23,7 +23,7 @@ class Post {
     private var numUpvotes: Int
     private var numComments: Int
 
-    constructor(profilePicture: Int, username: String, title: String, postImg: Int,
+    constructor(profilePicture: String, username: String, title: String, postImg: String,
                 medium: String, dimensions: String, description: String, tags: ArrayList<String>) {
 
         this.profilePicture = profilePicture
@@ -49,7 +49,7 @@ class Post {
         this.numComments = 0
     }
 
-    constructor(profilePicture: Int, username: String, postImg: Int, title: String, numUpvotes: Int,
+    constructor(profilePicture: String, username: String, postImg: String, title: String, numUpvotes: Int,
                 numComments: Int, datePosted: String, medium: String, dimensions: String,
                 description: String, tags: ArrayList<String>, bookmark: Boolean, upvote: Boolean, highlight: Boolean) {
 
@@ -72,7 +72,7 @@ class Post {
         this.comments = ArrayList<String>()
     }
 
-    fun getProfilePicture(): Int {
+    fun getProfilePicture(): String {
         return this.profilePicture
     }
 
@@ -80,7 +80,7 @@ class Post {
         return this.username
     }
 
-    fun getPostImg(): Int {
+    fun getPostImg(): String {
         return this.postImg
     }
 
@@ -140,7 +140,7 @@ class Post {
 
 
 
-    fun setProfilePicture(picture: Int) {
+    fun setProfilePicture(picture: String) {
         this.profilePicture = picture
     }
 
@@ -148,7 +148,7 @@ class Post {
         this.username = name
     }
 
-    fun setPostImg(postImg: Int) {
+    fun setPostImg(postImg: String) {
         this.postImg = postImg
     }
 

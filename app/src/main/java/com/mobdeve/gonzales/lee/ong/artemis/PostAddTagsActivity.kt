@@ -21,6 +21,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
 
 class PostAddTagsActivity : AppCompatActivity() {
@@ -35,6 +38,9 @@ class PostAddTagsActivity : AppCompatActivity() {
     private lateinit var userId: String
     private lateinit var db: DatabaseReference
 
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageRef: StorageReference
+
     private lateinit var title: String
     private lateinit var medium: String
     private lateinit var dimensions: String
@@ -47,6 +53,7 @@ class PostAddTagsActivity : AppCompatActivity() {
 
     private lateinit var photoSource: String
     private lateinit var photoPath: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,10 +106,12 @@ class PostAddTagsActivity : AppCompatActivity() {
         rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
         val data = outputStream.toByteArray()
 
-//        this.storage = Firebase.storage
-//        this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test")
+  //      this.storage = Firebase.storage
+ //       this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test13")
 //
 //        this.storageRef.putBytes(data)
+
+   //     this.storageRef.putFile(Uri.parse(photoPath))
     }
 
     private fun fetchFromGallery() {
@@ -178,7 +187,7 @@ class PostAddTagsActivity : AppCompatActivity() {
                 val dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
                 val desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
 
-
+                /*
                 val post = Post(R.drawable.tofu_chan, "Tobe", title, R.drawable.magia_record,
                     medium, dimensions, desc, allTags)
 
@@ -201,6 +210,8 @@ class PostAddTagsActivity : AppCompatActivity() {
                             Toast.makeText(applicationContext, "Failed to post: ", Toast.LENGTH_LONG).show()
                         }
                     }
+
+                 */
             }
         }
 

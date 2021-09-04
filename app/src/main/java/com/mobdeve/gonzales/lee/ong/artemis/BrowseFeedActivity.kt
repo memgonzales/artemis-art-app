@@ -177,10 +177,10 @@ class BrowseFeedActivity : AppCompatActivity() {
 
                     for(postSnap in snapshot.children){
 
-                        val userImg = postSnap.child(Keys.profilePicture.name).getValue().toString().toInt()
+                        val userImg = postSnap.child(Keys.profilePicture.name).getValue().toString()
                         val username = postSnap.child(Keys.username.name).getValue().toString()
 
-                        val postImg = postSnap.child(Keys.postImg.name).getValue().toString().toInt()
+                        val postImg = postSnap.child(Keys.postImg.name).getValue().toString()
                         val title = postSnap.child(Keys.title.name).getValue().toString()
                         val datePosted = postSnap.child(Keys.datePosted.name).getValue().toString()
 
