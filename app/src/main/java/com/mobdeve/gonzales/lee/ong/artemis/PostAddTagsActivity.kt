@@ -2,6 +2,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -15,6 +16,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 
 class PostAddTagsActivity : AppCompatActivity() {
     private lateinit var tietTags: TextInputEditText
@@ -25,6 +29,10 @@ class PostAddTagsActivity : AppCompatActivity() {
     private lateinit var user: FirebaseUser
     private lateinit var userId: String
     private lateinit var db: DatabaseReference
+
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageRef: StorageReference
+
 
     private lateinit var title: String
     private lateinit var medium: String
@@ -49,6 +57,10 @@ class PostAddTagsActivity : AppCompatActivity() {
         this.user = this.mAuth.currentUser!!
         this.userId = this.user.uid
         this.db = Firebase.database.reference
+
+        this.storage = Firebase.storage
+        this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com")
+
     }
 
     private fun initComponents() {

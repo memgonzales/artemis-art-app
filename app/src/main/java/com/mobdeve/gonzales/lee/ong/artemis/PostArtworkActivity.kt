@@ -31,6 +31,9 @@ class PostArtworkActivity : AppCompatActivity() {
     private lateinit var btnDetails: Button
     private lateinit var ivPostArtworkArt: ImageView
 
+    private lateinit var photoByte: ByteArray
+    private lateinit var photoUri: String
+
     private lateinit var sp: SharedPreferences
     private lateinit var spEditor: SharedPreferences.Editor
 
@@ -85,22 +88,30 @@ class PostArtworkActivity : AppCompatActivity() {
 
         var outputStream = ByteArrayOutputStream()
         rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-        var data = outputStream.toByteArray()
 
+        this.photoByte = outputStream.toByteArray()
+
+        /*
         this.storage = Firebase.storage
         this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test")
 
         this.storageRef.putBytes(data)
+
+         */
     }
 
     private fun fetchFromGallery() {
         val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
         ivPostArtworkArt.setImageURI(Uri.parse(photoPath!!))
 
+        this.photoUri = photoPath
+        /*
         this.storage = Firebase.storage
         this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test2")
 
         this.storageRef.putFile(Uri.parse(photoPath))
+
+         */
     }
 
     private fun initComponents() {
@@ -159,7 +170,17 @@ class PostArtworkActivity : AppCompatActivity() {
             intent.putExtra(Keys.KEY_DIMENSIONS.name, dimensions)
             intent.putExtra(Keys.KEY_DESCRIPTION.name, desc)
 
+            /*
+            if (this.photoUri != null){
+                intent.putExtra(Keys.KEY_GALLERY_PIC.name, this.photoUri)
+            }
 
+            else{
+                intent.putExtra(Keys.KEY_CAMERA_PIC.name, this.photoByte)
+            }
+
+
+             */
             startActivity(intent)
         }
     }
