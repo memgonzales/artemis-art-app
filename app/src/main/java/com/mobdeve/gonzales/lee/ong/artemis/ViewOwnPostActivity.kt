@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -134,14 +135,15 @@ class ViewOwnPostActivity : AppCompatActivity() {
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
         val tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)
         var highlight = intent.getBooleanExtra(Keys.KEY_HIGHLIGHT.name, false)
-
+        val tempPost = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
         val upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
         val tagsString = tags?.joinToString(", ")
 
         this.civItemViewOwnPostProfilePic.setImageResource(profilePicture)
         this.tvItemViewOwnPostUsername.text = username
-        this.ivItemViewOwnPostPostImg.setImageResource(postImg)
+    //    this.ivItemViewOwnPostPostImg.setImageResource(postImg)
+        Glide.with(this).load(tempPost).into(this.ivItemViewOwnPostPostImg)
         this.tvItemViewOwnPostTitle.text = title
         this.tvItemViewOwnPostUpvoteCounter.text = upvoteString
         this.tvItemViewOwnPostComments.text = commentString

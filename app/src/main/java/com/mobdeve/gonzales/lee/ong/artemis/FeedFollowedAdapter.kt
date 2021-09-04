@@ -1,18 +1,31 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.share.Sharer
+import com.facebook.share.model.SharePhoto
+import com.facebook.share.model.SharePhotoContent
+import com.facebook.share.widget.ShareDialog
 import java.util.*
 
-class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>) :
+class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
     RecyclerView.Adapter<FeedViewHolder>() {
+    private lateinit var context: Context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_feed, parent, false)
-
+        context = parent.context
         val feedViewHolder = FeedViewHolder(itemView)
 
         itemView.setOnClickListener { view ->
@@ -84,9 +97,14 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>) :
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemFeedProfilePic(currentPost.getProfilePicture())
+
+        // placeholder for sample image
+        val currentPicture = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
+        Glide.with(context).load(currentPicture).into(holder.getItemFeedProfilePic())
+    //    holder.setItemFeedProfilePic(currentPost.getProfilePicture())
         holder.setItemFeedUsername(currentPost.getUsername())
-        holder.setItemFeedPost(currentPost.getPostImg())
+        Glide.with(context).load(currentPicture).into(holder.getItemFeedPost())
+    //    holder.setItemFeedPost(currentPost.getPostImg())
         holder.setItemFeedTitle(currentPost.getTitle())
         holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")
@@ -113,7 +131,40 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>) :
         }
 
         holder.setItemFeedShareOnClickListener { view ->
-            Toast.makeText(view.context,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
+            var cmFacebook = CallbackManager.Factory.create()
+            var sdFacebook = ShareDialog(parentActivity)
+
+            sdFacebook.registerCallback(cmFacebook, object : FacebookCallback<Sharer.Result?> {
+                override fun onSuccess(result: Sharer.Result?) {
+                    Toast.makeText(parentActivity, "Shared on Facebook", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onCancel() {
+                    Toast.makeText(parentActivity, "Sharing cancelled", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onError(error: FacebookException) {
+                    Toast.makeText(parentActivity, "Sharing error occurred", Toast.LENGTH_SHORT).show()
+                }
+            })
+
+            if (ShareDialog.canShow(SharePhotoContent::class.java)) {
+                val bitmapDrawable = holder.getItemFeedPost().drawable as BitmapDrawable
+                val bitmap = bitmapDrawable.bitmap
+                val username = "@" + holder.getItemFeedUsername().text.toString()
+                val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "Posted on Artemis")
+                val sharePhoto = SharePhoto.Builder()
+                    .setBitmap(captionedImage)
+                    .build()
+                val sharePhotoContent = SharePhotoContent.Builder()
+                    .addPhoto(sharePhoto)
+                    .build()
+                sdFacebook.show(sharePhotoContent)
+
+                Toast.makeText(parentActivity, "Opening Facebook", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(parentActivity, "Unable to share post", Toast.LENGTH_SHORT).show()
+            }
         }
 
         holder.setItemFeedProfileOnClickListener { view ->

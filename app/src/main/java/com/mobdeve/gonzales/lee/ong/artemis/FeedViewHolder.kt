@@ -33,28 +33,28 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val clItemFeedComment: ConstraintLayout
     private val clItemFeedShare: ConstraintLayout
 
+    fun getItemFeedProfilePic(): CircleImageView {
+        return civItemFeedProfilePic
+    }
+
     fun setItemFeedProfilePic(picture: Int) {
         civItemFeedProfilePic.setImageResource(picture)
     }
 
-    fun getItemFeedProfilePic(): CircleImageView {
-        return this.civItemFeedProfilePic
+    fun getItemFeedUsername(): TextView {
+        return tvItemFeedUsername
     }
 
     fun setItemFeedUsername(name: String?) {
         tvItemFeedUsername.text = name
     }
 
-    fun getItemFeedUsername(): TextView {
-        return this.tvItemFeedUsername
+    fun getItemFeedPost(): ImageView {
+        return ivItemFeedPost
     }
 
     fun setItemFeedPost(post: Int) {
         ivItemFeedPost.setImageResource(post)
-    }
-
-    fun getItemFeedPost(): ImageView {
-        return this.ivItemFeedPost
     }
 
     fun setItemFeedTitle(title: String?) {

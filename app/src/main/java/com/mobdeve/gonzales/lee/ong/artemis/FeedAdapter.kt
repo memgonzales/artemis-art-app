@@ -134,37 +134,37 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
             var cmFacebook = CallbackManager.Factory.create()
             var sdFacebook = ShareDialog(parentActivity)
 
-                sdFacebook.registerCallback(cmFacebook, object : FacebookCallback<Sharer.Result?> {
-                    override fun onSuccess(result: Sharer.Result?) {
-                        Toast.makeText(parentActivity, "Shared on Facebook", Toast.LENGTH_SHORT).show()
-                    }
-
-                    override fun onCancel() {
-                        Toast.makeText(parentActivity, "Sharing cancelled", Toast.LENGTH_SHORT).show()
-                    }
-
-                    override fun onError(error: FacebookException) {
-                        Toast.makeText(parentActivity, "Sharing error occurred", Toast.LENGTH_SHORT).show()
-                    }
-                })
-
-                if (ShareDialog.canShow(SharePhotoContent::class.java)) {
-                    val bitmapDrawable = holder.getItemFeedPost().drawable as BitmapDrawable
-                    val bitmap = bitmapDrawable.bitmap
-                    val username = "@" + holder.getItemFeedUsername().text.toString()
-                    val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "Posted on Artemis")
-                    val sharePhoto = SharePhoto.Builder()
-                        .setBitmap(captionedImage)
-                        .build()
-                    val sharePhotoContent = SharePhotoContent.Builder()
-                        .addPhoto(sharePhoto)
-                        .build()
-                    sdFacebook.show(sharePhotoContent)
-
-                    Toast.makeText(parentActivity, "Opening Facebook", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(parentActivity, "Unable to share post", Toast.LENGTH_SHORT).show()
+            sdFacebook.registerCallback(cmFacebook, object : FacebookCallback<Sharer.Result?> {
+                override fun onSuccess(result: Sharer.Result?) {
+                    Toast.makeText(parentActivity, "Shared on Facebook", Toast.LENGTH_SHORT).show()
                 }
+
+                override fun onCancel() {
+                    Toast.makeText(parentActivity, "Sharing cancelled", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onError(error: FacebookException) {
+                    Toast.makeText(parentActivity, "Sharing error occurred", Toast.LENGTH_SHORT).show()
+                }
+            })
+
+            if (ShareDialog.canShow(SharePhotoContent::class.java)) {
+                val bitmapDrawable = holder.getItemFeedPost().drawable as BitmapDrawable
+                val bitmap = bitmapDrawable.bitmap
+                val username = "@" + holder.getItemFeedUsername().text.toString()
+                val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "Posted on Artemis")
+                val sharePhoto = SharePhoto.Builder()
+                    .setBitmap(captionedImage)
+                    .build()
+                val sharePhotoContent = SharePhotoContent.Builder()
+                    .addPhoto(sharePhoto)
+                    .build()
+                sdFacebook.show(sharePhotoContent)
+
+                Toast.makeText(parentActivity, "Opening Facebook", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(parentActivity, "Unable to share post", Toast.LENGTH_SHORT).show()
+            }
         }
 
         holder.setItemFeedProfileOnClickListener { view ->

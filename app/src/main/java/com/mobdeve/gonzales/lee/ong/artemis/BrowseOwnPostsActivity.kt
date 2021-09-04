@@ -92,7 +92,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         this.rvBrowseOwnPosts = findViewById(R.id.rv_browse_own_posts);
         this.rvBrowseOwnPosts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        this.ownPostsAdapter = OwnPostsAdapter(this.dataPosts);
+        this.ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity);
 
 
         this.rvBrowseOwnPosts.adapter = ownPostsAdapter;
