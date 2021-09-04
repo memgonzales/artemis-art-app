@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.ktx.Firebase
@@ -19,7 +18,6 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
-import java.io.File
 
 
 class PostArtworkActivity : AppCompatActivity() {
@@ -31,14 +29,14 @@ class PostArtworkActivity : AppCompatActivity() {
     private lateinit var btnDetails: Button
     private lateinit var ivPostArtworkArt: ImageView
 
-    private lateinit var photoByte: ByteArray
-    private lateinit var photoUri: String
-
     private lateinit var sp: SharedPreferences
     private lateinit var spEditor: SharedPreferences.Editor
 
     private lateinit var storage: FirebaseStorage
     private lateinit var storageRef: StorageReference
+
+    private lateinit var photoSource: String
+    private lateinit var photoPath: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +50,8 @@ class PostArtworkActivity : AppCompatActivity() {
     private fun fetchPhoto() {
         ivPostArtworkArt = findViewById(R.id.iv_post_artwork_art)
 
-        val photoSource: String? = intent.getStringExtra(Keys.KEY_POST_FROM.name)
-        val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
+        photoSource = intent.getStringExtra(Keys.KEY_POST_FROM.name)!!
+        photoPath = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)!!
 
         if (photoSource == PostArtworkUtil.FROM_CAMERA) {
             fetchFromCamera(photoPath)
@@ -86,32 +84,24 @@ class PostArtworkActivity : AppCompatActivity() {
 
         ivPostArtworkArt.setImageBitmap(rotatedBitmap)
 
-        var outputStream = ByteArrayOutputStream()
+        val outputStream = ByteArrayOutputStream()
         rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        val data = outputStream.toByteArray()
 
-        this.photoByte = outputStream.toByteArray()
-
-        /*
         this.storage = Firebase.storage
         this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test")
 
         this.storageRef.putBytes(data)
-
-         */
     }
 
     private fun fetchFromGallery() {
         val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
         ivPostArtworkArt.setImageURI(Uri.parse(photoPath!!))
 
-        this.photoUri = photoPath
-        /*
         this.storage = Firebase.storage
         this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test2")
 
         this.storageRef.putFile(Uri.parse(photoPath))
-
-         */
     }
 
     private fun initComponents() {
@@ -136,13 +126,11 @@ class PostArtworkActivity : AppCompatActivity() {
             var medium: String = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
             var dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
             var desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
-
             this.tietTitle.setText(title)
             this.tietMedium.setText(medium)
             this.tietDimensions.setText(dimensions)
             this.tietDescription.setText(desc)
         }
-
          */
 
     }
@@ -170,17 +158,9 @@ class PostArtworkActivity : AppCompatActivity() {
             intent.putExtra(Keys.KEY_DIMENSIONS.name, dimensions)
             intent.putExtra(Keys.KEY_DESCRIPTION.name, desc)
 
-            /*
-            if (this.photoUri != null){
-                intent.putExtra(Keys.KEY_GALLERY_PIC.name, this.photoUri)
-            }
+            intent.putExtra(Keys.KEY_POST_ARTWORK.name, photoPath)
+            intent.putExtra(Keys.KEY_POST_FROM.name, photoSource)
 
-            else{
-                intent.putExtra(Keys.KEY_CAMERA_PIC.name, this.photoByte)
-            }
-
-
-             */
             startActivity(intent)
         }
     }
@@ -199,9 +179,6 @@ class PostArtworkActivity : AppCompatActivity() {
     /*
     override fun onResume() {
         super.onResume()
-
-
     }
-
      */
 }
