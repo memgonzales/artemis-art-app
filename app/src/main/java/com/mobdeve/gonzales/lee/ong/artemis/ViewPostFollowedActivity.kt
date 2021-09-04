@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -103,14 +104,15 @@ class ViewPostFollowedActivity : AppCompatActivity() {
         val tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
         var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
-
+        val tempPost = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
         var upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
         val tagsString = tags?.joinToString(", ")
 
         this.civItemViewPostFollowedProfilePic.setImageResource(profilePicture)
         this.tvItemViewPostFollowedUsername.text = username
-        this.ivItemViewPostFollowedPost.setImageResource(post)
+    //    this.ivItemViewPostFollowedPost.setImageResource(post)
+        Glide.with(this).load(tempPost).into(this.ivItemViewPostFollowedPost)
         this.tvItemViewPostFollowedTitle.text = title
         this.tvItemViewPostFollowedUpvoteCounter.text = upvoteString
         this.tvItemViewPostFollowedComments.text = commentString

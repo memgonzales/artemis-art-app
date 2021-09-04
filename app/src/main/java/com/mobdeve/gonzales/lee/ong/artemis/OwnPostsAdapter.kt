@@ -1,19 +1,32 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.share.Sharer
+import com.facebook.share.model.SharePhoto
+import com.facebook.share.model.SharePhotoContent
+import com.facebook.share.widget.ShareDialog
 import java.util.*
 
-class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
+class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
     RecyclerView.Adapter<OwnPostsViewHolder>() {
+    private lateinit var context: Context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OwnPostsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_own_post, parent, false)
-
+        context = parent.context
         val ownPostsViewHolder = OwnPostsViewHolder(itemView)
 
         itemView.setOnClickListener { view ->
@@ -82,9 +95,13 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
     override fun onBindViewHolder(holder: OwnPostsViewHolder, position: Int) {
         val currentPost = dataPosts[position]
 
-        holder.setOwnPostProfilePic(currentPost.getProfilePicture())
+        // placeholder for sample image
+        val currentPicture = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
+        Glide.with(context).load(currentPicture).into(holder.getOwnPostProfilePic())
+    //    holder.setOwnPostProfilePic(currentPost.getProfilePicture())
         holder.setOwnPostUsername(currentPost.getUsername())
-        holder.setOwnPostPost(currentPost.getPostImg())
+        Glide.with(context).load(currentPicture).into(holder.getOwnPostPost())
+    //    holder.setOwnPostPost(currentPost.getPostImg())
         holder.setOwnPostTitle(currentPost.getTitle())
         holder.setOwnPostUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setOwnPostComments(currentPost.getNumComments().toString() + " comments")
@@ -102,7 +119,40 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>) :
         }
 
         holder.setOwnPostShareOnClickListener { view ->
-            Toast.makeText(view.context,"Post shared on Facebook", Toast.LENGTH_SHORT).show()
+            var cmFacebook = CallbackManager.Factory.create()
+            var sdFacebook = ShareDialog(parentActivity)
+
+            sdFacebook.registerCallback(cmFacebook, object : FacebookCallback<Sharer.Result?> {
+                override fun onSuccess(result: Sharer.Result?) {
+                    Toast.makeText(parentActivity, "Shared on Facebook", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onCancel() {
+                    Toast.makeText(parentActivity, "Sharing cancelled", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onError(error: FacebookException) {
+                    Toast.makeText(parentActivity, "Sharing error occurred", Toast.LENGTH_SHORT).show()
+                }
+            })
+
+            if (ShareDialog.canShow(SharePhotoContent::class.java)) {
+                val bitmapDrawable = holder.getOwnPostPost().drawable as BitmapDrawable
+                val bitmap = bitmapDrawable.bitmap
+                val username = "@" + holder.getOwnPostUsername().text.toString()
+                val captionedImage = CaptionPlacer.placeCaption(bitmap, username, "Posted on Artemis")
+                val sharePhoto = SharePhoto.Builder()
+                    .setBitmap(captionedImage)
+                    .build()
+                val sharePhotoContent = SharePhotoContent.Builder()
+                    .addPhoto(sharePhoto)
+                    .build()
+                sdFacebook.show(sharePhotoContent)
+
+                Toast.makeText(parentActivity, "Opening Facebook", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(parentActivity, "Unable to share post", Toast.LENGTH_SHORT).show()
+            }
         }
 
         holder.setOwnPostProfileOnClickListener { view ->

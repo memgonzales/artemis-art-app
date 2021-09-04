@@ -29,12 +29,24 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ibItemOwnPostOptions: ImageButton
     private val btmItemOwnPostOptions: BottomSheetDialog
 
+    fun getOwnPostProfilePic(): CircleImageView {
+        return this.civOwnPostProfilePic
+    }
+
     fun setOwnPostProfilePic(picture: Int) {
         civOwnPostProfilePic.setImageResource(picture)
     }
 
+    fun getOwnPostUsername(): TextView {
+        return this.tvOwnPostUsername
+    }
+
     fun setOwnPostUsername(name: String?) {
         tvOwnPostUsername.text = name
+    }
+
+    fun getOwnPostPost(): ImageView {
+        return ivOwnPostPost
     }
 
     fun setOwnPostPost(post: Int) {
