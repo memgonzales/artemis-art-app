@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -118,7 +119,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
     /**
      * Defines the behavior when the user chooses to skip adding a profile picture.
      */
-    private fun onSkipUpload(){
+    private fun onSkipUpload() {
         this.tvSkipUpload.setOnClickListener {
             val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
             Toast.makeText(this@AddProfilePictureActivity, "You may update your profile details through the account tab",

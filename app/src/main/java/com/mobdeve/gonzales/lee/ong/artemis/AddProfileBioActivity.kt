@@ -84,7 +84,7 @@ class AddProfileBioActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_add_profile_bio))
         initActionBar()
 
-        this.tielBio = findViewById(R.id.tiet_edit_profile_bio)
+        this.tielBio = findViewById(R.id.tiet_add_profile_bio)
 
         this.btnAddBio = findViewById(R.id.btn_add_profile_bio_add)
         launchProfileSuccess()
