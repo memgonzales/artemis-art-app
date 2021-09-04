@@ -2,7 +2,6 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_view_profile_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -35,10 +34,11 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar_view_profile"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+                    android:layout_height="?attr/actionBarSize" />
 
                 <ImageView
                     android:id="@+id/iv_view_profile_logo"
+                    android:contentDescription="@string/iv_view_profile_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
@@ -54,7 +54,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Artemis"
+                    android:text="@string/tv_view_profile_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -149,7 +149,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="shoobie"
+                        android:text="@string/tv_view_user_unregistered_username"
                         android:textColor="@android:color/white"
                         android:textSize="19sp"
                         android:textStyle="bold"
@@ -165,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC."
+                        android:text="@string/tv_view_user_unregistered_bio"
                         android:textColor="@android:color/white"
                         app:layout_constraintEnd_toStartOf="@+id/gl_view_profile_right_top"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -186,10 +186,12 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cl_view_profile_top"
-                    app:layout_constraintVertical_bias="0.050000012">
+                    app:layout_constraintVertical_bias="0.050000012"
+                    android:focusable="true">
 
                     <ImageView
                         android:id="@+id/iv_view_profile_edit_icon"
+                        android:contentDescription="@string/iv_view_profile_edit_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_view_profile_edit"
@@ -205,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Edit Profile Details"
+                        android:text="@string/tv_view_profile_edit"
                         android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -235,10 +237,12 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cl_view_profile_edit"
-                    app:layout_constraintVertical_bias="0.0">
+                    app:layout_constraintVertical_bias="0.0"
+                    android:focusable="true">
 
                     <ImageView
                         android:id="@+id/iv_view_profile_view_posts_icon"
+                        android:contentDescription="@string/iv_view_profile_view_posts_icon"
                         android:layout_width="26dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="true"
@@ -256,7 +260,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="View My Posts"
+                        android:text="@string/tv_view_profile_view_posts"
                         android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -286,10 +290,12 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cl_view_profile_view_posts"
-                    app:layout_constraintVertical_bias="0.0">
+                    app:layout_constraintVertical_bias="0.0"
+                    android:focusable="true">
 
                     <ImageView
                         android:id="@+id/iv_view_profile_delete_icon"
+                        android:contentDescription="@string/iv_view_profile_delete_icon"
                         android:layout_width="26dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="true"
@@ -307,7 +313,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Account Management"
+                        android:text="@string/tv_view_profile_delete"
                         android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -337,10 +343,12 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cl_view_profile_delete"
-                    app:layout_constraintVertical_bias="0.0">
+                    app:layout_constraintVertical_bias="0.0"
+                    android:focusable="true">
 
                     <ImageView
                         android:id="@+id/iv_view_profile_logout_icon"
+                        android:contentDescription="@string/v_view_profile_logout_icon"
                         android:layout_width="26dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="true"
@@ -358,7 +366,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Log Out"
+                        android:text="@string/tv_view_profile_logout"
                         android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -396,7 +404,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="What's New?"
+                        android:text="@string/tv_view_profile_note"
                         android:textColor="@color/pinkish_purple_lighter"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -474,7 +482,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:backgroundTint="@color/pinkish_purple_lighter"
-            android:text="View Highlights"
+            android:text="@string/btn_view_profile_highlights"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_view_profile_right_margin_bottom"
             app:layout_constraintStart_toStartOf="@+id/gl_view_profile_left_margin_bottom"
@@ -497,6 +505,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_view_profile_add"
+            android:contentDescription="@string/fab_view_profile_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
@@ -507,7 +516,8 @@
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:focusable="true" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

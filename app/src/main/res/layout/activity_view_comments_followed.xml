@@ -45,7 +45,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Comments"
+                    android:text="@string/tv_view_comments_followed_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -109,9 +109,9 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <include layout="@layout/item_placeholder_comment"></include>
-                            <include layout="@layout/item_placeholder_comment"></include>
-                            <include layout="@layout/item_placeholder_comment"></include>
+                            <include layout="@layout/item_placeholder_comment" />
+                            <include layout="@layout/item_placeholder_comment" />
+                            <include layout="@layout/item_placeholder_comment" />
 
                         </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
@@ -129,6 +129,7 @@
 
                     <ImageView
                         android:id="@+id/iv_view_comments_followed_no_comment"
+                        android:contentDescription="@string/iv_view_comments_followed_no_comment"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -151,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:alpha="0.6"
-                        android:text="No comments just yet"
+                        android:text="@string/tv_view_comments_followed_no_comment"
                         android:textColor="@color/purple_main"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -185,13 +186,13 @@
 
         <ImageButton
             android:id="@+id/ib_add_comment_followed"
+            android:contentDescription="@string/ib_add_comment_followed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:onClick="onClick"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="@id/et_add_comment_followed"
             app:layout_constraintEnd_toStartOf="@+id/gl_view_comments_followed_right_comment"
@@ -206,7 +207,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Write a comment..."
+            android:hint="@string/et_add_comment_followed"
             android:inputType="textMultiLine"
             android:maxLines="4"
             android:scrollbars="vertical"
@@ -257,6 +258,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_view_comments_followed_add"
+            android:contentDescription="@string/fab_view_comments_followed_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
@@ -267,7 +269,8 @@
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:focusable="true" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

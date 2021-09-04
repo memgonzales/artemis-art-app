@@ -36,6 +36,7 @@
 
         <ImageView
             android:id="@+id/iv_log_in_logo"
+            android:contentDescription="@string/iv_log_in_logo"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
@@ -127,7 +128,7 @@
                 android:id="@+id/tiet_log_in_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username/Email"
+                android:hint="@string/tiet_log_in_username"
                 android:inputType="text|textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -155,7 +156,7 @@
                 android:id="@+id/tiet_log_in_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="@string/tiet_log_in_password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -164,7 +165,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/purple_main"
-            android:text="Log In"
+            android:text="@string/btn_log_in"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_log_in_right"
             app:layout_constraintHorizontal_bias="0.0"
@@ -179,21 +180,22 @@
             android:clickable="true"
             android:gravity="center"
             android:padding="6dp"
-            android:text="Continue as a guest"
+            android:text="@string/tv_log_in_guest"
             android:textColor="@color/purple_main"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_log_in_right"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/gl_log_in_left"
             app:layout_constraintTop_toBottomOf="@+id/btn_log_in_sign_up"
-            app:layout_constraintVertical_bias="0.00999999" />
+            app:layout_constraintVertical_bias="0.00999999"
+            android:focusable="true" />
 
         <Button
             android:id="@+id/btn_log_in_sign_up"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/white"
-            android:text="Create Account"
+            android:text="@string/btn_log_in_sign_up"
             android:textColor="@color/purple_main"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_log_in_right"
@@ -209,7 +211,7 @@
             android:id="@+id/btn_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="testing never stops"
+            android:text="@string/btn_test"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

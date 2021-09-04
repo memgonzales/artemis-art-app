@@ -45,7 +45,7 @@
                     android:layout_marginBottom="4dp"
                     android:backgroundTint="@android:color/white"
                     android:ems="10"
-                    android:hint="Search by tag or username"
+                    android:hint="@string/et_search_bar"
                     android:imeOptions="actionSearch"
                     android:inputType="textPersonName"
                     android:textColor="@android:color/white"
@@ -96,7 +96,7 @@
                             android:letterSpacing="0.05"
                             android:minWidth="0dp"
                             android:minHeight="0dp"
-                            android:text="sketch"
+                            android:text="@string/btn_search_tag1"
                             android:textAllCaps="false"
                             android:textSize="13sp" />
 
@@ -104,12 +104,12 @@
                             android:id="@+id/btn_search_tag2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
+                            android:layout_marginEnd="8dp"
                             android:backgroundTint="@color/pinkish_purple_lighter"
                             android:letterSpacing="0.05"
                             android:minWidth="0dp"
                             android:minHeight="0dp"
-                            android:text="watercolor"
+                            android:text="@string/btn_search_tag2"
                             android:textAllCaps="false"
                             android:textSize="13sp"
                             tools:layout_marginLeft="8dp" />
@@ -124,7 +124,7 @@
                             android:letterSpacing="0.05"
                             android:minWidth="0dp"
                             android:minHeight="0dp"
-                            android:text="digital"
+                            android:text="@string/btn_search_tag3"
                             android:textAllCaps="false"
                             android:textSize="13sp" />
 
@@ -138,7 +138,7 @@
                             android:letterSpacing="0.05"
                             android:minWidth="0dp"
                             android:minHeight="0dp"
-                            android:text="fanart"
+                            android:text="@string/btn_search_tag4"
                             android:textAllCaps="false"
                             android:textSize="13sp" />
 
@@ -152,7 +152,7 @@
                             android:letterSpacing="0.05"
                             android:minWidth="0dp"
                             android:minHeight="0dp"
-                            android:text="abstractart"
+                            android:text="@string/btn_search_tag5"
                             android:textAllCaps="false"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -175,6 +175,7 @@
 
                 <ImageView
                     android:id="@+id/iv_search_art_trivia"
+                    android:contentDescription="@string/iv_search_art_trivia"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -194,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="#ArtTrivia"
+                    android:text="@string/tv_search_art_trivia"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/tv_search_art_trivia_text"
@@ -242,6 +243,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_search_add"
             android:layout_width="wrap_content"
+            android:contentDescription="@string/fab_search_add"
             android:layout_height="56dp"
             android:layout_gravity="center"
             android:clickable="true"
@@ -251,7 +253,8 @@
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:focusable="true" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

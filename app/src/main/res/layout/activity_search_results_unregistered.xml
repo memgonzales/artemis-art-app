@@ -45,7 +45,7 @@
                     android:layout_marginBottom="4dp"
                     android:backgroundTint="@android:color/white"
                     android:ems="10"
-                    android:hint="Search by tag or username"
+                    android:hint="@string/et_search_unregistered_results_bar"
                     android:imeOptions="actionSearch"
                     android:inputType="textPersonName"
                     android:textColor="@android:color/white"
@@ -96,19 +96,19 @@
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp">
 
-                            <include layout="@layout/item_placeholder_search_results_circle"></include>
+                            <include layout="@layout/item_placeholder_search_results_circle" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
-                            <include layout="@layout/item_placeholder_rectangular_pic_grid"></include>
+                            <include layout="@layout/item_placeholder_rectangular_pic_grid" />
 
                         </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
@@ -132,7 +132,8 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        android:focusable="true" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/gl_search_unregistered_results_one_fourth"
@@ -159,7 +160,8 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@id/gl_search_unregistered_results_one_fourth"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        android:focusable="true" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/gl_search_unregistered_results_one_half"
@@ -186,7 +188,8 @@
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_search_unregistered_results_one_half"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        android:focusable="true" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/gl_search_unregistered_results_three_fourths"
@@ -213,7 +216,8 @@
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_search_unregistered_results_three_fourths"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        android:focusable="true" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/gl_search_unregistered_results_artworks_top"
@@ -229,7 +233,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="3dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Matching Artworks"
+                        android:text="@string/tv_search_unregistered_results_artworks"
                         android:textSize="16sp"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -241,6 +245,7 @@
 
                     <ImageView
                         android:id="@+id/iv_search_results_unregistered_none"
+                        android:contentDescription="@string/iv_search_results_unregistered_none"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -264,7 +269,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:alpha="0.6"
-                        android:text="No matching results"
+                        android:text="@string/tv_search_results_unregistered_none"
                         android:textColor="@color/purple_main"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -310,7 +315,7 @@
             android:id="@+id/tv_search_results_unregistered_unregistered_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You are browsing as a guest"
+            android:text="@string/tv_search_results_unregistered_unregistered_note"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -334,6 +339,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_search_unregistered_results_add"
+            android:contentDescription="@string/fab_search_unregistered_results_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
@@ -344,7 +350,8 @@
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:focusable="true" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_item_placeholder_comment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,6 +14,7 @@
 
         <ImageView
             android:id="@+id/iv_item_placeholder_comment_profile_pic"
+            android:contentDescription="@string/iv_item_placeholder_comment_profile_pic"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
@@ -58,7 +58,7 @@
             android:fontFamily="sans-serif-medium"
             android:maxLines="1"
             android:scrollHorizontally="true"
-            android:text="shooberino"
+            android:text="@string/tv_item_placeholder_comment_username"
             android:textColor="@color/lightest_gray"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/tv_item_placeholder_comment_date"
@@ -67,7 +67,8 @@
             app:layout_constraintStart_toEndOf="@+id/iv_item_placeholder_comment_profile_pic"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.58000004"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/tv_item_placeholder_comment_date"
@@ -75,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@color/lightest_gray"
-            android:text="August 20, 2021"
+            android:text="@string/tv_item_placeholder_comment_date"
             android:textColor="@color/lightest_gray"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_item_placeholder_comment_comment"
@@ -84,6 +85,7 @@
 
         <ImageButton
             android:id="@+id/ib_item_placeholder_comment_edit"
+            android:contentDescription="@string/ib_item_placeholder_comment_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"

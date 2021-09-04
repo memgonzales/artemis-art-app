@@ -44,7 +44,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="View Post"
+                    android:text="@string/tv_view_own_post_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -88,7 +88,8 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_item_view_own_post_left_text"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        android:focusable="true" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/gl_item_view_own_post_right_user_pic"
@@ -107,6 +108,7 @@
 
                     <ImageButton
                         android:id="@+id/ib_item_view_own_post_options"
+                        android:contentDescription="@string/ib_item_view_own_post_options"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="3dp"
@@ -132,7 +134,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:maxLines="1"
                         android:scrollHorizontally="true"
-                        android:text="shooberino"
+                        android:text="@string/tv_item_view_own_post_username"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/civ_item_view_own_post_profile_pic"
                         app:layout_constraintEnd_toStartOf="@+id/ib_item_view_own_post_options"
@@ -141,10 +143,12 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.35000002"
                         app:layout_constraintVertical_chainStyle="packed"
-                        app:layout_constraintWidth_default="wrap" />
+                        app:layout_constraintWidth_default="wrap"
+                        android:focusable="true" />
 
                     <ImageView
                         android:id="@+id/iv_item_view_own_post_post"
+                        android:contentDescription="@string/iv_item_view_own_post_post"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -163,8 +167,8 @@
                         android:id="@+id/tv_item_view_own_post_upvote_counter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="4dp"
-                        android:text="100 Upvotes"
+                        android:layout_marginEnd="4dp"
+                        android:text="@string/tv_item_view_own_post_upvote_counter"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toTopOf="@id/cl_item_view_own_post_highlight"
                         app:layout_constraintEnd_toStartOf="@+id/tv_item_view_own_post_dot"
@@ -177,7 +181,7 @@
                         android:id="@+id/tv_item_view_own_post_dot"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="•"
+                        android:text="@string/tv_item_view_own_post_dot"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_item_view_own_post_upvote_counter"
                         app:layout_constraintEnd_toStartOf="@+id/tv_item_view_own_post_comments"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -188,8 +192,8 @@
                         android:id="@+id/tv_item_view_own_post_comments"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:text="50 Comments"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/tv_item_view_own_post_comments"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_item_view_own_post_upvote_counter"
                         app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_right_margin"
@@ -235,10 +239,12 @@
                         android:clickable="true"
                         app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_one_third"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_item_view_own_post_upvote_counter">
+                        app:layout_constraintTop_toBottomOf="@id/tv_item_view_own_post_upvote_counter"
+                        android:focusable="true">
 
                         <ImageView
                             android:id="@+id/iv_item_view_own_post_highlight"
+                            android:contentDescription="@string/iv_item_view_own_post_highlight"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:adjustViewBounds="true"
@@ -258,7 +264,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="7dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Highlight"
+                            android:text="@string/tv_item_view_own_post_highlight"
                             app:layout_constraintBottom_toBottomOf="@+id/iv_item_view_own_post_highlight"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -276,10 +282,12 @@
                         app:layout_constraintBottom_toBottomOf="@+id/cl_item_view_own_post_highlight"
                         app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_two_thirds"
                         app:layout_constraintStart_toStartOf="@+id/gl_item_view_own_post_one_third"
-                        app:layout_constraintTop_toTopOf="@+id/cl_item_view_own_post_highlight">
+                        app:layout_constraintTop_toTopOf="@+id/cl_item_view_own_post_highlight"
+                        android:focusable="true">
 
                         <ImageView
                             android:id="@+id/iv_item_view_own_post_comment"
+                            android:contentDescription="@string/iv_item_view_own_post_comment"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:adjustViewBounds="true"
@@ -299,7 +307,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="7dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Comment"
+                            android:text="@string/tv_item_view_own_post_comment"
                             app:layout_constraintBottom_toBottomOf="@+id/iv_item_view_own_post_comment"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -317,10 +325,12 @@
                         app:layout_constraintBottom_toBottomOf="@+id/cl_item_view_own_post_highlight"
                         app:layout_constraintEnd_toStartOf="@id/gl_item_view_own_post_right_margin"
                         app:layout_constraintStart_toStartOf="@id/gl_item_view_own_post_two_thirds"
-                        app:layout_constraintTop_toTopOf="@+id/cl_item_view_own_post_highlight">
+                        app:layout_constraintTop_toTopOf="@+id/cl_item_view_own_post_highlight"
+                        android:focusable="true">
 
                         <ImageView
                             android:id="@+id/iv_item_view_own_post_share"
+                            android:contentDescription="@string/iv_item_view_own_post_share"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:adjustViewBounds="true"
@@ -340,7 +350,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="7dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Share"
+                            android:text="@string/tv_item_view_own_post_share"
                             app:layout_constraintBottom_toBottomOf="@+id/iv_item_view_own_post_share"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -355,7 +365,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
                         android:lineSpacingMultiplier="1.05"
-                        android:text="The Doppel of Silence and Iroha Tamaki"
+                        android:text="@string/tv_item_view_own_post_title"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="parent"
@@ -371,7 +381,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="August 20, 2021"
+                        android:text="@string/tv_item_view_own_post_date"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_right_margin"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -385,7 +395,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Digital Art"
+                        android:text="@string/tv_item_view_own_post_medium"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_right_margin"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -398,7 +408,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="1080 x 1080"
+                        android:text="@string/tv_item_view_own_post_dimen"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -412,7 +422,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
                         android:lineSpacingMultiplier="1.05"
-                        android:text="Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn't want to hear as it continues its search for something to fill the hole in its heart."
+                        android:text="@string/tv_item_view_own_post_desc"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/gl_item_view_own_post_right_margin"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -429,7 +439,7 @@
                         android:drawablePadding="5dp"
                         android:includeFontPadding="false"
                         android:padding="5dp"
-                        android:text="anime, magia-record, shaft, iroha, witches"
+                        android:text="@string/tv_item_view_own_post_tags"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_post_right_margin"
@@ -440,6 +450,7 @@
 
                     <ImageView
                         android:id="@+id/iv_view_own_post_tag"
+                        android:contentDescription="@string/iv_view_own_post_tag"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="2dp"
@@ -474,6 +485,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_view_own_post_add"
             android:layout_width="wrap_content"
+            android:contentDescription="@string/fab_view_own_post_add"
             android:layout_height="56dp"
             android:layout_gravity="center"
             android:clickable="true"
@@ -483,7 +495,8 @@
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:focusable="true" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

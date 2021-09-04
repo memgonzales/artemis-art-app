@@ -44,7 +44,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Add Details"
+                    android:text="@string/tv_post_artwork_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -67,6 +67,7 @@
 
                 <ImageView
                     android:id="@+id/iv_post_artwork_art"
+                    android:contentDescription="@string/iv_post_artwork_art"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
@@ -116,7 +117,7 @@
                         android:id="@+id/tiet_post_artwork_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Title of Artwork"
+                        android:hint="@string/tiet_post_artwork_title"
                         android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -142,7 +143,7 @@
                         android:id="@+id/tiet_post_artwork_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Describe your artwork"
+                        android:hint="@string/tiet_post_artwork_desc"
                         android:inputType="text|textPersonName|textMultiLine" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -167,7 +168,7 @@
                         android:id="@+id/tiet_post_artwork_medium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Medium"
+                        android:hint="@string/tiet_post_artwork_medium"
                         android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -192,7 +193,7 @@
                         android:id="@+id/tiet_post_artwork_dimen"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Dimensions"
+                        android:hint="@string/tiet_post_artwork_dimen"
                         android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -235,7 +236,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:text="Next"
+            android:text="@string/btn_post_artwork_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_post_artwork_right_margin_bottom"
             app:layout_constraintStart_toStartOf="@+id/gl_post_artwork_left_margin_bottom"

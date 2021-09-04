@@ -154,16 +154,26 @@ class User {
         return this.bio
     }
 
+    /**
+     * Returns the identifiers of the posts bookmarked by the user.
+     *
+     * @return identifiers of the posts bookmarked by the user
+     */
     fun getBookmarks(): ArrayList<String>{
         return this.bookmarks
     }
 
+    /**
+     * Returns the identifiers of the posts created by the user.
+     *
+     * @return identifiers of the posts created by the user
+     */
     fun getUserPosts(): ArrayList<String>{
         return this.userPosts
     }
 
     /**
-     * Returns the identifiers of the highlights posted by the user
+     * Returns the identifiers of the highlights posted by the user.
      *
      * @return identifiers of the highlights posted by the user
      */
@@ -171,65 +181,138 @@ class User {
         return this.highlights
     }
 
+    /**
+     * Returns the identifiers of the posts upvoted by the user.
+     *
+     * @return identifiers of the posts upvoted by the user
+     */
     fun getUpvotedPosts(): ArrayList<String>{
         return this.upvotedPosts
     }
 
+    /**
+     * Returns the identifiers of the users followed by the user.
+     *
+     * @return identifiers of the users followed by the user
+     */
     fun getUsersFollowed(): ArrayList<String>{
         return this.usersFollowed
     }
 
+    /**
+     * Returns the identifiers of the comments written by the user.
+     *
+     * @return identifiers of the comments written by the user
+     */
     fun getUserComments(): ArrayList<String>{
         return this.userComments
     }
 
-
-
-
+    /**
+     * Sets the username of the user to the specified string.
+     *
+     * @param username string to which the username is to be set
+     */
     fun setUsername(username: String) {
         this.username = username
     }
 
+    /**
+     * Sets the email address of the user to the specified string.
+     *
+     * @param email string to which the email address is to be set
+     */
     fun setEmail(email: String) {
         this.email = email
     }
 
+    /**
+     * Sets the password of the user to the specified string.
+     *
+     * @param password string to which the password is to be set
+     */
     fun setPassword(password: String) {
         this.password = password
     }
 
+    /**
+     * Sets the profile picture of the user to the specified image URI.
+     *
+     * @param userImg image URI to which the profile picture of the user is to be set
+     *
+     */
     fun setUserImg(userImg: Int) {
         this.userImg = userImg
     }
 
+    /**
+     * Sets the short bio of the user to the specified string.
+     *
+     * @param bio string to which the short bio of the user is to be set
+     */
     fun setBio(bio: String) {
         this.bio = bio
     }
 
+    /**
+     * Sets the identifiers of the posts bookmarked by the user to the specified strings.
+     *
+     * @param bookmarks list containing strings to which the identifiers of the posts bookmarked
+     * by the user are to be set
+     */
     fun setBookmarks(bookmarks: ArrayList<String>){
         this.bookmarks = bookmarks
     }
 
+    /**
+     * Sets the identifiers of the posts created by the user to the specified strings.
+     *
+     * @param userPosts list containing strings to which the identifiers of the posts created
+     * by the user are to be set
+     */
     fun setUserPosts(userPosts: ArrayList<String>){
         this.userPosts = userPosts
     }
 
+    /**
+     * Sets the identifiers of the posts highlighted by the user to the specified strings.
+     *
+     * @param highlights list containing strings to which the identifiers of the posts highlighted
+     * by the user are to be set
+     */
     fun setHighlights(highlights: ArrayList<String>){
         this.highlights = highlights
     }
 
+    /**
+     * Sets the identifiers of the posts upvoted by the user to the specified strings.
+     *
+     * @param upvotedPosts list containing strings to which the identifiers of the posts upvoted
+     * by the user are to be set
+     */
     fun setUpvotedPosts(upvotedPosts: ArrayList<String>){
         this.upvotedPosts = upvotedPosts
     }
 
+    /**
+     * Sets the identifiers of the users followed by the user to the specified strings.
+     *
+     * @param usersFollowed list containing strings to which the identifiers of the users followed
+     * by the user are to be set
+     */
     fun setUsersFollowed(usersFollowed: ArrayList<String>){
         this.usersFollowed = usersFollowed
     }
 
+    /**
+     * Sets the identifiers of the comments written by the user to the specified strings.
+     *
+     * @param userComments list containing strings to which the identifiers of the comments written
+     * by the user are to be set
+     */
     fun setUserComments(userComments: ArrayList<String>) {
         this.userComments = userComments
     }
-
 }
 
 

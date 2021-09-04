@@ -2,7 +2,6 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_view_user_unregistered_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -35,7 +34,7 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar_view_user_unregistered"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+                    android:layout_height="?attr/actionBarSize" />
 
                 <TextView
                     android:id="@+id/tv_view_user_unregistered_title"
@@ -45,7 +44,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="User Profile"
+                    android:text="@string/tv_view_user_unregistered_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -119,7 +118,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="shoobie"
+                            android:text="@string/v_view_user_unregistered_username"
                             android:textColor="@android:color/white"
                             android:textSize="19sp"
                             android:textStyle="bold"
@@ -135,7 +134,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC."
+                            android:text="@string/tv_view_user_unregistered_bio"
                             android:textColor="@android:color/white"
                             app:layout_constraintEnd_toStartOf="@+id/gl_view_user_unregistered_right_top"
                             app:layout_constraintHorizontal_bias="0.0"
@@ -208,7 +207,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:backgroundTint="@color/pinkish_purple_lighter"
-            android:text="Follow User"
+            android:text="@string/btn_view_user_unregistered_follow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_view_user_unregistered_right_margin_bottom"
             app:layout_constraintStart_toStartOf="@+id/gl_view_user_unregistered_left_margin_bottom"
@@ -230,7 +229,7 @@
             android:id="@+id/tv_view_others_highlight_unregistered_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You are browsing as a guest"
+            android:text="@string/tv_view_others_highlight_unregistered_note"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -254,6 +253,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_view_user_unregistered_add"
+            android:contentDescription="@string/fab_view_user_unregistered_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
@@ -264,7 +264,8 @@
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:focusable="true" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

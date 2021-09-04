@@ -45,7 +45,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Edit Comment"
+                    android:text="@string/tv_edit_comment_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -80,7 +80,8 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/gl_edit_comment_left_margin"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.0"
+                    android:focusable="true" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/gl_edit_comment_right_user_pic"
@@ -122,12 +123,13 @@
                     android:fontFamily="sans-serif-medium"
                     android:maxLines="1"
                     android:scrollHorizontally="true"
-                    android:text="shooberino"
+                    android:text="@string/tv_edit_comment_username"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/civ_edit_comment_profile_pic"
                     app:layout_constraintStart_toStartOf="@+id/gl_edit_comment_right_user_pic"
                     app:layout_constraintTop_toTopOf="@+id/civ_edit_comment_profile_pic"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintVertical_chainStyle="packed"
+                    android:focusable="true" />
 
                 <EditText
                     android:id="@+id/et_edit_comment"
@@ -137,7 +139,7 @@
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine"
-                    android:text="The light from the lantern at the end of the Doppel's tail can call forth a myriad of illusions, and the scissors are said to cause great devastation in the near futures of those who have been harmed by them."
+                    android:text="@string/et_edit_comment"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toStartOf="@+id/gl_edit_comment_right_margin"
                     app:layout_constraintStart_toStartOf="@+id/gl_edit_comment_left_text"
@@ -196,7 +198,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:text="Save Changes"
+            android:text="@string/btn_edit_comment_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_edit_comment_right_margin_bottom"
             app:layout_constraintStart_toStartOf="@+id/gl_edit_comment_left_margin_bottom"
