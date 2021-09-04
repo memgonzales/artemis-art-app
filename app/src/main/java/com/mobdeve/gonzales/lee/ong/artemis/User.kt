@@ -23,7 +23,7 @@ class User {
     /**
      * Profile picture of the user.
      */
-    private var userImg: Int
+    private var userImg: String
 
     /**
      * Short bio of the user.
@@ -71,7 +71,7 @@ class User {
         this.username = username
         this.email = email
         this.password = password
-        this.userImg = R.drawable.chibi_artemis_hd
+        this.userImg = "" //R.drawable.chibi_artemis_hd
         this.bio = ""
 
         this.bookmarks = ArrayList<String>()
@@ -92,7 +92,7 @@ class User {
      * @param userImg profile picture of the user
      * @param bio short bio of the user
      */
-    constructor(username: String, email: String, password: String, userImg: Int, bio: String){
+    constructor(username: String, email: String, password: String, userImg: String, bio: String){
         this.username = username
         this.email = email
         this.password = password
@@ -141,7 +141,7 @@ class User {
      *
      * @return profile picture of the user
      */
-    fun getUserImg(): Int {
+    fun getUserImg(): String {
         return this.userImg
     }
 
@@ -241,7 +241,7 @@ class User {
      * @param userImg image URI to which the profile picture of the user is to be set
      *
      */
-    fun setUserImg(userImg: Int) {
+    fun setUserImg(userImg: String) {
         this.userImg = userImg
     }
 

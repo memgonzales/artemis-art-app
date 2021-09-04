@@ -112,10 +112,10 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
 
         this.tvSearchResultsArtworks = findViewById(R.id.tv_search_unregistered_results_artworks)
 
-        this.civSearchResultUser1.setImageResource(dataUsers[0].getUserImg())
-        this.civSearchResultUser2.setImageResource(dataUsers[1].getUserImg())
-        this.civSearchResultUser3.setImageResource(dataUsers[2].getUserImg())
-        this.civSearchResultUser4.setImageResource(dataUsers[3].getUserImg())
+       // this.civSearchResultUser1.setImageResource(dataUsers[0].getUserImg())
+       // this.civSearchResultUser2.setImageResource(dataUsers[1].getUserImg())
+       // this.civSearchResultUser3.setImageResource(dataUsers[2].getUserImg())
+       // this.civSearchResultUser4.setImageResource(dataUsers[3].getUserImg())
 
         civSearchResultUser1.setOnClickListener {
             val intent = Intent(

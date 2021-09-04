@@ -268,7 +268,7 @@ object DataHelper {
                 "Tobe",
                 "shinshibe@gmail.com",
                 "shibepassword",
-                R.drawable.tofu_chan,
+                "", //R.drawable.tofu_chan,
             "Minnasan, konnichiwa! It's me, Tofu-chan!"
         )
 
@@ -450,7 +450,7 @@ object DataHelper {
             "Tobe",
             "shinshibe@gmail.com",
             "shibepassword",
-            R.drawable.tofu_chan,
+            "", //R.drawable.tofu_chan,
             "Minnasan, konnichiwa! It's me, Tofu-chan!"
             )
         )
@@ -459,7 +459,7 @@ object DataHelper {
                 "shiberino",
                 "bestdoggo@gmail.com",
                 "shibepassword",
-                R.drawable.shoob,
+                "", //R.drawable.shoob,
                 "Hello, world!"
             )
         )
@@ -468,7 +468,7 @@ object DataHelper {
                 "shibe",
                 "shibainu@gmail.com",
                 "shibepassword456",
-                R.drawable.shibe1,
+                "", //R.drawable.shibe1,
                 "I wanna be an artist doggo."
             )
         )
@@ -477,7 +477,7 @@ object DataHelper {
                 "shoobie",
                 "nipponinu@gmail.com",
                 "shibepassword123",
-                R.drawable.shibe2,
+                "", //R.drawable.shibe2,
                 "Ohaiyou~"
             )
         )

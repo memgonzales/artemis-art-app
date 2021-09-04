@@ -1,6 +1,7 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
+import java.io.File
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var fabEditProfilePicEdit: FloatingActionButton
@@ -57,6 +59,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var storageRef: StorageReference
 
     private lateinit var credentials: AuthCredential
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -133,13 +136,21 @@ class EditProfileActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 pbEditProfile.visibility = View.GONE
 
-//                var profPic: Int = snapshot.child(Keys.userImg.name).getValue().toString().toInt()
+                val profPic: String = snapshot.child(Keys.userImg.name).getValue().toString()
                 val username: String = snapshot.child(Keys.username.name).getValue().toString()
 //                var email: String = snapshot.child(Keys.email.name).getValue().toString()
 //                var pw: String = snapshot.child(Keys.password.name).getValue().toString()
                 val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
 //
-//                civEditProfilePic.setImageResource(profPic)
+                val localFile = File.createTempFile("images", "jpg")
+                storageRef = storage.getReferenceFromUrl(profPic)
+
+                storageRef.getFile(localFile)
+                    .addOnSuccessListener {
+                        var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                        civEditProfilePic.setImageBitmap(bitmap)
+                    }
+
                 tietEditProfileUsername.setText(username)
 //                tietEditProfileEmail.setText(email)
 //                tietEditProfilePassword.setText(pw)

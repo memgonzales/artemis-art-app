@@ -67,7 +67,7 @@ class ViewProfileActivity : AppCompatActivity() {
 
         this.dataUser = DataHelper.loadProfileData()
 
-        this.civViewProfileProfilePicture.setImageResource(dataUser.getUserImg())
+       // this.civViewProfileProfilePicture.setImageResource(dataUser.getUserImg())
         this.tvViewProfileUsername.text = dataUser.getUsername()
         this.tvViewProfileBio.text = dataUser.getBio()
 
