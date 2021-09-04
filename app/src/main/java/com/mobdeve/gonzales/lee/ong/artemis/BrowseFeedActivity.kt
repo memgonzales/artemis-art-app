@@ -3,12 +3,9 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.Looper
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -19,9 +16,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -312,103 +306,29 @@ class BrowseFeedActivity : AppCompatActivity() {
             }
 
             clDialogPostArtworkPhoto.setOnClickListener {
-                photoFile = takeFromCamera()
+                photoFile = PostArtworkUtil.takeFromCamera(this, this@BrowseFeedActivity, cameraLauncher)
             }
 
             btmAddPost.show()
         }
     }
 
-    private fun takeFromCamera() : File {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val permissions = arrayOf(
-            android.Manifest.permission.CAMERA,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-
-        val photoFile = getPhotoFile(PostArtworkUtil.PHOTO_DEFAULT_FILE_NAME)
-
-        val fileProvider =
-            FileProvider.getUriForFile(this, PostArtworkUtil.PACKAGE_NAME, photoFile)
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
-
-        if (ContextCompat.checkSelfPermission(
-                this.applicationContext,
-                permissions[0]
-            ) != PackageManager.PERMISSION_GRANTED
-            || ContextCompat.checkSelfPermission(
-                this.applicationContext,
-                permissions[1]
-            ) != PackageManager.PERMISSION_GRANTED
-            || ContextCompat.checkSelfPermission(
-                this.applicationContext,
-                permissions[2]
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-
-            ActivityCompat.requestPermissions(
-                this@BrowseFeedActivity,
-                permissions,
-                RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal
-            )
-
-        } else {
-            if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
-                cameraLauncher.launch(intent)
-            } else {
-                Toast.makeText(
-                    this@BrowseFeedActivity,
-                    "Camera app cannot be found",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
-        return photoFile
-    }
-
-    private fun getPhotoFile(name: String): File {
-        val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(name, ".jpg", storageDirectory)
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        permissionsResult(requestCode, permissions, grantResults, this@BrowseFeedActivity, this)
+        permissionsResult(requestCode, grantResults, this@BrowseFeedActivity, this)
     }
 
-    private fun permissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray,
-                                  context: Context, activity: Activity) {
+    private fun permissionsResult(requestCode: Int, grantResults: IntArray, context: Context,
+                                  activity: Activity) {
         when (requestCode) {
             RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
-                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                val temp: File? = PostArtworkUtil.permissionsResultCamera(grantResults, activity,
+                    context, cameraLauncher)
 
-                    photoFile = getPhotoFile(PostArtworkUtil.PHOTO_DEFAULT_FILE_NAME)
-
-                    val fileProvider = FileProvider.getUriForFile(context, PostArtworkUtil.PACKAGE_NAME, photoFile)
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
-
-                    if (intent.resolveActivity(activity.packageManager) != null) {
-                        cameraLauncher.launch(intent)
-                    } else {
-                        Toast.makeText(
-                            context,
-                            "Camera app cannot be found",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                } else {
-                    Toast.makeText(
-                        context,
-                        "Insufficient permissions to take a photo",
-                        Toast.LENGTH_LONG
-                    ).show()
+                if (temp != null) {
+                    photoFile = temp
                 }
-                return
             }
 
             RequestCodes.REQUEST_CODE_POST_GALLERY.ordinal -> {
