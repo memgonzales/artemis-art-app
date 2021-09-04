@@ -6,6 +6,9 @@ package com.mobdeve.gonzales.lee.ong.artemis
  *
  * Since the said operations require strings as keys, they are referenced using their
  * names in this enumeration declaration (that is, via the property <code>name</code>).
+ *
+ * @constructor Creates an enumeration class containing the keys used in passing intents across
+ * activities and in database-related operations.
  */
 enum class Keys {
     /* Keys used in passing intents across activities */
@@ -27,7 +30,16 @@ enum class Keys {
     KEY_COMMENT_BODY,
 
     /* Keys used in passing intents related to posting an artwork */
+
+    /**
+     * Key used to pass the image URI of the artwork to be posted
+     */
     KEY_POST_ARTWORK,
+
+    /**
+     * Key used to pass information as to whether the artwork was taken from the camera
+     * or chosen from the Gallery
+     */
     KEY_POST_FROM,
 
     /* Keys used in database-related operations */

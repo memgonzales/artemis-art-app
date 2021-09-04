@@ -12,6 +12,9 @@ import kotlin.math.sqrt
  *
  * This is intended to be used in adding attribution to an artwork that a user shares on
  * their Facebook account
+ *
+ * @constructor Creates a class that contains a method (defined inside a companion object)
+ * to overlay a text on a bitmap (image).
  */
 class CaptionPlacer {
     /**
