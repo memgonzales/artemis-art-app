@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -20,9 +21,11 @@ import com.facebook.share.Sharer
 import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
+import com.firebase.ui.storage.images.FirebaseImageLoader
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.storage.StorageReference
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -99,14 +102,15 @@ class ViewPostActivity : AppCompatActivity() {
         val tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
         var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
-
+        val tempPost = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
         var upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
         val tagsString = tags?.joinToString(", ")
 
         this.civItemViewPostProfilePic.setImageResource(profilePicture)
         this.tvItemViewPostUsername.text = username
-        this.ivItemViewPostPost.setImageResource(post)
+    //    this.ivItemViewPostPost.setImageResource(post)
+        Glide.with(this).load(tempPost).into(this.ivItemViewPostPost)
         this.tvItemViewPostTitle.text = title
         this.tvItemViewPostUpvoteCounter.text = upvoteString
         this.tvItemViewPostComments.text = commentString

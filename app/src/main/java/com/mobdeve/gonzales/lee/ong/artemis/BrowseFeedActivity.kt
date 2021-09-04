@@ -207,7 +207,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                     }
 
 
-                    feedAdapter = FeedAdapter(dataPosts)
+                    feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
                     rvFeed.adapter = feedAdapter
 
                     //Toast.makeText(applicationContext, "ch: " + title, Toast.LENGTH_SHORT).show()
