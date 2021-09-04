@@ -11,8 +11,15 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 
 class PostArtworkActivity : AppCompatActivity() {
@@ -26,6 +33,9 @@ class PostArtworkActivity : AppCompatActivity() {
 
     private lateinit var sp: SharedPreferences
     private lateinit var spEditor: SharedPreferences.Editor
+
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageRef: StorageReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,11 +82,25 @@ class PostArtworkActivity : AppCompatActivity() {
             Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true)
 
         ivPostArtworkArt.setImageBitmap(rotatedBitmap)
+
+        var outputStream = ByteArrayOutputStream()
+        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        var data = outputStream.toByteArray()
+
+        this.storage = Firebase.storage
+        this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test")
+
+        this.storageRef.putBytes(data)
     }
 
     private fun fetchFromGallery() {
         val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
         ivPostArtworkArt.setImageURI(Uri.parse(photoPath!!))
+
+        this.storage = Firebase.storage
+        this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test2")
+
+        this.storageRef.putFile(Uri.parse(photoPath))
     }
 
     private fun initComponents() {
@@ -134,6 +158,7 @@ class PostArtworkActivity : AppCompatActivity() {
             intent.putExtra(Keys.KEY_MEDIUM.name, medium)
             intent.putExtra(Keys.KEY_DIMENSIONS.name, dimensions)
             intent.putExtra(Keys.KEY_DESCRIPTION.name, desc)
+
 
             startActivity(intent)
         }

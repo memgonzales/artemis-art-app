@@ -232,28 +232,9 @@ class SignUpActivity : AppCompatActivity() {
 
                     else{
                         if (!userExists){
-                            val user = User(username, email, password)
-
-                            //val userImg = "gs://artemis-77e4e.appspot.com/chibi_artemis_hd.png"
                             val userImg = (storage.reference.child("chibi_artemis_hd.png")).toString()
+                            val user = User(username, email, password, userImg)
 
-                            user.setUserImg(userImg)
-                            /*
-                            storageRef = storage.reference.child("chibi_artemis_hd.png");
-
-
-                            try{
-                                val localFile = File.createTempFile("images", "png");
-                                storageRef.getFile(localFile)
-                                    .addOnSuccessListener {
-                                        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath);
-
-
-                                    }
-                            } catch (e: IOException){}
-
-
-                             */
                             storeUser(user)
                         }
                     }
