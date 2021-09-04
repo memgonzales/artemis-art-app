@@ -160,6 +160,8 @@ class PostArtworkActivity : AppCompatActivity() {
             intent.putExtra(Keys.KEY_DIMENSIONS.name, dimensions)
             intent.putExtra(Keys.KEY_DESCRIPTION.name, desc)
 
+            intent.putExtra(Keys.KEY_POST_ARTWORK.name, photoPath)
+            intent.putExtra(Keys.KEY_POST_FROM.name, photoSource)
 
             startActivity(intent)
         }

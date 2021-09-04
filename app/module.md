@@ -6,7 +6,12 @@ Users also have the option to bookmark their favorite artworks made by other use
 
 # Package com.mobdeve.gonzales.lee.ong.artemis
 
-This package contains all the Kotlin classes, resources, and Gradle files for configuring and running the application.
+Package containing all the Kotlin classes, resources, and Gradle files for configuring and running the application.
 
-## Attribution 
-This app is the major course output in a mobile development (MOBDEVE) class. The authors of the project are Mark Edward M. Gonzales, Hylene Jules G. Lee, and Phoebe Clare L. Ong, second-year undergraduate students of the Software Technology Department, College of Computer Studies, De La Salle University.
+## About the Project
+This app is the major course output in a mobile development (MOBDEVE) class. The authors of this project are second-year undergraduate students of the Software Technology Department, College of Computer Studies, De La Salle University:
+- Mark Edward M. Gonzales
+- Hylene Jules G. Lee
+- Phoebe Clare L. Ong<br/> <br/>
+
+More details are provided in the official project repository: <a href = "https://github.com/memgonzales/artemis-art-app">https://github.com/memgonzales/artemis-art-app
