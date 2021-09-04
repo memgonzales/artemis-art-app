@@ -1,11 +1,11 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -87,7 +87,7 @@ class AddProfileBioActivity : AppCompatActivity() {
         this.tielBio = findViewById(R.id.tiet_edit_profile_bio)
 
         this.btnAddBio = findViewById(R.id.btn_add_profile_bio_add)
-        launchAddBio()
+        launchProfileSuccess()
 
         this.tvBioSkip = findViewById(R.id.tv_add_profile_bio_skip)
         skipAddProfilePic()
@@ -102,9 +102,11 @@ class AddProfileBioActivity : AppCompatActivity() {
     }
 
     /**
-     * Defines the behavior when the button for adding a short bio is clicked.
+     * Defines the behavior when the button for adding a short bio is clicked, that is,
+     * the short bio has been successfully added and the user is notified that profile
+     * customization has been completed.
      */
-    private fun launchAddBio() {
+    private fun launchProfileSuccess() {
         this.btnAddBio.setOnClickListener {
             val bio: String = tielBio.text.toString().trim()
 

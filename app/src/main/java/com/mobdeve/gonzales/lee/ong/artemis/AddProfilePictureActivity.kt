@@ -30,9 +30,20 @@ class AddProfilePictureActivity : AppCompatActivity() {
      */
     private lateinit var fabAddProfilePicEdit: FloatingActionButton
 
+    /**
+     * Dialog showing the options related to adding a profile picture (either by choosing
+     * from the Gallery or opening the camera) or removing it.
+     */
     private lateinit var btmProfilePicture: BottomSheetDialog
 
+    /**
+     * Profile picture uploaded the user (or the placeholder if the user has not yet uploaded).
+     */
     private lateinit var civUploadImg: CircleImageView
+
+    /**
+     *
+     */
     private lateinit var ivCameraPic: ImageView
 
     private lateinit var tvSkipUpload: TextView
@@ -61,6 +72,11 @@ class AddProfilePictureActivity : AppCompatActivity() {
         onSkipUpload()
     }
 
+    /**
+     * Defines the behavior when the button for adding a profile picture is clicked, that is,
+     * the profile picture has been successfully added and the user is directed towards
+     * adding a short bio.
+     */
     private fun launchAddBio() {
         this.btnAddProfilePic.setOnClickListener {
             val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
@@ -85,6 +101,9 @@ class AddProfilePictureActivity : AppCompatActivity() {
         finish()
     }
 
+    /**
+     * Defines the behavior when the user chooses to skip adding a profile picture.
+     */
     private fun onSkipUpload(){
         this.tvSkipUpload.setOnClickListener {
             val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
