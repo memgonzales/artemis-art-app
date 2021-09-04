@@ -1,6 +1,7 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.res.ColorStateList
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.ImageButton
@@ -17,7 +18,12 @@ import com.facebook.share.Sharer
 import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
+import java.io.File
 
 class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val civItemFeedProfilePic: CircleImageView
@@ -33,12 +39,24 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val clItemFeedComment: ConstraintLayout
     private val clItemFeedShare: ConstraintLayout
 
+    private var storage: FirebaseStorage
+    private var storageRef: StorageReference
+
     fun getItemFeedProfilePic(): CircleImageView {
         return civItemFeedProfilePic
     }
 
-    fun setItemFeedProfilePic(picture: Int) {
-        civItemFeedProfilePic.setImageResource(picture)
+    fun setItemFeedProfilePic(picture: String) {
+        val localFile = File.createTempFile("images", "jpg")
+        storageRef = storage.getReferenceFromUrl(picture)
+
+        storageRef.getFile(localFile)
+            .addOnSuccessListener {
+                var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                civItemFeedProfilePic.setImageBitmap(bitmap)
+            }
+
+        //civItemFeedProfilePic.setImageResource(picture)
     }
 
     fun getItemFeedUsername(): TextView {
@@ -53,8 +71,17 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         return ivItemFeedPost
     }
 
-    fun setItemFeedPost(post: Int) {
-        ivItemFeedPost.setImageResource(post)
+    fun setItemFeedPost(post: String) {
+        val localFile = File.createTempFile("images", "jpg")
+        storageRef = storage.getReferenceFromUrl(post)
+
+        storageRef.getFile(localFile)
+            .addOnSuccessListener {
+                var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                ivItemFeedPost.setImageBitmap(bitmap)
+            }
+
+        //ivItemFeedPost.setImageResource(post)
     }
 
     fun setItemFeedTitle(title: String?) {
@@ -135,5 +162,8 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         clItemFeedUpvote = itemView.findViewById(R.id.cl_item_feed_upvote)
         clItemFeedComment = itemView.findViewById(R.id.cl_item_feed_comment)
         clItemFeedShare = itemView.findViewById(R.id.cl_item_feed_share)
+
+        this.storage = Firebase.storage
+        this.storageRef = this.storage.reference
     }
 }

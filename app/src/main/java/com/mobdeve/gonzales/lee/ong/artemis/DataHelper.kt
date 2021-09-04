@@ -4,10 +4,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 object DataHelper {
+
     fun loadPostData(): ArrayList<Post> {
         val data = ArrayList<Post>()
         val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
+        /*
         data.add(
             Post(
                 R.drawable.shoob,
@@ -98,6 +100,8 @@ object DataHelper {
                 false
             )
         )
+
+         */
         return data
     }
 
@@ -105,6 +109,7 @@ object DataHelper {
         val data = ArrayList<Post>()
         val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
+        /*
         data.add(
             Post(
                 R.drawable.shibe1,
@@ -141,6 +146,8 @@ object DataHelper {
                 false
             )
         )
+
+         */
 
         return data
     }
@@ -149,6 +156,7 @@ object DataHelper {
         val data = ArrayList<Post>()
         val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
+        /*
         data.add(
             Post(
                 R.drawable.shoob,
@@ -203,12 +211,15 @@ object DataHelper {
                 false
             )
         )
+
+         */
         return data
     }
 
     fun loadCommentData(): ArrayList<Comment> {
         val data = ArrayList<Comment>()
 
+        /*
         data.add(
             Comment(
                 "1",
@@ -260,10 +271,13 @@ object DataHelper {
             )
         )
 
+         */
+
         return data
     }
 
     fun loadProfileData(): User {
+
         val data = User(
                 "Tobe",
                 "shinshibe@gmail.com",
@@ -272,6 +286,8 @@ object DataHelper {
             "Minnasan, konnichiwa! It's me, Tofu-chan!"
         )
 
+
+
         return data
     }
 
@@ -279,6 +295,7 @@ object DataHelper {
         val data = ArrayList<Post>()
         val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
+        /*
         data.add(
             Post(
                 R.drawable.tofu_chan,
@@ -316,6 +333,8 @@ object DataHelper {
             )
         )
 
+         */
+
         return data
     }
 
@@ -323,6 +342,7 @@ object DataHelper {
         val data = ArrayList<Post>()
         val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
+        /*
         data.add(
             Post(
                 R.drawable.shoob,
@@ -378,6 +398,8 @@ object DataHelper {
             )
         )
 
+         */
+
         return data
     }
 
@@ -385,6 +407,7 @@ object DataHelper {
         val data = ArrayList<Post>()
         val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
+        /*
         data.add(
             Post(
                 R.drawable.tofu_chan,
@@ -440,11 +463,14 @@ object DataHelper {
             )
         )
 
+         */
+
         return data
     }
 
     fun loadSearchUserData(): ArrayList<User> {
         val data = ArrayList<User>()
+        /*
         data.add(
             User(
             "Tobe",
@@ -482,6 +508,8 @@ object DataHelper {
             )
         )
 
+         */
+
         return data
     }
 
@@ -489,6 +517,7 @@ object DataHelper {
         val data = ArrayList<Post>()
         val arrayTags = arrayOf("anime", "magia record", "shaft", "iroha", "witches").toCollection(ArrayList())
 
+        /*
         data.add(
             Post(
                 R.drawable.shoob,
@@ -579,12 +608,15 @@ object DataHelper {
                 false
             )
         )
+
+         */
         return data
     }
 
     fun loadCommentDataUnregistered(): ArrayList<Comment> {
         val data = ArrayList<Comment>()
 
+        /*
         data.add(
             Comment(
                 "1",
@@ -635,6 +667,8 @@ object DataHelper {
                 false
             )
         )
+
+         */
 
         return data
     }

@@ -35,6 +35,8 @@ enum class Keys {
      * Key used to pass the image URI of the artwork to be posted
      */
     KEY_POST_ARTWORK,
+    KEY_CAMERA_PIC,
+    KEY_GALLERY_PIC,
 
     /**
      * Key used to pass information as to whether the artwork was taken from the camera
