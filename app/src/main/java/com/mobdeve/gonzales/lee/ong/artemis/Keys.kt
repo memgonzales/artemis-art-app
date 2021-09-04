@@ -1,6 +1,14 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+/**
+ * Enumeration class containing the keys used in passing intents across activities and in
+ * database-related operations.
+ *
+ * Since the said operations require strings as keys, they are referenced using their
+ * names in this enumeration declaration (that is, via the property <code>name</code>).
+ */
 enum class Keys {
+    /* Keys used in passing intents across activities */
     KEY_PROFILE_PICTURE,
     KEY_USERNAME,
     KEY_POST,
@@ -18,9 +26,11 @@ enum class Keys {
     KEY_BIO,
     KEY_COMMENT_BODY,
 
+    /* Keys used in passing intents related to posting an artwork */
     KEY_POST_ARTWORK,
     KEY_POST_FROM,
 
+    /* Keys used in database-related operations */
     KEY_DB_USERS,
     username,
     email,

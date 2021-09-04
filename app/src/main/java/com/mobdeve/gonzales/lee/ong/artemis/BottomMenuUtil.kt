@@ -8,15 +8,52 @@ import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+/**
+ * Class containing methods for setting the listeners and the corresponding behaviors
+ * when the menu items in the bottom navigation view are selected.
+ *
+ * The methods are intended to be called in every activity whose layout features
+ * the bottom navigation view with menu items Home, Followed, Bookmarks, and Profile.
+ */
 class BottomMenuUtil {
+    /**
+     * Companion object containing the methods for setting the listeners and the corresponding
+     * behaviors when the menu items in the bottom navigation view are selected, alongside
+     * constants referring to these menu items.
+     */
     companion object {
+        /**
+         * Constant referring to the Home menu in the bottom navigation view.
+         */
         const val HOME: Int = 1
+
+        /**
+         * Constant referring to the Followed menu in the bottom navigation view.
+         */
         const val FOLLOW: Int = 2
+
+        /**
+         * Constant referring to the Bookmarks menu in the bottom navigation view.
+         */
         const val BOOKMARK: Int = 3
+
+        /**
+         * Constant referring to the Profile menu in the bottom navigation view.
+         */
         const val USER: Int = 4
 
+        /**
+         * Constant referring to an invalid option in the bottom navigation view.
+         */
         private const val INVALID: Int = -1
 
+        /**
+         * Maps the ID of the icon in the bottom navigation view to the menu it represents
+         * (technically, the constant referring to that menu).
+         *
+         * @param itemId ID of the icon in the bottom navigation view
+         * @return menu represented by the icon in the bottom navigation view
+         */
         private fun getPosition(itemId: Int): Int {
             when (itemId) {
                 R.id.icon_home_profile, R.id.icon_home_bookmarks, R.id.icon_home_feed,
@@ -43,6 +80,15 @@ class BottomMenuUtil {
             return INVALID
         }
 
+        /**
+         * Sets the listeners and defines the corresponding behaviors (limited to passing intents
+         * and starting activities) when the items in the given bottom navigation view for registered
+         * users are selected.
+         *
+         * @param bnv bottom navigation view for registered users
+         * @param from activity calling this method
+         * @param packageContext context of the activity calling this method
+         */
         fun setBottomMenuListeners(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
             bnv.setOnItemSelectedListener{ item ->
                 when (getPosition(item.itemId)) {
@@ -71,6 +117,15 @@ class BottomMenuUtil {
             }
         }
 
+        /**
+         * Sets the listeners and defines the corresponding behaviors (limited to passing intents,
+         * destroying current activities, and starting activities) when the items in the given
+         * bottom navigation view for registered users are selected.
+         *
+         * @param bnv bottom navigation view for registered users
+         * @param from activity calling this method
+         * @param packageContext context of the activity calling this method
+         */
         fun setFinishBottomMenuListeners(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
             bnv.setOnItemSelectedListener{ item ->
                 when (getPosition(item.itemId)) {
@@ -103,6 +158,17 @@ class BottomMenuUtil {
             }
         }
 
+        /**
+         * Sets the listeners and defines the corresponding behaviors (limited to passing intents,
+         * scrolling actions, and starting activities) when the items in the given
+         * bottom navigation view for registered users are selected.
+         *
+         * @param bnv bottom navigation view for registered users
+         * @param nsv nested scroll view involved in the scrolling action
+         * @param scroll menu corresponding to the activity on which the scrolling action is executed
+         * @param from activity calling this method
+         * @param packageContext context of the activity calling this method
+         */
         fun setScrollBottomMenuListeners(bnv: BottomNavigationView, nsv: NestedScrollView, scroll: Int, from: Activity, packageContext: Context) {
             bnv.setOnItemSelectedListener { item ->
                 when (getPosition(item.itemId)) {
@@ -149,6 +215,19 @@ class BottomMenuUtil {
             }
         }
 
+        /**
+         * Sets the listeners and defines the corresponding behaviors (limited to scrolling actions
+         * and starting activities) when the items in the given bottom navigation view for unregistered
+         * users are selected.
+         *
+         * Since unregistered users are restricted to only their feed and this method does not involve
+         * passing intents, there is no need to pass the activity calling this method and the menu
+         * corresponding to the activity on which the scrolling action is executed.
+         *
+         * @param bnv bottom navigation view for unregistered users
+         * @param nsv nested scroll view involved in the scrolling action
+         * @param packageContext context of the activity calling this method
+         */
         fun setScrollBottomMenuListenersUnregistered(bnv: BottomNavigationView, nsv: NestedScrollView, packageContext: Context) {
             bnv.setOnItemSelectedListener { item ->
                 when (getPosition(item.itemId)) {
@@ -167,6 +246,15 @@ class BottomMenuUtil {
             }
         }
 
+        /**
+         * Sets the listeners and defines the corresponding behaviors (limited to passing intents,
+         * and starting activities) when the items in the given bottom navigation view for unregistered
+         * users are selected.
+         *
+         * @param bnv bottom navigation view for unregistered users
+         * @param from nested scroll view involved in the scrolling action
+         * @param packageContext context of the activity calling this method
+         */
         fun setBottomMenuListenersUnregistered(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
             bnv.setOnItemSelectedListener { item ->
                 when (getPosition(item.itemId)) {
@@ -186,6 +274,15 @@ class BottomMenuUtil {
             }
         }
 
+        /**
+         * Sets the listeners and defines the corresponding behaviors (limited to passing intents,
+         * destroying current activities, and starting activities) when the items in the given bottom
+         * navigation view for unregistered users are selected.
+         *
+         * @param bnv bottom navigation view for unregistered users
+         * @param from nested scroll view involved in the scrolling action
+         * @param packageContext context of the activity calling this method
+         */
         fun setFinishBottomMenuListenersUnregistered(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
             bnv.setOnItemSelectedListener { item ->
                 when (getPosition(item.itemId)) {
