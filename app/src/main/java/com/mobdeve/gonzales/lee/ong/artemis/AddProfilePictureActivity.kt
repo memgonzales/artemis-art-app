@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -42,12 +41,18 @@ class AddProfilePictureActivity : AppCompatActivity() {
     private lateinit var civUploadImg: CircleImageView
 
     /**
-     *
+     * Clickable  text view for skipping the addition of a profile picture.
      */
-    private lateinit var ivCameraPic: ImageView
-
     private lateinit var tvSkipUpload: TextView
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_profile_picture)
@@ -55,9 +60,11 @@ class AddProfilePictureActivity : AppCompatActivity() {
         initComponents()
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         this.civUploadImg = findViewById(R.id.civ_add_profile_profile_pic)
-        this.ivCameraPic = findViewById(R.id.iv_add_profile_pic_camera)
 
         setSupportActionBar(findViewById(R.id.toolbar_add_profile_pic))
 
@@ -84,6 +91,10 @@ class AddProfilePictureActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Launches a dialog showing the options related to adding a profile picture (either by choosing
+     * from the Gallery or opening the camera) or removing it.
+     */
     private fun launchDialog() {
         val view = LayoutInflater.from(this@AddProfilePictureActivity).inflate(R.layout.dialog_profile_picture, null)
 
@@ -93,6 +104,9 @@ class AddProfilePictureActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     */
     override fun onBackPressed() {
         val i = Intent(this@AddProfilePictureActivity, BrowseFeedActivity::class.java)
         Toast.makeText(this@AddProfilePictureActivity, "You may update your profile details through the account tab",

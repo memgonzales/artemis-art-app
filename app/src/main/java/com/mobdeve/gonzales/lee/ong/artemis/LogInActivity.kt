@@ -199,13 +199,6 @@ class LogInActivity : AppCompatActivity() {
         }
     }
 
-    private fun startTesting() {
-        this.btnTest.setOnClickListener {
-            val i = Intent(this@LogInActivity, AccountManagementActivity::class.java)
-            startActivity(i)
-        }
-    }
-
     override fun onStart() {
         super.onStart()
 
@@ -214,6 +207,12 @@ class LogInActivity : AppCompatActivity() {
             startActivity(i)
             finish()
         }
+    }
 
+    private fun startTesting() {
+        this.btnTest.setOnClickListener {
+            val i = Intent(this@LogInActivity, AddProfilePictureActivity::class.java)
+            startActivity(i)
+        }
     }
 }
