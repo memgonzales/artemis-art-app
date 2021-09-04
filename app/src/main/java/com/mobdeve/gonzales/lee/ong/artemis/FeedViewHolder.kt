@@ -1,13 +1,22 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.res.ColorStateList
+import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.share.Sharer
+import com.facebook.share.model.SharePhoto
+import com.facebook.share.model.SharePhotoContent
+import com.facebook.share.widget.ShareDialog
 import de.hdodenhof.circleimageview.CircleImageView
 
 class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -28,12 +37,24 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         civItemFeedProfilePic.setImageResource(picture)
     }
 
+    fun getItemFeedProfilePic(): CircleImageView {
+        return this.civItemFeedProfilePic
+    }
+
     fun setItemFeedUsername(name: String?) {
         tvItemFeedUsername.text = name
     }
 
+    fun getItemFeedUsername(): TextView {
+        return this.tvItemFeedUsername
+    }
+
     fun setItemFeedPost(post: Int) {
         ivItemFeedPost.setImageResource(post)
+    }
+
+    fun getItemFeedPost(): ImageView {
+        return this.ivItemFeedPost
     }
 
     fun setItemFeedTitle(title: String?) {
