@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.ktx.Firebase
@@ -19,7 +18,6 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
-import java.io.File
 
 
 class PostArtworkActivity : AppCompatActivity() {
@@ -37,6 +35,9 @@ class PostArtworkActivity : AppCompatActivity() {
     private lateinit var storage: FirebaseStorage
     private lateinit var storageRef: StorageReference
 
+    private lateinit var photoSource: String
+    private lateinit var photoPath: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_artwork)
@@ -49,8 +50,8 @@ class PostArtworkActivity : AppCompatActivity() {
     private fun fetchPhoto() {
         ivPostArtworkArt = findViewById(R.id.iv_post_artwork_art)
 
-        val photoSource: String? = intent.getStringExtra(Keys.KEY_POST_FROM.name)
-        val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
+        photoSource = intent.getStringExtra(Keys.KEY_POST_FROM.name)!!
+        photoPath = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)!!
 
         if (photoSource == PostArtworkUtil.FROM_CAMERA) {
             fetchFromCamera(photoPath)
@@ -83,9 +84,9 @@ class PostArtworkActivity : AppCompatActivity() {
 
         ivPostArtworkArt.setImageBitmap(rotatedBitmap)
 
-        var outputStream = ByteArrayOutputStream()
+        val outputStream = ByteArrayOutputStream()
         rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-        var data = outputStream.toByteArray()
+        val data = outputStream.toByteArray()
 
         this.storage = Firebase.storage
         this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test")
