@@ -14,6 +14,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
  *
  * The methods are intended to be called in every activity whose layout features
  * the bottom navigation view with menu items Home, Followed, Bookmarks, and Profile.
+ *
+ * @constructor Creates a class that contains methods for setting the listeners and the corresponding
+ * behaviors when the menu items in the bottom navigation view are selected.
  */
 class BottomMenuUtil {
     /**
