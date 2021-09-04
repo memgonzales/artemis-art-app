@@ -101,7 +101,7 @@ class PostArtworkUtil {
             return photoFile
         }
 
-        fun getPhotoFile(context: Context, name: String): File {
+        private fun getPhotoFile(context: Context, name: String): File {
             val storageDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
             return File.createTempFile(name, ".jpg", storageDirectory)
         }

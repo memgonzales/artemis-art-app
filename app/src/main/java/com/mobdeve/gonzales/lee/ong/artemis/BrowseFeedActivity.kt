@@ -47,8 +47,19 @@ class BrowseFeedActivity : AppCompatActivity() {
 
     private lateinit var ref: DatabaseReference
 
+    /**
+     * Photo of the artwork for posting.
+     */
     private lateinit var photoFile: File
+
+    /**
+     * Activity result launcher related to taking photos using the device camera.
+     */
     private lateinit var cameraLauncher:  ActivityResultLauncher<Intent>
+
+    /**
+     * Activity result launcher related to choosing photos from the Gallery
+     */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +72,11 @@ class BrowseFeedActivity : AppCompatActivity() {
         initCameraLauncher(this@BrowseFeedActivity)
     }
 
+    /**
+     * Initializes the activity result launcher related to choosing photos from the Gallery.
+     *
+     * @packageContext context tied to this activity
+     */
     private fun initGalleryLauncher(packageContext: Context) {
         galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 result: ActivityResult ->
@@ -81,6 +97,11 @@ class BrowseFeedActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the activity result launcher related to taking photos using the device camera
+     *
+     * @packageContext context tied to this activity
+     */
     private fun initCameraLauncher(packageContext: Context) {
         cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -313,12 +334,34 @@ class BrowseFeedActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Callback for the result from requesting permissions.
+     *
+     * @param requestCode the request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
+     * @param permissions the requested permissions. Never null
+     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
+     *     Never null
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsResult(requestCode, grantResults, this@BrowseFeedActivity, this)
     }
 
+    /**
+     * Defines the behavior related to choosing a photo from the Gallery or taking a photo using
+     * the device camera based on the permissions granted by the user.
+     *
+     * @param requestCode the request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
+     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
+     *     Never null
+     * @param context context tied to this activity
+     * @param activity this activity
+     */
     private fun permissionsResult(requestCode: Int, grantResults: IntArray, context: Context,
                                   activity: Activity) {
         when (requestCode) {
