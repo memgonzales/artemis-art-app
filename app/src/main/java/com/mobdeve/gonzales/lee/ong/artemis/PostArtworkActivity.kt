@@ -13,11 +13,8 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
-import java.io.ByteArrayOutputStream
 
 
 class PostArtworkActivity : AppCompatActivity() {
@@ -60,8 +57,16 @@ class PostArtworkActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Displays the photo taken using the device camera in the proper orientation.
+     *
+     * This method addresses the issue of most device cameras setting the orientation of a captured
+     * image to landscape. The code for rotation is a direct translation of the one found in
+     * https://www.py4u.net/discuss/611150
+     *
+     * @param photoPath path to the photo to be rotated
+     */
     private fun fetchFromCamera(photoPath: String?) {
-        /* Taken from https://www.py4u.net/discuss/611150 */
         val bounds = BitmapFactory.Options()
         bounds.inJustDecodeBounds = true
         BitmapFactory.decodeFile(photoPath, bounds)
