@@ -9,7 +9,7 @@ Users also have the option to bookmark their favorite artworks made by other use
 Package containing all the Kotlin classes, resources, and Gradle files for configuring and running the application.
 
 ## About the Project
-This app is the major course output in a mobile development (MOBDEVE) class. The authors of this project are second-year undergraduate students of the Software Technology Department, College of Computer Studies, De La Salle University:
+This app is the major course output in a mobile development (MOBDEVE) class. The authors of this project are second-year undergraduate students from the Software Technology Department, College of Computer Studies, De La Salle University:
 - Mark Edward M. Gonzales
 - Hylene Jules G. Lee
 - Phoebe Clare L. Ong<br/> <br/>

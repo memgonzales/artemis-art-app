@@ -227,7 +227,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".AddProfilePictureActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:parentActivityName=".BrowseFeedActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SignUpActivity"

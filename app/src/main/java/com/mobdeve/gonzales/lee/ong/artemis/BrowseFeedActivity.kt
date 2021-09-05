@@ -1,25 +1,21 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.Looper
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,45 +45,22 @@ class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    private lateinit var ref: DatabaseReference
+
+    /**
+     * Photo of the artwork for posting.
+     */
     private lateinit var photoFile: File
 
-    private lateinit var db: DatabaseReference
+    /**
+     * Activity result launcher related to taking photos using the device camera.
+     */
+    private lateinit var cameraLauncher:  ActivityResultLauncher<Intent>
 
-    private var cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            result: ActivityResult ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
-            intent.putExtra(
-                Keys.KEY_POST_ARTWORK.name,
-                photoFile.absolutePath
-            )
-
-            intent.putExtra(
-                Keys.KEY_POST_FROM.name,
-                PostArtworkUtil.FROM_CAMERA
-            )
-
-            startActivity(intent)
-        }
-    }
-
-    private var galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            result: ActivityResult ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val intent = Intent(this@BrowseFeedActivity, PostArtworkActivity::class.java)
-            intent.putExtra(
-                Keys.KEY_POST_ARTWORK.name,
-                result.data?.data.toString()
-            )
-
-            intent.putExtra(
-                Keys.KEY_POST_FROM.name,
-                PostArtworkUtil.FROM_GALLERY
-            )
-
-            startActivity(intent)
-        }
-    }
+    /**
+     * Activity result launcher related to choosing photos from the Gallery
+     */
+    private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,10 +68,61 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         initFirebase()
         initComponents()
+        initGalleryLauncher(this@BrowseFeedActivity)
+        initCameraLauncher(this@BrowseFeedActivity)
+    }
+
+    /**
+     * Initializes the activity result launcher related to choosing photos from the Gallery.
+     *
+     * @packageContext context tied to this activity
+     */
+    private fun initGalleryLauncher(packageContext: Context) {
+        galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = Intent(packageContext, PostArtworkActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_POST_ARTWORK.name,
+                    result.data?.data.toString()
+                )
+
+                intent.putExtra(
+                    Keys.KEY_POST_FROM.name,
+                    PostArtworkUtil.FROM_GALLERY
+                )
+
+                startActivity(intent)
+            }
+        }
+    }
+
+    /**
+     * Initializes the activity result launcher related to taking photos using the device camera
+     *
+     * @packageContext context tied to this activity
+     */
+    private fun initCameraLauncher(packageContext: Context) {
+        cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = Intent(packageContext, PostArtworkActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_POST_ARTWORK.name,
+                    photoFile.absolutePath
+                )
+
+                intent.putExtra(
+                    Keys.KEY_POST_FROM.name,
+                    PostArtworkUtil.FROM_CAMERA
+                )
+
+                startActivity(intent)
+            }
+        }
     }
 
     private fun initFirebase(){
-        this.db = Firebase.database.reference
+        this.ref = Firebase.database.reference
     }
 
     private fun initComponents() {
@@ -168,7 +192,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     private fun initContent(){
         this.dataPosts = arrayListOf<Post>()
 
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+        val postDB = this.ref.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -224,12 +248,12 @@ class BrowseFeedActivity : AppCompatActivity() {
     }
 
     private fun getRealtimeUpdates(){
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+        val postDB = this.ref.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addChildEventListener(object: ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 var post = snapshot.getValue(Post::class.java)
-               // post?.setPostId(snapshot.key!!)
+                // post?.setPostId(snapshot.key!!)
 
 
             }
@@ -299,128 +323,59 @@ class BrowseFeedActivity : AppCompatActivity() {
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
             clDialogPostArtworkGallery.setOnClickListener {
-                val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-
-                if (ContextCompat.checkSelfPermission(
-                        this.applicationContext,
-                        permissions[0]
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    ActivityCompat.requestPermissions(
-                        this@BrowseFeedActivity,
-                        permissions,
-                        RequestCodes.REQUEST_CODE_POST_GALLERY.ordinal
-                    )
-                } else {
-                    val intent = Intent(Intent.ACTION_PICK)
-                    intent.type = "image/*"
-
-                    galleryLauncher.launch(intent)
-                }
+                PostArtworkUtil.chooseFromGallery(this, galleryLauncher)
             }
 
             clDialogPostArtworkPhoto.setOnClickListener {
-                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                val permissions = arrayOf(
-                    android.Manifest.permission.CAMERA,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-                photoFile = getPhotoFile(PostArtworkUtil.PHOTO_DEFAULT_FILE_NAME)
-
-                val fileProvider =
-                    FileProvider.getUriForFile(this, PostArtworkUtil.PACKAGE_NAME, photoFile)
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
-
-                if (ContextCompat.checkSelfPermission(
-                        this.applicationContext,
-                        permissions[0]
-                    ) != PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(
-                        this.applicationContext,
-                        permissions[1]
-                    ) != PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(
-                        this.applicationContext,
-                        permissions[2]
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-
-                    ActivityCompat.requestPermissions(
-                        this@BrowseFeedActivity,
-                        permissions,
-                        RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal
-                    )
-
-                } else {
-                    if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
-                        cameraLauncher.launch(intent)
-                    } else {
-                        Toast.makeText(
-                            this@BrowseFeedActivity,
-                            "Camera app cannot be found",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
+                photoFile = PostArtworkUtil.takeFromCamera(this, this@BrowseFeedActivity, cameraLauncher)
             }
 
             btmAddPost.show()
         }
     }
 
-    private fun getPhotoFile(name: String): File {
-        val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(name, ".jpg", storageDirectory)
+    /**
+     * Callback for the result from requesting permissions.
+     *
+     * @param requestCode the request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
+     * @param permissions the requested permissions. Never null
+     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
+     *     Never null
+     */
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permissionsResult(requestCode, grantResults, this@BrowseFeedActivity, this)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
+    /**
+     * Defines the behavior related to choosing a photo from the Gallery or taking a photo using
+     * the device camera based on the permissions granted by the user.
+     *
+     * @param requestCode the request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
+     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
+     *     Never null
+     * @param context context tied to this activity
+     * @param activity this activity
+     */
+    private fun permissionsResult(requestCode: Int, grantResults: IntArray, context: Context,
+                                  activity: Activity) {
         when (requestCode) {
             RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
-                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                val temp: File? = PostArtworkUtil.permissionsResultCamera(grantResults, activity,
+                    context, cameraLauncher)
 
-                    photoFile = getPhotoFile(PostArtworkUtil.PHOTO_DEFAULT_FILE_NAME)
-
-                    val fileProvider = FileProvider.getUriForFile(this, PostArtworkUtil.PACKAGE_NAME, photoFile)
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
-
-                    if (intent.resolveActivity(this@BrowseFeedActivity.packageManager) != null) {
-                        cameraLauncher.launch(intent)
-                    } else {
-                        Toast.makeText(
-                            this@BrowseFeedActivity,
-                            "Camera app cannot be found",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                } else {
-                    Toast.makeText(
-                        this@BrowseFeedActivity,
-                        "Insufficient permissions to take a photo",
-                        Toast.LENGTH_LONG
-                    ).show()
+                if (temp != null) {
+                    photoFile = temp
                 }
-                return
             }
 
             RequestCodes.REQUEST_CODE_POST_GALLERY.ordinal -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    val intent = Intent(Intent.ACTION_PICK)
-                    intent.type = "image/*"
-
-                    galleryLauncher.launch(intent)
-                } else {
-                    Toast.makeText(
-                        this@BrowseFeedActivity,
-                        "Insufficient permissions to access your photos",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+                PostArtworkUtil.permissionsResultGallery(grantResults, context, galleryLauncher)
             }
         }
     }

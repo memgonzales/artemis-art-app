@@ -1,17 +1,22 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
+import java.io.File
 
 class ViewOthersHighlightActivity : AppCompatActivity() {
     private lateinit var civItemViewOthersHighlightProfilePic: CircleImageView
@@ -28,6 +33,21 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
     private lateinit var fabAddPost: FloatingActionButton
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
+
+    /**
+     * Photo of the artwork for posting.
+     */
+    private lateinit var photoFile: File
+
+    /**
+     * Activity result launcher related to taking photos using the device camera.
+     */
+    private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
+
+    /**
+     * Activity result launcher related to choosing photos from the Gallery
+     */
+    private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +66,57 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
         initComponents()
         initBottom()
         addPost()
+        initGalleryLauncher(this@ViewOthersHighlightActivity)
+        initCameraLauncher(this@ViewOthersHighlightActivity)
+    }
+
+    /**
+     * Initializes the activity result launcher related to choosing photos from the Gallery.
+     *
+     * @packageContext context tied to this activity
+     */
+    private fun initGalleryLauncher(packageContext: Context) {
+        galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = Intent(packageContext, PostArtworkActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_POST_ARTWORK.name,
+                    result.data?.data.toString()
+                )
+
+                intent.putExtra(
+                    Keys.KEY_POST_FROM.name,
+                    PostArtworkUtil.FROM_GALLERY
+                )
+
+                startActivity(intent)
+            }
+        }
+    }
+
+    /**
+     * Initializes the activity result launcher related to taking photos using the device camera
+     *
+     * @packageContext context tied to this activity
+     */
+    private fun initCameraLauncher(packageContext: Context) {
+        cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = Intent(packageContext, PostArtworkActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_POST_ARTWORK.name,
+                    photoFile.absolutePath
+                )
+
+                intent.putExtra(
+                    Keys.KEY_POST_FROM.name,
+                    PostArtworkUtil.FROM_CAMERA
+                )
+
+                startActivity(intent)
+            }
+        }
     }
 
     private fun initIntent() {
@@ -138,30 +209,62 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
             clDialogPostArtworkGallery.setOnClickListener {
-                Toast.makeText(
-                    this@ViewOthersHighlightActivity,
-                    "Photo chosen from the gallery",
-                    Toast.LENGTH_SHORT
-                ).show()
-                btmAddPost.dismiss()
-                val intent =
-                    Intent(this@ViewOthersHighlightActivity, PostArtworkActivity::class.java)
-                startActivity(intent)
+                PostArtworkUtil.chooseFromGallery(this, galleryLauncher)
             }
 
             clDialogPostArtworkPhoto.setOnClickListener {
-                Toast.makeText(
-                    this@ViewOthersHighlightActivity,
-                    "Photo taken with the device camera",
-                    Toast.LENGTH_SHORT
-                ).show()
-                btmAddPost.dismiss()
-                val intent =
-                    Intent(this@ViewOthersHighlightActivity, PostArtworkActivity::class.java)
-                startActivity(intent)
+                photoFile = PostArtworkUtil.takeFromCamera(this, this@ViewOthersHighlightActivity, cameraLauncher)
             }
 
             btmAddPost.show()
+        }
+    }
+
+    /**
+     * Callback for the result from requesting permissions.
+     *
+     * @param requestCode The request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
+     * @param permissions The requested permissions. Never null
+     * @param grantResults The grant results for the corresponding permissions which is either <code>
+     *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
+     *     Never null
+     */
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permissionsResult(requestCode, grantResults, this@ViewOthersHighlightActivity, this)
+    }
+
+    /**
+     * Defines the behavior related to choosing a photo from the Gallery or taking a photo using
+     * the device camera based on the permissions granted by the user.
+     *
+     * @param requestCode the request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
+     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
+     *     Never null
+     * @param context context tied to this activity
+     * @param activity this activity
+     */
+    private fun permissionsResult(requestCode: Int, grantResults: IntArray, context: Context,
+                                  activity: Activity) {
+        when (requestCode) {
+            RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal -> {
+                val temp: File? = PostArtworkUtil.permissionsResultCamera(
+                    grantResults, activity,
+                    context, cameraLauncher
+                )
+
+                if (temp != null) {
+                    photoFile = temp
+                }
+            }
+
+            RequestCodes.REQUEST_CODE_POST_GALLERY.ordinal -> {
+                PostArtworkUtil.permissionsResultGallery(grantResults, context, galleryLauncher)
+            }
         }
     }
 }
