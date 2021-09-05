@@ -212,9 +212,7 @@ class PostAddTagsActivity : AppCompatActivity() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
                         val username: String = snapshot.child(Keys.username.name).getValue().toString()
-                        val userPosts: ArrayList<String> = getList(snapshot.child(Keys.userPosts.name).getValue().toString())
-
-                        Toast.makeText(this@PostAddTagsActivity, "cj: " + userPosts.size, Toast.LENGTH_SHORT).show()
+                        
                         val post = Post(userImg, username, title, url.toString(),
                             medium, dimensions, desc, allTags)
 
