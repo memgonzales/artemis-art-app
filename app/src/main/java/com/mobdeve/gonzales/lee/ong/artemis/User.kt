@@ -67,11 +67,11 @@ class User {
      * @param email email address of the user
      * @param password password of the user
      */
-    constructor(username: String, email: String, password: String, userImg: String){
+    constructor(username: String, email: String, password: String){
         this.username = username
         this.email = email
         this.password = password
-        this.userImg = userImg
+        this.userImg = "gs://artemis-77e4e.appspot.com/chibi_artemis_hd.png"
         this.bio = ""
 
         this.bookmarks = ArrayList<String>()

@@ -32,9 +32,6 @@ class PostArtworkActivity : AppCompatActivity() {
     private lateinit var sp: SharedPreferences
     private lateinit var spEditor: SharedPreferences.Editor
 
-    private lateinit var storage: FirebaseStorage
-    private lateinit var storageRef: StorageReference
-
     private lateinit var photoSource: String
     private lateinit var photoPath: String
 
@@ -84,34 +81,11 @@ class PostArtworkActivity : AppCompatActivity() {
 
         ivPostArtworkArt.setImageBitmap(rotatedBitmap)
 
-
-        /*
-        val outputStream = ByteArrayOutputStream()
-        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-
-        val data = outputStream.toByteArray()
-
-        this.storage = Firebase.storage
-        this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test123")
-
-        this.storageRef.putBytes(data)
-
-         */
-
-
     }
 
     private fun fetchFromGallery() {
         val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
         ivPostArtworkArt.setImageURI(Uri.parse(photoPath!!))
-
-        /*
-        this.storage = Firebase.storage
-        this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test2")
-
-        this.storageRef.putFile(Uri.parse(photoPath))
-
-         */
     }
 
     private fun initComponents() {

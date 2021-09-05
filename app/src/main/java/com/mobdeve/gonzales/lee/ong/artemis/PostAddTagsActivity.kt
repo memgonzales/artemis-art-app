@@ -18,7 +18,10 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -54,6 +57,9 @@ class PostAddTagsActivity : AppCompatActivity() {
     private lateinit var photoSource: String
     private lateinit var photoPath: String
 
+    private var cameraTaken: Boolean = false
+    private lateinit var photoByte: ByteArray
+    private lateinit var photoUri: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +79,7 @@ class PostAddTagsActivity : AppCompatActivity() {
 
         if (photoSource == PostArtworkUtil.FROM_CAMERA) {
             fetchFromCamera(photoPath)
+            cameraTaken = true
         } else if (photoSource == PostArtworkUtil.FROM_GALLERY) {
             fetchFromGallery()
         }
@@ -102,26 +109,19 @@ class PostAddTagsActivity : AppCompatActivity() {
 
         ivPostAddTagsArt.setImageBitmap(rotatedBitmap)
 
+
         val outputStream = ByteArrayOutputStream()
         rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-        val data = outputStream.toByteArray()
+        this.photoByte = outputStream.toByteArray()
 
-  //      this.storage = Firebase.storage
- //       this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test13")
-//
-//        this.storageRef.putBytes(data)
-
-   //     this.storageRef.putFile(Uri.parse(photoPath))
     }
 
     private fun fetchFromGallery() {
         val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
         ivPostAddTagsArt.setImageURI(Uri.parse(photoPath!!))
 
-//        this.storage = Firebase.storage
-//        this.storageRef = this.storage.getReferenceFromUrl("gs://artemis-77e4e.appspot.com").child("test2")
-//
-//        this.storageRef.putFile(Uri.parse(photoPath))
+        this.photoUri = photoPath
+
     }
 
     private fun initFirebase() {
@@ -129,6 +129,9 @@ class PostAddTagsActivity : AppCompatActivity() {
         this.user = this.mAuth.currentUser!!
         this.userId = this.user.uid
         this.db = Firebase.database.reference
+
+        this.storage = Firebase.storage
+        this.storageRef = this.storage.reference
     }
 
     private fun initComponents() {
@@ -187,31 +190,64 @@ class PostAddTagsActivity : AppCompatActivity() {
                 val dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
                 val desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
 
-                /*
-                val post = Post(R.drawable.tofu_chan, "Tobe", title, R.drawable.magia_record,
-                    medium, dimensions, desc, allTags)
-
                 this.pbAddPost.visibility = View.VISIBLE
 
                 val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
                 val postKey = postDB.push().key!!
 
-                postDB.child(postKey).setValue(post)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful){
-                            this.pbAddPost.visibility = View.GONE
-                            Toast.makeText(applicationContext, "Posted successfully", Toast.LENGTH_LONG).show()
-                            val intent = Intent(this@PostAddTagsActivity, BrowseFeedActivity::class.java)
-                            startActivity(intent)
-                        }
+                val url = this.storageRef.child(postKey)
 
-                        else{
-                            this.pbAddPost.visibility = View.GONE
-                            Toast.makeText(applicationContext, "Failed to post: ", Toast.LENGTH_LONG).show()
-                        }
+                if(cameraTaken){
+                    url.putBytes(this.photoByte)
+                }
+
+                else{
+                    url.putFile(Uri.parse(this.photoUri))
+                }
+
+
+                val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
+
+                userDB.addValueEventListener(object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
+                        val username: String = snapshot.child(Keys.username.name).getValue().toString()
+                        val userPosts: ArrayList<String> = getList(snapshot.child(Keys.userPosts.name).getValue().toString())
+
+                        Toast.makeText(this@PostAddTagsActivity, "cj: " + userPosts.size, Toast.LENGTH_SHORT).show()
+                        val post = Post(userImg, username, title, url.toString(),
+                            medium, dimensions, desc, allTags)
+
+                        val updates = hashMapOf<String, Any>(
+                            "/${Keys.KEY_DB_POSTS}/$postKey" to post,
+                            "/${Keys.KEY_DB_USERS}/$userId/${Keys.userPosts.name}/$postKey" to postKey
+                        )
+
+
+                        db.updateChildren(updates)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful){
+                                    pbAddPost.visibility = View.GONE
+                                    Toast.makeText(applicationContext, "Posted successfully", Toast.LENGTH_LONG).show()
+                                    val intent = Intent(this@PostAddTagsActivity, BrowseFeedActivity::class.java)
+                                    startActivity(intent)
+                                }
+
+                                else{
+                                    pbAddPost.visibility = View.GONE
+                                    Toast.makeText(applicationContext, "Failed to post: ", Toast.LENGTH_LONG).show()
+                                }
+                            }
                     }
 
-                 */
+                    override fun onCancelled(error: DatabaseError) {
+
+                        pbAddPost.visibility = View.GONE
+                        Toast.makeText(applicationContext, "Failed to post: ", Toast.LENGTH_LONG).show()
+
+                    }
+
+                })
             }
         }
 
@@ -231,6 +267,10 @@ class PostAddTagsActivity : AppCompatActivity() {
         }
 
         return hasEmpty
+    }
+
+    private fun getList(str: String): ArrayList<String>{
+        return str.substring(1, str.length-1).split(",").toCollection(ArrayList())
     }
 
     /*

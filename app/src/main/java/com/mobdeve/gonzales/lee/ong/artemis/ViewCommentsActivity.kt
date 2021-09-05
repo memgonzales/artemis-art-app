@@ -19,10 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -137,105 +134,27 @@ class ViewCommentsActivity : AppCompatActivity() {
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
         val commentKey = commentDB.push().key!!
 
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
-
-        userDB.child(this.userId).addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var comments = snapshot.child(Keys.comments.name).getValue().toString()
-                var commentIds: ArrayList<String> = ArrayList<String>()
-
-                if(comments != null){
-                    commentIds = getList(comments)
-                }
-
-
-
-                commentIds.add(commentKey)
-
-                //Toast.makeText(applicationContext, "cj: " + commentIds, Toast.LENGTH_SHORT).show()
-
-                val updates = hashMapOf<String, Any>(
-                    "/${Keys.KEY_DB_COMMENTS}/$commentKey" to comment,
-                    "/${Keys.KEY_DB_USERS}/$userId/${Keys.comments.name}" to commentIds
-                )
-
-                db.updateChildren(updates)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful){
-                            pbComment.visibility = View.GONE
-                            Toast.makeText(this@ViewCommentsActivity, "Commented successfully", Toast.LENGTH_LONG).show()
-                            etComment.text.clear()
-                        }
-
-                        else{
-                            pbComment.visibility = View.VISIBLE
-                            Toast.makeText(this@ViewCommentsActivity, "Failed to comment", Toast.LENGTH_LONG).show()
-                        }
-                    }
-
-
-
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
-        /*
-        commentDB.child(commentKey).setValue(comment)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful){
-                    this.pbComment.visibility = View.GONE
-                    Toast.makeText(this, "Commented successfully", Toast.LENGTH_LONG).show()
-                    this.etComment.text.clear()
-                }
-
-                else{
-                    this.pbComment.visibility = View.VISIBLE
-                    Toast.makeText(this, "Failed to comment", Toast.LENGTH_LONG).show()
-                }
-            }
-
-
-         */
-        /*
         val updates = hashMapOf<String, Any>(
             "/${Keys.KEY_DB_COMMENTS}/$commentKey" to comment,
-            "/${Keys.KEY_DB_USERS}/$userId/${Keys.comments.name}" to commentKey
+            "/${Keys.KEY_DB_USERS}/$userId/${Keys.comments.name}/$commentKey" to commentKey
         )
 
-        this.db.updateChildren(updates)
+        db.updateChildren(updates)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    this.pbComment.visibility = View.GONE
-                    Toast.makeText(this, "Commented successfully", Toast.LENGTH_LONG).show()
-                    this.etComment.text.clear()
+                    pbComment.visibility = View.GONE
+                    Toast.makeText(this@ViewCommentsActivity, "Commented successfully", Toast.LENGTH_LONG).show()
+                    etComment.text.clear()
+
+                    commentsAdapter.notifyDataSetChanged()
                 }
 
                 else{
-                    this.pbComment.visibility = View.VISIBLE
-                    Toast.makeText(this, "Failed to comment", Toast.LENGTH_LONG).show()
+                    pbComment.visibility = View.VISIBLE
+                    Toast.makeText(this@ViewCommentsActivity, "Failed to comment", Toast.LENGTH_LONG).show()
                 }
             }
-
-         */
     }
-
-    private fun getList(str: String): ArrayList<String>{
-        return str.substring(1, str.length-1).split(",").toCollection(ArrayList<String>())
-    }
-
-    /*
-    private fun addCommentToUserDB(commentId: String){
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
-        val userKey = "kWI0ojJ9RaPoJZbkPAR9dQGvVPf2"
-
-        userDB.child(userKey).child(Keys.comments.name).set
-    }
-
-     */
 
     private fun addComment() {
         this.ibAddComment = findViewById(R.id.ib_add_comment_followed)

@@ -1,7 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -10,7 +9,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.signin.internal.Storage
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -21,11 +19,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
-import java.io.File
-import java.io.IOException
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var btnSignUp: Button
@@ -48,9 +41,6 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
 
-    private lateinit var storage: FirebaseStorage
-    private lateinit var storageRef: StorageReference
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -68,9 +58,6 @@ class SignUpActivity : AppCompatActivity() {
     private fun initFirebase() {
         this.mAuth = Firebase.auth
         this.db = Firebase.database
-
-        this.storage = Firebase.storage
-        //this.storageRef = this.storage.reference
     }
 
 
@@ -232,9 +219,7 @@ class SignUpActivity : AppCompatActivity() {
 
                     else{
                         if (!userExists){
-                            val userImg = (storage.reference.child("chibi_artemis_hd.png")).toString()
-                            val user = User(username, email, password, userImg)
-
+                            val user = User(username, email, password)
                             storeUser(user)
                         }
                     }

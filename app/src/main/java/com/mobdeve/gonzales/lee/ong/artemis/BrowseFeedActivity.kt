@@ -51,7 +51,7 @@ class BrowseFeedActivity : AppCompatActivity() {
 
     private lateinit var photoFile: File
 
-    private lateinit var ref: DatabaseReference
+    private lateinit var db: DatabaseReference
 
     private var cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult ->
@@ -98,7 +98,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     }
 
     private fun initFirebase(){
-        this.ref = Firebase.database.reference
+        this.db = Firebase.database.reference
     }
 
     private fun initComponents() {
@@ -168,7 +168,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     private fun initContent(){
         this.dataPosts = arrayListOf<Post>()
 
-        val postDB = this.ref.child(Keys.KEY_DB_POSTS.name)
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -224,7 +224,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     }
 
     private fun getRealtimeUpdates(){
-        val postDB = this.ref.child(Keys.KEY_DB_POSTS.name)
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addChildEventListener(object: ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
