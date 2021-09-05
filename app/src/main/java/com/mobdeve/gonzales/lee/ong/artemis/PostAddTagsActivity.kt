@@ -212,7 +212,7 @@ class PostAddTagsActivity : AppCompatActivity() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
                         val username: String = snapshot.child(Keys.username.name).getValue().toString()
-                        
+
                         val post = Post(userImg, username, title, url.toString(),
                             medium, dimensions, desc, allTags)
 

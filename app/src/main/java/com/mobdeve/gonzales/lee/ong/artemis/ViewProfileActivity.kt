@@ -3,6 +3,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -19,8 +20,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
@@ -46,6 +56,12 @@ class ViewProfileActivity : AppCompatActivity() {
     private lateinit var dataUser: User
 
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
+
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageRef: StorageReference
 
     /**
      * Photo of the artwork for posting.
@@ -126,6 +142,13 @@ class ViewProfileActivity : AppCompatActivity() {
 
     private fun initFirebase(){
         this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        this.user = this.mAuth.currentUser!!
+        this.userId = this.user.uid
+
+        this.storage = Firebase.storage
+        this.storageRef = this.storage.reference
     }
 
     private fun initContent() {
@@ -138,11 +161,38 @@ class ViewProfileActivity : AppCompatActivity() {
         this.clViewProfileLogout = findViewById(R.id.cl_view_profile_logout)
         this.btnViewProfileHighlights = findViewById(R.id.btn_view_profile_highlights)
 
-        this.dataUser = DataHelper.loadProfileData()
+        this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
+            .addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val profPic: String = snapshot.child(Keys.userImg.name).getValue().toString()
+                val username: String = snapshot.child(Keys.username.name).getValue().toString()
+                val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
+//
+                val localFile = File.createTempFile("images", "jpg")
+                storageRef = storage.getReferenceFromUrl(profPic)
+
+                storageRef.getFile(localFile)
+                    .addOnSuccessListener {
+                        var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                        civViewProfileProfilePicture.setImageBitmap(bitmap)
+                    }
+
+                tvViewProfileUsername.setText(username)
+                tvViewProfileBio.setText(bio)
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()    
+            }
+
+        })
+
+       // this.dataUser = DataHelper.loadProfileData()
 
        // this.civViewProfileProfilePicture.setImageResource(dataUser.getUserImg())
-        this.tvViewProfileUsername.text = dataUser.getUsername()
-        this.tvViewProfileBio.text = dataUser.getBio()
+       // this.tvViewProfileUsername.text = dataUser.getUsername()
+       // this.tvViewProfileBio.text = dataUser.getBio()
 
         clViewProfileEdit.setOnClickListener {
             val intent = Intent(this@ViewProfileActivity, EditProfileActivity::class.java)
