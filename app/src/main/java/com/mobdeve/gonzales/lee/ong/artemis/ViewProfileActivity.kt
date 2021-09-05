@@ -161,13 +161,14 @@ class ViewProfileActivity : AppCompatActivity() {
         this.clViewProfileLogout = findViewById(R.id.cl_view_profile_logout)
         this.btnViewProfileHighlights = findViewById(R.id.btn_view_profile_highlights)
 
+
         this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
             .addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val profPic: String = snapshot.child(Keys.userImg.name).getValue().toString()
                 val username: String = snapshot.child(Keys.username.name).getValue().toString()
                 val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
-//
+
                 val localFile = File.createTempFile("images", "jpg")
                 storageRef = storage.getReferenceFromUrl(profPic)
 
@@ -183,15 +184,17 @@ class ViewProfileActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()    
+                Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
             }
 
         })
 
+
+
        // this.dataUser = DataHelper.loadProfileData()
 
        // this.civViewProfileProfilePicture.setImageResource(dataUser.getUserImg())
-       // this.tvViewProfileUsername.text = dataUser.getUsername()
+       // this.tvViewProfileUsername.text = intent.getStringExtra(Keys.username.name)//dataUser.getUsername()
        // this.tvViewProfileBio.text = dataUser.getBio()
 
         clViewProfileEdit.setOnClickListener {

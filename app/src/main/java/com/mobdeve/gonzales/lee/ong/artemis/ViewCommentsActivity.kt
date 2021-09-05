@@ -202,6 +202,10 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.rvComments.adapter = commentsAdapter
     }
 
+    private fun initComment(){
+
+    }
+
     private fun addCommentDB(comment: Comment) {
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
         val commentKey = commentDB.push().key!!
@@ -218,6 +222,7 @@ class ViewCommentsActivity : AppCompatActivity() {
                     Toast.makeText(this@ViewCommentsActivity, "Commented successfully", Toast.LENGTH_LONG).show()
                     etComment.text.clear()
 
+                    dataComments.add(comment)
                     commentsAdapter.notifyDataSetChanged()
                 }
 
@@ -239,8 +244,29 @@ class ViewCommentsActivity : AppCompatActivity() {
             if (commentText.isNotEmpty()) {
                 this.pbComment.visibility = View.VISIBLE
 
+                /*
+                db.child(Keys.KEY_DB_USERS.name).child(userId)
+                    .addValueEventListener(object: ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
+                            val username: String = snapshot.child(Keys.username.name).getValue().toString()
+
+                            val comment = Comment("1", R.drawable.tofu_chan, "Tobe", commentText, true)
+                            addCommentDB(comment)
+
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+
+                    })
+
+                 */
+
                 val comment = Comment("1", R.drawable.tofu_chan, "Tobe", commentText, true)
                 addCommentDB(comment)
+
 
             } else {
                 Toast.makeText(this, "Comments should not be blank", Toast.LENGTH_SHORT).show()

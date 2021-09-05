@@ -60,6 +60,8 @@ enum class Keys {
     userComments,
 
     KEY_DB_POSTS,
+    postId,
+
     profilePicture,
     postImg,
     title,

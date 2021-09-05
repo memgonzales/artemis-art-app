@@ -1,12 +1,18 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.graphics.BitmapFactory
 import android.opengl.Visibility
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
+import java.io.File
 
 class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val civItemCommentProfilePic: CircleImageView
@@ -17,7 +23,23 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ibItemCommentEdit: ImageButton
     private val btmItemCommentOptions: BottomSheetDialog
 
+    private var storage: FirebaseStorage
+    private var storageRef: StorageReference
+
     fun setItemCommentProfilePic(picture: Int) {
+        /*
+        val localFile = File.createTempFile("images", "jpg")
+        storageRef = storage.getReferenceFromUrl(picture)
+
+        storageRef.getFile(localFile)
+            .addOnSuccessListener {
+                var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                civItemCommentProfilePic.setImageBitmap(bitmap)
+            }
+
+
+
+         */
         civItemCommentProfilePic.setImageResource(picture)
     }
 
@@ -60,5 +82,8 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvItemCommentComment = itemView.findViewById(R.id.tv_item_comment_comment)
         ibItemCommentEdit = itemView.findViewById(R.id.ib_item_comment_edit)
         btmItemCommentOptions = BottomSheetDialog(itemView.context)
+
+        this.storage = Firebase.storage
+        this.storageRef = this.storage.reference
     }
 }

@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
@@ -19,7 +20,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 /**
@@ -82,6 +93,10 @@ class AddProfilePictureActivity : AppCompatActivity() {
      */
     private var isProfilePictureUploaded: Boolean = false
 
+    private var cameraTaken: Boolean = false
+    private lateinit var photoByte: ByteArray
+    private lateinit var photoUri: String
+
     /**
      * Activity result launcher related to taking photos using the device camera.
      */
@@ -91,6 +106,15 @@ class AddProfilePictureActivity : AppCompatActivity() {
      * Activity result launcher related to choosing photos from the Gallery
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
+
+
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
+    private lateinit var db: DatabaseReference
+
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageRef: StorageReference
 
     /**
      * Called when the activity is starting.
@@ -107,6 +131,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
         initComponents()
         initGalleryLauncher()
         initCameraLauncher()
+        initFirebase()
     }
 
     /**
@@ -121,6 +146,8 @@ class AddProfilePictureActivity : AppCompatActivity() {
                 val path = result.data?.data
                 civUploadImg.setImageURI(path)
                 isProfilePictureUploaded = true
+
+                this.photoUri = path.toString()
             }
         }
     }
@@ -136,6 +163,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
                 val path = photoFile.absolutePath
                 fetchFromCamera(path)
                 isProfilePictureUploaded = true
+                cameraTaken = true
             }
         }
     }
@@ -171,6 +199,11 @@ class AddProfilePictureActivity : AppCompatActivity() {
             Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true)
 
         civUploadImg.setImageBitmap(rotatedBitmap)
+
+
+        val outputStream = ByteArrayOutputStream()
+        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        this.photoByte = outputStream.toByteArray()
     }
 
     /**
@@ -192,6 +225,16 @@ class AddProfilePictureActivity : AppCompatActivity() {
         onSkipUpload()
     }
 
+    private fun initFirebase() {
+        this.mAuth = Firebase.auth
+        this.user = this.mAuth.currentUser!!
+        this.userId = this.user.uid
+        this.db = Firebase.database.reference
+
+        this.storage = Firebase.storage
+        this.storageRef = this.storage.reference
+    }
+
     /**
      * Defines the behavior when the button for adding a profile picture is clicked, that is,
      * the profile picture has been successfully added and the user is directed towards
@@ -199,8 +242,44 @@ class AddProfilePictureActivity : AppCompatActivity() {
      */
     private fun launchAddBio() {
         this.btnAddProfilePic.setOnClickListener {
-            val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
-            startActivity(i)
+
+            if (isProfilePictureUploaded){
+                val url = this.storageRef.child(this.userId)
+
+                if(cameraTaken){
+                    url.putBytes(this.photoByte)
+                }
+
+                else{
+                    url.putFile(Uri.parse(this.photoUri))
+                }
+
+                this.db.child(Keys.KEY_DB_USERS.name).child(this.userId).child(Keys.userImg.name).setValue(url.toString())
+                    .addOnSuccessListener {
+                        Toast.makeText(this@AddProfilePictureActivity, "Successfully uploaded your image", Toast.LENGTH_SHORT).show()
+                        val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
+                        startActivity(i)
+                    }
+                    .addOnFailureListener{
+                        Toast.makeText(this@AddProfilePictureActivity, "Unable to add your profile picture right now. Please try again later", Toast.LENGTH_SHORT).show()
+                    }
+            }
+
+            else{
+                this.db.child(Keys.KEY_DB_USERS.name).child(this.userId).child(Keys.userImg.name).setValue("gs://artemis-77e4e.appspot.com/chibi_artemis_hd.png")
+                    .addOnSuccessListener {
+                        Toast.makeText(this@AddProfilePictureActivity, "Successfully removed your image", Toast.LENGTH_SHORT).show()
+                        val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
+                        startActivity(i)
+                    }
+                    .addOnFailureListener{
+                        Toast.makeText(this@AddProfilePictureActivity, "Unable to process your actions  right now. Please try again later", Toast.LENGTH_SHORT).show()
+                    }
+
+                val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
+                startActivity(i)
+            }
+
         }
     }
 
@@ -229,6 +308,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
             clDialogProfilePictureDelete.setOnClickListener {
                 civUploadImg.setImageResource(R.drawable.painter)
                 isProfilePictureUploaded = false
+                cameraTaken = false
             }
 
             btmProfilePicture.show()

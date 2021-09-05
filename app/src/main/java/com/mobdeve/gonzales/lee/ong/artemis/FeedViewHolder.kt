@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.drawToBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -24,6 +25,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
+import java.io.IOException
 
 class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val civItemFeedProfilePic: CircleImageView
@@ -47,14 +49,21 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     fun setItemFeedProfilePic(picture: String) {
-        val localFile = File.createTempFile("images", "jpg")
-        storageRef = storage.getReferenceFromUrl(picture)
 
-        storageRef.getFile(localFile)
-            .addOnSuccessListener {
-                var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-                civItemFeedProfilePic.setImageBitmap(bitmap)
-            }
+        try{
+            val localFile = File.createTempFile("images", "jpg")
+            storageRef = storage.getReferenceFromUrl(picture)
+
+            storageRef.getFile(localFile)
+                .addOnSuccessListener {
+                    var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                    civItemFeedProfilePic.setImageBitmap(bitmap)
+                }
+        }
+        catch(err: IOException){
+            civItemFeedProfilePic.setImageResource(R.drawable.chibi_artemis_hd)
+        }
+
 
         //civItemFeedProfilePic.setImageResource(picture)
     }
@@ -72,14 +81,21 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     fun setItemFeedPost(post: String) {
-        val localFile = File.createTempFile("images", "jpg")
-        storageRef = storage.getReferenceFromUrl(post)
 
-        storageRef.getFile(localFile)
-            .addOnSuccessListener {
-                var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-                ivItemFeedPost.setImageBitmap(bitmap)
-            }
+        try{
+            val localFile = File.createTempFile("images", "jpg")
+            storageRef = storage.getReferenceFromUrl(post)
+
+            storageRef.getFile(localFile)
+                .addOnSuccessListener {
+                    var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                    ivItemFeedPost.setImageBitmap(bitmap)
+                }
+        }
+        catch(err: IOException){
+            ivItemFeedPost.setImageResource(R.drawable.chibi_artemis_hd)
+        }
+
 
         //ivItemFeedPost.setImageResource(post)
     }

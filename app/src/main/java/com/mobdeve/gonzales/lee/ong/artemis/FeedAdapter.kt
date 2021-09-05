@@ -99,12 +99,12 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
         val currentPost = dataPosts[position]
 
         // placeholder for sample image
-        val currentPicture = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
-        Glide.with(context).load(currentPicture).into(holder.getItemFeedProfilePic())
-    //    holder.setItemFeedProfilePic(currentPost.getProfilePicture())
+    //    val currentPicture = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
+    //    Glide.with(context).load(currentPicture).into(holder.getItemFeedProfilePic())
+        holder.setItemFeedProfilePic(currentPost.getProfilePicture())
         holder.setItemFeedUsername(currentPost.getUsername())
-        Glide.with(context).load(currentPicture).into(holder.getItemFeedPost())
-    //    holder.setItemFeedPost(currentPost.getPostImg())
+    //    Glide.with(context).load(currentPicture).into(holder.getItemFeedPost())
+        holder.setItemFeedPost(currentPost.getPostImg())
         holder.setItemFeedTitle(currentPost.getTitle())
         holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")

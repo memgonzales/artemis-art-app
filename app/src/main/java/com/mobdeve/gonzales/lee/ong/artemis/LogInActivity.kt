@@ -3,6 +3,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -35,8 +36,6 @@ class LogInActivity : AppCompatActivity() {
     //Firebase
     private lateinit var mAuth: FirebaseAuth
     private lateinit var db: DatabaseReference
-
-    private lateinit var sp: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -206,6 +205,7 @@ class LogInActivity : AppCompatActivity() {
             val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
             startActivity(i)
             finish()
+
         }
     }
 

@@ -144,7 +144,7 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         addPost()
         initSwipeRefresh()
 
-        addComment()
+      //  addComment()
     }
 
     private fun initShimmer() {
@@ -220,6 +220,7 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
             }
     }
 
+    /*
     private fun addComment() {
         this.ibAddComment = findViewById(R.id.ib_add_comment_followed)
         this.etComment = findViewById(R.id.et_add_comment_followed)
@@ -238,6 +239,8 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
             }
         }
     }
+
+     */
 
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@ViewCommentsFollowedActivity)

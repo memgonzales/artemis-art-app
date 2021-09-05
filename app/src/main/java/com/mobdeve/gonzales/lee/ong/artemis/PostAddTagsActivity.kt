@@ -233,7 +233,7 @@ class PostAddTagsActivity : AppCompatActivity() {
 
                                 else{
                                     pbAddPost.visibility = View.GONE
-                                    Toast.makeText(applicationContext, "Failed to post: ", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(applicationContext, "Failed to post", Toast.LENGTH_LONG).show()
                                 }
                             }
                     }
@@ -241,7 +241,7 @@ class PostAddTagsActivity : AppCompatActivity() {
                     override fun onCancelled(error: DatabaseError) {
 
                         pbAddPost.visibility = View.GONE
-                        Toast.makeText(applicationContext, "Failed to post: ", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext, "Failed to post", Toast.LENGTH_LONG).show()
 
                     }
 
