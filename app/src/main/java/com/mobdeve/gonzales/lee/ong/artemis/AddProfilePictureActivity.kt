@@ -32,6 +32,7 @@ import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 
 /**
  * Class handling the functionalities related to adding a profile picture as part of user profile
@@ -197,6 +198,10 @@ class AddProfilePictureActivity : AppCompatActivity() {
         matrix.setRotate(rotationAngle.toFloat(), bm.width.toFloat() / 2, bm.height.toFloat() / 2)
         val rotatedBitmap =
             Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true)
+
+        /* Compress the photo */
+        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 60, FileOutputStream(photoPath))
+
 
         civUploadImg.setImageBitmap(rotatedBitmap)
 
