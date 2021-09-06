@@ -71,7 +71,7 @@ class User {
         this.username = username
         this.email = email
         this.password = password
-        this.userImg = "gs://artemis-77e4e.appspot.com/chibi_artemis_hd.png"
+        this.userImg = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2"
         this.bio = ""
 
         this.bookmarks = ArrayList<String>()
