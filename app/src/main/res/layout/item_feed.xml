@@ -17,7 +17,8 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:clickable="true"
-            android:src="@drawable/shoob"
+            android:focusable="true"
+            android:src="@drawable/placeholder"
             app:civ_border_color="@color/purple_main"
             app:civ_border_width="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -25,8 +26,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/gl_item_feed_left_text"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:focusable="true" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_item_feed_right_user_pic"
@@ -91,14 +91,14 @@
             android:layout_marginBottom="12dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/iv_item_feed_post"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toTopOf="@+id/tv_item_feed_upvote_counter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/civ_item_feed_profile_pic"
             app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/magia_record"
-            android:contentDescription="@string/iv_item_feed_post" />
+            app:srcCompat="@drawable/placeholder" />
 
         <TextView
             android:id="@+id/tv_item_feed_upvote_counter"
