@@ -203,7 +203,8 @@ class BrowseFeedActivity : AppCompatActivity() {
                 if(snapshot.exists()){
 
                     for(postSnap in snapshot.children){
-
+                        val post = postSnap.getValue(Post::class.java)!!
+                        /*
                         val userImg = postSnap.child(Keys.profilePicture.name).getValue().toString()
                         val username = postSnap.child(Keys.username.name).getValue().toString()
 
@@ -229,6 +230,8 @@ class BrowseFeedActivity : AppCompatActivity() {
                         val post = Post(userImg, username, postImg, title, numUpvotes, numComment,
                             datePosted, medium, dimensions, desc, tags, bookmark, upvote, highlights)
 
+
+                         */
                         dataPosts.add(post)
 
                     }

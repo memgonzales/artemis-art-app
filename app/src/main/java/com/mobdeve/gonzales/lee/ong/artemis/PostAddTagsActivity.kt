@@ -213,7 +213,7 @@ class PostAddTagsActivity : AppCompatActivity() {
                         val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
                         val username: String = snapshot.child(Keys.username.name).getValue().toString()
 
-                        val post = Post(userImg, username, title, url.toString(),
+                        val post = Post(postKey, userImg, username, title, url.toString(),
                             medium, dimensions, desc, allTags)
 
                         val updates = hashMapOf<String, Any>(

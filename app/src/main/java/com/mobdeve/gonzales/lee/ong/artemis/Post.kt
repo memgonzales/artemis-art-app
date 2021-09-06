@@ -1,31 +1,40 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 class Post {
-    private var profilePicture: String
-    private var username: String
+    private lateinit var postId: String
+    private lateinit var profilePicture: String
+    private lateinit var username: String
 
-    private var postImg: String
-    private var title: String
-    private var datePosted: String
+    private lateinit var postImg: String
+    private lateinit var title: String
+    private lateinit var datePosted: String
 
-    private var medium: String
-    private var dimensions: String
-    private var description: String
-    private var tags: ArrayList<String>
+    private lateinit var medium: String
+    private lateinit var dimensions: String
+    private lateinit var description: String
+    private lateinit var tags: ArrayList<String>
 
     private var bookmark: Boolean
     private var upvote: Boolean
     private var highlight: Boolean
 
-    private var upvoteUsers: ArrayList<String>
-    private var comments: ArrayList<String>
+    private lateinit var upvoteUsers: ArrayList<String>
+    private lateinit var comments: ArrayList<String>
 
     private var numUpvotes: Int
     private var numComments: Int
 
-    constructor(profilePicture: String, username: String, title: String, postImg: String,
+    constructor(){
+        bookmark = false
+        upvote = false
+        highlight = false
+        numUpvotes = 0
+        numComments = 0
+    }
+    constructor(postId: String, profilePicture: String, username: String, title: String, postImg: String,
                 medium: String, dimensions: String, description: String, tags: ArrayList<String>) {
 
+        this.postId = postId
         this.profilePicture = profilePicture
         this.username = username
 
