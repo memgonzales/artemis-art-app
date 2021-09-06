@@ -28,6 +28,8 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
@@ -142,7 +144,6 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             initRecyclerView()
-            //initContent()
             sflFeed.visibility = View.GONE
             rvFeed.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
@@ -162,6 +163,7 @@ class BrowseFeedActivity : AppCompatActivity() {
 
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initContent(true)
             srlFeed.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
@@ -186,11 +188,11 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         //this.rvFeed.adapter = feedAdapter;
 
-        initContent()
+        initContent(false)
 
     }
 
-    private fun initContent(){
+    private fun initContent(shuffle: Boolean) {
         this.dataPosts = arrayListOf<Post>()
 
         val postDB = this.ref.child(Keys.KEY_DB_POSTS.name)
@@ -232,6 +234,10 @@ class BrowseFeedActivity : AppCompatActivity() {
                          */
                         dataPosts.add(post)
 
+                    }
+
+                    if (shuffle) {
+                        Collections.shuffle(dataPosts)
                     }
 
 
