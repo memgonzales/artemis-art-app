@@ -13,8 +13,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
+import java.io.FileOutputStream
 
 
 class PostArtworkActivity : AppCompatActivity() {
@@ -70,6 +69,7 @@ class PostArtworkActivity : AppCompatActivity() {
 
         val opts = BitmapFactory.Options()
         val bm = BitmapFactory.decodeFile(photoPath, opts)
+
         val exif = ExifInterface(photoPath!!)
         val orientString: String? = exif.getAttribute(ExifInterface.TAG_ORIENTATION)
         val orientation = orientString?.toInt() ?: ExifInterface.ORIENTATION_NORMAL
@@ -83,6 +83,9 @@ class PostArtworkActivity : AppCompatActivity() {
         matrix.setRotate(rotationAngle.toFloat(), bm.width.toFloat() / 2, bm.height.toFloat() / 2)
         val rotatedBitmap =
             Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true)
+
+        /* Compress the photo */
+        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 60, FileOutputStream(photoPath))
 
         ivPostArtworkArt.setImageBitmap(rotatedBitmap)
 
