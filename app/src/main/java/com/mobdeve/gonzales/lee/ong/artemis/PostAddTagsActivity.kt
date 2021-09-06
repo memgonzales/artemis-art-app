@@ -199,59 +199,93 @@ class PostAddTagsActivity : AppCompatActivity() {
 
                 if(cameraTaken){
                     url.putBytes(this.photoByte)
+                        .addOnSuccessListener {
+                            url.downloadUrl
+                                .addOnSuccessListener {
+
+                                    val post = Post(postKey, title, it.toString(), medium, dimensions, desc, allTags)
+                                    storePost(postKey, post)
+                                }
+
+                                .addOnFailureListener {
+                                    postFailed()
+                                }
+                        }
+                        .addOnFailureListener{
+                            postFailed()
+                        }
+
                 }
 
                 else{
                     url.putFile(Uri.parse(this.photoUri))
+                        .addOnSuccessListener {
+                            url.downloadUrl
+                                .addOnSuccessListener {
+
+                                    val post = Post(postKey, title, it.toString(), medium, dimensions, desc, allTags)
+                                    storePost(postKey, post)
+                                }
+
+                                .addOnFailureListener {
+                                    postFailed()
+                                }
+                        }
+                        .addOnFailureListener{
+                            postFailed()
+                        }
                 }
-
-
-                /*
-                val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
-
-                userDB.addValueEventListener(object: ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
-                        val username: String = snapshot.child(Keys.username.name).getValue().toString()
-
-                        val post = Post(postKey, userImg, username, title, url.downloadUrl.toString(),
-                            medium, dimensions, desc, allTags)
-
-                        val updates = hashMapOf<String, Any>(
-                            "/${Keys.KEY_DB_POSTS}/$postKey" to post,
-                            "/${Keys.KEY_DB_USERS}/$userId/${Keys.userPosts.name}/$postKey" to postKey
-                        )
-
-
-                        db.updateChildren(updates)
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful){
-                                    pbAddPost.visibility = View.GONE
-                                    Toast.makeText(applicationContext, "Posted successfully", Toast.LENGTH_LONG).show()
-                                    val intent = Intent(this@PostAddTagsActivity, BrowseFeedActivity::class.java)
-                                    startActivity(intent)
-                                }
-
-                                else{
-                                    pbAddPost.visibility = View.GONE
-                                    Toast.makeText(applicationContext, "Failed to post", Toast.LENGTH_LONG).show()
-                                }
-                            }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-
-                        pbAddPost.visibility = View.GONE
-                        Toast.makeText(applicationContext, "Failed to post", Toast.LENGTH_LONG).show()
-
-                    }
-
-                })
-
-                 */
             }
         }
 
+    }
+
+    private fun storePost(postKey: String, post: Post){
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
+
+        userDB.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
+                val username: String = snapshot.child(Keys.username.name).getValue().toString()
+
+                post.setProfilePicture(userImg)
+                post.setUsername(username)
+
+                val updates = hashMapOf<String, Any>(
+                    "/${Keys.KEY_DB_POSTS}/$postKey" to post,
+                    "/${Keys.KEY_DB_USERS}/$userId/${Keys.userPosts.name}/$postKey" to postKey
+                )
+
+
+                db.updateChildren(updates)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful){
+                            postSuccessfully()
+                        }
+
+                        else{
+                            postFailed()
+                        }
+                    }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                postFailed()
+            }
+
+        })
+    }
+
+    private fun postSuccessfully(){
+        pbAddPost.visibility = View.GONE
+        Toast.makeText(applicationContext, "Posted successfully", Toast.LENGTH_LONG).show()
+        val intent = Intent(this@PostAddTagsActivity, BrowseFeedActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun postFailed(){
+        pbAddPost.visibility = View.GONE
+        Toast.makeText(applicationContext, "Failed to post", Toast.LENGTH_LONG).show()
     }
 
     private fun checkEmpty(tags: String): Boolean{

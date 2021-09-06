@@ -31,6 +31,34 @@ class Post {
         numUpvotes = 0
         numComments = 0
     }
+
+    constructor(postId: String, title: String, postImg: String,
+                medium: String, dimensions: String, description: String, tags: ArrayList<String>) {
+
+        this.postId = postId
+        //this.profilePicture = profilePicture
+        //this.username = username
+
+        this.postImg = postImg
+        this.title = title
+        this.datePosted = CustomDate().toStringFull()
+
+        this.medium = medium
+        this.dimensions = dimensions
+        this.description = description
+        this.tags = tags
+
+        this.bookmark = false
+        this.upvote = false
+        this.highlight = false
+
+        this.upvoteUsers = ArrayList<String>()
+        this.comments = ArrayList<String>()
+
+        this.numUpvotes = 0
+        this.numComments = 0
+    }
+
     constructor(postId: String, profilePicture: String, username: String, title: String, postImg: String,
                 medium: String, dimensions: String, description: String, tags: ArrayList<String>) {
 
@@ -79,6 +107,10 @@ class Post {
 
         this.upvoteUsers = ArrayList<String>()
         this.comments = ArrayList<String>()
+    }
+
+    fun getPostId(): String{
+        return this.postId
     }
 
     fun getProfilePicture(): String {
@@ -148,6 +180,10 @@ class Post {
 
 
 
+
+    fun setPostId(postId: String){
+        this.postId = postId
+    }
 
     fun setProfilePicture(picture: String) {
         this.profilePicture = picture
