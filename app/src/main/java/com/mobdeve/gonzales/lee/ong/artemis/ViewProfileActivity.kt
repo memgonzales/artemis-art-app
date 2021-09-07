@@ -196,8 +196,8 @@ class ViewProfileActivity : AppCompatActivity() {
 
         this.dataUser = DataHelper.loadProfileData()
 
-        this.civViewProfileProfilePicture.setImageResource(dataUser.getUserImg())
-        this.tvViewProfileUsername.text = intent.getStringExtra(Keys.username.name)//dataUser.getUsername()
+        //this.civViewProfileProfilePicture.setImageResource(dataUser.getUserImg())
+        this.tvViewProfileUsername.text = dataUser.getUsername()
         this.tvViewProfileBio.text = dataUser.getBio()
 
         clViewProfileEdit.setOnClickListener {
