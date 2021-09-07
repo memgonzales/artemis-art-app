@@ -162,6 +162,7 @@ class ViewProfileActivity : AppCompatActivity() {
         this.btnViewProfileHighlights = findViewById(R.id.btn_view_profile_highlights)
 
 
+        /*
         this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
             .addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -190,12 +191,14 @@ class ViewProfileActivity : AppCompatActivity() {
         })
 
 
+         */
 
-       // this.dataUser = DataHelper.loadProfileData()
 
-       // this.civViewProfileProfilePicture.setImageResource(dataUser.getUserImg())
-       // this.tvViewProfileUsername.text = intent.getStringExtra(Keys.username.name)//dataUser.getUsername()
-       // this.tvViewProfileBio.text = dataUser.getBio()
+        this.dataUser = DataHelper.loadProfileData()
+
+        this.civViewProfileProfilePicture.setImageResource(dataUser.getUserImg())
+        this.tvViewProfileUsername.text = intent.getStringExtra(Keys.username.name)//dataUser.getUsername()
+        this.tvViewProfileBio.text = dataUser.getBio()
 
         clViewProfileEdit.setOnClickListener {
             val intent = Intent(this@ViewProfileActivity, EditProfileActivity::class.java)
