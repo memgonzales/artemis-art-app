@@ -55,6 +55,14 @@ class BrowseBookmarksActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse_bookmarks)
@@ -113,6 +121,9 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_bookmarks))
         initShimmer()
@@ -121,6 +132,9 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         initSwipeRefresh()
     }
 
+    /**
+     * Initializes the shimmer layout animated while the data are being fetched from the remote server.
+     */
     private fun initShimmer() {
         this.sflBookmarks = findViewById(R.id.sfl_bookmarks)
 
@@ -133,6 +147,9 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvBookmarksBottom = findViewById(R.id.nv_bookmarks_bottom)
         this.nsvBookmarks = findViewById(R.id.nsv_bookmarks)
@@ -141,6 +158,10 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             BottomMenuUtil.BOOKMARK, this, this@BrowseBookmarksActivity)
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
         this.srlBookmarks = findViewById(R.id.srl_bookmarks)
         srlBookmarks.setOnRefreshListener {
@@ -153,12 +174,19 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             R.color.pinkish_purple_lighter)
     }
 
+    /**
+     * Re-fetches data from the database and reshuffles the display of existing data when the screen
+     * is swiped to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             srlBookmarks.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Initializes the recycler view of the activity.
+     */
     private fun initRecyclerView() {
         this.dataPosts = DataHelper.loadBookmarkData()
 
@@ -171,6 +199,13 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         this.rvBookmarks.adapter = bookmarksAdapter
     }
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     *
+     * @param menu The options menu in which you place your items.
+     * @return You must return true for the menu to be displayed; if you return false
+     * it will not be shown.
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_top_with_search, menu)
@@ -178,6 +213,12 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected. This value cannot be <code>null</code>.
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.menu_feed_search -> {
@@ -189,11 +230,18 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Directs the user to the search activity.
+     */
     private fun launchSearch() {
         val intent = Intent(this@BrowseBookmarksActivity, SearchActivity::class.java)
         startActivity(intent)
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@BrowseBookmarksActivity)
         this.fabAddPost = findViewById(R.id.fab_bookmarks_add)

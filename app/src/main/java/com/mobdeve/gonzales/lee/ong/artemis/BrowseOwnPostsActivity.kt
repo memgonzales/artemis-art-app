@@ -51,6 +51,13 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     *
+     * @param menu The options menu in which you place your items.
+     * @return You must return true for the menu to be displayed; if you return false
+     * it will not be shown.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse_own_posts)
@@ -109,7 +116,9 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_browse_own_posts))
         initActionBar()
@@ -119,6 +128,9 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         initSwipeRefresh()
     }
 
+    /**
+     * Initializes the shimmer layout animated while the data are being fetched from the remote server.
+     */
     private fun initShimmer() {
         this.sflBrowseOwnPosts = findViewById(R.id.sfl_browse_own_posts)
 
@@ -131,6 +143,10 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
         this.srlBrowseOwnPosts = findViewById(R.id.srl_browse_own_posts)
         srlBrowseOwnPosts.setOnRefreshListener {
@@ -143,12 +159,19 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
             R.color.pinkish_purple_lighter);
     }
 
+    /**
+     * Re-fetches data from the database and reshuffles the display of existing data when the screen
+     * is swiped to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             srlBrowseOwnPosts.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvBrowseOwnPostsBottom = findViewById(R.id.nv_browse_own_posts_bottom)
 
@@ -156,6 +179,9 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
             this@BrowseOwnPostsActivity)
     }
 
+    /**
+     * Initializes the recycler view of the activity.
+     */
     private fun initRecyclerView() {
         this.dataPosts = DataHelper.loadOwnPostsData();
 
@@ -168,11 +194,18 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         this.rvBrowseOwnPosts.adapter = ownPostsAdapter;
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@BrowseOwnPostsActivity)
         this.fabAddPost = findViewById(R.id.fab_browse_own_posts_add)

@@ -29,6 +29,14 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
 
     private lateinit var fabAddPost: FloatingActionButton
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse_feed_unregistered)
@@ -36,6 +44,9 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         initComponents()
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_feed_unregistered))
         initShimmer()
@@ -46,6 +57,9 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         addPost()
     }
 
+    /**
+     * Initializes the shimmer layout animated while the data are being fetched from the remote server.
+     */
     private fun initShimmer() {
         this.sflFeed = findViewById(R.id.sfl_feed_unregistered)
 
@@ -70,18 +84,27 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
             R.color.pinkish_purple_lighter)
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             srlFeedUnregistered.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
-
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvFeedBottom = findViewById(R.id.nv_feed_unregistered_bottom)
         this.nsvFeed = findViewById(R.id.nsv_feed_unregistered)
@@ -90,6 +113,9 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
             nsvFeed, this@BrowseFeedUnregisteredActivity)
     }
 
+    /**
+     * Initializes the recycler view of the activity.
+     */
     private fun initRecyclerView() {
         this.dataPosts = DataHelper.loadPostDataUnregistered()
 
@@ -102,6 +128,13 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         this.rvFeed.adapter = unregisteredFeedAdapter
     }
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     *
+     * @param menu The options menu in which you place your items.
+     * @return You must return true for the menu to be displayed; if you return false
+     * it will not be shown.
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_top_with_search, menu)
@@ -109,6 +142,12 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected. This value cannot be <code>null</code>.
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.menu_feed_search -> {
@@ -120,11 +159,18 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Directs the user to the search activity.
+     */
     private fun launchSearch() {
         val intent = Intent(this@BrowseFeedUnregisteredActivity, SearchUnregisteredActivity::class.java)
         startActivity(intent)
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost(){
         this.fabAddPost = findViewById(R.id.fab_feed_unregistered_add)
 

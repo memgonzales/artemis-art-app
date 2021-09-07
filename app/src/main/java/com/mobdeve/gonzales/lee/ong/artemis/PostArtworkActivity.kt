@@ -100,31 +100,12 @@ class PostArtworkActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_post_artwork))
         initActionBar()
 
-        initDetails()
         addDetails()
     }
 
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-    }
-
-    private fun initDetails(){
-
-
-        /*
-        if (intent.extras != null){
-            var title: String = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
-            var medium: String = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
-            var dimensions: String = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
-            var desc: String = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
-            this.tietTitle.setText(title)
-            this.tietMedium.setText(medium)
-            this.tietDimensions.setText(dimensions)
-            this.tietDescription.setText(desc)
-        }
-         */
-
     }
 
     private fun addDetails(){

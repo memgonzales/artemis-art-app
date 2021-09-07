@@ -230,6 +230,9 @@ class AddProfilePictureActivity : AppCompatActivity() {
         onSkipUpload()
     }
 
+    /**
+     * Initializes the Firebase-related components.
+     */
     private fun initFirebase() {
         this.mAuth = Firebase.auth
         this.user = this.mAuth.currentUser!!

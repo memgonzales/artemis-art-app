@@ -3,7 +3,6 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -22,10 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -249,6 +245,7 @@ class ViewProfileActivity : AppCompatActivity() {
      * This hook is called whenever an item in your options menu is selected.
      *
      * @param item The menu item that was selected. This value cannot be <code>null</code>.
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
@@ -261,6 +258,9 @@ class ViewProfileActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Directs the user to the search activity.
+     */
     private fun launchSearch() {
         val intent = Intent(this@ViewProfileActivity, SearchActivity::class.java)
         startActivity(intent)
