@@ -159,25 +159,6 @@ class PostAddTagsActivity : AppCompatActivity() {
         }
     }
 
-/*
-    override fun onBackPressed() {
-        val i = Intent(Intent.ACTION_MAIN)
-        i.addCategory(Intent.CATEGORY_HOME)
-        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        i.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
-        /*
-        i.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
-        i.putExtra(Keys.KEY_TITLE.name, title)
-        i.putExtra(Keys.KEY_MEDIUM.name, medium)
-        i.putExtra(Keys.KEY_DIMENSIONS.name, dimensions)
-        i.putExtra(Keys.KEY_DESCRIPTION.name, desc)
-         */
-        startActivity(i)
-    }
-*/
-
-
-
     private fun initDetails(){
         this.title = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
         this.medium = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
@@ -320,9 +301,4 @@ class PostAddTagsActivity : AppCompatActivity() {
         return str.substring(1, str.length-1).split(",").toCollection(ArrayList())
     }
 
-    /*
-    override fun onPause() {
-        super.onPause()
-    }
-     */
 }

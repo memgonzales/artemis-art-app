@@ -25,9 +25,6 @@ class PostArtworkActivity : AppCompatActivity() {
     private lateinit var btnDetails: Button
     private lateinit var ivPostArtworkArt: ImageView
 
-    private lateinit var sp: SharedPreferences
-    private lateinit var spEditor: SharedPreferences.Editor
-
     private lateinit var photoSource: String
     private lateinit var photoPath: String
 
@@ -149,9 +146,4 @@ class PostArtworkActivity : AppCompatActivity() {
         }
     }
 
-    /*
-    override fun onResume() {
-        super.onResume()
-    }
-     */
 }
