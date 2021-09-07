@@ -52,9 +52,6 @@ class PostAddTagsActivity : AppCompatActivity() {
 
     private lateinit var pbAddPost: ProgressBar
 
-    private lateinit var sp: SharedPreferences
-    private lateinit var spEditor: SharedPreferences.Editor
-
     private lateinit var photoSource: String
     private lateinit var photoPath: String
 
@@ -296,9 +293,4 @@ class PostAddTagsActivity : AppCompatActivity() {
 
         return hasEmpty
     }
-
-    private fun getList(str: String): ArrayList<String>{
-        return str.substring(1, str.length-1).split(",").toCollection(ArrayList())
-    }
-
 }

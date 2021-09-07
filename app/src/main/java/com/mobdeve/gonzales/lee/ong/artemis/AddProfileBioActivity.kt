@@ -2,6 +2,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -133,6 +134,17 @@ class AddProfileBioActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT).show()
             startActivity(i)
             finish()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            } else -> {
+                super.onOptionsItemSelected(item)
+            }
         }
     }
 }
