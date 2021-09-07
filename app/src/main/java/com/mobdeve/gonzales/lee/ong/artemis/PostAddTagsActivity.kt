@@ -8,6 +8,7 @@ import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -147,7 +148,18 @@ class PostAddTagsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
-    /*
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            } else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
+/*
     override fun onBackPressed() {
         val i = Intent(Intent.ACTION_MAIN)
         i.addCategory(Intent.CATEGORY_HOME)
@@ -162,7 +174,7 @@ class PostAddTagsActivity : AppCompatActivity() {
          */
         startActivity(i)
     }
-     */
+*/
 
 
 
