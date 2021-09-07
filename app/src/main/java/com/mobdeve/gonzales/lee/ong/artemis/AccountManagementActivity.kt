@@ -1,9 +1,14 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +21,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.io.File
 
 /**
  * Class handling the functionalities related to account management.
@@ -74,6 +80,21 @@ class AccountManagementActivity : AppCompatActivity() {
     private lateinit var userId: String
 
     /**
+     * Photo of the artwork for posting.
+     */
+    private lateinit var photoFile: File
+
+    /**
+     * Activity result launcher related to taking photos using the device camera.
+     */
+    private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
+
+    /**
+     * Activity result launcher related to choosing photos from the Gallery
+     */
+    private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
+
+    /**
      * Called when the activity is starting.
      *
      * @param savedInstanceState  If the activity is being re-initialized after previously being
@@ -89,6 +110,58 @@ class AccountManagementActivity : AppCompatActivity() {
         initDeleteDialog()
         initBottom()
         initComponents()
+
+        initGalleryLauncher(this@AccountManagementActivity)
+        initCameraLauncher(this@AccountManagementActivity)
+    }
+
+    /**
+     * Initializes the activity result launcher related to choosing photos from the Gallery.
+     *
+     * @packageContext context tied to this activity
+     */
+    private fun initGalleryLauncher(packageContext: Context) {
+        galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = Intent(packageContext, PostArtworkActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_POST_ARTWORK.name,
+                    result.data?.data.toString()
+                )
+
+                intent.putExtra(
+                    Keys.KEY_POST_FROM.name,
+                    PostArtworkUtil.FROM_GALLERY
+                )
+
+                startActivity(intent)
+            }
+        }
+    }
+
+    /**
+     * Initializes the activity result launcher related to taking photos using the device camera
+     *
+     * @packageContext context tied to this activity
+     */
+    private fun initCameraLauncher(packageContext: Context) {
+        cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = Intent(packageContext, PostArtworkActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_POST_ARTWORK.name,
+                    photoFile.absolutePath
+                )
+
+                intent.putExtra(
+                    Keys.KEY_POST_FROM.name,
+                    PostArtworkUtil.FROM_CAMERA
+                )
+
+                startActivity(intent)
+            }
+        }
     }
 
     /**
@@ -186,6 +259,10 @@ class AccountManagementActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@AccountManagementActivity)
         this.fabAddPost = findViewById(R.id.fab_account_management_add)
@@ -199,28 +276,60 @@ class AccountManagementActivity : AppCompatActivity() {
             this.clDialogPostArtworkPhoto = btmAddPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
 
             clDialogPostArtworkGallery.setOnClickListener {
-                Toast.makeText(
-                    this@AccountManagementActivity,
-                    "Photo chosen from the gallery",
-                    Toast.LENGTH_SHORT
-                ).show()
-                btmAddPost.dismiss()
-                val intent = Intent(this@AccountManagementActivity, PostArtworkActivity::class.java)
-                startActivity(intent)
+                PostArtworkUtil.chooseFromGallery(this, galleryLauncher)
             }
 
             clDialogPostArtworkPhoto.setOnClickListener {
-                Toast.makeText(
-                    this@AccountManagementActivity,
-                    "Photo taken with the device camera",
-                    Toast.LENGTH_SHORT
-                ).show()
-                btmAddPost.dismiss()
-                val intent = Intent(this@AccountManagementActivity, PostArtworkActivity::class.java)
-                startActivity(intent)
+                photoFile = PostArtworkUtil.takeFromCamera(this, this@AccountManagementActivity, cameraLauncher)
             }
 
             btmAddPost.show()
+        }
+    }
+
+    /**
+     * Callback for the result from requesting permissions.
+     *
+     * @param requestCode the request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
+     * @param permissions the requested permissions. Never null
+     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
+     *     Never null
+     */
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permissionsResult(requestCode, grantResults, this@AccountManagementActivity, this)
+    }
+
+    /**
+     * Defines the behavior related to choosing a photo from the Gallery or taking a photo using
+     * the device camera based on the permissions granted by the user.
+     *
+     * @param requestCode the request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
+     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
+     *     Never null
+     * @param context context tied to this activity
+     * @param activity this activity
+     */
+    private fun permissionsResult(requestCode: Int, grantResults: IntArray, context: Context,
+                                  activity: Activity) {
+        when (requestCode) {
+            RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal -> {
+                val temp: File? = PostArtworkUtil.permissionsResultCamera(grantResults, activity,
+                    context, cameraLauncher)
+
+                if (temp != null) {
+                    photoFile = temp
+                }
+            }
+
+            RequestCodes.REQUEST_CODE_POST_GALLERY.ordinal -> {
+                PostArtworkUtil.permissionsResultGallery(grantResults, context, galleryLauncher)
+            }
         }
     }
 }

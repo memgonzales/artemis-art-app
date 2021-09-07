@@ -59,6 +59,14 @@ class ViewUserActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_user)
@@ -142,6 +150,9 @@ class ViewUserActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_user))
         initActionBar()
@@ -150,6 +161,9 @@ class ViewUserActivity : AppCompatActivity() {
         initSwipeRefresh()
     }
 
+    /**
+     * Initializes the recycler view of the activity.
+     */
     private fun initRecyclerView() {
         this.rvViewUser = findViewById(R.id.rv_view_user)
         this.rvViewUser.layoutManager = GridLayoutManager(this, 2)
@@ -159,6 +173,10 @@ class ViewUserActivity : AppCompatActivity() {
         this.rvViewUser.adapter = highlightAdapter
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
         this.srlViewUser = findViewById(R.id.srl_view_user)
         srlViewUser.setOnRefreshListener {
@@ -171,12 +189,19 @@ class ViewUserActivity : AppCompatActivity() {
             R.color.pinkish_purple_lighter)
     }
 
+    /**
+     * Re-fetches data from the database and reshuffles the display of existing data when the screen
+     * is swiped to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             srlViewUser.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewUserBottom = findViewById(R.id.nv_view_user_bottom)
         this.nsvViewUser = findViewById(R.id.nsv_view_user)
@@ -185,11 +210,19 @@ class ViewUserActivity : AppCompatActivity() {
             this@ViewUserActivity)
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected. This value cannot be <code>null</code>.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             android.R.id.home -> {
@@ -201,6 +234,10 @@ class ViewUserActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@ViewUserActivity)
         this.fabAddPost = findViewById(R.id.fab_view_user_add)

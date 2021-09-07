@@ -333,6 +333,11 @@ class ViewPostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected. This value cannot be <code>null</code>.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             android.R.id.home -> {

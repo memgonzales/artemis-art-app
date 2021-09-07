@@ -124,10 +124,16 @@ class BrowseFeedActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the Firebase-related components.
+     */
     private fun initFirebase(){
         this.ref = Firebase.database.reference
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_feed))
         initShimmer()
@@ -149,6 +155,10 @@ class BrowseFeedActivity : AppCompatActivity() {
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
         this.srlFeed = findViewById(R.id.srl_feed)
         srlFeed.setOnRefreshListener {
@@ -161,6 +171,10 @@ class BrowseFeedActivity : AppCompatActivity() {
             R.color.pinkish_purple_lighter)
     }
 
+    /**
+     * Re-fetches data from the database and reshuffles the display of existing data when the screen
+     * is swiped to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             initContent(true)
@@ -168,6 +182,9 @@ class BrowseFeedActivity : AppCompatActivity() {
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvFeedBottom = findViewById(R.id.nv_feed_bottom)
         this.nsvFeed = findViewById(R.id.nsv_feed)
@@ -176,6 +193,9 @@ class BrowseFeedActivity : AppCompatActivity() {
             BottomMenuUtil.HOME, this, this@BrowseFeedActivity)
     }
 
+    /**
+     * Initializes the recycler view of the activity.
+     */
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadPostData();
 
@@ -320,6 +340,10 @@ class BrowseFeedActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@BrowseFeedActivity)
         this.fabAddPost = findViewById(R.id.fab_feed_add)

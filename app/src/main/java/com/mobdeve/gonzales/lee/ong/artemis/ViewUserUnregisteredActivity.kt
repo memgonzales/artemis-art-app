@@ -30,6 +30,14 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
 
     private lateinit var fabAddPost: FloatingActionButton
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_user_unregistered)
@@ -63,6 +71,9 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_user_unregistered))
         initActionBar()
@@ -71,6 +82,9 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         initSwipeRefresh()
     }
 
+    /**
+     * Initializes the recycler view of the activity.
+     */
     private fun initRecyclerView() {
         this.rvViewUnregisteredUser = findViewById(R.id.rv_view_user_unregistered)
         this.rvViewUnregisteredUser.layoutManager = GridLayoutManager(this, 2)
@@ -80,6 +94,10 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         this.rvViewUnregisteredUser.adapter = unregisteredHighlightAdapter
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
         this.srlViewUserUnregistered = findViewById(R.id.srl_view_user_unregistered)
         srlViewUserUnregistered.setOnRefreshListener {
@@ -92,12 +110,19 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
             R.color.pinkish_purple_lighter)
     }
 
+    /**
+     * Re-fetches data from the database and reshuffles the display of existing data when the screen
+     * is swiped to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             srlViewUserUnregistered.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewUserUnregisteredBottom = findViewById(R.id.nv_view_user_unregistered_bottom)
         this.fabAddPost = findViewById(R.id.fab_view_user_unregistered_add)
@@ -131,11 +156,19 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected. This value cannot be <code>null</code>.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             android.R.id.home -> {
