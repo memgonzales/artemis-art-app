@@ -259,8 +259,6 @@ class BrowseFeedActivity : AppCompatActivity() {
                     for(postSnap in snapshot.children){
                         val post = postSnap.getValue(Post::class.java)!!
 
-                        Toast.makeText(applicationContext, "ch: " + postSnap.child("bookmarkUsers").getValue().toString(), Toast.LENGTH_LONG).show()
-
                         if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
                             post.setUpvote(true)
                         }
