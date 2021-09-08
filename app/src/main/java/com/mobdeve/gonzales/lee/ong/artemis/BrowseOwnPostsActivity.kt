@@ -230,11 +230,9 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
 
     private fun initContent(){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
-        //val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         userDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-               // val user = snapshot.getValue(User::class.java)!!
                 val userPosts = snapshot.child(Keys.userPosts.name).children
                 var postKeys = arrayListOf<String>()
 
@@ -244,39 +242,12 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                     }
                 }
 
-
                 getPosts(postKeys)
-                /*
-                for (post in postKeys){
-                    postDB.addValueEventListener(object: ValueEventListener{
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            TODO("Not yet implemented")
-                            //var postModel = snapshot.getValue(Post::class.java)!!
-                            //dataPosts.add(postModel)
-
-                            Toast.makeText(this@BrowseOwnPostsActivity, "yahh", Toast.LENGTH_SHORT).show()
-                        }
-
-                        override fun onCancelled(error: DatabaseError) {
-                            TODO("Not yet implemented")
-
-                            Toast.makeText(this@BrowseOwnPostsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
-                        }
-
-                    })
-
-                    //ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity);
-                    //rvBrowseOwnPosts.adapter = ownPostsAdapter;
-
-                }
-
-                 */
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@BrowseOwnPostsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
             }
-
         })
     }
 
@@ -291,8 +262,6 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                     for (postSnap in snapshot.children){
                         if (postSnap.key != null && postKeys.contains(postSnap.key)){
                             val post = postSnap.getValue(Post::class.java)!!
-
-
                             dataPosts.add(post)
                         }
                     }

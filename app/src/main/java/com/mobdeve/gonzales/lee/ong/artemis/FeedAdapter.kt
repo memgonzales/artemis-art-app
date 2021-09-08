@@ -16,11 +16,31 @@ import com.facebook.share.Sharer
 import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import java.util.*
 
 class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
     RecyclerView.Adapter<FeedViewHolder>() {
     private lateinit var context: Context
+
+    private var mAuth: FirebaseAuth = Firebase.auth
+    private var db: DatabaseReference = Firebase.database.reference
+
+    private var user: FirebaseUser = mAuth.currentUser!!
+    private var userId: String = user.uid
+
+    private fun initFirebase() {
+        this.mAuth = Firebase.auth
+        this.user = this.mAuth.currentUser!!
+        this.userId = this.user.uid
+        this.db = Firebase.database.reference
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -87,6 +107,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
             view.context.startActivity(intent)
         }
 
+        initFirebase()
         feedViewHolder.setItemFeedCommentOnClickListener { view ->
             val intent = Intent(view.context, ViewCommentsActivity::class.java)
             view.context.startActivity(intent)
@@ -123,6 +144,14 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
         holder.setItemFeedBookmarkOnClickListener {
             currentPost.setBookmark(!currentPost.getBookmark())
             holder.setItemFeedBookmark(currentPost.getBookmark())
+
+            if(currentPost.getBookmark()){
+                updateBookmarkDB(userId, currentPost.getPostId(), currentPost.getPostId())
+            }
+
+            else{
+                updateBookmarkDB(null, currentPost.getPostId(), null)
+            }
         }
 
         holder.setItemFeedUpvoteOnClickListener {
@@ -131,13 +160,20 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
                 currentPost.setNumUpvotes(currentPost.getNumUpvotes() - 1)
                 holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
                 holder.setItemFeedUpvote(currentPost.getUpvote())
+
+                updateUpvoteDB(null, currentPost.getPostId(), null, currentPost.getNumUpvotes())
+
             } else {
                 currentPost.setUpvote(true)
                 currentPost.setNumUpvotes(currentPost.getNumUpvotes() + 1)
                 holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
                 holder.setItemFeedUpvote(currentPost.getUpvote())
+
+                updateUpvoteDB(userId, currentPost.getPostId(), currentPost.getPostId(), currentPost.getNumUpvotes())
             }
         }
+
+
 
         holder.setItemFeedShareOnClickListener { view ->
             var cmFacebook = CallbackManager.Factory.create()
@@ -198,5 +234,24 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
 
     override fun getItemCount(): Int {
         return dataPosts.size
+    }
+
+    fun updateUpvoteDB(userVal: String?, postKey: String, postVal: String?, numUpvotes: Int){
+        val updates = hashMapOf<String, Any?>(
+            "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.upvoteUsers.name}/$userId" to userVal,
+            "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.numUpvotes.name}" to numUpvotes,
+            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.upvotedPosts.name}/$postKey" to postVal
+        )
+
+        db.updateChildren(updates)
+    }
+
+    fun updateBookmarkDB(userVal: String?, postKey: String, postVal: String?){
+        val updates = hashMapOf<String, Any?>(
+            "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.bookmarkUsers.name}/$userId" to userVal,
+            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bookmarks.name}/$postKey" to postVal
+        )
+
+        db.updateChildren(updates)
     }
 }

@@ -128,6 +128,8 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
                 holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
                 holder.setItemFeedUpvote(currentPost.getUpvote())
             }
+
+
         }
 
         holder.setItemFeedShareOnClickListener { view ->

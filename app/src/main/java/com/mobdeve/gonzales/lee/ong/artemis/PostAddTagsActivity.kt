@@ -233,7 +233,7 @@ class PostAddTagsActivity : AppCompatActivity() {
     private fun storePost(postKey: String, post: Post){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
-        userDB.addValueEventListener(object: ValueEventListener {
+        userDB.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
                 val username: String = snapshot.child(Keys.username.name).getValue().toString()
@@ -242,8 +242,8 @@ class PostAddTagsActivity : AppCompatActivity() {
                 post.setUsername(username)
 
                 val updates = hashMapOf<String, Any>(
-                    "/${Keys.KEY_DB_POSTS}/$postKey" to post,
-                    "/${Keys.KEY_DB_USERS}/$userId/${Keys.userPosts.name}/$postKey" to postKey
+                    "/${Keys.KEY_DB_POSTS.name}/$postKey" to post,
+                    "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userPosts.name}/$postKey" to postKey
                 )
 
 

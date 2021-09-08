@@ -18,8 +18,9 @@ class Post {
     private var upvote: Boolean
     private var highlight: Boolean
 
-    private lateinit var upvoteUsers: ArrayList<String>
-    private lateinit var comments: ArrayList<String>
+    private lateinit var upvoteUsers: HashMap<String, Any?>
+    private lateinit var bookmarkUsers: HashMap<String, Any?>
+    private lateinit var comments: HashMap<String, Any?>
 
     private var numUpvotes: Int
     private var numComments: Int
@@ -28,6 +29,7 @@ class Post {
         bookmark = false
         upvote = false
         highlight = false
+
         numUpvotes = 0
         numComments = 0
     }
@@ -36,8 +38,8 @@ class Post {
                 medium: String, dimensions: String, description: String, tags: ArrayList<String>) {
 
         this.postId = postId
-        //this.profilePicture = profilePicture
-        //this.username = username
+        this.profilePicture = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2"
+        this.username = ""
 
         this.postImg = postImg
         this.title = title
@@ -52,13 +54,15 @@ class Post {
         this.upvote = false
         this.highlight = false
 
-        this.upvoteUsers = ArrayList<String>()
-        this.comments = ArrayList<String>()
+        this.upvoteUsers = HashMap<String, Any?>()
+        this.bookmarkUsers = HashMap<String, Any?>()
+        this.comments = HashMap<String, Any?>()
 
         this.numUpvotes = 0
         this.numComments = 0
     }
 
+    /*
     constructor(postId: String, profilePicture: String, username: String, title: String, postImg: String,
                 medium: String, dimensions: String, description: String, tags: ArrayList<String>) {
 
@@ -79,13 +83,16 @@ class Post {
         this.upvote = false
         this.highlight = false
 
-        this.upvoteUsers = ArrayList<String>()
-        this.comments = ArrayList<String>()
+        this.upvoteUsers = HashMap<String, Any?>()
+        this.comments = HashMap<String, Any?>()
 
         this.numUpvotes = 0
         this.numComments = 0
     }
 
+     */
+
+    /*
     constructor(profilePicture: String, username: String, postImg: String, title: String, numUpvotes: Int,
                 numComments: Int, datePosted: String, medium: String, dimensions: String,
                 description: String, tags: ArrayList<String>, bookmark: Boolean, upvote: Boolean, highlight: Boolean) {
@@ -109,6 +116,8 @@ class Post {
         this.comments = ArrayList<String>()
     }
 
+
+     */
     fun getPostId(): String{
         return this.postId
     }
@@ -161,11 +170,15 @@ class Post {
         return this.highlight
     }
 
-    fun getUpvoteUsers(): ArrayList<String>{
+    fun getUpvoteUsers(): HashMap<String, Any?>{
         return this.upvoteUsers
     }
 
-    fun getComments(): ArrayList<String> {
+    fun getBookmarkUsers(): HashMap<String, Any?>{
+        return this.bookmarkUsers
+    }
+
+    fun getComments(): HashMap<String, Any?> {
         return this.comments
     }
 
@@ -233,11 +246,15 @@ class Post {
         this.highlight = highlight
     }
 
-    fun setUpvoteUsers(upvoteUsers: ArrayList<String>) {
+    fun setUpvoteUsers(upvoteUsers: HashMap<String, Any?>) {
         this.upvoteUsers = upvoteUsers
     }
 
-    fun setComments(comments: ArrayList<String>  ) {
+    fun setBookmarkUsers(bookmarkUsers: HashMap<String, Any?>) {
+        this.bookmarkUsers = bookmarkUsers
+    }
+
+    fun setComments(comments: HashMap<String, Any?>) {
         this.comments = comments
     }
 

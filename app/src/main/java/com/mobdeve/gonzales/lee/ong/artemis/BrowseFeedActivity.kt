@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -24,12 +26,16 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
@@ -47,7 +53,15 @@ class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    private lateinit var ivNone: ImageView
+    private lateinit var tvNone: TextView
+    private lateinit var tvSubNone: TextView
+
+    private lateinit var mAuth: FirebaseAuth
     private lateinit var db: DatabaseReference
+
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
 
     /**
      * Photo of the artwork for posting.
@@ -136,7 +150,11 @@ class BrowseFeedActivity : AppCompatActivity() {
      * Initializes the Firebase-related components.
      */
     private fun initFirebase(){
+        this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
+
+        this.user = this.mAuth.currentUser!!
+        this.userId = this.user.uid
     }
 
     /**
@@ -209,32 +227,49 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadPostData();
-
+        this.dataPosts = arrayListOf<Post>()
 
         this.rvFeed = findViewById(R.id.rv_feed)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        //this.feedAdapter = FeedAdapter(dataPosts);
+       // this.feedAdapter = FeedAdapter(dataPosts);
 
 
-        //this.rvFeed.adapter = feedAdapter;
+       // this.rvFeed.adapter = feedAdapter;
 
         initContent(false)
 
     }
 
     private fun initContent(shuffle: Boolean) {
-        this.dataPosts = arrayListOf<Post>()
+        this.ivNone = findViewById(R.id.iv_feed_none)
+        this.tvNone = findViewById(R.id.tv_feed_none)
+        this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
+
+       // this.dataPosts = arrayListOf<Post>()
 
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
+        postDB.addValueEventListener(object: ValueEventListener{
+
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 if(snapshot.exists()){
 
                     for(postSnap in snapshot.children){
                         val post = postSnap.getValue(Post::class.java)!!
+
+                        Toast.makeText(applicationContext, "ch: " + postSnap.child("bookmarkUsers").getValue().toString(), Toast.LENGTH_LONG).show()
+
+                        if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                            post.setUpvote(true)
+                        }
+
+
+                        if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                            post.setBookmark(true)
+                        }
+
                         dataPosts.add(post)
                     }
 
@@ -242,15 +277,22 @@ class BrowseFeedActivity : AppCompatActivity() {
                         Collections.shuffle(dataPosts)
                     }
 
-
                     feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
                     rvFeed.adapter = feedAdapter
 
-                    //Toast.makeText(applicationContext, "ch: " + title, Toast.LENGTH_SHORT).show()
-                    //initRecyclerView(dataPosts)
+                    ivNone.visibility = View.GONE
+                    tvNone.visibility = View.GONE
+                    tvSubNone.visibility = View.GONE
+
                 }
 
-                //initRecyclerView(dataPosts)
+                else{
+                    ivNone.visibility = View.VISIBLE
+                    tvNone.visibility = View.VISIBLE
+                    tvSubNone.visibility = View.VISIBLE
+                }
+
+
             }
 
             override fun onCancelled(error: DatabaseError) {

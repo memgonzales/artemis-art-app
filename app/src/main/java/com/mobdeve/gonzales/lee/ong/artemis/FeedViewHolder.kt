@@ -19,6 +19,11 @@ import com.facebook.share.Sharer
 import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -26,6 +31,7 @@ import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 import java.io.IOException
+import java.security.Key
 
 class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val civItemFeedProfilePic: CircleImageView
@@ -142,6 +148,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             )
             tvItemFeedUpvote.setTextColor(ColorStateList.valueOf(
                 ContextCompat.getColor(tvItemFeedUpvote.context, R.color.pinkish_purple)))
+
         } else {
             ivItemFeedUpvote.setImageResource(R.drawable.upvote_v2)
             ivItemFeedUpvote.imageTintList = ColorStateList.valueOf(
@@ -149,7 +156,9 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             )
             tvItemFeedUpvote.setTextColor(ColorStateList.valueOf(
                 ContextCompat.getColor(tvItemFeedUpvote.context, R.color.default_gray)))
+
         }
+
     }
 
     fun setItemFeedCommentOnClickListener(onClickListener: View.OnClickListener) {
@@ -181,5 +190,6 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         this.storage = Firebase.storage
         this.storageRef = this.storage.reference
+
     }
 }
