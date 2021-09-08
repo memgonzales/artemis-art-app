@@ -235,36 +235,7 @@ class BrowseFeedActivity : AppCompatActivity() {
 
                     for(postSnap in snapshot.children){
                         val post = postSnap.getValue(Post::class.java)!!
-                        /*
-                        val userImg = postSnap.child(Keys.profilePicture.name).getValue().toString()
-                        val username = postSnap.child(Keys.username.name).getValue().toString()
-
-                        val postImg = postSnap.child(Keys.postImg.name).getValue().toString()
-                        val title = postSnap.child(Keys.title.name).getValue().toString()
-                        val datePosted = postSnap.child(Keys.datePosted.name).getValue().toString()
-
-                        val medium = postSnap.child(Keys.medium.name).getValue().toString()
-                        val dimensions = postSnap.child(Keys.dimensions.name).getValue().toString()
-                        val desc = postSnap.child(Keys.description.name).getValue().toString()
-                        val tags = getList(postSnap.child(Keys.tags.name).getValue().toString())
-
-                        val bookmark = postSnap.child(Keys.bookmarks.name).getValue().toString().toBoolean()
-                        val upvote = postSnap.child(Keys.upvote.name).getValue().toString().toBoolean()
-                        val highlights = postSnap.child(Keys.highlights.name).getValue().toString().toBoolean()
-
-                        val upvoteUsers = postSnap.child(Keys.upvoteUsers.name).getValue().toString()
-                        val comments = postSnap.child(Keys.comments.name).getValue().toString()
-
-                        val numUpvotes = postSnap.child(Keys.numUpvotes.name).getValue().toString().toInt()
-                        val numComment = postSnap.child(Keys.numComments.name).getValue().toString().toInt()
-
-                        val post = Post(userImg, username, postImg, title, numUpvotes, numComment,
-                            datePosted, medium, dimensions, desc, tags, bookmark, upvote, highlights)
-
-
-                         */
                         dataPosts.add(post)
-
                     }
 
                     if (shuffle) {
@@ -286,40 +257,6 @@ class BrowseFeedActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
             }
         })
-    }
-
-    private fun getRealtimeUpdates(){
-        val postDB = this.ref.child(Keys.KEY_DB_POSTS.name)
-
-        postDB.addChildEventListener(object: ChildEventListener{
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                var post = snapshot.getValue(Post::class.java)
-                // post?.setPostId(snapshot.key!!)
-
-
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
-    }
-
-    private fun getList(str: String): ArrayList<String>{
-        return str.substring(1, str.length-1).split(",").toCollection(ArrayList<String>())
     }
 
     /**

@@ -256,39 +256,63 @@ class AddProfilePictureActivity : AppCompatActivity() {
 
                 if(cameraTaken){
                     url.putBytes(this.photoByte)
+                        .addOnSuccessListener {
+                            url.downloadUrl
+                                .addOnSuccessListener {
+                                    storeUserImg(it.toString())
+                                }
+
+                                .addOnFailureListener {
+                                    uploadFailed()
+                                }
+                        }
+                        .addOnFailureListener{
+                            uploadFailed()
+                        }
                 }
 
                 else{
                     url.putFile(Uri.parse(this.photoUri))
-                }
+                        .addOnSuccessListener {
+                            url.downloadUrl
+                                .addOnSuccessListener {
+                                    storeUserImg(it.toString())
+                                }
 
-                this.db.child(Keys.KEY_DB_USERS.name).child(this.userId).child(Keys.userImg.name).setValue(url.toString())
-                    .addOnSuccessListener {
-                        Toast.makeText(this@AddProfilePictureActivity, "Successfully uploaded your image", Toast.LENGTH_SHORT).show()
-                        val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
-                        startActivity(i)
-                    }
-                    .addOnFailureListener{
-                        Toast.makeText(this@AddProfilePictureActivity, "Unable to add your profile picture right now. Please try again later", Toast.LENGTH_SHORT).show()
-                    }
+                                .addOnFailureListener {
+                                    uploadFailed()
+                                }
+                        }
+                        .addOnFailureListener{
+                            uploadFailed()
+                        }
+                }
             }
 
             else{
-                this.db.child(Keys.KEY_DB_USERS.name).child(this.userId).child(Keys.userImg.name).setValue("gs://artemis-77e4e.appspot.com/chibi_artemis_hd.png")
-                    .addOnSuccessListener {
-                        Toast.makeText(this@AddProfilePictureActivity, "Successfully removed your image", Toast.LENGTH_SHORT).show()
-                        val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
-                        startActivity(i)
-                    }
-                    .addOnFailureListener{
-                        Toast.makeText(this@AddProfilePictureActivity, "Unable to process your actions  right now. Please try again later", Toast.LENGTH_SHORT).show()
-                    }
-
-                val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
-                startActivity(i)
+                storeUserImg("https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2")
             }
-
         }
+    }
+
+    private fun storeUserImg(userImg: String){
+        this.db.child(Keys.KEY_DB_USERS.name).child(this.userId).child(Keys.userImg.name).setValue(userImg)
+            .addOnSuccessListener {
+                uploadSuccessfully()
+            }
+            .addOnFailureListener{
+                uploadFailed()
+            }
+    }
+
+    private fun uploadSuccessfully(){
+        Toast.makeText(this@AddProfilePictureActivity, "Successfully uploaded your image", Toast.LENGTH_SHORT).show()
+        val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
+        startActivity(i)
+    }
+
+    private fun uploadFailed(){
+        Toast.makeText(this@AddProfilePictureActivity, "Unable to process your actions  right now. Please try again later", Toast.LENGTH_SHORT).show()
     }
 
     /**
