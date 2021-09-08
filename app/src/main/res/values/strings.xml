@@ -399,4 +399,15 @@
     <string name="tv_item_view_post_dimen">1080 x 1080</string>
     <string name="tv_item_view_post_desc">Its form is a cuckoo. The master of this emotion is aware of how pitiful her Doppel is, and refuses to look at it. This Doppel wordlessly wraps around and strangles anything it doesn\'t want to hear as it continues its search for something to fill the hole in its heart.</string>
     <string name="tv_item_view_post_tags">anime, magia-record, shaft, iroha, witches</string>
+    <string name="tv_search_results_subtitle_none">You can try searching using fewer or more general keywords</string>
+    <string name="tv_search_results_subtitle_unregistered_none">You can try searching using fewer or more general keywords</string>
+    <string name="tv_feed_none">No posts just yet</string>
+    <string name="tv_feed_subtitle_none">Be the first to share your artwork</string>
+    <string name="iv_feed_none">No post</string>
+    <string name="tv_view_comments_title">Comments</string>
+    <string name="iv_view_comments_none">View comments - none</string>
+    <string name="tv_view_comments_no_comment">No comments just yet</string>
+    <string name="ib_add_comment">Add comment</string>
+    <string name="et_add_comment">Write a comment...</string>
+    <string name="fab_view_comments_add">View comments</string>
 </resources>
