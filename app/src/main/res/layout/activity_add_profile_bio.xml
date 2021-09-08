@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     app:elevation="0dp">
 
+    <ProgressBar
+        android:id="@+id/pb_add_profile_bio"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/purple_pics_lighter"
+        android:secondaryProgressTint="@color/pinkish_purple"
+        android:translationZ="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_add_profile_bio"
         android:layout_width="match_parent"
@@ -126,10 +138,10 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_bio_logo"
-                    android:contentDescription="@string/iv_add_profile_bio_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/iv_add_profile_bio_logo"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/gl_add_profile_bio_left_top"
@@ -168,10 +180,10 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_bio_pen"
-                    android:contentDescription="@string/iv_add_profile_bio_pen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/iv_add_profile_bio_pen"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gl_add_profile_bio_right_pencil"
@@ -195,7 +207,6 @@
                     app:layout_constraintStart_toStartOf="@+id/gl_add_profile_bio_left"
                     app:layout_constraintTop_toBottomOf="@+id/iv_add_profile_bio_pen"
                     app:layout_constraintVertical_bias="0.050000012" />
-
 
 
                 <androidx.constraintlayout.widget.Guideline
@@ -227,8 +238,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/tiet_add_profile_bio"
                         android:inputType="text|textPersonName|textMultiLine"
-                        android:maxLength="150"/>
-                    
+                        android:maxLength="150" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
@@ -274,10 +285,10 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_bio_progress1"
-                    android:contentDescription="@string/iv_add_profile_bio_progress1"
                     android:layout_width="wrap_content"
                     android:layout_height="12dp"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/iv_add_profile_bio_progress1"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/iv_add_profile_bio_progress2"
@@ -289,10 +300,10 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_bio_progress2"
-                    android:contentDescription="@string/iv_add_profile_bio_progress2"
                     android:layout_width="wrap_content"
                     android:layout_height="12dp"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/iv_add_profile_bio_progress2"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -304,10 +315,10 @@
 
                 <ImageView
                     android:id="@+id/iv_add_profile_bio_progress3"
-                    android:contentDescription="@string/iv_add_profile_bio_progress3"
                     android:layout_width="wrap_content"
                     android:layout_height="12dp"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/iv_add_profile_bio_progress3"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
