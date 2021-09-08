@@ -1,13 +1,21 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -25,12 +33,15 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var fabEditProfilePicEdit: FloatingActionButton
     private lateinit var btmProfilePicture: BottomSheetDialog
     private lateinit var clDialogProfilePictureEdit: ConstraintLayout
+    private lateinit var clDialogProfilePictureCamera: ConstraintLayout
     private lateinit var clDialogProfilePictureDelete: ConstraintLayout
     private lateinit var btnEditProfileSave: Button
 
@@ -47,6 +58,33 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var clEditProfilePassword: ConstraintLayout
 
     private lateinit var pbEditProfile: ProgressBar
+
+    /**
+     * Photo of the artwork for posting.
+     */
+    private lateinit var photoFile: File
+
+    /**
+     * Set to <code>false</code> when the user did not upload any profile picture (or the user
+     * decided to remove an uploaded profile picture); <code>true</code>, otherwise.
+     */
+    private var isProfilePictureUploaded: Boolean = false
+
+    private var cameraTaken: Boolean = false
+    private lateinit var photoByte: ByteArray
+    private lateinit var photoUri: String
+
+    /**
+     * Activity result launcher related to taking photos using the device camera.
+     */
+    private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
+
+    /**
+     * Activity result launcher related to choosing photos from the Gallery
+     */
+    private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
+
+
 
     //Firebase
     private lateinit var mAuth: FirebaseAuth
@@ -67,7 +105,87 @@ class EditProfileActivity : AppCompatActivity() {
 
         initFirebase()
         initComponents()
+        initGalleryLauncher()
+        initCameraLauncher()
     }
+
+    /**
+     * Initializes the activity result launcher related to choosing photos from the Gallery.
+     *
+     * @packageContext context tied to this activity
+     */
+    private fun initGalleryLauncher() {
+        galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val path = result.data?.data
+                civEditProfilePic.setImageURI(path)
+                isProfilePictureUploaded = true
+
+                this.photoUri = path.toString()
+            }
+        }
+    }
+
+    /**
+     * Initializes the activity result launcher related to taking photos using the device camera
+     *
+     * @packageContext context tied to this activity
+     */
+    private fun initCameraLauncher() {
+        cameraLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val path = photoFile.absolutePath
+                    fetchFromCamera(path)
+                    isProfilePictureUploaded = true
+                    cameraTaken = true
+                }
+            }
+    }
+
+    /**
+     * Displays the photo taken using the device camera in the proper orientation.
+     *
+     * This method addresses the issue of most device cameras setting the orientation of a captured
+     * image to landscape. The code for rotation is a direct translation of the one found in
+     * <a href = "https://www.py4u.net/discuss/611150">https://www.py4u.net/discuss/611150</a>
+     *
+     * @param photoPath path to the photo to be rotated
+     */
+    private fun fetchFromCamera(photoPath: String?) {
+        val bounds = BitmapFactory.Options()
+        bounds.inJustDecodeBounds = true
+        BitmapFactory.decodeFile(photoPath, bounds)
+
+        val opts = BitmapFactory.Options()
+        val bm = BitmapFactory.decodeFile(photoPath, opts)
+        val exif = ExifInterface(photoPath!!)
+        val orientString: String? = exif.getAttribute(ExifInterface.TAG_ORIENTATION)
+        val orientation = orientString?.toInt() ?: ExifInterface.ORIENTATION_NORMAL
+
+        var rotationAngle = 0
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270
+
+        val matrix = Matrix()
+        matrix.setRotate(rotationAngle.toFloat(), bm.width.toFloat() / 2, bm.height.toFloat() / 2)
+        val rotatedBitmap =
+            Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true)
+
+        /* Compress the photo */
+        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 60, FileOutputStream(photoPath))
+
+
+        civEditProfilePic.setImageBitmap(rotatedBitmap)
+
+
+        val outputStream = ByteArrayOutputStream()
+        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        this.photoByte = outputStream.toByteArray()
+    }
+
 
     private fun initFirebase(){
         this.mAuth = Firebase.auth
@@ -171,24 +289,21 @@ class EditProfileActivity : AppCompatActivity() {
             btmProfilePicture.setContentView(view)
 
             this.clDialogProfilePictureEdit = btmProfilePicture.findViewById(R.id.cl_dialog_profile_picture_edit)!!
+            this.clDialogProfilePictureCamera = btmProfilePicture.findViewById(R.id.cl_dialog_profile_picture_camera)!!
             this.clDialogProfilePictureDelete = btmProfilePicture.findViewById(R.id.cl_dialog_profile_picture_delete)!!
 
             clDialogProfilePictureEdit.setOnClickListener {
-                Toast.makeText(
-                    this@EditProfileActivity,
-                    "Profile picture is edited",
-                    Toast.LENGTH_SHORT
-                ).show()
-                btmProfilePicture.dismiss()
+                PostArtworkUtil.chooseFromGallery(this, galleryLauncher)
+            }
+
+            clDialogProfilePictureCamera.setOnClickListener {
+                photoFile = PostArtworkUtil.takeFromCamera(this, this@EditProfileActivity, cameraLauncher)
             }
 
             clDialogProfilePictureDelete.setOnClickListener {
-                Toast.makeText(
-                    this@EditProfileActivity,
-                    "Profile picture is deleted",
-                    Toast.LENGTH_SHORT
-                ).show()
-                btmProfilePicture.dismiss()
+                civEditProfilePic.setImageResource(R.drawable.painter)
+                isProfilePictureUploaded = false
+                cameraTaken = false
             }
 
             btmProfilePicture.show()
@@ -313,5 +428,51 @@ class EditProfileActivity : AppCompatActivity() {
             .addOnFailureListener{
                 updateFailed()
             }
+    }
+
+    /**
+     * Callback for the result from requesting permissions.
+     *
+     * @param requestCode the request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
+     * @param permissions the requested permissions. Never null
+     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
+     *     Never null
+     */
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permissionsResult(requestCode, grantResults, this@EditProfileActivity, this)
+    }
+
+    /**
+     * Defines the behavior related to choosing a photo from the Gallery or taking a photo using
+     * the device camera based on the permissions granted by the user.
+     *
+     * @param requestCode the request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
+     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
+     *     Never null
+     * @param context context tied to this activity
+     * @param activity this activity
+     */
+    private fun permissionsResult(requestCode: Int, grantResults: IntArray, context: Context,
+                                  activity: Activity) {
+        when (requestCode) {
+            RequestCodes.REQUEST_CODE_POST_CAMERA.ordinal -> {
+                val temp: File? = PostArtworkUtil.permissionsResultCamera(grantResults, activity,
+                    context, cameraLauncher)
+
+                if (temp != null) {
+                    photoFile = temp
+                }
+            }
+
+            RequestCodes.REQUEST_CODE_POST_GALLERY.ordinal -> {
+                PostArtworkUtil.permissionsResultGallery(grantResults, context, galleryLauncher)
+            }
+        }
     }
 }
