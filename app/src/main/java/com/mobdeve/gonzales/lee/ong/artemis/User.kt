@@ -60,7 +60,14 @@ class User {
      */
     private lateinit var userComments: HashMap<String, Any?>
 
-    constructor(){}
+    constructor(){
+        this.bookmarks = HashMap<String, Any?>()
+        this.userPosts = HashMap<String, Any?>()
+        this.highlights = HashMap<String, Any?>()
+        this.upvotedPosts = HashMap<String, Any?>()
+        this.usersFollowed = HashMap<String, Any?>()
+        this.userComments = HashMap<String, Any?>()
+    }
 
      /**
      * Creates a user given a username, email address, and password.

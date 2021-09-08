@@ -153,8 +153,10 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
 
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
     }
 
     /**
@@ -227,7 +229,7 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadPostData();
-        this.dataPosts = ArrayList<Post>()
+        //this.dataPosts = ArrayList<Post>()
 
         this.rvFeed = findViewById(R.id.rv_feed)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -257,7 +259,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                 if(snapshot.exists()){
 
                     for(postSnap in snapshot.children){
-                        val post = postSnap.getValue(Post::class.java)!!
+                        var post = postSnap.getValue(Post::class.java)!!
 
                         if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
                             post.setUpvote(true)

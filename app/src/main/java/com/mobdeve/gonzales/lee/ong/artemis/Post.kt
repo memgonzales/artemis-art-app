@@ -26,12 +26,18 @@ class Post {
     private var numComments: Int
 
     constructor(){
-        bookmark = false
-        upvote = false
-        highlight = false
+        this.tags = ArrayList<String>()
 
-        numUpvotes = 0
-        numComments = 0
+        this.bookmark = false
+        this.upvote = false
+        this.highlight = false
+
+        this.numUpvotes = 0
+        this.numComments = 0
+
+        this.upvoteUsers = HashMap<String, Any?>()
+        this.bookmarkUsers = HashMap<String, Any?>()
+        this.comments = HashMap<String, Any?>()
     }
 
     constructor(postId: String, title: String, postImg: String,
