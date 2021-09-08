@@ -211,7 +211,7 @@ class LogInActivity : AppCompatActivity() {
 
     private fun startTesting() {
         this.btnTest.setOnClickListener {
-            val i = Intent(this@LogInActivity, AddProfilePictureActivity::class.java)
+            val i = Intent(this@LogInActivity, BrokenLinkActivity::class.java)
             startActivity(i)
         }
     }

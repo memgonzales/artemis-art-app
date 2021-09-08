@@ -408,8 +408,10 @@
     <string name="iv_view_comments_none">View comments - none</string>
     <string name="tv_view_comments_no_comment">No comments just yet</string>
     <string name="ib_add_comment">Add comment</string>
-    <string name="et_add_comment">Write a comment...</string>
+    <string name="et_add_comment">Write a comment…</string>
     <string name="fab_view_comments_add">View comments</string>
     <string name="tv_feed_followed_subtitle_none">Artemis is all about community! You can try following more users</string>
     <string name="tv_feed_unregistered_subtitle_none">Log in or sign up, and be the first to share your artwork</string>
+    <string name="tv_broken_link_banner"><b>Art</b>e-miss</string>
+    <string name="tv_broken_link_caveat">It is possible that our server is temporarily down or the data related to your request have been removed. \n\nIf this issue persists, you may contact us through our email:\n<b>artemis.appmaster@gmail.com</b></string>
 </resources>
