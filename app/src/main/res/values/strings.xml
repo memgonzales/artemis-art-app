@@ -410,4 +410,6 @@
     <string name="ib_add_comment">Add comment</string>
     <string name="et_add_comment">Write a comment...</string>
     <string name="fab_view_comments_add">View comments</string>
+    <string name="tv_feed_followed_subtitle_none">Artemis is all about community! You can try following more users</string>
+    <string name="tv_feed_unregistered_subtitle_none">Log in or sign up, and be the first to share your artwork</string>
 </resources>

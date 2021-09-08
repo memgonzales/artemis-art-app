@@ -110,6 +110,65 @@
                         </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
 
+                    <ImageView
+                        android:id="@+id/iv_feed_followed_none"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:adjustViewBounds="true"
+                        android:alpha="0.6"
+                        android:contentDescription="@string/iv_feed_none"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_feed_followed_none"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/tv_feed_followed_none"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.08"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        app:srcCompat="@drawable/logo_recolored" />
+
+                    <TextView
+                        android:id="@+id/tv_feed_followed_none"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:alpha="0.6"
+                        android:text="@string/tv_feed_none"
+                        android:textColor="@color/purple_main"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_feed_followed_none"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tv_feed_followed_subtitle_none"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="40dp"
+                        android:alpha="0.6"
+                        android:gravity="center"
+                        android:text="@string/tv_feed_followed_subtitle_none"
+                        android:textColor="@color/purple_main"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_feed_followed_none"
+                        app:layout_constraintVertical_bias="0.0" />
+
+
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_feed_followed"
                         android:layout_width="match_parent"
@@ -124,8 +183,6 @@
 
                     </androidx.recyclerview.widget.RecyclerView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 
