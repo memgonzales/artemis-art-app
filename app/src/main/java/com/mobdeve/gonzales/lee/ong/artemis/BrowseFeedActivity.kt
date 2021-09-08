@@ -227,15 +227,15 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadPostData();
-        this.dataPosts = arrayListOf<Post>()
+        this.dataPosts = ArrayList<Post>()
 
         this.rvFeed = findViewById(R.id.rv_feed)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-       // this.feedAdapter = FeedAdapter(dataPosts);
+        //this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity);
 
 
-       // this.rvFeed.adapter = feedAdapter;
+        //this.rvFeed.adapter = feedAdapter;
 
         initContent(false)
 
@@ -246,11 +246,11 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.tvNone = findViewById(R.id.tv_feed_none)
         this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
 
-       // this.dataPosts = arrayListOf<Post>()
+        this.dataPosts = arrayListOf<Post>()
 
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addValueEventListener(object: ValueEventListener{
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -263,7 +263,6 @@ class BrowseFeedActivity : AppCompatActivity() {
                             post.setUpvote(true)
                         }
 
-
                         if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
                             post.setBookmark(true)
                         }
@@ -275,6 +274,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                         Collections.shuffle(dataPosts)
                     }
 
+                    //feedAdapter.notifyDataSetChanged()
                     feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
                     rvFeed.adapter = feedAdapter
 
