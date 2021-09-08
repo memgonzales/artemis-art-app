@@ -130,13 +130,13 @@
 
                     <ImageView
                         android:id="@+id/iv_view_comments_followed_no_comment"
-                        android:contentDescription="@string/iv_view_comments_followed_no_comment"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:adjustViewBounds="true"
                         android:alpha="0.6"
+                        android:contentDescription="@string/iv_view_comments_followed_no_comment"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
                         app:layout_constraintBottom_toTopOf="@+id/tv_view_comments_followed_no_comment"
@@ -144,6 +144,7 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/tv_view_comments_followed_no_comment"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.25"
                         app:layout_constraintVertical_chainStyle="packed"
                         app:srcCompat="@drawable/logo_recolored" />
 

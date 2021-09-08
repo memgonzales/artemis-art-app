@@ -45,7 +45,7 @@
                     android:layout_marginStart="56dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:text="Comments"
+                    android:text="@string/tv_view_comments_title"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -108,9 +108,11 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <include layout="@layout/item_placeholder_comment"></include>
-                            <include layout="@layout/item_placeholder_comment"></include>
-                            <include layout="@layout/item_placeholder_comment"></include>
+                            <include layout="@layout/item_placeholder_comment" />
+
+                            <include layout="@layout/item_placeholder_comment" />
+
+                            <include layout="@layout/item_placeholder_comment" />
 
                         </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
@@ -135,6 +137,7 @@
                         android:layout_marginEnd="10dp"
                         android:adjustViewBounds="true"
                         android:alpha="0.6"
+                        android:contentDescription="@string/iv_view_comments_none"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
                         app:layout_constraintBottom_toTopOf="@+id/tv_view_comments_no_comment"
@@ -142,6 +145,7 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/tv_view_comments_no_comment"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.25"
                         app:layout_constraintVertical_chainStyle="packed"
                         app:srcCompat="@drawable/logo_recolored" />
 
@@ -151,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:alpha="0.6"
-                        android:text="No comments just yet"
+                        android:text="@string/tv_view_comments_no_comment"
                         android:textColor="@color/purple_main"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -185,36 +189,36 @@
         app:layout_constraintVertical_bias="1.0">
 
         <ImageButton
-            android:id="@+id/ib_add_comment_followed"
+            android:id="@+id/ib_add_comment"
+            android:contentDescription="@string/ib_add_comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:onClick="onClick"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@id/et_add_comment_followed"
+            app:layout_constraintBottom_toBottomOf="@id/et_add_comment"
             app:layout_constraintEnd_toStartOf="@+id/gl_view_comments_right_comment"
             app:layout_constraintStart_toStartOf="@+id/gl_view_comments_left_icon"
-            app:layout_constraintTop_toTopOf="@+id/et_add_comment_followed"
+            app:layout_constraintTop_toTopOf="@+id/et_add_comment"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_action_send"
             app:tint="@color/purple_main" />
 
         <EditText
-            android:id="@+id/et_add_comment_followed"
+            android:id="@+id/et_add_comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Write a comment..."
+            android:hint="@string/et_add_comment"
             android:inputType="textMultiLine"
             android:maxLines="4"
             android:scrollbars="vertical"
             android:textColorHint="@color/purple_main"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ib_add_comment_followed"
+            app:layout_constraintEnd_toStartOf="@+id/ib_add_comment"
             app:layout_constraintStart_toStartOf="@id/gl_view_comments_left_comment"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -258,6 +262,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_view_comments_add"
+            android:contentDescription="@string/fab_view_comments_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
@@ -268,7 +273,8 @@
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:focusable="true" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
