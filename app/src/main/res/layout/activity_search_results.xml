@@ -245,21 +245,21 @@
 
                     <ImageView
                         android:id="@+id/iv_search_results_none"
-                        android:contentDescription="@string/iv_search_results_none"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:adjustViewBounds="true"
                         android:alpha="0.6"
+                        android:contentDescription="@string/iv_search_results_none"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
-                        app:layout_constraintBottom_toTopOf="@+id/tv_search_results_none"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/tv_search_results_none"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/tv_search_results_none"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.14"
+                        app:layout_constraintVertical_bias="0.100000024"
                         app:layout_constraintVertical_chainStyle="packed"
                         app:srcCompat="@drawable/logo_recolored" />
 
@@ -278,7 +278,27 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_search_results_none" />
+                        app:layout_constraintTop_toBottomOf="@+id/iv_search_results_none"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tv_search_results_subtitle_none"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="40dp"
+                        android:alpha="0.6"
+                        android:gravity="center"
+                        android:text="You can try searching using more general or fewer keywords"
+                        android:textColor="@color/purple_main"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_search_results_none"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_search_results"

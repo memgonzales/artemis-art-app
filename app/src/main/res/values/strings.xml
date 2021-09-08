@@ -296,7 +296,7 @@
     <string name="fab_view_others_highlight_unregistered_add">View others highlight unregistered - add</string>
     <string name="tv_view_comments_unregistered_title">Comments</string>
     <string name="iv_view_comments_unregistered_no_comment">View comments unregistered - none</string>
-    <string name="tv_view_comments_unregistered_no_comment">No comments_unregistered just yet</string>
+    <string name="tv_view_comments_unregistered_no_comment">No comments just yet</string>
     <string name="fab_view_comments_unregistered_add">View comments unregistered - add</string>
     <string name="tv_view_comments_unregistered_unregistered_note">You are browsing as a guest</string>
     <string name="et_add_comment_unregistered">Log in or sign up to comment</string>

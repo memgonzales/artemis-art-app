@@ -142,6 +142,7 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/tv_view_comments_no_comment"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.25"
                         app:layout_constraintVertical_chainStyle="packed"
                         app:srcCompat="@drawable/logo_recolored" />
 

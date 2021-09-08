@@ -117,13 +117,13 @@
 
                     <ImageView
                         android:id="@+id/iv_view_comments_unregistered_no_comment"
-                        android:contentDescription="@string/iv_view_comments_unregistered_no_comment"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:adjustViewBounds="true"
                         android:alpha="0.6"
+                        android:contentDescription="@string/iv_view_comments_unregistered_no_comment"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
                         app:layout_constraintBottom_toTopOf="@+id/tv_view_comments_unregistered_no_comment"
@@ -131,6 +131,7 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/tv_view_comments_unregistered_no_comment"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.25"
                         app:layout_constraintVertical_chainStyle="packed"
                         app:srcCompat="@drawable/logo_recolored" />
 
@@ -173,13 +174,13 @@
 
         <ImageButton
             android:id="@+id/ib_add_comment_unregistered"
-            android:contentDescription="@string/ib_add_comment_unregistered"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/ib_add_comment_unregistered"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="@id/et_add_comment_unregistered"
             app:layout_constraintEnd_toStartOf="@+id/gl_view_comments_unregistered_right_comment"
@@ -269,19 +270,19 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_view_comments_unregistered_add"
-            android:contentDescription="@string/fab_view_comments_unregistered_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
             android:clickable="true"
+            android:contentDescription="@string/fab_view_comments_unregistered_add"
             android:elevation="0dp"
+            android:focusable="true"
             app:backgroundTint="@color/purple_navbar_lighter"
             app:elevation="0dp"
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white"
-            android:focusable="true" />
+            app:tint="@android:color/white" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
