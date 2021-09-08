@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,7 +21,18 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
@@ -35,6 +47,12 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     private lateinit var srlHighlights: SwipeRefreshLayout
+
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
+
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
 
     /**
      * Photo of the artwork for posting.
@@ -65,6 +83,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         initComponents()
         initGalleryLauncher(this@BrowseOwnHighlightsActivity)
         initCameraLauncher(this@BrowseOwnHighlightsActivity)
+        initFirebase()
     }
 
     /**
@@ -114,6 +133,17 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    /**
+     * Initializes the Firebase-related components.
+     */
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        this.user = this.mAuth.currentUser!!
+        this.userId = this.user.uid
     }
 
     /**
@@ -183,15 +213,67 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadHighlightsData()
+       // this.dataPosts = DataHelper.loadHighlightsData()
 
         this.rvHighlights = findViewById(R.id.rv_highlights)
         this.rvHighlights.layoutManager = GridLayoutManager(this, 2)
 
-        this.highlightsAdapter = HighlightsAdapter(this.dataPosts)
+       // this.highlightsAdapter = HighlightsAdapter(this.dataPosts)
 
 
-        this.rvHighlights.adapter = highlightsAdapter
+        //this.rvHighlights.adapter = highlightsAdapter
+
+        initContent()
+    }
+
+    private fun initContent(){
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
+
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userPost = snapshot.getValue(User::class.java)!!
+
+                val userHighlights = userPost.getHighlights().keys
+
+                getPosts(userHighlights)
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun getPosts(highlights: Set<String?>){
+        this.dataPosts = arrayListOf<Post>()
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()){
+                    for (postSnap in snapshot.children){
+                        if (postSnap.key != null && highlights.contains(postSnap.key)){
+                            val post = postSnap.getValue(Post::class.java)!!
+                            post.setHighlight(true)
+
+                            dataPosts.add(post)
+                        }
+                    }
+
+                    highlightsAdapter = HighlightsAdapter(dataPosts)
+                    rvHighlights.adapter = highlightsAdapter
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
     }
 
     /**

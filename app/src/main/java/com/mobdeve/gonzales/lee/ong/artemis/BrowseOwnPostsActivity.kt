@@ -237,17 +237,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
 
                 val postKeys = userPost.getUserPosts().keys
                 val userHighlights = userPost.getHighlights().keys
-                /*
-                val userPosts = snapshot.child(Keys.userPosts.name).children
-                var postKeys = arrayListOf<String>()
-                val userHighlights = snapshot.child(Keys.highlights.name).getValue()
 
-                userPosts.forEach {
-                    if (it.key != null){
-                        postKeys.add(it.key!!.toString())
-                    }
-                }
-*/
                 getPosts(userHighlights, postKeys)
 
 
@@ -290,7 +280,6 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
             }
 
         })
-
     }
 
     /**
