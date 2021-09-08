@@ -233,16 +233,24 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
 
         userDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                val userPost = snapshot.getValue(User::class.java)!!
+
+                val postKeys = userPost.getUserPosts().keys
+                val userHighlights = userPost.getHighlights().keys
+                /*
                 val userPosts = snapshot.child(Keys.userPosts.name).children
                 var postKeys = arrayListOf<String>()
+                val userHighlights = snapshot.child(Keys.highlights.name).getValue()
 
                 userPosts.forEach {
                     if (it.key != null){
                         postKeys.add(it.key!!.toString())
                     }
                 }
+*/
+                getPosts(userHighlights, postKeys)
 
-                getPosts(postKeys)
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -251,7 +259,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         })
     }
 
-    private fun getPosts(postKeys: ArrayList<String>){
+    private fun getPosts(highlights: Set<String?>, postKeys: Set<String?>){
         this.dataPosts = arrayListOf<Post>()
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
@@ -262,6 +270,11 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                     for (postSnap in snapshot.children){
                         if (postSnap.key != null && postKeys.contains(postSnap.key)){
                             val post = postSnap.getValue(Post::class.java)!!
+
+                            if (!highlights.isNullOrEmpty() && highlights.contains(post.getPostId())){
+                                post.setHighlight(true)
+                            }
+
                             dataPosts.add(post)
                         }
                     }

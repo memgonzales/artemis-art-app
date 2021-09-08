@@ -33,32 +33,32 @@ class User {
     /**
      * Identifiers of the posts bookmarked by the user.
      */
-    private lateinit var bookmarks: ArrayList<String>
+    private lateinit var bookmarks: HashMap<String, Any?>
 
     /**
      * Identifiers of the posts created by the user.
      */
-    private lateinit var userPosts: ArrayList<String>
+    private lateinit var userPosts: HashMap<String, Any?>
 
     /**
      * Identifiers of the highlights posted by the user.
      */
-    private lateinit var highlights: ArrayList<String>
+    private lateinit var highlights: HashMap<String, Any?>
 
     /**
      * Identifiers of the posts upvoted by the user.
      */
-    private lateinit var upvotedPosts: ArrayList<String>
+    private lateinit var upvotedPosts: HashMap<String, Any?>
 
     /**
      * Identifiers of the users followed by the user.
      */
-    private lateinit var usersFollowed: ArrayList<String>
+    private lateinit var usersFollowed: HashMap<String, Any?>
 
     /**
      * Identifiers of the comments written by the user.
      */
-    private lateinit var userComments: ArrayList<String>
+    private lateinit var userComments: HashMap<String, Any?>
 
     constructor(){}
 
@@ -76,12 +76,12 @@ class User {
         this.userImg = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2"
         this.bio = ""
 
-        this.bookmarks = ArrayList<String>()
-        this.userPosts = ArrayList<String>()
-        this.highlights = ArrayList<String>()
-        this.upvotedPosts = ArrayList<String>()
-        this.usersFollowed = ArrayList<String>()
-        this.userComments = ArrayList<String>()
+        this.bookmarks = HashMap<String, Any?>()
+        this.userPosts = HashMap<String, Any?>()
+        this.highlights = HashMap<String, Any?>()
+        this.upvotedPosts = HashMap<String, Any?>()
+        this.usersFollowed = HashMap<String, Any?>()
+        this.userComments = HashMap<String, Any?>()
 
     }
 
@@ -101,12 +101,12 @@ class User {
         this.userImg = userImg
         this.bio = bio
 
-        this.bookmarks = ArrayList<String>()
-        this.userPosts = ArrayList<String>()
-        this.highlights = ArrayList<String>()
-        this.upvotedPosts = ArrayList<String>()
-        this.usersFollowed = ArrayList<String>()
-        this.userComments = ArrayList<String>()
+        this.bookmarks = HashMap<String, Any?>()
+        this.userPosts = HashMap<String, Any?>()
+        this.highlights = HashMap<String, Any?>()
+        this.upvotedPosts = HashMap<String, Any?>()
+        this.usersFollowed = HashMap<String, Any?>()
+        this.userComments = HashMap<String, Any?>()
 
     }
 
@@ -161,7 +161,7 @@ class User {
      *
      * @return identifiers of the posts bookmarked by the user
      */
-    fun getBookmarks(): ArrayList<String>{
+    fun getBookmarks(): HashMap<String, Any?>{
         return this.bookmarks
     }
 
@@ -170,7 +170,7 @@ class User {
      *
      * @return identifiers of the posts created by the user
      */
-    fun getUserPosts(): ArrayList<String>{
+    fun getUserPosts(): HashMap<String, Any?>{
         return this.userPosts
     }
 
@@ -179,7 +179,7 @@ class User {
      *
      * @return identifiers of the highlights posted by the user
      */
-    fun getHighlights(): ArrayList<String>{
+    fun getHighlights(): HashMap<String, Any?>{
         return this.highlights
     }
 
@@ -188,7 +188,7 @@ class User {
      *
      * @return identifiers of the posts upvoted by the user
      */
-    fun getUpvotedPosts(): ArrayList<String>{
+    fun getUpvotedPosts(): HashMap<String, Any?>{
         return this.upvotedPosts
     }
 
@@ -197,7 +197,7 @@ class User {
      *
      * @return identifiers of the users followed by the user
      */
-    fun getUsersFollowed(): ArrayList<String>{
+    fun getUsersFollowed(): HashMap<String, Any?>{
         return this.usersFollowed
     }
 
@@ -206,7 +206,7 @@ class User {
      *
      * @return identifiers of the comments written by the user
      */
-    fun getUserComments(): ArrayList<String>{
+    fun getUserComments(): HashMap<String, Any?>{
         return this.userComments
     }
 
@@ -262,7 +262,7 @@ class User {
      * @param bookmarks list containing strings to which the identifiers of the posts bookmarked
      * by the user are to be set
      */
-    fun setBookmarks(bookmarks: ArrayList<String>){
+    fun setBookmarks(bookmarks: HashMap<String, Any?>){
         this.bookmarks = bookmarks
     }
 
@@ -272,7 +272,7 @@ class User {
      * @param userPosts list containing strings to which the identifiers of the posts created
      * by the user are to be set
      */
-    fun setUserPosts(userPosts: ArrayList<String>){
+    fun setUserPosts(userPosts: HashMap<String, Any?>){
         this.userPosts = userPosts
     }
 
@@ -282,7 +282,7 @@ class User {
      * @param highlights list containing strings to which the identifiers of the posts highlighted
      * by the user are to be set
      */
-    fun setHighlights(highlights: ArrayList<String>){
+    fun setHighlights(highlights: HashMap<String, Any?>){
         this.highlights = highlights
     }
 
@@ -292,7 +292,7 @@ class User {
      * @param upvotedPosts list containing strings to which the identifiers of the posts upvoted
      * by the user are to be set
      */
-    fun setUpvotedPosts(upvotedPosts: ArrayList<String>){
+    fun setUpvotedPosts(upvotedPosts: HashMap<String, Any?>){
         this.upvotedPosts = upvotedPosts
     }
 
@@ -302,7 +302,7 @@ class User {
      * @param usersFollowed list containing strings to which the identifiers of the users followed
      * by the user are to be set
      */
-    fun setUsersFollowed(usersFollowed: ArrayList<String>){
+    fun setUsersFollowed(usersFollowed: HashMap<String, Any?>){
         this.usersFollowed = usersFollowed
     }
 
@@ -312,7 +312,7 @@ class User {
      * @param userComments list containing strings to which the identifiers of the comments written
      * by the user are to be set
      */
-    fun setUserComments(userComments: ArrayList<String>) {
+    fun setUserComments(userComments: HashMap<String, Any?>) {
         this.userComments = userComments
     }
 }

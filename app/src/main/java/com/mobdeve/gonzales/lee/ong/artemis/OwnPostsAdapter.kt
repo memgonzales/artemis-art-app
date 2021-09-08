@@ -17,11 +17,30 @@ import com.facebook.share.Sharer
 import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
     RecyclerView.Adapter<OwnPostsViewHolder>() {
     private lateinit var context: Context
+
+    private var mAuth: FirebaseAuth = Firebase.auth
+    private var db: DatabaseReference = Firebase.database.reference
+
+    private var user: FirebaseUser = mAuth.currentUser!!
+    private var userId: String = user.uid
+
+    private fun initFirebase() {
+        this.mAuth = Firebase.auth
+        this.user = this.mAuth.currentUser!!
+        this.userId = this.user.uid
+        this.db = Firebase.database.reference
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OwnPostsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -89,6 +108,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
             view.context.startActivity(intent)
         }
 
+        initFirebase()
         return ownPostsViewHolder
     }
 
@@ -125,10 +145,15 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
             if (currentPost.getHighlight()) {
                 currentPost.setHighlight(false)
                 holder.setOwnPostHighlight(currentPost.getHighlight())
+
+                updateHighlightDB(currentPost.getPostId(), null)
+
             } else {
                 currentPost.setHighlight(true)
                 holder.setOwnPostHighlight(currentPost.getHighlight())
                 Toast.makeText(view.context, "Added to your Highlights", Toast.LENGTH_SHORT).show()
+
+                updateHighlightDB(currentPost.getPostId(), currentPost.getPostId())
             }
         }
 
@@ -226,5 +251,13 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
 
     override fun getItemCount(): Int {
         return dataPosts.size
+    }
+
+    fun updateHighlightDB(postKey: String, postVal: String?){
+        val updates = hashMapOf<String, Any?>(
+            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.highlights.name}/$postKey" to postVal
+        )
+
+        db.updateChildren(updates)
     }
 }
