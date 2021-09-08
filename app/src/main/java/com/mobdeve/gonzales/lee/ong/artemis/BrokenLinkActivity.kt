@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 class BrokenLinkActivity : AppCompatActivity() {
     private lateinit var tvBrokenLinkEmail: TextView
-    private val emailAddress: String = "artemis.appmaster@gmail.com"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,12 +21,11 @@ class BrokenLinkActivity : AppCompatActivity() {
             val emailIntent = Intent(Intent.ACTION_SEND);
 
             emailIntent.type = "message/rfc822";
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(emailAddress));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "[User Report] Persistent Broken Link");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "Place your username, and describe " +
-                    "what you were doing when this error occurred");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(EmailUtil.EMAIL_ADDRESS));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, EmailUtil.SUBJECT_BROKEN_LINK);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, EmailUtil.TEXT_BROKEN_LINK);
 
-            startActivity(Intent.createChooser(emailIntent, "Send a report"));
+            startActivity(Intent.createChooser(emailIntent, EmailUtil.TITLE_BROKEN_LINK));
         }
     }
 }

@@ -41,6 +41,8 @@ class ViewProfileActivity : AppCompatActivity() {
     private lateinit var clViewProfileLogout: ConstraintLayout
     private lateinit var btnViewProfileHighlights: Button
 
+    private lateinit var tvViewProfileNoteEmail: TextView
+
     private lateinit var bnvViewProfileBottom: BottomNavigationView
     private lateinit var nsvViewProfile: NestedScrollView
 
@@ -82,6 +84,7 @@ class ViewProfileActivity : AppCompatActivity() {
         initContent()
         initComponents()
         addPost()
+        launchEmail()
 
         initGalleryLauncher(this@ViewProfileActivity)
         initCameraLauncher(this@ViewProfileActivity)
@@ -264,6 +267,20 @@ class ViewProfileActivity : AppCompatActivity() {
     private fun launchSearch() {
         val intent = Intent(this@ViewProfileActivity, SearchActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun launchEmail() {
+        tvViewProfileNoteEmail = findViewById(R.id.tv_view_profile_note_email)
+        tvViewProfileNoteEmail.setOnClickListener {
+            val emailIntent = Intent(Intent.ACTION_SEND);
+
+            emailIntent.type = "message/rfc822";
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(EmailUtil.EMAIL_ADDRESS));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, EmailUtil.SUBJECT_FEEDBACK);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, EmailUtil.TEXT_FEEDBACK);
+
+            startActivity(Intent.createChooser(emailIntent, EmailUtil.TITLE_FEEDBACK));
+        }
     }
 
     private fun addPost() {
