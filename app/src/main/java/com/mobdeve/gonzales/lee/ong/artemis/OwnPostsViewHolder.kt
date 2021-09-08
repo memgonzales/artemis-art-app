@@ -1,6 +1,7 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.res.ColorStateList
+import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -9,7 +10,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
+import java.io.File
+import java.io.IOException
 
 class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val civOwnPostProfilePic: CircleImageView
@@ -29,12 +36,29 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ibItemOwnPostOptions: ImageButton
     private val btmItemOwnPostOptions: BottomSheetDialog
 
+    private var storage: FirebaseStorage
+    private var storageRef: StorageReference
+
     fun getOwnPostProfilePic(): CircleImageView {
         return this.civOwnPostProfilePic
     }
 
-    fun setOwnPostProfilePic(picture: Int) {
-        civOwnPostProfilePic.setImageResource(picture)
+    fun setOwnPostProfilePic(picture: String) {
+        try{
+            val localFile = File.createTempFile("images", "jpg")
+            storageRef = storage.getReferenceFromUrl(picture)
+
+            storageRef.getFile(localFile)
+                .addOnSuccessListener {
+                    var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                    civOwnPostProfilePic.setImageBitmap(bitmap)
+                }
+        }
+        catch(err: IOException){
+            civOwnPostProfilePic.setImageResource(R.drawable.chibi_artemis_hd)
+        }
+
+       // civOwnPostProfilePic.setImageResource(picture)
     }
 
     fun getOwnPostUsername(): TextView {
@@ -124,5 +148,8 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         clOwnPostShare = itemView.findViewById(R.id.cl_item_own_post_share)
         ibItemOwnPostOptions = itemView.findViewById(R.id.ib_item_own_post_options)
         btmItemOwnPostOptions = BottomSheetDialog(itemView.context)
+
+        this.storage = Firebase.storage
+        this.storageRef = this.storage.reference
     }
 }

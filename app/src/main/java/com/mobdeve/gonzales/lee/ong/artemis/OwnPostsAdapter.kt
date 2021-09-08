@@ -96,11 +96,25 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
         val currentPost = dataPosts[position]
 
         // placeholder for sample image
-        val currentPicture = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
-        Glide.with(context).load(currentPicture).into(holder.getOwnPostProfilePic())
+       // val currentPicture = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
+        //Glide.with(context).load(currentPicture).into(holder.getOwnPostProfilePic())
+
+        Glide.with(context)
+            .load(currentPost.getProfilePicture())
+            .error(R.drawable.chibi_artemis_hd)
+            .into(holder.getOwnPostProfilePic())
+
+
     //    holder.setOwnPostProfilePic(currentPost.getProfilePicture())
         holder.setOwnPostUsername(currentPost.getUsername())
-        Glide.with(context).load(currentPicture).into(holder.getOwnPostPost())
+        //Glide.with(context).load(currentPicture).into(holder.getOwnPostPost())
+
+        Glide.with(context)
+            .load(currentPost.getPostImg())
+            .error(R.drawable.placeholder)
+            .into(holder.getOwnPostPost())
+
+
     //    holder.setOwnPostPost(currentPost.getPostImg())
         holder.setOwnPostTitle(currentPost.getTitle())
         holder.setOwnPostUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")

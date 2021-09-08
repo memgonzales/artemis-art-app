@@ -8,59 +8,61 @@ class User {
     /**
      * Username of the user.
      */
-    private var username: String
+    private lateinit var username: String
 
     /**
      * Email address of the user.
      */
-    private var email: String
+    private lateinit var email: String
 
     /**
      * Password of the user.
      */
-    private var password: String
+    private lateinit var password: String
 
     /**
      * Profile picture of the user.
      */
-    private var userImg: String
+    private lateinit var userImg: String
 
     /**
      * Short bio of the user.
      */
-    private var bio: String
+    private lateinit var bio: String
 
     /**
      * Identifiers of the posts bookmarked by the user.
      */
-    private var bookmarks: ArrayList<String>
+    private lateinit var bookmarks: ArrayList<String>
 
     /**
      * Identifiers of the posts created by the user.
      */
-    private var userPosts: ArrayList<String>
+    private lateinit var userPosts: ArrayList<String>
 
     /**
      * Identifiers of the highlights posted by the user.
      */
-    private var highlights: ArrayList<String>
+    private lateinit var highlights: ArrayList<String>
 
     /**
      * Identifiers of the posts upvoted by the user.
      */
-    private var upvotedPosts: ArrayList<String>
+    private lateinit var upvotedPosts: ArrayList<String>
 
     /**
      * Identifiers of the users followed by the user.
      */
-    private var usersFollowed: ArrayList<String>
+    private lateinit var usersFollowed: ArrayList<String>
 
     /**
      * Identifiers of the comments written by the user.
      */
-    private var userComments: ArrayList<String>
+    private lateinit var userComments: ArrayList<String>
 
-    /**
+    constructor(){}
+
+     /**
      * Creates a user given a username, email address, and password.
      *
      * @param username username of the user

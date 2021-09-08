@@ -47,7 +47,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
-    private lateinit var ref: DatabaseReference
+    private lateinit var db: DatabaseReference
 
     /**
      * Photo of the artwork for posting.
@@ -136,7 +136,7 @@ class BrowseFeedActivity : AppCompatActivity() {
      * Initializes the Firebase-related components.
      */
     private fun initFirebase(){
-        this.ref = Firebase.database.reference
+        this.db = Firebase.database.reference
     }
 
     /**
@@ -226,7 +226,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     private fun initContent(shuffle: Boolean) {
         this.dataPosts = arrayListOf<Post>()
 
-        val postDB = this.ref.child(Keys.KEY_DB_POSTS.name)
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {

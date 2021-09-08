@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,6 +21,16 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import java.io.File
 
 class BrowseOwnPostsActivity : AppCompatActivity() {
@@ -35,6 +46,13 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     private lateinit var srlBrowseOwnPosts: SwipeRefreshLayout
+
+
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
+
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
 
     /**
      * Photo of the artwork for posting.
@@ -62,9 +80,22 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse_own_posts)
 
+        initFirebase()
         initComponents()
         initGalleryLauncher(this@BrowseOwnPostsActivity)
         initCameraLauncher(this@BrowseOwnPostsActivity)
+    }
+
+
+    /**
+     * Initializes the Firebase-related components.
+     */
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        this.user = this.mAuth.currentUser!!
+        this.userId = this.user.uid
     }
 
     /**
@@ -183,15 +214,101 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadOwnPostsData();
+        //this.dataPosts = DataHelper.loadOwnPostsData();
 
         this.rvBrowseOwnPosts = findViewById(R.id.rv_browse_own_posts);
         this.rvBrowseOwnPosts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        this.ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity);
+    //    this.ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity);
 
 
-        this.rvBrowseOwnPosts.adapter = ownPostsAdapter;
+      //  this.rvBrowseOwnPosts.adapter = ownPostsAdapter;
+
+        initContent()
+    }
+
+
+    private fun initContent(){
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
+        //val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+               // val user = snapshot.getValue(User::class.java)!!
+                val userPosts = snapshot.child(Keys.userPosts.name).children
+                var postKeys = arrayListOf<String>()
+
+                userPosts.forEach {
+                    if (it.key != null){
+                        postKeys.add(it.key!!.toString())
+                    }
+                }
+
+
+                getPosts(postKeys)
+                /*
+                for (post in postKeys){
+                    postDB.addValueEventListener(object: ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            TODO("Not yet implemented")
+                            //var postModel = snapshot.getValue(Post::class.java)!!
+                            //dataPosts.add(postModel)
+
+                            Toast.makeText(this@BrowseOwnPostsActivity, "yahh", Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+
+                            Toast.makeText(this@BrowseOwnPostsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                        }
+
+                    })
+
+                    //ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity);
+                    //rvBrowseOwnPosts.adapter = ownPostsAdapter;
+
+                }
+
+                 */
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@BrowseOwnPostsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    private fun getPosts(postKeys: ArrayList<String>){
+        this.dataPosts = arrayListOf<Post>()
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()){
+                    for (postSnap in snapshot.children){
+                        if (postSnap.key != null && postKeys.contains(postSnap.key)){
+                            val post = postSnap.getValue(Post::class.java)!!
+
+
+                            dataPosts.add(post)
+                        }
+                    }
+
+                    ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity);
+                    rvBrowseOwnPosts.adapter = ownPostsAdapter;
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@BrowseOwnPostsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
     }
 
     /**
