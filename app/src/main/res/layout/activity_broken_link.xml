@@ -113,7 +113,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Your request cannot be loaded"
+            android:text="@string/tv_broken_link_header"
             android:textColor="@color/purple_main"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -134,6 +134,19 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_broken_link_header"
             app:layout_constraintVertical_bias="0.08" />
 
+        <TextView
+            android:id="@+id/tv_broken_link_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_broken_link_email"
+            android:textColor="@color/blue_link"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/gl_broken_link_right"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/gl_broken_link_left"
+            app:layout_constraintTop_toBottomOf="@+id/tv_broken_link_caveat"
+            app:layout_constraintVertical_bias="0.01999998" />
+
         <Button
             android:id="@+id/btn_log_in"
             android:layout_width="0dp"
@@ -144,7 +157,7 @@
             app:layout_constraintEnd_toStartOf="@id/gl_broken_link_right"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/gl_broken_link_left"
-            app:layout_constraintTop_toBottomOf="@+id/tv_broken_link_caveat"
+            app:layout_constraintTop_toBottomOf="@+id/tv_broken_link_email"
             app:layout_constraintVertical_bias="0.17000002" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

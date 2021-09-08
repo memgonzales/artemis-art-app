@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- Used in HTML links -->
+    <color name="blue_link">#0000EE</color>
+
     <!-- Used in app bar and filled header sections in log in and sign up -->
     <color name="purple_main">#7D6EE3</color>
     <!-- Used in bottom navigation bar -->
