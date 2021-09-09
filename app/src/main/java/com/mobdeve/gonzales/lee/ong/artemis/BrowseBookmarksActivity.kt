@@ -10,6 +10,9 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +26,15 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.io.File
 
 class BrowseBookmarksActivity : AppCompatActivity() {
@@ -35,10 +47,19 @@ class BrowseBookmarksActivity : AppCompatActivity() {
 
     private lateinit var srlBookmarks: SwipeRefreshLayout
 
+    private lateinit var ivNone: ImageView
+    private lateinit var tvNone: TextView
+
     private lateinit var btmAddPost: BottomSheetDialog
     private lateinit var fabAddPost: FloatingActionButton
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
+
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
+
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
 
     /**
      * Photo of the artwork for posting.
@@ -67,9 +88,28 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse_bookmarks)
 
+        initFirebase()
         initComponents()
         initGalleryLauncher(this@BrowseBookmarksActivity)
         initCameraLauncher(this@BrowseBookmarksActivity)
+    }
+
+    /**
+     * Initializes the Firebase-related components.
+     */
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@BrowseBookmarksActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**
@@ -188,15 +228,88 @@ class BrowseBookmarksActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadBookmarkData()
+       // this.dataPosts = DataHelper.loadBookmarkData()
 
         this.rvBookmarks = findViewById(R.id.rv_bookmarks)
         this.rvBookmarks.layoutManager = GridLayoutManager(this, 2)
 
-        this.bookmarksAdapter = BookmarksAdapter(this.dataPosts)
+        //this.bookmarksAdapter = BookmarksAdapter(this.dataPosts)
 
 
-        this.rvBookmarks.adapter = bookmarksAdapter
+       // this.rvBookmarks.adapter = bookmarksAdapter
+
+        initContent()
+    }
+
+    private fun initContent(){
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
+
+
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userPost = snapshot.getValue(User::class.java)
+
+                if(userPost != null){
+                    val userBookmarks = userPost.getBookmarks().keys
+                    getPosts(userBookmarks)
+                }
+
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@BrowseBookmarksActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+
+    }
+
+    private fun getPosts(bookmarks: Set<String?>){
+        this.ivNone = findViewById(R.id.iv_browse_bookmarks_none)
+        this.tvNone = findViewById(R.id.tv_browse_bookmarks_none)
+
+        this.dataPosts = arrayListOf<Post>()
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()){
+                    for (postSnap in snapshot.children){
+                        if (postSnap.key != null && bookmarks.contains(postSnap.key)){
+                            val post = postSnap.getValue(Post::class.java)
+
+                            if(post != null){
+                                post.setBookmark(true)
+                                dataPosts.add(post)
+                            }
+
+                        }
+                    }
+
+                    if (dataPosts.isEmpty()){
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                    }
+
+                    else{
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
+                    }
+
+                    bookmarksAdapter = BookmarksAdapter(dataPosts)
+                    rvBookmarks.adapter = bookmarksAdapter
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@BrowseBookmarksActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
     }
 
     /**

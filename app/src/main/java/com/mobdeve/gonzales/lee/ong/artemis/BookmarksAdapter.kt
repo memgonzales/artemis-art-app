@@ -1,13 +1,18 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import java.util.*
 
 class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<BookmarksViewHolder>() {
+
+    private lateinit var context: Context
+
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
      * to represent an item.
@@ -21,6 +26,7 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarksViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_rectangular_pic_grid, parent, false)
+        context = parent.context
 
         val bookmarksViewHolder = BookmarksViewHolder(itemView)
 
@@ -79,7 +85,12 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
      */
     override fun onBindViewHolder(holder: BookmarksViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemSearchResults(currentPost.getPostImg())
+        //holder.setItemSearchResults(currentPost.getPostImg())
+
+        Glide.with(context)
+            .load(currentPost.getPostImg())
+            .error(R.drawable.placeholder)
+            .into(holder.getItemSearchResults())
     }
 
     /**
