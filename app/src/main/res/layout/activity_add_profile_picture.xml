@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     app:elevation="0dp">
 
+    <ProgressBar
+        android:id="@+id/pb_add_profile_pic"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/purple_pics_lighter"
+        android:secondaryProgressTint="@color/pinkish_purple"
+        android:translationZ="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_add_profile_pic"
         android:layout_width="match_parent"
