@@ -1,6 +1,7 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 class Post {
+    private lateinit var userId: String
     private lateinit var postId: String
     private lateinit var profilePicture: String
     private lateinit var username: String
@@ -40,9 +41,10 @@ class Post {
         this.comments = HashMap<String, Any?>()
     }
 
-    constructor(postId: String, title: String, postImg: String,
+    constructor(userId: String, postId: String, title: String, postImg: String,
                 medium: String, dimensions: String, description: String, tags: ArrayList<String>) {
 
+        this.userId = userId
         this.postId = postId
         this.profilePicture = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2"
         this.username = ""
@@ -124,6 +126,11 @@ class Post {
 
 
      */
+
+    fun getUserId(): String{
+        return this.userId
+    }
+
     fun getPostId(): String{
         return this.postId
     }
@@ -199,6 +206,9 @@ class Post {
 
 
 
+    fun setUserId(userId: String){
+        this.userId = userId
+    }
 
     fun setPostId(postId: String){
         this.postId = postId

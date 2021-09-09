@@ -193,7 +193,7 @@ class PostAddTagsActivity : AppCompatActivity() {
                             url.downloadUrl
                                 .addOnSuccessListener {
 
-                                    val post = Post(postKey, title, it.toString(), medium, dimensions, desc, allTags)
+                                    val post = Post(userId, postKey, title, it.toString(), medium, dimensions, desc, allTags)
                                     storePost(postKey, post)
                                 }
 
@@ -213,7 +213,7 @@ class PostAddTagsActivity : AppCompatActivity() {
                             url.downloadUrl
                                 .addOnSuccessListener {
 
-                                    val post = Post(postKey, title, it.toString(), medium, dimensions, desc, allTags)
+                                    val post = Post(userId, postKey, title, it.toString(), medium, dimensions, desc, allTags)
                                     storePost(postKey, post)
                                 }
 
