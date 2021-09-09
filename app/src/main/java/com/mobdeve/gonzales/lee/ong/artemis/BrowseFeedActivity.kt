@@ -157,6 +157,11 @@ class BrowseFeedActivity : AppCompatActivity() {
             this.user = this.mAuth.currentUser!!
             this.userId = this.user.uid
         }
+
+        else{
+            val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**
