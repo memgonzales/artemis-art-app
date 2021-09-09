@@ -182,10 +182,10 @@ class ViewUserActivity : AppCompatActivity() {
 
          */
 
-        if(!userIdPost.isEmpty()){
-            val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userIdPost)
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
-            userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+        if(!userIdPost.isEmpty()){
+            userDB.child(userIdPost).addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userInfoPost = snapshot.getValue(User::class.java)
 
@@ -214,17 +214,54 @@ class ViewUserActivity : AppCompatActivity() {
         //this.tvViewUserUsername.text = username
         //this.tvViewUserBio.text = bio
 
-        btnViewUserFollow.setOnClickListener {
-
-            val updates = hashMapOf<String, Any?>(
-                "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.usersFollowed.name}/$userIdPost" to userIdPost
-            )
-
-            db.updateChildren(updates)
-
-
-            Toast.makeText(this@ViewUserActivity, "User followed", Toast.LENGTH_SHORT).show()
+        if (userIdPost.equals(userId)){
+            btnViewUserFollow.visibility = View.GONE
         }
+
+        else{
+            userDB.child(userId).addListenerForSingleValueEvent(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val userSnap = snapshot.getValue(User::class.java)
+
+                    if (userSnap != null){
+                        val usersFF = userSnap.getUsersFollowed().keys
+
+                        if (usersFF.contains(userIdPost)){
+                            btnViewUserFollow.setText("UNFOLLOW USER")
+                        }
+
+                        else{
+                            btnViewUserFollow.setText("FOLLOW USER")
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@ViewUserActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+        }
+
+        btnViewUserFollow.setOnClickListener {
+            if(btnViewUserFollow.text.equals("FOLLOW USER")){
+                updateUsersFF(userIdPost, userIdPost)
+                btnViewUserFollow.setText("UNFOLLOW USER")
+            }
+
+            else{
+                updateUsersFF(userIdPost, null)
+                btnViewUserFollow.setText("FOLLOW USER")
+            }
+        }
+    }
+
+    private fun updateUsersFF(userKey: String?, userVal: String?){
+        val updates = hashMapOf<String, Any?>(
+            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.usersFollowed.name}/$userKey" to userVal
+        )
+
+        db.updateChildren(updates)
     }
 
     private fun getPosts(highlights: Set<String?>){
