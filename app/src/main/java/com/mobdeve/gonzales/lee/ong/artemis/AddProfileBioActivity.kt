@@ -77,8 +77,17 @@ class AddProfileBioActivity : AppCompatActivity() {
      */
     private fun initFirebase() {
         this.mAuth = Firebase.auth
-        this.user = mAuth.currentUser!!
         this.db = Firebase.database.reference
+
+        if(mAuth.currentUser != null){
+            this.user = mAuth.currentUser!!
+        }
+
+        else{
+            val intent = Intent(this@AddProfileBioActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     /**
@@ -114,7 +123,7 @@ class AddProfileBioActivity : AppCompatActivity() {
         this.pbAddBio = findViewById(R.id.pb_add_profile_bio)
 
         this.btnAddBio.setOnClickListener {
-            this.pbAddBio.visibility = View.VISIBLE
+            pbAddBio.visibility = View.VISIBLE
 
             val bio: String = tielBio.text.toString().trim()
 

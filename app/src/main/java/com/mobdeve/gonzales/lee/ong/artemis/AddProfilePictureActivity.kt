@@ -10,7 +10,9 @@ import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -82,6 +84,8 @@ class AddProfilePictureActivity : AppCompatActivity() {
      * Clickable  text view for skipping the addition of a profile picture.
      */
     private lateinit var tvSkipUpload: TextView
+
+    private lateinit var pbAddProfPic: ProgressBar
 
     /**
      * Photo of the artwork for posting.
@@ -235,10 +239,18 @@ class AddProfilePictureActivity : AppCompatActivity() {
      */
     private fun initFirebase() {
         this.mAuth = Firebase.auth
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
         this.db = Firebase.database.reference
 
+        if(mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@AddProfilePictureActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
+        
         this.storage = Firebase.storage
         this.storageRef = this.storage.reference
     }
@@ -249,7 +261,10 @@ class AddProfilePictureActivity : AppCompatActivity() {
      * adding a short bio.
      */
     private fun launchAddBio() {
+        this.pbAddProfPic = findViewById(R.id.pb_add_profile_pic)
+
         this.btnAddProfilePic.setOnClickListener {
+            pbAddProfPic.visibility = View.VISIBLE
 
             if (isProfilePictureUploaded){
                 val url = this.storageRef.child(this.userId)
@@ -306,13 +321,15 @@ class AddProfilePictureActivity : AppCompatActivity() {
     }
 
     private fun uploadSuccessfully(){
+        pbAddProfPic.visibility = View.GONE
         Toast.makeText(this@AddProfilePictureActivity, "Successfully uploaded your image", Toast.LENGTH_SHORT).show()
         val i = Intent(this@AddProfilePictureActivity, AddProfileBioActivity::class.java)
         startActivity(i)
     }
 
     private fun uploadFailed(){
-        Toast.makeText(this@AddProfilePictureActivity, "Unable to process your actions  right now. Please try again later", Toast.LENGTH_SHORT).show()
+        pbAddProfPic.visibility = View.GONE
+        Toast.makeText(this@AddProfilePictureActivity, "Unable to process your actions right now. Please try again later", Toast.LENGTH_SHORT).show()
     }
 
     /**
