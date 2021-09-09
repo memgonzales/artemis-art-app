@@ -3,7 +3,9 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +40,7 @@ class AddProfileBioActivity : AppCompatActivity() {
      */
     private lateinit var tvBioSkip: TextView
 
+    private lateinit var pbAddBio: ProgressBar
     /**
      * Represents a user profile's information in the Firebase user database.
      */
@@ -108,16 +111,22 @@ class AddProfileBioActivity : AppCompatActivity() {
      * customization has been completed.
      */
     private fun launchProfileSuccess() {
+        this.pbAddBio = findViewById(R.id.pb_add_profile_bio)
+
         this.btnAddBio.setOnClickListener {
+            this.pbAddBio.visibility = View.VISIBLE
+
             val bio: String = tielBio.text.toString().trim()
 
             this.db.child(Keys.KEY_DB_USERS.name).child(this.user.uid).child(Keys.bio.name).setValue(bio)
                 .addOnSuccessListener {
+                    pbAddBio.visibility = View.GONE
                     val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
                     startActivity(i)
                     finish()
                 }
                 .addOnFailureListener{
+                    pbAddBio.visibility = View.GONE
                     Toast.makeText(this@AddProfileBioActivity, "Unable to add your bio right now. Please try again later", Toast.LENGTH_SHORT).show()
                 }
 
