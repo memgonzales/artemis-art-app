@@ -234,7 +234,7 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadPostData();
-        //this.dataPosts = ArrayList<Post>()
+       // this.dataPosts = ArrayList<Post>()
 
         this.rvFeed = findViewById(R.id.rv_feed)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -264,17 +264,19 @@ class BrowseFeedActivity : AppCompatActivity() {
                 if(snapshot.exists()){
 
                     for(postSnap in snapshot.children){
-                        var post = postSnap.getValue(Post::class.java)!!
+                        var post = postSnap.getValue(Post::class.java)
 
-                        if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
-                            post.setUpvote(true)
+                        if(post != null){
+                            if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                                post.setUpvote(true)
+                            }
+
+                            if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                                post.setBookmark(true)
+                            }
+
+                            dataPosts.add(post)
                         }
-
-                        if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
-                            post.setBookmark(true)
-                        }
-
-                        dataPosts.add(post)
                     }
 
                     if (shuffle) {
@@ -282,8 +284,8 @@ class BrowseFeedActivity : AppCompatActivity() {
                     }
 
                     //feedAdapter.notifyDataSetChanged()
-                    feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
-                    rvFeed.adapter = feedAdapter
+                    //feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
+                    //rvFeed.adapter = feedAdapter
 
                     ivNone.visibility = View.GONE
                     tvNone.visibility = View.GONE
@@ -296,6 +298,9 @@ class BrowseFeedActivity : AppCompatActivity() {
                     tvNone.visibility = View.VISIBLE
                     tvSubNone.visibility = View.VISIBLE
                 }
+
+                feedAdapter = FeedAdapter(ArrayList(dataPosts.reversed()), this@BrowseFeedActivity)
+                rvFeed.adapter = feedAdapter
 
 
             }

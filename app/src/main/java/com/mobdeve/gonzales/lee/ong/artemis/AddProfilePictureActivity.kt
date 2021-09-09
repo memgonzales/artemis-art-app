@@ -133,10 +133,10 @@ class AddProfilePictureActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_profile_picture)
 
+        initFirebase()
         initComponents()
         initGalleryLauncher()
         initCameraLauncher()
-        initFirebase()
     }
 
     /**
@@ -250,7 +250,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
             val intent = Intent(this@AddProfilePictureActivity, BrokenLinkActivity::class.java)
             startActivity(intent)
         }
-        
+
         this.storage = Firebase.storage
         this.storageRef = this.storage.reference
     }
