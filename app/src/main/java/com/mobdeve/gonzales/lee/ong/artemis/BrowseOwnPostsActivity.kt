@@ -51,7 +51,6 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
 
     private lateinit var ivNone: ImageView
     private lateinit var tvNone: TextView
-    private lateinit var tvSubNone: TextView
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var db: DatabaseReference
@@ -264,7 +263,6 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
     private fun getPosts(highlights: Set<String?>, postKeys: Set<String?>){
         this.ivNone = findViewById(R.id.iv_browse_own_posts_none)
         this.tvNone = findViewById(R.id.tv_browse_own_posts_none)
-        //this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
 
         this.dataPosts = arrayListOf<Post>()
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
@@ -290,13 +288,11 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                     if (dataPosts.isEmpty()){
                         ivNone.visibility = View.VISIBLE
                         tvNone.visibility = View.VISIBLE
-                        //tvSubNone.visibility = View.VISIBLE
                     }
 
                     else{
                         ivNone.visibility = View.GONE
                         tvNone.visibility = View.GONE
-                        //tvSubNone.visibility = View.GONE
                     }
 
 
