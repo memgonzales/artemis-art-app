@@ -306,8 +306,6 @@ class EditProfileActivity : AppCompatActivity() {
     private fun uploadSuccessfully(){
         pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Successfully uploaded your image", Toast.LENGTH_SHORT).show()
-        val i = Intent(this@EditProfileActivity, AddProfileBioActivity::class.java)
-        startActivity(i)
     }
 
     private fun uploadFailed(){
