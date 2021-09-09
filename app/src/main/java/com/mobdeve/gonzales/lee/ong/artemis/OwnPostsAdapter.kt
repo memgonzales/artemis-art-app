@@ -217,6 +217,10 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
                 val tagsString = tags.joinToString(", ")
 
                 intent.putExtra(
+                    Keys.KEY_POSTID.name,
+                    currentPost.getPostId()
+                )
+                intent.putExtra(
                     Keys.KEY_TITLE.name,
                     currentPost.getTitle()
                 )

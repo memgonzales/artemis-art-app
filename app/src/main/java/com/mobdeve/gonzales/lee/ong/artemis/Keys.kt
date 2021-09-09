@@ -14,6 +14,7 @@ enum class Keys {
     /* Keys used in passing intents across activities */
     KEY_PROFILE_PICTURE,
     KEY_USERNAME,
+    KEY_POSTID,
     KEY_POST,
     KEY_TITLE,
     KEY_NUM_UPVOTES,
