@@ -15,13 +15,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -143,8 +147,15 @@ class ViewProfileActivity : AppCompatActivity() {
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
 
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@ViewProfileActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
 
         this.storage = Firebase.storage
         this.storageRef = this.storage.reference
@@ -161,36 +172,45 @@ class ViewProfileActivity : AppCompatActivity() {
         this.btnViewProfileHighlights = findViewById(R.id.btn_view_profile_highlights)
 
 
-        /*
+
         this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
-            .addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val profPic: String = snapshot.child(Keys.userImg.name).getValue().toString()
-                val username: String = snapshot.child(Keys.username.name).getValue().toString()
-                val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
-
-                val localFile = File.createTempFile("images", "jpg")
-                storageRef = storage.getReferenceFromUrl(profPic)
-
-                storageRef.getFile(localFile)
-                    .addOnSuccessListener {
-                        var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-                        civViewProfileProfilePicture.setImageBitmap(bitmap)
-                    }
-
-                tvViewProfileUsername.setText(username)
-                tvViewProfileBio.setText(bio)
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
-            }
-
-        })
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val profPic: String = snapshot.child(Keys.userImg.name).getValue().toString()
+                    val username: String = snapshot.child(Keys.username.name).getValue().toString()
+                    val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
 
 
-         */
+                    Glide.with(this@ViewProfileActivity)
+                        .load(profPic)
+                        .error(R.drawable.chibi_artemis_hd)
+                        .into(civViewProfileProfilePicture)
+
+                    /*
+                    val localFile = File.createTempFile("images", "jpg")
+                    storageRef = storage.getReferenceFromUrl(profPic)
+
+                    storageRef.getFile(localFile)
+                        .addOnSuccessListener {
+                            var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                            civViewProfileProfilePicture.setImageBitmap(bitmap)
+                        }
+
+                     */
+
+                    tvViewProfileUsername.setText(username)
+                    tvViewProfileBio.setText(bio)
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
+
+
 
 
         this.dataUser = DataHelper.loadProfileData()

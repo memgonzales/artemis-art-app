@@ -73,8 +73,22 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         return ivOwnPostPost
     }
 
-    fun setOwnPostPost(post: Int) {
-        ivOwnPostPost.setImageResource(post)
+    fun setOwnPostPost(post: String) {
+        try{
+            val localFile = File.createTempFile("images", "jpg")
+            storageRef = storage.getReferenceFromUrl(post)
+
+            storageRef.getFile(localFile)
+                .addOnSuccessListener {
+                    var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                    civOwnPostProfilePic.setImageBitmap(bitmap)
+                }
+        }
+        catch(err: IOException){
+            ivOwnPostPost.setImageResource(R.drawable.chibi_artemis_hd)
+        }
+
+        //ivOwnPostPost.setImageResource(post)
     }
 
     fun setOwnPostTitle(title: String?) {
