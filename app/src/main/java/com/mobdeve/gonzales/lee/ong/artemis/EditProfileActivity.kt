@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
@@ -191,8 +193,15 @@ class EditProfileActivity : AppCompatActivity() {
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
 
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@EditProfileActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
 
         this.storage = Firebase.storage
         this.storageRef = this.storage.reference
@@ -223,9 +232,10 @@ class EditProfileActivity : AppCompatActivity() {
 //            var email: String = tietEditProfileEmail.text.toString().trim()
 //            var password: String = tietEditProfilePassword.text.toString().trim()
 
+            pbEditProfile.visibility = View.VISIBLE
             val bio: String = tietEditProfileBio.text.toString().trim()
-            this.updateBio(bio)
-
+            //this.updateBio(bio)
+            updateImgBio(bio)
 
 //            if(!checkEmpty(email, password)){
 //                pbEditProfile.visibility = View.VISIBLE
@@ -247,6 +257,64 @@ class EditProfileActivity : AppCompatActivity() {
         launchDialog()
     }
 
+    private fun updateImgBio(bio: String){
+        if (isProfilePictureUploaded){
+            val url = this.storageRef.child(this.userId)
+
+            if(cameraTaken){
+                url.putBytes(this.photoByte)
+                    .addOnSuccessListener {
+                        url.downloadUrl
+                            .addOnSuccessListener {
+                                uploadSuccessfully()
+                                updateDB(it.toString(), bio)
+                            }
+
+                            .addOnFailureListener {
+                                uploadFailed()
+                            }
+                    }
+                    .addOnFailureListener{
+                        uploadFailed()
+                    }
+            }
+
+            else{
+                url.putFile(Uri.parse(this.photoUri))
+                    .addOnSuccessListener {
+                        url.downloadUrl
+                            .addOnSuccessListener {
+                                uploadSuccessfully()
+                                updateDB(it.toString(), bio)
+                            }
+
+                            .addOnFailureListener {
+                                uploadFailed()
+                            }
+                    }
+                    .addOnFailureListener{
+                        uploadFailed()
+                    }
+            }
+        }
+
+        else{
+            updateDB("https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2", bio)
+        }
+    }
+
+    private fun uploadSuccessfully(){
+        pbEditProfile.visibility = View.GONE
+        Toast.makeText(this@EditProfileActivity, "Successfully uploaded your image", Toast.LENGTH_SHORT).show()
+        val i = Intent(this@EditProfileActivity, AddProfileBioActivity::class.java)
+        startActivity(i)
+    }
+
+    private fun uploadFailed(){
+        pbEditProfile.visibility = View.GONE
+        Toast.makeText(this@EditProfileActivity, "Unable to process your actions right now. Please try again later", Toast.LENGTH_SHORT).show()
+    }
+
     private fun initContent(){
         this.pbEditProfile.visibility = View.VISIBLE
 
@@ -258,8 +326,16 @@ class EditProfileActivity : AppCompatActivity() {
                 val username: String = snapshot.child(Keys.username.name).getValue().toString()
 //                var email: String = snapshot.child(Keys.email.name).getValue().toString()
 //                var pw: String = snapshot.child(Keys.password.name).getValue().toString()
+
+
+                Glide.with(this@EditProfileActivity)
+                    .load(profPic)
+                    .error(R.drawable.placeholder)
+                    .into(civEditProfilePic)
+
                 val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
 //
+                /*
                 val localFile = File.createTempFile("images", "jpg")
                 storageRef = storage.getReferenceFromUrl(profPic)
 
@@ -268,6 +344,8 @@ class EditProfileActivity : AppCompatActivity() {
                         var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                         civEditProfilePic.setImageBitmap(bitmap)
                     }
+
+                 */
 
                 tietEditProfileUsername.setText(username)
 //                tietEditProfileEmail.setText(email)
@@ -406,6 +484,7 @@ class EditProfileActivity : AppCompatActivity() {
 //    }
 //
     private fun updateSuccessfully(){
+        pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this@EditProfileActivity, ViewProfileActivity::class.java)
@@ -414,13 +493,31 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun updateFailed(){
+        pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Failed to update your profile details", Toast.LENGTH_SHORT).show()
     }
 
 
-    private fun updateBio(bio: String){
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
+    private fun updateDB(userImg: String, bio: String){
+       // val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
+        val updates = hashMapOf<String, Any>(
+            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userImg.name}" to userImg,
+            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bio.name}" to bio
+        )
+
+        db.updateChildren(updates)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful){
+                    updateSuccessfully()
+                }
+
+                else{
+                    updateFailed()
+                }
+            }
+
+        /*
         userDB.child(Keys.bio.name).setValue(bio)
             .addOnSuccessListener {
                 updateSuccessfully()
@@ -428,6 +525,17 @@ class EditProfileActivity : AppCompatActivity() {
             .addOnFailureListener{
                 updateFailed()
             }
+
+
+        this.db.child(Keys.KEY_DB_USERS.name).child(this.userId).child(Keys.userImg.name).setValue(userImg)
+            .addOnSuccessListener {
+                uploadSuccessfully()
+            }
+            .addOnFailureListener{
+                uploadFailed()
+            }
+
+         */
     }
 
     /**
