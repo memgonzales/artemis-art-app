@@ -5,6 +5,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
  */
 class User {
 
+    private lateinit var userId: String
     /**
      * Username of the user.
      */
@@ -77,18 +78,18 @@ class User {
      * @param password password of the user
      */
     constructor(username: String, email: String, password: String){
-        this.username = username
-        this.email = email
-        this.password = password
-        this.userImg = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2"
-        this.bio = ""
+         this.username = username
+         this.email = email
+         this.password = password
+         this.userImg = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2"
+         this.bio = ""
 
-        this.bookmarks = HashMap<String, Any?>()
-        this.userPosts = HashMap<String, Any?>()
-        this.highlights = HashMap<String, Any?>()
-        this.upvotedPosts = HashMap<String, Any?>()
-        this.usersFollowed = HashMap<String, Any?>()
-        this.userComments = HashMap<String, Any?>()
+         this.bookmarks = HashMap<String, Any?>()
+         this.userPosts = HashMap<String, Any?>()
+         this.highlights = HashMap<String, Any?>()
+         this.upvotedPosts = HashMap<String, Any?>()
+         this.usersFollowed = HashMap<String, Any?>()
+         this.userComments = HashMap<String, Any?>()
 
     }
 
@@ -117,6 +118,10 @@ class User {
 
     }
 
+
+    fun getUserId(): String {
+        return this.userId
+    }
 
     /**
      * Returns the username of the user.
@@ -215,6 +220,11 @@ class User {
      */
     fun getUserComments(): HashMap<String, Any?>{
         return this.userComments
+    }
+
+
+    fun setUserId(userId: String){
+        this.userId = userId
     }
 
     /**

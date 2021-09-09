@@ -249,6 +249,8 @@ class SignUpActivity : AppCompatActivity() {
         this.mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    user.setUserId(mAuth.currentUser!!.uid)
+
                     db.getReference(Keys.KEY_DB_USERS.name)
                         .child(mAuth.currentUser!!.uid)
                         .setValue(user).addOnCompleteListener { task ->

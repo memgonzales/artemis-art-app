@@ -237,6 +237,8 @@ class EditProfileActivity : AppCompatActivity() {
             //this.updateBio(bio)
             updateImgBio(bio)
 
+            //val intent: Intent = intent
+            //Toast.makeText(applicationContext, "check: " + intent.getStringExtra("Check").toString(), Toast.LENGTH_LONG).show()
 //            if(!checkEmpty(email, password)){
 //                pbEditProfile.visibility = View.VISIBLE
 //                updateProfile(profPic, email, password, bio)
@@ -255,6 +257,8 @@ class EditProfileActivity : AppCompatActivity() {
 //
         initContent()
         launchDialog()
+
+
     }
 
     private fun updateImgBio(bio: String){
@@ -302,6 +306,7 @@ class EditProfileActivity : AppCompatActivity() {
             updateDB("https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2", bio)
         }
     }
+
 
     private fun uploadSuccessfully(){
         pbEditProfile.visibility = View.GONE
