@@ -15,7 +15,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_item_feed_profile_pic"
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="31dp"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/placeholder"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="0dp"
-            app:layout_constraintGuide_percent="0.12" />
+            app:layout_constraintGuide_percent="0.11" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_item_feed_left_margin"
@@ -63,22 +63,24 @@
         <TextView
             android:id="@+id/tv_item_feed_username"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="8dp"
             android:clickable="true"
             android:ellipsize="end"
             android:focusable="true"
             android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
             android:maxLines="1"
             android:scrollHorizontally="true"
             android:text="@string/tv_item_feed_username"
-            android:textSize="15sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/civ_item_feed_profile_pic"
             app:layout_constraintEnd_toStartOf="@+id/ib_item_feed_bookmark"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/gl_item_feed_right_user_pic"
             app:layout_constraintTop_toTopOf="@+id/civ_item_feed_profile_pic"
+            app:layout_constraintVertical_bias="0.35000002"
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintWidth_default="wrap" />
 
