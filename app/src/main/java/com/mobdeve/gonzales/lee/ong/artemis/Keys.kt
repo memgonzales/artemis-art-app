@@ -29,6 +29,7 @@ enum class Keys {
     KEY_HIGHLIGHT,
     KEY_BIO,
     KEY_COMMENT_BODY,
+    KEY_USERID,
 
     /* Keys used in passing intents related to posting an artwork */
 

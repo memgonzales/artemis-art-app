@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -20,9 +21,19 @@ import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
@@ -59,6 +70,13 @@ class ViewUserActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
+
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
+
     /**
      * Called when the activity is starting.
      *
@@ -71,12 +89,31 @@ class ViewUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_user)
 
-        initContent()
+        initFirebase()
         initComponents()
+        initContent()
         addPost()
 
         initGalleryLauncher(this@ViewUserActivity)
         initCameraLauncher(this@ViewUserActivity)
+    }
+
+    /**
+     * Initializes the Firebase-related components.
+     */
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@ViewUserActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**
@@ -137,17 +174,91 @@ class ViewUserActivity : AppCompatActivity() {
         this.dataHighlights = DataHelper.loadOthersHighlightData()
 
         val intent: Intent = intent
+        val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name).toString()
+        /*
         val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
         val bio = intent.getStringExtra(Keys.KEY_BIO.name)
 
-        this.civViewUserProfilePicture.setImageResource(profilePicture)
-        this.tvViewUserUsername.text = username
-        this.tvViewUserBio.text = bio
+         */
+
+        if(!userIdPost.isEmpty()){
+            val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userIdPost)
+
+            userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val userInfoPost = snapshot.getValue(User::class.java)
+
+                    if(userInfoPost != null){
+                        Glide.with(this@ViewUserActivity)
+                            .load(userInfoPost.getUserImg())
+                            .error(R.drawable.chibi_artemis_hd)
+                            .into(civViewUserProfilePicture)
+
+                        tvViewUserUsername.text = userInfoPost.getUsername()
+                        tvViewUserBio.text = userInfoPost.getBio()
+
+                        val highlights = userInfoPost.getHighlights().keys
+                        getPosts(highlights)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@ViewUserActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+        }
+
+        //this.civViewUserProfilePicture.setImageResource(profilePicture)
+        //this.tvViewUserUsername.text = username
+        //this.tvViewUserBio.text = bio
 
         btnViewUserFollow.setOnClickListener {
+
+            val updates = hashMapOf<String, Any?>(
+                "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.usersFollowed.name}/$userIdPost" to userIdPost
+            )
+
+            db.updateChildren(updates)
+
+
             Toast.makeText(this@ViewUserActivity, "User followed", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun getPosts(highlights: Set<String?>){
+
+        this.dataHighlights = arrayListOf<Post>()
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()){
+                    for (postSnap in snapshot.children){
+                        if (postSnap.key != null && highlights.contains(postSnap.key)){
+                            val post = postSnap.getValue(Post::class.java)
+
+                            if(post != null){
+                                post.setBookmark(true)
+                                dataHighlights.add(post)
+                            }
+
+                        }
+                    }
+
+                    highlightAdapter = OthersHighlightAdapter(dataHighlights)
+                    rvViewUser.adapter = highlightAdapter
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@ViewUserActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 
     /**
@@ -168,9 +279,9 @@ class ViewUserActivity : AppCompatActivity() {
         this.rvViewUser = findViewById(R.id.rv_view_user)
         this.rvViewUser.layoutManager = GridLayoutManager(this, 2)
 
-        this.highlightAdapter = OthersHighlightAdapter(this.dataHighlights)
+      //  this.highlightAdapter = OthersHighlightAdapter(this.dataHighlights)
 
-        this.rvViewUser.adapter = highlightAdapter
+       // this.rvViewUser.adapter = highlightAdapter
     }
 
     /**

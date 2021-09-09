@@ -37,9 +37,18 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
 
     private fun initFirebase() {
         this.mAuth = Firebase.auth
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
         this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(context, BrokenLinkActivity::class.java)
+            context.startActivity(intent)
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
@@ -216,6 +225,10 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
         holder.setItemFeedProfileOnClickListener { view ->
             val intent = Intent(view.context, ViewUserActivity::class.java)
 
+            intent.putExtra(
+                Keys.KEY_USERID.name,
+                currentPost.getUserId()
+            )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 currentPost.getProfilePicture()

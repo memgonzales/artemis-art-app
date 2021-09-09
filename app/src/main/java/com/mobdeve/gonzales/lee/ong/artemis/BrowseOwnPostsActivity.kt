@@ -297,7 +297,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                     }
 
 
-                    ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity);
+                    ownPostsAdapter = OwnPostsAdapter(ArrayList(dataPosts.reversed()), this@BrowseOwnPostsActivity);
                     rvBrowseOwnPosts.adapter = ownPostsAdapter;
 
                 }

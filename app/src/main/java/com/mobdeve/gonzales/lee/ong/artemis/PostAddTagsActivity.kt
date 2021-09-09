@@ -121,12 +121,22 @@ class PostAddTagsActivity : AppCompatActivity() {
         this.photoUri = photoPath
 
     }
-
+    /**
+     * Initializes the Firebase-related components.
+     */
     private fun initFirebase() {
         this.mAuth = Firebase.auth
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
         this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@PostAddTagsActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
 
         this.storage = Firebase.storage
         this.storageRef = this.storage.reference
