@@ -229,6 +229,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
                 Keys.KEY_USERID.name,
                 currentPost.getUserId()
             )
+            /*
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 currentPost.getProfilePicture()
@@ -241,6 +242,8 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
                 Keys.KEY_BIO.name,
                 "Dummy bio"
             )
+
+             */
 
             view.context.startActivity(intent)
         }
