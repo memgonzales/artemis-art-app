@@ -8,6 +8,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -47,6 +49,9 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
 
     private lateinit var srlBrowseOwnPosts: SwipeRefreshLayout
 
+    private lateinit var ivNone: ImageView
+    private lateinit var tvNone: TextView
+    private lateinit var tvSubNone: TextView
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var db: DatabaseReference
@@ -94,8 +99,15 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
 
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@BrowseOwnPostsActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**
@@ -250,6 +262,10 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
     }
 
     private fun getPosts(highlights: Set<String?>, postKeys: Set<String?>){
+        this.ivNone = findViewById(R.id.iv_browse_own_posts_none)
+        this.tvNone = findViewById(R.id.tv_browse_own_posts_none)
+        //this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
+
         this.dataPosts = arrayListOf<Post>()
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
@@ -259,20 +275,33 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                 if (snapshot.exists()){
                     for (postSnap in snapshot.children){
                         if (postSnap.key != null && postKeys.contains(postSnap.key)){
-                            val post = postSnap.getValue(Post::class.java)!!
+                            val post = postSnap.getValue(Post::class.java)
 
-                            if (!highlights.isNullOrEmpty() && highlights.contains(post.getPostId())){
-                                post.setHighlight(true)
+                            if(post != null){
+                                if (!highlights.isNullOrEmpty() && highlights.contains(post.getPostId())){
+                                    post.setHighlight(true)
+                                }
+
+                                dataPosts.add(post)
                             }
-
-                            dataPosts.add(post)
                         }
                     }
+
+                    ivNone.visibility = View.GONE
+                    tvNone.visibility = View.GONE
+                    //tvSubNone.visibility = View.GONE
 
                     ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity);
                     rvBrowseOwnPosts.adapter = ownPostsAdapter;
 
                 }
+
+                else{
+                    ivNone.visibility = View.VISIBLE
+                    tvNone.visibility = View.VISIBLE
+                    //tvSubNone.visibility = View.VISIBLE
+                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
