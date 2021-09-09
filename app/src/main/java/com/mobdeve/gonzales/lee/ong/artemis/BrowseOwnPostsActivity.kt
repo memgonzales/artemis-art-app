@@ -287,21 +287,23 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                         }
                     }
 
-                    ivNone.visibility = View.GONE
-                    tvNone.visibility = View.GONE
-                    //tvSubNone.visibility = View.GONE
+                    if (dataPosts.isEmpty()){
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                        //tvSubNone.visibility = View.VISIBLE
+                    }
+
+                    else{
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
+                        //tvSubNone.visibility = View.GONE
+                    }
+
 
                     ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity);
                     rvBrowseOwnPosts.adapter = ownPostsAdapter;
 
                 }
-
-                else{
-                    ivNone.visibility = View.VISIBLE
-                    tvNone.visibility = View.VISIBLE
-                    //tvSubNone.visibility = View.VISIBLE
-                }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
