@@ -194,9 +194,11 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private fun initIntent() {
         val intent: Intent = intent
 
-        val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        //val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
-        val postImg = intent.getIntExtra(Keys.KEY_POST.name, 0)
+       // val postImg = intent.getIntExtra(Keys.KEY_POST.name, 0)
+        val postImg = intent.getStringExtra(Keys.KEY_POST.name)
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
         val upvoteCounter = intent.getIntExtra(Keys.KEY_NUM_UPVOTES.name, 0)
         val comments = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
@@ -211,10 +213,20 @@ class ViewOwnPostActivity : AppCompatActivity() {
         val commentString = "$comments comments"
         val tagsString = tags?.joinToString(", ")
 
-        this.civItemViewOwnPostProfilePic.setImageResource(profilePicture)
+        //this.civItemViewOwnPostProfilePic.setImageResource(profilePicture)
+        Glide.with(this)
+            .load(profilePicture)
+            .error(R.drawable.chibi_artemis_hd)
+            .into(this.civItemViewOwnPostProfilePic)
+
         this.tvItemViewOwnPostUsername.text = username
     //    this.ivItemViewOwnPostPostImg.setImageResource(postImg)
-        Glide.with(this).load(tempPost).into(this.ivItemViewOwnPostPostImg)
+      //  Glide.with(this).load(tempPost).into(this.ivItemViewOwnPostPostImg)
+        Glide.with(this)
+            .load(postImg)
+            .error(R.drawable.placeholder)
+            .into(this.ivItemViewOwnPostPostImg)
+
         this.tvItemViewOwnPostTitle.text = title
         this.tvItemViewOwnPostUpvoteCounter.text = upvoteString
         this.tvItemViewOwnPostComments.text = commentString
@@ -264,14 +276,14 @@ class ViewOwnPostActivity : AppCompatActivity() {
         val editMedium: String = medium.toString()
         val editDimensions: String = dimensions.toString()
         val editDescription: String = description.toString()
-        val editPostImg: Int = postImg
+        val editPostImg: String = postImg.toString()
         val editTags: String = tagsString.toString()
 
         launchDialog(editTitle, editMedium, editDimensions, editDescription, editPostImg, editTags)
     }
 
     private fun launchDialog(title: String, medium: String, dimensions: String, description: String,
-                             postImg: Int, tags: String) {
+                             postImg: String, tags: String) {
         val view = LayoutInflater.from(this@ViewOwnPostActivity).inflate(R.layout.dialog_own_post, null)
 
         this.ibItemViewOwnPostOptions.setOnClickListener {

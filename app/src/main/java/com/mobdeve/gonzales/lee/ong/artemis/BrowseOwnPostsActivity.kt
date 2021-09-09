@@ -244,13 +244,14 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
 
         userDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                val userPost = snapshot.getValue(User::class.java)!!
+                val userPost = snapshot.getValue(User::class.java)
 
-                val postKeys = userPost.getUserPosts().keys
-                val userHighlights = userPost.getHighlights().keys
+                if(userPost != null){
+                    val postKeys = userPost.getUserPosts().keys
+                    val userHighlights = userPost.getHighlights().keys
 
-                getPosts(userHighlights, postKeys)
-
+                    getPosts(userHighlights, postKeys)
+                }
 
             }
 

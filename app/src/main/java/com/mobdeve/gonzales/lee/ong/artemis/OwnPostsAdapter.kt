@@ -204,8 +204,11 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
             val dialog = holder.getOwnPostOptions()
             dialog.setContentView(dialogView)
 
-            val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_gallery)
-            val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_photo)
+            // val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_gallery)
+            // val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_photo)
+
+            val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_own_post_edit)
+            val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_own_post_delete)
 
             edit.setOnClickListener{ view ->
                 dialog.dismiss()
@@ -244,6 +247,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
                 Toast.makeText(view.context, "Your post has been deleted", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
+
 
             dialog.show()
         }

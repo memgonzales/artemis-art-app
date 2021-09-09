@@ -160,9 +160,11 @@ class ViewPostActivity : AppCompatActivity() {
     private fun initIntent() {
         val intent: Intent = intent
 
-        val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+       // val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
-        val post = intent.getIntExtra(Keys.KEY_POST.name, 0)
+        //val post = intent.getIntExtra(Keys.KEY_POST.name, 0)
+        val postImg = intent.getStringExtra(Keys.KEY_POST.name)
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
         var upvoteCounter = intent.getIntExtra(Keys.KEY_NUM_UPVOTES.name, 0)
         val comments = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
@@ -173,15 +175,26 @@ class ViewPostActivity : AppCompatActivity() {
         val tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
         var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
-        val tempPost = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
+       // val tempPost = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
+
         var upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
         val tagsString = tags?.joinToString(", ")
 
-        this.civItemViewPostProfilePic.setImageResource(profilePicture)
+        //this.civItemViewPostProfilePic.setImageResource(profilePicture)
+        Glide.with(this)
+            .load(profilePicture)
+            .error(R.drawable.chibi_artemis_hd)
+            .into(this.civItemViewPostProfilePic)
+
         this.tvItemViewPostUsername.text = username
     //    this.ivItemViewPostPost.setImageResource(post)
-        Glide.with(this).load(tempPost).into(this.ivItemViewPostPost)
+     //   Glide.with(this).load(tempPost).into(this.ivItemViewPostPost)
+        Glide.with(this)
+            .load(postImg)
+            .error(R.drawable.placeholder)
+            .into(this.ivItemViewPostPost)
+
         this.tvItemViewPostTitle.text = title
         this.tvItemViewPostUpvoteCounter.text = upvoteString
         this.tvItemViewPostComments.text = commentString
