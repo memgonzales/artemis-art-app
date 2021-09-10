@@ -16,6 +16,10 @@ class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var storage: FirebaseStorage
     private var storageRef: StorageReference
 
+    fun getItemSearchResults(): ImageView{
+        return ivItemSearchResults
+    }
+
     fun setItemSearchResults(post: String) {
         val localFile = File.createTempFile("images", "jpg")
         storageRef = storage.getReferenceFromUrl(post)

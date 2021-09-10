@@ -6,12 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -48,6 +48,11 @@ class SearchResultsActivity : AppCompatActivity() {
     private lateinit var civSearchResultUser3: CircleImageView
     private lateinit var civSearchResultUser4: CircleImageView
     private lateinit var tvSearchResultsArtworks: TextView
+
+    private lateinit var ivNone: ImageView
+    private lateinit var tvNone: TextView
+    private lateinit var tvSubNone: TextView
+
     private lateinit var searchAdapter: SearchResultsAdapter
     private lateinit var sflSearch: ShimmerFrameLayout
     private lateinit var bnvSearchBottom: BottomNavigationView
@@ -177,12 +182,8 @@ class SearchResultsActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             initContents()
             sflSearch.visibility = View.GONE
-            tvSearchResultsArtworks.visibility = View.VISIBLE
+            //tvSearchResultsArtworks.visibility = View.VISIBLE
             rvSearch.visibility = View.VISIBLE
-           // civSearchResultUser1.visibility = View.VISIBLE
-           // civSearchResultUser2.visibility = View.VISIBLE
-           // civSearchResultUser3.visibility = View.VISIBLE
-           // civSearchResultUser4.visibility = View.VISIBLE
 
             civSearchResultUser1.visibility = View.GONE
             civSearchResultUser2.visibility = View.GONE
@@ -227,6 +228,9 @@ class SearchResultsActivity : AppCompatActivity() {
         this.civSearchResultUser4 = findViewById(R.id.civ_search_result_user4)
 
         this.tvSearchResultsArtworks = findViewById(R.id.tv_search_results_artworks)
+        this.ivNone = findViewById(R.id.iv_search_results_none)
+        this.tvNone = findViewById(R.id.tv_search_results_none)
+        this.tvSubNone = findViewById(R.id.tv_search_results_subtitle_none)
 
         val intent: Intent = intent
 
@@ -238,7 +242,7 @@ class SearchResultsActivity : AppCompatActivity() {
         //this.civSearchResultUser4.setImageResource(dataUsers[3].getUserImg())
 
         getUserSearchResults(search)
-
+        //getSearchPostResults(search)
 
         civSearchResultUser1.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
@@ -300,7 +304,7 @@ class SearchResultsActivity : AppCompatActivity() {
         });
     }
 
-    private fun getUserSearchResults(searchUser: String){
+    private fun getUserSearchResults(search: String){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
         userDB.addListenerForSingleValueEvent(object : ValueEventListener{
@@ -310,12 +314,13 @@ class SearchResultsActivity : AppCompatActivity() {
                     for (u in snapshot.children){
                         var userSnap = u.getValue(User::class.java)
 
-                        if (userSnap != null && userSnap.getUsername().contains(searchUser, ignoreCase = true)){
+                        if (userSnap != null && userSnap.getUsername().contains(search, ignoreCase = true)){
                             dataUsers.add(userSnap)
                         }
                     }
 
                     setSearchUserResults(dataUsers)
+                    getSearchPostResults(search, dataUsers)
 
                 }
             }
@@ -381,13 +386,30 @@ class SearchResultsActivity : AppCompatActivity() {
         }
     }
 
-    /*
-    private fun getSearchPostResults(searchPost: String){
+
+    private fun getSearchPostResults(searchPost: String, dataUsers: ArrayList<User>){
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                TODO("Not yet implemented")
+                dataPosts.clear()
+                if (snapshot.exists()){
+                    for (p in snapshot.children){
+                        var postSnap = p.getValue(Post::class.java)
+
+                        if (postSnap != null && !postSnap.getTags().isNullOrEmpty()) {
+
+                            var check = postSnap.getTags().filter { it.contains(searchPost, ignoreCase = true) }
+
+                            if (check.size > 0){
+                                dataPosts.add(postSnap)
+                            }
+                        }
+                    }
+                    searchAdapter.notifyDataSetChanged()
+                    setSearchPostResults(dataPosts, dataUsers)
+
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -397,8 +419,22 @@ class SearchResultsActivity : AppCompatActivity() {
 
         })
     }
-    
-     */
+
+    private fun setSearchPostResults(dataPosts: ArrayList<Post>, dataUsers: ArrayList<User>){
+        if (dataPosts.isNullOrEmpty() && dataUsers.isNullOrEmpty()){
+            this.tvSearchResultsArtworks.visibility = View.GONE
+            this.ivNone.visibility = View.VISIBLE
+            this.tvNone.visibility = View.VISIBLE
+            this.tvSubNone.visibility = View.VISIBLE
+        }
+
+        else if (!dataPosts.isNullOrEmpty()){
+            this.tvSearchResultsArtworks.visibility = View.VISIBLE
+            this.ivNone.visibility = View.GONE
+            this.tvNone.visibility = View.GONE
+            this.tvSubNone.visibility = View.GONE
+        }
+    }
 
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

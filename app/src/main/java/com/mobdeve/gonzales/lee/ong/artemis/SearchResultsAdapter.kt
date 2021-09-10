@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import java.util.ArrayList
 
 class SearchResultsAdapter(private val dataPosts: ArrayList<Post>) :
@@ -91,15 +92,15 @@ class SearchResultsAdapter(private val dataPosts: ArrayList<Post>) :
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemSearchResults(currentPost.getPostImg())
-        /*
+        //holder.setItemSearchResults(currentPost.getPostImg())
+
         Glide.with(context)
-            .load(dataUsers[0].getUserImg())
+            .load(currentPost.getPostImg())
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
-            .into(civSearchResultUser1)
+            .into(holder.getItemSearchResults())
 
-         */
+
     }
 
     override fun getItemCount(): Int {
