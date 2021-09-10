@@ -227,13 +227,15 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private fun initRecyclerView() {
        // this.dataPosts = DataHelper.loadHighlightsData()
 
+        this.dataPosts = arrayListOf<Post>()
+
         this.rvHighlights = findViewById(R.id.rv_highlights)
         this.rvHighlights.layoutManager = GridLayoutManager(this, 2)
 
-       // this.highlightsAdapter = HighlightsAdapter(this.dataPosts)
+        this.highlightsAdapter = HighlightsAdapter(this.dataPosts)
 
 
-        //this.rvHighlights.adapter = highlightsAdapter
+        this.rvHighlights.adapter = highlightsAdapter
 
         initContent()
     }
@@ -262,12 +264,12 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         this.ivNone = findViewById(R.id.iv_browse_highlights_none)
         this.tvNone = findViewById(R.id.tv_browse_highlights_none)
 
-        this.dataPosts = arrayListOf<Post>()
+        //this.dataPosts = arrayListOf<Post>()
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-
+                dataPosts.clear()
                 if (snapshot.exists()){
                     for (postSnap in snapshot.children){
                         if (postSnap.key != null && highlights.contains(postSnap.key)){
@@ -291,9 +293,9 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
                         tvNone.visibility = View.GONE
                     }
 
-                    highlightsAdapter = HighlightsAdapter(dataPosts)
-                    rvHighlights.adapter = highlightsAdapter
-
+                    //highlightsAdapter = HighlightsAdapter(dataPosts)
+                    //rvHighlights.adapter = highlightsAdapter
+                    highlightsAdapter.notifyDataSetChanged()
                 }
             }
 

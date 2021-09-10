@@ -230,13 +230,15 @@ class BrowseBookmarksActivity : AppCompatActivity() {
     private fun initRecyclerView() {
        // this.dataPosts = DataHelper.loadBookmarkData()
 
+        this.dataPosts = arrayListOf<Post>()
+
         this.rvBookmarks = findViewById(R.id.rv_bookmarks)
         this.rvBookmarks.layoutManager = GridLayoutManager(this, 2)
 
-        //this.bookmarksAdapter = BookmarksAdapter(this.dataPosts)
+        this.bookmarksAdapter = BookmarksAdapter(this.dataPosts)
 
 
-       // this.rvBookmarks.adapter = bookmarksAdapter
+        this.rvBookmarks.adapter = bookmarksAdapter
 
         initContent()
     }
@@ -253,8 +255,6 @@ class BrowseBookmarksActivity : AppCompatActivity() {
                     val userBookmarks = userPost.getBookmarks().keys
                     getPosts(userBookmarks)
                 }
-
-
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -269,12 +269,12 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         this.ivNone = findViewById(R.id.iv_browse_bookmarks_none)
         this.tvNone = findViewById(R.id.tv_browse_bookmarks_none)
 
-        this.dataPosts = arrayListOf<Post>()
+        //this.dataPosts = arrayListOf<Post>()
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
+                dataPosts.clear()
                 if (snapshot.exists()){
                     for (postSnap in snapshot.children){
                         if (postSnap.key != null && bookmarks.contains(postSnap.key)){
@@ -284,7 +284,6 @@ class BrowseBookmarksActivity : AppCompatActivity() {
                                 post.setBookmark(true)
                                 dataPosts.add(post)
                             }
-
                         }
                     }
 
@@ -298,8 +297,10 @@ class BrowseBookmarksActivity : AppCompatActivity() {
                         tvNone.visibility = View.GONE
                     }
 
-                    bookmarksAdapter = BookmarksAdapter(dataPosts)
-                    rvBookmarks.adapter = bookmarksAdapter
+                    //bookmarksAdapter = BookmarksAdapter(dataPosts)
+                    //rvBookmarks.adapter = bookmarksAdapter
+
+                    bookmarksAdapter.notifyDataSetChanged()
 
                 }
             }

@@ -84,6 +84,8 @@ class ViewOwnPostActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    private lateinit var firebaseHelper: FirebaseHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_own_post)
@@ -194,11 +196,16 @@ class ViewOwnPostActivity : AppCompatActivity() {
     private fun initIntent() {
         val intent: Intent = intent
 
-        //val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        val postId = intent.getStringExtra(Keys.KEY_POSTID.name)
+        val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name)
+
+        this.firebaseHelper = FirebaseHelper(this@ViewOwnPostActivity, postId, userIdPost)
+
         val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
-       // val postImg = intent.getIntExtra(Keys.KEY_POST.name, 0)
+
         val postImg = intent.getStringExtra(Keys.KEY_POST.name)
+
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
         val upvoteCounter = intent.getIntExtra(Keys.KEY_NUM_UPVOTES.name, 0)
         val comments = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
@@ -208,20 +215,18 @@ class ViewOwnPostActivity : AppCompatActivity() {
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
         val tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)
         var highlight = intent.getBooleanExtra(Keys.KEY_HIGHLIGHT.name, false)
-        val tempPost = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
+
         val upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
         val tagsString = tags?.joinToString(", ")
 
-        //this.civItemViewOwnPostProfilePic.setImageResource(profilePicture)
         Glide.with(this)
             .load(profilePicture)
             .error(R.drawable.chibi_artemis_hd)
             .into(this.civItemViewOwnPostProfilePic)
 
         this.tvItemViewOwnPostUsername.text = username
-    //    this.ivItemViewOwnPostPostImg.setImageResource(postImg)
-      //  Glide.with(this).load(tempPost).into(this.ivItemViewOwnPostPostImg)
+
         Glide.with(this)
             .load(postImg)
             .error(R.drawable.placeholder)
@@ -242,14 +247,13 @@ class ViewOwnPostActivity : AppCompatActivity() {
             if (highlight) {
                 highlight = false
                 updateHighlight(highlight)
+                firebaseHelper.updateHighlightDB(postId!!, null)
+
             } else {
                 highlight = true
                 updateHighlight(highlight)
-                Toast.makeText(
-                    this@ViewOwnPostActivity,
-                    "Added to your Highlights",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this@ViewOwnPostActivity, "Added to your Highlights", Toast.LENGTH_SHORT).show()
+                firebaseHelper.updateHighlightDB(postId!!, postId)
             }
         }
 
@@ -279,23 +283,32 @@ class ViewOwnPostActivity : AppCompatActivity() {
         val editPostImg: String = postImg.toString()
         val editTags: String = tagsString.toString()
 
-        launchDialog(editTitle, editMedium, editDimensions, editDescription, editPostImg, editTags)
+        launchDialog(userIdPost.toString(), postId.toString(), editTitle, editMedium, editDimensions, editDescription, editPostImg, editTags)
     }
 
-    private fun launchDialog(title: String, medium: String, dimensions: String, description: String,
+    private fun launchDialog(userIdPost: String, postId: String,
+                             title: String, medium: String, dimensions: String, description: String,
                              postImg: String, tags: String) {
         val view = LayoutInflater.from(this@ViewOwnPostActivity).inflate(R.layout.dialog_own_post, null)
 
         this.ibItemViewOwnPostOptions.setOnClickListener {
             btmViewOwnPost.setContentView(view)
 
-            this.clDialogViewOwnPostEdit = btmViewOwnPost.findViewById(R.id.cl_dialog_post_artwork_gallery)!!
-            this.clDialogViewOwnPostDelete = btmViewOwnPost.findViewById(R.id.cl_dialog_post_artwork_photo)!!
+            this.clDialogViewOwnPostEdit = btmViewOwnPost.findViewById(R.id.cl_dialog_own_post_edit)!!
+            this.clDialogViewOwnPostDelete = btmViewOwnPost.findViewById(R.id.cl_dialog_own_post_delete)!!
 
             clDialogViewOwnPostEdit.setOnClickListener {
                 btmViewOwnPost.dismiss()
                 val intent = Intent(this@ViewOwnPostActivity, EditPostActivity::class.java)
 
+                intent.putExtra(
+                    Keys.KEY_USERID.name,
+                    userIdPost
+                )
+                intent.putExtra(
+                    Keys.KEY_POSTID.name,
+                    postId
+                )
                 intent.putExtra(
                     Keys.KEY_TITLE.name,
                     title

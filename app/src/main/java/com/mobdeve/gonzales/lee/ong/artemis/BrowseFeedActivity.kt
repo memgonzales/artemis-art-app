@@ -234,15 +234,15 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadPostData();
-       // this.dataPosts = ArrayList<Post>()
+        this.dataPosts = arrayListOf<Post>()
 
         this.rvFeed = findViewById(R.id.rv_feed)
-        this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
 
-        //this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity);
+        this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity);
 
 
-        //this.rvFeed.adapter = feedAdapter;
+        this.rvFeed.adapter = feedAdapter;
 
         initContent(false)
 
@@ -253,14 +253,14 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.tvNone = findViewById(R.id.tv_feed_none)
         this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
 
-        this.dataPosts = arrayListOf<Post>()
+       // this.dataPosts = arrayListOf<Post>()
 
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
+        postDB.addValueEventListener(object: ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
-
+                dataPosts.clear()
                 if(snapshot.exists()){
 
                     for(postSnap in snapshot.children){
@@ -283,7 +283,9 @@ class BrowseFeedActivity : AppCompatActivity() {
                         Collections.shuffle(dataPosts)
                     }
 
-                    //feedAdapter.notifyDataSetChanged()
+                    feedAdapter.notifyDataSetChanged()
+
+                    //feedAdapter.setData(dataPosts)
                     //feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
                     //rvFeed.adapter = feedAdapter
 
@@ -299,8 +301,8 @@ class BrowseFeedActivity : AppCompatActivity() {
                     tvSubNone.visibility = View.VISIBLE
                 }
 
-                feedAdapter = FeedAdapter(ArrayList(dataPosts.reversed()), this@BrowseFeedActivity)
-                rvFeed.adapter = feedAdapter
+                //feedAdapter = FeedAdapter(ArrayList(dataPosts.reversed()), this@BrowseFeedActivity)
+                //rvFeed.adapter = feedAdapter
 
 
             }

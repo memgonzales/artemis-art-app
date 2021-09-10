@@ -180,7 +180,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         ivItemFeedPost = itemView.findViewById(R.id.iv_item_feed_post)
         tvItemFeedTitle = itemView.findViewById(R.id.tv_item_feed_title)
         tvItemFeedUpvoteCounter = itemView.findViewById(R.id.tv_item_feed_upvote_counter)
-        tvItemFeedComments = itemView.findViewById(R.id.tv_item_feed_comments)
+        tvItemFeedComments = itemView.findViewById(R.id.tv_item_feed_comment)
         ibItemFeedBookmark = itemView.findViewById(R.id.ib_item_feed_bookmark)
         ivItemFeedUpvote = itemView.findViewById(R.id.iv_item_feed_upvote)
         tvItemFeedUpvote = itemView.findViewById(R.id.tv_item_feed_upvote)
