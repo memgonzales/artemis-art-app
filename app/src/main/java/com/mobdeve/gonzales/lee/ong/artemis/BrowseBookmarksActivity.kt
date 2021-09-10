@@ -247,7 +247,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
 
-        userDB.addListenerForSingleValueEvent(object : ValueEventListener {
+        userDB.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userPost = snapshot.getValue(User::class.java)
 
@@ -258,7 +258,9 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@BrowseBookmarksActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(this@BrowseBookmarksActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BrowseBookmarksActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
         })
 
@@ -269,10 +271,9 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         this.ivNone = findViewById(R.id.iv_browse_bookmarks_none)
         this.tvNone = findViewById(R.id.tv_browse_bookmarks_none)
 
-        //this.dataPosts = arrayListOf<Post>()
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener {
+        postDB.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataPosts.clear()
                 if (snapshot.exists()){
@@ -287,14 +288,14 @@ class BrowseBookmarksActivity : AppCompatActivity() {
                         }
                     }
 
-                    if (dataPosts.isEmpty()){
-                        ivNone.visibility = View.VISIBLE
-                        tvNone.visibility = View.VISIBLE
+                    if (!dataPosts.isEmpty()){
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
                     }
 
                     else{
-                        ivNone.visibility = View.GONE
-                        tvNone.visibility = View.GONE
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
                     }
 
                     //bookmarksAdapter = BookmarksAdapter(dataPosts)
@@ -303,10 +304,17 @@ class BrowseBookmarksActivity : AppCompatActivity() {
                     bookmarksAdapter.notifyDataSetChanged()
 
                 }
+
+                else{
+                    ivNone.visibility = View.VISIBLE
+                    tvNone.visibility = View.VISIBLE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@BrowseBookmarksActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@BrowseBookmarksActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BrowseBookmarksActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
 
         })

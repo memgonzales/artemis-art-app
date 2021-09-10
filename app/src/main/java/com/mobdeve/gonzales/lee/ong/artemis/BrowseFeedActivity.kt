@@ -253,8 +253,6 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.tvNone = findViewById(R.id.tv_feed_none)
         this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
 
-       // this.dataPosts = arrayListOf<Post>()
-
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addValueEventListener(object: ValueEventListener{
@@ -283,16 +281,19 @@ class BrowseFeedActivity : AppCompatActivity() {
                         Collections.shuffle(dataPosts)
                     }
 
+                    if (!dataPosts.isEmpty()){
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
+                        tvSubNone.visibility = View.GONE
+                    }
+
+                    else{
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                        tvSubNone.visibility = View.VISIBLE
+                    }
+
                     feedAdapter.notifyDataSetChanged()
-
-                    //feedAdapter.setData(dataPosts)
-                    //feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
-                    //rvFeed.adapter = feedAdapter
-
-                    ivNone.visibility = View.GONE
-                    tvNone.visibility = View.GONE
-                    tvSubNone.visibility = View.GONE
-
                 }
 
                 else{
@@ -300,15 +301,12 @@ class BrowseFeedActivity : AppCompatActivity() {
                     tvNone.visibility = View.VISIBLE
                     tvSubNone.visibility = View.VISIBLE
                 }
-
-                //feedAdapter = FeedAdapter(ArrayList(dataPosts.reversed()), this@BrowseFeedActivity)
-                //rvFeed.adapter = feedAdapter
-
-
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
         })
     }

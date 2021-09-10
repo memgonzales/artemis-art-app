@@ -243,7 +243,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private fun initContent(){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
-        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+        userDB.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userPost = snapshot.getValue(User::class.java)
 
@@ -255,7 +255,9 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BrowseOwnHighlightsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
         })
     }
@@ -267,7 +269,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         //this.dataPosts = arrayListOf<Post>()
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
+        postDB.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataPosts.clear()
                 if (snapshot.exists()){
@@ -283,24 +285,31 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
                         }
                     }
 
-                    if (dataPosts.isEmpty()){
-                        ivNone.visibility = View.VISIBLE
-                        tvNone.visibility = View.VISIBLE
+                    if (!dataPosts.isEmpty()){
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
                     }
 
                     else{
-                        ivNone.visibility = View.GONE
-                        tvNone.visibility = View.GONE
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
                     }
 
                     //highlightsAdapter = HighlightsAdapter(dataPosts)
                     //rvHighlights.adapter = highlightsAdapter
                     highlightsAdapter.notifyDataSetChanged()
                 }
+
+                else{
+                    ivNone.visibility = View.VISIBLE
+                    tvNone.visibility = View.VISIBLE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BrowseOwnHighlightsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
 
         })

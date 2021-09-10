@@ -334,7 +334,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
                     postImg
                 )
                 startActivity(intent)
-                finish()
+               // finish()
             }
 
             clDialogViewOwnPostDelete.setOnClickListener {

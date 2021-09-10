@@ -258,7 +258,9 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@BrowseOwnPostsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@BrowseOwnPostsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BrowseOwnPostsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
         })
     }
@@ -267,7 +269,6 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         this.ivNone = findViewById(R.id.iv_browse_own_posts_none)
         this.tvNone = findViewById(R.id.tv_browse_own_posts_none)
 
-        //this.dataPosts = arrayListOf<Post>()
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addValueEventListener(object: ValueEventListener{
@@ -288,22 +289,30 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                         }
                     }
 
-                    if (dataPosts.isEmpty()){
-                        ivNone.visibility = View.VISIBLE
-                        tvNone.visibility = View.VISIBLE
-                    }
-
-                    else{
+                    if (!dataPosts.isEmpty()){
                         ivNone.visibility = View.GONE
                         tvNone.visibility = View.GONE
                     }
 
+                    else{
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                    }
+
                     ownPostsAdapter.notifyDataSetChanged()
                 }
+
+                else{
+                    ivNone.visibility = View.VISIBLE
+                    tvNone.visibility = View.VISIBLE
+                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@BrowseOwnPostsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@BrowseOwnPostsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BrowseOwnPostsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
 
         })

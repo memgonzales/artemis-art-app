@@ -111,7 +111,6 @@ class EditPostActivity : AppCompatActivity() {
         this.tietEditArtworkDimension.setText(dimension)
         this.tietEditArtworkDescription.setText(description)
         this.tietEditArtworkTags.setText(tags)
-        //this.ivEditArtworkPost.setImageResource(postImg)
 
         Glide.with(this)
             .load(postImg)
@@ -143,8 +142,8 @@ class EditPostActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                val intent = Intent(this@EditPostActivity, BrowseOwnPostsActivity::class.java)
-                startActivity(intent)
+               // val intent = Intent(this@EditPostActivity, BrowseOwnPostsActivity::class.java)
+               // startActivity(intent)
                 finish()
             }
             .addOnFailureListener {
@@ -153,8 +152,8 @@ class EditPostActivity : AppCompatActivity() {
                     "Your post details failed to be updated",
                     Toast.LENGTH_SHORT
                 ).show()
-                val intent = Intent(this@EditPostActivity, BrowseOwnPostsActivity::class.java)
-                startActivity(intent)
+              //  val intent = Intent(this@EditPostActivity, BrowseOwnPostsActivity::class.java)
+               // startActivity(intent)
                 finish()
             }
     }
