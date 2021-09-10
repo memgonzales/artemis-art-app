@@ -11,6 +11,9 @@ import java.util.*
 class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<BookmarksViewHolder>() {
 
+    /**
+     * Context tied to the activity calling this adapter.
+     */
     private lateinit var context: Context
 
     /**

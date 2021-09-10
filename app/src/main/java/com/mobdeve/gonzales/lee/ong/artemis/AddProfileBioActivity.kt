@@ -40,7 +40,11 @@ class AddProfileBioActivity : AppCompatActivity() {
      */
     private lateinit var tvBioSkip: TextView
 
+    /**
+     * Progress bar to signal that data are being fetched from the database.
+     */
     private lateinit var pbAddBio: ProgressBar
+
     /**
      * Represents a user profile's information in the Firebase user database.
      */
@@ -155,6 +159,12 @@ class AddProfileBioActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected. This value cannot be <code>null</code>.
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             android.R.id.home -> {

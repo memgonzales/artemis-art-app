@@ -20,10 +20,27 @@ import java.util.*
 
 class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
     RecyclerView.Adapter<FeedViewHolder>() {
+
+    /**
+     * Context tied to the activity calling this adapter.
+     */
     private lateinit var context: Context
 
+    /**
+     * Wrapper over Firebase's realtime database.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
+    /**
+     * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
+     * to represent an item.
+     *
+     * @param parent The ViewGroup into which the new View will be added after it is bound to an
+     * adapter position.
+     * @param viewType The view type of the new View.
+     *
+     * @return A new ViewHolder that holds a View of the given view type.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_feed, parent, false)
@@ -107,6 +124,13 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
         return feedViewHolder
     }
 
+    /**
+     * Called by RecyclerView to display the data at the specified position.
+     *
+     * @param holder The ViewHolder which should be updated to represent the contents of the item
+     * at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentPost = dataPosts[position]
 
@@ -211,6 +235,11 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
         }
     }
 
+    /**
+     * Returns the total number of items in the data set held by the adapter.
+     *
+     * @return The total number of items in this adapter.
+     */
     override fun getItemCount(): Int {
         return dataPosts.size
     }

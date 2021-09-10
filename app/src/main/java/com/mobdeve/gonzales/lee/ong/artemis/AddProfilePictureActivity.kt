@@ -85,6 +85,9 @@ class AddProfilePictureActivity : AppCompatActivity() {
      */
     private lateinit var tvSkipUpload: TextView
 
+    /**
+     * Progress bar to signal that data are being fetched from the database.
+     */
     private lateinit var pbAddProfPic: ProgressBar
 
     /**
@@ -112,9 +115,19 @@ class AddProfilePictureActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
-
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the
+     */
     private lateinit var userId: String
     private lateinit var db: DatabaseReference
 
@@ -310,6 +323,10 @@ class AddProfilePictureActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Stores the profile picture of the user in the database.
+     * @param userImg URI of the profile picture of the user
+     */
     private fun storeUserImg(userImg: String){
         this.db.child(Keys.KEY_DB_USERS.name).child(this.userId).child(Keys.userImg.name).setValue(userImg)
             .addOnSuccessListener {
@@ -320,6 +337,9 @@ class AddProfilePictureActivity : AppCompatActivity() {
             }
     }
 
+    /**
+     * Defines the behavior when the profile picture of the user is successfully stored in the database.
+     */
     private fun uploadSuccessfully(){
         pbAddProfPic.visibility = View.GONE
         Toast.makeText(this@AddProfilePictureActivity, "Successfully uploaded your image", Toast.LENGTH_SHORT).show()
@@ -327,9 +347,12 @@ class AddProfilePictureActivity : AppCompatActivity() {
         startActivity(i)
     }
 
+    /**
+     * Defines the behavior when the profile picture of the user is not successfully stored in the database.
+     */
     private fun uploadFailed(){
         pbAddProfPic.visibility = View.GONE
-        Toast.makeText(this@AddProfilePictureActivity, "Unable to process your actions right now. Please try again later", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@AddProfilePictureActivity, "Unable to process your request right now. Please try again later", Toast.LENGTH_SHORT).show()
     }
 
     /**
