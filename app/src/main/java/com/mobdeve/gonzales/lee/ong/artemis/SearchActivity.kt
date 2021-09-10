@@ -155,7 +155,10 @@ class SearchActivity : AppCompatActivity() {
         etSearchBar.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, event ->
             if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                 val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
-                intent.putExtra(Keys.KEY_SEARCH.name, etSearchBar.text.toString().trim())
+                intent.putExtra(
+                    Keys.KEY_SEARCH.name,
+                    etSearchBar.text.toString().trim()
+                )
                 startActivity(intent)
             }
             return@OnEditorActionListener false

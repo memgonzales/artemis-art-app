@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -178,10 +179,15 @@ class SearchResultsActivity : AppCompatActivity() {
             sflSearch.visibility = View.GONE
             tvSearchResultsArtworks.visibility = View.VISIBLE
             rvSearch.visibility = View.VISIBLE
-            civSearchResultUser1.visibility = View.VISIBLE
-            civSearchResultUser2.visibility = View.VISIBLE
-            civSearchResultUser3.visibility = View.VISIBLE
-            civSearchResultUser4.visibility = View.VISIBLE
+           // civSearchResultUser1.visibility = View.VISIBLE
+           // civSearchResultUser2.visibility = View.VISIBLE
+           // civSearchResultUser3.visibility = View.VISIBLE
+           // civSearchResultUser4.visibility = View.VISIBLE
+
+            civSearchResultUser1.visibility = View.GONE
+            civSearchResultUser2.visibility = View.GONE
+            civSearchResultUser3.visibility = View.GONE
+            civSearchResultUser4.visibility = View.GONE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
@@ -233,37 +239,22 @@ class SearchResultsActivity : AppCompatActivity() {
 
         getUserSearchResults(search)
 
-        /*
+
         civSearchResultUser1.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[0].getUserImg()
+                Keys.KEY_USERID.name,
+                dataUsers[0].getUserId()
             )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[0].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[0].getBio()
-            )
+
             startActivity(intent)
         })
 
         civSearchResultUser2.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[1].getUserImg()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[1].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[1].getBio()
+                Keys.KEY_USERID.name,
+                dataUsers[1].getUserId()
             )
             startActivity(intent)
         })
@@ -271,16 +262,8 @@ class SearchResultsActivity : AppCompatActivity() {
         civSearchResultUser3.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[2].getUserImg()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[2].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[2].getBio()
+                Keys.KEY_USERID.name,
+                dataUsers[2].getUserId()
             )
             startActivity(intent)
         })
@@ -288,21 +271,12 @@ class SearchResultsActivity : AppCompatActivity() {
         civSearchResultUser4.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[3].getUserImg()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[3].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[3].getBio()
+                Keys.KEY_USERID.name,
+                dataUsers[3].getUserId()
             )
             startActivity(intent)
         })
 
-         */
 
         this.rvSearch = findViewById(R.id.rv_search_results)
         this.rvSearch.layoutManager = GridLayoutManager(this, 2)
@@ -316,6 +290,10 @@ class SearchResultsActivity : AppCompatActivity() {
         etSearchBar.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                 val intent = Intent(this@SearchResultsActivity, SearchResultsActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_SEARCH.name,
+                    etSearchBar.text.toString().trim()
+                )
                 startActivity(intent)
             }
             return@OnEditorActionListener false
@@ -338,6 +316,7 @@ class SearchResultsActivity : AppCompatActivity() {
                     }
 
                     setSearchUserResults(dataUsers)
+
                 }
             }
 
@@ -353,49 +332,73 @@ class SearchResultsActivity : AppCompatActivity() {
         var i = 0
 
         while (i >= 0  && i < dataUsers.size && i < 4){
+
             when (i){
                 0 -> {
+                    civSearchResultUser1.visibility = View.VISIBLE
+
                     Glide.with(this@SearchResultsActivity)
                         .load(dataUsers[0].getUserImg())
                         .placeholder(R.drawable.placeholder)
                         .error(R.drawable.placeholder)
                         .into(civSearchResultUser1)
-
-                    civSearchResultUser1.visibility = View.VISIBLE
                 }
 
 
                 1 -> {
+                    civSearchResultUser2.visibility = View.VISIBLE
+
                     Glide.with(this@SearchResultsActivity)
                         .load(dataUsers[1].getUserImg())
                         .placeholder(R.drawable.placeholder)
                         .error(R.drawable.placeholder)
                         .into(civSearchResultUser2)
-
-                    civSearchResultUser2.visibility = View.VISIBLE
                 }
 
 
-                2 -> Glide.with(this@SearchResultsActivity)
-                    .load(dataUsers[2].getUserImg())
-                    .placeholder(R.drawable.placeholder)
-                    .error(R.drawable.placeholder)
-                    .into(civSearchResultUser3)
+                2 -> {
+                    civSearchResultUser3.visibility = View.VISIBLE
 
-
-                3 -> Glide.with(this@SearchResultsActivity)
-                    .load(dataUsers[3].getUserImg())
-                    .placeholder(R.drawable.placeholder)
-                    .error(R.drawable.placeholder)
-                    .into(civSearchResultUser4)
-
-                else -> {
-                    print("no data")
+                    Glide.with(this@SearchResultsActivity)
+                        .load(dataUsers[2].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser3)
                 }
 
+
+                3 -> {
+                    civSearchResultUser4.visibility = View.VISIBLE
+
+                    Glide.with(this@SearchResultsActivity)
+                        .load(dataUsers[3].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser4)
+                }
             }
+            i++
         }
     }
+
+    /*
+    private fun getSearchPostResults(searchPost: String){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@SearchResultsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+    }
+    
+     */
 
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
