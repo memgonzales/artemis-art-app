@@ -70,8 +70,9 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_item_view_others_highlight_unregistered_profile_pic"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="31dp"
                     android:clickable="true"
+                    android:focusable="true"
                     android:src="@drawable/shoob"
                     app:civ_border_color="@color/purple_main"
                     app:civ_border_width="0dp"
@@ -80,8 +81,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/gl_item_view_others_highlight_unregistered_left_margin"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    android:focusable="true" />
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/gl_item_view_others_highlight_unregistered_right_user_pic"
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.10" />
+                    app:layout_constraintGuide_percent="0.11" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/gl_item_view_others_highlight_unregistered_left_margin"
@@ -101,11 +101,13 @@
                 <TextView
                     android:id="@+id/tv_item_view_others_highlight_unregistered_username"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginStart="6dp"
                     android:clickable="true"
                     android:ellipsize="end"
+                    android:focusable="true"
                     android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
                     android:maxLines="1"
                     android:scrollHorizontally="true"
                     android:text="@string/tv_item_view_others_highlight_unregistered_username"
@@ -114,20 +116,19 @@
                     app:layout_constraintEnd_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_margin"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_user_pic"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/civ_item_view_others_highlight_unregistered_profile_pic"
                     app:layout_constraintVertical_bias="0.35000002"
                     app:layout_constraintVertical_chainStyle="packed"
-                    app:layout_constraintWidth_default="wrap"
-                    android:focusable="true" />
+                    app:layout_constraintWidth_default="wrap" />
 
                 <ImageView
                     android:id="@+id/iv_item_view_others_highlight_unregistered_post"
-                    android:contentDescription="@string/iv_item_view_others_highlight_unregistered_post"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
+                    android:contentDescription="@string/iv_item_view_others_highlight_unregistered_post"
                     android:scaleType="fitXY"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

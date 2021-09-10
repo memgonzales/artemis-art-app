@@ -416,4 +416,6 @@
     <string name="tv_broken_link_caveat">It is possible that our server is temporarily down or the data related to your request have been removed. \n\nIf this issue persists, you may contact us through our email:</string>
     <string name="tv_broken_link_header">Your request cannot be loaded</string>
     <string name="tv_broken_link_email"><u>artemis.appmaster@gmail.com</u></string>
+    <string name="iv_user_highlights_none">No highlights</string>
+    <string name="tv_user_highlights_none">No highlights just yet</string>
 </resources>
