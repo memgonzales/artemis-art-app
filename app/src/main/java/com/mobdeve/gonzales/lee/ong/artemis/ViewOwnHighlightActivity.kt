@@ -46,11 +46,7 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var db: DatabaseReference
-
-    private lateinit var user: FirebaseUser
-    private lateinit var userId: String
+    private lateinit var firebaseHelper: FirebaseHelper
 
     /**
      * Photo of the artwork for posting.
@@ -81,7 +77,6 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
         tvItemViewOwnHighlightDescription = findViewById(R.id.tv_item_view_own_highlight_desc)
         ibItemViewOwnHighlightHighlight = findViewById(R.id.ib_item_view_own_highlight_highlight)
 
-        initFirebase()
         initIntent()
         initComponents()
         initBottom()
@@ -89,24 +84,6 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
 
         initGalleryLauncher(this@ViewOwnHighlightActivity)
         initCameraLauncher(this@ViewOwnHighlightActivity)
-    }
-
-    /**
-     * Initializes the Firebase-related components.
-     */
-    private fun initFirebase(){
-        this.mAuth = Firebase.auth
-        this.db = Firebase.database.reference
-
-        if (this.mAuth.currentUser != null){
-            this.user = this.mAuth.currentUser!!
-            this.userId = this.user.uid
-        }
-
-        else{
-            val intent = Intent(this@ViewOwnHighlightActivity, BrokenLinkActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     /**
@@ -161,11 +138,15 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
     private fun initIntent() {
         val intent: Intent = intent
 
-        //val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        val postId = intent.getStringExtra(Keys.KEY_POSTID.name)
+        val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name)
+
+        this.firebaseHelper = FirebaseHelper(this@ViewOwnHighlightActivity, postId, userIdPost)
+
         val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
 
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
-        //val post = intent.getIntExtra(Keys.KEY_POST.name, 0)
+
         val postImg = intent.getStringExtra(Keys.KEY_POST.name)
 
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
@@ -175,14 +156,12 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
         var highlight = intent.getBooleanExtra(Keys.KEY_HIGHLIGHT.name, false)
 
-        //this.civItemViewOwnHighlightProfilePic.setImageResource(profilePicture)
         Glide.with(this@ViewOwnHighlightActivity)
             .load(profilePicture)
             .error(R.drawable.chibi_artemis_hd)
             .into(civItemViewOwnHighlightProfilePic)
 
         this.tvItemViewOwnHighlightUsername.text = username
-        //this.ivItemViewOwnHighlightPost.setImageResource(post)
 
         Glide.with(this@ViewOwnHighlightActivity)
             .load(postImg)
@@ -201,14 +180,15 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
             if (highlight) {
                 highlight = false
                 updateHighlight(highlight)
+
+                firebaseHelper.updateHighlightDB(postId!!, null)
+
             } else {
                 highlight = true
                 updateHighlight(highlight)
-                Toast.makeText(
-                    this@ViewOwnHighlightActivity,
-                    "Added to your Highlights",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this@ViewOwnHighlightActivity, "Added to your Highlights", Toast.LENGTH_SHORT).show()
+
+                firebaseHelper.updateHighlightDB(postId!!, "1")
             }
         }
 

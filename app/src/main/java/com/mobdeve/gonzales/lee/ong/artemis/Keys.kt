@@ -31,6 +31,8 @@ enum class Keys {
     KEY_COMMENT_BODY,
     KEY_USERID,
 
+    KEY_SEARCH,
+    
     /* Keys used in passing intents related to posting an artwork */
 
     /**

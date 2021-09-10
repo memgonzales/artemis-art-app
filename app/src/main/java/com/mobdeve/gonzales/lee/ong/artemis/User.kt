@@ -62,6 +62,12 @@ class User {
     private lateinit var userComments: HashMap<String, Any?>
 
     constructor(){
+        this.username = ""
+        this.email = ""
+        this.password = ""
+        this.userImg = ""
+        this.bio = ""
+
         this.bookmarks = HashMap<String, Any?>()
         this.userPosts = HashMap<String, Any?>()
         this.highlights = HashMap<String, Any?>()

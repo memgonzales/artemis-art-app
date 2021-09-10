@@ -34,6 +34,14 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
             val intent = Intent(view.context, ViewBookmarkActivity::class.java)
 
             intent.putExtra(
+                Keys.KEY_USERID.name,
+                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getUserId()
+            )
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getPostId()
+            )
+            intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataPosts[bookmarksViewHolder.bindingAdapterPosition].getProfilePicture()
             )
@@ -89,6 +97,7 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
 
         Glide.with(context)
             .load(currentPost.getPostImg())
+            .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(holder.getItemSearchResults())
     }

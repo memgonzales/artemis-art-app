@@ -22,44 +22,32 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import java.util.*
 
 class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
     RecyclerView.Adapter<FeedViewHolder>() {
     private lateinit var context: Context
 
-    private var mAuth: FirebaseAuth = Firebase.auth
-    private var db: DatabaseReference = Firebase.database.reference
-
-    private var user: FirebaseUser = mAuth.currentUser!!
-    private var userId: String = user.uid
-
-    private fun initFirebase() {
-        this.mAuth = Firebase.auth
-        this.db = Firebase.database.reference
-
-        if (this.mAuth.currentUser != null){
-            this.user = this.mAuth.currentUser!!
-            this.userId = this.user.uid
-        }
-
-        else{
-            val intent = Intent(context, BrokenLinkActivity::class.java)
-            context.startActivity(intent)
-        }
-
-    }
+    private lateinit var firebaseHelper: FirebaseHelper
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_feed, parent, false)
         context = parent.context
+
         val feedViewHolder = FeedViewHolder(itemView)
 
         itemView.setOnClickListener { view ->
             val intent = Intent(view.context, ViewPostActivity::class.java)
 
+            intent.putExtra(
+                Keys.KEY_USERID.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getUserId()
+            )
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getPostId()
+            )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataPosts[feedViewHolder.bindingAdapterPosition].getProfilePicture()
@@ -121,7 +109,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
             view.context.startActivity(intent)
         }
 
-        initFirebase()
+        this.firebaseHelper = FirebaseHelper(context)
 
         return feedViewHolder
     }
@@ -129,22 +117,19 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentPost = dataPosts[position]
 
-        // placeholder for sample image
-        //val currentPicture = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
-
         Glide.with(context)
             .load(currentPost.getProfilePicture())
+            .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(holder.getItemFeedProfilePic())
-    //    Glide.with(context).load(currentPicture).into(holder.getItemFeedProfilePic())
-        holder.setItemFeedProfilePic(currentPost.getProfilePicture())
+
         holder.setItemFeedUsername(currentPost.getUsername())
         Glide.with(context)
             .load(currentPost.getPostImg())
+            .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(holder.getItemFeedPost())
-    //    Glide.with(context).load(currentPicture).into(holder.getItemFeedPost())
-    //    holder.setItemFeedPost(currentPost.getPostImg())
+
         holder.setItemFeedTitle(currentPost.getTitle())
         holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")
@@ -156,12 +141,13 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
             holder.setItemFeedBookmark(currentPost.getBookmark())
 
             if(currentPost.getBookmark()){
-                updateBookmarkDB(userId, currentPost.getPostId(), currentPost.getPostId())
+                firebaseHelper.updateBookmarkDB("1", currentPost.getPostId(),"1")
             }
 
             else{
-                updateBookmarkDB(null, currentPost.getPostId(), null)
+                firebaseHelper.updateBookmarkDB( null, currentPost.getPostId(), null)
             }
+
         }
 
         holder.setItemFeedUpvoteOnClickListener {
@@ -171,7 +157,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
                 holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
                 holder.setItemFeedUpvote(currentPost.getUpvote())
 
-                updateUpvoteDB(null, currentPost.getPostId(), null, currentPost.getNumUpvotes())
+                firebaseHelper.updateUpvoteDB(null, currentPost.getPostId(), null, currentPost.getNumUpvotes())
 
             } else {
                 currentPost.setUpvote(true)
@@ -179,10 +165,10 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
                 holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
                 holder.setItemFeedUpvote(currentPost.getUpvote())
 
-                updateUpvoteDB(userId, currentPost.getPostId(), currentPost.getPostId(), currentPost.getNumUpvotes())
+                firebaseHelper.updateUpvoteDB("1", currentPost.getPostId(), "1", currentPost.getNumUpvotes())
             }
-        }
 
+        }
 
 
         holder.setItemFeedShareOnClickListener { view ->
@@ -229,18 +215,6 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
                 Keys.KEY_USERID.name,
                 currentPost.getUserId()
             )
-            intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                currentPost.getProfilePicture()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                currentPost.getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
-            )
 
             view.context.startActivity(intent)
         }
@@ -248,24 +222,5 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
 
     override fun getItemCount(): Int {
         return dataPosts.size
-    }
-
-    fun updateUpvoteDB(userVal: String?, postKey: String, postVal: String?, numUpvotes: Int){
-        val updates = hashMapOf<String, Any?>(
-            "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.upvoteUsers.name}/$userId" to userVal,
-            "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.numUpvotes.name}" to numUpvotes,
-            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.upvotedPosts.name}/$postKey" to postVal
-        )
-
-        db.updateChildren(updates)
-    }
-
-    fun updateBookmarkDB(userVal: String?, postKey: String, postVal: String?){
-        val updates = hashMapOf<String, Any?>(
-            "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.bookmarkUsers.name}/$userId" to userVal,
-            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bookmarks.name}/$postKey" to postVal
-        )
-
-        db.updateChildren(updates)
     }
 }

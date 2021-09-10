@@ -10,6 +10,9 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +26,15 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.io.File
 
 class BrowseFeedFollowedActivity : AppCompatActivity() {
@@ -39,6 +51,16 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
     private lateinit var fabAddPost: FloatingActionButton
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
+
+    private lateinit var ivNone: ImageView
+    private lateinit var tvNone: TextView
+    private lateinit var tvSubNone: TextView
+
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
+
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
 
     /**
      * Photo of the artwork for posting.
@@ -67,6 +89,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse_feed_followed)
 
+        initFirebase()
         initComponents()
         initGalleryLauncher(this@BrowseFeedFollowedActivity)
         initCameraLauncher(this@BrowseFeedFollowedActivity)
@@ -118,6 +141,24 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
 
                 startActivity(intent)
             }
+        }
+    }
+
+    /**
+     * Initializes the Firebase-related components.
+     */
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -188,8 +229,9 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadFollowedData();
+        //this.dataPosts = DataHelper.loadFollowedData();
 
+        this.dataPosts = arrayListOf<Post>()
         this.rvFollowed = findViewById(R.id.rv_feed_followed);
         this.rvFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
@@ -197,6 +239,122 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
 
 
         this.rvFollowed.adapter = feedFollowedAdapter;
+
+        initContent()
+    }
+
+    private fun initContent(){
+        this.ivNone = findViewById(R.id.iv_feed_followed_none)
+        this.tvNone = findViewById(R.id.tv_feed_followed_none)
+        this.tvSubNone = findViewById(R.id.tv_feed_followed_subtitle_none)
+
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
+
+        userDB.child(userId).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                val userSnap = snapshot.getValue(User::class.java)
+
+                if (userSnap != null){
+                    val usersFF = userSnap.getUsersFollowed().keys
+                    getUserPosts(userDB, usersFF)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+    }
+
+    private fun getUserPosts(ref: DatabaseReference, userKeys: Set<String?>) {
+
+        ref.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                dataPosts.clear()
+                if (snapshot.exists()){
+                    for (userSnap in snapshot.children){
+                        if (userSnap.key != null && userKeys.contains(userSnap.key)){
+                            val userFF = userSnap.getValue(User::class.java)
+
+                            if(userFF != null){
+                                var userPosts = userFF.getUserPosts().keys
+
+                                getPosts(userPosts)
+                            }
+                        }
+                    }
+
+                    if (!dataPosts.isEmpty()){
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
+                        tvSubNone.visibility = View.GONE
+                    }
+                    /*
+                    else{
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                        tvSubNone.visibility = View.VISIBLE
+                    }
+
+                     */
+                }
+
+                else{
+                    ivNone.visibility = View.VISIBLE
+                    tvNone.visibility = View.VISIBLE
+                    tvSubNone.visibility = View.VISIBLE
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+    }
+
+    private fun getPosts(userPosts: Set<String?>){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()) {
+                    for (postSnap in snapshot.children) {
+                        if (postSnap.key != null && userPosts.contains(postSnap.key)) {
+                            val post = postSnap.getValue(Post::class.java)
+
+                            if (post != null) {
+
+                                if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)) {
+                                    post.setUpvote(true)
+                                }
+
+                                if (!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)) {
+                                    post.setBookmark(true)
+                                }
+
+                                dataPosts.add(post)
+                            }
+                        }
+                    }
+
+                    feedFollowedAdapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                //Toast.makeText(this@BrowseOwnPostsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
     }
 
     /**

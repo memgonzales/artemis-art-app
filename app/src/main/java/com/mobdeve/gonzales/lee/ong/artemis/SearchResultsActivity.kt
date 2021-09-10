@@ -6,12 +6,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,10 +22,20 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
@@ -49,6 +61,12 @@ class SearchResultsActivity : AppCompatActivity() {
 
     private lateinit var etSearchBar: EditText
 
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
+
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
+
     /**
      * Photo of the artwork for posting.
      */
@@ -68,6 +86,7 @@ class SearchResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_results)
 
+        initFirebase()
         initComponents()
         initGalleryLauncher(this@SearchResultsActivity)
         initCameraLauncher(this@SearchResultsActivity)
@@ -122,6 +141,24 @@ class SearchResultsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the Firebase-related components.
+     */
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@SearchResultsActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_search_results))
         initShimmer()
@@ -142,10 +179,15 @@ class SearchResultsActivity : AppCompatActivity() {
             sflSearch.visibility = View.GONE
             tvSearchResultsArtworks.visibility = View.VISIBLE
             rvSearch.visibility = View.VISIBLE
-            civSearchResultUser1.visibility = View.VISIBLE
-            civSearchResultUser2.visibility = View.VISIBLE
-            civSearchResultUser3.visibility = View.VISIBLE
-            civSearchResultUser4.visibility = View.VISIBLE
+           // civSearchResultUser1.visibility = View.VISIBLE
+           // civSearchResultUser2.visibility = View.VISIBLE
+           // civSearchResultUser3.visibility = View.VISIBLE
+           // civSearchResultUser4.visibility = View.VISIBLE
+
+            civSearchResultUser1.visibility = View.GONE
+            civSearchResultUser2.visibility = View.GONE
+            civSearchResultUser3.visibility = View.GONE
+            civSearchResultUser4.visibility = View.GONE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
@@ -176,7 +218,8 @@ class SearchResultsActivity : AppCompatActivity() {
 
     private fun initContents() {
         this.dataPosts = DataHelper.loadPostData();
-        this.dataUsers = DataHelper.loadSearchUserData();
+        //this.dataUsers = DataHelper.loadSearchUserData();
+        this.dataUsers = arrayListOf<User>()
 
         this.civSearchResultUser1 = findViewById(R.id.civ_search_result_user1)
         this.civSearchResultUser2 = findViewById(R.id.civ_search_result_user2)
@@ -185,41 +228,33 @@ class SearchResultsActivity : AppCompatActivity() {
 
         this.tvSearchResultsArtworks = findViewById(R.id.tv_search_results_artworks)
 
+        val intent: Intent = intent
+
+        val search = intent.getStringExtra(Keys.KEY_SEARCH.name).toString()
+
         //this.civSearchResultUser1.setImageResource(dataUsers[0].getUserImg())
         //this.civSearchResultUser2.setImageResource(dataUsers[1].getUserImg())
         //this.civSearchResultUser3.setImageResource(dataUsers[2].getUserImg())
         //this.civSearchResultUser4.setImageResource(dataUsers[3].getUserImg())
 
+        getUserSearchResults(search)
+
+
         civSearchResultUser1.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[0].getUserImg()
+                Keys.KEY_USERID.name,
+                dataUsers[0].getUserId()
             )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[0].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[0].getBio()
-            )
+
             startActivity(intent)
         })
 
         civSearchResultUser2.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[1].getUserImg()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[1].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[1].getBio()
+                Keys.KEY_USERID.name,
+                dataUsers[1].getUserId()
             )
             startActivity(intent)
         })
@@ -227,16 +262,8 @@ class SearchResultsActivity : AppCompatActivity() {
         civSearchResultUser3.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[2].getUserImg()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[2].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[2].getBio()
+                Keys.KEY_USERID.name,
+                dataUsers[2].getUserId()
             )
             startActivity(intent)
         })
@@ -244,19 +271,12 @@ class SearchResultsActivity : AppCompatActivity() {
         civSearchResultUser4.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[3].getUserImg()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[3].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[3].getBio()
+                Keys.KEY_USERID.name,
+                dataUsers[3].getUserId()
             )
             startActivity(intent)
         })
+
 
         this.rvSearch = findViewById(R.id.rv_search_results)
         this.rvSearch.layoutManager = GridLayoutManager(this, 2)
@@ -270,11 +290,115 @@ class SearchResultsActivity : AppCompatActivity() {
         etSearchBar.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                 val intent = Intent(this@SearchResultsActivity, SearchResultsActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_SEARCH.name,
+                    etSearchBar.text.toString().trim()
+                )
                 startActivity(intent)
             }
             return@OnEditorActionListener false
         });
     }
+
+    private fun getUserSearchResults(searchUser: String){
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
+
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                dataUsers.clear()
+                if (snapshot.exists()){
+                    for (u in snapshot.children){
+                        var userSnap = u.getValue(User::class.java)
+
+                        if (userSnap != null && userSnap.getUsername().contains(searchUser, ignoreCase = true)){
+                            dataUsers.add(userSnap)
+                        }
+                    }
+
+                    setSearchUserResults(dataUsers)
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@SearchResultsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+    }
+
+    private fun setSearchUserResults(data: ArrayList<User>){
+        var i = 0
+
+        while (i >= 0  && i < dataUsers.size && i < 4){
+
+            when (i){
+                0 -> {
+                    civSearchResultUser1.visibility = View.VISIBLE
+
+                    Glide.with(this@SearchResultsActivity)
+                        .load(dataUsers[0].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser1)
+                }
+
+
+                1 -> {
+                    civSearchResultUser2.visibility = View.VISIBLE
+
+                    Glide.with(this@SearchResultsActivity)
+                        .load(dataUsers[1].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser2)
+                }
+
+
+                2 -> {
+                    civSearchResultUser3.visibility = View.VISIBLE
+
+                    Glide.with(this@SearchResultsActivity)
+                        .load(dataUsers[2].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser3)
+                }
+
+
+                3 -> {
+                    civSearchResultUser4.visibility = View.VISIBLE
+
+                    Glide.with(this@SearchResultsActivity)
+                        .load(dataUsers[3].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser4)
+                }
+            }
+            i++
+        }
+    }
+
+    /*
+    private fun getSearchPostResults(searchPost: String){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@SearchResultsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+    }
+    
+     */
 
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

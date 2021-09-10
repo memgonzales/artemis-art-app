@@ -22,6 +22,8 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
     RecyclerView.Adapter<FeedViewHolder>() {
     private lateinit var context: Context
 
+    private lateinit var firebaseHelper: FirebaseHelper
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_feed, parent, false)
@@ -31,6 +33,14 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
         itemView.setOnClickListener { view ->
             val intent = Intent(view.context, ViewPostFollowedActivity::class.java)
 
+            intent.putExtra(
+                Keys.KEY_USERID.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getUserId()
+            )
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getPostId()
+            )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataPosts[feedViewHolder.bindingAdapterPosition].getProfilePicture()
@@ -92,19 +102,28 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
             view.context.startActivity(intent)
         }
 
+        this.firebaseHelper = FirebaseHelper(context)
+
         return feedViewHolder
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentPost = dataPosts[position]
 
-        // placeholder for sample image
-        val currentPicture = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
-        Glide.with(context).load(currentPicture).into(holder.getItemFeedProfilePic())
-    //    holder.setItemFeedProfilePic(currentPost.getProfilePicture())
+       Glide.with(context)
+            .load(currentPost.getProfilePicture())
+            .placeholder(R.drawable.chibi_artemis_hd)
+            .error(R.drawable.chibi_artemis_hd)
+            .into(holder.getItemFeedProfilePic())
+
         holder.setItemFeedUsername(currentPost.getUsername())
-        Glide.with(context).load(currentPicture).into(holder.getItemFeedPost())
-    //    holder.setItemFeedPost(currentPost.getPostImg())
+
+        Glide.with(context)
+            .load(currentPost.getPostImg())
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(holder.getItemFeedPost())
+
         holder.setItemFeedTitle(currentPost.getTitle())
         holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")
@@ -114,6 +133,14 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
         holder.setItemFeedBookmarkOnClickListener {
             currentPost.setBookmark(!currentPost.getBookmark())
             holder.setItemFeedBookmark(currentPost.getBookmark())
+
+            if(currentPost.getBookmark()){
+                firebaseHelper.updateBookmarkDB("1", currentPost.getPostId(),"1")
+            }
+
+            else{
+                firebaseHelper.updateBookmarkDB( null, currentPost.getPostId(), null)
+            }
         }
 
         holder.setItemFeedUpvoteOnClickListener {
@@ -122,14 +149,17 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
                 currentPost.setNumUpvotes(currentPost.getNumUpvotes() - 1)
                 holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
                 holder.setItemFeedUpvote(currentPost.getUpvote())
+
+                firebaseHelper.updateUpvoteDB(null, currentPost.getPostId(), null, currentPost.getNumUpvotes())
+
             } else {
                 currentPost.setUpvote(true)
                 currentPost.setNumUpvotes(currentPost.getNumUpvotes() + 1)
                 holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
                 holder.setItemFeedUpvote(currentPost.getUpvote())
+
+                firebaseHelper.updateUpvoteDB("1", currentPost.getPostId(), "1", currentPost.getNumUpvotes())
             }
-
-
         }
 
         holder.setItemFeedShareOnClickListener { view ->
@@ -173,16 +203,8 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
             val intent = Intent(view.context, ViewUserActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                currentPost.getProfilePicture()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                currentPost.getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                currentPost.getUserId()
             )
 
             view.context.startActivity(intent)

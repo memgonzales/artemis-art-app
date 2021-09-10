@@ -227,13 +227,15 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private fun initRecyclerView() {
        // this.dataPosts = DataHelper.loadHighlightsData()
 
+        this.dataPosts = arrayListOf<Post>()
+
         this.rvHighlights = findViewById(R.id.rv_highlights)
         this.rvHighlights.layoutManager = GridLayoutManager(this, 2)
 
-       // this.highlightsAdapter = HighlightsAdapter(this.dataPosts)
+        this.highlightsAdapter = HighlightsAdapter(this.dataPosts)
 
 
-        //this.rvHighlights.adapter = highlightsAdapter
+        this.rvHighlights.adapter = highlightsAdapter
 
         initContent()
     }
@@ -241,7 +243,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
     private fun initContent(){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
-        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+        userDB.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userPost = snapshot.getValue(User::class.java)
 
@@ -253,7 +255,9 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BrowseOwnHighlightsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
         })
     }
@@ -262,12 +266,12 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         this.ivNone = findViewById(R.id.iv_browse_highlights_none)
         this.tvNone = findViewById(R.id.tv_browse_highlights_none)
 
-        this.dataPosts = arrayListOf<Post>()
+        //this.dataPosts = arrayListOf<Post>()
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
+        postDB.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-
+                dataPosts.clear()
                 if (snapshot.exists()){
                     for (postSnap in snapshot.children){
                         if (postSnap.key != null && highlights.contains(postSnap.key)){
@@ -281,24 +285,31 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
                         }
                     }
 
-                    if (dataPosts.isEmpty()){
-                        ivNone.visibility = View.VISIBLE
-                        tvNone.visibility = View.VISIBLE
-                    }
-
-                    else{
+                    if (!dataPosts.isEmpty()){
                         ivNone.visibility = View.GONE
                         tvNone.visibility = View.GONE
                     }
 
-                    highlightsAdapter = HighlightsAdapter(dataPosts)
-                    rvHighlights.adapter = highlightsAdapter
+                    else{
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                    }
 
+                    //highlightsAdapter = HighlightsAdapter(dataPosts)
+                    //rvHighlights.adapter = highlightsAdapter
+                    highlightsAdapter.notifyDataSetChanged()
+                }
+
+                else{
+                    ivNone.visibility = View.VISIBLE
+                    tvNone.visibility = View.VISIBLE
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BrowseOwnHighlightsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
 
         })

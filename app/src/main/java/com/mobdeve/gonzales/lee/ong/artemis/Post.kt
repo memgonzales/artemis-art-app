@@ -27,6 +27,18 @@ class Post {
     private var numComments: Int
 
     constructor(){
+        this.userId = ""
+        this.postId = ""
+        this.profilePicture =""
+        this.username = ""
+
+        this.postImg = ""
+        this.title = ""
+        this.datePosted = ""
+
+        this.medium = ""
+        this.dimensions = ""
+        this.description = ""
         this.tags = ArrayList<String>()
 
         this.bookmark = false

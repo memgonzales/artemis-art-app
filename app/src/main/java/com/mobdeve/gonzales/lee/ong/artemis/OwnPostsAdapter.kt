@@ -29,28 +29,26 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
     RecyclerView.Adapter<OwnPostsViewHolder>() {
     private lateinit var context: Context
 
-    private var mAuth: FirebaseAuth = Firebase.auth
-    private var db: DatabaseReference = Firebase.database.reference
-
-    private var user: FirebaseUser = mAuth.currentUser!!
-    private var userId: String = user.uid
-
-    private fun initFirebase() {
-        this.mAuth = Firebase.auth
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
-        this.db = Firebase.database.reference
-    }
+    private lateinit var firebaseHelper: FirebaseHelper
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OwnPostsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_own_post, parent, false)
         context = parent.context
+
         val ownPostsViewHolder = OwnPostsViewHolder(itemView)
 
         itemView.setOnClickListener { view ->
             val intent = Intent(view.context, ViewOwnPostActivity::class.java)
 
+            intent.putExtra(
+                Keys.KEY_USERID.name,
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getUserId()
+            )
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getPostId()
+            )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataPosts[ownPostsViewHolder.bindingAdapterPosition].getProfilePicture()
@@ -108,34 +106,28 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
             view.context.startActivity(intent)
         }
 
-        initFirebase()
+        this.firebaseHelper = FirebaseHelper(context)
+
         return ownPostsViewHolder
     }
 
     override fun onBindViewHolder(holder: OwnPostsViewHolder, position: Int) {
         val currentPost = dataPosts[position]
 
-        // placeholder for sample image
-       // val currentPicture = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
-        //Glide.with(context).load(currentPicture).into(holder.getOwnPostProfilePic())
-
         Glide.with(context)
             .load(currentPost.getProfilePicture())
+            .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(holder.getOwnPostProfilePic())
 
-
-    //    holder.setOwnPostProfilePic(currentPost.getProfilePicture())
         holder.setOwnPostUsername(currentPost.getUsername())
-        //Glide.with(context).load(currentPicture).into(holder.getOwnPostPost())
 
         Glide.with(context)
             .load(currentPost.getPostImg())
+            .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(holder.getOwnPostPost())
 
-
-    //    holder.setOwnPostPost(currentPost.getPostImg())
         holder.setOwnPostTitle(currentPost.getTitle())
         holder.setOwnPostUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setOwnPostComments(currentPost.getNumComments().toString() + " comments")
@@ -146,14 +138,14 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
                 currentPost.setHighlight(false)
                 holder.setOwnPostHighlight(currentPost.getHighlight())
 
-                updateHighlightDB(currentPost.getPostId(), null)
+                firebaseHelper.updateHighlightDB(currentPost.getPostId(), null)
 
             } else {
                 currentPost.setHighlight(true)
                 holder.setOwnPostHighlight(currentPost.getHighlight())
                 Toast.makeText(view.context, "Added to your Highlights", Toast.LENGTH_SHORT).show()
 
-                updateHighlightDB(currentPost.getPostId(), currentPost.getPostId())
+                firebaseHelper.updateHighlightDB(currentPost.getPostId(), currentPost.getPostId())
             }
         }
 
@@ -204,9 +196,6 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
             val dialog = holder.getOwnPostOptions()
             dialog.setContentView(dialogView)
 
-            // val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_gallery)
-            // val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_photo)
-
             val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_own_post_edit)
             val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_own_post_delete)
 
@@ -216,6 +205,10 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
                 val tags = currentPost.getTags()
                 val tagsString = tags.joinToString(", ")
 
+                intent.putExtra(
+                    Keys.KEY_USERID.name,
+                    currentPost.getUserId()
+                )
                 intent.putExtra(
                     Keys.KEY_POSTID.name,
                     currentPost.getPostId()
@@ -248,6 +241,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
             }
 
             delete.setOnClickListener { view ->
+
                 Toast.makeText(view.context, "Your post has been deleted", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
@@ -259,13 +253,5 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
 
     override fun getItemCount(): Int {
         return dataPosts.size
-    }
-
-    fun updateHighlightDB(postKey: String, postVal: String?){
-        val updates = hashMapOf<String, Any?>(
-            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.highlights.name}/$postKey" to postVal
-        )
-
-        db.updateChildren(updates)
     }
 }

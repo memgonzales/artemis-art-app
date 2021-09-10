@@ -78,6 +78,18 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    /*
+    private val childEventListener = object : ChildEventListener{
+        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            val post = snapshot.getValue(Post::class.java)
+
+            if (post != null){
+                post.setPostId(snapshot.key!!)
+            }
+        }
+    }
+
+     */
     /**
      * Called when the activity is starting.
      *
@@ -234,15 +246,15 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadPostData();
-       // this.dataPosts = ArrayList<Post>()
+        this.dataPosts = arrayListOf<Post>()
 
         this.rvFeed = findViewById(R.id.rv_feed)
-        this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
 
-        //this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity);
+        this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity);
 
 
-        //this.rvFeed.adapter = feedAdapter;
+        this.rvFeed.adapter = feedAdapter;
 
         initContent(false)
 
@@ -253,14 +265,12 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.tvNone = findViewById(R.id.tv_feed_none)
         this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
 
-        this.dataPosts = arrayListOf<Post>()
-
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
+        postDB.addValueEventListener(object: ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
-
+                dataPosts.clear()
                 if(snapshot.exists()){
 
                     for(postSnap in snapshot.children){
@@ -283,14 +293,19 @@ class BrowseFeedActivity : AppCompatActivity() {
                         Collections.shuffle(dataPosts)
                     }
 
-                    //feedAdapter.notifyDataSetChanged()
-                    //feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
-                    //rvFeed.adapter = feedAdapter
+                    if (!dataPosts.isEmpty()){
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
+                        tvSubNone.visibility = View.GONE
+                    }
 
-                    ivNone.visibility = View.GONE
-                    tvNone.visibility = View.GONE
-                    tvSubNone.visibility = View.GONE
+                    else{
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                        tvSubNone.visibility = View.VISIBLE
+                    }
 
+                    feedAdapter.notifyDataSetChanged()
                 }
 
                 else{
@@ -298,18 +313,16 @@ class BrowseFeedActivity : AppCompatActivity() {
                     tvNone.visibility = View.VISIBLE
                     tvSubNone.visibility = View.VISIBLE
                 }
-
-                feedAdapter = FeedAdapter(ArrayList(dataPosts.reversed()), this@BrowseFeedActivity)
-                rvFeed.adapter = feedAdapter
-
-
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
         })
     }
+
 
     /**
      * Initialize the contents of the Activity's standard options menu.

@@ -14,9 +14,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
@@ -37,6 +44,8 @@ class ViewBookmarkActivity : AppCompatActivity() {
     private lateinit var fabAddPost: FloatingActionButton
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
+
+    private lateinit var firebaseHelper: FirebaseHelper
 
     /**
      * Photo of the artwork for posting.
@@ -125,9 +134,16 @@ class ViewBookmarkActivity : AppCompatActivity() {
     private fun initIntent() {
         val intent: Intent = intent
 
-        val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        val postId = intent.getStringExtra(Keys.KEY_POSTID.name)
+        val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name)
+
+        this.firebaseHelper = FirebaseHelper(this@ViewBookmarkActivity, postId, userIdPost)
+
+        val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
-        val post = intent.getIntExtra(Keys.KEY_POST.name, 0)
+
+        val postImg = intent.getStringExtra(Keys.KEY_POST.name)
+
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
         val datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name)
         val type = intent.getStringExtra(Keys.KEY_MEDIUM.name)
@@ -135,9 +151,20 @@ class ViewBookmarkActivity : AppCompatActivity() {
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
 
-        this.civItemViewBookmarkProfilePic.setImageResource(profilePicture)
+        Glide.with(this@ViewBookmarkActivity)
+            .load(profilePicture)
+            .placeholder(R.drawable.chibi_artemis_hd)
+            .error(R.drawable.chibi_artemis_hd)
+            .into(civItemViewBookmarkProfilePic)
+
         this.tvItemViewBookmarkUsername.text = username
-        this.ivItemViewBookmarkPost.setImageResource(post)
+
+        Glide.with(this@ViewBookmarkActivity)
+            .load(postImg)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(ivItemViewBookmarkPost)
+
         this.tvItemViewBookmarkTitle.text = title
         this.tvItemViewBookmarkDatePosted.text = datePosted
         this.tvItemViewBookmarkMedium.text = type
@@ -149,22 +176,22 @@ class ViewBookmarkActivity : AppCompatActivity() {
         ibItemViewBookmarkBookmark.setOnClickListener {
             bookmark = !bookmark
             updateBookmark(bookmark)
+
+            if(bookmark){
+                firebaseHelper.updateBookmarkDB("1", postId!!, "1")
+            }
+
+            else{
+                firebaseHelper.updateBookmarkDB(null, postId!!, null)
+            }
         }
 
         civItemViewBookmarkProfilePic.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                userIdPost
             )
 
             startActivity(intent)
@@ -174,16 +201,8 @@ class ViewBookmarkActivity : AppCompatActivity() {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                userIdPost
             )
 
             startActivity(intent)

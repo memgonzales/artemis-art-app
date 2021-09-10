@@ -24,6 +24,14 @@ class HighlightsAdapter(private val dataPosts: ArrayList<Post>) :
             val intent = Intent(view.context, ViewOwnHighlightActivity::class.java)
 
             intent.putExtra(
+                Keys.KEY_USERID.name,
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getUserId()
+            )
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getPostId()
+            )
+            intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataPosts[highlightsViewHolder.bindingAdapterPosition].getProfilePicture()
             )
@@ -68,10 +76,10 @@ class HighlightsAdapter(private val dataPosts: ArrayList<Post>) :
 
     override fun onBindViewHolder(holder: HighlightsViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        //holder.setItemSearchResults(currentPost.getPostImg())
 
         Glide.with(context)
             .load(currentPost.getPostImg())
+            .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(holder.getItemSearchResults())
     }
