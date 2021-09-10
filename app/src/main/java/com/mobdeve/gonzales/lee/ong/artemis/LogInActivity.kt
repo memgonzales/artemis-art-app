@@ -202,9 +202,24 @@ class LogInActivity : AppCompatActivity() {
         super.onStart()
 
         if(this.mAuth.currentUser != null){
-            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
-            startActivity(i)
-            finish()
+            this.db.child(Keys.KEY_DB_USERS.name).orderByKey().equalTo(this.mAuth.currentUser!!.uid)
+                .addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()){
+                            val i = Intent(this@LogInActivity, BrowseFeedActivity::class.java)
+                            startActivity(i)
+                            finish()
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        val intent = Intent(this@LogInActivity, BrokenLinkActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+
+                })
+
         }
     }
 
