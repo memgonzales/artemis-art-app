@@ -8,15 +8,26 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 
 class SearchResultsUnregisteredActivity : AppCompatActivity() {
@@ -31,6 +42,10 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
     private lateinit var searchAdapter: SearchResultsUnregisteredAdapter
     private lateinit var sflSearch: ShimmerFrameLayout
 
+    private lateinit var ivNone: ImageView
+    private lateinit var tvNone: TextView
+    private lateinit var tvSubNone: TextView
+
     private lateinit var bnvSearchBottom: BottomNavigationView
     private lateinit var fabAddPost: FloatingActionButton
 
@@ -38,11 +53,36 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
 
     private lateinit var etSearchBar: EditText
 
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
+
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_results_unregistered)
 
+        initFirebase()
         initComponents()
+    }
+
+    /**
+     * Initializes the Firebase-related components.
+     */
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@SearchResultsUnregisteredActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initComponents() {
@@ -62,12 +102,13 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             initContents()
             sflSearch.visibility = View.GONE
-            tvSearchResultsArtworks.visibility = View.VISIBLE
+            //tvSearchResultsArtworks.visibility = View.VISIBLE
             rvSearch.visibility = View.VISIBLE
-            civSearchResultUser1.visibility = View.VISIBLE
-            civSearchResultUser2.visibility = View.VISIBLE
-            civSearchResultUser3.visibility = View.VISIBLE
-            civSearchResultUser4.visibility = View.VISIBLE
+
+            civSearchResultUser1.visibility = View.GONE
+            civSearchResultUser2.visibility = View.GONE
+            civSearchResultUser3.visibility = View.GONE
+            civSearchResultUser4.visibility = View.GONE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
@@ -102,8 +143,11 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
     }
 
     private fun initContents() {
-        this.dataPosts = DataHelper.loadPostDataUnregistered()
-        this.dataUsers = DataHelper.loadSearchUserData()
+        //this.dataPosts = DataHelper.loadPostDataUnregistered()
+        //this.dataUsers = DataHelper.loadSearchUserData()
+
+        this.dataPosts = arrayListOf<Post>()
+        this.dataUsers = arrayListOf<User>()
 
         this.civSearchResultUser1 = findViewById(R.id.civ_search_unregistered_result_user1)
         this.civSearchResultUser2 = findViewById(R.id.civ_search_unregistered_result_user2)
@@ -111,11 +155,22 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
         this.civSearchResultUser4 = findViewById(R.id.civ_search_unregistered_result_user4)
 
         this.tvSearchResultsArtworks = findViewById(R.id.tv_search_unregistered_results_artworks)
+        this.ivNone = findViewById(R.id.iv_search_results_unregistered_none)
+        this.tvNone = findViewById(R.id.tv_search_results_unregistered_none)
+        this.tvSubNone = findViewById(R.id.tv_search_results_subtitle_unregistered_none)
+
+        val intent: Intent = intent
+
+        val search = intent.getStringExtra(Keys.KEY_SEARCH.name).toString()
 
        // this.civSearchResultUser1.setImageResource(dataUsers[0].getUserImg())
        // this.civSearchResultUser2.setImageResource(dataUsers[1].getUserImg())
        // this.civSearchResultUser3.setImageResource(dataUsers[2].getUserImg())
        // this.civSearchResultUser4.setImageResource(dataUsers[3].getUserImg())
+
+
+        getUserSearchResults(search)
+        //getSearchPostResults(search)
 
         civSearchResultUser1.setOnClickListener {
             val intent = Intent(
@@ -213,6 +268,138 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
             }
             return@OnEditorActionListener false
         })
+    }
+
+    private fun getUserSearchResults(search: String){
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
+
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                dataUsers.clear()
+                if (snapshot.exists()){
+                    for (u in snapshot.children){
+                        var userSnap = u.getValue(User::class.java)
+
+                        if (userSnap != null && userSnap.getUsername().contains(search, ignoreCase = true)){
+                            dataUsers.add(userSnap)
+                        }
+                    }
+
+                    setSearchUserResults(dataUsers)
+                    getSearchPostResults(search, dataUsers)
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@SearchResultsUnregisteredActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+    }
+
+    private fun setSearchUserResults(data: ArrayList<User>){
+        var i = 0
+
+        while (i >= 0  && i < dataUsers.size && i < 4){
+
+            when (i){
+                0 -> {
+                    civSearchResultUser1.visibility = View.VISIBLE
+
+                    Glide.with(this)
+                        .load(dataUsers[0].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser1)
+                }
+
+
+                1 -> {
+                    civSearchResultUser2.visibility = View.VISIBLE
+
+                    Glide.with(this)
+                        .load(dataUsers[1].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser2)
+                }
+
+
+                2 -> {
+                    civSearchResultUser3.visibility = View.VISIBLE
+
+                    Glide.with(this)
+                        .load(dataUsers[2].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser3)
+                }
+
+
+                3 -> {
+                    civSearchResultUser4.visibility = View.VISIBLE
+
+                    Glide.with(this)
+                        .load(dataUsers[3].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser4)
+                }
+            }
+            i++
+        }
+    }
+
+
+    private fun getSearchPostResults(searchPost: String, dataUsers: ArrayList<User>){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                dataPosts.clear()
+                if (snapshot.exists()){
+                    for (p in snapshot.children){
+                        var postSnap = p.getValue(Post::class.java)
+
+                        if (postSnap != null && !postSnap.getTags().isNullOrEmpty()) {
+
+                            var check = postSnap.getTags().filter { it.contains(searchPost, ignoreCase = true) }
+
+                            if (check.size > 0){
+                                dataPosts.add(postSnap)
+                            }
+                        }
+                    }
+                    searchAdapter.notifyDataSetChanged()
+                    setSearchPostResults(dataPosts, dataUsers)
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@SearchResultsUnregisteredActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+    }
+
+    private fun setSearchPostResults(dataPosts: ArrayList<Post>, dataUsers: ArrayList<User>){
+        if (dataPosts.isNullOrEmpty() && dataUsers.isNullOrEmpty()){
+            this.tvSearchResultsArtworks.visibility = View.GONE
+            this.ivNone.visibility = View.VISIBLE
+            this.tvNone.visibility = View.VISIBLE
+            this.tvSubNone.visibility = View.VISIBLE
+        }
+
+        else if (!dataPosts.isNullOrEmpty()){
+            this.tvSearchResultsArtworks.visibility = View.VISIBLE
+            this.ivNone.visibility = View.GONE
+            this.tvNone.visibility = View.GONE
+            this.tvSubNone.visibility = View.GONE
+        }
     }
 
     private fun initActionBar() {

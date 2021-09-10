@@ -1,22 +1,37 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import java.util.ArrayList
 
 class SearchResultsUnregisteredAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<SearchViewHolder>() {
+
+    private lateinit var context: Context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_rectangular_pic_grid, parent, false)
+
+        context = parent.context
 
         val searchViewHolder = SearchViewHolder(itemView)
 
         itemView.setOnClickListener { view ->
             val intent = Intent(view.context, ViewPostUnregisteredActivity::class.java)
 
+            intent.putExtra(
+                Keys.KEY_USERID.name,
+                dataPosts[searchViewHolder.bindingAdapterPosition].getUserId()
+            )
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                dataPosts[searchViewHolder.bindingAdapterPosition].getPostId()
+            )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataPosts[searchViewHolder.bindingAdapterPosition].getProfilePicture()
@@ -78,7 +93,13 @@ class SearchResultsUnregisteredAdapter(private val dataPosts: ArrayList<Post>) :
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemSearchResults(currentPost.getPostImg())
+        //holder.setItemSearchResults(currentPost.getPostImg())
+
+        Glide.with(context)
+            .load(currentPost.getPostImg())
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(holder.getItemSearchResults())
     }
 
     override fun getItemCount(): Int {

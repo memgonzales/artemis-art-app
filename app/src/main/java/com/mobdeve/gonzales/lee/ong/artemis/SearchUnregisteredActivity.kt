@@ -49,6 +49,10 @@ class SearchUnregisteredActivity : AppCompatActivity() {
                 this@SearchUnregisteredActivity,
                 SearchResultsUnregisteredActivity::class.java
             )
+            intent.putExtra(
+                Keys.KEY_SEARCH.name,
+                btnSearchTag1.text.toString().trim()
+            )
             startActivity(intent)
             finish()
         }
@@ -57,6 +61,10 @@ class SearchUnregisteredActivity : AppCompatActivity() {
             val intent = Intent(
                 this@SearchUnregisteredActivity,
                 SearchResultsUnregisteredActivity::class.java
+            )
+            intent.putExtra(
+                Keys.KEY_SEARCH.name,
+                btnSearchTag2.text.toString().trim()
             )
             startActivity(intent)
             finish()
@@ -67,6 +75,10 @@ class SearchUnregisteredActivity : AppCompatActivity() {
                 this@SearchUnregisteredActivity,
                 SearchResultsUnregisteredActivity::class.java
             )
+            intent.putExtra(
+                Keys.KEY_SEARCH.name,
+                btnSearchTag3.text.toString().trim()
+            )
             startActivity(intent)
             finish()
         }
@@ -75,6 +87,10 @@ class SearchUnregisteredActivity : AppCompatActivity() {
             val intent = Intent(
                 this@SearchUnregisteredActivity,
                 SearchResultsUnregisteredActivity::class.java
+            )
+            intent.putExtra(
+                Keys.KEY_SEARCH.name,
+                btnSearchTag4.text.toString().trim()
             )
             startActivity(intent)
             finish()
@@ -85,6 +101,10 @@ class SearchUnregisteredActivity : AppCompatActivity() {
                 this@SearchUnregisteredActivity,
                 SearchResultsUnregisteredActivity::class.java
             )
+            intent.putExtra(
+                Keys.KEY_SEARCH.name,
+                btnSearchTag5.text.toString().trim()
+            )
             startActivity(intent)
             finish()
         }
@@ -92,6 +112,10 @@ class SearchUnregisteredActivity : AppCompatActivity() {
         etSearchBar.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, event ->
             if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                 val intent = Intent(this@SearchUnregisteredActivity, SearchResultsUnregisteredActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_SEARCH.name,
+                    etSearchBar.text.toString().trim()
+                )
                 startActivity(intent)
             }
             return@OnEditorActionListener false

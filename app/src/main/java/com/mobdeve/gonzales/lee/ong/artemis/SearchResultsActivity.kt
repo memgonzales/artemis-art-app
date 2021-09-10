@@ -218,8 +218,10 @@ class SearchResultsActivity : AppCompatActivity() {
     }
 
     private fun initContents() {
-        this.dataPosts = DataHelper.loadPostData();
+        //this.dataPosts = DataHelper.loadPostData();
         //this.dataUsers = DataHelper.loadSearchUserData();
+
+        this.dataPosts = arrayListOf<Post>()
         this.dataUsers = arrayListOf<User>()
 
         this.civSearchResultUser1 = findViewById(R.id.civ_search_result_user1)
@@ -342,7 +344,7 @@ class SearchResultsActivity : AppCompatActivity() {
                 0 -> {
                     civSearchResultUser1.visibility = View.VISIBLE
 
-                    Glide.with(this@SearchResultsActivity)
+                    Glide.with(this)
                         .load(dataUsers[0].getUserImg())
                         .placeholder(R.drawable.placeholder)
                         .error(R.drawable.placeholder)
@@ -353,7 +355,7 @@ class SearchResultsActivity : AppCompatActivity() {
                 1 -> {
                     civSearchResultUser2.visibility = View.VISIBLE
 
-                    Glide.with(this@SearchResultsActivity)
+                    Glide.with(this)
                         .load(dataUsers[1].getUserImg())
                         .placeholder(R.drawable.placeholder)
                         .error(R.drawable.placeholder)
@@ -364,7 +366,7 @@ class SearchResultsActivity : AppCompatActivity() {
                 2 -> {
                     civSearchResultUser3.visibility = View.VISIBLE
 
-                    Glide.with(this@SearchResultsActivity)
+                    Glide.with(this)
                         .load(dataUsers[2].getUserImg())
                         .placeholder(R.drawable.placeholder)
                         .error(R.drawable.placeholder)
@@ -375,7 +377,7 @@ class SearchResultsActivity : AppCompatActivity() {
                 3 -> {
                     civSearchResultUser4.visibility = View.VISIBLE
 
-                    Glide.with(this@SearchResultsActivity)
+                    Glide.with(this)
                         .load(dataUsers[3].getUserImg())
                         .placeholder(R.drawable.placeholder)
                         .error(R.drawable.placeholder)
