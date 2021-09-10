@@ -124,30 +124,50 @@ class SearchActivity : AppCompatActivity() {
 
         btnSearchTag1.setOnClickListener {
             val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_SEARCH.name,
+                btnSearchTag1.text.toString().trim()
+            )
             startActivity(intent)
             finish()
         }
 
         btnSearchTag2.setOnClickListener {
             val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_SEARCH.name,
+                btnSearchTag2.text.toString().trim()
+            )
             startActivity(intent)
             finish()
         }
 
         btnSearchTag3.setOnClickListener {
             val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_SEARCH.name,
+                btnSearchTag3.text.toString().trim()
+            )
             startActivity(intent)
             finish()
         }
 
         btnSearchTag4.setOnClickListener {
             val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_SEARCH.name,
+                btnSearchTag4.text.toString().trim()
+            )
             startActivity(intent)
             finish()
         }
 
         btnSearchTag5.setOnClickListener {
             val intent = Intent(this@SearchActivity, SearchResultsActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_SEARCH.name,
+                btnSearchTag5.text.toString().trim()
+            )
             startActivity(intent)
             finish()
         }
