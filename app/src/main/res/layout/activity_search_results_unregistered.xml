@@ -94,7 +94,8 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:paddingLeft="8dp"
-                            android:paddingRight="8dp">
+                            android:paddingRight="8dp"
+                            android:visibility="visible">
 
                             <include layout="@layout/item_placeholder_search_results_circle" />
 
@@ -119,10 +120,11 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="6dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
                         android:clickable="true"
+                        android:focusable="true"
                         android:src="@drawable/shoob"
                         android:visibility="gone"
                         app:civ_border_color="@color/purple_main"
@@ -132,8 +134,7 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"
-                        android:focusable="true" />
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/gl_search_unregistered_results_one_fourth"
@@ -147,10 +148,11 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="6dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
                         android:clickable="true"
+                        android:focusable="true"
                         android:src="@drawable/shoob"
                         android:visibility="gone"
                         app:civ_border_color="@color/purple_main"
@@ -160,8 +162,7 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@id/gl_search_unregistered_results_one_fourth"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"
-                        android:focusable="true" />
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/gl_search_unregistered_results_one_half"
@@ -175,10 +176,11 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="6dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
                         android:clickable="true"
+                        android:focusable="true"
                         android:src="@drawable/shoob"
                         android:visibility="gone"
                         app:civ_border_color="@color/purple_main"
@@ -188,8 +190,7 @@
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_search_unregistered_results_one_half"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"
-                        android:focusable="true" />
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/gl_search_unregistered_results_three_fourths"
@@ -203,10 +204,11 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="6dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
                         android:clickable="true"
+                        android:focusable="true"
                         android:src="@drawable/shoob"
                         android:visibility="gone"
                         app:civ_border_color="@color/purple_main"
@@ -216,8 +218,7 @@
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="@+id/gl_search_unregistered_results_three_fourths"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"
-                        android:focusable="true" />
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/gl_search_unregistered_results_artworks_top"
@@ -231,7 +232,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="3dp"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/tv_search_unregistered_results_artworks"
                         android:textSize="16sp"
@@ -240,7 +241,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/civ_search_unregistered_result_user4"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/civ_search_unregistered_result_user1"
-                        app:layout_constraintTop_toBottomOf="@id/gl_search_unregistered_results_artworks_top"
+                        app:layout_constraintTop_toBottomOf="@+id/civ_search_unregistered_result_user1"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <ImageView
@@ -299,7 +300,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_search_results_unregistered_none"
                         app:layout_constraintVertical_bias="0.0" />
-
 
 
                     <androidx.recyclerview.widget.RecyclerView
