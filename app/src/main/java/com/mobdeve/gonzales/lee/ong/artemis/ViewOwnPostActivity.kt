@@ -334,16 +334,13 @@ class ViewOwnPostActivity : AppCompatActivity() {
                     postImg
                 )
                 startActivity(intent)
-               // finish()
+                finish()
             }
 
             clDialogViewOwnPostDelete.setOnClickListener {
                 btmViewOwnPost.dismiss()
-                Toast.makeText(
-                    this@ViewOwnPostActivity,
-                    "Your post has been deleted",
-                    Toast.LENGTH_SHORT
-                ).show()
+                //Toast.makeText(this@ViewOwnPostActivity, "Your post has been deleted", Toast.LENGTH_SHORT).show()
+                firebaseHelper.deletePostDB(postId)
                 finish()
             }
 

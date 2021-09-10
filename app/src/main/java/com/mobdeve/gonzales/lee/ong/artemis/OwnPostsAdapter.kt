@@ -241,6 +241,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
             }
 
             delete.setOnClickListener { view ->
+
                 Toast.makeText(view.context, "Your post has been deleted", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }

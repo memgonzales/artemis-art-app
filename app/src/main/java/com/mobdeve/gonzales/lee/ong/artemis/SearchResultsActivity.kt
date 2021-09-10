@@ -12,6 +12,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,10 +21,20 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
@@ -49,6 +60,12 @@ class SearchResultsActivity : AppCompatActivity() {
 
     private lateinit var etSearchBar: EditText
 
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
+
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
+
     /**
      * Photo of the artwork for posting.
      */
@@ -68,6 +85,7 @@ class SearchResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_results)
 
+        initFirebase()
         initComponents()
         initGalleryLauncher(this@SearchResultsActivity)
         initCameraLauncher(this@SearchResultsActivity)
@@ -119,6 +137,24 @@ class SearchResultsActivity : AppCompatActivity() {
 
                 startActivity(intent)
             }
+        }
+    }
+
+    /**
+     * Initializes the Firebase-related components.
+     */
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@SearchResultsActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -176,7 +212,8 @@ class SearchResultsActivity : AppCompatActivity() {
 
     private fun initContents() {
         this.dataPosts = DataHelper.loadPostData();
-        this.dataUsers = DataHelper.loadSearchUserData();
+        //this.dataUsers = DataHelper.loadSearchUserData();
+        this.dataUsers = arrayListOf<User>()
 
         this.civSearchResultUser1 = findViewById(R.id.civ_search_result_user1)
         this.civSearchResultUser2 = findViewById(R.id.civ_search_result_user2)
@@ -185,11 +222,18 @@ class SearchResultsActivity : AppCompatActivity() {
 
         this.tvSearchResultsArtworks = findViewById(R.id.tv_search_results_artworks)
 
+        val intent: Intent = intent
+
+        val search = intent.getStringExtra(Keys.KEY_SEARCH.name).toString()
+
         //this.civSearchResultUser1.setImageResource(dataUsers[0].getUserImg())
         //this.civSearchResultUser2.setImageResource(dataUsers[1].getUserImg())
         //this.civSearchResultUser3.setImageResource(dataUsers[2].getUserImg())
         //this.civSearchResultUser4.setImageResource(dataUsers[3].getUserImg())
 
+        getUserSearchResults(search)
+
+        /*
         civSearchResultUser1.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
             intent.putExtra(
@@ -258,6 +302,8 @@ class SearchResultsActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
+         */
+
         this.rvSearch = findViewById(R.id.rv_search_results)
         this.rvSearch.layoutManager = GridLayoutManager(this, 2)
 
@@ -274,6 +320,81 @@ class SearchResultsActivity : AppCompatActivity() {
             }
             return@OnEditorActionListener false
         });
+    }
+
+    private fun getUserSearchResults(searchUser: String){
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
+
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                dataUsers.clear()
+                if (snapshot.exists()){
+                    for (u in snapshot.children){
+                        var userSnap = u.getValue(User::class.java)
+
+                        if (userSnap != null && userSnap.getUsername().contains(searchUser, ignoreCase = true)){
+                            dataUsers.add(userSnap)
+                        }
+                    }
+
+                    setSearchUserResults(dataUsers)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@SearchResultsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+    }
+
+    private fun setSearchUserResults(data: ArrayList<User>){
+        var i = 0
+
+        while (i >= 0  && i < dataUsers.size && i < 4){
+            when (i){
+                0 -> {
+                    Glide.with(this@SearchResultsActivity)
+                        .load(dataUsers[0].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser1)
+
+                    civSearchResultUser1.visibility = View.VISIBLE
+                }
+
+
+                1 -> {
+                    Glide.with(this@SearchResultsActivity)
+                        .load(dataUsers[1].getUserImg())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(civSearchResultUser2)
+
+                    civSearchResultUser2.visibility = View.VISIBLE
+                }
+
+
+                2 -> Glide.with(this@SearchResultsActivity)
+                    .load(dataUsers[2].getUserImg())
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
+                    .into(civSearchResultUser3)
+
+
+                3 -> Glide.with(this@SearchResultsActivity)
+                    .load(dataUsers[3].getUserImg())
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
+                    .into(civSearchResultUser4)
+
+                else -> {
+                    print("no data")
+                }
+
+            }
+        }
     }
 
     private fun initActionBar() {

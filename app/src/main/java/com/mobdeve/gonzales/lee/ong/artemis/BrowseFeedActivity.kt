@@ -78,6 +78,18 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    /*
+    private val childEventListener = object : ChildEventListener{
+        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            val post = snapshot.getValue(Post::class.java)
+
+            if (post != null){
+                post.setPostId(snapshot.key!!)
+            }
+        }
+    }
+
+     */
     /**
      * Called when the activity is starting.
      *
@@ -310,6 +322,7 @@ class BrowseFeedActivity : AppCompatActivity() {
             }
         })
     }
+
 
     /**
      * Initialize the contents of the Activity's standard options menu.

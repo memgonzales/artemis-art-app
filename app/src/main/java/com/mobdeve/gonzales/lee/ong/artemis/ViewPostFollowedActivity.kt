@@ -81,6 +81,8 @@ class ViewPostFollowedActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    private lateinit var firebaseHelper: FirebaseHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_post_followed)
@@ -162,9 +164,16 @@ class ViewPostFollowedActivity : AppCompatActivity() {
     private fun initIntent() {
         val intent: Intent = intent
 
-        val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        val postId = intent.getStringExtra(Keys.KEY_POSTID.name)
+        val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name)
+
+        this.firebaseHelper = FirebaseHelper(this@ViewPostFollowedActivity, postId, userIdPost)
+
+        val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
-        val post = intent.getIntExtra(Keys.KEY_POST.name, 0)
+
+        val postImg = intent.getStringExtra(Keys.KEY_POST.name)
+
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
         var upvoteCounter = intent.getIntExtra(Keys.KEY_NUM_UPVOTES.name, 0)
         val comments = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
@@ -175,15 +184,25 @@ class ViewPostFollowedActivity : AppCompatActivity() {
         val tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
         var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
-        val tempPost = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/shoobs.jpg?alt=media&token=759445bd-d3b6-4384-8d8e-0fe5f5f45ba5"
+
         var upvoteString = "$upvoteCounter upvotes"
         val commentString = "$comments comments"
         val tagsString = tags?.joinToString(", ")
 
-        this.civItemViewPostFollowedProfilePic.setImageResource(profilePicture)
+        Glide.with(this)
+            .load(profilePicture)
+            .placeholder(R.drawable.chibi_artemis_hd)
+            .error(R.drawable.chibi_artemis_hd)
+            .into(this.civItemViewPostFollowedProfilePic)
+
         this.tvItemViewPostFollowedUsername.text = username
-    //    this.ivItemViewPostFollowedPost.setImageResource(post)
-        Glide.with(this).load(tempPost).into(this.ivItemViewPostFollowedPost)
+
+        Glide.with(this)
+            .load(postImg)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(this.ivItemViewPostFollowedPost)
+
         this.tvItemViewPostFollowedTitle.text = title
         this.tvItemViewPostFollowedUpvoteCounter.text = upvoteString
         this.tvItemViewPostFollowedComments.text = commentString
@@ -199,6 +218,14 @@ class ViewPostFollowedActivity : AppCompatActivity() {
         ibItemViewPostFollowedBookmark.setOnClickListener {
             bookmark = !bookmark
             updateBookmark(bookmark)
+
+            if(bookmark){
+                firebaseHelper.updateBookmarkDB("1", postId!!, "1")
+            }
+
+            else{
+                firebaseHelper.updateBookmarkDB(null, postId!!, null)
+            }
         }
 
         clItemViewPostFollowedUpvote.setOnClickListener {
@@ -208,12 +235,17 @@ class ViewPostFollowedActivity : AppCompatActivity() {
                 upvoteString = "$upvoteCounter upvotes"
                 this.tvItemViewPostFollowedUpvoteCounter.text = upvoteString
                 updateUpvote(upvote)
+
+                firebaseHelper.updateUpvoteDB(null, postId!!, null, upvoteCounter)
+
             } else {
                 upvote = true
                 upvoteCounter += 1
                 upvoteString = "$upvoteCounter upvotes"
                 this.tvItemViewPostFollowedUpvoteCounter.text = upvoteString
                 updateUpvote(upvote)
+
+                firebaseHelper.updateUpvoteDB( "1", postId!!, "1", upvoteCounter)
             }
         }
 
@@ -230,16 +262,8 @@ class ViewPostFollowedActivity : AppCompatActivity() {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                userIdPost
             )
 
             startActivity(intent)
@@ -249,16 +273,8 @@ class ViewPostFollowedActivity : AppCompatActivity() {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                userIdPost
             )
 
             startActivity(intent)

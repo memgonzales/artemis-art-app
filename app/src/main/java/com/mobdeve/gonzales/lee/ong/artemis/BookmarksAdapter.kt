@@ -97,6 +97,7 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
 
         Glide.with(context)
             .load(currentPost.getPostImg())
+            .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(holder.getItemSearchResults())
     }
