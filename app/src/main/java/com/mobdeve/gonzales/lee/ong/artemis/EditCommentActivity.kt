@@ -10,6 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
+/**
+ * Class handling the functionalities related to editing a comment.
+ *
+ * @constructor Creates a class that handles the functionalities related to editing a comment.
+ */
 class EditCommentActivity : AppCompatActivity() {
     private lateinit var civEditCommentProfilePic: CircleImageView
     private lateinit var tvEditCommentUsername: TextView
@@ -20,6 +25,14 @@ class EditCommentActivity : AppCompatActivity() {
 
     private lateinit var commentId: String
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_comment)
@@ -27,6 +40,9 @@ class EditCommentActivity : AppCompatActivity() {
         initComponents()
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_edit_comment))
         initActionBar()
@@ -76,6 +92,9 @@ class EditCommentActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
