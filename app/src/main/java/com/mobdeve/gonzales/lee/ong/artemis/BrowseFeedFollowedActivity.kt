@@ -12,7 +12,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -195,13 +194,13 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlFeedFollowed = findViewById(R.id.srl_feed_followed)
         srlFeedFollowed.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlFeedFollowed.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     /**
@@ -231,14 +230,14 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadFollowedData();
 
-        this.dataPosts = arrayListOf<Post>()
-        this.rvFollowed = findViewById(R.id.rv_feed_followed);
-        this.rvFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        this.dataPosts = arrayListOf()
+        this.rvFollowed = findViewById(R.id.rv_feed_followed)
+        this.rvFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        this.feedFollowedAdapter = FeedFollowedAdapter(dataPosts, this@BrowseFeedFollowedActivity);
+        this.feedFollowedAdapter = FeedFollowedAdapter(dataPosts, this@BrowseFeedFollowedActivity)
 
 
-        this.rvFollowed.adapter = feedFollowedAdapter;
+        this.rvFollowed.adapter = feedFollowedAdapter
 
         initContent()
     }
@@ -280,14 +279,14 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
                             val userFF = userSnap.getValue(User::class.java)
 
                             if(userFF != null){
-                                var userPosts = userFF.getUserPosts().keys
+                                val userPosts = userFF.getUserPosts().keys
 
                                 getPosts(userPosts)
                             }
                         }
                     }
 
-                    if (!dataPosts.isEmpty()){
+                    if (dataPosts.isNotEmpty()){
                         ivNone.visibility = View.GONE
                         tvNone.visibility = View.GONE
                         tvSubNone.visibility = View.GONE

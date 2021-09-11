@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -248,15 +249,15 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadPostData();
-        this.dataPosts = arrayListOf<Post>()
+        this.dataPosts = arrayListOf()
 
         this.rvFeed = findViewById(R.id.rv_feed)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
 
-        this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity);
+        this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
 
 
-        this.rvFeed.adapter = feedAdapter;
+        this.rvFeed.adapter = feedAdapter
 
         initContent(false)
         getRealtimeUpdates()
@@ -277,7 +278,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                 if(snapshot.exists()){
 
                     for(postSnap in snapshot.children){
-                        var post = postSnap.getValue(Post::class.java)
+                        val post = postSnap.getValue(Post::class.java)
 
                         if(post != null){
                             if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
@@ -293,10 +294,10 @@ class BrowseFeedActivity : AppCompatActivity() {
                     }
 
                     if (shuffle) {
-                        Collections.shuffle(dataPosts)
+                        dataPosts.shuffle()
                     }
 
-                    if (!dataPosts.isEmpty()){
+                    if (dataPosts.isNotEmpty()){
                         ivNone.visibility = View.GONE
                         tvNone.visibility = View.GONE
                         tvSubNone.visibility = View.GONE
