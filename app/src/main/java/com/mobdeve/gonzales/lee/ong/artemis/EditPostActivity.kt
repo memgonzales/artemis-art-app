@@ -9,19 +9,65 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 
+/**
+ * Class handling the functionalities related to editing a post
+ *
+ * @constructor Creates a class that handles the functionalities related to editing a post.
+ */
 class EditPostActivity : AppCompatActivity() {
+    /**
+     * Input field for editing the title of the post.
+     */
     private lateinit var tietEditArtworkTitle: TextInputEditText
+
+    /**
+     * Input field for editing the medium of the artwork.
+     */
     private lateinit var tietEditArtworkMedium: TextInputEditText
+
+    /**
+     * Input field for editing the dimensions of the artwork.
+     */
     private lateinit var tietEditArtworkDimension: TextInputEditText
+
+    /**
+     * Input field for editing the description of the artwork.
+     */
     private lateinit var tietEditArtworkDescription: TextInputEditText
+
+    /**
+     * Input field for editing the tags of an artwork.
+     */
     private lateinit var tietEditArtworkTags: TextInputEditText
+
+    /**
+     * Image view for the photo of the artwork posted.
+     */
     private lateinit var ivEditArtworkPost: ImageView
+
+    /**
+     * Button for saving the edits to the details of the artwork posted.
+     */
     private lateinit var btnEditArtworkSave: Button
 
+    /**
+     * Object instantiating the class containing helper methods for Firebase CRUD operations.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
+    /**
+     * Unique identifier of the post.
+     */
     private lateinit var postId: String
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_post)
@@ -29,6 +75,9 @@ class EditPostActivity : AppCompatActivity() {
         initComponents()
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_edit_artwork))
         initActionBar()
@@ -61,6 +110,10 @@ class EditPostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Retrieves the data passed via intents and initializes the remote database helpers
+     * required for editing.
+     */
     private fun initIntent() {
         val intent: Intent = intent
 
@@ -91,6 +144,9 @@ class EditPostActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
