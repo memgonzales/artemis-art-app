@@ -87,5 +87,7 @@ enum class Keys {
     numUpvotes,
     numComments,
 
-    KEY_DB_COMMENTS
+    KEY_DB_COMMENTS,
+    commentId,
+    commentBody
 }
