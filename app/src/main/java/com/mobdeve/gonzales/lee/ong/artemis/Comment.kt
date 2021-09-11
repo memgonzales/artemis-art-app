@@ -50,7 +50,10 @@ class Comment {
      * Creates a comment.
      */
     constructor() {
-
+        /*
+         * Intentionally left empty to prevent the app from crashing when performing Firebase
+         * CRUD operations involving comments
+         */
     }
 
     /**
@@ -58,11 +61,11 @@ class Comment {
      * the comment itself, and the unique identifier, profile picture, and username of the user
      * who posted it.
      *
-     * @param userId unique identifier of the user who posted the comment
-     * @param postId unique identifier of the post to which the comment is tied
-     * @param profilePicture URI of the profile picture of the user who posted the comment
-     * @param username username of the user who posted the comment
-     * @param commentBody comment per se
+     * @param userId Unique identifier of the user who posted the comment.
+     * @param postId Unique identifier of the post to which the comment is tied.
+     * @param profilePicture URI of the profile picture of the user who posted the comment.
+     * @param username Username of the user who posted the comment.
+     * @param commentBody Comment per se.
      */
     constructor(userId: String, postId: String, profilePicture: String, username: String, commentBody: String) {
         this.userId = userId
@@ -78,7 +81,7 @@ class Comment {
     /**
      * Returns the unique identifier of the user who posted the comment.
      *
-     * @return unique identifier of the user who posted the comment
+     * @return Unique identifier of the user who posted the comment.
      */
     fun getUserId(): String? {
         return this.userId
@@ -87,7 +90,7 @@ class Comment {
     /**
      * Returns the unique identifier of the post to which the comment is tied.
      *
-     * @return unique identifier of the post to which the comment is tied
+     * @return Unique identifier of the post to which the comment is tied.
      */
     fun getPostId(): String? {
         return this.postId
@@ -96,7 +99,7 @@ class Comment {
     /**
      * Returns the unique identifier of the comment.
      *
-     * @return unique identifier of the comment
+     * @return Unique identifier of the comment.
      */
     fun getCommentId(): String? {
         return this.commentId
@@ -105,7 +108,7 @@ class Comment {
     /**
      * Returns the profile picture of the user who posted the comment.
      *
-     * @return profile picture of the user who posted the comment
+     * @return Profile picture of the user who posted the comment.
      */
     fun getProfilePicture(): String? {
         return this.profilePicture
@@ -114,7 +117,7 @@ class Comment {
     /**
      * Returns the username of the user who posted the comment.
      *
-     * @return username of the user who posted the comment
+     * @return Username of the user who posted the comment.
      */
     fun getUsername(): String? {
         return this.username
@@ -123,7 +126,7 @@ class Comment {
     /**
      * Returns the date when the comment was posted.
      *
-     * @return date when the comment was posted.
+     * @return Date when the comment was posted.
      */
     fun getDateCommented(): String? {
         return this.dateCommented
@@ -132,7 +135,7 @@ class Comment {
     /**
      * Returns the comment per se.
      *
-     * @return comment per se
+     * @return Comment per se.
      */
     fun getCommentBody(): String? {
         return this.commentBody
@@ -152,7 +155,7 @@ class Comment {
     /**
      * Sets the unique identifier of the user who posted the comment to the specified string.
      *
-     * @param userId string to which the unique identifier of the user is to be set
+     * @param userId String to which the unique identifier of the user is to be set.
      */
     fun setUserId(userId: String?){
         this.userId = userId
@@ -161,8 +164,8 @@ class Comment {
     /**
      * Sets the unique identifier of the post to which the comment is tied to the specified string.
      *
-     * @param postId string to which the unique identifier of the post to which the comment is tied
-     * is to be set
+     * @param postId String to which the unique identifier of the post to which the comment is tied
+     * is to be set.
      */
     fun setPostId(postId: String?){
         this.postId = postId
@@ -171,7 +174,7 @@ class Comment {
     /**
      * Sets the unique identifier of the comment to the specified string.
      *
-     * @param commentId string to which the unique identifier of the comment is to be set
+     * @param commentId String to which the unique identifier of the comment is to be set.
      */
     fun setCommentId(commentId: String?){
         this.commentId = commentId
@@ -182,7 +185,7 @@ class Comment {
      * by the given URI.
      *
      * @param profPic URI of the photo to which the profile picture of the user who posted
-     * the comment to the photo specified is to be set
+     * the comment to the photo specified is to be set.
      */
     fun setProfilePicture(profPic: String?){
         this.profilePicture = profPic
@@ -191,7 +194,7 @@ class Comment {
     /**
      * Sets the username of the user who posted the comment to the specified string.
      *
-     * @param username string to which the username of the user who posted the comment is to be set
+     * @param username String to which the username of the user who posted the comment is to be set.
      */
     fun setUsername(username: String?){
         this.username = username
@@ -200,7 +203,7 @@ class Comment {
     /**
      * Sets the date when the comment was posted to the specified string.
      *
-     * @param dateCommented string to which the date when the comment was posted is to be set
+     * @param dateCommented String to which the date when the comment was posted is to be set.
      */
     fun setDateCommented(dateCommented: String?){
         this.dateCommented = dateCommented
@@ -209,7 +212,7 @@ class Comment {
     /**
      * Sets the comment per se to the specified string.
      *
-     * @param commentBody string to which the comment per se is to be set
+     * @param commentBody String to which the comment per se is to be set.
      */
     fun setCommentBody(commentBody: String?){
         this.commentBody = commentBody
@@ -220,7 +223,7 @@ class Comment {
      * created by another user.
      *
      * @param editable <code>true</code> if the user is allowed to edit a comment; <code>false</code>,
-     * otherwise
+     * otherwise.
      */
     fun setEditable(editable: Boolean){
         this.editable = editable

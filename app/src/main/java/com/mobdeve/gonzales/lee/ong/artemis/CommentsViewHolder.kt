@@ -17,7 +17,7 @@ import java.io.File
  * View holder for the recycler view that handles the comments on the posts.
  *
  * @constructor Creates a view holder for the recycler view that handles the comments on the posts.
- * @param itemView layout for a single item in the recycler view
+ * @param itemView Layout for a single item in the recycler view.
  */
 class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
@@ -63,7 +63,7 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Returns the image view for the profile picture of the user who posted the comment.
      *
-     * @return image view for the profile picture of the user who posted the comment.
+     * @return Image view for the profile picture of the user who posted the comment.
      */
     fun getItemCommentProfilePic() : CircleImageView {
         return civItemCommentProfilePic
@@ -74,7 +74,7 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
      * by the given URI.
      *
      * @param picture URI of the photo to which the profile picture of the user who posted
-     * the comment to the photo specified is to be set
+     * the comment to the photo specified is to be set.
      */
     fun setItemCommentProfilePic(picture: String) {
 
@@ -93,7 +93,7 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Sets the username of the user who posted the comment to the specified string.
      *
-     * @param name string to which the username of the user who posted the comment is to be set
+     * @param name String to which the username of the user who posted the comment is to be set.
      */
     fun setItemCommentUsername(name: String?) {
         tvItemCommentUsername.text = name
@@ -102,7 +102,7 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Sets the date when the comment was posted to the specified string.
      *
-     * @param date string to which the date when the comment was posted is to be set
+     * @param date String to which the date when the comment was posted is to be set.
      */
     fun setItemCommentDate(date: String?) {
         tvItemCommentDate.text = date
@@ -111,7 +111,7 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Sets the comment to the specified string.
      *
-     * @param comment string to which the comment is to be set
+     * @param comment String to which the comment is to be set.
      */
     fun setItemCommentComment(comment: String?) {
         tvItemCommentComment.text = comment
@@ -122,7 +122,7 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
      * created by another user.
      *
      * @param editable <code>true</code> if the user is allowed to edit a comment; <code>false</code>,
-     * otherwise
+     * otherwise.
      */
     fun setItemCommentEdit(editable: Boolean) {
         if (editable)
@@ -135,7 +135,7 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
      * Sets the onclick listener of the profile picture of the user who posted the comment.
      *
      * @param onClickListener onclick listener of the profile picture of the user who posted
-     * the comment
+     * the comment.
      */
     fun setItemCommentProfileOnClickListener(onClickListener: View.OnClickListener) {
         civItemCommentProfilePic.setOnClickListener(onClickListener)
@@ -154,7 +154,7 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Returns the bottom sheet dialog for modifying a comment (that is, either editing or deleting it).
      *
-     * @return bottom sheet dialog for modifying a comment (that is, either editing or deleting it)
+     * @return Bottom sheet dialog for modifying a comment (that is, either editing or deleting it).
      */
     fun getItemCommentOptions(): BottomSheetDialog {
         return this.btmItemCommentOptions

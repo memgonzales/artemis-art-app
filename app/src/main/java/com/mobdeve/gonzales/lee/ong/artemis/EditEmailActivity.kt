@@ -156,7 +156,7 @@ class EditEmailActivity : AppCompatActivity() {
      *
      * @param email string to be checked for validity as an email address
      * @return <code>true</code> if the given string is a valid email address; <code>false</code>,
-     * otherwise
+     * otherwise.
      */
     private fun validEmail(email: String): Boolean{
         var isValid = true
@@ -184,7 +184,7 @@ class EditEmailActivity : AppCompatActivity() {
      * Saves the new email address in the remote database, effectively replacing the old email
      * address of the user.
      *
-     * @param email new email address of the user
+     * @param email New email address of the user.
      */
     private fun updateEmail(email: String){
         pbEditEmail.visibility = View.VISIBLE
@@ -239,7 +239,7 @@ class EditEmailActivity : AppCompatActivity() {
     /**
      * Checks if the given email address is already registered in the remote database.
      *
-     * @param email email address to be checked
+     * @param email Email address to be checked.
      */
     private fun checkEmail(email: String){
 

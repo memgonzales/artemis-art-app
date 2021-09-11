@@ -18,17 +18,17 @@ import kotlin.math.sqrt
  */
 class CaptionPlacer {
     /**
-     * Companion object containing a method to overlay a text on a bitmap (image)
+     * Companion object containing a method to overlay a text on a bitmap (image).
      */
     companion object {
         /**
-         * Overlays two lines of text on a solid background drawn at the bottom of a bitmap (image)
+         * Overlays two lines of text on a solid background drawn at the bottom of a bitmap (image).
          *
-         * @param picture image on which the text is to be overlain
-         * @param firstLine first line of text to be placed
-         * @param secondLine second line of text to be placed
+         * @param picture Image on which the text is to be overlain.
+         * @param firstLine First line of text to be placed.
+         * @param secondLine Second line of text to be placed.
          *
-         * @return bitmap with the two lines of text overlain on the original image
+         * @return Bitmap with the two lines of text overlain on the original image.
          */
         fun placeCaption(picture: Bitmap, firstLine: String, secondLine: String): Bitmap {
             val paintRectangle = Paint()

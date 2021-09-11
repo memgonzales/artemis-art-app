@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -14,7 +13,7 @@ import java.util.*
  * Adapter for the recycler view that handles the comments on the posts.
  *
  * @constructor Creates an adapter for the recycler view that handles the comments on the posts.
- * @param dataComments comments on the posts
+ * @param dataComments Comments on the posts.
  */
 class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
     RecyclerView.Adapter<CommentsViewHolder>() {
@@ -110,7 +109,7 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
                 view.context.startActivity(intent)
             }
 
-            delete.setOnClickListener { view ->
+            delete.setOnClickListener {
                 this.firebaseHelper.deleteCommentDB(currentComment.getCommentId()!!, currentComment.getPostId()!!)
 
                 //Toast.makeText(view.context, "Your comment has been deleted", Toast.LENGTH_SHORT).show()
