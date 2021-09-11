@@ -30,6 +30,7 @@ enum class Keys {
     KEY_BIO,
     KEY_COMMENT_BODY,
     KEY_USERID,
+    KEY_COMMENTID,
 
     KEY_SEARCH,
     

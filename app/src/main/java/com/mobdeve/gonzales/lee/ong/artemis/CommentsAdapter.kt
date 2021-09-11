@@ -64,17 +64,10 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
         holder.setItemCommentProfileOnClickListener { view ->
             val intent = Intent(view.context, ViewUserActivity::class.java)
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                currentComment.getProfilePicture()
+                Keys.KEY_USERID.name,
+                currentComment.getUserId()
             )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                currentComment.getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
-            )
+
             view.context.startActivity(intent)
         }
 
@@ -83,12 +76,16 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
             val dialog = holder.getItemCommentOptions()
             dialog.setContentView(dialogView)
 
-            val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_gallery)
-            val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_post_artwork_photo)
+            val edit: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_comment_gallery)
+            val delete: ConstraintLayout = dialogView.findViewById(R.id.cl_dialog_comment_photo)
 
             edit.setOnClickListener{ view ->
                 dialog.dismiss()
                 val intent = Intent(view.context, EditCommentActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_COMMENTID.name,
+                    currentComment.getCommentId()
+                )
                 intent.putExtra(
                     Keys.KEY_PROFILE_PICTURE.name,
                     currentComment.getProfilePicture()

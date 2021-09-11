@@ -259,7 +259,7 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.rvFeed.adapter = feedAdapter;
 
         initContent(false)
-        //getRealtimeUpdates()
+        getRealtimeUpdates()
 
     }
 
@@ -340,6 +340,8 @@ class BrowseFeedActivity : AppCompatActivity() {
                     if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
                         post.setBookmark(true)
                     }
+
+                    Toast.makeText(applicationContext, "ch: " + post.getNumComments(), Toast.LENGTH_SHORT).show()
 
                     dataPosts.add(post)
                 }

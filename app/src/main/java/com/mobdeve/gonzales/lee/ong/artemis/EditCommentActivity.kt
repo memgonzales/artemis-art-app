@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
 class EditCommentActivity : AppCompatActivity() {
@@ -14,6 +15,10 @@ class EditCommentActivity : AppCompatActivity() {
     private lateinit var tvEditCommentUsername: TextView
     private lateinit var etEditComment: EditText
     private lateinit var btnEditCommentSave: Button
+
+    private lateinit var firebaseHelper: FirebaseHelper
+
+    private lateinit var commentId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,26 +36,41 @@ class EditCommentActivity : AppCompatActivity() {
         this.etEditComment = findViewById(R.id.et_edit_comment)
         this.btnEditCommentSave = findViewById(R.id.btn_edit_comment_save)
 
-        btnEditCommentSave.setOnClickListener {
-            Toast.makeText(
-                this@EditCommentActivity,
-                "Your comment has been updated",
-                Toast.LENGTH_SHORT
-            ).show()
-            finish()
-        }
-
         initIntent()
+
+        btnEditCommentSave.setOnClickListener {
+            var commentBody = etEditComment.text.toString().trim()
+
+            if (!commentBody.isNullOrEmpty()){
+                this.firebaseHelper.editComment(commentId, commentBody)
+                finish()
+            }
+            else{
+                Toast.makeText(this, "Comments should not be blank", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun initIntent() {
         val intent: Intent = intent
 
-        val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        val cmtId = intent.getStringExtra(Keys.KEY_COMMENTID.name)
+        if(!cmtId.isNullOrEmpty()){
+            this.commentId = cmtId
+        }
+
+        this.firebaseHelper = FirebaseHelper(this@EditCommentActivity, commentId)
+
+        val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
         val commentBody = intent.getStringExtra(Keys.KEY_COMMENT_BODY.name)
 
-        this.civEditCommentProfilePic.setImageResource(profilePicture)
+        Glide.with(this)
+            .load(profilePicture)
+            .placeholder(R.drawable.chibi_artemis_hd)
+            .error(R.drawable.chibi_artemis_hd)
+            .into(this.civEditCommentProfilePic)
+
         this.tvEditCommentUsername.text = username
         this.etEditComment.setText(commentBody)
 

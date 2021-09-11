@@ -338,10 +338,14 @@ class ViewOwnPostActivity : AppCompatActivity() {
             }
 
             clDialogViewOwnPostDelete.setOnClickListener {
+                firebaseHelper.deletePostDB(postId)
+                val intent = Intent(this@ViewOwnPostActivity, BrowseOwnPostsActivity::class.java)
+                startActivity(intent)
+                finish()
+
                 btmViewOwnPost.dismiss()
                 //Toast.makeText(this@ViewOwnPostActivity, "Your post has been deleted", Toast.LENGTH_SHORT).show()
-                firebaseHelper.deletePostDB(postId)
-                finish()
+
             }
 
             btmViewOwnPost.show()

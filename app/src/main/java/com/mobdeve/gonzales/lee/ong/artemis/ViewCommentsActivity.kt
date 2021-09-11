@@ -56,6 +56,7 @@ class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var db: DatabaseReference
 
     private lateinit var postId: String
+    private var numComment: Int = 0
 
     /**
      * Photo of the artwork for posting.
@@ -101,8 +102,9 @@ class ViewCommentsActivity : AppCompatActivity() {
     private fun initIntent(){
         val intent: Intent = intent
         this.postId = intent.getStringExtra(Keys.KEY_POSTID.name).toString()
+        this.numComment = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
 
-        if (postId.equals(null)){
+        if (postId.isNullOrEmpty()){
             val intent = Intent(this@ViewCommentsActivity, BrokenLinkActivity::class.java)
             startActivity(intent)
         }
@@ -234,30 +236,12 @@ class ViewCommentsActivity : AppCompatActivity() {
 
         commentDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-               // dataComments.clear()
+                dataComments.clear()
 
                 if (snapshot.exists()){
                     for (c in snapshot.children){
 
                         var commentSnap = c.getValue(Comment::class.java)
-
-                        if (commentSnap != null){
-                            if (!commentSnap.getPostId().isNullOrEmpty() && commentSnap.getPostId()!!.contains(postId)){
-
-                                if (commentSnap.getUserId().equals(userId)){
-                                    commentSnap.setEditable(true)
-                                }
-
-                                dataComments.add(commentSnap)
-
-
-
-                            }
-
-
-                        }
-
-
 
                         if (commentSnap != null &&
                             !commentSnap.getUserId().isNullOrEmpty() &&
@@ -265,15 +249,12 @@ class ViewCommentsActivity : AppCompatActivity() {
                             !commentSnap.getPostId().isNullOrEmpty() &&
                             commentSnap.getPostId()!!.contains(postId!!)){
 
-                                if (commentSnap.getUserId().equals(userId)){
-                                    commentSnap.setEditable(true)
-                                }
+                            if (commentSnap.getUserId().equals(userId)){
+                                commentSnap.setEditable(true)
+                            }
 
-                                dataComments.add(commentSnap)
+                            dataComments.add(commentSnap)
                         }
-
-
-
                     }
 
                     commentsAdapter.notifyDataSetChanged()
@@ -333,10 +314,12 @@ class ViewCommentsActivity : AppCompatActivity() {
     }
 
     private fun addCommentDB(comment: Comment, commentKey: String) {
+        this.numComment++
 
         val updates = hashMapOf<String, Any>(
             "/${Keys.KEY_DB_COMMENTS.name}/$commentKey" to comment,
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.comments.name}/$commentKey" to commentKey,
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.numComments.name}" to numComment,
             "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userComments.name}/$commentKey" to commentKey
         )
 
@@ -346,6 +329,10 @@ class ViewCommentsActivity : AppCompatActivity() {
                     pbComment.visibility = View.GONE
                     Toast.makeText(this@ViewCommentsActivity, "Commented successfully", Toast.LENGTH_LONG).show()
                     etComment.text.clear()
+
+                    comment.setEditable(true)
+                    dataComments.add(comment)
+                    commentsAdapter.notifyDataSetChanged()
                 }
 
                 else{
