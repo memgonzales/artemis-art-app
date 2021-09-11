@@ -186,11 +186,22 @@ class FirebaseHelper {
 
         postDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                TODO("Not yet implemented")
+                if (snapshot.exists()){
+                    for (postSnap in snapshot.children){
+                        var post = postSnap.getValue(Post::class.java)
+
+                        if (post != null){
+                            if (post.getComments() != null && post.getComments().keys.contains(commentId)){
+                                //HAHAHA
+                            }
+                        }
+                    }
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                val intent = Intent(context, BrokenLinkActivity::class.java)
+                context.startActivity(intent)
             }
 
         })

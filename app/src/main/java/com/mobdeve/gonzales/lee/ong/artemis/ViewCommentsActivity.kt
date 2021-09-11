@@ -320,7 +320,6 @@ class ViewCommentsActivity : AppCompatActivity() {
             "/${Keys.KEY_DB_COMMENTS.name}/$commentKey" to comment,
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.comments.name}/$commentKey" to commentKey,
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.numComments.name}" to numComment,
-            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userComments.name}/$commentKey" to commentKey
         )
 
         db.updateChildren(updates)
