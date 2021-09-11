@@ -60,26 +60,26 @@
 
         <TextView
             android:id="@+id/tv_item_comment_username"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
             android:clickable="true"
             android:ellipsize="end"
+            android:focusable="true"
             android:fontFamily="sans-serif-medium"
             android:maxLines="1"
             android:scrollHorizontally="true"
             android:text="@string/tv_item_comment_username"
             android:textSize="16sp"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toTopOf="@id/tv_item_comment_date"
             app:layout_constraintEnd_toStartOf="@+id/ib_item_comment_edit"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/gl_item_comment_right_user_pic"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.133"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintWidth_default="wrap"
-            android:focusable="true" />
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/tv_item_comment_date"
