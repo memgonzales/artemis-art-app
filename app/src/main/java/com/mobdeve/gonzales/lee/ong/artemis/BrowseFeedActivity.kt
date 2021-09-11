@@ -257,6 +257,7 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.rvFeed.adapter = feedAdapter;
 
         initContent(false)
+        getRealtimeUpdates()
 
     }
 
@@ -267,7 +268,7 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addValueEventListener(object: ValueEventListener{
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataPosts.clear()
@@ -320,6 +321,55 @@ class BrowseFeedActivity : AppCompatActivity() {
                 val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
+        })
+    }
+
+    private fun getRealtimeUpdates(){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addChildEventListener(object: ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                        post.setUpvote(true)
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                        post.setBookmark(true)
+                    }
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                        post.setUpvote(true)
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                        post.setBookmark(true)
+                    }
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val post = snapshot.getValue(Post::class.java)
+                dataPosts.remove(post)
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
         })
     }
 

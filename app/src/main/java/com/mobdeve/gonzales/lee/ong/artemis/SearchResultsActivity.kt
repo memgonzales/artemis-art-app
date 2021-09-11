@@ -246,6 +246,7 @@ class SearchResultsActivity : AppCompatActivity() {
         getUserSearchResults(search)
         //getSearchPostResults(search)
 
+
         civSearchResultUser1.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
             intent.putExtra(
@@ -314,11 +315,13 @@ class SearchResultsActivity : AppCompatActivity() {
                 dataUsers.clear()
                 if (snapshot.exists()){
                     for (u in snapshot.children){
+
                         var userSnap = u.getValue(User::class.java)
 
                         if (userSnap != null && userSnap.getUsername().contains(search, ignoreCase = true)){
                             dataUsers.add(userSnap)
                         }
+
                     }
 
                     setSearchUserResults(dataUsers)

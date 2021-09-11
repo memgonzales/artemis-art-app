@@ -45,7 +45,7 @@ class FirebaseHelper {
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
 
-        if(postId == null || userIdPost == null){
+        if(postId.isNullOrEmpty() || userIdPost.isNullOrEmpty()){
             val intent = Intent(context, BrokenLinkActivity::class.java)
             context.startActivity(intent)
         }
@@ -63,31 +63,37 @@ class FirebaseHelper {
         this.context = context
     }
 
-    fun updateUpvoteDB(userVal: String?, postKey: String, postVal: String?, numUpvotes: Int){
-        val updates = hashMapOf<String, Any?>(
-            "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.upvoteUsers.name}/$userId" to userVal,
-            "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.numUpvotes.name}" to numUpvotes,
-            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.upvotedPosts.name}/$postKey" to postVal
-        )
+    fun updateUpvoteDB(userVal: String?, postKey: String?, postVal: String?, numUpvotes: Int){
+        if (!postKey.isNullOrEmpty()){
+            val updates = hashMapOf<String, Any?>(
+                "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.upvoteUsers.name}/$userId" to userVal,
+                "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.numUpvotes.name}" to numUpvotes,
+                "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.upvotedPosts.name}/$postKey" to postVal
+            )
 
-        db.updateChildren(updates)
+            db.updateChildren(updates)
+        }
     }
 
-    fun updateBookmarkDB(userVal: String?, postKey: String, postVal: String?){
-        val updates = hashMapOf<String, Any?>(
-            "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.bookmarkUsers.name}/$userId" to userVal,
-            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bookmarks.name}/$postKey" to postVal
-        )
+    fun updateBookmarkDB(userVal: String?, postKey: String?, postVal: String?){
+        if (!postKey.isNullOrEmpty()){
+            val updates = hashMapOf<String, Any?>(
+                "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.bookmarkUsers.name}/$userId" to userVal,
+                "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bookmarks.name}/$postKey" to postVal
+            )
 
-        db.updateChildren(updates)
+            db.updateChildren(updates)
+        }
     }
 
-    fun updateHighlightDB(postKey: String, postVal: String?){
-        val updates = hashMapOf<String, Any?>(
-            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.highlights.name}/$postKey" to postVal
-        )
+    fun updateHighlightDB(postKey: String?, postVal: String?){
+        if(!postKey.isNullOrEmpty()){
+            val updates = hashMapOf<String, Any?>(
+                "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.highlights.name}/$postKey" to postVal
+            )
 
-        db.updateChildren(updates)
+            db.updateChildren(updates)
+        }
     }
 
     fun updateUserPostDB(postKey: String, postVal: String?){

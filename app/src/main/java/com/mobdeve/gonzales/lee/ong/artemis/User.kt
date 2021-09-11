@@ -5,63 +5,64 @@ package com.mobdeve.gonzales.lee.ong.artemis
  */
 class User {
 
-    private lateinit var userId: String
+    private var userId: String
     /**
      * Username of the user.
      */
-    private lateinit var username: String
+    private var username: String
 
     /**
      * Email address of the user.
      */
-    private lateinit var email: String
+    private var email: String
 
     /**
      * Password of the user.
      */
-    private lateinit var password: String
+    private var password: String
 
     /**
      * Profile picture of the user.
      */
-    private lateinit var userImg: String
+    private var userImg: String
 
     /**
      * Short bio of the user.
      */
-    private lateinit var bio: String
+    private var bio: String
 
     /**
      * Identifiers of the posts bookmarked by the user.
      */
-    private lateinit var bookmarks: HashMap<String, Any?>
+    private var bookmarks: HashMap<String, Any?>
 
     /**
      * Identifiers of the posts created by the user.
      */
-    private lateinit var userPosts: HashMap<String, Any?>
+    private var userPosts: HashMap<String, Any?>
 
     /**
      * Identifiers of the highlights posted by the user.
      */
-    private lateinit var highlights: HashMap<String, Any?>
+    private var highlights: HashMap<String, Any?>
 
     /**
      * Identifiers of the posts upvoted by the user.
      */
-    private lateinit var upvotedPosts: HashMap<String, Any?>
+    private var upvotedPosts: HashMap<String, Any?>
 
     /**
      * Identifiers of the users followed by the user.
      */
-    private lateinit var usersFollowed: HashMap<String, Any?>
+    private var usersFollowed: HashMap<String, Any?>
 
     /**
      * Identifiers of the comments written by the user.
      */
-    private lateinit var userComments: HashMap<String, Any?>
+    private var userComments: HashMap<String, Any?>
 
     constructor(){
+        this.userId = ""
         this.username = ""
         this.email = ""
         this.password = ""
@@ -84,6 +85,7 @@ class User {
      * @param password password of the user
      */
     constructor(username: String, email: String, password: String){
+         this.userId = ""
          this.username = username
          this.email = email
          this.password = password
@@ -109,6 +111,7 @@ class User {
      * @param bio short bio of the user
      */
     constructor(username: String, email: String, password: String, userImg: String, bio: String){
+        this.userId = ""
         this.username = username
         this.email = email
         this.password = password
