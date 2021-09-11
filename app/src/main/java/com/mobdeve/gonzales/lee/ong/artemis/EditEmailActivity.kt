@@ -24,7 +24,8 @@ import com.google.firebase.ktx.Firebase
 /**
  * Class handling the functionalities related to editing the user's email address.
  *
- * @constructor Creates a class that handles the functionalities related to editing a comment.
+ * @constructor Creates a class that handles the functionalities related to editing the user's
+ * email address.
  */
 class EditEmailActivity : AppCompatActivity() {
     /**

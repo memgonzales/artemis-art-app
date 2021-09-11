@@ -1,12 +1,12 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.AuthCredential
@@ -21,6 +21,11 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
+/**
+ * Class handling the functionalities related to editing the user's password.
+ *
+ * @constructor Creates a class that handles the functionalities related to editing a comment.
+ */
 class EditPasswordActivity : AppCompatActivity() {
 
     private lateinit var tilEditPw: TextInputLayout
