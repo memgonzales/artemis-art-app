@@ -79,7 +79,7 @@ class EditEmailActivity : AppCompatActivity() {
     private lateinit var userId: String
 
     /**
-     * Emai laddress of the user.
+     * Email address of the user.
      */
     private lateinit var email: String
 
@@ -144,7 +144,7 @@ class EditEmailActivity : AppCompatActivity() {
     }
 
     /**
-     * Initializes the components of the activity.
+     * Adds a back button to the action bar.
      */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -217,7 +217,7 @@ class EditEmailActivity : AppCompatActivity() {
     }
 
     /**
-     * Defines the behavior when the email address was successfully edited.
+     * Defines the behavior when the email address is successfully edited.
      */
     private fun updateSuccessfully(){
         pbEditEmail.visibility = View.GONE
@@ -229,7 +229,7 @@ class EditEmailActivity : AppCompatActivity() {
     }
 
     /**
-     * Defines the behavior when the email address was not successfully edited.
+     * Defines the behavior when the email address is not successfully edited.
      */
     private fun updateFailed(){
         pbEditEmail.visibility = View.GONE

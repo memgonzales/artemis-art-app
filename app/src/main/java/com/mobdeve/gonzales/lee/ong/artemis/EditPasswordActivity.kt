@@ -48,22 +48,59 @@ class EditPasswordActivity : AppCompatActivity() {
      */
     private lateinit var tietNewPw: TextInputEditText
 
+    /**
+     * Text input layout for confirming the new password.
+     */
     private lateinit var tilConfirmPw: TextInputLayout
+
+    /**
+     * Input field for confirming the new password.
+     */
     private lateinit var tietConfirmPw: TextInputEditText
 
+    /**
+     * Button for saving the new password.
+     */
     private lateinit var btnEditPw: Button
 
+    /**
+     * Progress bar to signal that data are being saved into the database.
+     */
     private lateinit var pbEditPw: ProgressBar
 
-    //Firebase
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: DatabaseReference
 
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user.
+     */
     private lateinit var userId: String
 
+    /**
+     * Credential that the Firebase Authentication server can use to authenticate the user
+     */
     private lateinit var credentials: AuthCredential
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_password)
@@ -72,6 +109,9 @@ class EditPasswordActivity : AppCompatActivity() {
         initComponents()
     }
 
+    /**
+     * Initializes the Firebase-related components.
+     */
     private fun initFirebase(){
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
@@ -80,6 +120,9 @@ class EditPasswordActivity : AppCompatActivity() {
         this.userId = this.user.uid
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_edit_password))
         initActionBar()
@@ -108,11 +151,22 @@ class EditPasswordActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Checks whether the user entered an old password (although verifying if the input is correct
+     * is delegated to a separate method) and whether the new password and its confirmation match.
+     *
+     * @param pw old password of the user
+     * @param newPw new password of the user
+     * @param confirmPw confirmation of the new password of the user
+     */
     private fun validPassword(pw: String, newPw: String, confirmPw: String): Boolean{
         var isValid = true
 
@@ -131,8 +185,6 @@ class EditPasswordActivity : AppCompatActivity() {
             }
         }
 
-
-
         when {
             newPw.isEmpty() -> {
                 this.tilNewPw.error = "Required"
@@ -148,8 +200,6 @@ class EditPasswordActivity : AppCompatActivity() {
                 this.tilNewPw.error = null
             }
         }
-
-
 
         when {
             confirmPw.isEmpty() -> {
@@ -170,6 +220,13 @@ class EditPasswordActivity : AppCompatActivity() {
         return isValid
     }
 
+    /**
+     * Saves the new password in the remote database, effectively replacing the old password
+     * of the user.
+     *
+     * @param oldPw old password of the user
+     * @param newPw new password of the user
+     */
     private fun updatePassword(oldPw: String, newPw: String){
         pbEditPw.visibility = View.VISIBLE
 
@@ -214,6 +271,9 @@ class EditPasswordActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Defines the behavior when the password is successfully edited.
+     */
     private fun updateSuccessfully(){
         pbEditPw.visibility = View.GONE
         Toast.makeText(applicationContext, "Your password have been updated", Toast.LENGTH_SHORT).show()
@@ -223,11 +283,17 @@ class EditPasswordActivity : AppCompatActivity() {
         finish()
     }
 
+    /**
+     * Defines the behavior when the password is not successfully edited.
+     */
     private fun updateFailed(){
         pbEditPw.visibility = View.GONE
         Toast.makeText(applicationContext, "Failed to update your password", Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * Defines the behavior when the user entered an incorrect old password.
+     */
     private fun invalidOldPw(){
         pbEditPw.visibility = View.GONE
         Toast.makeText(this@EditPasswordActivity, "Invalid Old Password", Toast.LENGTH_SHORT).show()
