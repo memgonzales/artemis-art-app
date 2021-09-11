@@ -56,25 +56,84 @@ class BrowseFeedActivity : AppCompatActivity() {
      * Adapter for the recycler view handling the posts to be displayed on the feed.
      */
     private lateinit var feedAdapter: FeedAdapter
+
+    /**
+     * Shimmer layout displayed while data regarding the posts are being fetched
+     * from the remote database.
+     */
     private lateinit var sflFeed: ShimmerFrameLayout
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvFeedBottom: BottomNavigationView
+
+    /**
+     * Nested scroll view for the main layout of this activity.
+     */
     private lateinit var nsvFeed: NestedScrollView
 
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
     private lateinit var srlFeed: SwipeRefreshLayout
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Image view displayed when the feed does not have any post to display.
+     */
     private lateinit var ivNone: ImageView
+
+    /**
+     * First (main) text view displayed when the feed does not have any post to display.
+     */
     private lateinit var tvNone: TextView
+
+    /**
+     * Second text view displayed displayed when the feed does not have any post to display.
+     */
     private lateinit var tvSubNone: TextView
 
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: DatabaseReference
 
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user.
+     */
     private lateinit var userId: String
 
     /**
@@ -264,6 +323,13 @@ class BrowseFeedActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Fetches the posts bookmarked by the user and updates the view, alongside the adapter
+     * and the view holder.
+     *
+     * @param shuffle <code>true</code> if the posts are shuffled before display;
+     * <code>false</code>, otherwise
+     */
     private fun initContent(shuffle: Boolean) {
         this.ivNone = findViewById(R.id.iv_feed_none)
         this.tvNone = findViewById(R.id.tv_feed_none)
@@ -326,6 +392,10 @@ class BrowseFeedActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Fetches realtime updates from the remote database to prevent the entire activity from reloading
+     * in case data change as a result of some user activity.
+     */
     private fun getRealtimeUpdates(){
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
