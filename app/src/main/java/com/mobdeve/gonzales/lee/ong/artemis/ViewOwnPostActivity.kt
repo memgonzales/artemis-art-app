@@ -223,6 +223,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load(profilePicture)
+            .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(this.civItemViewOwnPostProfilePic)
 
@@ -230,6 +231,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load(postImg)
+            .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(this.ivItemViewOwnPostPostImg)
 

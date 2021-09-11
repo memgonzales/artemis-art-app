@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -148,31 +149,60 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
 
         val postImg = intent.getStringExtra(Keys.KEY_POST.name)
-
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
         val datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name)
-        val type = intent.getStringExtra(Keys.KEY_MEDIUM.name)
+        val medium = intent.getStringExtra(Keys.KEY_MEDIUM.name)
         val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
         var highlight = intent.getBooleanExtra(Keys.KEY_HIGHLIGHT.name, false)
 
         Glide.with(this@ViewOwnHighlightActivity)
             .load(profilePicture)
+            .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
-            .into(civItemViewOwnHighlightProfilePic)
+            .into(this.civItemViewOwnHighlightProfilePic)
 
         this.tvItemViewOwnHighlightUsername.text = username
 
         Glide.with(this@ViewOwnHighlightActivity)
             .load(postImg)
+            .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
-            .into(ivItemViewOwnHighlightPost)
+            .into(this.ivItemViewOwnHighlightPost)
 
-        this.tvItemViewOwnHighlightTitle.text = title
+        if (!title.isNullOrEmpty()){
+            this.tvItemViewOwnHighlightTitle.visibility = View.VISIBLE
+            this.tvItemViewOwnHighlightTitle.text = title
+        }
+        else{
+            this.tvItemViewOwnHighlightTitle.visibility = View.INVISIBLE
+        }
+
         this.tvItemViewOwnHighlightDatePosted.text = datePosted
-        this.tvItemViewOwnHighlightMedium.text = type
-        this.tvItemViewOwnHighlightDimensions.text = dimensions
-        this.tvItemViewOwnHighlightDescription.text = description
+
+        if(!medium.isNullOrEmpty()){
+            this.tvItemViewOwnHighlightMedium.visibility = View.VISIBLE
+            this.tvItemViewOwnHighlightMedium.text = medium
+        }
+        else{
+            this.tvItemViewOwnHighlightMedium.visibility = View.GONE
+        }
+
+        if(!dimensions.isNullOrEmpty()){
+            this.tvItemViewOwnHighlightDimensions.visibility = View.VISIBLE
+            this.tvItemViewOwnHighlightDimensions.text = dimensions
+        }
+        else{
+            this.tvItemViewOwnHighlightDimensions.visibility = View.GONE
+        }
+
+        if(!description.isNullOrEmpty()){
+            this.tvItemViewOwnHighlightDescription.visibility = View.VISIBLE
+            this.tvItemViewOwnHighlightDescription.text = description
+        }
+        else{
+            this.tvItemViewOwnHighlightDescription.visibility = View.GONE
+        }
 
         updateHighlight(highlight)
 

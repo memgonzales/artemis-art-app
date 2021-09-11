@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResult
@@ -12,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -122,23 +124,66 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
     private fun initIntent() {
         val intent: Intent = intent
 
-        val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
-        val post = intent.getIntExtra(Keys.KEY_POST.name, 0)
+
+        val postImg = intent.getStringExtra(Keys.KEY_POST.name)
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
         val datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name)
-        val type = intent.getStringExtra(Keys.KEY_MEDIUM.name)
+        val medium = intent.getStringExtra(Keys.KEY_MEDIUM.name)
         val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
 
-        this.civItemViewOthersHighlightProfilePic.setImageResource(profilePicture)
+
+        //this.civItemViewOthersHighlightProfilePic.setImageResource(profilePicture)
+
+        Glide.with(this@ViewOthersHighlightActivity)
+            .load(profilePicture)
+            .placeholder(R.drawable.chibi_artemis_hd)
+            .error(R.drawable.chibi_artemis_hd)
+            .into(this.civItemViewOthersHighlightProfilePic)
+
         this.tvItemViewOthersHighlightUsername.text = username
-        this.ivItemViewOthersHighlightPost.setImageResource(post)
-        this.tvItemViewOthersHighlightTitle.text = title
+        //this.ivItemViewOthersHighlightPost.setImageResource(post)
+        Glide.with(this@ViewOthersHighlightActivity)
+            .load(postImg)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(this.ivItemViewOthersHighlightPost)
+
+        if (!title.isNullOrEmpty()){
+            this.tvItemViewOthersHighlightTitle.visibility = View.VISIBLE
+            this.tvItemViewOthersHighlightTitle.text = title
+        }
+        else{
+            this.tvItemViewOthersHighlightTitle.visibility = View.INVISIBLE
+        }
+
         this.tvItemViewOthersHighlightDatePosted.text = datePosted
-        this.tvItemViewOthersHighlightMedium.text = type
-        this.tvItemViewOthersHighlightDimensions.text = dimensions
-        this.tvItemViewOthersHighlightDescription.text = description
+
+        if(!medium.isNullOrEmpty()){
+            this.tvItemViewOthersHighlightMedium.visibility = View.VISIBLE
+            this.tvItemViewOthersHighlightMedium.text = medium
+        }
+        else{
+            this.tvItemViewOthersHighlightMedium.visibility = View.GONE
+        }
+
+        if(!dimensions.isNullOrEmpty()){
+            this.tvItemViewOthersHighlightDimensions.visibility = View.VISIBLE
+            this.tvItemViewOthersHighlightDimensions.text = dimensions
+        }
+        else{
+            this.tvItemViewOthersHighlightDimensions.visibility = View.GONE
+        }
+
+        if(!description.isNullOrEmpty()){
+            this.tvItemViewOthersHighlightDescription.visibility = View.VISIBLE
+            this.tvItemViewOthersHighlightDescription.text = description
+        }
+        else{
+            this.tvItemViewOthersHighlightDescription.visibility = View.GONE
+        }
 
         civItemViewOthersHighlightProfilePic.setOnClickListener {
             val intent = Intent(this, ViewUserActivity::class.java)
