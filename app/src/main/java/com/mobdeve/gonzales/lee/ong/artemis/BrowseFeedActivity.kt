@@ -340,7 +340,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                     }
                 }
 
-                feedAdapter.notifyDataSetChanged()
+              //  feedAdapter.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -370,7 +370,7 @@ class BrowseFeedActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val post = snapshot.getValue(Post::class.java)
                 dataPosts.remove(post)
-                feedAdapter.notifyDataSetChanged()
+                //feedAdapter.notifyDataSetChanged()
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {

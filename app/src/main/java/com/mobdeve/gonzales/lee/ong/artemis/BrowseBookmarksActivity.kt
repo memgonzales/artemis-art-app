@@ -334,7 +334,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
                     }
                 }
 
-                feedAdapter.notifyDataSetChanged()
+               // bookmarksAdapter.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -364,7 +364,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val post = snapshot.getValue(Post::class.java)
                 dataPosts.remove(post)
-                feedAdapter.notifyDataSetChanged()
+              //  bookmarksAdapter.notifyDataSetChanged()
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
@@ -373,7 +373,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
+                val intent = Intent(this@BrowseBookmarksActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
 
