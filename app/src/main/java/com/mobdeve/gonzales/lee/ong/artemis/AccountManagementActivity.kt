@@ -67,7 +67,7 @@ class AccountManagementActivity : AppCompatActivity() {
     /**
      * Starting point for all database-related operations.
      */
-    private lateinit var ref: DatabaseReference
+    private lateinit var db: DatabaseReference
 
     /**
      * Represents a user profile's information in the Firebase user database.
@@ -78,6 +78,8 @@ class AccountManagementActivity : AppCompatActivity() {
      * Identifier of the user in the Firebase database.
      */
     private lateinit var userId: String
+
+    private lateinit var firebaseHelper: FirebaseHelper
 
     /**
      * Photo of the artwork for posting.
@@ -169,9 +171,17 @@ class AccountManagementActivity : AppCompatActivity() {
      */
     private fun initFirebase(){
         this.mAuth = Firebase.auth
-        this.ref = Firebase.database.reference
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
+        this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@AccountManagementActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**
@@ -196,10 +206,14 @@ class AccountManagementActivity : AppCompatActivity() {
             "Delete"
         ) { _, _ ->
 
+            this.firebaseHelper = FirebaseHelper(this@AccountManagementActivity)
+            this.firebaseHelper.deleteUserDB()
+
+            /*
             this.user.delete()
                 .addOnCompleteListener { task ->
                     if(task.isSuccessful){
-                        ref.child(Keys.KEY_DB_USERS.name).child(this.userId).removeValue()
+                        this.firebaseHelper.deleteUserDB()
                         deleteSuccessfully()
                     }
 
@@ -207,6 +221,8 @@ class AccountManagementActivity : AppCompatActivity() {
                         deleteFailed()
                     }
                 }
+
+             */
         }
 
         builder.setNegativeButton(

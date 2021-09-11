@@ -3,6 +3,8 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -22,6 +24,8 @@ class FirebaseHelper {
 
     private lateinit var user: FirebaseUser
     private lateinit var userId: String
+
+    private lateinit var credential: AuthCredential
 
     constructor(context: Context){
         this.mAuth = Firebase.auth
@@ -179,11 +183,13 @@ class FirebaseHelper {
 
             commentDB.removeValue()
                 .addOnSuccessListener {
+                    Toast.makeText(context, "Your comment has been deleted", Toast.LENGTH_SHORT).show()
+
                     postDB.child(Keys.numComments.name)
                         .addListenerForSingleValueEvent(object : ValueEventListener{
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 val numComments = snapshot.getValue().toString().toInt() - 1
-                                deleteCommentFromPostDB(postId, commentId, null, numComments)
+                                updateCommentFromPostDB(postId, commentId, null, numComments)
                             }
 
                             override fun onCancelled(error: DatabaseError) {
@@ -193,39 +199,40 @@ class FirebaseHelper {
 
                         })
                 }
+                .addOnFailureListener {
+                    Toast.makeText(context, "Unable to delete your comment", Toast.LENGTH_SHORT).show()
+                }
         }
 
     }
 
-    fun deleteCommentFromPostDB(postId: String, commentKey: String?, commentVal: String?, numComments: Int){
+    fun updateCommentFromPostDB(postId: String, commentKey: String?, commentVal: String?, numComments: Int){
         val updates = hashMapOf<String, Any?>(
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.comments.name}/$commentKey" to commentVal,
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.numComments.name}" to numComments,
         )
 
         db.updateChildren(updates)
-            .addOnSuccessListener {
-                Toast.makeText(context, "Your comment has been deleted", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(context, "Unable to delete your comment", Toast.LENGTH_SHORT).show()
-            }
     }
 
 
 
-    
-    fun deletePostDB(postKey: String){
+
+    fun deletePostDB(postKey: String, delUserFF: Boolean){
         val postDB = db.child(Keys.KEY_DB_POSTS.name).child(postKey)
 
         postDB.removeValue()
             .addOnSuccessListener {
-                deletePostFromUsersDB(postKey)
+                deleteCommentFromPostDB(postKey)
+                deletePostANDUserFollowedFromUsersDB(postKey, delUserFF)
                 Toast.makeText(context, "Successfully deleted post", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Unable to delete post", Toast.LENGTH_SHORT).show()
             }
     }
 
-    fun deletePostFromUsersDB(postId: String){
+    fun deletePostANDUserFollowedFromUsersDB(postId: String, delUserFF: Boolean){
         val userDB = db.child(Keys.KEY_DB_USERS.name)
 
         userDB.addListenerForSingleValueEvent(object : ValueEventListener{
@@ -240,6 +247,7 @@ class FirebaseHelper {
                             val highlights = userSnap.getHighlights().keys
                             val upvotedPosts = userSnap.getUpvotedPosts().keys
                             val userPosts = userSnap.getUserPosts().keys
+                            val userFFs = userSnap.getUsersFollowed().keys
 
                             if(!bookmarks.isNullOrEmpty() && bookmarks.contains(postId)){
                                 updateBookmarkDB(null, postId, null)
@@ -256,6 +264,10 @@ class FirebaseHelper {
                             if (!userPosts.isNullOrEmpty() && userPosts.contains(postId)){
                                 updateUserPostDB(postId, null)
                             }
+
+                            if (delUserFF && !userFFs.isNullOrEmpty() && userFFs.contains(userId)){
+                                updateUsersFollowedDB(userId, null)
+                            }
                         }
                     }
                 }
@@ -268,6 +280,56 @@ class FirebaseHelper {
         })
     }
 
+    fun deleteCommentFromPostDB(postId: String){
+        val commentDB = db.child(Keys.KEY_DB_COMMENTS.name)
+
+        commentDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    for (c in snapshot.children){
+                        var comment = c.getValue(Comment::class.java)
+
+                        if (comment != null){
+                            if (!comment.getPostId().isNullOrEmpty() && comment.getPostId().equals(postId)){
+                                commentDB.child(comment.getCommentId()!!).removeValue()
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(context, BrokenLinkActivity::class.java)
+                context.startActivity(intent)
+            }
+
+        })
+        /*
+        commentDB.orderByChild(Keys.postId.name).equalTo(postId)
+            .addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()){
+                        for (c in snapshot.children){
+                            var commentKey = c.key!!
+
+                            commentDB.child(commentKey).removeValue()
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    val intent = Intent(context, BrokenLinkActivity::class.java)
+                    context.startActivity(intent)
+                }
+
+            })
+
+         */
+    }
+
+
+
+
     fun deleteUserDB(){
         val userDB = db.child(Keys.KEY_DB_USERS.name).child(userId)
 
@@ -275,8 +337,35 @@ class FirebaseHelper {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userSnap = snapshot.getValue(User::class.java)
 
-                if (userSnap != null){
-                    val userPosts = userSnap.getUserPosts().keys
+                if (userSnap != null && !userSnap.getEmail().isNullOrEmpty() && !userSnap.getPassword().isNullOrEmpty()){
+                    credential = EmailAuthProvider.getCredential(userSnap.getEmail()!!, userSnap.getPassword()!!)
+
+                    user.reauthenticate(credential).addOnCompleteListener {
+                        if (it.isSuccessful){
+                            deleteUser()
+
+                            user.delete().addOnCompleteListener {
+                                if (it.isSuccessful){
+
+                                    Toast.makeText(context.applicationContext, "Account deleted", Toast.LENGTH_SHORT).show()
+                                    val intent = Intent(context, LogInActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    context.startActivity(intent)
+                                }
+
+                                else{
+                                    Toast.makeText(context, "Failed to delete account", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+
+
+                        }
+
+                        else{
+                            Toast.makeText(context, "Failed to delete account", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
                 }
             }
 
@@ -287,18 +376,33 @@ class FirebaseHelper {
 
         })
 
-
-        //db.child(Keys.KEY_DB_USERS.name).child(userId).removeValue()
-
     }
-    /*
-    fun getPosts(){
-        val postDB = db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
+    fun deleteUser(){
+        val userDB = db.child(Keys.KEY_DB_USERS.name).child(userId)
 
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userSnap = snapshot.getValue(User::class.java)
+
+                if (userSnap != null){
+                    val userPosts = userSnap.getUserPosts().keys
+
+                    if (!userPosts.isNullOrEmpty()){
+                        for (postId in userPosts){
+                            deletePostDB(postId, true)
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(context, BrokenLinkActivity::class.java)
+                context.startActivity(intent)
+            }
         })
+
+        userDB.removeValue()
     }
 
-     */
 }
