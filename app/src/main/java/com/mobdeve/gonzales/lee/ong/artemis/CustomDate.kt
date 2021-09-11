@@ -7,6 +7,8 @@ import java.util.*
  *
  * This class is a direct Kotlin translation of the Java code given by Ms. Candy Joyce H. Espulgar
  * (De La Salle University, Mobile Development - MOBDEVE, Term 3, Academic Year 2020-2021)
+ *
+ * @constructor Creates a class representing a custom-formatted date.
  */
 class CustomDate {
     /**
