@@ -247,7 +247,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun storeUser(user: User) {
         this.pbSignUp.visibility = View.VISIBLE
 
-        this.mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+        this.mAuth.createUserWithEmailAndPassword(user.getEmail()!!, user.getPassword()!!)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     user.setUserId(mAuth.currentUser!!.uid)

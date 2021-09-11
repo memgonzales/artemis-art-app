@@ -7,79 +7,79 @@ class User {
     /**
      * Unique identifier of the user.
      */
-    private var userId: String
+    private var userId: String? = null
     /**
      * Username of the user.
      */
-    private var username: String
+    private var username: String? = null
 
     /**
      * Email address of the user.
      */
-    private var email: String
+    private var email: String? = null
 
     /**
      * Password of the user.
      */
-    private var password: String
+    private var password: String? = null
 
     /**
      * Profile picture of the user.
      */
-    private var userImg: String
+    private var userImg: String? = null
 
     /**
      * Short bio of the user.
      */
-    private var bio: String
+    private var bio: String? = null
 
     /**
      * Identifiers of the posts bookmarked by the user.
      */
-    private var bookmarks: HashMap<String, Any?>
+    private var bookmarks: HashMap<String, Any?> = HashMap<String, Any?>()
 
     /**
      * Identifiers of the posts created by the user.
      */
-    private var userPosts: HashMap<String, Any?>
+    private var userPosts: HashMap<String, Any?> = HashMap<String, Any?>()
 
     /**
      * Identifiers of the highlights posted by the user.
      */
-    private var highlights: HashMap<String, Any?>
+    private var highlights: HashMap<String, Any?> = HashMap<String, Any?>()
 
     /**
      * Identifiers of the posts upvoted by the user.
      */
-    private var upvotedPosts: HashMap<String, Any?>
+    private var upvotedPosts: HashMap<String, Any?> = HashMap<String, Any?>()
 
     /**
      * Identifiers of the users followed by the user.
      */
-    private var usersFollowed: HashMap<String, Any?>
+    private var usersFollowed: HashMap<String, Any?> = HashMap<String, Any?>()
 
     /**
      * Identifiers of the comments written by the user.
      */
-    private var userComments: HashMap<String, Any?>
+    private var userComments: HashMap<String, Any?> = HashMap<String, Any?>()
 
     /**
      * Creates a user.
      */
     constructor(){
-        this.userId = ""
-        this.username = ""
-        this.email = ""
-        this.password = ""
-        this.userImg = ""
-        this.bio = ""
+       // this.userId = ""
+      //  this.username = ""
+     //   this.email = ""
+      //  this.password = ""
+      //  this.userImg = ""
+      //  this.bio = ""
 
-        this.bookmarks = HashMap<String, Any?>()
-        this.userPosts = HashMap<String, Any?>()
-        this.highlights = HashMap<String, Any?>()
-        this.upvotedPosts = HashMap<String, Any?>()
-        this.usersFollowed = HashMap<String, Any?>()
-        this.userComments = HashMap<String, Any?>()
+      //  this.bookmarks = HashMap<String, Any?>()
+      //  this.userPosts = HashMap<String, Any?>()
+      //  this.highlights = HashMap<String, Any?>()
+      //  this.upvotedPosts = HashMap<String, Any?>()
+      //  this.usersFollowed = HashMap<String, Any?>()
+     //   this.userComments = HashMap<String, Any?>()
     }
 
      /**
@@ -97,12 +97,12 @@ class User {
          this.userImg = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2"
          this.bio = ""
 
-         this.bookmarks = HashMap<String, Any?>()
-         this.userPosts = HashMap<String, Any?>()
-         this.highlights = HashMap<String, Any?>()
-         this.upvotedPosts = HashMap<String, Any?>()
-         this.usersFollowed = HashMap<String, Any?>()
-         this.userComments = HashMap<String, Any?>()
+    //     this.bookmarks = HashMap<String, Any?>()
+   //      this.userPosts = HashMap<String, Any?>()
+    //     this.highlights = HashMap<String, Any?>()
+     //    this.upvotedPosts = HashMap<String, Any?>()
+    //     this.usersFollowed = HashMap<String, Any?>()
+    //     this.userComments = HashMap<String, Any?>()
 
     }
 
@@ -123,12 +123,12 @@ class User {
         this.userImg = userImg
         this.bio = bio
 
-        this.bookmarks = HashMap<String, Any?>()
-        this.userPosts = HashMap<String, Any?>()
-        this.highlights = HashMap<String, Any?>()
-        this.upvotedPosts = HashMap<String, Any?>()
-        this.usersFollowed = HashMap<String, Any?>()
-        this.userComments = HashMap<String, Any?>()
+     //   this.bookmarks = HashMap<String, Any?>()
+      //  this.userPosts = HashMap<String, Any?>()
+      //  this.highlights = HashMap<String, Any?>()
+     //   this.upvotedPosts = HashMap<String, Any?>()
+     //   this.usersFollowed = HashMap<String, Any?>()
+    //    this.userComments = HashMap<String, Any?>()
 
     }
 
@@ -137,7 +137,7 @@ class User {
      *
      * @return unique identifiers of the user
      */
-    fun getUserId(): String {
+    fun getUserId(): String? {
         return this.userId
     }
 
@@ -146,7 +146,7 @@ class User {
      *
      * @return username of the user
      */
-    fun getUsername(): String {
+    fun getUsername(): String? {
         return this.username
     }
 
@@ -155,7 +155,7 @@ class User {
      *
      * @return email address of the user
      */
-    fun getEmail(): String {
+    fun getEmail(): String? {
         return this.email
     }
 
@@ -164,7 +164,7 @@ class User {
      *
      * @return password of the user
      */
-    fun getPassword(): String {
+    fun getPassword(): String? {
         return this.password
     }
 
@@ -173,7 +173,7 @@ class User {
      *
      * @return profile picture of the user
      */
-    fun getUserImg(): String {
+    fun getUserImg(): String? {
         return this.userImg
     }
 
@@ -182,7 +182,7 @@ class User {
      *
      * @return short bio of the user
      */
-    fun getBio(): String {
+    fun getBio(): String? {
         return this.bio
     }
 
@@ -241,7 +241,7 @@ class User {
     }
 
 
-    fun setUserId(userId: String){
+    fun setUserId(userId: String?){
         this.userId = userId
     }
 
@@ -250,7 +250,7 @@ class User {
      *
      * @param username string to which the username is to be set
      */
-    fun setUsername(username: String) {
+    fun setUsername(username: String?) {
         this.username = username
     }
 
@@ -259,7 +259,7 @@ class User {
      *
      * @param email string to which the email address is to be set
      */
-    fun setEmail(email: String) {
+    fun setEmail(email: String?) {
         this.email = email
     }
 
@@ -268,7 +268,7 @@ class User {
      *
      * @param password string to which the password is to be set
      */
-    fun setPassword(password: String) {
+    fun setPassword(password: String?) {
         this.password = password
     }
 
@@ -278,7 +278,7 @@ class User {
      * @param userImg image URI to which the profile picture of the user is to be set
      *
      */
-    fun setUserImg(userImg: String) {
+    fun setUserImg(userImg: String?) {
         this.userImg = userImg
     }
 
@@ -287,7 +287,7 @@ class User {
      *
      * @param bio string to which the short bio of the user is to be set
      */
-    fun setBio(bio: String) {
+    fun setBio(bio: String?) {
         this.bio = bio
     }
 

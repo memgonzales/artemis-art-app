@@ -280,7 +280,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                     for (u in snapshot.children){
                         var userSnap = u.getValue(User::class.java)
 
-                        if (userSnap != null && userSnap.getUsername().contains(search, ignoreCase = true)){
+                        if (userSnap != null && userSnap.getUsername()!!.contains(search, ignoreCase = true)){
                             dataUsers.add(userSnap)
                         }
                     }
