@@ -58,6 +58,14 @@ class PostAddTagsActivity : AppCompatActivity() {
     private lateinit var photoByte: ByteArray
     private lateinit var photoUri: String
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_add_tags)
@@ -68,6 +76,10 @@ class PostAddTagsActivity : AppCompatActivity() {
         fetchPhoto()
     }
 
+    /**
+     * Retrieves the path to the photo of the artwork to be posted by the user, alongside data
+     * as to whether this photo was chosen from the Gallery or taken using the device camera.
+     */
     private fun fetchPhoto() {
         ivPostAddTagsArt = findViewById(R.id.iv_post_add_tags_art)
 
@@ -122,13 +134,16 @@ class PostAddTagsActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Displays the photo chosen from the Gallery.
+     */
     private fun fetchFromGallery() {
         val photoPath: String? = intent.getStringExtra(Keys.KEY_POST_ARTWORK.name)
         ivPostAddTagsArt.setImageURI(Uri.parse(photoPath!!))
 
         this.photoUri = photoPath
-
     }
+
     /**
      * Initializes the Firebase-related components.
      */
@@ -150,6 +165,9 @@ class PostAddTagsActivity : AppCompatActivity() {
         this.storageRef = this.storage.reference
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_post_add_tags))
         initActionBar()
@@ -158,11 +176,20 @@ class PostAddTagsActivity : AppCompatActivity() {
         addTagsAndPost()
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected. This value cannot be <code>null</code>.
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             android.R.id.home -> {
