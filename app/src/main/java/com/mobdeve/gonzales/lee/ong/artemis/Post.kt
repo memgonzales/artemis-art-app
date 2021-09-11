@@ -15,15 +15,15 @@ class Post {
     private var medium: String? = null
     private var dimensions: String? = null
     private var description: String? = null
-    private var tags: ArrayList<String> = ArrayList<String>()
+    private var tags: ArrayList<String> = ArrayList()
 
     @get:Exclude private var bookmark: Boolean = false
     @get:Exclude private var upvote: Boolean = false
     @get:Exclude private var highlight: Boolean = false
 
-    private var upvoteUsers: HashMap<String, Any?> = HashMap<String, Any?>()
-    private var bookmarkUsers: HashMap<String, Any?> = HashMap<String, Any?>()
-    private var comments: HashMap<String, Any?> = HashMap<String, Any?>()
+    private var upvoteUsers: HashMap<String, Any?> = HashMap()
+    private var bookmarkUsers: HashMap<String, Any?> = HashMap()
+    private var comments: HashMap<String, Any?> = HashMap()
 
     private var numUpvotes: Int = 0
     private var numComments: Int = 0

@@ -18,33 +18,97 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
+/**
+ * Class handling the functionalities related to viewing the posts bookmarked by the user.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing the posts
+ * bookmarked by the user.
+ */
 class ViewBookmarkActivity : AppCompatActivity() {
+    /**
+     * Image view for the profile picture of the user whose bookmarks are displayed.
+     */
     private lateinit var civItemViewBookmarkProfilePic: CircleImageView
+
+    /**
+     * Text view for the username of the user whose bookmarks are displayed.
+     */
     private lateinit var tvItemViewBookmarkUsername: TextView
+
+    /**
+     * Image view for the artwork bookmarked by the user.
+     */
     private lateinit var ivItemViewBookmarkPost: ImageView
+
+    /**
+     * Text view for the title of the artwork bookmarked by the user.
+     */
     private lateinit var tvItemViewBookmarkTitle: TextView
+
+    /**
+     * Text view for the date when the artwork bookmarked by the user was posted.
+     */
     private lateinit var tvItemViewBookmarkDatePosted: TextView
+
+    /**
+     * Text view for the medium of the artwork bookmarked by the user.
+     */
     private lateinit var tvItemViewBookmarkMedium: TextView
+
+    /**
+     * Text view for the dimensions of the artwork bookmarked by the user.
+     */
     private lateinit var tvItemViewBookmarkDimensions: TextView
+
+    /**
+     * Text view for the description of the artwork bookmarked by the user.
+     */
     private lateinit var tvItemViewBookmarkDescription: TextView
+
+    /**
+     * Button for bookmarking an artwork.
+     */
     private lateinit var ibItemViewBookmarkBookmark: ImageButton
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewBookmarkBottom: BottomNavigationView
+
+    /**
+     * Nested scroll view for the main layout of this activity.
+     */
     private lateinit var nsvViewBookmark: NestedScrollView
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Object instantiating the class containing helper methods for Firebase CRUD operations.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
     /**
@@ -62,6 +126,14 @@ class ViewBookmarkActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_bookmark)
@@ -131,6 +203,11 @@ class ViewBookmarkActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Retrieves the data passed via intents, initializes the remote database helpers
+     * required for viewing the post, and sets the listeners for the clickable views
+     * that redirect to the profile of the user who created the post.
+     */
     private fun initIntent() {
         val intent: Intent = intent
 
@@ -209,6 +286,9 @@ class ViewBookmarkActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_bookmark))
         initActionBar()
@@ -216,6 +296,9 @@ class ViewBookmarkActivity : AppCompatActivity() {
         addPost()
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewBookmarkBottom = findViewById(R.id.nv_view_bookmark_bottom)
         this.nsvViewBookmark = findViewById(R.id.nsv_view_bookmark)
@@ -224,11 +307,19 @@ class ViewBookmarkActivity : AppCompatActivity() {
             this@ViewBookmarkActivity)
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Updates the view depending on whether the post is bookmarked.
+     *
+     * @param bookmark <code>true</code> if the post is bookmarked; <code>false</code>, otherwise.
+     */
     private fun updateBookmark(bookmark: Boolean) {
         if(bookmark) {
             this.ibItemViewBookmarkBookmark.setImageResource(R.drawable.outline_bookmark_24)
@@ -243,6 +334,10 @@ class ViewBookmarkActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@ViewBookmarkActivity)
         this.fabAddPost = findViewById(R.id.fab_view_bookmark_add)

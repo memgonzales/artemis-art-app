@@ -174,9 +174,9 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
             }
         }
 
-        holder.setOwnPostShareOnClickListener { view ->
-            var cmFacebook = CallbackManager.Factory.create()
-            var sdFacebook = ShareDialog(parentActivity)
+        holder.setOwnPostShareOnClickListener {
+            val cmFacebook = CallbackManager.Factory.create()
+            val sdFacebook = ShareDialog(parentActivity)
 
             sdFacebook.registerCallback(cmFacebook, object : FacebookCallback<Sharer.Result?> {
                 override fun onSuccess(result: Sharer.Result?) {
@@ -266,7 +266,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
                 notifyItemChanged(position)
             }
 
-            delete.setOnClickListener { view ->
+            delete.setOnClickListener {
                 this.firebaseHelper.deletePostDB(currentPost.getPostId()!!, false)
                 notifyItemRemoved(position)
                 //Toast.makeText(view.context, "Your post has been deleted", Toast.LENGTH_SHORT).show()

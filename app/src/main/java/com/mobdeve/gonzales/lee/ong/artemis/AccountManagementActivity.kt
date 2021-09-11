@@ -79,6 +79,9 @@ class AccountManagementActivity : AppCompatActivity() {
      */
     private lateinit var userId: String
 
+    /**
+     * Object instantiating the class containing helper methods for Firebase CRUD operations.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
     /**

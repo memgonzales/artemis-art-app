@@ -126,7 +126,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             storageRef.getFile(localFile)
                 .addOnSuccessListener {
-                    var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                    val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                     civOwnPostProfilePic.setImageBitmap(bitmap)
                 }
         }
@@ -179,7 +179,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             storageRef.getFile(localFile)
                 .addOnSuccessListener {
-                    var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                    val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                     civOwnPostProfilePic.setImageBitmap(bitmap)
                 }
         }
