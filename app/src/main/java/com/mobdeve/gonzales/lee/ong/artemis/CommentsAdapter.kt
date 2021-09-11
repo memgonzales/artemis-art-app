@@ -40,7 +40,7 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
 
         val commentsViewHolder = CommentsViewHolder(itemView)
 
-        context = parent.context
+        this.context = parent.context
 
         return commentsViewHolder
     }

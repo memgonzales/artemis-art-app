@@ -51,7 +51,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_feed, parent, false)
-        context = parent.context
+        this.context = parent.context
 
         val feedViewHolder = FeedViewHolder(itemView)
 

@@ -29,7 +29,7 @@ class SearchResultsAdapter(private val dataPosts: ArrayList<Post>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_rectangular_pic_grid, parent, false)
-        context = parent.context
+        this.context = parent.context
 
         val searchViewHolder = SearchViewHolder(itemView)
 

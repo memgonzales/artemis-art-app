@@ -29,6 +29,7 @@ class UnregisteredCommentsAdapter(private val dataComments: ArrayList<Comment>) 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_comment, parent, false)
+        this.context = parent.context
 
         val commentsViewHolder = CommentsViewHolder(itemView)
 

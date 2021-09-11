@@ -45,7 +45,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OwnPostsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_own_post, parent, false)
-        context = parent.context
+        this.context = parent.context
 
         val ownPostsViewHolder = OwnPostsViewHolder(itemView)
 

@@ -1,14 +1,21 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import java.util.*
 
 class UnregisteredFeedAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<FeedViewHolder>() {
+
+    /**
+     * Context tied to the activity calling this adapter.
+     */
+    private lateinit var context: Context
 
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
@@ -23,6 +30,7 @@ class UnregisteredFeedAdapter(private val dataPosts: ArrayList<Post>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_feed, parent, false)
+        this.context = parent.context
 
         val feedViewHolder = FeedViewHolder(itemView)
 
@@ -102,9 +110,22 @@ class UnregisteredFeedAdapter(private val dataPosts: ArrayList<Post>) :
      */
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemFeedProfilePic(currentPost.getProfilePicture()!!)
-        holder.setItemFeedUsername(currentPost.getUsername()!!)
-        holder.setItemFeedPost(currentPost.getPostImg()!!)
+
+        // holder.setItemFeedProfilePic(currentPost.getProfilePicture()!!)
+        Glide.with(context)
+            .load(currentPost.getProfilePicture())
+            .placeholder(R.drawable.chibi_artemis_hd)
+            .error(R.drawable.chibi_artemis_hd)
+            .into(holder.getItemFeedProfilePic())
+
+        holder.setItemFeedUsername(currentPost.getUsername())
+       // holder.setItemFeedPost(currentPost.getPostImg())
+        Glide.with(context)
+            .load(currentPost.getPostImg())
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(holder.getItemFeedPost())
+
         holder.setItemFeedTitle(currentPost.getTitle())
         holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")
@@ -127,16 +148,8 @@ class UnregisteredFeedAdapter(private val dataPosts: ArrayList<Post>) :
             val intent = Intent(view.context, ViewUserUnregisteredActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                currentPost.getProfilePicture()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                currentPost.getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                currentPost.getUserId()
             )
 
             view.context.startActivity(intent)
