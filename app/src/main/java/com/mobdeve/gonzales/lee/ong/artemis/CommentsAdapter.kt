@@ -10,6 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.util.*
 
+/**
+ * Adapter for the recycler view that handles the comments.
+ *
+ * @constructor Creates an adapter for the recycler view that handles the comments.
+ * @param dataComments comments on the posts
+ */
 class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
     RecyclerView.Adapter<CommentsViewHolder>() {
 
