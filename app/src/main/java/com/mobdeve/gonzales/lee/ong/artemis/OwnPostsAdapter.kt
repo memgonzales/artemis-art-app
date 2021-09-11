@@ -17,20 +17,31 @@ import com.facebook.share.Sharer
 import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
     RecyclerView.Adapter<OwnPostsViewHolder>() {
+
+    /**
+     * Context tied to the activity calling this adapter.
+     */
     private lateinit var context: Context
 
+    /**
+     * Wrapper over Firebase's realtime database.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
+    /**
+     * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
+     * to represent an item.
+     *
+     * @param parent The ViewGroup into which the new View will be added after it is bound to an
+     * adapter position.
+     * @param viewType The view type of the new View.
+     *
+     * @return A new ViewHolder that holds a View of the given view type.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OwnPostsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_own_post, parent, false)
@@ -111,6 +122,13 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
         return ownPostsViewHolder
     }
 
+    /**
+     * Called by RecyclerView to display the data at the specified position.
+     *
+     * @param holder The ViewHolder which should be updated to represent the contents of the item
+     * at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     override fun onBindViewHolder(holder: OwnPostsViewHolder, position: Int) {
         val currentPost = dataPosts[position]
 
@@ -251,6 +269,11 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
         }
     }
 
+    /**
+     * Returns the total number of items in the data set held by the adapter.
+     *
+     * @return The total number of items in this adapter.
+     */
     override fun getItemCount(): Int {
         return dataPosts.size
     }
