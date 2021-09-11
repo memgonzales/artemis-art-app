@@ -268,8 +268,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
         else{
             this.tvItemViewOwnPostDescription.visibility = View.GONE
         }
-        1
-        4444
+
         this.tvItemViewOwnPostTags.text = tagsString
 
         updateHighlight(highlight)
@@ -278,13 +277,13 @@ class ViewOwnPostActivity : AppCompatActivity() {
             if (highlight) {
                 highlight = false
                 updateHighlight(highlight)
-                firebaseHelper.updateHighlightDB(postId!!, null)
+                this.firebaseHelper.updateHighlightDB(postId!!, null)
 
             } else {
                 highlight = true
                 updateHighlight(highlight)
                 Toast.makeText(this@ViewOwnPostActivity, "Added to your Highlights", Toast.LENGTH_SHORT).show()
-                firebaseHelper.updateHighlightDB(postId!!, postId)
+                this.firebaseHelper.updateHighlightDB(postId!!, postId)
             }
         }
 
