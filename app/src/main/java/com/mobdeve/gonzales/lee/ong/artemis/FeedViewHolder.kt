@@ -2,28 +2,13 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.drawToBitmap
 import androidx.recyclerview.widget.RecyclerView
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.share.Sharer
-import com.facebook.share.model.SharePhoto
-import com.facebook.share.model.SharePhotoContent
-import com.facebook.share.widget.ShareDialog
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -31,30 +16,104 @@ import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 import java.io.IOException
-import java.security.Key
 
+/**
+ * View holder for the recycler view that handles the posts displayed on the feed.
+ *
+ * @constructor Creates a view holder for the recycler view that handles the posts displayed
+ * on the feed.
+ * @param itemView layout for a single item in the recycler view
+ */
 class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    /**
+     * Image view for the profile picture of the user who posted.
+     */
     private val civItemFeedProfilePic: CircleImageView
+
+    /**
+     * Text view for the username of the user who posted.
+     */
     private val tvItemFeedUsername: TextView
+
+    /**
+     * Image view for the artwork posted.
+     */
     private val ivItemFeedPost: ImageView
+
+    /**
+     * Text view for the title of the artwork posted.
+     */
     private val tvItemFeedTitle: TextView
+
+    /**
+     * Text view for the number of upvotes.
+     */
     private val tvItemFeedUpvoteCounter: TextView
+
+    /**
+     * Text view for the number of comments.
+     */
     private val tvItemFeedCommentsCounter: TextView
+
+    /**
+     * Text view for the comments.
+     */
     private val tvItemFeedComments: TextView
+
+    /**
+     * Button for bookmarking the post.
+     */
     private val ibItemFeedBookmark: ImageButton
+
+    /**
+     * Button for upvoting the post.
+     */
     private val ivItemFeedUpvote: ImageView
+
+    /**
+     * Text view for upvotes.
+     */
     private val tvItemFeedUpvote: TextView
+
+    /**
+     * Clickable layout for upvoting the post.
+     */
     private val clItemFeedUpvote: ConstraintLayout
+
+    /**
+     * Clckable layout for commenting on the post.
+     */
     private val clItemFeedComment: ConstraintLayout
+
+    /**
+     * Clickable layout for sharing the post.
+     */
     private val clItemFeedShare: ConstraintLayout
 
+    /**
+     * Service that supports uploading and downloading large objects to Google Cloud Storage.
+     */
     private var storage: FirebaseStorage
+
+    /**
+     * Represents a reference to a Google Cloud Storage object.
+     */
     private var storageRef: StorageReference
 
+    /**
+     * Returns the image view for the profile picture of the user who posted.
+     *
+     * @return image view for the profile picture of the user who posted
+     */
     fun getItemFeedProfilePic(): CircleImageView {
         return civItemFeedProfilePic
     }
 
+    /**
+     * Sets the profile picture of the user who posted to the photo specified by the given URI.
+     *
+     * @return URI of the photo to which the profile picture of the user is to be set
+     */
     fun setItemFeedProfilePic(picture: String) {
 
         try{
@@ -63,7 +122,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             storageRef.getFile(localFile)
                 .addOnSuccessListener {
-                    var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                    val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                     civItemFeedProfilePic.setImageBitmap(bitmap)
                 }
         }
@@ -75,18 +134,36 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //civItemFeedProfilePic.setImageResource(picture)
     }
 
+    /**
+     * Returns the username of the user who posed.
+     *
+     * @return username of the user who posted
+     */
     fun getItemFeedUsername(): TextView {
         return tvItemFeedUsername
     }
 
+    /**
+     * Sets the username of the user who posted to the specified string.
+     *
+     * @param name string to which the username of the user who posted is to be set
+     */
     fun setItemFeedUsername(name: String?) {
         tvItemFeedUsername.text = name
     }
 
+    /**
+     * Returns the image view for the posted artwork.
+     *
+     * @param image view for the posted artwork
+     */
     fun getItemFeedPost(): ImageView {
         return ivItemFeedPost
     }
 
+    /**
+     *
+     */
     fun setItemFeedPost(post: String) {
 
         try{
@@ -95,7 +172,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             storageRef.getFile(localFile)
                 .addOnSuccessListener {
-                    var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                    val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                     ivItemFeedPost.setImageBitmap(bitmap)
                 }
         }
@@ -142,9 +219,15 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
+    /**
+     * Sets the onclick listener for upvoting the posted artwork.
+     *
+     * @param onClickListener onclick listener for upvoting the posted artwork.
+     */
     fun setItemFeedUpvoteOnClickListener(onClickListener: View.OnClickListener) {
         clItemFeedUpvote.setOnClickListener(onClickListener)
     }
+
 
     fun setItemFeedUpvote(upvote: Boolean) {
         if (upvote) {
@@ -167,19 +250,39 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
 
+    /**
+     * Sets the onclick listener for commenting on the posted artwork.
+     *
+     * @param onClickListener onclick listener for commenting on the posted artwork.
+     */
     fun setItemFeedCommentOnClickListener(onClickListener: View.OnClickListener) {
         clItemFeedComment.setOnClickListener(onClickListener)
     }
 
+    /**
+     * Sets the onclick listener for sharing the posted artwork.
+     *
+     * @param onClickListener onclick listener for sharing the posted artwork.
+     */
     fun setItemFeedShareOnClickListener(onClickListener: View.OnClickListener) {
         clItemFeedShare.setOnClickListener(onClickListener)
     }
 
+    /**
+     * Sets the onclick listener for the profile picture and username of the user who posted
+     * the artwork.
+     *
+     * @param onClickListener onclick listener for the profile picture and username of the user
+     * who posted the artwork
+     */
     fun setItemFeedProfileOnClickListener(onClickListener: View.OnClickListener) {
         civItemFeedProfilePic.setOnClickListener(onClickListener)
         tvItemFeedUsername.setOnClickListener(onClickListener)
     }
 
+    /**
+     * Initializes the components of the view holder.
+     */
     init {
         civItemFeedProfilePic = itemView.findViewById(R.id.civ_item_feed_profile_pic)
         tvItemFeedUsername = itemView.findViewById(R.id.tv_item_feed_username)
