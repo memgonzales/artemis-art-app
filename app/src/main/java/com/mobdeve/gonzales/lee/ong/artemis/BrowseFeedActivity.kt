@@ -34,13 +34,27 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
+/**
+ * Class handling the functionalities related to browsing the posts (for registered users).
+ *
+ * @constructor Creates a class that handles the functionalities related to browsing the posts
+ * (for registered users).
+ */
 class BrowseFeedActivity : AppCompatActivity() {
+    /**
+     * Posts to be displayed on the feed.
+     */
     private lateinit var dataPosts: ArrayList<Post>
 
+    /**
+     * Recycler view for the posts to be displayed on the feed.
+     */
     private lateinit var rvFeed: RecyclerView
+
+    /**
+     * Adapter for the recycler view handling the posts to be displayed on the feed.
+     */
     private lateinit var feedAdapter: FeedAdapter
     private lateinit var sflFeed: ShimmerFrameLayout
     private lateinit var bnvFeedBottom: BottomNavigationView
@@ -235,15 +249,15 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadPostData();
-        this.dataPosts = arrayListOf<Post>()
+        this.dataPosts = arrayListOf()
 
         this.rvFeed = findViewById(R.id.rv_feed)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
 
-        this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity);
+        this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
 
 
-        this.rvFeed.adapter = feedAdapter;
+        this.rvFeed.adapter = feedAdapter
 
         initContent(false)
         getRealtimeUpdates()
@@ -264,7 +278,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                 if(snapshot.exists()){
 
                     for(postSnap in snapshot.children){
-                        var post = postSnap.getValue(Post::class.java)
+                        val post = postSnap.getValue(Post::class.java)
 
                         if(post != null){
                             if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
@@ -280,10 +294,10 @@ class BrowseFeedActivity : AppCompatActivity() {
                     }
 
                     if (shuffle) {
-                        Collections.shuffle(dataPosts)
+                        dataPosts.shuffle()
                     }
 
-                    if (!dataPosts.isEmpty()){
+                    if (dataPosts.isNotEmpty()){
                         ivNone.visibility = View.GONE
                         tvNone.visibility = View.GONE
                         tvSubNone.visibility = View.GONE
