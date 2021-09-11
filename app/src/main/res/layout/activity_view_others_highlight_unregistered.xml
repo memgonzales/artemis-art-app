@@ -100,7 +100,7 @@
 
                 <TextView
                     android:id="@+id/tv_item_view_others_highlight_unregistered_username"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginStart="6dp"
                     android:clickable="true"
@@ -112,14 +112,14 @@
                     android:scrollHorizontally="true"
                     android:text="@string/tv_item_view_others_highlight_unregistered_username"
                     android:textSize="14sp"
+                    app:layout_constrainedWidth="true"
                     app:layout_constraintBottom_toBottomOf="@+id/civ_item_view_others_highlight_unregistered_profile_pic"
                     app:layout_constraintEnd_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_margin"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/gl_item_view_others_highlight_unregistered_right_user_pic"
                     app:layout_constraintTop_toTopOf="@+id/civ_item_view_others_highlight_unregistered_profile_pic"
                     app:layout_constraintVertical_bias="0.35000002"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    app:layout_constraintWidth_default="wrap" />
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <ImageView
                     android:id="@+id/iv_item_view_others_highlight_unregistered_post"
