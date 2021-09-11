@@ -62,11 +62,11 @@ class FirebaseHelper {
         this.context = context
     }
 
-    constructor(context: Context, commentId: String){
+    constructor(context: Context, Id: String){
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
 
-        if(commentId.isNullOrEmpty()){
+        if(Id.isNullOrEmpty()){
             val intent = Intent(context, BrokenLinkActivity::class.java)
             context.startActivity(intent)
         }
@@ -83,6 +83,9 @@ class FirebaseHelper {
 
         this.context = context
     }
+
+
+
 
     fun updateUpvoteDB(userVal: String?, postKey: String?, postVal: String?, numUpvotes: Int){
         if (!postKey.isNullOrEmpty()){
@@ -125,7 +128,13 @@ class FirebaseHelper {
         db.updateChildren(updates)
     }
 
+    fun updateUsersFollowedDB(userKey: String?, userVal: String?){
+        val updates = hashMapOf<String, Any?>(
+            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.usersFollowed.name}/$userKey" to userVal
+        )
 
+        db.updateChildren(updates)
+    }
 
 
 
