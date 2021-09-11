@@ -25,6 +25,8 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
     private lateinit var bnvViewOthersHighlightUnregisteredBottom: BottomNavigationView
     private lateinit var fabAddPost: FloatingActionButton
 
+    private lateinit var firebaseHelper: FirebaseHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_others_highlight_unregistered)
@@ -45,6 +47,10 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
 
     private fun initIntent() {
         val intent: Intent = intent
+
+        val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name)
+
+        this.firebaseHelper = FirebaseHelper(this@ViewOthersHighlightUnregisteredActivity, userIdPost)
 
         val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
@@ -110,16 +116,8 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
             val intent = Intent(this, ViewUserUnregisteredActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                userIdPost
             )
 
             startActivity(intent)
@@ -129,16 +127,8 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
             val intent = Intent(this, ViewUserUnregisteredActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                userIdPost
             )
 
             startActivity(intent)

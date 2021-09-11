@@ -232,7 +232,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         this.rvFeed.adapter = unregisteredFeedAdapter
 
         initContent(false)
-        getRealtimeUpdates()
+      //  getRealtimeUpdates()
     }
 
     /**

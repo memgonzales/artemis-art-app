@@ -37,6 +37,14 @@ class OthersHighlightAdapterUnregistered(private val dataPosts: ArrayList<Post>)
             val intent = Intent(view.context, ViewOthersHighlightUnregisteredActivity::class.java)
 
             intent.putExtra(
+                Keys.KEY_USERID.name,
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getUserId()
+            )
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                dataPosts[highlightsViewHolder.bindingAdapterPosition].getPostId()
+            )
+            intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataPosts[highlightsViewHolder.bindingAdapterPosition].getProfilePicture()
             )
