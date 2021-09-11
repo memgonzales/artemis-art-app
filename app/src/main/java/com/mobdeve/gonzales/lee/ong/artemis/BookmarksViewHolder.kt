@@ -15,30 +15,54 @@ import java.io.File
  *
  * @constructor Creates a view holder for the recycler view that handles the posts bookmarked
  * by the user.
+ * @param itemView layout for a single item in the recycler view
  */
 class BookmarksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    /**
+     * Image view related to the items in the search results.
+     */
     private val ivItemSearchResults: ImageView
 
+    /**
+     * Service that supports uploading and downloading large objects to Google Cloud Storage.
+     */
     private var storage: FirebaseStorage
+
+    /**
+     * Represents a reference to a Google Cloud Storage object.
+     */
     private var storageRef: StorageReference
 
+    /**
+     * Returns the image view related to the items in the search results.
+     *
+     * @return image view related to the items in the search results
+     */
     fun getItemSearchResults(): ImageView {
         return ivItemSearchResults
     }
 
+    /**
+     * Sets the item in the search results to the specified post.
+     *
+     * @param post post to which the item in the search results is set
+     */
     fun setItemSearchResults(post: String) {
         val localFile = File.createTempFile("images", "jpg")
         storageRef = storage.getReferenceFromUrl(post)
 
         storageRef.getFile(localFile)
             .addOnSuccessListener {
-                var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                 ivItemSearchResults.setImageBitmap(bitmap)
             }
 
         //ivItemSearchResults.setImageResource(post)
     }
 
+    /**
+     * Initializes the components of the view holder.
+     */
     init {
         ivItemSearchResults = itemView.findViewById(R.id.iv_item_rectangular_pic_grid)
 

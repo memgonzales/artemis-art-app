@@ -1,7 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.graphics.BitmapFactory
-import android.opengl.Visibility
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
@@ -14,7 +13,16 @@ import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
+/**
+ * View holder for the recycler view that handles the comments on the posts.
+ *
+ * @constructor Creates a view holder for the recycler view that handles the comments on the posts.
+ * @param itemView layout for a single item in the recycler view
+ */
 class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
+    /**
+     *
+     */
     private val civItemCommentProfilePic: CircleImageView
     private val tvItemCommentUsername: TextView
     private val tvItemCommentDate: TextView
@@ -37,7 +45,7 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         storageRef.getFile(localFile)
             .addOnSuccessListener {
-                var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                 civItemCommentProfilePic.setImageBitmap(bitmap)
             }
 

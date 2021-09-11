@@ -11,9 +11,9 @@ import com.bumptech.glide.Glide
 import java.util.*
 
 /**
- * Adapter for the recycler view that handles the comments.
+ * Adapter for the recycler view that handles the comments on the posts.
  *
- * @constructor Creates an adapter for the recycler view that handles the comments.
+ * @constructor Creates an adapter for the recycler view that handles the comments on the posts.
  * @param dataComments comments on the posts
  */
 class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
