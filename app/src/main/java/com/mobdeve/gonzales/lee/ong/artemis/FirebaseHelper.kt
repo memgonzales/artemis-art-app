@@ -172,41 +172,49 @@ class FirebaseHelper {
 
 
 
-    fun deleteCommentDB(commentId: String){
-        val commentDB = db.child(Keys.KEY_DB_COMMENTS.name).child(commentId)
+    fun deleteCommentDB(commentId: String, postId: String){
+        if (!commentId.isNullOrEmpty() && !postId.isNullOrEmpty()){
+            val commentDB = db.child(Keys.KEY_DB_COMMENTS.name).child(commentId)
+            val postDB = db.child(Keys.KEY_DB_POSTS.name).child(postId)
 
-        commentDB.removeValue()
-            .addOnSuccessListener {
-                deleteCommentFromPosts(commentId)
-            }
-    }
-
-    fun deleteCommentFromPosts(commentId: String){
-        val postDB = db.child(Keys.KEY_DB_POSTS.name)
-
-        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    for (postSnap in snapshot.children){
-                        var post = postSnap.getValue(Post::class.java)
-
-                        if (post != null){
-                            if (post.getComments() != null && post.getComments().keys.contains(commentId)){
-                                //HAHAHA
+            commentDB.removeValue()
+                .addOnSuccessListener {
+                    postDB.child(Keys.numComments.name)
+                        .addListenerForSingleValueEvent(object : ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                val numComments = snapshot.getValue().toString().toInt() - 1
+                                deleteCommentFromPostDB(postId, commentId, null, numComments)
                             }
-                        }
-                    }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                val intent = Intent(context, BrokenLinkActivity::class.java)
+                                context.startActivity(intent)
+                            }
+
+                        })
                 }
-            }
+        }
 
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(context, BrokenLinkActivity::class.java)
-                context.startActivity(intent)
-            }
-
-        })
     }
 
+    fun deleteCommentFromPostDB(postId: String, commentKey: String?, commentVal: String?, numComments: Int){
+        val updates = hashMapOf<String, Any?>(
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.comments.name}/$commentKey" to commentVal,
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.numComments.name}" to numComments,
+        )
+
+        db.updateChildren(updates)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Your comment has been deleted", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Unable to delete your comment", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+
+    
     fun deletePostDB(postKey: String){
         val postDB = db.child(Keys.KEY_DB_POSTS.name).child(postKey)
 
