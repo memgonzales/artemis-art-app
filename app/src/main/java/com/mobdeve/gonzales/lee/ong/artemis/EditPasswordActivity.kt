@@ -24,14 +24,28 @@ import com.google.firebase.ktx.Firebase
 /**
  * Class handling the functionalities related to editing the user's password.
  *
- * @constructor Creates a class that handles the functionalities related to editing a comment.
+ * @constructor Creates a class that handles the functionalities related to editing the user's
+ * password.
  */
 class EditPasswordActivity : AppCompatActivity() {
-
+    /**
+     * Text input layout for the old password.
+     */
     private lateinit var tilEditPw: TextInputLayout
+
+    /**
+     * Input field for the old password.
+     */
     private lateinit var tietEditPw: TextInputEditText
 
+    /**
+     * Text input layout for the new password.
+     */
     private lateinit var tilNewPw: TextInputLayout
+
+    /**
+     * Input field for the new password.
+     */
     private lateinit var tietNewPw: TextInputEditText
 
     private lateinit var tilConfirmPw: TextInputLayout
