@@ -16,13 +16,34 @@ import de.hdodenhof.circleimageview.CircleImageView
  * @constructor Creates a class that handles the functionalities related to editing a comment.
  */
 class EditCommentActivity : AppCompatActivity() {
+    /**
+     * Image view for the profile picture of the user who posted the comment.
+     */
     private lateinit var civEditCommentProfilePic: CircleImageView
+
+    /**
+     * Text view for the username of the user who posted the comment.
+     */
     private lateinit var tvEditCommentUsername: TextView
+
+    /**
+     * Input field for editing the comment.
+     */
     private lateinit var etEditComment: EditText
+
+    /**
+     * Button for saving the edited comment.
+     */
     private lateinit var btnEditCommentSave: Button
 
+    /**
+     * Object instantiating the class containing helper methods for Firebase CRUD operations.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
+    /**
+     * Unique identifier of the comment.
+     */
     private lateinit var commentId: String
 
     /**
@@ -55,7 +76,7 @@ class EditCommentActivity : AppCompatActivity() {
         initIntent()
 
         btnEditCommentSave.setOnClickListener {
-            var commentBody = etEditComment.text.toString().trim()
+            val commentBody = etEditComment.text.toString().trim()
 
             if (!commentBody.isNullOrEmpty()){
                 this.firebaseHelper.editComment(commentId, commentBody)
