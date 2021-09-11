@@ -38,6 +38,14 @@ class UnregisteredFeedAdapter(private val dataPosts: ArrayList<Post>) :
             val intent = Intent(view.context, ViewPostUnregisteredActivity::class.java)
 
             intent.putExtra(
+                Keys.KEY_USERID.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getUserId()
+            )
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getPostId()
+            )
+            intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
                 dataPosts[feedViewHolder.bindingAdapterPosition].getProfilePicture()
             )

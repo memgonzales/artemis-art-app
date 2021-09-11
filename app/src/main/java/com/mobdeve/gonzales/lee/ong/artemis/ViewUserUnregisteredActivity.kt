@@ -12,8 +12,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ViewUserUnregisteredActivity : AppCompatActivity() {
@@ -30,6 +40,14 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
 
     private lateinit var fabAddPost: FloatingActionButton
 
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
+
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
+
+    private lateinit var firebaseHelper: FirebaseHelper
+
     /**
      * Called when the activity is starting.
      *
@@ -42,8 +60,27 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_user_unregistered)
 
+        initFirebase()
         initContent()
         initComponents()
+    }
+
+    /**
+     * Initializes the Firebase-related components.
+     */
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@ViewUserUnregisteredActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initContent() {
@@ -54,13 +91,51 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         this.dataHighlights = DataHelper.loadOthersHighlightData()
 
         val intent: Intent = intent
+        val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name).toString()
+
+        /*
+        val intent: Intent = intent
         val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
         val bio = intent.getStringExtra(Keys.KEY_BIO.name)
 
-        this.civViewUserUnregisteredProfilePicture.setImageResource(profilePicture)
-        this.tvViewUserUnregisteredUsername.text = username
-        this.tvViewUserUnregisteredBio.text = bio
+         */
+
+        this.firebaseHelper = FirebaseHelper(this@ViewUserUnregisteredActivity, userIdPost)
+
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
+
+        if(!userIdPost.isEmpty()){
+            userDB.child(userIdPost).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val userInfoPost = snapshot.getValue(User::class.java)
+
+                    if(userInfoPost != null){
+                        Glide.with(this@ViewUserUnregisteredActivity)
+                            .load(userInfoPost.getUserImg())
+                            .placeholder(R.drawable.chibi_artemis_hd)
+                            .error(R.drawable.chibi_artemis_hd)
+                            .into(civViewUserUnregisteredProfilePicture)
+
+                        tvViewUserUnregisteredUsername.text = userInfoPost.getUsername()
+                        tvViewUserUnregisteredBio.text = userInfoPost.getBio()
+
+                        val highlights = userInfoPost.getHighlights().keys
+                        getPosts(highlights)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    val intent = Intent(this@ViewUserUnregisteredActivity, BrokenLinkActivity::class.java)
+                    startActivity(intent)
+                }
+
+            })
+        }
+
+        //this.civViewUserUnregisteredProfilePicture.setImageResource(profilePicture)
+        //this.tvViewUserUnregisteredUsername.text = username
+        //this.tvViewUserUnregisteredBio.text = bio
 
         btnViewUserUnregisteredFollow.setOnClickListener {
             Toast.makeText(
@@ -69,6 +144,42 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    private fun getPosts(highlights: Set<String?>){
+
+        this.dataHighlights = arrayListOf<Post>()
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()){
+                    for (postSnap in snapshot.children){
+                        if (postSnap.key != null && highlights.contains(postSnap.key)){
+                            val post = postSnap.getValue(Post::class.java)
+
+                            if(post != null){
+                                post.setBookmark(true)
+                                dataHighlights.add(post)
+                            }
+
+                        }
+                    }
+
+                    //highlightAdapter.notifyDataSetChanged()
+                    unregisteredHighlightAdapter = OthersHighlightAdapterUnregistered(dataHighlights)
+                    rvViewUnregisteredUser.adapter = unregisteredHighlightAdapter
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@ViewUserUnregisteredActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
     }
 
     /**
@@ -89,9 +200,9 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         this.rvViewUnregisteredUser = findViewById(R.id.rv_view_user_unregistered)
         this.rvViewUnregisteredUser.layoutManager = GridLayoutManager(this, 2)
 
-        this.unregisteredHighlightAdapter = OthersHighlightAdapterUnregistered(this.dataHighlights)
+       // this.unregisteredHighlightAdapter = OthersHighlightAdapterUnregistered(this.dataHighlights)
 
-        this.rvViewUnregisteredUser.adapter = unregisteredHighlightAdapter
+       // this.rvViewUnregisteredUser.adapter = unregisteredHighlightAdapter
     }
 
     /**

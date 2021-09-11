@@ -41,6 +41,8 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
 
     private lateinit var srlViewPostUnregisterd: SwipeRefreshLayout
 
+    private lateinit var firebaseHelper: FirebaseHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_post_unregistered)
@@ -86,6 +88,11 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
 
     private fun initIntent() {
         val intent: Intent = intent
+
+        val postId = intent.getStringExtra(Keys.KEY_POSTID.name)
+        val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name)
+
+        this.firebaseHelper = FirebaseHelper(this@ViewPostUnregisteredActivity, postId, userIdPost)
 
         val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
@@ -194,16 +201,8 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
             val intent = Intent(this, ViewUserUnregisteredActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                userIdPost
             )
 
             startActivity(intent)
@@ -213,16 +212,8 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
             val intent = Intent(this, ViewUserUnregisteredActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                userIdPost
             )
 
             startActivity(intent)
