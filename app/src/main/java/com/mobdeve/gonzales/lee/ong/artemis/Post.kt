@@ -223,39 +223,39 @@ class Post {
         this.userId = userId
     }
 
-    fun setPostId(postId: String){
+    fun setPostId(postId: String?){
         this.postId = postId
     }
 
-    fun setProfilePicture(picture: String) {
+    fun setProfilePicture(picture: String?) {
         this.profilePicture = picture
     }
 
-    fun setUsername(name: String) {
+    fun setUsername(name: String?) {
         this.username = name
     }
 
-    fun setPostImg(postImg: String) {
+    fun setPostImg(postImg: String?) {
         this.postImg = postImg
     }
 
-    fun setTitle(title: String) {
+    fun setTitle(title: String?) {
         this.title = title
     }
 
-    fun setDatePosted(datePosted: String) {
+    fun setDatePosted(datePosted: String?) {
         this.datePosted = datePosted
     }
 
-    fun setMedium(medium: String) {
+    fun setMedium(medium: String?) {
         this.medium = medium
     }
 
-    fun setDimensions(dimensions: String) {
+    fun setDimensions(dimensions: String?) {
         this.dimensions = dimensions
     }
 
-    fun setDescription(description: String) {
+    fun setDescription(description: String?) {
         this.description = description
     }
 
