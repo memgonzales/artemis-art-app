@@ -77,6 +77,8 @@ class ViewUserActivity : AppCompatActivity() {
     private lateinit var user: FirebaseUser
     private lateinit var userId: String
 
+    private lateinit var firebaseHelper: FirebaseHelper
+
     /**
      * Called when the activity is starting.
      *
@@ -182,6 +184,8 @@ class ViewUserActivity : AppCompatActivity() {
 
          */
 
+        this.firebaseHelper = FirebaseHelper(this@ViewUserActivity, userIdPost)
+
         val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
         if(!userIdPost.isEmpty()){
@@ -247,23 +251,15 @@ class ViewUserActivity : AppCompatActivity() {
 
         btnViewUserFollow.setOnClickListener {
             if(btnViewUserFollow.text.equals("FOLLOW USER")){
-                updateUsersFF(userIdPost, userIdPost)
+                this.firebaseHelper.updateUsersFollowedDB(userIdPost, userIdPost)
                 btnViewUserFollow.setText("UNFOLLOW USER")
             }
 
             else{
-                updateUsersFF(userIdPost, null)
+                this.firebaseHelper.updateUsersFollowedDB(userIdPost, null)
                 btnViewUserFollow.setText("FOLLOW USER")
             }
         }
-    }
-
-    private fun updateUsersFF(userKey: String?, userVal: String?){
-        val updates = hashMapOf<String, Any?>(
-            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.usersFollowed.name}/$userKey" to userVal
-        )
-
-        db.updateChildren(updates)
     }
 
     private fun getPosts(highlights: Set<String?>){
@@ -287,6 +283,7 @@ class ViewUserActivity : AppCompatActivity() {
                         }
                     }
 
+                    //highlightAdapter.notifyDataSetChanged()
                     highlightAdapter = OthersHighlightAdapter(dataHighlights)
                     rvViewUser.adapter = highlightAdapter
 
@@ -316,10 +313,12 @@ class ViewUserActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
+       // this.dataHighlights = arrayListOf()
+
         this.rvViewUser = findViewById(R.id.rv_view_user)
         this.rvViewUser.layoutManager = GridLayoutManager(this, 2)
 
-      //  this.highlightAdapter = OthersHighlightAdapter(this.dataHighlights)
+       // this.highlightAdapter = OthersHighlightAdapter(this.dataHighlights)
 
        // this.rvViewUser.adapter = highlightAdapter
     }
