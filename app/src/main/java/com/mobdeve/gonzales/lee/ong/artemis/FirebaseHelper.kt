@@ -62,7 +62,7 @@ class FirebaseHelper {
         this.context = context
     }
 
-    constructor(context: Context, Id: String){
+    constructor(context: Context, Id: String?){
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
 

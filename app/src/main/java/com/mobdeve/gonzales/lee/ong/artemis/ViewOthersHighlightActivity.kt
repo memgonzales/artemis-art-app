@@ -51,6 +51,8 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    private lateinit var firebaseHelper: FirebaseHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_others_highlight)
@@ -124,6 +126,10 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
     private fun initIntent() {
         val intent: Intent = intent
 
+        val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name)
+
+        this.firebaseHelper = FirebaseHelper(this@ViewOthersHighlightActivity, userIdPost)
+
         val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
 
@@ -189,16 +195,8 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                userIdPost
             )
 
             startActivity(intent)
@@ -208,16 +206,8 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
             val intent = Intent(this, ViewUserActivity::class.java)
 
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                profilePicture
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                username
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                userIdPost
             )
 
             startActivity(intent)

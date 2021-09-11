@@ -196,6 +196,7 @@ class ViewUserActivity : AppCompatActivity() {
                     if(userInfoPost != null){
                         Glide.with(this@ViewUserActivity)
                             .load(userInfoPost.getUserImg())
+                            .placeholder(R.drawable.chibi_artemis_hd)
                             .error(R.drawable.chibi_artemis_hd)
                             .into(civViewUserProfilePicture)
 
