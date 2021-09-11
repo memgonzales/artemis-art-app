@@ -12,7 +12,9 @@ class Comment {
     private var commentBody: String? = null
     @get:Exclude private var editable: Boolean = false
 
-    constructor(){}
+    constructor() {
+
+    }
 
     constructor(userId: String, postId: String, profilePicture: String, username: String, commentBody: String) {
         this.userId = userId

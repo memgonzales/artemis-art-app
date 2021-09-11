@@ -16,20 +16,38 @@ import com.facebook.share.Sharer
 import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import java.util.*
 
+/**
+ * Adapter for the recycler view that handles the posts displayed on the feed.
+ *
+ * @constructor Creates an adapter for the recycler view that handles the comments on the posts.
+ * @param dataPosts comments on the posts
+ * @param parentActivity activity calling this adapter
+ */
 class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
     RecyclerView.Adapter<FeedViewHolder>() {
+
+    /**
+     * Context of the activity calling this adapter.
+     */
     private lateinit var context: Context
 
+    /**
+     * Wrapper over Firebase's realtime database.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
+    /**
+     * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
+     * to represent an item.
+     *
+     * @param parent The ViewGroup into which the new View will be added after it is bound to an
+     * adapter position.
+     * @param viewType The view type of the new View.
+     *
+     * @return A new ViewHolder that holds a View of the given view type.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_feed, parent, false)
@@ -122,6 +140,13 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
         return feedViewHolder
     }
 
+    /**
+     * Called by RecyclerView to display the data at the specified position.
+     *
+     * @param holder The ViewHolder which should be updated to represent the contents of the item
+     * at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentPost = dataPosts[position]
 
@@ -179,9 +204,9 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
         }
 
 
-        holder.setItemFeedShareOnClickListener { view ->
-            var cmFacebook = CallbackManager.Factory.create()
-            var sdFacebook = ShareDialog(parentActivity)
+        holder.setItemFeedShareOnClickListener {
+            val cmFacebook = CallbackManager.Factory.create()
+            val sdFacebook = ShareDialog(parentActivity)
 
             sdFacebook.registerCallback(cmFacebook, object : FacebookCallback<Sharer.Result?> {
                 override fun onSuccess(result: Sharer.Result?) {
@@ -228,6 +253,11 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
         }
     }
 
+    /**
+     * Returns the total number of items in the data set held by the adapter.
+     *
+     * @return The total number of items in this adapter.
+     */
     override fun getItemCount(): Int {
         return dataPosts.size
     }
