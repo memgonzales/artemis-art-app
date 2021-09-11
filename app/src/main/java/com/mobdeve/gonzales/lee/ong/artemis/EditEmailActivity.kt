@@ -22,7 +22,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 /**
- * Class handling the functionalities related to editing a comment.
+ * Class handling the functionalities related to editing the user's email address.
  *
  * @constructor Creates a class that handles the functionalities related to editing a comment.
  */
