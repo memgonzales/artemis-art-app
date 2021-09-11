@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,30 +31,97 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import java.io.File
 
+/**
+ * Class handling the functionalities related to browsing the user's own posts.
+ *
+ * @constructor Creates a class that handles the functionalities related to browsing the user's
+ * own posts.
+ */
 class BrowseOwnPostsActivity : AppCompatActivity() {
+    /**
+     * User's own posts.
+     */
     private lateinit var dataPosts: ArrayList<Post>
+
+    /**
+     * Recycler view for the user's own posts.
+     */
     private lateinit var rvBrowseOwnPosts: RecyclerView
+
+    /**
+     * Adapter for the recycler view handling the user's own posts.
+     */
     private lateinit var ownPostsAdapter: OwnPostsAdapter
+
+    /**
+     * Shimmer layout displayed while data regarding the user's own posts are being
+     * fetched from the remote database.
+     */
     private lateinit var sflBrowseOwnPosts: ShimmerFrameLayout
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvBrowseOwnPostsBottom: BottomNavigationView
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
     private lateinit var srlBrowseOwnPosts: SwipeRefreshLayout
 
+    /**
+     * Image view displayed when the feed does not have any post to display.
+     */
     private lateinit var ivNone: ImageView
+
+    /**
+     * Text view displayed when the feed does not have any post to display.
+     */
     private lateinit var tvNone: TextView
 
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: DatabaseReference
 
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user.
+     */
     private lateinit var userId: String
 
     /**
@@ -74,11 +140,12 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
     /**
-     * Initialize the contents of the Activity's standard options menu.
+     * Called when the activity is starting.
      *
-     * @param menu The options menu in which you place your items.
-     * @return You must return true for the menu to be displayed; if you return false
-     * it will not be shown.
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -192,13 +259,13 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
     private fun initSwipeRefresh() {
         this.srlBrowseOwnPosts = findViewById(R.id.srl_browse_own_posts)
         srlBrowseOwnPosts.setOnRefreshListener {
-            onRefresh();
+            onRefresh()
         }
 
         srlBrowseOwnPosts.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
-            R.color.pinkish_purple_lighter);
+            R.color.pinkish_purple_lighter)
     }
 
     /**
@@ -227,20 +294,22 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadOwnPostsData();
 
-        this.dataPosts = arrayListOf<Post>()
+        this.dataPosts = arrayListOf()
 
-        this.rvBrowseOwnPosts = findViewById(R.id.rv_browse_own_posts);
-        this.rvBrowseOwnPosts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
+        this.rvBrowseOwnPosts = findViewById(R.id.rv_browse_own_posts)
+        this.rvBrowseOwnPosts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
 
-        this.ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity);
+        this.ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity)
 
 
-        this.rvBrowseOwnPosts.adapter = ownPostsAdapter;
+        this.rvBrowseOwnPosts.adapter = ownPostsAdapter
 
         initContent()
     }
 
-
+    /**
+     * Fetches the keys related to the user's own posts from the remote database.
+     */
     private fun initContent(){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
@@ -264,6 +333,12 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Fetches the user's own posts and updates the visibility of text and image views.
+     *
+     * @param highlights posts highlighted by the user
+     * @param postKeys keys of the user's own posts
+     */
     private fun getPosts(highlights: Set<String?>, postKeys: Set<String?>){
         this.ivNone = findViewById(R.id.iv_browse_own_posts_none)
         this.tvNone = findViewById(R.id.tv_browse_own_posts_none)
@@ -288,7 +363,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                         }
                     }
 
-                    if (!dataPosts.isEmpty()){
+                    if (dataPosts.isNotEmpty()){
                         ivNone.visibility = View.GONE
                         tvNone.visibility = View.GONE
                     }
