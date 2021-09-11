@@ -39,7 +39,16 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 
+/**
+ * Class handling the functionalities related to editing the user's profile.
+ *
+ * @constructor Creates a class that handles the functionalities related to editing the user's
+ * profile.
+ */
 class EditProfileActivity : AppCompatActivity() {
+    /**
+     * Floating action button for editing the user's profile picture.
+     */
     private lateinit var fabEditProfilePicEdit: FloatingActionButton
     private lateinit var btmProfilePicture: BottomSheetDialog
     private lateinit var clDialogProfilePictureEdit: ConstraintLayout
@@ -72,8 +81,20 @@ class EditProfileActivity : AppCompatActivity() {
      */
     private var isProfilePictureUploaded: Boolean = false
 
+    /**
+     * <code>true</code> if the profile picture was taken using the device camera;
+     * <code>false</code>, otherwise.
+     */
     private var cameraTaken: Boolean = false
+
+    /**
+     * Byte array pertaining to the profile picture uploaded by the user.
+     */
     private lateinit var photoByte: ByteArray
+
+    /**
+     * URI of the profile picture uploaded by the user.
+     */
     private lateinit var photoUri: String
 
     /**
@@ -86,10 +107,14 @@ class EditProfileActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
-
-
-    //Firebase
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: DatabaseReference
 
     private lateinit var user: FirebaseUser
@@ -100,7 +125,14 @@ class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var credentials: AuthCredential
 
-
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
@@ -184,7 +216,9 @@ class EditProfileActivity : AppCompatActivity() {
         this.photoByte = outputStream.toByteArray()
     }
 
-
+    /**
+     * Initializes the Firebase-related components.
+     */
     private fun initFirebase(){
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
@@ -203,6 +237,9 @@ class EditProfileActivity : AppCompatActivity() {
         this.storageRef = this.storage.reference
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_edit_profile))
         initActionBar()
@@ -257,6 +294,12 @@ class EditProfileActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Saves the new short bio in the remote database, effectively replacing the old short bio
+     * of the user.
+     *
+     * @param bio new short bio of the user
+     */
     private fun updateImgBio(bio: String){
         if (isProfilePictureUploaded){
             val url = this.storageRef.child(this.userId)
@@ -303,17 +346,25 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Defines the behavior when the new profile picture is successfully uploaded.
+     */
     private fun uploadSuccessfully(){
         pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Successfully uploaded your image", Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * Defines the behavior when the new profile picture is not successfully uploaded.
+     */
     private fun uploadFailed(){
         pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Unable to process your actions right now. Please try again later", Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * Fetches the attributes comprising the user's profile and updates the view.
+     */
     private fun initContent(){
         this.pbEditProfile.visibility = View.VISIBLE
 
@@ -350,6 +401,11 @@ class EditProfileActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Launches the bottom sheet dialog showing the options for editing the profile picture:
+     * removing the current profile picture, selecting a photo from the Gallery, or taking a
+     * photo using the device camera.
+     */
     private fun launchDialog() {
         val view = LayoutInflater.from(this@EditProfileActivity).inflate(R.layout.dialog_profile_picture, null)
 
@@ -378,6 +434,9 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -397,7 +456,12 @@ class EditProfileActivity : AppCompatActivity() {
         Toast.makeText(this@EditProfileActivity, "Failed to update your profile details", Toast.LENGTH_SHORT).show()
     }
 
-
+    /**
+     * Updates the database entries pertaining to the profile picture and short bio of the user.
+     *
+     * @param userImg URI of the profile picture of the user
+     * @param bio short bio of the user
+     */
     private fun updateDB(userImg: String, bio: String){
        // val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 

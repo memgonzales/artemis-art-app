@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 
 /**
- * Class handling the functionalities related to editing a post
+ * Class handling the functionalities related to editing a post.
  *
  * @constructor Creates a class that handles the functionalities related to editing a post.
  */
