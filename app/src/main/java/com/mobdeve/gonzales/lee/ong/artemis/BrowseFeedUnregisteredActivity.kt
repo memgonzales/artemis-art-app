@@ -25,30 +25,89 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.*
-import kotlin.collections.ArrayList
 
+/**
+ * Class handling the functionalities related to browsing the posts (for unregistered users).
+ *
+ * @constructor Creates a class that handles the functionalities related to browsing the posts
+ * (for unregistered users).
+ */
 class BrowseFeedUnregisteredActivity : AppCompatActivity() {
+    /**
+     * Posts to be displayed on the feed.
+     */
     private lateinit var dataPosts: ArrayList<Post>
+
+    /**
+     * Recycler view for the posts to be displayed on the feed.
+     */
     private lateinit var rvFeed: RecyclerView
+
+    /**
+     * Adapter for the recycler view handling the posts to be displayed on the feed.
+     */
     private lateinit var unregisteredFeedAdapter: UnregisteredFeedAdapter
+
+    /**
+     * Shimmer layout displayed while data regarding the posts are being fetched
+     * from the remote database.
+     */
     private lateinit var sflFeed: ShimmerFrameLayout
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvFeedBottom: BottomNavigationView
+
+    /**
+     * Nested scroll view for the main layout of this activity.
+     */
     private lateinit var nsvFeed: NestedScrollView
 
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
     private lateinit var srlFeedUnregistered: SwipeRefreshLayout
 
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
 
+    /**
+     * Image view displayed when the feed does not have any post to display.
+     */
     private lateinit var ivNone: ImageView
+
+    /**
+     * First (main) text view displayed when the feed does not have any post to display.
+     */
     private lateinit var tvNone: TextView
+
+    /**
+     * Second text view displayed displayed when the feed does not have any post to display.
+     */
     private lateinit var tvSubNone: TextView
 
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: DatabaseReference
 
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
-    private lateinit var userId: String
 
+     /**
+     * Unique identifier of the user.
+     */
+    private lateinit var userId: String
 
     /**
      * Called when the activity is starting.
@@ -112,6 +171,10 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
         this.srlFeedUnregistered = findViewById(R.id.srl_feed_unregistered)
         srlFeedUnregistered.setOnRefreshListener {
@@ -159,7 +222,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadPostDataUnregistered()
 
-        this.dataPosts = arrayListOf<Post>()
+        this.dataPosts = arrayListOf()
         this.rvFeed = findViewById(R.id.rv_feed_unregistered)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -172,6 +235,13 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         getRealtimeUpdates()
     }
 
+    /**
+     * Fetches the posts bookmarked by the user and updates the view, alongside the adapter
+     * and the view holder.
+     *
+     * @param shuffle <code>true</code> if the posts are shuffled before display;
+     * <code>false</code>, otherwise
+     */
     private fun initContent(shuffle: Boolean) {
         this.ivNone = findViewById(R.id.iv_feed_unregistered_none)
         this.tvNone = findViewById(R.id.tv_feed_unregistered_none)
@@ -186,7 +256,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
                 if(snapshot.exists()){
 
                     for(postSnap in snapshot.children){
-                        var post = postSnap.getValue(Post::class.java)
+                        val post = postSnap.getValue(Post::class.java)
 
                         if(post != null){
                             if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
@@ -202,10 +272,10 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
                     }
 
                     if (shuffle) {
-                        Collections.shuffle(dataPosts)
+                        dataPosts.shuffle()
                     }
 
-                    if (!dataPosts.isEmpty()){
+                    if (dataPosts.isNotEmpty()){
                         ivNone.visibility = View.GONE
                         tvNone.visibility = View.GONE
                         tvSubNone.visibility = View.GONE
