@@ -117,9 +117,19 @@ class EditProfileActivity : AppCompatActivity() {
      */
     private lateinit var db: DatabaseReference
 
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user.
+     */
     private lateinit var userId: String
 
+    /**
+     * Service that supports uploading and downloading large objects to Google Cloud Storage.
+     */
     private lateinit var storage: FirebaseStorage
     private lateinit var storageRef: StorageReference
 
