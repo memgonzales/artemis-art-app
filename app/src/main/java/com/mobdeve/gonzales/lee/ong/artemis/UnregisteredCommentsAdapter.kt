@@ -1,13 +1,20 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import java.util.*
 
 class UnregisteredCommentsAdapter(private val dataComments: ArrayList<Comment>) :
     RecyclerView.Adapter<CommentsViewHolder>() {
+
+    /**
+     * Context tied to the activity calling this adapter.
+     */
+    private lateinit var context: Context
 
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
@@ -38,7 +45,13 @@ class UnregisteredCommentsAdapter(private val dataComments: ArrayList<Comment>) 
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
         val currentComment = dataComments[position]
 
-        holder.setItemCommentProfilePic(currentComment.getProfilePicture())
+        //holder.setItemCommentProfilePic(currentComment.getProfilePicture())
+        Glide.with(context)
+            .load(currentComment.getProfilePicture())
+            .placeholder(R.drawable.chibi_artemis_hd)
+            .error(R.drawable.chibi_artemis_hd)
+            .into(holder.getItemCommentProfilePic())
+
         holder.setItemCommentUsername(currentComment.getUsername())
         holder.setItemCommentDate(currentComment.getDateCommented())
         holder.setItemCommentComment(currentComment.getCommentBody())

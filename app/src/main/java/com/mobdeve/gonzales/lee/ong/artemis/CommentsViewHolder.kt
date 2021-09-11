@@ -26,8 +26,12 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var storage: FirebaseStorage
     private var storageRef: StorageReference
 
-    fun setItemCommentProfilePic(picture: Int) {
-        /*
+    fun getItemCommentProfilePic() : CircleImageView {
+        return civItemCommentProfilePic
+    }
+
+    fun setItemCommentProfilePic(picture: String) {
+
         val localFile = File.createTempFile("images", "jpg")
         storageRef = storage.getReferenceFromUrl(picture)
 
@@ -37,10 +41,7 @@ class CommentsViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
                 civItemCommentProfilePic.setImageBitmap(bitmap)
             }
 
-
-
-         */
-        civItemCommentProfilePic.setImageResource(picture)
+       // civItemCommentProfilePic.setImageResource(picture)
     }
 
     fun setItemCommentUsername(name: String?) {

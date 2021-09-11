@@ -55,6 +55,8 @@ class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var userId: String
     private lateinit var db: DatabaseReference
 
+    private lateinit var postId: String
+
     /**
      * Photo of the artwork for posting.
      */
@@ -74,17 +76,36 @@ class ViewCommentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_comments)
 
-        initComponents()
         initFirebase()
+        initIntent()
+        initComponents()
         initGalleryLauncher(this@ViewCommentsActivity)
         initCameraLauncher(this@ViewCommentsActivity)
     }
 
     private fun initFirebase() {
         this.mAuth = Firebase.auth
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
         this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@ViewCommentsActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun initIntent(){
+        val intent: Intent = intent
+        this.postId = intent.getStringExtra(Keys.KEY_POSTID.name).toString()
+
+        if (postId.equals(null)){
+            val intent = Intent(this@ViewCommentsActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**
@@ -190,7 +211,9 @@ class ViewCommentsActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        this.dataComments = DataHelper.loadCommentData()
+       // this.dataComments = DataHelper.loadCommentData()
+
+        this.dataComments = arrayListOf<Comment>()
 
         this.rvComments = findViewById(R.id.rv_view_comments)
         this.llViewCommentsShimmer = findViewById(R.id.ll_view_comments_shimmer)
@@ -200,37 +223,71 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.commentsAdapter = CommentsAdapter(this.dataComments)
 
         this.rvComments.adapter = commentsAdapter
+
+
+        initContents()
     }
 
-    private fun initComment(){
+    private fun initContents(){
 
-    }
-
-    private fun addCommentDB(comment: Comment) {
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
-        val commentKey = commentDB.push().key!!
 
-        val updates = hashMapOf<String, Any>(
-            "/${Keys.KEY_DB_COMMENTS}/$commentKey" to comment,
-            "/${Keys.KEY_DB_USERS}/$userId/${Keys.comments.name}/$commentKey" to commentKey
-        )
+        commentDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+               // dataComments.clear()
 
-        db.updateChildren(updates)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful){
-                    pbComment.visibility = View.GONE
-                    Toast.makeText(this@ViewCommentsActivity, "Commented successfully", Toast.LENGTH_LONG).show()
-                    etComment.text.clear()
+                if (snapshot.exists()){
+                    for (c in snapshot.children){
 
-                    dataComments.add(comment)
+                        var commentSnap = c.getValue(Comment::class.java)
+
+                        if (commentSnap != null){
+                            if (!commentSnap.getPostId().isNullOrEmpty() && commentSnap.getPostId()!!.contains(postId)){
+
+                                if (commentSnap.getUserId().equals(userId)){
+                                    commentSnap.setEditable(true)
+                                }
+
+                                dataComments.add(commentSnap)
+
+
+
+                            }
+
+
+                        }
+
+
+                        /*
+                        if (commentSnap != null &&
+                            !commentSnap.getUserId().isNullOrEmpty() &&
+                            !commentSnap.getCommentId().isNullOrEmpty() &&
+                            !commentSnap.getPostId().isNullOrEmpty() &&
+                            commentSnap.getPostId()!!.contains(postId!!)){
+
+                                if (commentSnap.getUserId().equals(userId)){
+                                    commentSnap.setEditable(true)
+                                }
+
+                                dataComments.add(commentSnap)
+                        }
+
+                         */
+
+                    }
+
                     commentsAdapter.notifyDataSetChanged()
+
                 }
 
-                else{
-                    pbComment.visibility = View.VISIBLE
-                    Toast.makeText(this@ViewCommentsActivity, "Failed to comment", Toast.LENGTH_LONG).show()
-                }
             }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@ViewCommentsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
     }
 
     private fun addComment() {
@@ -244,34 +301,58 @@ class ViewCommentsActivity : AppCompatActivity() {
             if (commentText.isNotEmpty()) {
                 this.pbComment.visibility = View.VISIBLE
 
-                /*
+
                 db.child(Keys.KEY_DB_USERS.name).child(userId)
-                    .addValueEventListener(object: ValueEventListener{
+                    .addListenerForSingleValueEvent(object: ValueEventListener{
                         override fun onDataChange(snapshot: DataSnapshot) {
                             val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
                             val username: String = snapshot.child(Keys.username.name).getValue().toString()
 
-                            val comment = Comment("1", R.drawable.tofu_chan, "Tobe", commentText, true)
-                            addCommentDB(comment)
+                            val comment = Comment(userId, postId!!, userImg, username, commentText)
+
+                            val commentDB = db.child(Keys.KEY_DB_COMMENTS.name)
+                            val commentKey = commentDB.push().key!!
+
+                            comment.setCommentId(commentKey)
+
+                            addCommentDB(comment, commentKey)
 
                         }
 
                         override fun onCancelled(error: DatabaseError) {
-                            TODO("Not yet implemented")
+                            val intent = Intent(this@ViewCommentsActivity, BrokenLinkActivity::class.java)
+                            startActivity(intent)
                         }
 
                     })
-
-                 */
-
-                val comment = Comment("1", R.drawable.tofu_chan, "Tobe", commentText, true)
-                addCommentDB(comment)
-
 
             } else {
                 Toast.makeText(this, "Comments should not be blank", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun addCommentDB(comment: Comment, commentKey: String) {
+
+        val updates = hashMapOf<String, Any>(
+            "/${Keys.KEY_DB_COMMENTS.name}/$commentKey" to comment,
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.comments.name}/$commentKey" to commentKey,
+            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userComments.name}/$commentKey" to commentKey
+        )
+
+        db.updateChildren(updates)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful){
+                    pbComment.visibility = View.GONE
+                    Toast.makeText(this@ViewCommentsActivity, "Commented successfully", Toast.LENGTH_LONG).show()
+                    etComment.text.clear()
+                }
+
+                else{
+                    pbComment.visibility = View.VISIBLE
+                    Toast.makeText(this@ViewCommentsActivity, "Failed to comment", Toast.LENGTH_LONG).show()
+                }
+            }
     }
 
     private fun addPost() {

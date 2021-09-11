@@ -106,8 +106,12 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
 
         feedViewHolder.setItemFeedCommentOnClickListener { view ->
             val intent = Intent(view.context, ViewCommentsActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getPostId()
+            )
             view.context.startActivity(intent)
-        }
+         }
 
         this.firebaseHelper = FirebaseHelper(context)
 
@@ -132,7 +136,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
 
         holder.setItemFeedTitle(currentPost.getTitle())
         holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
-        holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")
+        holder.setItemFeedCommentCounter(currentPost.getNumComments().toString() + " comments")
         holder.setItemFeedBookmark(currentPost.getBookmark())
         holder.setItemFeedUpvote(currentPost.getUpvote())
 

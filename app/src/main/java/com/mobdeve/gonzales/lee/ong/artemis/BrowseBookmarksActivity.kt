@@ -309,6 +309,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         this.rvBookmarks.adapter = bookmarksAdapter
 
         initContent()
+        //getRealtimeUpdates()
     }
 
     /**
@@ -318,7 +319,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
 
-        userDB.addValueEventListener(object : ValueEventListener {
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userPost = snapshot.getValue(User::class.java)
 
@@ -329,7 +330,6 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-               // Toast.makeText(this@BrowseBookmarksActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@BrowseBookmarksActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
@@ -350,7 +350,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
 
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addValueEventListener(object: ValueEventListener {
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataPosts.clear()
                 if (snapshot.exists()){
@@ -389,7 +389,6 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                //Toast.makeText(this@BrowseBookmarksActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@BrowseBookmarksActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
@@ -408,6 +407,11 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val post = snapshot.getValue(Post::class.java)
 
+                if(post != null){
+                    post.setBookmark(true)
+                    dataPosts.add(post)
+                }
+
                 if (post != null && !post.getPostId().isNullOrEmpty()){
                     if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
                         post.setUpvote(true)
@@ -418,21 +422,14 @@ class BrowseBookmarksActivity : AppCompatActivity() {
                     }
                 }
 
-               // bookmarksAdapter.notifyDataSetChanged()
+                bookmarksAdapter.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val post = snapshot.getValue(Post::class.java)
 
                 if (post != null && !post.getPostId().isNullOrEmpty()){
-                    if (!post.getUpvoteUsers().isNullOrEmpty()){
-                        if(post.getUpvoteUsers().containsKey(userId)){
-                            post.setUpvote(true)
-                        }
-                        else{
-                            post.setUpvote(false)
-                        }
-                    }
+
 
                     if(!post.getBookmarkUsers().isNullOrEmpty()) {
                         if (post.getBookmarkUsers().containsKey(userId)){
@@ -448,7 +445,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val post = snapshot.getValue(Post::class.java)
                 dataPosts.remove(post)
-              //  bookmarksAdapter.notifyDataSetChanged()
+                bookmarksAdapter.notifyDataSetChanged()
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
