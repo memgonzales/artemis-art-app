@@ -15,10 +15,10 @@ import com.google.firebase.ktx.Firebase
 
 class FirebaseHelper {
 
-    private lateinit var context: Context
+    private var context: Context
 
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var db: DatabaseReference
+    private var mAuth: FirebaseAuth
+    private var db: DatabaseReference
 
     private lateinit var user: FirebaseUser
     private lateinit var userId: String
@@ -182,13 +182,13 @@ class FirebaseHelper {
 
                 if (snapshot.exists()){
                     for (u in snapshot.children){
-                        var userSnap = u.getValue(User::class.java)
+                        val userSnap = u.getValue(User::class.java)
 
                         if (userSnap != null){
-                            var bookmarks = userSnap.getBookmarks().keys
-                            var highlights = userSnap.getHighlights().keys
-                            var upvotedPosts = userSnap.getUpvotedPosts().keys
-                            var userPosts = userSnap.getUserPosts().keys
+                            val bookmarks = userSnap.getBookmarks().keys
+                            val highlights = userSnap.getHighlights().keys
+                            val upvotedPosts = userSnap.getUpvotedPosts().keys
+                            val userPosts = userSnap.getUserPosts().keys
 
                             if(!bookmarks.isNullOrEmpty() && bookmarks.contains(postId)){
                                 updateBookmarkDB(null, postId, null)
