@@ -207,13 +207,42 @@ class ViewPostActivity : AppCompatActivity() {
             .error(R.drawable.placeholder)
             .into(this.ivItemViewPostPost)
 
-        this.tvItemViewPostTitle.text = title
+        if (!title.isNullOrEmpty()){
+            this.tvItemViewPostTitle.visibility = View.VISIBLE
+            this.tvItemViewPostTitle.text = title
+        }
+        else{
+            this.tvItemViewPostTitle.visibility = View.INVISIBLE
+        }
+
         this.tvItemViewPostUpvoteCounter.text = upvoteString
         this.tvItemViewPostComments.text = commentString
         this.tvItemViewPostDatePosted.text = datePosted
-        this.tvItemViewPostMedium.text = medium
-        this.tvItemViewPostDimensions.text = dimensions
-        this.tvItemViewPostDescription.text = description
+
+        if(!medium.isNullOrEmpty()){
+            this.tvItemViewPostMedium.visibility = View.VISIBLE
+            this.tvItemViewPostMedium.text = medium
+        }
+        else{
+            this.tvItemViewPostMedium.visibility = View.GONE
+        }
+
+        if(!dimensions.isNullOrEmpty()){
+            this.tvItemViewPostDimensions.visibility = View.VISIBLE
+            this.tvItemViewPostDimensions.text = dimensions
+        }
+        else{
+            this.tvItemViewPostDimensions.visibility = View.GONE
+        }
+
+        if(!description.isNullOrEmpty()){
+            this.tvItemViewPostDescription.visibility = View.VISIBLE
+            this.tvItemViewPostDescription.text = description
+        }
+        else{
+            this.tvItemViewPostDescription.visibility = View.GONE
+        }
+
         this.tvItemViewPostTags.text = tagsString
 
         updateBookmark(bookmark)
