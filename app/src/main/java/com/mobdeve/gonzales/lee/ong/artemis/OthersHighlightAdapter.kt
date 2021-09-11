@@ -9,9 +9,11 @@ import com.bumptech.glide.Glide
 import java.util.*
 
 /**
- * Adapter for the recycler view that handles the highlights of other users.
+ * Adapter for the recycler view that handles the highlights of other users (as viewed from a
+ * registered account).
  *
- * @constructor Creates an adapter for the recycler view that handles the highlights of other users.
+ * @constructor Creates an adapter for the recycler view that handles the highlights of other users
+ * (as viewed from a registered account).
  * @param dataPosts posts of highlights of other users
  */
 class OthersHighlightAdapter(private val dataPosts: ArrayList<Post>) :
