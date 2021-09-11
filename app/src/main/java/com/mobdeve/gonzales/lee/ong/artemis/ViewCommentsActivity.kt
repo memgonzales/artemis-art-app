@@ -258,7 +258,7 @@ class ViewCommentsActivity : AppCompatActivity() {
                         }
 
 
-                        /*
+
                         if (commentSnap != null &&
                             !commentSnap.getUserId().isNullOrEmpty() &&
                             !commentSnap.getCommentId().isNullOrEmpty() &&
@@ -272,7 +272,7 @@ class ViewCommentsActivity : AppCompatActivity() {
                                 dataComments.add(commentSnap)
                         }
 
-                         */
+
 
                     }
 
