@@ -5,7 +5,7 @@ Artemis is the major course output in a mobile development (MOBDEVE) class. The 
 - Hylene Jules G. Lee
 - Phoebe Clare L. Ong<br/> <br/>
 
-More details are provided in the official project repository: <a href = "https://github.com/memgonzales/artemis-art-app">https://github.com/memgonzales/artemis-art-app
+More details are provided in the official project repository: [https://github.com/memgonzales/artemis-art-app](https://github.com/memgonzales/artemis-art-app).
 
 # Package com.mobdeve.gonzales.lee.ong.artemis
 
