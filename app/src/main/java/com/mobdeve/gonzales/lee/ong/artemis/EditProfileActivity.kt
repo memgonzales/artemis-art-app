@@ -113,8 +113,6 @@ class EditProfileActivity : AppCompatActivity() {
 
     /**
      * Initializes the activity result launcher related to choosing photos from the Gallery.
-     *
-     * @param packageContext context tied to this activity
      */
     private fun initGalleryLauncher() {
         galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -131,8 +129,6 @@ class EditProfileActivity : AppCompatActivity() {
 
     /**
      * Initializes the activity result launcher related to taking photos using the device camera
-     *
-     * @param packageContext context tied to this activity
      */
     private fun initCameraLauncher() {
         cameraLauncher =
