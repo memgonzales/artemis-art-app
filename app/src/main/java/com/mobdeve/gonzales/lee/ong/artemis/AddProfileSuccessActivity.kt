@@ -5,6 +5,13 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
+/**
+ * Class handling the functionalities related to directing the user to start browsing the feed
+ * after successfully completing user profile customization.
+ *
+ * @constructor Creates an activity for directing the user to start browsing the feed after
+ * successfully completing user profile customization.
+ */
 class AddProfileSuccessActivity : AppCompatActivity() {
     /**
      * Button to direct the user to start browsing the feed after successful sign-up and user
