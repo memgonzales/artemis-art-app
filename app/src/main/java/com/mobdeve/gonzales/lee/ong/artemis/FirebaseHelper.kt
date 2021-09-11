@@ -63,6 +63,28 @@ class FirebaseHelper {
         this.context = context
     }
 
+    constructor(context: Context, commentId: String){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        if(commentId.isNullOrEmpty()){
+            val intent = Intent(context, BrokenLinkActivity::class.java)
+            context.startActivity(intent)
+        }
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(context, BrokenLinkActivity::class.java)
+            context.startActivity(intent)
+        }
+
+        this.context = context
+    }
+
     fun updateUpvoteDB(userVal: String?, postKey: String?, postVal: String?, numUpvotes: Int){
         if (!postKey.isNullOrEmpty()){
             val updates = hashMapOf<String, Any?>(
@@ -103,6 +125,27 @@ class FirebaseHelper {
 
         db.updateChildren(updates)
     }
+
+
+
+
+
+
+    fun editComment(commentId: String, commentBody: String){
+        this.db.child(Keys.KEY_DB_COMMENTS.name).child(commentId).child(Keys.commentBody.name).setValue(commentBody)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Your comment has been updated", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Your comment failed to be updated", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+
+
+
+
 
     fun deletePostDB(postKey: String){
         val postDB = db.child(Keys.KEY_DB_POSTS.name).child(postKey)

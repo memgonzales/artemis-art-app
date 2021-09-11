@@ -110,6 +110,10 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
                 Keys.KEY_POSTID.name,
                 dataPosts[feedViewHolder.bindingAdapterPosition].getPostId()
             )
+            intent.putExtra(
+                Keys.KEY_NUM_COMMENTS.name,
+                dataPosts[feedViewHolder.bindingAdapterPosition].getNumComments()
+            )
             view.context.startActivity(intent)
          }
 

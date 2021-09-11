@@ -114,6 +114,7 @@ class EditPostActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load(postImg)
+            .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(this.ivEditArtworkPost)
 
