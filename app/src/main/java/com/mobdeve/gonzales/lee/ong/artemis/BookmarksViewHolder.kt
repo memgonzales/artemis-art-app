@@ -19,7 +19,7 @@ import java.io.File
  */
 class BookmarksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
-     * Image view related to the items in the search results.
+     * Image view for an item in the search results.
      */
     private val ivItemSearchResults: ImageView
 
@@ -34,9 +34,9 @@ class BookmarksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var storageRef: StorageReference
 
     /**
-     * Returns the image view related to the items in the search results.
+     * Returns the image view for an item in the search results.
      *
-     * @return image view related to the items in the search results
+     * @return image view for an item in the search results
      */
     fun getItemSearchResults(): ImageView {
         return ivItemSearchResults
