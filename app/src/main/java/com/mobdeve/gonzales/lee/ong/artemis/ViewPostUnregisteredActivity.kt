@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
@@ -85,12 +87,15 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
     private fun initIntent() {
         val intent: Intent = intent
 
-        val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
-        val post = intent.getIntExtra(Keys.KEY_POST.name, 0)
+
+        val postImg = intent.getStringExtra(Keys.KEY_POST.name)
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
+
         val upvoteCounter = intent.getIntExtra(Keys.KEY_NUM_UPVOTES.name, 0)
         val comments = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
+
         val datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name)
         val medium = intent.getStringExtra(Keys.KEY_MEDIUM.name)
         val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
@@ -103,16 +108,57 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         val commentString = "$comments comments"
         val tagsString = tags?.joinToString(", ")
 
-        this.civItemViewPostUnregisteredProfilePic.setImageResource(profilePicture)
+        //this.civItemViewPostUnregisteredProfilePic.setImageResource(profilePicture)
+        Glide.with(this)
+            .load(profilePicture)
+            .placeholder(R.drawable.chibi_artemis_hd)
+            .error(R.drawable.chibi_artemis_hd)
+            .into(this.civItemViewPostUnregisteredProfilePic)
+
         this.tvItemViewPostUnregisteredUsername.text = username
-        this.ivItemViewPostUnregisteredPost.setImageResource(post)
-        this.tvItemViewPostUnregisteredTitle.text = title
+        //this.ivItemViewPostUnregisteredPost.setImageResource(post)
+        Glide.with(this)
+            .load(postImg)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(this.ivItemViewPostUnregisteredPost)
+
+        if (!title.isNullOrEmpty()){
+            this.tvItemViewPostUnregisteredTitle.visibility = View.VISIBLE
+            this.tvItemViewPostUnregisteredTitle.text = title
+        }
+        else{
+            this.tvItemViewPostUnregisteredTitle.visibility = View.INVISIBLE
+        }
+
         this.tvItemViewPostUnregisteredUpvoteCounter.text = upvoteString
         this.tvItemViewPostUnregisteredComments.text = commentString
         this.tvItemViewPostUnregisteredDatePosted.text = datePosted
-        this.tvItemViewPostUnregisteredMedium.text = medium
-        this.tvItemViewPostUnregisteredDimensions.text = dimensions
-        this.tvItemViewPostUnregisteredDescription.text = description
+
+        if(!medium.isNullOrEmpty()){
+            this.tvItemViewPostUnregisteredMedium.visibility = View.VISIBLE
+            this.tvItemViewPostUnregisteredMedium.text = medium
+        }
+        else{
+            this.tvItemViewPostUnregisteredMedium.visibility = View.GONE
+        }
+
+        if(!dimensions.isNullOrEmpty()){
+            this.tvItemViewPostUnregisteredDimensions.visibility = View.VISIBLE
+            this.tvItemViewPostUnregisteredDimensions.text = dimensions
+        }
+        else{
+            this.tvItemViewPostUnregisteredDimensions.visibility = View.GONE
+        }
+
+        if(!description.isNullOrEmpty()){
+            this.tvItemViewPostUnregisteredDescription.visibility = View.VISIBLE
+            this.tvItemViewPostUnregisteredDescription.text = description
+        }
+        else{
+            this.tvItemViewPostUnregisteredDescription.visibility = View.GONE
+        }
+
         this.tvItemViewPostUnregisteredTags.text = tagsString
 
         ibItemViewPostUnregisteredBookmark.setOnClickListener {

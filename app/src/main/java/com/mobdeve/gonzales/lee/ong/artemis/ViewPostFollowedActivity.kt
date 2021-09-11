@@ -10,6 +10,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -203,13 +204,42 @@ class ViewPostFollowedActivity : AppCompatActivity() {
             .error(R.drawable.placeholder)
             .into(this.ivItemViewPostFollowedPost)
 
-        this.tvItemViewPostFollowedTitle.text = title
+        if (!title.isNullOrEmpty()){
+            this.tvItemViewPostFollowedTitle.visibility = View.VISIBLE
+            this.tvItemViewPostFollowedTitle.text = title
+        }
+        else{
+            this.tvItemViewPostFollowedTitle.visibility = View.INVISIBLE
+        }
+
         this.tvItemViewPostFollowedUpvoteCounter.text = upvoteString
         this.tvItemViewPostFollowedComments.text = commentString
         this.tvItemViewPostFollowedDatePosted.text = datePosted
-        this.tvItemViewPostFollowedMedium.text = medium
-        this.tvItemViewPostFollowedDimensions.text = dimensions
-        this.tvItemViewPostFollowedDescription.text = description
+
+        if(!medium.isNullOrEmpty()){
+            this.tvItemViewPostFollowedMedium.visibility = View.VISIBLE
+            this.tvItemViewPostFollowedMedium.text = medium
+        }
+        else{
+            this.tvItemViewPostFollowedMedium.visibility = View.GONE
+        }
+
+        if(!dimensions.isNullOrEmpty()){
+            this.tvItemViewPostFollowedDimensions.visibility = View.VISIBLE
+            this.tvItemViewPostFollowedDimensions.text = dimensions
+        }
+        else{
+            this.tvItemViewPostFollowedDimensions.visibility = View.GONE
+        }
+
+        if(!description.isNullOrEmpty()){
+            this.tvItemViewPostFollowedDescription.visibility = View.VISIBLE
+            this.tvItemViewPostFollowedDescription.text = description
+        }
+        else{
+            this.tvItemViewPostFollowedDescription.visibility = View.GONE
+        }
+
         this.tvItemViewPostFollowedTags.text = tagsString
 
         updateBookmark(bookmark)

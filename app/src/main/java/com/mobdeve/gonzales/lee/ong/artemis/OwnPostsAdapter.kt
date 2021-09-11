@@ -147,6 +147,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
             .into(holder.getOwnPostPost())
 
         holder.setOwnPostTitle(currentPost.getTitle())
+
         holder.setOwnPostUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setOwnPostComments(currentPost.getNumComments().toString() + " comments")
         holder.setOwnPostHighlight(currentPost.getHighlight())
@@ -256,12 +257,15 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
                     currentPost.getPostImg()
                 )
                 view.context.startActivity(intent)
+                notifyItemChanged(position)
             }
 
             delete.setOnClickListener { view ->
                 this.firebaseHelper.deletePostDB(currentPost.getPostId()!!)
+                notifyItemRemoved(position)
                 //Toast.makeText(view.context, "Your post has been deleted", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
+
             }
 
 

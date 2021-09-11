@@ -318,8 +318,9 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         this.rvFeed.adapter = feedAdapter
 
-        initContent(false)
         getRealtimeUpdates()
+        initContent(false)
+
 
     }
 
@@ -412,12 +413,10 @@ class BrowseFeedActivity : AppCompatActivity() {
                         post.setBookmark(true)
                     }
 
-                    Toast.makeText(applicationContext, "ch: " + post.getNumComments(), Toast.LENGTH_SHORT).show()
-
-                    dataPosts.add(post)
+                 //   dataPosts.add(post)
                 }
 
-                feedAdapter.notifyDataSetChanged()
+                //feedAdapter.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -442,6 +441,8 @@ class BrowseFeedActivity : AppCompatActivity() {
                         }
                     }
                 }
+
+                feedAdapter.notifyDataSetChanged()
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {

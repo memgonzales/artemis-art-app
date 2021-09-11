@@ -25,10 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
@@ -305,6 +302,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         this.rvBrowseOwnPosts.adapter = ownPostsAdapter
 
         initContent()
+        getRealtimeUpdates()
     }
 
     /**
@@ -313,7 +311,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
     private fun initContent(){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
-        userDB.addValueEventListener(object : ValueEventListener{
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userPost = snapshot.getValue(User::class.java)
 
@@ -345,7 +343,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
 
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addValueEventListener(object: ValueEventListener{
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataPosts.clear()
                 if (snapshot.exists()){
@@ -380,6 +378,73 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                     ivNone.visibility = View.VISIBLE
                     tvNone.visibility = View.VISIBLE
                 }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseOwnPostsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+    }
+
+    private fun getRealtimeUpdates(){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addChildEventListener(object: ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                        post.setUpvote(true)
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                        post.setBookmark(true)
+                    }
+
+                    //   dataPosts.add(post)
+                }
+
+                //feedAdapter.notifyDataSetChanged()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    if (!post.getUpvoteUsers().isNullOrEmpty()){
+                        if(post.getUpvoteUsers().containsKey(userId)){
+                            post.setUpvote(true)
+                        }
+                        else{
+                            post.setUpvote(false)
+                        }
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty()) {
+                        if (post.getBookmarkUsers().containsKey(userId)){
+                            post.setBookmark(true)
+                        }
+                        else{
+                            post.setBookmark(false)
+                        }
+                    }
+                }
+
+                ownPostsAdapter.notifyDataSetChanged()
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val post = snapshot.getValue(Post::class.java)
+                dataPosts.remove(post)
+                ownPostsAdapter.notifyDataSetChanged()
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                /* This is intentionally left blank */
 
             }
 

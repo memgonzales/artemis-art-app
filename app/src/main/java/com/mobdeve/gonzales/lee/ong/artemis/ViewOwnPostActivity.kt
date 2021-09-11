@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -232,13 +233,43 @@ class ViewOwnPostActivity : AppCompatActivity() {
             .error(R.drawable.placeholder)
             .into(this.ivItemViewOwnPostPostImg)
 
-        this.tvItemViewOwnPostTitle.text = title
+        if (!title.isNullOrEmpty()){
+            this.tvItemViewOwnPostTitle.visibility = View.VISIBLE
+            this.tvItemViewOwnPostTitle.text = title
+        }
+        else{
+            this.tvItemViewOwnPostTitle.visibility = View.INVISIBLE
+        }
+
         this.tvItemViewOwnPostUpvoteCounter.text = upvoteString
         this.tvItemViewOwnPostComments.text = commentString
         this.tvItemViewOwnPostDatePosted.text = datePosted
-        this.tvItemViewOwnPostMedium.text = medium
-        this.tvItemViewOwnPostDimensions.text = dimensions
-        this.tvItemViewOwnPostDescription.text = description
+
+        if(!medium.isNullOrEmpty()){
+            this.tvItemViewOwnPostMedium.visibility = View.VISIBLE
+            this.tvItemViewOwnPostMedium.text = medium
+        }
+        else{
+            this.tvItemViewOwnPostMedium.visibility = View.GONE
+        }
+
+        if(!dimensions.isNullOrEmpty()){
+            this.tvItemViewOwnPostDimensions.visibility = View.VISIBLE
+            this.tvItemViewOwnPostDimensions.text = dimensions
+        }
+        else{
+            this.tvItemViewOwnPostDimensions.visibility = View.GONE
+        }
+
+        if(!description.isNullOrEmpty()){
+            this.tvItemViewOwnPostDescription.visibility = View.VISIBLE
+            this.tvItemViewOwnPostDescription.text = description
+        }
+        else{
+            this.tvItemViewOwnPostDescription.visibility = View.GONE
+        }
+        1
+        4444
         this.tvItemViewOwnPostTags.text = tagsString
 
         updateHighlight(highlight)
