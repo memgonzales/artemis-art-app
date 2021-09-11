@@ -2,7 +2,13 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import com.google.firebase.database.Exclude
 
+/**
+ * Class representing a comment and specifying the attributes associated with it.
+ */
 class Comment {
+    /**
+     *
+     */
     private var userId: String? = null
     private var postId: String? = null
     private var commentId: String? = null

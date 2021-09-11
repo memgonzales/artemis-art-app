@@ -61,6 +61,9 @@ class User {
      */
     private var userComments: HashMap<String, Any?>
 
+    /**
+     * Creates a user.
+     */
     constructor(){
         this.userId = ""
         this.username = ""
@@ -127,7 +130,11 @@ class User {
 
     }
 
-
+    /**
+     * Returns the unique identifier of the user.
+     *
+     * @return unique identifiers of the user
+     */
     fun getUserId(): String {
         return this.userId
     }
