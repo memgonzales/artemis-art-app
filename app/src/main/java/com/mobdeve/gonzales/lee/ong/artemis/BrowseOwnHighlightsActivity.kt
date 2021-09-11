@@ -255,7 +255,6 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                //Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@BrowseOwnHighlightsActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
@@ -307,7 +306,6 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                //Toast.makeText(this@BrowseOwnHighlightsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@BrowseOwnHighlightsActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }

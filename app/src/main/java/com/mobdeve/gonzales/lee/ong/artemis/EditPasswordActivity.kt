@@ -185,20 +185,12 @@ class EditPasswordActivity : AppCompatActivity() {
                             updateFailed()
                         }
                 }
-
-                /*
-                else{
-                    pbEditPw.visibility = View.GONE
-                   // Toast.makeText(this@EditPasswordActivity, "Invalid Old Password", Toast.LENGTH_SHORT).show()
-                }
-
-                 */
-
             }
 
             override fun onCancelled(error: DatabaseError) {
                 pbEditPw.visibility = View.GONE
-                Toast.makeText(applicationContext, "Failed to Access User", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@EditPasswordActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
         })
     }

@@ -159,7 +159,8 @@ class LogInActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    loginFailed()
+                    val intent = Intent(this@LogInActivity, BrokenLinkActivity::class.java)
+                    startActivity(intent)
                 }
             })
     }

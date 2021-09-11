@@ -254,7 +254,7 @@ class EditProfileActivity : AppCompatActivity() {
             val intent = Intent(this@EditProfileActivity, EditPasswordActivity::class.java)
             startActivity(intent)
         }
-//
+
         initContent()
         launchDialog()
 
@@ -333,22 +333,13 @@ class EditProfileActivity : AppCompatActivity() {
 
                 Glide.with(this@EditProfileActivity)
                     .load(profPic)
+                    .placeholder(R.drawable.placeholder)
                     .error(R.drawable.placeholder)
                     .into(civEditProfilePic)
 
                 val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
-//
-                /*
-                val localFile = File.createTempFile("images", "jpg")
-                storageRef = storage.getReferenceFromUrl(profPic)
 
-                storageRef.getFile(localFile)
-                    .addOnSuccessListener {
-                        var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-                        civEditProfilePic.setImageBitmap(bitmap)
-                    }
 
-                 */
 
                 tietEditProfileUsername.setText(username)
 //                tietEditProfileEmail.setText(email)
@@ -396,96 +387,6 @@ class EditProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
-//    private fun checkEmpty(email: String, password: String): Boolean {
-//        var hasEmpty: Boolean = false
-//
-//        if (email.isEmpty()) {
-//            tilEditProfileEmail.error = "Required"
-//            tilEditProfileEmail.requestFocus()
-//        }
-//
-//        else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-//            tilEditProfileEmail.error = "Invalid Email"
-//            tilEditProfileEmail.requestFocus()
-//        }
-//
-//        else {
-//            tilEditProfileEmail.error = null
-//        }
-//
-//        if (password.isEmpty()) {
-//            tilEditProfilePassword.error = "Required"
-//            tilEditProfilePassword.requestFocus()
-//        }
-//
-//        else {
-//            tilEditProfilePassword.error = null
-//        }
-//
-//        return hasEmpty
-//    }
-//
-//    private fun updateProfile(userImg: Int, email: String, password: String, bio: String){
-//
-//        this.ref.child(Keys.KEY_DB_USERS.name).child(this.userId)
-//            .addValueEventListener(object: ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//
-//                var e: String = snapshot.child(Keys.email.name).getValue().toString()
-//                var pw: String = snapshot.child(Keys.password.name).getValue().toString()
-//
-//                credentials = EmailAuthProvider.getCredential(e, pw)
-//
-//                user.reauthenticateAndRetrieveData(credentials)
-//                    .addOnSuccessListener {
-//
-//                        user.updatePassword(password)
-//                            .addOnSuccessListener {
-//
-//                                user.updateEmail(email)
-//                                    .addOnSuccessListener {
-//
-//                                        updateUserDB(userImg, email, password, bio)
-//                                        updateSuccessfully()
-//                                    }
-//                                    .addOnFailureListener {
-//                                        updateFailed()
-//                                    }
-//                            }
-//                            .addOnFailureListener {
-//                                updateFailed()
-//                            }
-//                    }
-//                    .addOnFailureListener {
-//                        updateFailed()
-//                    }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                pbEditProfile.visibility = View.GONE
-//                Toast.makeText(applicationContext, "Failed to Access User", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
-//
-//    private fun updateUserDB(userImg: Int, email: String, password: String, bio: String){
-//        val userDB = ref.child(Keys.KEY_DB_USERS.name).child(userId)
-//
-//        val updates: HashMap<String, Any> = hashMapOf<String, Any>()
-//        updates.put(Keys.userImg.name, userImg)
-//        updates.put(Keys.email.name, email)
-//        updates.put(Keys.password.name, password)
-//        updates.put(Keys.bio.name, bio)
-//
-//        userDB.updateChildren(updates)
-//            .addOnSuccessListener {
-//                updateSuccessfully()
-//            }
-//            .addOnFailureListener {
-//                updateFailed()
-//            }
-//    }
-//
     private fun updateSuccessfully(){
         pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()

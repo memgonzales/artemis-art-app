@@ -7,6 +7,8 @@ import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
@@ -16,6 +18,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BrowseFeedUnregisteredActivity : AppCompatActivity() {
     private lateinit var dataPosts: ArrayList<Post>
@@ -29,6 +39,17 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
 
     private lateinit var fabAddPost: FloatingActionButton
 
+    private lateinit var ivNone: ImageView
+    private lateinit var tvNone: TextView
+    private lateinit var tvSubNone: TextView
+
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
+
+    private lateinit var user: FirebaseUser
+    private lateinit var userId: String
+
+
     /**
      * Called when the activity is starting.
      *
@@ -41,7 +62,26 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse_feed_unregistered)
 
+        initFirebase()
         initComponents()
+    }
+
+    /**
+     * Initializes the Firebase-related components.
+     */
+    private fun initFirebase(){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@BrowseFeedUnregisteredActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**
@@ -117,8 +157,9 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-        this.dataPosts = DataHelper.loadPostDataUnregistered()
+        //this.dataPosts = DataHelper.loadPostDataUnregistered()
 
+        this.dataPosts = arrayListOf<Post>()
         this.rvFeed = findViewById(R.id.rv_feed_unregistered)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -126,6 +167,136 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
 
 
         this.rvFeed.adapter = unregisteredFeedAdapter
+
+        initContent(false)
+        getRealtimeUpdates()
+    }
+
+    private fun initContent(shuffle: Boolean) {
+        this.ivNone = findViewById(R.id.iv_feed_unregistered_none)
+        this.tvNone = findViewById(R.id.tv_feed_unregistered_none)
+        this.tvSubNone = findViewById(R.id.tv_feed_unregistered_subtitle_none)
+
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                dataPosts.clear()
+                if(snapshot.exists()){
+
+                    for(postSnap in snapshot.children){
+                        var post = postSnap.getValue(Post::class.java)
+
+                        if(post != null){
+                            if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                                post.setUpvote(true)
+                            }
+
+                            if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                                post.setBookmark(true)
+                            }
+
+                            dataPosts.add(post)
+                        }
+                    }
+
+                    if (shuffle) {
+                        Collections.shuffle(dataPosts)
+                    }
+
+                    if (!dataPosts.isEmpty()){
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
+                        tvSubNone.visibility = View.GONE
+                    }
+
+                    else{
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                        tvSubNone.visibility = View.VISIBLE
+                    }
+
+                    unregisteredFeedAdapter.notifyDataSetChanged()
+                }
+
+                else{
+                    ivNone.visibility = View.VISIBLE
+                    tvNone.visibility = View.VISIBLE
+                    tvSubNone.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseFeedUnregisteredActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+        })
+    }
+
+    private fun getRealtimeUpdates(){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addChildEventListener(object: ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                        post.setUpvote(true)
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                        post.setBookmark(true)
+                    }
+
+                    dataPosts.add(post)
+                }
+
+                unregisteredFeedAdapter.notifyDataSetChanged()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    if (!post.getUpvoteUsers().isNullOrEmpty()){
+                        if(post.getUpvoteUsers().containsKey(userId)){
+                            post.setUpvote(true)
+                        }
+                        else{
+                            post.setUpvote(false)
+                        }
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty()) {
+                        if (post.getBookmarkUsers().containsKey(userId)){
+                            post.setBookmark(true)
+                        }
+                        else{
+                            post.setBookmark(false)
+                        }
+                    }
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val post = snapshot.getValue(Post::class.java)
+                dataPosts.remove(post)
+                unregisteredFeedAdapter.notifyDataSetChanged()
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                /* This is intentionally left blank */
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseFeedUnregisteredActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
     }
 
     /**
