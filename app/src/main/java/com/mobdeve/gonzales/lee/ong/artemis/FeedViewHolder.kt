@@ -22,7 +22,7 @@ import java.io.IOException
  *
  * @constructor Creates a view holder for the recycler view that handles the posts displayed
  * on the feed.
- * @param itemView layout for a single item in the recycler view
+ * @param itemView Layout for a single item in the recycler view.
  */
 class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
@@ -103,7 +103,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Returns the image view for the profile picture of the user who posted.
      *
-     * @return image view for the profile picture of the user who posted
+     * @return Image view for the profile picture of the user who posted.
      */
     fun getItemFeedProfilePic(): CircleImageView {
         return civItemFeedProfilePic
@@ -115,7 +115,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * In the case of a caught input/output exception, this function sets the profile picture
      * to the launcher icon (currently, this is the chibi version of the Artemis logo).
      *
-     * @return URI of the photo to which the profile picture of the user is to be set
+     * @return URI of the photo to which the profile picture of the user is to be set.
      */
     fun setItemFeedProfilePic(picture: String) {
 
@@ -140,7 +140,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Returns the username of the user who posed.
      *
-     * @return username of the user who posted
+     * @return Username of the user who posted.
      */
     fun getItemFeedUsername(): TextView {
         return tvItemFeedUsername
@@ -149,7 +149,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Sets the username of the user who posted to the specified string.
      *
-     * @param name string to which the username of the user who posted is to be set
+     * @param name String to which the username of the user who posted is to be set.
      */
     fun setItemFeedUsername(name: String?) {
         tvItemFeedUsername.text = name
@@ -158,7 +158,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Returns the image view for the posted artwork.
      *
-     * @return image view for the posted artwork
+     * @return Image view for the posted artwork.
      */
     fun getItemFeedPost(): ImageView {
         return ivItemFeedPost
@@ -170,7 +170,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * In the case of a caught input/output exception, this function sets the photo
      * to the launcher icon (currently, this is the chibi version of the Artemis logo).
      *
-     * @param post URI of the photo to which the posted artwork is to be set
+     * @param post URI of the photo to which the posted artwork is to be set.
      */
     fun setItemFeedPost(post: String) {
 
@@ -195,7 +195,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Sets the title of the posted artwork to the given string.
      *
-     * @param title string to which the title of the posted artwork is to be set
+     * @param title String to which the title of the posted artwork is to be set.
      */
     fun setItemFeedTitle(title: String?) {
         tvItemFeedTitle.text = title
@@ -204,7 +204,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Sets the number of upvotes of the posted artwork to the given string.
      *
-     * @param upvotes string to which the number of upvotes of the posted artwork is to be set
+     * @param upvotes String to which the number of upvotes of the posted artwork is to be set.
      */
     fun setItemFeedUpvoteCounter(upvotes: String?) {
         tvItemFeedUpvoteCounter.text = upvotes
@@ -213,7 +213,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Sets the number of comments on the posted artwork to the given string.
      *
-     * @param numComments string to which the number of comments on the posted artwork is to be set
+     * @param numComments String to which the number of comments on the posted artwork is to be set.
      */
     fun setItemFeedCommentCounter(numComments: String?) {
         tvItemFeedCommentsCounter.text = numComments
@@ -223,8 +223,8 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * Sets the text inside the text view related to the comments on the posted artwork
      * to the given string.
      *
-     * @param comments string to which the text inside the text view related to the comments
-     * on the posted artwork is to be set
+     * @param comments String to which the text inside the text view related to the comments
+     * on the posted artwork is to be set.
      */
     fun setItemFeedComments(comments: String?) {
         tvItemFeedComments.text = comments
@@ -233,7 +233,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Sets the onclick listener for bookmarking the posted artwork.
      *
-     * @param onClickListener onclick listener for upvoting the posted artwork
+     * @param onClickListener onclick listener for upvoting the posted artwork.
      */
     fun setItemFeedBookmarkOnClickListener(onClickListener: View.OnClickListener) {
         ibItemFeedBookmark.setOnClickListener(onClickListener)
@@ -243,7 +243,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * Updates the view depending on whether the posted artwork is bookmarked
      *
      * @param bookmark <code>true</code> fi the posted artwork is bookmarked; <code>false</code>,
-     * otherwise
+     * otherwise.
      */
     fun setItemFeedBookmark(bookmark: Boolean) {
         if (bookmark) {
@@ -271,7 +271,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Updates the view depending on whether the posted artwork is upvoted.
      *
-     * @param upvote <code>true</code> fi the posted artwork is upvoted; <code>false</code>,
+     * @param upvote <code>true</code> if the posted artwork is upvoted; <code>false</code>,
      * otherwise
      */
     fun setItemFeedUpvote(upvote: Boolean) {
@@ -318,7 +318,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * the artwork.
      *
      * @param onClickListener onclick listener for the profile picture and username of the user
-     * who posted the artwork
+     * who posted the artwork.
      */
     fun setItemFeedProfileOnClickListener(onClickListener: View.OnClickListener) {
         civItemFeedProfilePic.setOnClickListener(onClickListener)

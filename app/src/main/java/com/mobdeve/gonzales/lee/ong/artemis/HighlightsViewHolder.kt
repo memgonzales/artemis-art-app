@@ -15,11 +15,11 @@ import java.io.File
  *
  * @constructor Creates a view holder for the recycler view that handles the posts highlighted
  * by the user.
- * @param itemView layout for a single item in the recycler view
+ * @param itemView Layout for a single item in the recycler view.
  */
 class HighlightsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
-     * Image view related to the search results
+     * Image view related to the search results.
      */
     private val ivItemSearchResults: ImageView
 
@@ -36,7 +36,7 @@ class HighlightsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Returns the image view related to the search results.
      *
-     * @return image view related to the search results
+     * @return Image view related to the search results.
      */
     fun getItemSearchResults(): ImageView {
         return ivItemSearchResults
@@ -46,7 +46,7 @@ class HighlightsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * Sets the image related to the search results to the photo associated with a post and specified
      * by the given URI.
      *
-     * @param post URI of the photo to which the image related to the search results is to be set
+     * @param post URI of the photo to which the image related to the search results is to be set.
      */
     fun setItemSearchResults(post: String) {
         val localFile = File.createTempFile("images", "jpg")

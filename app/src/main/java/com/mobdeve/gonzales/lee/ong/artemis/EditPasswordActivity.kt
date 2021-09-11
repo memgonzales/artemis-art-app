@@ -163,9 +163,9 @@ class EditPasswordActivity : AppCompatActivity() {
      * Checks whether the user entered an old password (although verifying if the input is correct
      * is delegated to a separate method) and whether the new password and its confirmation match.
      *
-     * @param pw old password of the user
-     * @param newPw new password of the user
-     * @param confirmPw confirmation of the new password of the user
+     * @param pw Old password of the user.
+     * @param newPw New password of the user.
+     * @param confirmPw Confirmation of the new password of the user.
      */
     private fun validPassword(pw: String, newPw: String, confirmPw: String): Boolean{
         var isValid = true
@@ -224,8 +224,8 @@ class EditPasswordActivity : AppCompatActivity() {
      * Saves the new password in the remote database, effectively replacing the old password
      * of the user.
      *
-     * @param oldPw old password of the user
-     * @param newPw new password of the user
+     * @param oldPw Old password of the user.
+     * @param newPw New password of the user.
      */
     private fun updatePassword(oldPw: String, newPw: String){
         pbEditPw.visibility = View.VISIBLE

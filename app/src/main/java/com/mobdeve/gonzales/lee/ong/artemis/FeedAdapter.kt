@@ -21,9 +21,9 @@ import java.util.*
 /**
  * Adapter for the recycler view that handles the posts displayed on the feed.
  *
- * @constructor Creates an adapter for the recycler view that handles the comments on the posts.
- * @param dataPosts comments on the posts
- * @param parentActivity activity calling this adapter
+ * @constructor Creates an adapter for the recycler view that handles the posts displayed on the feed.
+ * @param dataPosts Posts displayed on the feed.
+ * @param parentActivity Activity calling this adapter.
  */
 class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
     RecyclerView.Adapter<FeedViewHolder>() {

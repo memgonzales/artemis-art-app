@@ -355,7 +355,7 @@ class EditProfileActivity : AppCompatActivity() {
      * instead (currently, this placeholder is the launcher icon of the app, that is, a chibi
      * version of the Artemis logo).
      *
-     * @param bio new short bio of the user
+     * @param bio New short bio of the user.
      */
     private fun updateImgBio(bio: String){
         if (isProfilePictureUploaded){
@@ -522,8 +522,8 @@ class EditProfileActivity : AppCompatActivity() {
     /**
      * Updates the database entries pertaining to the profile picture and short bio of the user.
      *
-     * @param userImg URI of the profile picture of the user
-     * @param bio short bio of the user
+     * @param userImg URI of the profile picture of the user.
+     * @param bio Short bio of the user.
      */
     private fun updateDB(userImg: String, bio: String){
        // val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)

@@ -190,9 +190,6 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //ivOwnPostPost.setImageResource(post)
     }
 
-    /**
-     *
-     */
     fun setOwnPostTitle(title: String?) {
         tvOwnPostTitle.text = title
     }
