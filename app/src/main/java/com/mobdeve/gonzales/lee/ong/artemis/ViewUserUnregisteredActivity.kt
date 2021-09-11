@@ -222,7 +222,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
     }
 
     /**
-     * Re-fetches data from the database and reshuffles the display of existing data when the screen
+     * Refetches data from the database and reshuffles the display of existing data when the screen
      * is swiped to refresh.
      */
     private fun onRefresh() {

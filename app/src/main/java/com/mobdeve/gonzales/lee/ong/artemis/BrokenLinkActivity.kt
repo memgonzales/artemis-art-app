@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.facebook.login.Login
 
 /**
  * Class handling the functionalities related to notifying the user and preventing the app
@@ -19,6 +18,9 @@ class BrokenLinkActivity : AppCompatActivity() {
      */
     private lateinit var tvBrokenLinkEmail: TextView
 
+    /**
+     * Button for redirecting the user back to the log-in activity.
+     */
     private lateinit var btnBackToLogin: Button
 
     /**
@@ -50,7 +52,7 @@ class BrokenLinkActivity : AppCompatActivity() {
      * the message body.
      *
      * The recipient email address is automatically set to the email address of the developers:
-     * artemis.appmaster@gmail.com
+     * [artemis.appmaster@gmail.com](mailto:artemis.appmaster@gmail.com).
      */
     private fun launchEmail() {
         tvBrokenLinkEmail = findViewById(R.id.tv_broken_link_email)

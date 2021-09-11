@@ -84,7 +84,7 @@ class EditEmailActivity : AppCompatActivity() {
     private lateinit var email: String
 
     /**
-     * Credential that the Firebase Authentication server can use to authenticate the user
+     * Credential that the Firebase Authentication server can use to authenticate the user.
      */
     private lateinit var credentials: AuthCredential
 

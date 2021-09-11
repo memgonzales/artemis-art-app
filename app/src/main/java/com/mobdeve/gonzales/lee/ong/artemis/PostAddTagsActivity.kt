@@ -1,7 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
@@ -83,6 +82,15 @@ class PostAddTagsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Displays the photo taken using the device camera in the proper orientation.
+     *
+     * This method addresses the issue of most device cameras setting the orientation of a captured
+     * image to landscape. The code for rotation is a direct translation of the one found in
+     * [https://www.py4u.net/discuss/611150](https://www.py4u.net/discuss/611150).
+     *
+     * @param photoPath Path to the photo to be rotated.
+     */
     private fun fetchFromCamera(photoPath: String?) {
         /* Taken from https://www.py4u.net/discuss/611150 */
         val bounds = BitmapFactory.Options()

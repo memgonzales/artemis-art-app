@@ -1,11 +1,11 @@
 # Module app
 
-Artemis is the major course output in a mobile development (MOBDEVE) class. The authors of this project are second-year undergraduate students from the Software Technology Department, College of Computer Studies, De La Salle University:
+**Artemis** is the major course output in a mobile development (MOBDEVE) class. The authors of this project are second-year undergraduate students from the Software Technology Department, College of Computer Studies, De La Salle University:
 - Mark Edward M. Gonzales
 - Hylene Jules G. Lee
 - Phoebe Clare L. Ong<br/> <br/>
 
-More details are provided in the official project repository: [https://github.com/memgonzales/artemis-art-app](https://github.com/memgonzales/artemis-art-app).
+More details are provided in the [official project repository](https://github.com/memgonzales/artemis-art-app). For queries or concerns related to the Artemis project, kindly email [artemis.appmaster@gmail.com](mailto:artemis.appmaster@gmail.com).
 
 # Package com.mobdeve.gonzales.lee.ong.artemis
 

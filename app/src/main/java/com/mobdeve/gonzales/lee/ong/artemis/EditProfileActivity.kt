@@ -139,7 +139,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
 
     /**
-     * Activity result launcher related to choosing photos from the Gallery
+     * Activity result launcher related to choosing photos from the Gallery.
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
@@ -174,7 +174,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var storageRef: StorageReference
 
     /**
-     * Credential that the Firebase Authentication server can use to authenticate the user
+     * Credential that the Firebase Authentication server can use to authenticate the user.
      */
     private lateinit var credentials: AuthCredential
 
@@ -213,7 +213,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     /**
-     * Initializes the activity result launcher related to taking photos using the device camera
+     * Initializes the activity result launcher related to taking photos using the device camera.
      */
     private fun initCameraLauncher() {
         cameraLauncher =
@@ -232,9 +232,9 @@ class EditProfileActivity : AppCompatActivity() {
      *
      * This method addresses the issue of most device cameras setting the orientation of a captured
      * image to landscape. The code for rotation is a direct translation of the one found in
-     * <a href = "https://www.py4u.net/discuss/611150">https://www.py4u.net/discuss/611150</a>
+     * [https://www.py4u.net/discuss/611150](https://www.py4u.net/discuss/611150).
      *
-     * @param photoPath path to the photo to be rotated
+     * @param photoPath Path to the photo to be rotated.
      */
     private fun fetchFromCamera(photoPath: String?) {
         val bounds = BitmapFactory.Options()
@@ -568,12 +568,12 @@ class EditProfileActivity : AppCompatActivity() {
     /**
      * Callback for the result from requesting permissions.
      *
-     * @param requestCode the request code passed in <code>
-     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
-     * @param permissions the requested permissions. Never null
-     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     * @param requestCode The request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>.
+     * @param permissions The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions which is either <code>
      *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
-     *     Never null
+     *     Never null.
      */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
                                             grantResults: IntArray) {
@@ -585,13 +585,13 @@ class EditProfileActivity : AppCompatActivity() {
      * Defines the behavior related to choosing a photo from the Gallery or taking a photo using
      * the device camera based on the permissions granted by the user.
      *
-     * @param requestCode the request code passed in <code>
-     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
-     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     * @param requestCode The request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>.
+     * @param grantResults The grant results for the corresponding permissions which is either <code>
      *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
-     *     Never null
-     * @param context context tied to this activity
-     * @param activity this activity
+     *     Never null.
+     * @param context Context tied to this activity.
+     * @param activity This activity.
      */
     private fun permissionsResult(requestCode: Int, grantResults: IntArray, context: Context,
                                   activity: Activity) {

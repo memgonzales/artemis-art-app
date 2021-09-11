@@ -15,7 +15,7 @@ import java.io.File
  *
  * @constructor Creates a view holder for the recycler view that handles the posts bookmarked
  * by the user.
- * @param itemView layout for a single item in the recycler view
+ * @param itemView Layout for a single item in the recycler view.
  */
 class BookmarksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
@@ -36,7 +36,7 @@ class BookmarksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Returns the image view for an item in the search results.
      *
-     * @return image view for an item in the search results
+     * @return Image view for an item in the search results.
      */
     fun getItemSearchResults(): ImageView {
         return ivItemSearchResults
@@ -45,7 +45,7 @@ class BookmarksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Sets the item in the search results to the specified post.
      *
-     * @param post post to which the item in the search results is set
+     * @param post Post to which the item in the search results is set.
      */
     fun setItemSearchResults(post: String) {
         val localFile = File.createTempFile("images", "jpg")

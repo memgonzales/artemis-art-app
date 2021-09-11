@@ -89,7 +89,7 @@ class EditPasswordActivity : AppCompatActivity() {
     private lateinit var userId: String
 
     /**
-     * Credential that the Firebase Authentication server can use to authenticate the user
+     * Credential that the Firebase Authentication server can use to authenticate the user.
      */
     private lateinit var credentials: AuthCredential
 

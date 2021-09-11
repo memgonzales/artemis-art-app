@@ -240,7 +240,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
      * and the view holder.
      *
      * @param shuffle <code>true</code> if the posts are shuffled before display;
-     * <code>false</code>, otherwise
+     * <code>false</code>, otherwise.
      */
     private fun initContent(shuffle: Boolean) {
         this.ivNone = findViewById(R.id.iv_feed_unregistered_none)
@@ -304,6 +304,10 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Fetches realtime updates from the remote database to prevent the entire activity from reloading
+     * in case data change as a result of some user activity.
+     */
     private fun getRealtimeUpdates(){
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
