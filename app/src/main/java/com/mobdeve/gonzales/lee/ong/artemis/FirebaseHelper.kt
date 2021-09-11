@@ -172,6 +172,40 @@ class FirebaseHelper {
 
 
 
+    fun deleteCommentDB(commentId: String){
+        val commentDB = db.child(Keys.KEY_DB_COMMENTS.name).child(commentId)
+
+        commentDB.removeValue()
+            .addOnSuccessListener {
+                deleteCommentFromPosts(commentId)
+            }
+    }
+
+    fun deleteCommentFromPosts(commentId: String){
+        val postDB = db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    for (postSnap in snapshot.children){
+                        var post = postSnap.getValue(Post::class.java)
+
+                        if (post != null){
+                            if (post.getComments() != null && post.getComments().keys.contains(commentId)){
+                                //HAHAHA
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(context, BrokenLinkActivity::class.java)
+                context.startActivity(intent)
+            }
+
+        })
+    }
 
     fun deletePostDB(postKey: String){
         val postDB = db.child(Keys.KEY_DB_POSTS.name).child(postKey)

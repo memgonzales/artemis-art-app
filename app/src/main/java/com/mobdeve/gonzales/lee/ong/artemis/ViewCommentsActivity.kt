@@ -289,7 +289,7 @@ class ViewCommentsActivity : AppCompatActivity() {
                             val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
                             val username: String = snapshot.child(Keys.username.name).getValue().toString()
 
-                            val comment = Comment(userId, postId!!, userImg, username, commentText)
+                            val comment = Comment(userId, postId, userImg, username, commentText)
 
                             val commentDB = db.child(Keys.KEY_DB_COMMENTS.name)
                             val commentKey = commentDB.push().key!!
@@ -320,7 +320,6 @@ class ViewCommentsActivity : AppCompatActivity() {
             "/${Keys.KEY_DB_COMMENTS.name}/$commentKey" to comment,
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.comments.name}/$commentKey" to commentKey,
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.numComments.name}" to numComment,
-            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userComments.name}/$commentKey" to commentKey
         )
 
         db.updateChildren(updates)
