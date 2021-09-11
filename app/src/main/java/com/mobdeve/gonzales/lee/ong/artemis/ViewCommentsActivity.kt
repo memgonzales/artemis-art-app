@@ -234,8 +234,8 @@ class ViewCommentsActivity : AppCompatActivity() {
     }
 
     private fun addComment() {
-        this.ibAddComment = findViewById(R.id.ib_add_comment_followed)
-        this.etComment = findViewById(R.id.et_add_comment_followed)
+        this.ibAddComment = findViewById(R.id.ib_add_comment)
+        this.etComment = findViewById(R.id.et_add_comment)
         this.pbComment = findViewById(R.id.pb_view_comments)
 
         this.ibAddComment.setOnClickListener {
