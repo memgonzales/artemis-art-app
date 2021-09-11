@@ -4,7 +4,9 @@ package com.mobdeve.gonzales.lee.ong.artemis
  * Class representing a user and specifying the attributes associated with it.
  */
 class User {
-
+    /**
+     * Unique identifier of the user.
+     */
     private var userId: String
     /**
      * Username of the user.
