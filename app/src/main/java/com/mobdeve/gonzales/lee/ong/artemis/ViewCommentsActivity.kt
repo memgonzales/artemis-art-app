@@ -113,7 +113,7 @@ class ViewCommentsActivity : AppCompatActivity() {
     /**
      * Initializes the activity result launcher related to choosing photos from the Gallery.
      *
-     * @packageContext context tied to this activity
+     * @param packageContext context tied to this activity
      */
     private fun initGalleryLauncher(packageContext: Context) {
         galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -138,7 +138,7 @@ class ViewCommentsActivity : AppCompatActivity() {
     /**
      * Initializes the activity result launcher related to taking photos using the device camera
      *
-     * @packageContext context tied to this activity
+     * @param packageContext context tied to this activity
      */
     private fun initCameraLauncher(packageContext: Context) {
         cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->

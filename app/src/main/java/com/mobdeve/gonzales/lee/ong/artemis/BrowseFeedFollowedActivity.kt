@@ -36,29 +36,105 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
 
+/**
+ * Class handling the functionalities related to browsing the posts of followed users.
+ *
+ * @constructor Creates a class that handles the functionalities related to browsing the posts
+ * of followed users.
+ */
 class BrowseFeedFollowedActivity : AppCompatActivity() {
+    /**
+     * Posts of followed users.
+     */
     private lateinit var dataPosts: ArrayList<Post>
+
+    /**
+     * Recycler view for the posts of followed users.
+     */
     private lateinit var rvFollowed: RecyclerView
+
+    /**
+     * Adapter for the recycler view handling the posts of followed users.
+     */
     private lateinit var feedFollowedAdapter: FeedFollowedAdapter
+
+    /**
+     * Shimmer layout displayed while data regarding the posts are being fetched
+     * from the remote database.
+     */
     private lateinit var sflFollowed: ShimmerFrameLayout
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvFollowedBottom: BottomNavigationView
+
+    /**
+     * Nested scroll view for the main layout of this activity.
+     */
     private lateinit var nsvFollowed: NestedScrollView
 
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
     private lateinit var srlFeedFollowed: SwipeRefreshLayout
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Image view displayed when the feed does not have any post to display.
+     */
     private lateinit var ivNone: ImageView
+
+    /**
+     * First (main) text view displayed when the feed does not have any post to display.
+     */
     private lateinit var tvNone: TextView
+
+    /**
+     * Second text view displayed displayed when the feed does not have any post to display.
+     */
     private lateinit var tvSubNone: TextView
 
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: DatabaseReference
 
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user.
+     */
     private lateinit var userId: String
 
     /**
@@ -97,7 +173,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
     /**
      * Initializes the activity result launcher related to choosing photos from the Gallery.
      *
-     * @packageContext context tied to this activity
+     * @param packageContext context tied to this activity
      */
     private fun initGalleryLauncher(packageContext: Context) {
         galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -122,7 +198,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
     /**
      * Initializes the activity result launcher related to taking photos using the device camera
      *
-     * @packageContext context tied to this activity
+     * @param packageContext context tied to this activity
      */
     private fun initCameraLauncher(packageContext: Context) {
         cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -242,6 +318,9 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         initContent()
     }
 
+    /**
+     * Fetches the keys related to the posts of followed users from the remote database.
+     */
     private fun initContent(){
         this.ivNone = findViewById(R.id.iv_feed_followed_none)
         this.tvNone = findViewById(R.id.tv_feed_followed_none)
@@ -268,6 +347,12 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Fetches the posts of followed users and updates the visibility of text and image views.
+     *
+     * @param ref particular location in the Firebase database
+     * @param userKeys keys of the followed users
+     */
     private fun getUserPosts(ref: DatabaseReference, userKeys: Set<String?>) {
 
         ref.addValueEventListener(object : ValueEventListener{
@@ -317,6 +402,13 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Fetches the posts of followed users, handles the status of each post (that is, whether it
+     * is bookmarked or upvoted by the current user), and updates the view, alongside the adapter
+     * and the view holder.
+     *
+     * @param userPosts posts of followed users
+     */
     private fun getPosts(userPosts: Set<String?>){
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
