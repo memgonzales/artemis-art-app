@@ -305,9 +305,9 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     /**
-     * Sets the onclick listener for sharing the posted artwork.
+     * Sets the onclick listener for sharing the posted artwork on Facebook.
      *
-     * @param onClickListener onclick listener for sharing the posted artwork.
+     * @param onClickListener onclick listener for sharing the posted artwork on Facebook.
      */
     fun setItemFeedShareOnClickListener(onClickListener: View.OnClickListener) {
         clItemFeedShare.setOnClickListener(onClickListener)

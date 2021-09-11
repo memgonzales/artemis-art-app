@@ -14,7 +14,7 @@ import java.util.*
  *
  * @constructor Creates an adapter for the recycler view that handles the highlights of other users
  * (as viewed from an unregistered account).
- * @param dataPosts highlights of other users
+ * @param dataPosts Highlights of other users.
  */
 class OthersHighlightAdapterUnregistered(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<HighlightsViewHolder>() {

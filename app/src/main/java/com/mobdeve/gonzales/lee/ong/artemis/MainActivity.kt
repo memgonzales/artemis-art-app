@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
      * of when the splash screen activity gains focus (that is, upon launching) and subsequently
      * trigger the animation of the logo.
      *
-     * @param hasFocus whether the window of this activity has focus
+     * @param hasFocus Whether the window of this activity has focus.
      */
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)

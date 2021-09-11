@@ -23,7 +23,7 @@ import java.util.*
  * Adapter for the recycler view that handles the user's own posts.
  *
  * @constructor Creates an adapter for the recycler view that handles the user's own posts.
- * @param dataPosts user's own posts
+ * @param dataPosts User's own posts.
  */
 class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
     RecyclerView.Adapter<OwnPostsViewHolder>() {

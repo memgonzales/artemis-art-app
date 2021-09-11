@@ -22,7 +22,7 @@ import java.io.IOException
  * View holder for the recycler view that handles the user's own posts.
  *
  * @constructor Creates a view holder for the recycler view that handles the user's own posts.
- * @param itemView layout for a single item in the recycler view
+ * @param itemView Layout for a single item in the recycler view.
  */
 class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
@@ -117,7 +117,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * In the case of a caught input/output exception, this function sets the profile picture
      * to the launcher icon (currently, this is the chibi version of the Artemis logo).
      *
-     * @param picture URI of the photo to which the profile picture is to be set
+     * @param picture URI of the photo to which the profile picture is to be set.
      */
     fun setOwnPostProfilePic(picture: String) {
         try{
@@ -140,7 +140,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Returns the text view for the user's username.
      *
-     * @return text view for the user's username
+     * @return Text view for the user's username.
      */
     fun getOwnPostUsername(): TextView {
         return this.tvOwnPostUsername
@@ -149,7 +149,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Sets the username to the specified string.
      *
-     * @param name string to which the username is to be set
+     * @param name String to which the username is to be set.
      */
     fun setOwnPostUsername(name: String?) {
         tvOwnPostUsername.text = name
@@ -158,7 +158,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Returns the image view for the artwork posted.
      *
-     * @return image view for the artwork posted
+     * @return Image view for the artwork posted.
      */
     fun getOwnPostPost(): ImageView {
         return ivOwnPostPost
@@ -170,7 +170,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * In the case of a caught input/output exception, this function sets the photo
      * to the launcher icon (currently, this is the chibi version of the Artemis logo).
      *
-     * @param post URI of the photo to which the posted artwork is to be set
+     * @param post URI of the photo to which the posted artwork is to be set.
      */
     fun setOwnPostPost(post: String) {
         try{
@@ -190,22 +190,50 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //ivOwnPostPost.setImageResource(post)
     }
 
+    /**
+     * Sets the title of the posted artwork to the given string.
+     *
+     * @param title String to which the title of the posted artwork is to be set.
+     */
     fun setOwnPostTitle(title: String?) {
         tvOwnPostTitle.text = title
     }
 
+    /**
+     * Sets the number of upvotes of the posted artwork to the given string.
+     *
+     * @param upvotes String to which the number of upvotes of the posted artwork is to be set.
+     */
     fun setOwnPostUpvoteCounter(upvotes: String?) {
         tvOwnPostUpvoteCounter.text = upvotes
     }
 
+    /**
+     * Sets the text inside the text view related to the comments on the posted artwork
+     * to the given string.
+     *
+     * @param comments String to which the text inside the text view related to the comments
+     * on the posted artwork is to be set.
+     */
     fun setOwnPostComments(comments: String?) {
         tvOwnPostComments.text = comments
     }
 
+    /**
+     * Sets the onclick listener for highlighting the posted artwork.
+     *
+     * @param onClickListener onclick listener for highlighting the posted artwork.
+     */
     fun setOwnPostHighlightOnClickListener(onClickListener: View.OnClickListener) {
         clOwnPostHighlight.setOnClickListener(onClickListener)
     }
 
+    /**
+     * Updates the view depending on whether the posted artwork is highlighted
+     *
+     * @param highlight <code>true</code> fi the posted artwork is highlighted; <code>false</code>,
+     * otherwise.
+     */
     fun setOwnPostHighlight(highlight: Boolean) {
         if (highlight) {
             ivOwnPostHighlight.setImageResource(R.drawable.baseline_star_24)
@@ -226,14 +254,31 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
+    /**
+     * Sets the onclick listener for commenting on the posted artwork.
+     *
+     * @param onClickListener onclick listener for commenting on the posted artwork.
+     */
     fun setOwnPostCommentOnClickListener(onClickListener: View.OnClickListener) {
         clOwnPostComment.setOnClickListener(onClickListener)
     }
 
+    /**
+     * Sets the onclick listener for sharing the posted artwork on Facebook.
+     *
+     * @param onClickListener onclick listener for sharing the posted artwork on Facebook.
+     */
     fun setOwnPostShareOnClickListener(onClickListener: View.OnClickListener) {
         clOwnPostShare.setOnClickListener(onClickListener)
     }
 
+    /**
+     * Sets the onclick listener for the profile picture and username of the user who posted
+     * the artwork.
+     *
+     * @param onClickListener onclick listener for the profile picture and username of the user
+     * who posted the artwork.
+     */
     fun setOwnPostProfileOnClickListener(onClickListener: View.OnClickListener) {
         civOwnPostProfilePic.setOnClickListener(onClickListener)
         tvOwnPostUsername.setOnClickListener(onClickListener)
@@ -244,7 +289,7 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * perform on their own posted artwork.
      *
      * @param onClickListener onclick listener for the button used to display the actions that the
-     * user can perform on their own posted artwork
+     * user can perform on their own posted artwork.
      */
     fun setOwnPostOptionsOnClickListener(onClickListener: View.OnClickListener) {
         ibItemOwnPostOptions.setOnClickListener(onClickListener)
@@ -254,13 +299,16 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * Returns the bottom sheet dialog showing the actions that the user can perform on their own post:
      * editing its details and deleting it.
      *
-     * @return bottom sheet dialog showing the actions that the user can perform on their own post:
-     * editing its details and deleting it
+     * @return Bottom sheet dialog showing the actions that the user can perform on their own post:
+     * editing its details and deleting it.
      */
     fun getOwnPostOptions(): BottomSheetDialog {
         return this.btmItemOwnPostOptions
     }
 
+    /**
+     * Initializes the components of the view holder.
+     */
     init {
         civOwnPostProfilePic = itemView.findViewById(R.id.civ_item_own_post_profile_pic)
         tvOwnPostUsername = itemView.findViewById(R.id.tv_item_own_post_username)

@@ -161,11 +161,11 @@ class LogInActivity : AppCompatActivity() {
     /**
      * Checks if the user entered both a username (or email address) and a password.
      *
-     * @param username value entered in the input field for the username (or email address)
-     * @param password value entered in the input field for the password.
+     * @param username Value entered in the input field for the username (or email address).
+     * @param password Value entered in the input field for the password.
      *
      * @return <code>false</code> if the user entered both a username (or email address) and
-     * a password; <code>true</code>, otherwise
+     * a password; <code>true</code>, otherwise.
      */
     private fun checkEmpty(username: String, password: String): Boolean{
         var hasEmpty = false
@@ -198,8 +198,8 @@ class LogInActivity : AppCompatActivity() {
      *
      * This function uses the built-in email and password authentication method of Firebase.
      *
-     * @param email email address that the user entered
-     * @param password password that the user entered
+     * @param email Email address that the user entered.
+     * @param password Password that the user entered.
      */
     private fun loginWithEmail(email: String, password: String){
         this.mAuth.signInWithEmailAndPassword(email, password)
@@ -217,8 +217,8 @@ class LogInActivity : AppCompatActivity() {
     /**
      * Verifies the log-in credentials given the username and password the user entered.
      *
-     * @param username username that the user entered
-     * @param password password that the user entered
+     * @param username Username that the user entered.
+     * @param password Password that the user entered.
      */
     private fun loginWithUsername(username: String, password: String){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name)
