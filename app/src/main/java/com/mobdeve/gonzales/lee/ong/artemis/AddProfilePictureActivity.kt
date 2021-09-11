@@ -101,8 +101,20 @@ class AddProfilePictureActivity : AppCompatActivity() {
      */
     private var isProfilePictureUploaded: Boolean = false
 
+    /**
+     * <code>true</code> if the profile picture was taken using the device camera;
+     * <code>false</code>, otherwise.
+     */
     private var cameraTaken: Boolean = false
+
+    /**
+     * Byte array pertaining to the profile picture uploaded by the user.
+     */
     private lateinit var photoByte: ByteArray
+
+    /**
+     * URI of the profile picture uploaded by the user.
+     */
     private lateinit var photoUri: String
 
     /**
@@ -126,12 +138,23 @@ class AddProfilePictureActivity : AppCompatActivity() {
     private lateinit var user: FirebaseUser
 
     /**
-     * Unique identifier of the
+     * Unique identifier of the user.
      */
     private lateinit var userId: String
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: DatabaseReference
 
+    /**
+     * Service that supports uploading and downloading large objects to Google Cloud Storage.
+     */
     private lateinit var storage: FirebaseStorage
+
+    /**
+     * Represents a reference to a Google Cloud Storage object.
+     */
     private lateinit var storageRef: StorageReference
 
     /**

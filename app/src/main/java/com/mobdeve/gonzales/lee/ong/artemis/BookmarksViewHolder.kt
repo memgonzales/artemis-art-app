@@ -10,6 +10,12 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 
+/**
+ * View holder for the recycler view that handles the posts bookmarked by the user.
+ *
+ * @constructor Creates a view holder for the recycler view that handles the posts bookmarked
+ * by the user.
+ */
 class BookmarksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ivItemSearchResults: ImageView
 

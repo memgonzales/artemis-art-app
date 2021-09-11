@@ -12,7 +12,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -34,8 +33,15 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
 
+/**
+ * Class handling the functionalities related to browsing the posts bookmarked by the user.
+ */
 class BrowseBookmarksActivity : AppCompatActivity() {
+    /**
+     * Posts bookmarked by the user.
+     */
     private lateinit var dataPosts: ArrayList<Post>
+
     private lateinit var rvBookmarks: RecyclerView
     private lateinit var bookmarksAdapter: BookmarksAdapter
     private lateinit var sflBookmarks: ShimmerFrameLayout
@@ -240,6 +246,9 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         initContent()
     }
 
+    /**
+     * Fetches data regarding the posts bookmarked by the user from the remote database.
+     */
     private fun initContent(){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
