@@ -2,8 +2,10 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.facebook.login.Login
 
 /**
  * Class handling the functionalities related to notifying the user and preventing the app
@@ -16,6 +18,8 @@ class BrokenLinkActivity : AppCompatActivity() {
      * Clickable text view for opening the email client of the user.
      */
     private lateinit var tvBrokenLinkEmail: TextView
+
+    private lateinit var btnBackToLogin: Button
 
     /**
      * Called when the activity is starting.
@@ -30,6 +34,14 @@ class BrokenLinkActivity : AppCompatActivity() {
         setContentView(R.layout.activity_broken_link)
 
         launchEmail()
+
+        this.btnBackToLogin = findViewById(R.id.btn_log_in)
+
+        this.btnBackToLogin.setOnClickListener {
+            val intent = Intent(this@BrokenLinkActivity, LogInActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     /**
