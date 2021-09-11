@@ -47,7 +47,7 @@ tasks.withType(dokkaGfm.getClass()).configureEach {
 }
 
 tasks.dokkaHtml.configure {
-    outputDirectory.set(file("../documentation"))
+    outputDirectory.set(file("../docs"))
 }
 
 tasks.dokkaGfm.configure {

@@ -18,31 +18,107 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 import java.io.IOException
 
+/**
+ * View holder for the recycler view that handles the user's own posts.
+ *
+ * @constructor Creates a view holder for the recycler view that handles the user's own posts.
+ * @param itemView layout for a single item in the recycler view
+ */
 class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    /**
+     * Image view for the user's profile picture.
+     */
     private val civOwnPostProfilePic: CircleImageView
+
+    /**
+     * Text view for the user's username.
+     */
     private val tvOwnPostUsername: TextView
 
+    /**
+     * Image view for the artwork posted.
+     */
     private val ivOwnPostPost: ImageView
+
+    /**
+     * Text view for the title of the artwork posted.
+     */
     private val tvOwnPostTitle: TextView
+
+    /**
+     * Text view for the number of upvotes.
+     */
     private val tvOwnPostUpvoteCounter: TextView
+
+    /**
+     * Text view for the comments.
+     */
     private val tvOwnPostComments: TextView
 
+    /**
+     * Image view for highlighting the posted artwork.
+     */
     private val ivOwnPostHighlight: ImageView
+
+    /**
+     * Text view for highlighting the posted artwork.
+     */
     private val tvOwnPostHighlight: TextView
+
+    /**
+     * Clickable layout for highlighting the posted artwork.
+     */
     private val clOwnPostHighlight: ConstraintLayout
+
+    /**
+     * Clickable layout for commenting on the post.
+     */
     private val clOwnPostComment: ConstraintLayout
+
+    /**
+     * Clickable layout for sharing the post on the user's Facebook account.
+     */
     private val clOwnPostShare: ConstraintLayout
 
+    /**
+     * Image button for displaying the bottom sheet dialog related to the actions that the user
+     * can perform on their own post.
+     */
     private val ibItemOwnPostOptions: ImageButton
+
+    /**
+     * Bottom sheet dialog showing the actions that the user can perform on their own post:
+     * editing its details and deleting it.
+     */
     private val btmItemOwnPostOptions: BottomSheetDialog
 
+    /**
+     * Service that supports uploading and downloading large objects to Google Cloud Storage.
+     */
     private var storage: FirebaseStorage
+
+    /**
+     * Represents a reference to a Google Cloud Storage object.
+     */
     private var storageRef: StorageReference
 
+    /**
+     * Returns the image view for the user's profile picture.
+     *
+     * @return image view for the user's profile picture
+     */
     fun getOwnPostProfilePic(): CircleImageView {
         return this.civOwnPostProfilePic
     }
 
+    /**
+     * Sets the profile picture to the photo specified by the given URI.
+     *
+     * In the case of a caught input/output exception, this function sets the profile picture
+     * to the launcher icon (currently, this is the chibi version of the Artemis logo).
+     *
+     * @param picture URI of the photo to which the profile picture is to be set
+     */
     fun setOwnPostProfilePic(picture: String) {
         try{
             val localFile = File.createTempFile("images", "jpg")
@@ -61,18 +137,41 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
        // civOwnPostProfilePic.setImageResource(picture)
     }
 
+    /**
+     * Returns the text view for the user's username.
+     *
+     * @return text view for the user's username
+     */
     fun getOwnPostUsername(): TextView {
         return this.tvOwnPostUsername
     }
 
+    /**
+     * Sets the username to the specified string.
+     *
+     * @param name string to which the username is to be set
+     */
     fun setOwnPostUsername(name: String?) {
         tvOwnPostUsername.text = name
     }
 
+    /**
+     * Returns the image view for the artwork posted.
+     *
+     * @return image view for the artwork posted
+     */
     fun getOwnPostPost(): ImageView {
         return ivOwnPostPost
     }
 
+    /**
+     * Sets the posted artwork to photo specified by the given URI.
+     *
+     * In the case of a caught input/output exception, this function sets the photo
+     * to the launcher icon (currently, this is the chibi version of the Artemis logo).
+     *
+     * @param post URI of the photo to which the posted artwork is to be set
+     */
     fun setOwnPostPost(post: String) {
         try{
             val localFile = File.createTempFile("images", "jpg")
@@ -91,6 +190,9 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //ivOwnPostPost.setImageResource(post)
     }
 
+    /**
+     *
+     */
     fun setOwnPostTitle(title: String?) {
         tvOwnPostTitle.text = title
     }
@@ -140,10 +242,24 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvOwnPostUsername.setOnClickListener(onClickListener)
     }
 
+    /**
+     * Sets the onclick listener for the button used to display the actions that the user can
+     * perform on their own posted artwork.
+     *
+     * @param onClickListener onclick listener for the button used to display the actions that the
+     * user can perform on their own posted artwork
+     */
     fun setOwnPostOptionsOnClickListener(onClickListener: View.OnClickListener) {
         ibItemOwnPostOptions.setOnClickListener(onClickListener)
     }
 
+    /**
+     * Returns the bottom sheet dialog showing the actions that the user can perform on their own post:
+     * editing its details and deleting it.
+     *
+     * @return bottom sheet dialog showing the actions that the user can perform on their own post:
+     * editing its details and deleting it
+     */
     fun getOwnPostOptions(): BottomSheetDialog {
         return this.btmItemOwnPostOptions
     }
