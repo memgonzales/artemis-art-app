@@ -141,6 +141,24 @@ class FirebaseHelper {
             }
     }
 
+    fun editPost(postId: String, title: String, medium: String, dimensions: String, desc: String, tags: ArrayList<String>){
+        val updates = hashMapOf<String, Any?>(
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.title.name}" to title,
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.medium.name}" to medium,
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.dimensions.name}" to dimensions,
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.description.name}" to desc,
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.tags.name}" to tags,
+        )
+
+        db.updateChildren(updates)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Your post details have been updated", Toast.LENGTH_SHORT).show()
+
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Your post details failed to be updated", Toast.LENGTH_SHORT).show()
+            }
+    }
 
 
 

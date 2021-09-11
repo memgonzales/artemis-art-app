@@ -27,38 +27,15 @@ class EditPostActivity : AppCompatActivity() {
     private lateinit var ivEditArtworkPost: ImageView
     private lateinit var btnEditArtworkSave: Button
 
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var db: DatabaseReference
-
-    private lateinit var user: FirebaseUser
-    private lateinit var userId: String
-
+    private lateinit var firebaseHelper: FirebaseHelper
+    
     private lateinit var postId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_post)
 
-        initFirebase()
         initComponents()
-    }
-
-    /**
-     * Initializes the Firebase-related components.
-     */
-    private fun initFirebase(){
-        this.mAuth = Firebase.auth
-        this.db = Firebase.database.reference
-
-        if (this.mAuth.currentUser != null){
-            this.user = this.mAuth.currentUser!!
-            this.userId = this.user.uid
-        }
-
-        else{
-            val intent = Intent(this@EditPostActivity, BrokenLinkActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun initComponents() {
@@ -83,7 +60,8 @@ class EditPostActivity : AppCompatActivity() {
             var tags = tietEditArtworkTags.text.toString().trim()
 
             if(!postId.isEmpty()){
-                updatePostDB(postId, title, medium, dimension, description, tags.split(',').toCollection(ArrayList()))
+                this.firebaseHelper.editPost(postId, title, medium, dimension, description, tags.split(',').toCollection(ArrayList()))
+                finish()
             }
 
             else{
@@ -96,6 +74,7 @@ class EditPostActivity : AppCompatActivity() {
         val intent: Intent = intent
 
         this.postId = intent.getStringExtra(Keys.KEY_POSTID.name).toString()
+        this.firebaseHelper = FirebaseHelper(this@EditPostActivity, postId)
 
         val title = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
         val medium = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
@@ -124,38 +103,5 @@ class EditPostActivity : AppCompatActivity() {
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-    }
-
-    private fun updatePostDB(postId: String, title: String, medium: String, dimensions: String, desc: String, tags: ArrayList<String>){
-        val updates = hashMapOf<String, Any?>(
-            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.title.name}" to title,
-            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.medium.name}" to medium,
-            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.dimensions.name}" to dimensions,
-            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.description.name}" to desc,
-            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.tags.name}" to tags,
-        )
-
-        db.updateChildren(updates)
-            .addOnSuccessListener {
-                Toast.makeText(
-                    this@EditPostActivity,
-                    "Your post details have been updated",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-               // val intent = Intent(this@EditPostActivity, BrowseOwnPostsActivity::class.java)
-               // startActivity(intent)
-                finish()
-            }
-            .addOnFailureListener {
-                Toast.makeText(
-                    this@EditPostActivity,
-                    "Your post details failed to be updated",
-                    Toast.LENGTH_SHORT
-                ).show()
-              //  val intent = Intent(this@EditPostActivity, BrowseOwnPostsActivity::class.java)
-               // startActivity(intent)
-                finish()
-            }
     }
 }

@@ -330,6 +330,7 @@ class ViewCommentsActivity : AppCompatActivity() {
                     Toast.makeText(this@ViewCommentsActivity, "Commented successfully", Toast.LENGTH_LONG).show()
                     etComment.text.clear()
 
+                    comment.setEditable(true)
                     dataComments.add(comment)
                     commentsAdapter.notifyDataSetChanged()
                 }
