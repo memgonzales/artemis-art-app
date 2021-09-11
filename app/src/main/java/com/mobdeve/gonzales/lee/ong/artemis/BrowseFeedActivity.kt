@@ -317,7 +317,6 @@ class BrowseFeedActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                //Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
@@ -340,18 +339,30 @@ class BrowseFeedActivity : AppCompatActivity() {
                         post.setBookmark(true)
                     }
                 }
+
+                feedAdapter.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val post = snapshot.getValue(Post::class.java)
 
                 if (post != null && !post.getPostId().isNullOrEmpty()){
-                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
-                        post.setUpvote(true)
+                    if (!post.getUpvoteUsers().isNullOrEmpty()){
+                        if(post.getUpvoteUsers().containsKey(userId)){
+                            post.setUpvote(true)
+                        }
+                        else{
+                            post.setUpvote(false)
+                        }
                     }
 
-                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
-                        post.setBookmark(true)
+                    if(!post.getBookmarkUsers().isNullOrEmpty()) {
+                        if (post.getBookmarkUsers().containsKey(userId)){
+                            post.setBookmark(true)
+                        }
+                        else{
+                            post.setBookmark(false)
+                        }
                     }
                 }
             }
@@ -359,9 +370,11 @@ class BrowseFeedActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val post = snapshot.getValue(Post::class.java)
                 dataPosts.remove(post)
+                feedAdapter.notifyDataSetChanged()
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                /* This is intentionally left blank */
 
             }
 

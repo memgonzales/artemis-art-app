@@ -365,9 +365,9 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
 
                         if (postSnap != null && !postSnap.getTags().isNullOrEmpty()) {
 
-                            var check = postSnap.getTags().filter { it.contains(searchPost, ignoreCase = true) }
+                            var check = postSnap.getTags()?.filter { it.contains(searchPost, ignoreCase = true) }
 
-                            if (check.size > 0){
+                            if (check!!.size > 0){
                                 dataPosts.add(postSnap)
                             }
                         }

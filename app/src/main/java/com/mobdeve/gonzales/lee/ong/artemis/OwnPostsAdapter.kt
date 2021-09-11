@@ -221,7 +221,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
                 dialog.dismiss()
                 val intent = Intent(view.context, EditPostActivity::class.java)
                 val tags = currentPost.getTags()
-                val tagsString = tags.joinToString(", ")
+                val tagsString = tags?.joinToString(", ")
 
                 intent.putExtra(
                     Keys.KEY_USERID.name,

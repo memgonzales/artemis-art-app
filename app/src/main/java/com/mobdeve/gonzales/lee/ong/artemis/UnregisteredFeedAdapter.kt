@@ -102,9 +102,9 @@ class UnregisteredFeedAdapter(private val dataPosts: ArrayList<Post>) :
      */
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemFeedProfilePic(currentPost.getProfilePicture())
-        holder.setItemFeedUsername(currentPost.getUsername())
-        holder.setItemFeedPost(currentPost.getPostImg())
+        holder.setItemFeedProfilePic(currentPost.getProfilePicture()!!)
+        holder.setItemFeedUsername(currentPost.getUsername()!!)
+        holder.setItemFeedPost(currentPost.getPostImg()!!)
         holder.setItemFeedTitle(currentPost.getTitle())
         holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")
