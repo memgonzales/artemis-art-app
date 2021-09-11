@@ -1,56 +1,58 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import com.google.firebase.database.Exclude
+
 class Post {
-    private lateinit var userId: String
-    private lateinit var postId: String
-    private lateinit var profilePicture: String
-    private lateinit var username: String
+    private var userId: String? = null
+    private var postId: String? = null
+    private var profilePicture: String? = null
+    private var username: String? = null
 
-    private lateinit var postImg: String
-    private lateinit var title: String
-    private lateinit var datePosted: String
+    private var postImg: String? = null
+    private var title: String? = null
+    private var datePosted: String? = null
 
-    private lateinit var medium: String
-    private lateinit var dimensions: String
-    private lateinit var description: String
-    private lateinit var tags: ArrayList<String>
+    private var medium: String? = null
+    private var dimensions: String? = null
+    private var description: String? = null
+    private var tags: ArrayList<String> = ArrayList<String>()
 
-    private var bookmark: Boolean
-    private var upvote: Boolean
-    private var highlight: Boolean
+    @get:Exclude private var bookmark: Boolean = false
+    @get:Exclude private var upvote: Boolean = false
+    @get:Exclude private var highlight: Boolean = false
 
-    private lateinit var upvoteUsers: HashMap<String, Any?>
-    private lateinit var bookmarkUsers: HashMap<String, Any?>
-    private lateinit var comments: HashMap<String, Any?>
+    private var upvoteUsers: HashMap<String, Any?> = HashMap<String, Any?>()
+    private var bookmarkUsers: HashMap<String, Any?> = HashMap<String, Any?>()
+    private var comments: HashMap<String, Any?> = HashMap<String, Any?>()
 
-    private var numUpvotes: Int
-    private var numComments: Int
+    private var numUpvotes: Int = 0
+    private var numComments: Int = 0
 
     constructor(){
-        this.userId = ""
-        this.postId = ""
-        this.profilePicture =""
-        this.username = ""
+      //  this.userId = ""
+      //  this.postId = ""
+     //   this.profilePicture =""
+     //   this.username = ""
 
-        this.postImg = ""
-        this.title = ""
-        this.datePosted = ""
+     //   this.postImg = ""
+     //   this.title = ""
+     //   this.datePosted = ""
 
-        this.medium = ""
-        this.dimensions = ""
-        this.description = ""
-        this.tags = ArrayList<String>()
+     //   this.medium = ""
+     //   this.dimensions = ""
+     //   this.description = ""
+     //   this.tags = ArrayList<String>()
 
-        this.bookmark = false
-        this.upvote = false
-        this.highlight = false
+       // this.bookmark = false
+      //  this.upvote = false
+      //  this.highlight = false
 
-        this.numUpvotes = 0
-        this.numComments = 0
+       // this.numUpvotes = 0
+      //  this.numComments = 0
 
-        this.upvoteUsers = HashMap<String, Any?>()
-        this.bookmarkUsers = HashMap<String, Any?>()
-        this.comments = HashMap<String, Any?>()
+       // this.upvoteUsers = HashMap<String, Any?>()
+      //  this.bookmarkUsers = HashMap<String, Any?>()
+      //  this.comments = HashMap<String, Any?>()
     }
 
     constructor(userId: String, postId: String, title: String, postImg: String,
@@ -70,16 +72,16 @@ class Post {
         this.description = description
         this.tags = tags
 
-        this.bookmark = false
-        this.upvote = false
-        this.highlight = false
+       // this.bookmark = false
+       // this.upvote = false
+       // this.highlight = false
 
-        this.upvoteUsers = HashMap<String, Any?>()
-        this.bookmarkUsers = HashMap<String, Any?>()
-        this.comments = HashMap<String, Any?>()
+      //  this.upvoteUsers = HashMap<String, Any?>()
+       // this.bookmarkUsers = HashMap<String, Any?>()
+       // this.comments = HashMap<String, Any?>()
 
-        this.numUpvotes = 0
-        this.numComments = 0
+       // this.numUpvotes = 0
+       // this.numComments = 0
     }
 
     /*
@@ -139,47 +141,47 @@ class Post {
 
      */
 
-    fun getUserId(): String{
+    fun getUserId(): String?{
         return this.userId
     }
 
-    fun getPostId(): String{
+    fun getPostId(): String?{
         return this.postId
     }
 
-    fun getProfilePicture(): String {
+    fun getProfilePicture(): String? {
         return this.profilePicture
     }
 
-    fun getUsername(): String {
+    fun getUsername(): String? {
         return this.username
     }
 
-    fun getPostImg(): String {
+    fun getPostImg(): String? {
         return this.postImg
     }
 
-    fun getTitle(): String {
+    fun getTitle(): String? {
         return this.title
     }
 
-    fun getDatePosted(): String {
+    fun getDatePosted(): String? {
         return this.datePosted
     }
 
-    fun getMedium(): String {
+    fun getMedium(): String? {
         return this.medium
     }
 
-    fun getDimensions(): String {
+    fun getDimensions(): String? {
         return this.dimensions
     }
 
-    fun getDescription(): String {
+    fun getDescription(): String? {
         return this.description
     }
 
-    fun getTags(): ArrayList<String> {
+    fun getTags(): ArrayList<String>? {
         return this.tags
     }
 
@@ -214,7 +216,6 @@ class Post {
     fun getNumComments(): Int {
         return this.numComments
     }
-
 
 
 
@@ -293,4 +294,5 @@ class Post {
     fun setNumComments(numComments: Int) {
         this.numComments = numComments
     }
+
 }

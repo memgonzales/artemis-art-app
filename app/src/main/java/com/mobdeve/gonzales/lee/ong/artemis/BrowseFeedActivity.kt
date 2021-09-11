@@ -257,6 +257,7 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.rvFeed.adapter = feedAdapter;
 
         initContent(false)
+        getRealtimeUpdates()
 
     }
 
@@ -267,7 +268,7 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addValueEventListener(object: ValueEventListener{
+        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataPosts.clear()
@@ -316,10 +317,72 @@ class BrowseFeedActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                //Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
+        })
+    }
+
+    private fun getRealtimeUpdates(){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addChildEventListener(object: ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                        post.setUpvote(true)
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                        post.setBookmark(true)
+                    }
+                }
+
+              //  feedAdapter.notifyDataSetChanged()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    if (!post.getUpvoteUsers().isNullOrEmpty()){
+                        if(post.getUpvoteUsers().containsKey(userId)){
+                            post.setUpvote(true)
+                        }
+                        else{
+                            post.setUpvote(false)
+                        }
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty()) {
+                        if (post.getBookmarkUsers().containsKey(userId)){
+                            post.setBookmark(true)
+                        }
+                        else{
+                            post.setBookmark(false)
+                        }
+                    }
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val post = snapshot.getValue(Post::class.java)
+                dataPosts.remove(post)
+                //feedAdapter.notifyDataSetChanged()
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                /* This is intentionally left blank */
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
         })
     }
 

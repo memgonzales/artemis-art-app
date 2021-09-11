@@ -1,13 +1,20 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import java.util.*
 
 class OthersHighlightAdapterUnregistered(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<HighlightsViewHolder>() {
+
+    /**
+     * Context tied to the activity calling this adapter.
+     */
+    private lateinit var context: Context
 
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
@@ -76,7 +83,13 @@ class OthersHighlightAdapterUnregistered(private val dataPosts: ArrayList<Post>)
      */
     override fun onBindViewHolder(holder: HighlightsViewHolder, position: Int) {
         val currentPost = dataPosts[position]
-        holder.setItemSearchResults(currentPost.getPostImg())
+       // holder.setItemSearchResults(currentPost.getPostImg())
+
+        Glide.with(context)
+            .load(currentPost.getPostImg())
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(holder.getItemSearchResults())
     }
 
     /**
