@@ -23,7 +23,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -50,24 +49,61 @@ class EditProfileActivity : AppCompatActivity() {
      * Floating action button for editing the user's profile picture.
      */
     private lateinit var fabEditProfilePicEdit: FloatingActionButton
+
+    /**
+     * Dialog showing the options related to editing the profile picture (either by choosing
+     * from the Gallery or opening the camera) or removing it.
+     */
     private lateinit var btmProfilePicture: BottomSheetDialog
+
+    /**
+     * Clickable layout for choosing a profile picture from the Gallery.
+     */
     private lateinit var clDialogProfilePictureEdit: ConstraintLayout
+
+    /**
+     * Clickable layout for taking a photo using the device camera.
+     */
     private lateinit var clDialogProfilePictureCamera: ConstraintLayout
+
+    /**
+     * Clickable layout for removing the uploaded profile picture.
+     */
     private lateinit var clDialogProfilePictureDelete: ConstraintLayout
+
+    /**
+     * Button for saving the new attributes of the user's profile.
+     */
     private lateinit var btnEditProfileSave: Button
 
+    /**
+     * Image view for the user's profile picture.
+     */
     private lateinit var civEditProfilePic: CircleImageView
+
+    /**
+     * Input field for the user's username.
+     */
     private lateinit var tietEditProfileUsername: TextInputEditText
-    private lateinit var tietEditProfileEmail: TextInputEditText
-    private lateinit var tietEditProfilePassword: TextInputEditText
+
+    /**
+     * Input field for the user's short bio.
+     */
     private lateinit var tietEditProfileBio: TextInputEditText
 
-    private lateinit var tilEditProfileEmail: TextInputLayout
-    private lateinit var tilEditProfilePassword: TextInputLayout
-
+    /**
+     * Clickable layout for editing the user's email address.
+     */
     private lateinit var clEditProfileEmail: ConstraintLayout
+
+    /**
+     * Clickable layout for editing the user's password.
+     */
     private lateinit var clEditProfilePassword: ConstraintLayout
 
+    /**
+     * Progress bar to signal that data are being saved into the database.
+     */
     private lateinit var pbEditProfile: ProgressBar
 
     /**
@@ -131,8 +167,15 @@ class EditProfileActivity : AppCompatActivity() {
      * Service that supports uploading and downloading large objects to Google Cloud Storage.
      */
     private lateinit var storage: FirebaseStorage
+
+    /**
+     * Represents a reference to a Google Cloud Storage object.
+     */
     private lateinit var storageRef: StorageReference
 
+    /**
+     * Credential that the Firebase Authentication server can use to authenticate the user
+     */
     private lateinit var credentials: AuthCredential
 
     /**
@@ -305,8 +348,12 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     /**
-     * Saves the new short bio in the remote database, effectively replacing the old short bio
-     * of the user.
+     * Saves the new profile picture and short bio in the remote database, effectively replacing
+     * the old profile picture and short bio of the user.
+     *
+     * If the user choose to remove their current profile picture, a placeholder photo is saved
+     * instead (currently, this placeholder is the launcher icon of the app, that is, a chibi
+     * version of the Artemis logo).
      *
      * @param bio new short bio of the user
      */
@@ -382,8 +429,8 @@ class EditProfileActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 pbEditProfile.visibility = View.GONE
 
-                val profPic: String = snapshot.child(Keys.userImg.name).getValue().toString()
-                val username: String = snapshot.child(Keys.username.name).getValue().toString()
+                val profPic: String = snapshot.child(Keys.userImg.name).value.toString()
+                val username: String = snapshot.child(Keys.username.name).value.toString()
 //                var email: String = snapshot.child(Keys.email.name).getValue().toString()
 //                var pw: String = snapshot.child(Keys.password.name).getValue().toString()
 
@@ -394,7 +441,7 @@ class EditProfileActivity : AppCompatActivity() {
                     .error(R.drawable.placeholder)
                     .into(civEditProfilePic)
 
-                val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
+                val bio: String = snapshot.child(Keys.bio.name).value.toString()
 
 
 
@@ -452,6 +499,9 @@ class EditProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Defines the behavior when the attribute in the user's profile are successfully edited.
+     */
     private fun updateSuccessfully(){
         pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
@@ -461,6 +511,9 @@ class EditProfileActivity : AppCompatActivity() {
         finish()
     }
 
+    /**
+     * Defines the behavior when the attribute in the user's profile are not successfully edited.
+     */
     private fun updateFailed(){
         pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Failed to update your profile details", Toast.LENGTH_SHORT).show()
