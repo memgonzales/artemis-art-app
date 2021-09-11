@@ -289,7 +289,7 @@ class ViewCommentsActivity : AppCompatActivity() {
                             val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
                             val username: String = snapshot.child(Keys.username.name).getValue().toString()
 
-                            val comment = Comment(userId, postId!!, userImg, username, commentText)
+                            val comment = Comment(userId, postId, userImg, username, commentText)
 
                             val commentDB = db.child(Keys.KEY_DB_COMMENTS.name)
                             val commentKey = commentDB.push().key!!

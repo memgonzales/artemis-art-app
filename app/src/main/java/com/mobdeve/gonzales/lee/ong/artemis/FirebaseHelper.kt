@@ -172,6 +172,29 @@ class FirebaseHelper {
 
 
 
+    fun deleteCommentDB(commentId: String){
+        val commentDB = db.child(Keys.KEY_DB_COMMENTS.name).child(commentId)
+
+        commentDB.removeValue()
+            .addOnSuccessListener {
+                deleteCommentFromPosts(commentId)
+            }
+    }
+
+    fun deleteCommentFromPosts(commentId: String){
+        val postDB = db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
 
     fun deletePostDB(postKey: String){
         val postDB = db.child(Keys.KEY_DB_POSTS.name).child(postKey)
