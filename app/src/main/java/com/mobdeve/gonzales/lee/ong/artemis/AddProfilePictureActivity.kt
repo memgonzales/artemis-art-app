@@ -178,7 +178,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
     /**
      * Initializes the activity result launcher related to choosing photos from the Gallery.
      *
-     * @packageContext context tied to this activity
+     * @param packageContext context tied to this activity
      */
     private fun initGalleryLauncher() {
         galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -196,7 +196,7 @@ class AddProfilePictureActivity : AppCompatActivity() {
     /**
      * Initializes the activity result launcher related to taking photos using the device camera
      *
-     * @packageContext context tied to this activity
+     * @param packageContext context tied to this activity
      */
     private fun initCameraLauncher() {
         cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
