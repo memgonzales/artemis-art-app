@@ -5,13 +5,29 @@
 [androidJvm]\
 class [HighlightsViewHolder](index.md)(**itemView**: [View](https://developer.android.com/reference/kotlin/android/view/View.html)) : [RecyclerView.ViewHolder](https://developer.android.com/reference/kotlin/androidx/recyclerview/widget/RecyclerView.ViewHolder.html)
 
+View holder for the recycler view that handles the posts highlighted by the user.
+
+## Parameters
+
+androidJvm
+
+| | |
+|---|---|
+| itemView | layout for a single item in the recycler view |
+
+## Constructors
+
+| | |
+|---|---|
+| [HighlightsViewHolder](-highlights-view-holder.md) | [androidJvm]<br>fun [HighlightsViewHolder](-highlights-view-holder.md)(itemView: [View](https://developer.android.com/reference/kotlin/android/view/View.html))<br>Creates a view holder for the recycler view that handles the posts highlighted by the user. |
+
 ## Properties
 
 | Name | Summary |
 |---|---|
-| [ivItemSearchResults](iv-item-search-results.md) | [androidJvm]<br>private val [ivItemSearchResults](iv-item-search-results.md): [ImageView](https://developer.android.com/reference/kotlin/android/widget/ImageView.html) |
-| [storage](storage.md) | [androidJvm]<br>private var [storage](storage.md): FirebaseStorage |
-| [storageRef](storage-ref.md) | [androidJvm]<br>private var [storageRef](storage-ref.md): StorageReference |
+| [ivItemSearchResults](iv-item-search-results.md) | [androidJvm]<br>private val [ivItemSearchResults](iv-item-search-results.md): [ImageView](https://developer.android.com/reference/kotlin/android/widget/ImageView.html)<br>Image view related to the search results |
+| [storage](storage.md) | [androidJvm]<br>private var [storage](storage.md): FirebaseStorage<br>Service that supports uploading and downloading large objects to Google Cloud Storage. |
+| [storageRef](storage-ref.md) | [androidJvm]<br>private var [storageRef](storage-ref.md): StorageReference<br>Represents a reference to a Google Cloud Storage object. |
 
 ## Inherited properties
 
@@ -41,8 +57,8 @@ class [HighlightsViewHolder](index.md)(**itemView**: [View](https://developer.an
 
 | Name | Summary |
 |---|---|
-| [getItemSearchResults](get-item-search-results.md) | [androidJvm]<br>fun [getItemSearchResults](get-item-search-results.md)(): [ImageView](https://developer.android.com/reference/kotlin/android/widget/ImageView.html) |
-| [setItemSearchResults](set-item-search-results.md) | [androidJvm]<br>fun [setItemSearchResults](set-item-search-results.md)(post: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
+| [getItemSearchResults](get-item-search-results.md) | [androidJvm]<br>fun [getItemSearchResults](get-item-search-results.md)(): [ImageView](https://developer.android.com/reference/kotlin/android/widget/ImageView.html)<br>Returns the image view related to the search results. |
+| [setItemSearchResults](set-item-search-results.md) | [androidJvm]<br>fun [setItemSearchResults](set-item-search-results.md)(post: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Sets the image related to the search results to the photo associated with a post and specified by the given URI. |
 
 ## Inherited functions
 

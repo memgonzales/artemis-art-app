@@ -4,3 +4,5 @@
 
 [androidJvm]\
 private val [ivItemSearchResults](iv-item-search-results.md): [ImageView](https://developer.android.com/reference/kotlin/android/widget/ImageView.html)
+
+Image view related to the search results

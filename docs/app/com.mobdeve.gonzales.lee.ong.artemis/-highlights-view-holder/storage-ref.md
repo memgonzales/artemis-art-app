@@ -4,3 +4,5 @@
 
 [androidJvm]\
 private var [storageRef](storage-ref.md): StorageReference
+
+Represents a reference to a Google Cloud Storage object.

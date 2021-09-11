@@ -4,3 +4,5 @@
 
 [androidJvm]\
 private var [storage](storage.md): FirebaseStorage
+
+Service that supports uploading and downloading large objects to Google Cloud Storage.

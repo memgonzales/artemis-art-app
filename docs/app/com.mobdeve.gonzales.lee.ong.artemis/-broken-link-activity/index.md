@@ -17,6 +17,7 @@ Class handling the functionalities related to notifying the user and preventing 
 
 | Name | Summary |
 |---|---|
+| [btnBackToLogin](btn-back-to-login.md) | [androidJvm]<br>private lateinit var [btnBackToLogin](btn-back-to-login.md): [Button](https://developer.android.com/reference/kotlin/android/widget/Button.html) |
 | [tvBrokenLinkEmail](tv-broken-link-email.md) | [androidJvm]<br>private lateinit var [tvBrokenLinkEmail](tv-broken-link-email.md): [TextView](https://developer.android.com/reference/kotlin/android/widget/TextView.html)<br>Clickable text view for opening the email client of the user. |
 
 ## Inherited properties
