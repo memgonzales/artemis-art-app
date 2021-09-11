@@ -12,7 +12,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -34,13 +33,27 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
+/**
+ * Class handling the functionalities related to browsing the posts (for registered users).
+ *
+ * @constructor Creates a class that handles the functionalities related to browsing the posts
+ * (for registered users).
+ */
 class BrowseFeedActivity : AppCompatActivity() {
+    /**
+     * Posts to be displayed on the feed.
+     */
     private lateinit var dataPosts: ArrayList<Post>
 
+    /**
+     * Recycler view for the posts to be displayed on the feed.
+     */
     private lateinit var rvFeed: RecyclerView
+
+    /**
+     * Adapter for the recycler view handling the posts to be displayed on the feed.
+     */
     private lateinit var feedAdapter: FeedAdapter
     private lateinit var sflFeed: ShimmerFrameLayout
     private lateinit var bnvFeedBottom: BottomNavigationView
