@@ -67,6 +67,10 @@ class EditCommentActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Retrieves the data passed via intents and initializes the remote database helpers
+     * required for editing.
+     */
     private fun initIntent() {
         val intent: Intent = intent
 
