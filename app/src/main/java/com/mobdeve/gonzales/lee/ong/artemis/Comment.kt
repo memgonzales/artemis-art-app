@@ -158,30 +158,70 @@ class Comment {
         this.userId = userId
     }
 
+    /**
+     * Sets the unique identifier of the post to which the comment is tied to the specified string.
+     *
+     * @param postId string to which the unique identifier of the post to which the comment is tied
+     * is to be set
+     */
     fun setPostId(postId: String?){
         this.postId = postId
     }
 
+    /**
+     * Sets the unique identifier of the comment to the specified string.
+     *
+     * @param commentId string to which the unique identifier of the comment is to be set
+     */
     fun setCommentId(commentId: String?){
         this.commentId = commentId
     }
 
+    /**
+     * Sets the profile picture of the user who posted the comment to the photo specified
+     * by the given URI.
+     *
+     * @param profPic URI of the photo to which the profile picture of the user who posted
+     * the comment to the photo specified is to be set
+     */
     fun setProfilePicture(profPic: String?){
         this.profilePicture = profPic
     }
 
+    /**
+     * Sets the username of the user who posted the comment to the specified string.
+     *
+     * @param username string to which the username of the user who posted the comment is to be set
+     */
     fun setUsername(username: String?){
         this.username = username
     }
 
+    /**
+     * Sets the date when the comment was posted to the specified string.
+     *
+     * @param dateCommented string to which the date when the comment was posted is to be set
+     */
     fun setDateCommented(dateCommented: String?){
         this.dateCommented = dateCommented
     }
 
+    /**
+     * Sets the comment per se to the specified string.
+     *
+     * @param commentBody string to which the comment per se is to be set
+     */
     fun setCommentBody(commentBody: String?){
         this.commentBody = commentBody
     }
 
+    /**
+     * Allows the user to edit a comment posted by them but disallows them to edit a comment
+     * created by another user.
+     *
+     * @param editable <code>true</code> if the user is allowed to edit a comment; <code>false</code>,
+     * otherwise
+     */
     fun setEditable(editable: Boolean){
         this.editable = editable
     }
