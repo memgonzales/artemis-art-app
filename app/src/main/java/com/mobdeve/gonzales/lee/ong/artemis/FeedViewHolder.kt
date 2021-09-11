@@ -81,12 +81,12 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val clItemFeedUpvote: ConstraintLayout
 
     /**
-     * Clckable layout for commenting on the post.
+     * Clickable layout for commenting on the post.
      */
     private val clItemFeedComment: ConstraintLayout
 
     /**
-     * Clickable layout for sharing the post.
+     * Clickable layout for sharing the post on the user's Facebook account.
      */
     private val clItemFeedShare: ConstraintLayout
 
@@ -111,6 +111,9 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     /**
      * Sets the profile picture of the user who posted to the photo specified by the given URI.
+     *
+     * In the case of a caught input/output exception, this function sets the profile picture
+     * to the launcher icon (currently, this is the chibi version of the Artemis logo).
      *
      * @return URI of the photo to which the profile picture of the user is to be set
      */
@@ -163,6 +166,9 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     /**
      * Sets the posted artwork to photo specified by the given URI.
+     *
+     * In the case of a caught input/output exception, this function sets the photo
+     * to the launcher icon (currently, this is the chibi version of the Artemis logo).
      *
      * @param post URI of the photo to which the posted artwork is to be set
      */
@@ -227,7 +233,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Sets the onclick listener for bookmarking the posted artwork.
      *
-     * @param onClickListener onclick listener for upvoting the posted artwork.
+     * @param onClickListener onclick listener for upvoting the posted artwork
      */
     fun setItemFeedBookmarkOnClickListener(onClickListener: View.OnClickListener) {
         ibItemFeedBookmark.setOnClickListener(onClickListener)

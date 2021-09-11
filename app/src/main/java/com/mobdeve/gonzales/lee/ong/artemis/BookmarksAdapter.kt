@@ -13,7 +13,7 @@ import java.util.*
  *
  * @constructor Creates an adapter for the recycler view that handles the posts bookmarked
  * by the user.
- * @param dataPosts posts bookmarked by the user
+ * @param dataPosts Posts bookmarked by the user.
  */
 class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<BookmarksViewHolder>() {

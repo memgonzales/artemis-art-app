@@ -54,8 +54,8 @@ class BottomMenuUtil {
          * Maps the ID of the icon in the bottom navigation view to the menu it represents
          * (technically, the constant referring to that menu).
          *
-         * @param itemId ID of the icon in the bottom navigation view
-         * @return menu represented by the icon in the bottom navigation view
+         * @param itemId ID of the icon in the bottom navigation view.
+         * @return Menu represented by the icon in the bottom navigation view.
          */
         private fun getPosition(itemId: Int): Int {
             when (itemId) {
@@ -88,9 +88,9 @@ class BottomMenuUtil {
          * and starting activities) when the items in the given bottom navigation view for registered
          * users are selected.
          *
-         * @param bnv bottom navigation view for registered users
-         * @param from activity calling this method
-         * @param packageContext context of the activity calling this method
+         * @param bnv Bottom navigation view for registered users.
+         * @param from Activity calling this method.
+         * @param packageContext Context of the activity calling this method.
          */
         fun setBottomMenuListeners(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
             bnv.setOnItemSelectedListener{ item ->
@@ -125,9 +125,9 @@ class BottomMenuUtil {
          * destroying current activities, and starting activities) when the items in the given
          * bottom navigation view for registered users are selected.
          *
-         * @param bnv bottom navigation view for registered users
-         * @param from activity calling this method
-         * @param packageContext context of the activity calling this method
+         * @param bnv Bottom navigation view for registered users.
+         * @param from Activity calling this method.
+         * @param packageContext Context of the activity calling this method.
          */
         fun setFinishBottomMenuListeners(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
             bnv.setOnItemSelectedListener{ item ->
@@ -166,11 +166,11 @@ class BottomMenuUtil {
          * scrolling actions, and starting activities) when the items in the given
          * bottom navigation view for registered users are selected.
          *
-         * @param bnv bottom navigation view for registered users
-         * @param nsv nested scroll view involved in the scrolling action
-         * @param scroll menu corresponding to the activity on which the scrolling action is executed
-         * @param from activity calling this method
-         * @param packageContext context of the activity calling this method
+         * @param bnv Bottom navigation view for registered users.
+         * @param nsv Nested scroll view involved in the scrolling action.
+         * @param scroll Menu corresponding to the activity on which the scrolling action is executed.
+         * @param from Activity calling this method.
+         * @param packageContext Context of the activity calling this method.
          */
         fun setScrollBottomMenuListeners(bnv: BottomNavigationView, nsv: NestedScrollView, scroll: Int, from: Activity, packageContext: Context) {
             bnv.setOnItemSelectedListener { item ->
@@ -227,9 +227,9 @@ class BottomMenuUtil {
          * passing intents, there is no need to pass the activity calling this method and the menu
          * corresponding to the activity on which the scrolling action is executed.
          *
-         * @param bnv bottom navigation view for unregistered users
-         * @param nsv nested scroll view involved in the scrolling action
-         * @param packageContext context of the activity calling this method
+         * @param bnv Bottom navigation view for unregistered users.
+         * @param nsv Nested scroll view involved in the scrolling action.
+         * @param packageContext Context of the activity calling this method.
          */
         fun setScrollBottomMenuListenersUnregistered(bnv: BottomNavigationView, nsv: NestedScrollView, packageContext: Context) {
             bnv.setOnItemSelectedListener { item ->
@@ -254,9 +254,9 @@ class BottomMenuUtil {
          * and starting activities) when the items in the given bottom navigation view for unregistered
          * users are selected.
          *
-         * @param bnv bottom navigation view for unregistered users
-         * @param from nested scroll view involved in the scrolling action
-         * @param packageContext context of the activity calling this method
+         * @param bnv Bottom navigation view for unregistered users.
+         * @param from Nested scroll view involved in the scrolling action.
+         * @param packageContext Context of the activity calling this method.
          */
         fun setBottomMenuListenersUnregistered(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
             bnv.setOnItemSelectedListener { item ->
@@ -282,9 +282,9 @@ class BottomMenuUtil {
          * destroying current activities, and starting activities) when the items in the given bottom
          * navigation view for unregistered users are selected.
          *
-         * @param bnv bottom navigation view for unregistered users
-         * @param from nested scroll view involved in the scrolling action
-         * @param packageContext context of the activity calling this method
+         * @param bnv Bottom navigation view for unregistered users.
+         * @param from Nested scroll view involved in the scrolling action.
+         * @param packageContext Context of the activity calling this method.
          */
         fun setFinishBottomMenuListenersUnregistered(bnv: BottomNavigationView, from: Activity, packageContext: Context) {
             bnv.setOnItemSelectedListener { item ->

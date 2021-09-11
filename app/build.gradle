@@ -40,30 +40,11 @@ tasks.withType(dokkaHtml.getClass()).configureEach {
     )
 }
 
-tasks.withType(dokkaGfm.getClass()).configureEach {
-    pluginsMapConfiguration.set(
-            ["org.jetbrains.dokka.base.DokkaBase": """{ "separateInheritedMembers": true}"""]
-    )
-}
-
 tasks.dokkaHtml.configure {
-    outputDirectory.set(file("../documentation"))
-}
-
-tasks.dokkaGfm.configure {
     outputDirectory.set(file("../docs"))
 }
 
 dokkaHtml.configure {
-    dokkaSourceSets {
-        named("main") {
-            includeNonPublic.set(true)
-            includes.from("Module.md")
-        }
-    }
-}
-
-dokkaGfm.configure {
     dokkaSourceSets {
         named("main") {
             includeNonPublic.set(true)

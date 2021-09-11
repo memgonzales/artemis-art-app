@@ -12,7 +12,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -147,7 +146,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var cameraLauncher:  ActivityResultLauncher<Intent>
 
     /**
-     * Activity result launcher related to choosing photos from the Gallery
+     * Activity result launcher related to choosing photos from the Gallery.
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
@@ -174,7 +173,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     /**
      * Initializes the activity result launcher related to choosing photos from the Gallery.
      *
-     * @param packageContext context tied to this activity
+     * @param packageContext Context tied to this activity.
      */
     private fun initGalleryLauncher(packageContext: Context) {
         galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -197,9 +196,9 @@ class BrowseFeedActivity : AppCompatActivity() {
     }
 
     /**
-     * Initializes the activity result launcher related to taking photos using the device camera
+     * Initializes the activity result launcher related to taking photos using the device camera.
      *
-     * @param packageContext context tied to this activity
+     * @param packageContext Context tied to this activity.
      */
     private fun initCameraLauncher(packageContext: Context) {
         cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -282,7 +281,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     }
 
     /**
-     * Re-fetches data from the database and reshuffles the display of existing data when the screen
+     * Refetches data from the database and reshuffles the display of existing data when the screen
      * is swiped to refresh.
      */
     private fun onRefresh() {
@@ -329,7 +328,7 @@ class BrowseFeedActivity : AppCompatActivity() {
      * and the view holder.
      *
      * @param shuffle <code>true</code> if the posts are shuffled before display;
-     * <code>false</code>, otherwise
+     * <code>false</code>, otherwise.
      */
     private fun initContent(shuffle: Boolean) {
         this.ivNone = findViewById(R.id.iv_feed_none)
@@ -545,12 +544,12 @@ class BrowseFeedActivity : AppCompatActivity() {
     /**
      * Callback for the result from requesting permissions.
      *
-     * @param requestCode the request code passed in <code>
-     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
-     * @param permissions the requested permissions. Never null
-     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     * @param requestCode The request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>.
+     * @param permissions The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions which is either <code>
      *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
-     *     Never null
+     *     Never null.
      */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
                                             grantResults: IntArray) {
@@ -562,13 +561,13 @@ class BrowseFeedActivity : AppCompatActivity() {
      * Defines the behavior related to choosing a photo from the Gallery or taking a photo using
      * the device camera based on the permissions granted by the user.
      *
-     * @param requestCode the request code passed in <code>
-     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>
-     * @param grantResults the grant results for the corresponding permissions which is either <code>
+     * @param requestCode The request code passed in <code>
+     *     ActivityCompat.requestPermissions(android.app.Activity, String[], int)</code>.
+     * @param grantResults The grant results for the corresponding permissions which is either <code>
      *     PackageManager.PERMISSION_GRANTED</code> or <code>PackageManager.PERMISSION_DENIED</code>.
-     *     Never null
-     * @param context context tied to this activity
-     * @param activity this activity
+     *     Never null.
+     * @param context Context tied to this activity.
+     * @param activity This activity.
      */
     private fun permissionsResult(requestCode: Int, grantResults: IntArray, context: Context,
                                   activity: Activity) {

@@ -58,8 +58,8 @@ class PostArtworkUtil {
          * To access the gallery, a <code>READ_EXTERNAL_STORAGE</code> permission is requested
          * from the user.
          *
-         * @param activity activity calling this method
-         * @param galleryLauncher activity result launcher related to choosing photos from the Gallery
+         * @param activity Activity calling this method.
+         * @param galleryLauncher Activity result launcher related to choosing photos from the Gallery.
          */
         fun chooseFromGallery(activity: Activity, galleryLauncher: ActivityResultLauncher<Intent>) {
             val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -82,7 +82,7 @@ class PostArtworkUtil {
         /**
          * Launches the Gallery should the user decide to choose a photo from it.
          *
-         * @param galleryLauncher activity result launcher related to choosing photos from the Gallery
+         * @param galleryLauncher Activity result launcher related to choosing photos from the Gallery.
          */
         private fun chooseFromGalleryIntent(galleryLauncher: ActivityResultLauncher<Intent>) {
             val intent = Intent(Intent.ACTION_PICK)
