@@ -2,10 +2,12 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
@@ -44,23 +46,65 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
     private fun initIntent() {
         val intent: Intent = intent
 
-        val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
+        val profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name)
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
-        val post = intent.getIntExtra(Keys.KEY_POST.name, 0)
+
+        val postImg = intent.getStringExtra(Keys.KEY_POST.name)
         val title = intent.getStringExtra(Keys.KEY_TITLE.name)
         val datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name)
-        val type = intent.getStringExtra(Keys.KEY_MEDIUM.name)
+        val medium = intent.getStringExtra(Keys.KEY_MEDIUM.name)
         val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
 
-        this.civItemViewOthersHighlightUnregisteredProfilePic.setImageResource(profilePicture)
+        //this.civItemViewOthersHighlightUnregisteredProfilePic.setImageResource(profilePicture)
+
+        Glide.with(this@ViewOthersHighlightUnregisteredActivity)
+            .load(profilePicture)
+            .placeholder(R.drawable.chibi_artemis_hd)
+            .error(R.drawable.chibi_artemis_hd)
+            .into(this.civItemViewOthersHighlightUnregisteredProfilePic)
+
         this.tvItemViewOthersHighlightUnregisteredUsername.text = username
-        this.ivItemViewOthersHighlightUnregisteredPost.setImageResource(post)
-        this.tvItemViewOthersHighlightUnregisteredTitle.text = title
+        //this.ivItemViewOthersHighlightUnregisteredPost.setImageResource(post)
+        Glide.with(this@ViewOthersHighlightUnregisteredActivity)
+            .load(postImg)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(this.ivItemViewOthersHighlightUnregisteredPost)
+
+        if (!title.isNullOrEmpty()){
+            this.tvItemViewOthersHighlightUnregisteredTitle.visibility = View.VISIBLE
+            this.tvItemViewOthersHighlightUnregisteredTitle.text = title
+        }
+        else{
+            this.tvItemViewOthersHighlightUnregisteredTitle.visibility = View.INVISIBLE
+        }
+
         this.tvItemViewOthersHighlightUnregisteredDatePosted.text = datePosted
-        this.tvItemViewOthersHighlightUnregisteredMedium.text = type
-        this.tvItemViewOthersHighlightUnregisteredDimensions.text = dimensions
-        this.tvItemViewOthersHighlightUnregisteredDescription.text = description
+
+        if(!medium.isNullOrEmpty()){
+            this.tvItemViewOthersHighlightUnregisteredMedium.visibility = View.VISIBLE
+            this.tvItemViewOthersHighlightUnregisteredMedium.text = medium
+        }
+        else{
+            this.tvItemViewOthersHighlightUnregisteredMedium.visibility = View.GONE
+        }
+
+        if(!dimensions.isNullOrEmpty()){
+            this.tvItemViewOthersHighlightUnregisteredDimensions.visibility = View.VISIBLE
+            this.tvItemViewOthersHighlightUnregisteredDimensions.text = dimensions
+        }
+        else{
+            this.tvItemViewOthersHighlightUnregisteredDimensions.visibility = View.GONE
+        }
+
+        if(!description.isNullOrEmpty()){
+            this.tvItemViewOthersHighlightUnregisteredDescription.visibility = View.VISIBLE
+            this.tvItemViewOthersHighlightUnregisteredDescription.text = description
+        }
+        else{
+            this.tvItemViewOthersHighlightUnregisteredDescription.visibility = View.GONE
+        }
 
         civItemViewOthersHighlightUnregisteredProfilePic.setOnClickListener {
             val intent = Intent(this, ViewUserUnregisteredActivity::class.java)
