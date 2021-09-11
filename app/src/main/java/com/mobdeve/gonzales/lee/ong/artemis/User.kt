@@ -36,32 +36,32 @@ class User {
     /**
      * Identifiers of the posts bookmarked by the user.
      */
-    private var bookmarks: HashMap<String, Any?> = HashMap<String, Any?>()
+    private var bookmarks: HashMap<String, Any?> = HashMap()
 
     /**
      * Identifiers of the posts created by the user.
      */
-    private var userPosts: HashMap<String, Any?> = HashMap<String, Any?>()
+    private var userPosts: HashMap<String, Any?> = HashMap()
 
     /**
      * Identifiers of the highlights posted by the user.
      */
-    private var highlights: HashMap<String, Any?> = HashMap<String, Any?>()
+    private var highlights: HashMap<String, Any?> = HashMap()
 
     /**
      * Identifiers of the posts upvoted by the user.
      */
-    private var upvotedPosts: HashMap<String, Any?> = HashMap<String, Any?>()
+    private var upvotedPosts: HashMap<String, Any?> = HashMap()
 
     /**
      * Identifiers of the users followed by the user.
      */
-    private var usersFollowed: HashMap<String, Any?> = HashMap<String, Any?>()
+    private var usersFollowed: HashMap<String, Any?> = HashMap()
 
     /**
      * Identifiers of the comments written by the user.
      */
-    private var userComments: HashMap<String, Any?> = HashMap<String, Any?>()
+    private var userComments: HashMap<String, Any?> = HashMap()
 
     /**
      * Creates a user.
@@ -85,9 +85,9 @@ class User {
      /**
      * Creates a user given a username, email address, and password.
      *
-     * @param username username of the user
-     * @param email email address of the user
-     * @param password password of the user
+     * @param username Username of the user.
+     * @param email Email address of the user.
+     * @param password Password of the user.
      */
     constructor(username: String, email: String, password: String){
          this.userId = ""
@@ -109,11 +109,11 @@ class User {
     /**
      * Creates a user given a username, email address, password, profile picture, and short bio.
      *
-     * @param username username of the user
-     * @param email email address of the user
-     * @param password password of the user
-     * @param userImg profile picture of the user
-     * @param bio short bio of the user
+     * @param username Username of the user.
+     * @param email Email address of the user.
+     * @param password Password of the user.
+     * @param userImg Profile picture of the user.
+     * @param bio Short bio of the user.
      */
     constructor(username: String, email: String, password: String, userImg: String, bio: String){
         this.userId = ""
@@ -135,7 +135,7 @@ class User {
     /**
      * Returns the unique identifier of the user.
      *
-     * @return unique identifiers of the user
+     * @return Unique identifier of the user.
      */
     fun getUserId(): String? {
         return this.userId
@@ -144,7 +144,7 @@ class User {
     /**
      * Returns the username of the user.
      *
-     * @return username of the user
+     * @return Username of the user.
      */
     fun getUsername(): String? {
         return this.username
@@ -153,7 +153,7 @@ class User {
     /**
      * Returns the email address of the user.
      *
-     * @return email address of the user
+     * @return Email address of the user.
      */
     fun getEmail(): String? {
         return this.email
@@ -162,7 +162,7 @@ class User {
     /**
      * Returns the password of the user.
      *
-     * @return password of the user
+     * @return Password of the user.
      */
     fun getPassword(): String? {
         return this.password
@@ -171,7 +171,7 @@ class User {
     /**
      * Returns the profile picture of the user.
      *
-     * @return profile picture of the user
+     * @return Profile picture of the user.
      */
     fun getUserImg(): String? {
         return this.userImg
@@ -180,7 +180,7 @@ class User {
     /**
      * Returns the short bio of the user.
      *
-     * @return short bio of the user
+     * @return Short bio of the user.
      */
     fun getBio(): String? {
         return this.bio
@@ -189,7 +189,7 @@ class User {
     /**
      * Returns the identifiers of the posts bookmarked by the user.
      *
-     * @return identifiers of the posts bookmarked by the user
+     * @return Identifiers of the posts bookmarked by the user.
      */
     fun getBookmarks(): HashMap<String, Any?>{
         return this.bookmarks
@@ -198,7 +198,7 @@ class User {
     /**
      * Returns the identifiers of the posts created by the user.
      *
-     * @return identifiers of the posts created by the user
+     * @return Identifiers of the posts created by the user.
      */
     fun getUserPosts(): HashMap<String, Any?>{
         return this.userPosts
@@ -207,7 +207,7 @@ class User {
     /**
      * Returns the identifiers of the highlights posted by the user.
      *
-     * @return identifiers of the highlights posted by the user
+     * @return Identifiers of the highlights posted by the user.
      */
     fun getHighlights(): HashMap<String, Any?>{
         return this.highlights
@@ -216,7 +216,7 @@ class User {
     /**
      * Returns the identifiers of the posts upvoted by the user.
      *
-     * @return identifiers of the posts upvoted by the user
+     * @return Identifiers of the posts upvoted by the user.
      */
     fun getUpvotedPosts(): HashMap<String, Any?>{
         return this.upvotedPosts
@@ -225,7 +225,7 @@ class User {
     /**
      * Returns the identifiers of the users followed by the user.
      *
-     * @return identifiers of the users followed by the user
+     * @return Identifiers of the users followed by the user.
      */
     fun getUsersFollowed(): HashMap<String, Any?>{
         return this.usersFollowed
@@ -234,13 +234,17 @@ class User {
     /**
      * Returns the identifiers of the comments written by the user.
      *
-     * @return identifiers of the comments written by the user
+     * @return Identifiers of the comments written by the user.
      */
     fun getUserComments(): HashMap<String, Any?>{
         return this.userComments
     }
 
-
+    /**
+     * Sets the unique identifier of the user to the specified string.
+     *
+     * @param userId String to which the unique identifier of the user is to be set.
+     */
     fun setUserId(userId: String?){
         this.userId = userId
     }
@@ -248,7 +252,7 @@ class User {
     /**
      * Sets the username of the user to the specified string.
      *
-     * @param username string to which the username is to be set
+     * @param username String to which the username is to be set.
      */
     fun setUsername(username: String?) {
         this.username = username
@@ -257,7 +261,7 @@ class User {
     /**
      * Sets the email address of the user to the specified string.
      *
-     * @param email string to which the email address is to be set
+     * @param email String to which the email address is to be set.
      */
     fun setEmail(email: String?) {
         this.email = email
@@ -266,16 +270,16 @@ class User {
     /**
      * Sets the password of the user to the specified string.
      *
-     * @param password string to which the password is to be set
+     * @param password String to which the password is to be set.
      */
     fun setPassword(password: String?) {
         this.password = password
     }
 
     /**
-     * Sets the profile picture of the user to the specified image URI.
+     * Sets the profile picture of the user to the photo specified by the given URI.
      *
-     * @param userImg image URI to which the profile picture of the user is to be set
+     * @param userImg URI of the photo to which the profile picture of the user is to be set.
      *
      */
     fun setUserImg(userImg: String?) {
@@ -285,7 +289,7 @@ class User {
     /**
      * Sets the short bio of the user to the specified string.
      *
-     * @param bio string to which the short bio of the user is to be set
+     * @param bio String to which the short bio of the user is to be set.
      */
     fun setBio(bio: String?) {
         this.bio = bio
@@ -294,8 +298,8 @@ class User {
     /**
      * Sets the identifiers of the posts bookmarked by the user to the specified strings.
      *
-     * @param bookmarks list containing strings to which the identifiers of the posts bookmarked
-     * by the user are to be set
+     * @param bookmarks List containing strings to which the identifiers of the posts bookmarked
+     * by the user are to be set.
      */
     fun setBookmarks(bookmarks: HashMap<String, Any?>){
         this.bookmarks = bookmarks
@@ -304,8 +308,8 @@ class User {
     /**
      * Sets the identifiers of the posts created by the user to the specified strings.
      *
-     * @param userPosts list containing strings to which the identifiers of the posts created
-     * by the user are to be set
+     * @param userPosts List containing strings to which the identifiers of the posts created
+     * by the user are to be set.
      */
     fun setUserPosts(userPosts: HashMap<String, Any?>){
         this.userPosts = userPosts
@@ -314,8 +318,8 @@ class User {
     /**
      * Sets the identifiers of the posts highlighted by the user to the specified strings.
      *
-     * @param highlights list containing strings to which the identifiers of the posts highlighted
-     * by the user are to be set
+     * @param highlights List containing strings to which the identifiers of the posts highlighted
+     * by the user are to be set.
      */
     fun setHighlights(highlights: HashMap<String, Any?>){
         this.highlights = highlights
@@ -324,8 +328,8 @@ class User {
     /**
      * Sets the identifiers of the posts upvoted by the user to the specified strings.
      *
-     * @param upvotedPosts list containing strings to which the identifiers of the posts upvoted
-     * by the user are to be set
+     * @param upvotedPosts List containing strings to which the identifiers of the posts upvoted
+     * by the user are to be set.
      */
     fun setUpvotedPosts(upvotedPosts: HashMap<String, Any?>){
         this.upvotedPosts = upvotedPosts
@@ -334,8 +338,8 @@ class User {
     /**
      * Sets the identifiers of the users followed by the user to the specified strings.
      *
-     * @param usersFollowed list containing strings to which the identifiers of the users followed
-     * by the user are to be set
+     * @param usersFollowed List containing strings to which the identifiers of the users followed
+     * by the user are to be set.
      */
     fun setUsersFollowed(usersFollowed: HashMap<String, Any?>){
         this.usersFollowed = usersFollowed
@@ -344,8 +348,8 @@ class User {
     /**
      * Sets the identifiers of the comments written by the user to the specified strings.
      *
-     * @param userComments list containing strings to which the identifiers of the comments written
-     * by the user are to be set
+     * @param userComments List containing strings to which the identifiers of the comments written
+     * by the user are to be set.
      */
     fun setUserComments(userComments: HashMap<String, Any?>) {
         this.userComments = userComments
