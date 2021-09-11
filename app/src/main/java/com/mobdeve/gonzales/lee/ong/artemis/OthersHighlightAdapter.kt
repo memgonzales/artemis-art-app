@@ -8,6 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.util.*
 
+/**
+ * Adapter for the recycler view that handles the highlights of other users.
+ *
+ * @constructor Creates an adapter for the recycler view that handles the highlights of other users.
+ * @param dataPosts posts of highlights of other users
+ */
 class OthersHighlightAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<HighlightsViewHolder>() {
 

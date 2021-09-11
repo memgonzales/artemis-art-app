@@ -22,7 +22,7 @@ import java.util.*
  * Adapter for the recycler view that handles the posts of followed users.
  *
  * @constructor Creates an adapter for the recycler view that handles the posts of followed users.
- * @param dataPosts posts of followed users.
+ * @param dataPosts posts of followed users
  * @param parentActivity activity calling this adapter
  */
 class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
