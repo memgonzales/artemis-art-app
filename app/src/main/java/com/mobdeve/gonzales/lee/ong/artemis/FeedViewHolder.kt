@@ -155,14 +155,16 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
      * Returns the image view for the posted artwork.
      *
-     * @param image view for the posted artwork
+     * @return image view for the posted artwork
      */
     fun getItemFeedPost(): ImageView {
         return ivItemFeedPost
     }
 
     /**
+     * Sets the posted artwork to photo specified by the given URI.
      *
+     * @param post URI of the photo to which the posted artwork is to be set
      */
     fun setItemFeedPost(post: String) {
 
@@ -184,27 +186,59 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //ivItemFeedPost.setImageResource(post)
     }
 
+    /**
+     * Sets the title of the posted artwork to the given string.
+     *
+     * @param title string to which the title of the posted artwork is to be set
+     */
     fun setItemFeedTitle(title: String?) {
         tvItemFeedTitle.text = title
     }
 
+    /**
+     * Sets the number of upvotes of the posted artwork to the given string.
+     *
+     * @param upvotes string to which the number of upvotes of the posted artwork is to be set
+     */
     fun setItemFeedUpvoteCounter(upvotes: String?) {
         tvItemFeedUpvoteCounter.text = upvotes
     }
 
+    /**
+     * Sets the number of comments on the posted artwork to the given string.
+     *
+     * @param numComments string to which the number of comments on the posted artwork is to be set
+     */
     fun setItemFeedCommentCounter(numComments: String?) {
         tvItemFeedCommentsCounter.text = numComments
     }
 
-    //didnt use this at all
+    /**
+     * Sets the text inside the text view related to the comments on the posted artwork
+     * to the given string.
+     *
+     * @param comments string to which the text inside the text view related to the comments
+     * on the posted artwork is to be set
+     */
     fun setItemFeedComments(comments: String?) {
         tvItemFeedComments.text = comments
     }
 
+    /**
+     * Sets the onclick listener for bookmarking the posted artwork.
+     *
+     * @param onClickListener onclick listener for upvoting the posted artwork.
+     */
     fun setItemFeedBookmarkOnClickListener(onClickListener: View.OnClickListener) {
         ibItemFeedBookmark.setOnClickListener(onClickListener)
     }
 
+    /**
+     * Updates the view depending on whether the posted artwork is bookmarked
+     *
+     * @param bookmark <code>true</code> fi the posted artwork is bookmarked; <code>false</code>,
+     * otherwise
+     */
     fun setItemFeedBookmark(bookmark: Boolean) {
         if (bookmark) {
             ibItemFeedBookmark.setImageResource(R.drawable.outline_bookmark_24)
@@ -228,7 +262,12 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         clItemFeedUpvote.setOnClickListener(onClickListener)
     }
 
-
+    /**
+     * Updates the view depending on whether the posted artwork is upvoted.
+     *
+     * @param upvote <code>true</code> fi the posted artwork is upvoted; <code>false</code>,
+     * otherwise
+     */
     fun setItemFeedUpvote(upvote: Boolean) {
         if (upvote) {
             ivItemFeedUpvote.setImageResource(R.drawable.upvote_colored)
