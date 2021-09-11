@@ -190,7 +190,7 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        this.dataCommentsFollowed = DataHelper.loadCommentData()
+        this.dataCommentsFollowed = arrayListOf<Comment>()
 
         this.rvCommentsFollowed = findViewById(R.id.rv_view_comments_followed)
         this.llViewCommentsFollowedShimmer = findViewById(R.id.ll_view_comments_followed_shimmer)

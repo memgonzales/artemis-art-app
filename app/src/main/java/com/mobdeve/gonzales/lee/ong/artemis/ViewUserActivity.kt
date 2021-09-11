@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -173,7 +172,7 @@ class ViewUserActivity : AppCompatActivity() {
         this.tvViewUserBio = findViewById(R.id.tv_view_user_unregistered_bio)
         this.btnViewUserFollow = findViewById(R.id.btn_view_user_follow)
 
-        this.dataHighlights = DataHelper.loadOthersHighlightData()
+        this.dataHighlights = arrayListOf<Post>()
 
         val intent: Intent = intent
         val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name).toString()

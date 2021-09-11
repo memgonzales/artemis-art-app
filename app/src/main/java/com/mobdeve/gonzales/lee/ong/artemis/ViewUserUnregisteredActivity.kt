@@ -88,7 +88,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         this.tvViewUserUnregisteredUsername = findViewById(R.id.tv_view_user_unregistered_username)
         this.tvViewUserUnregisteredBio = findViewById(R.id.tv_view_user_unregistered_bio)
         this.btnViewUserUnregisteredFollow = findViewById(R.id.btn_view_user_unregistered_follow)
-        this.dataHighlights = DataHelper.loadOthersHighlightData()
+        this.dataHighlights = arrayListOf<Post>()
 
         val intent: Intent = intent
         val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name).toString()

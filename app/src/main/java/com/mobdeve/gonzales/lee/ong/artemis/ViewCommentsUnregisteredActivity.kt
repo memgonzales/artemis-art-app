@@ -119,7 +119,7 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        this.dataComments = DataHelper.loadCommentDataUnregistered()
+        this.dataComments = arrayListOf<Comment>()
 
         this.rvComments = findViewById(R.id.rv_view_comments_unregistered)
         this.llViewCommentsShimmer = findViewById(R.id.ll_view_comments_unregistered_shimmer)
