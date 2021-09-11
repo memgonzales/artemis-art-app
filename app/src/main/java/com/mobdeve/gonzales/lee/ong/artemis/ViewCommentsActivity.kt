@@ -234,30 +234,12 @@ class ViewCommentsActivity : AppCompatActivity() {
 
         commentDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-               // dataComments.clear()
+                dataComments.clear()
 
                 if (snapshot.exists()){
                     for (c in snapshot.children){
 
                         var commentSnap = c.getValue(Comment::class.java)
-
-                        if (commentSnap != null){
-                            if (!commentSnap.getPostId().isNullOrEmpty() && commentSnap.getPostId()!!.contains(postId)){
-
-                                if (commentSnap.getUserId().equals(userId)){
-                                    commentSnap.setEditable(true)
-                                }
-
-                                dataComments.add(commentSnap)
-
-
-
-                            }
-
-
-                        }
-
-
 
                         if (commentSnap != null &&
                             !commentSnap.getUserId().isNullOrEmpty() &&
@@ -265,15 +247,12 @@ class ViewCommentsActivity : AppCompatActivity() {
                             !commentSnap.getPostId().isNullOrEmpty() &&
                             commentSnap.getPostId()!!.contains(postId!!)){
 
-                                if (commentSnap.getUserId().equals(userId)){
-                                    commentSnap.setEditable(true)
-                                }
+                            if (commentSnap.getUserId().equals(userId)){
+                                commentSnap.setEditable(true)
+                            }
 
-                                dataComments.add(commentSnap)
+                            dataComments.add(commentSnap)
                         }
-
-
-
                     }
 
                     commentsAdapter.notifyDataSetChanged()
@@ -346,6 +325,9 @@ class ViewCommentsActivity : AppCompatActivity() {
                     pbComment.visibility = View.GONE
                     Toast.makeText(this@ViewCommentsActivity, "Commented successfully", Toast.LENGTH_LONG).show()
                     etComment.text.clear()
+
+                    dataComments.add(comment)
+                    commentsAdapter.notifyDataSetChanged()
                 }
 
                 else{
