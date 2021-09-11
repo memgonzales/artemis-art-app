@@ -24,6 +24,8 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
      */
     private lateinit var context: Context
 
+    private lateinit var firebaseHelper: FirebaseHelper
+
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
      * to represent an item.
@@ -41,6 +43,8 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
         val commentsViewHolder = CommentsViewHolder(itemView)
 
         this.context = parent.context
+
+        this.firebaseHelper = FirebaseHelper(context)
 
         return commentsViewHolder
     }
@@ -107,7 +111,9 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
             }
 
             delete.setOnClickListener { view ->
-                Toast.makeText(view.context, "Your comment has been deleted", Toast.LENGTH_SHORT).show()
+                this.firebaseHelper.deleteCommentDB(currentComment.getCommentId()!!, currentComment.getPostId()!!)
+
+                //Toast.makeText(view.context, "Your comment has been deleted", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
 
