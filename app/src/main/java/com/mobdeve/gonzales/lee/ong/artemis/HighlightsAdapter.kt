@@ -8,6 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.util.*
 
+/**
+ * Adapter for the recycler view that handles the posts highlighted by the user.
+ *
+ * @constructor Creates an adapter for the recycler view that handles the posts highlighted by the user.
+ * @param dataPosts posts highlighted by the user.
+ */
 class HighlightsAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<HighlightsViewHolder>() {
 
