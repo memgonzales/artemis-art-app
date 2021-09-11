@@ -257,7 +257,7 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.rvFeed.adapter = feedAdapter;
 
         initContent(false)
-        getRealtimeUpdates()
+        //getRealtimeUpdates()
 
     }
 
@@ -338,9 +338,11 @@ class BrowseFeedActivity : AppCompatActivity() {
                     if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
                         post.setBookmark(true)
                     }
+
+                    dataPosts.add(post)
                 }
 
-              //  feedAdapter.notifyDataSetChanged()
+                feedAdapter.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -370,7 +372,7 @@ class BrowseFeedActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val post = snapshot.getValue(Post::class.java)
                 dataPosts.remove(post)
-                //feedAdapter.notifyDataSetChanged()
+                feedAdapter.notifyDataSetChanged()
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {

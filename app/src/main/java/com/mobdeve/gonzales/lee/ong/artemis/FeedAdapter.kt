@@ -132,7 +132,8 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
 
         holder.setItemFeedTitle(currentPost.getTitle())
         holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
-        holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")
+        holder.setItemFeedCommentCounter(currentPost.getNumComments().toString() + " comments")
+        //holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")
         holder.setItemFeedBookmark(currentPost.getBookmark())
         holder.setItemFeedUpvote(currentPost.getUpvote())
 

@@ -39,6 +39,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ivItemFeedPost: ImageView
     private val tvItemFeedTitle: TextView
     private val tvItemFeedUpvoteCounter: TextView
+    private val tvItemFeedCommentsCounter: TextView
     private val tvItemFeedComments: TextView
     private val ibItemFeedBookmark: ImageButton
     private val ivItemFeedUpvote: ImageView
@@ -114,6 +115,11 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvItemFeedUpvoteCounter.text = upvotes
     }
 
+    fun setItemFeedCommentCounter(numComments: String?) {
+        tvItemFeedCommentsCounter.text = numComments
+    }
+
+    //didnt use this at all
     fun setItemFeedComments(comments: String?) {
         tvItemFeedComments.text = comments
     }
@@ -180,6 +186,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         ivItemFeedPost = itemView.findViewById(R.id.iv_item_feed_post)
         tvItemFeedTitle = itemView.findViewById(R.id.tv_item_feed_title)
         tvItemFeedUpvoteCounter = itemView.findViewById(R.id.tv_item_feed_upvote_counter)
+        tvItemFeedCommentsCounter = itemView.findViewById(R.id.tv_item_feed_comments)
         tvItemFeedComments = itemView.findViewById(R.id.tv_item_feed_comment)
         ibItemFeedBookmark = itemView.findViewById(R.id.ib_item_feed_bookmark)
         ivItemFeedUpvote = itemView.findViewById(R.id.iv_item_feed_upvote)
