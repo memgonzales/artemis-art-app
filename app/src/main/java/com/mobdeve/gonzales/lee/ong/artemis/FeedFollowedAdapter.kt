@@ -18,6 +18,13 @@ import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
 import java.util.*
 
+/**
+ * Adapter for the recycler view that handles the posts of followed users.
+ *
+ * @constructor Creates an adapter for the recycler view that handles the comments on the posts.
+ * @param dataPosts comments on the posts
+ * @param parentActivity activity calling this adapter
+ */
 class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
     RecyclerView.Adapter<FeedViewHolder>() {
 
@@ -186,9 +193,9 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
             }
         }
 
-        holder.setItemFeedShareOnClickListener { view ->
-            var cmFacebook = CallbackManager.Factory.create()
-            var sdFacebook = ShareDialog(parentActivity)
+        holder.setItemFeedShareOnClickListener {
+            val cmFacebook = CallbackManager.Factory.create()
+            val sdFacebook = ShareDialog(parentActivity)
 
             sdFacebook.registerCallback(cmFacebook, object : FacebookCallback<Sharer.Result?> {
                 override fun onSuccess(result: Sharer.Result?) {
