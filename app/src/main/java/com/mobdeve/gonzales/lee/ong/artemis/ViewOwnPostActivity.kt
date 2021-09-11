@@ -370,7 +370,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
             }
 
             clDialogViewOwnPostDelete.setOnClickListener {
-                firebaseHelper.deletePostDB(postId)
+                firebaseHelper.deletePostDB(postId, false)
                 val intent = Intent(this@ViewOwnPostActivity, BrowseOwnPostsActivity::class.java)
                 startActivity(intent)
                 finish()
