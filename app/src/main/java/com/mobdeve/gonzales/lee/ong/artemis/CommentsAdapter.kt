@@ -48,7 +48,6 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
      */
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
         val currentComment = dataComments[position]
-        //holder.setItemCommentProfilePic(currentComment.getProfilePicture())
 
         Glide.with(context)
             .load(currentComment.getProfilePicture())

@@ -204,7 +204,8 @@ class ViewUserActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@ViewUserActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@ViewUserActivity, BrokenLinkActivity::class.java)
+                    startActivity(intent)
                 }
 
             })
@@ -237,7 +238,8 @@ class ViewUserActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@ViewUserActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@ViewUserActivity, BrokenLinkActivity::class.java)
+                    startActivity(intent)
                 }
 
             })
@@ -292,7 +294,8 @@ class ViewUserActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@ViewUserActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@ViewUserActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
 
         })

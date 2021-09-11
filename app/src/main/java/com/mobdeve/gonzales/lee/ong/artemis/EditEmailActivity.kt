@@ -181,7 +181,8 @@ class EditEmailActivity : AppCompatActivity() {
 
                 override fun onCancelled(error: DatabaseError) {
                     pbEditEmail.visibility = View.GONE
-                    Toast.makeText(applicationContext, "Unable to load data. Please try again later", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@EditEmailActivity, BrokenLinkActivity::class.java)
+                    startActivity(intent)
                 }
 
             })

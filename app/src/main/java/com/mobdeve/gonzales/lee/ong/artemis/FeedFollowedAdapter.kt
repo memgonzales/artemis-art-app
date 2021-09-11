@@ -151,7 +151,6 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
         holder.setItemFeedTitle(currentPost.getTitle())
         holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
         holder.setItemFeedCommentCounter(currentPost.getNumComments().toString() + " comments")
-        //holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")
         holder.setItemFeedBookmark(currentPost.getBookmark())
         holder.setItemFeedUpvote(currentPost.getUpvote())
 

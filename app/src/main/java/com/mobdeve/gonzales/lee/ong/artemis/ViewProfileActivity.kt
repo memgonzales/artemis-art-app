@@ -180,23 +180,11 @@ class ViewProfileActivity : AppCompatActivity() {
                     val username: String = snapshot.child(Keys.username.name).getValue().toString()
                     val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
 
-
                     Glide.with(this@ViewProfileActivity)
                         .load(profPic)
                         .error(R.drawable.chibi_artemis_hd)
                         .into(civViewProfileProfilePicture)
 
-                    /*
-                    val localFile = File.createTempFile("images", "jpg")
-                    storageRef = storage.getReferenceFromUrl(profPic)
-
-                    storageRef.getFile(localFile)
-                        .addOnSuccessListener {
-                            var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-                            civViewProfileProfilePicture.setImageBitmap(bitmap)
-                        }
-
-                     */
 
                     tvViewProfileUsername.setText(username)
                     tvViewProfileBio.setText(bio)
@@ -204,20 +192,13 @@ class ViewProfileActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(applicationContext, "Unable to load data", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@ViewProfileActivity, BrokenLinkActivity::class.java)
+                    startActivity(intent)
                 }
 
             })
 
 
-
-
-
-        this.dataUser = DataHelper.loadProfileData()
-
-        //this.civViewProfileProfilePicture.setImageResource(dataUser.getUserImg())
-        this.tvViewProfileUsername.text = dataUser.getUsername()
-        this.tvViewProfileBio.text = dataUser.getBio()
 
         clViewProfileEdit.setOnClickListener {
             val intent = Intent(this@ViewProfileActivity, EditProfileActivity::class.java)

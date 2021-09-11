@@ -199,8 +199,8 @@ class SignUpActivity : AppCompatActivity() {
 
                 override fun onCancelled(error: DatabaseError) {
                     pbSignUp.visibility = View.GONE
-                    Toast.makeText(this@SignUpActivity, "Unable to load data. Please try again later", Toast.LENGTH_SHORT).show()
-                }
+                    val intent = Intent(this@SignUpActivity, BrokenLinkActivity::class.java)
+                    startActivity(intent)}
 
             })
     }
@@ -227,7 +227,8 @@ class SignUpActivity : AppCompatActivity() {
 
                 override fun onCancelled(error: DatabaseError) {
                     pbSignUp.visibility = View.GONE
-                    Toast.makeText(this@SignUpActivity, "Unable to load data. Please try again later", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@SignUpActivity, BrokenLinkActivity::class.java)
+                    startActivity(intent)
                 }
 
             })
