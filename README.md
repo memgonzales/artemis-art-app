@@ -17,7 +17,21 @@ The application development is divided into two phases:
 Phase | Duration | Description
 -- | -- | --
 1 (Beta Demo) | 2 weeks | Completion of front-end views or layouts for all the activities, and implementation of either at least one API feature or all the database helpers (however, only the schemas are needed for apps that use a remote database)
-2 (Final Demo) | 3 weeks | Completion of the entire Android app (i.e., the implementation of all the features enumerated in the <a href = "https://github.com/memgonzales/artemis-art-app/blob/master/Proposed%20Specifications.pdf">proposed project specifications</a>)
+2 (Final Demo) | 3 weeks | Completion of the entire Android app (i.e., the implementation of all the features enumerated in the proposed project specifications)
+
+The project consists of the following folders:
+
+Folder | Description
+-- | --
+<a href = "https://github.com/memgonzales/artemis-art-app/tree/master/.idea">`.idea`</a> | Contains files used by Android Studio to load project-specific configurations
+<a href = "https://github.com/memgonzales/artemis-art-app/tree/master/app">`app`</a> | Contains all the source code and resource files, the markdown file for the app- and package-level documentation, and files defining the module-specific dependencies, project-specific ProGuard rules, and developer credentials related to Google services
+<a href = "https://github.com/memgonzales/artemis-art-app/tree/master/docs">`docs`</a> | Contains the HTML documentation of the project, generated from KDoc comments via Dokka
+<a href = "https://github.com/memgonzales/artemis-art-app/tree/master/gradle/wrapper">`gradle`</a> | Contains files used by Gradle to run build automation tasks
+
+Several Gradle-related files are also included in its root directory.
+
+The complete project specifications can be found in the document <a href = "https://github.com/memgonzales/artemis-art-app/blob/master/Proposed%20Specifications.pdf">`Project Specifications.pdf`</a>.
+
 
 ## Running the Application
 ***The minimum SDK supported is Android Lollipop (API Level 21), and the target SDK is Android 11 (API Level 30).***
@@ -50,7 +64,7 @@ Dependency | Version | Description | License
 `org.jetbrains.dokka:dokka-gradle-plugin` | 1.5.0 | Gradle plugin for Dokka documentation engine | Apache License 2.0
 `com.google.gms:google-services` | 4.3.10 | Plugin for processing the <a href = "https://github.com/memgonzales/artemis-art-app/blob/master/app/google-services.json">`google-servies.json`</a> file | Apache License 2.0
 
-It also uses the following app dependencies:
+It also uses the following module-specific dependencies:
 
 Dependency | Version | Description | License
 -- | -- | -- | --
