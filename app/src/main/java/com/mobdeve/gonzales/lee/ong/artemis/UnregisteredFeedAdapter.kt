@@ -135,8 +135,19 @@ class UnregisteredFeedAdapter(private val dataPosts: ArrayList<Post>) :
             .into(holder.getItemFeedPost())
 
         holder.setItemFeedTitle(currentPost.getTitle())
-        holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
-        holder.setItemFeedComments(currentPost.getNumComments().toString() + " comments")
+
+        if (currentPost.getNumUpvotes() == 1) {
+            holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvote")
+        } else {
+            holder.setItemFeedUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
+        }
+
+        if (currentPost.getNumComments() == 1) {
+            holder.setItemFeedCommentCounter(currentPost.getNumComments().toString() + " comment")
+        } else {
+            holder.setItemFeedCommentCounter(currentPost.getNumComments().toString() + " comments")
+        }
+
         holder.setItemFeedBookmark(currentPost.getBookmark())
         holder.setItemFeedUpvote(currentPost.getUpvote())
 

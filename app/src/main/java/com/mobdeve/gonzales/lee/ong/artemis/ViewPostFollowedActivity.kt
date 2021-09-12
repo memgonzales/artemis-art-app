@@ -186,8 +186,21 @@ class ViewPostFollowedActivity : AppCompatActivity() {
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
         var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
 
-        var upvoteString = "$upvoteCounter upvotes"
-        val commentString = "$comments comments"
+        var upvoteString = ""
+        var commentString = ""
+
+        if (upvoteCounter == 1) {
+            upvoteString = "$upvoteCounter upvote"
+        } else {
+            upvoteString = "$upvoteCounter upvotes"
+        }
+
+        if (comments == 1) {
+            commentString = "$comments comment"
+        } else {
+            commentString = "$comments comments"
+        }
+
         val tagsString = tags?.joinToString(", ")
 
         Glide.with(this)
@@ -262,7 +275,13 @@ class ViewPostFollowedActivity : AppCompatActivity() {
             if (upvote) {
                 upvote = false
                 upvoteCounter -= 1
-                upvoteString = "$upvoteCounter upvotes"
+
+                if (upvoteCounter == 1) {
+                    upvoteString = "$upvoteCounter upvote"
+                } else {
+                    upvoteString = "$upvoteCounter upvotes"
+                }
+
                 this.tvItemViewPostFollowedUpvoteCounter.text = upvoteString
                 updateUpvote(upvote)
 
@@ -271,7 +290,13 @@ class ViewPostFollowedActivity : AppCompatActivity() {
             } else {
                 upvote = true
                 upvoteCounter += 1
-                upvoteString = "$upvoteCounter upvotes"
+
+                if (upvoteCounter == 1) {
+                    upvoteString = "$upvoteCounter upvote"
+                } else {
+                    upvoteString = "$upvoteCounter upvotes"
+                }
+
                 this.tvItemViewPostFollowedUpvoteCounter.text = upvoteString
                 updateUpvote(upvote)
 
