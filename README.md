@@ -23,22 +23,21 @@ Phase | Duration | Description
 
 1. Before running the application locally, the following software are recommended (albeit not required) to be installed:
 
-   | Software | Description | Download Link | License |
-   | --- | --- | --- | --- |
-   | git | Distributed version control system | https://git-scm.com/downloads | GNU General Public License v2.0 |
+   | Software | Description | License |
+   | --- | --- | --- |
+   | <a href = "https://git-scm.com/downloads">git</a> | Distributed version control system | GNU General Public License v2.0 |
+   | <a href = "https://developer.android.com/studio">Android Studio</a> | Official integrated development environment (IDE) for Android development | Apache License 2.0
    
 2. Create a copy of this repository:
    - If git is installed, type the following command on the terminal:
    
      ```
-     git clone https://github.com/memgonzales/linquiztics
+     git clone https://github.com/memgonzales/artemis-art-app
      ```
       
    - If git is not installed, click the green 'Code' button near the top right of the repository and choose 'Download ZIP'. Once the zipped folder has been downloaded, extract its contents.
 
-3. Run the app using Android Studio (or any other IDE that supports Android development). 
-
-   If your device does not have any IDE installed, 
+3. Run the app using Android Studio (or any IDE that supports Android development). Alternatively, Android also provides a <a href = "https://developer.android.com/studio/build/building-cmdline">guide</a> on how to build the app from the command line.
 
 ## Dependencies
 This project uses the following project dependencies:
