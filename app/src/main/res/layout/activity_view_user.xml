@@ -115,16 +115,16 @@
 
                         <TextView
                             android:id="@+id/tv_view_user_unregistered_username"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="@string/tv_view_user_unregistered_username"
+                            android:gravity="center"
                             android:textColor="@android:color/white"
                             android:textSize="19sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/gl_view_user_right_top"
+                            app:layout_constraintStart_toStartOf="@+id/gl_view_user_left_top"
                             app:layout_constraintTop_toBottomOf="@+id/civ_view_user_logo"
                             app:layout_constraintVertical_bias="0.0" />
 
@@ -134,7 +134,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:text="@string/tv_view_user_unregistered_bio"
                             android:textColor="@android:color/white"
                             app:layout_constraintEnd_toStartOf="@+id/gl_view_user_right_top"
                             app:layout_constraintHorizontal_bias="0.0"
