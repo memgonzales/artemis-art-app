@@ -111,8 +111,21 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
         var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
 
-        val upvoteString = "$upvoteCounter upvotes"
-        val commentString = "$comments comments"
+        var upvoteString = ""
+        var commentString = ""
+
+        if (upvoteCounter == 1) {
+            upvoteString = "$upvoteCounter upvote"
+        } else {
+            upvoteString = "$upvoteCounter upvotes"
+        }
+
+        if (comments == 1) {
+            commentString = "$comments comment"
+        } else {
+            commentString = "$comments comments"
+        }
+
         val tagsString = tags?.joinToString(", ")
 
         //this.civItemViewPostUnregisteredProfilePic.setImageResource(profilePicture)

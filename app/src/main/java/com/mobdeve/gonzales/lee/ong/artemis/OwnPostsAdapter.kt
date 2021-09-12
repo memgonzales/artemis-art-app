@@ -154,8 +154,18 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
 
         holder.setOwnPostTitle(currentPost.getTitle())
 
-        holder.setOwnPostUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
-        holder.setOwnPostComments(currentPost.getNumComments().toString() + " comments")
+        if (currentPost.getNumUpvotes() == 1) {
+            holder.setOwnPostUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvote")
+        } else {
+            holder.setOwnPostUpvoteCounter(currentPost.getNumUpvotes().toString() + " upvotes")
+        }
+
+        if (currentPost.getNumComments() == 1) {
+            holder.setOwnPostComments(currentPost.getNumComments().toString() + " comment")
+        } else {
+            holder.setOwnPostComments(currentPost.getNumComments().toString() + " comments")
+        }
+
         holder.setOwnPostHighlight(currentPost.getHighlight())
 
         holder.setOwnPostHighlightOnClickListener { view ->
