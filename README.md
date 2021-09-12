@@ -43,12 +43,12 @@ Phase | Duration | Description
 ## Dependencies
 This project uses the following project dependencies:
 
-Dependency | Version | License
--- | -- | --
-`com.android.tools.build:gradle` | 4.2.1 | Apache License 2.0
-`org.jetbrains.kotlin:kotlin-gradle-plugin` | 1.5.0 | Apache License 2.0
-`org.jetbrains.dokka:dokka-gradle-plugin` | 1.5.0 | Apache License 2.0
-`com.google.gms:google-services` | 4.3.10 | Apache License 2.0
+Dependency | Version | Description | License
+-- | -- | -- | --
+`com.android.tools.build:gradle` | 4.2.1 | Gradle build automation tool | Apache License 2.0
+`org.jetbrains.kotlin:kotlin-gradle-plugin` | 1.5.0 | Gradle plugin for Kotlin/JVM compilation tasks | Apache License 2.0
+`org.jetbrains.dokka:dokka-gradle-plugin` | 1.5.0 | Gradle plugin for Dokka documentation engine | GrApache License 2.0
+`com.google.gms:google-services` | 4.3.10 | Plugin for processing the <a href = "https://github.com/memgonzales/artemis-art-app/blob/master/app/google-services.json">`google-servies.json`</a> file | Apache License 2.0
 
 It also uses the following app dependencies:
 
