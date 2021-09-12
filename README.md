@@ -83,9 +83,9 @@ Dependency | Version | Description | License
 `com.google.firebase:firebase-storage-ktx` | 20.0.0 | Firebase storage for Kotlin | Apache License 2.0
 `com.facebook.android:facebook-android-sdk` | \[5, 6) | Facebook software development kit for Android | Facebook Platform License
 `com.github.bumptech.glide:glide` | 4.12.0 | Efficient media management and image loading framework that wraps media decoding, memory and disk caching, and resource pooling  | BSD License <br/> MIT License (part) <br/> Apache License 2.0
-`junit:junit` | 4.+ | Eclipse Public License 1.0
-`androidx.test.ext:junit` | 1.1.3 | Eclipse Public License 1.0 <br/> Apache License 2.0
-`androidx.test.espresso:espresso-core` | 3.4.0 | Apache License 2.0
+`junit:junit` | 4.+ | Unit testing framework for Java | Eclipse Public License 1.0
+`androidx.test.ext:junit` | 1.1.3 | AndroidX unit testing framework for Java | Eclipse Public License 1.0 <br/> Apache License 2.0
+`androidx.test.espresso:espresso-core` | 3.4.0 | Framework for writing Android user interface tests | Apache License 2.0
 `androidx.recyclerview:recyclerview` | 1.2.1 | Library for displaying large sets of data in your user interface while minimizing memory usage | Apache License 2.0
 
 *The descriptions are taken from their respective websites.*
