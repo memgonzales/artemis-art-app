@@ -1,6 +1,7 @@
 # Artemis
-![badge][badge-android] 
 ![badge][badge-kotlin]
+![badge][badge-android] 
+![badge][badge-fb]
 
 **Artemis** is an **art-sharing platform** where the community can share and provide feedback on members’ works. While unregistered users are limited to viewing posted artworks and searching for posts and users, they can opt to register to maximize the features of the app. Registered users can log in to post their art and showcase some of their selected works on their profile using the Highlights feature. Moreover, they can provide their feedback on other artworks posted in the community by giving an upvote or leaving a comment. 
 
@@ -99,3 +100,4 @@ Assets (images and XML-based layouts) are properties of their respective owners.
 
 [badge-android]: http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat
 [badge-kotlin]: https://img.shields.io/badge/kotlin-%230095D5.svg?&style=flat&logo=kotlin&logoColor=white
+[badge-fb]: https://img.shields.io/badge/Facebook-1877F2?style=flat&logo=facebook&logoColor=white
