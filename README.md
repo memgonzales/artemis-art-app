@@ -95,6 +95,9 @@ The <a href = "https://memgonzales.github.io/artemis-art-app/">HTML documentatio
   
 - <b>Phoebe Clare L. Ong</b> <br/>
   phoebs_ong@dlsu.edu.ph
+  ongphoebeclare@gmail.com
+  
+For queries or concerns related to the Artemis project, kindly email artemis.appmaster@gmail.com.
 
 Assets (images and XML-based layouts) are properties of their respective owners. Attribution is found in the file <a href = "https://github.com/memgonzales/artemis-art-app/blob/master/credits.txt">`credits.txt`</a>.
 
