@@ -8,14 +8,14 @@ Logo, Launcher Icon, and Upvote Icon
 Other Images and Icons
 - Unless otherwise credited, the icons are Material Design icons taken from https://fonts.google.com/icons, which are covered by Apache License 2.0.
 - Graphics were also downloaded from the following websites:
-https://www.pngitem.com/pimgs/m/148-1489061_brush-pencil-icon-png-png-download-pencil-brush.png
-https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-circle-outline-512.png
-https://uxwing.com/wp-content/themes/uxwing/download/36-arts-graphic-shapes/circle.png
-https://www.kindpng.com/picc/m/108-1087645_white-check-mark-png-check-mark-icon-png.png
-https://static.thenounproject.com/png/626257-200.png
-https://image.shutterstock.com/image-vector/trash-bin-line-simple-icon-260nw-691267300.jpg
-https://www.gustav-klimt.com/images/paintings/The-Kiss.jpg
-https://static.thenounproject.com/png/1050437-200.png
+    https://www.pngitem.com/pimgs/m/148-1489061_brush-pencil-icon-png-png-download-pencil-brush.png
+    https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-circle-outline-512.png
+    https://uxwing.com/wp-content/themes/uxwing/download/36-arts-graphic-shapes/circle.png
+    https://www.kindpng.com/picc/m/108-1087645_white-check-mark-png-check-mark-icon-png.png
+    https://static.thenounproject.com/png/626257-200.png
+    https://image.shutterstock.com/image-vector/trash-bin-line-simple-icon-260nw-691267300.jpg
+    https://www.gustav-klimt.com/images/paintings/The-Kiss.jpg
+    https://static.thenounproject.com/png/1050437-200.png
 
 Some of these images and icons were edited to fit the theme of the app. 
 These edits include but are not limited to recoloring, resizing, reshaping, sharpening, and opacity adjustment.
