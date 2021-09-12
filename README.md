@@ -94,7 +94,7 @@ The <a href = "https://memgonzales.github.io/artemis-art-app/">HTML documentatio
   lee.hylene@gmail.com
   
 - <b>Phoebe Clare L. Ong</b> <br/>
-  phoebs_ong@dlsu.edu.ph
+  phoebs_ong@dlsu.edu.ph <br/>
   ongphoebeclare@gmail.com
   
 For queries or concerns related to the Artemis project, kindly email artemis.appmaster@gmail.com.
