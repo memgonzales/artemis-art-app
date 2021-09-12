@@ -35,7 +35,7 @@ Phase | Duration | Description
      git clone https://github.com/memgonzales/artemis-art-app
      ```
       
-   - If git is not installed, click the green 'Code' button near the top right of the repository and choose 'Download ZIP'. Once the zipped folder has been downloaded, extract its contents.
+   - If git is not installed, click the green <code>Code</code> button near the top right of the repository and choose <code>Download ZIP</code>. Once the zipped folder has been downloaded, extract its contents.
 
 3. Run the app using Android Studio (or any IDE that supports Android development). Alternatively, Android also provides a <a href = "https://developer.android.com/studio/build/building-cmdline">guide</a> on how to build the app from the command line.
 
@@ -95,7 +95,7 @@ The <a href = "https://memgonzales.github.io/artemis-art-app/">HTML documentatio
 - <b>Phoebe Clare L. Ong</b> <br/>
   phoebs_ong@dlsu.edu.ph
 
-Assets (images and XML-based layouts) are properties of their respective owners. Attribution is found in the file `credits.txt`.
+Assets (images and XML-based layouts) are properties of their respective owners. Attribution is found in the file <a href = "https://github.com/memgonzales/artemis-art-app/blob/master/credits.txt">`credits.txt`</a>.
 
 [badge-android]: http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat
 [badge-kotlin]: https://img.shields.io/badge/kotlin-%230095D5.svg?&style=flat&logo=kotlin&logoColor=white
