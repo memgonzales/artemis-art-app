@@ -17,7 +17,7 @@ The application development is divided into two phases:
 Phase | Duration | Description
 -- | -- | --
 1 (Beta Demo) | 2 weeks | Completion of front-end views or layouts for all the activities, and implementation of either at least one API feature or all the database helpers (however, only the schemas are needed for apps that use a remote database)
-2 (Final Demo) | 3 weeks | Completion of the entire Android app (i.e., the implementation of all the features enumerated in the proposed project specifications)
+2 (Final Demo) | 3 weeks | Completion of the entire Android app (i.e., the implementation of all the features enumerated in the <a href = "https://github.com/memgonzales/artemis-art-app/blob/master/Proposed%20Specifications.pdf">proposed project specifications</a>)
 
 ## Running the Application
 ***The minimum SDK supported is Android Lollipop (API Level 21), and the target SDK is Android 11 (API Level 30).***
