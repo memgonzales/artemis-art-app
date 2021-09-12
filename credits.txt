@@ -1,7 +1,7 @@
 The Artemis app is for educational, noncommercial purposes only. 
 All media files are properties of their respective owners, and attribution is provided in this file.
 
-Logo and Launcher Icon
+Logo, Launcher Icon, and Upvote Icon
 - The Artemis logo was created by Phoebe Clare L. Ong using elements from Canva: https://www.canva.com/.
 - The launcher icon (chibi Artemis) and the upvote icon are original sprites created by Phoebe Clare L. Ong.
 
