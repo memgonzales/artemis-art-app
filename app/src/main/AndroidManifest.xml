@@ -137,9 +137,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".EditProfileActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:parentActivityName=".ViewProfileActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
+            android:parentActivityName=".ViewProfileActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ViewProfileActivity"
