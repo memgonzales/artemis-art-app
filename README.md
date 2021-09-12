@@ -46,7 +46,7 @@ Dependency | Version | Description | License
 -- | -- | -- | --
 `com.android.tools.build:gradle` | 4.2.1 | Gradle build automation tool | Apache License 2.0
 `org.jetbrains.kotlin:kotlin-gradle-plugin` | 1.5.0 | Gradle plugin for Kotlin/JVM compilation tasks | Apache License 2.0
-`org.jetbrains.dokka:dokka-gradle-plugin` | 1.5.0 | Gradle plugin for Dokka documentation engine | GrApache License 2.0
+`org.jetbrains.dokka:dokka-gradle-plugin` | 1.5.0 | Gradle plugin for Dokka documentation engine | Apache License 2.0
 `com.google.gms:google-services` | 4.3.10 | Plugin for processing the <a href = "https://github.com/memgonzales/artemis-art-app/blob/master/app/google-services.json">`google-servies.json`</a> file | Apache License 2.0
 
 It also uses the following app dependencies:
@@ -56,23 +56,22 @@ Dependency | Version | Description | License
 `org.jetbrains.kotlin:kotlin-stdlib` | 1.5.0 | Kotlin standard library for JVM | Apache License 2.0
 `androidx.core:core-ktx` | 1.5.0 | Core module providing Kotlin extensions for common framework APIs and several domain-specific extensions | Apache License 2.0
 `androidx.appcompat:appcompat` | 1.3.1. | Library allowing access to new APIs on older API versions of the platform | Apache License 2.0
-`com.google.android.material:material` | 1.4.0 | Library for using APIs that provide implementations of the Material Design specification | Apache License 2.0
+`com.google.android.material:material` | 1.2.1 <br/> 1.4.0 | Library for using APIs that provide implementations of the Material Design specification | Apache License 2.0
 `androidx.constraintlayout:constraintlayout` | 2.0.4 | Library for positioning and sizing widgets in a flexible way with relative positioning | Apache License 2.0
-`androidx.coordinatorlayout:coordinatorlayout` | 1.1.0 | Apache License 2.0
-`com.facebook.shimmer:shimmer` | 0.5.0 | BSD License
-`de.hdodenhof:circleimageview` | 3.1.0 | Apache License 2.0
-`com.google.android.material:material` | 1.2.1 | Apache License 2.0
-`androidx.legacy:legacy-support-v4` | 1.0.0 | Apache License 2.0
-`com.google.firebase:firebase-auth-ktx` | 21.0.1 | Apache License 2.0
-`com.google.firebase:firebase-database-ktx` | 20.0.1 | Apache License 2.0
-`com.google.firebase:firebase-config-ktx` | 21.0.1 | Apache License 2.0
-`com.google.firebase:firebase-storage-ktx` | 20.0.0 | Apache License 2.0
-`com.facebook.android:facebook-android-sdk` | \[5, 6) | Facebook Platform License
-`com.github.bumptech.glide:glide` | 4.12.0 |BSD License <br/> MIT License (part) <br/> Apache License 2.0
+`androidx.coordinatorlayout:coordinatorlayout` | 1.1.0 | Library for positioning top-level application widgets | Apache License 2.0
+`com.facebook.shimmer:shimmer` | 0.5.0 | Library for adding a shimmer layout as an unobtrusive loading indicator | BSD License
+`de.hdodenhof:circleimageview` | 3.1.0 | Library providing a circular ImageView | Apache License 2.0
+`androidx.legacy:legacy-support-v4` | 1.0.0 | Library for using APIs that are either not available for older platform versions or not part of the framework APIs | Apache License 2.0
+`com.google.firebase:firebase-auth-ktx` | 21.0.1 | Firebase authentication for Kotlin | Apache License 2.0
+`com.google.firebase:firebase-database-ktx` | 20.0.1 | Firebase database for Kotlin | Apache License 2.0
+`com.google.firebase:firebase-config-ktx` | 21.0.1 | Firebase remote configuration for Kotlin | Apache License 2.0
+`com.google.firebase:firebase-storage-ktx` | 20.0.0 | Firebase storage for Kotlin | Apache License 2.0
+`com.facebook.android:facebook-android-sdk` | \[5, 6) | Facebook software development kit for Android | Facebook Platform License
+`com.github.bumptech.glide:glide` | 4.12.0 | Efficient media management and image loading framework that wraps media decoding, memory and disk caching, and resource pooling  | BSD License <br/> MIT License (part) <br/> Apache License 2.0
 `junit:junit` | 4.+ | Eclipse Public License 1.0
 `androidx.test.ext:junit` | 1.1.3 | Eclipse Public License 1.0 <br/> Apache License 2.0
 `androidx.test.espresso:espresso-core` | 3.4.0 | Apache License 2.0
-`androidx.recyclerview:recyclerview` | 1.2.1 | Apache License 2.0
+`androidx.recyclerview:recyclerview` | 1.2.1 | Library for displaying large sets of data in your user interface while minimizing memory usage | Apache License 2.0
 
 *The descriptions are taken from their respective websites.*
 
