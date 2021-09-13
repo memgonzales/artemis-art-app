@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -46,6 +47,9 @@ class ViewUserActivity : AppCompatActivity() {
     private lateinit var dataHighlights: ArrayList<Post>
     private lateinit var rvViewUser: RecyclerView
     private lateinit var highlightAdapter: OthersHighlightAdapter
+
+    private lateinit var ivNone: ImageView
+    private lateinit var tvNone: TextView
 
     private lateinit var btmAddPost: BottomSheetDialog
     private lateinit var fabAddPost: FloatingActionButton
@@ -167,6 +171,9 @@ class ViewUserActivity : AppCompatActivity() {
     }
 
     private fun initContent() {
+        this.ivNone = findViewById(R.id.iv_user_highlights_none)
+        this.tvNone = findViewById(R.id.tv_user_highlights_none)
+
         this.civViewUserProfilePicture = findViewById(R.id.civ_view_user_logo)
         this.tvViewUserUsername = findViewById(R.id.tv_view_user_unregistered_username)
         this.tvViewUserBio = findViewById(R.id.tv_view_user_unregistered_bio)
@@ -203,7 +210,18 @@ class ViewUserActivity : AppCompatActivity() {
                         tvViewUserBio.text = userInfoPost.getBio()
 
                         val highlights = userInfoPost.getHighlights().keys
-                        getPosts(highlights)
+
+                        if (!highlights.isNullOrEmpty()){
+                            ivNone.visibility = View.GONE
+                            tvNone.visibility = View.GONE
+                            getPosts(highlights)
+                        }
+
+                        else{
+                            ivNone.visibility = View.VISIBLE
+                            tvNone.visibility = View.VISIBLE
+                        }
+
                     }
                 }
 

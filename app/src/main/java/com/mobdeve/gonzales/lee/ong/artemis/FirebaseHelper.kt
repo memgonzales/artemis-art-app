@@ -225,7 +225,10 @@ class FirebaseHelper {
             .addOnSuccessListener {
                 deleteCommentFromPostDB(postKey)
                 deletePostANDUserFollowedFromUsersDB(postKey, delUserFF)
-                Toast.makeText(context, "Successfully deleted post", Toast.LENGTH_SHORT).show()
+
+                if (!delUserFF){
+                    Toast.makeText(context, "Successfully deleted post", Toast.LENGTH_SHORT).show()
+                }
             }
             .addOnFailureListener {
                 Toast.makeText(context, "Unable to delete post", Toast.LENGTH_SHORT).show()
