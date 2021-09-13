@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +37,9 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
     private lateinit var dataHighlights: ArrayList<Post>
     private lateinit var rvViewUnregisteredUser: RecyclerView
     private lateinit var unregisteredHighlightAdapter: OthersHighlightAdapterUnregistered
+
+    private lateinit var ivNone: ImageView
+    private lateinit var tvNone: TextView
 
     private lateinit var srlViewUserUnregistered: SwipeRefreshLayout
 
@@ -84,6 +89,9 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
     }
 
     private fun initContent() {
+        this.ivNone = findViewById(R.id.iv_user_highlights_unregistered_none)
+        this.tvNone = findViewById(R.id.tv_user_highlights_unregistered_none)
+
         this.civViewUserUnregisteredProfilePicture = findViewById(R.id.civ_view_user_unregistered_logo)
         this.tvViewUserUnregisteredUsername = findViewById(R.id.tv_view_user_unregistered_username)
         this.tvViewUserUnregisteredBio = findViewById(R.id.tv_view_user_unregistered_bio)
@@ -121,7 +129,16 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
                         tvViewUserUnregisteredBio.text = userInfoPost.getBio()
 
                         val highlights = userInfoPost.getHighlights().keys
-                        getPosts(highlights)
+                        if (!highlights.isNullOrEmpty()){
+                            ivNone.visibility = View.GONE
+                            tvNone.visibility = View.GONE
+                            getPosts(highlights)
+                        }
+
+                        else{
+                            ivNone.visibility = View.VISIBLE
+                            tvNone.visibility = View.VISIBLE
+                        }
                     }
                 }
 
