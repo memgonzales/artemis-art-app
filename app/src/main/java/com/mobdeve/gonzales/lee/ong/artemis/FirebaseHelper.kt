@@ -160,11 +160,13 @@ class FirebaseHelper {
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.dimensions.name}" to dimensions,
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.description.name}" to desc,
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.tags.name}" to tags,
+
+            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userPosts.name}/$postId" to "edited"
         )
 
         db.updateChildren(updates)
             .addOnSuccessListener {
-                Toast.makeText(context, "Your post details have been updated", Toast.LENGTH_SHORT).show()
+           //     Toast.makeText(context, "Your post details have been updated", Toast.LENGTH_SHORT).show()
 
             }
             .addOnFailureListener {

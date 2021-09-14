@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,10 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
@@ -387,6 +385,81 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
 
         })
 
+    }
+
+    /**
+     * Fetches realtime updates from the remote database to prevent the entire activity from reloading
+     * in case data change as a result of some user activity.
+     */
+    private fun getRealtimeUpdates(){
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.highlights.name) //.child(Keys.highlights.name)
+
+
+        userDB.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val postId = snapshot.key.toString()
+                getPost(postId, true)
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val postId = snapshot.key.toString()
+
+                var i = 0
+                var found = false
+
+                while (i < dataPosts.size && !found){
+                    if (dataPosts.get(i).getPostId()!!.contains(postId)){
+                        dataPosts.removeAt(i)
+                        highlightsAdapter.notifyItemRemoved(i)
+
+                        found = true
+                    }
+
+                    i++
+                }
+
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseOwnHighlightsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+    }
+
+    private fun getPost(postId: String, highlights: Boolean){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.child(postId).addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val post = snapshot.getValue(Post::class.java)
+
+                    if (post != null && !post.getPostId().isNullOrEmpty()){
+                        post.setHighlight(highlights)
+                        dataPosts.add(post)
+                    }
+                }
+
+                highlightsAdapter.notifyDataSetChanged()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseOwnHighlightsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
     }
 
     /**

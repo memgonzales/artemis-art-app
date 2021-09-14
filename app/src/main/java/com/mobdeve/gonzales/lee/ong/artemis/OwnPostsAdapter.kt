@@ -273,12 +273,12 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
                     currentPost.getPostImg()
                 )
                 view.context.startActivity(intent)
-                notifyItemChanged(position)
+                //notifyItemChanged(position)
             }
 
             delete.setOnClickListener {
                 this.firebaseHelper.deletePostDB(currentPost.getPostId()!!, false)
-                notifyItemRemoved(position)
+                //notifyItemRemoved(position)
                 //Toast.makeText(view.context, "Your post has been deleted", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
 

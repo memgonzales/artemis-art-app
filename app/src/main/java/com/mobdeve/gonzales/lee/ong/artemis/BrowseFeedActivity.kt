@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -150,6 +151,7 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    private lateinit var childEventListener: ChildEventListener
 
     /**
      * Called when the activity is starting.
@@ -317,9 +319,9 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         this.rvFeed.adapter = feedAdapter
 
-        getRealtimeUpdates()
-        initContent(false)
 
+      //  initContent(false)
+        getRealtimeUpdates()
 
     }
 
@@ -412,10 +414,11 @@ class BrowseFeedActivity : AppCompatActivity() {
                         post.setBookmark(true)
                     }
 
-                 //   dataPosts.add(post)
+                    dataPosts.add(post)
                 }
 
-                //feedAdapter.notifyDataSetChanged()
+                feedAdapter.notifyItemInserted(0)
+
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -440,14 +443,13 @@ class BrowseFeedActivity : AppCompatActivity() {
                         }
                     }
                 }
-
-                feedAdapter.notifyDataSetChanged()
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val post = snapshot.getValue(Post::class.java)
+                val index = dataPosts.indexOf(post)
                 dataPosts.remove(post)
-                feedAdapter.notifyDataSetChanged()
+                feedAdapter.notifyItemRemoved(index)
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
@@ -462,7 +464,6 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         })
     }
-
 
     /**
      * Initialize the contents of the Activity's standard options menu.

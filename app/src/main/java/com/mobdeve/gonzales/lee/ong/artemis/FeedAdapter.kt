@@ -186,10 +186,12 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
 
             if(currentPost.getBookmark()){
                 firebaseHelper.updateBookmarkDB("1", currentPost.getPostId(),"1")
+               // notifyItemChanged(position)
             }
 
             else{
                 firebaseHelper.updateBookmarkDB( null, currentPost.getPostId(), null)
+               // notifyItemChanged(position)
             }
 
         }
@@ -202,6 +204,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
                 holder.setItemFeedUpvote(currentPost.getUpvote())
 
                 firebaseHelper.updateUpvoteDB(null, currentPost.getPostId(), null, currentPost.getNumUpvotes())
+           //     notifyItemChanged(position)
 
             } else {
                 currentPost.setUpvote(true)
@@ -210,6 +213,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
                 holder.setItemFeedUpvote(currentPost.getUpvote())
 
                 firebaseHelper.updateUpvoteDB("1", currentPost.getPostId(), "1", currentPost.getNumUpvotes())
+             //   notifyItemChanged(position)
             }
 
         }
