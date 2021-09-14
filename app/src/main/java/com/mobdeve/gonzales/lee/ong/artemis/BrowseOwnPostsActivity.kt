@@ -442,13 +442,16 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val postId = snapshot.key.toString()
 
-                val index = postKeys.indexOf(postId)
-                dataPosts.removeAt(index)
-                ownPostsAdapter.notifyItemRemoved(index)
+                if (!postId.isNullOrEmpty()){
+                    val index = postKeys.indexOf(postId)
+                    dataPosts.removeAt(index)
+                    postKeys.removeAt(index)
+                    ownPostsAdapter.notifyItemRemoved(index)
+                }
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-
+                /* This is intentionally left blank */
             }
 
             override fun onCancelled(error: DatabaseError) {

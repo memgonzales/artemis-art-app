@@ -153,11 +153,6 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
-    private lateinit var childEventListener: ChildEventListener
-
-    private lateinit var sp: SharedPreferences
-
-
     /**
      * Called when the activity is starting.
      *
@@ -325,8 +320,6 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         this.rvFeed.adapter = feedAdapter
 
-
-      //  initContent(false)
         getRealtimeUpdates()
 
     }
