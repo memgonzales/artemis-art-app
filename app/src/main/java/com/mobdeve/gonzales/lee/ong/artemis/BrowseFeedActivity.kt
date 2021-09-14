@@ -47,6 +47,7 @@ class BrowseFeedActivity : AppCompatActivity() {
      * Posts to be displayed on the feed.
      */
     private lateinit var dataPosts: ArrayList<Post>
+    private lateinit var postKeys: ArrayList<String>
 
     /**
      * Recycler view for the posts to be displayed on the feed.
@@ -292,7 +293,7 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
-            initContent(true)
+            //initContent(true)
             srlFeed.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
@@ -314,6 +315,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         //this.dataPosts = DataHelper.loadPostData();
         this.dataPosts = arrayListOf()
+        this.postKeys = arrayListOf()
 
         this.rvFeed = findViewById(R.id.rv_feed)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
@@ -330,79 +332,14 @@ class BrowseFeedActivity : AppCompatActivity() {
     }
 
     /**
-     * Fetches the posts bookmarked by the user and updates the view, alongside the adapter
-     * and the view holder.
-     *
-     * @param shuffle <code>true</code> if the posts are shuffled before display;
-     * <code>false</code>, otherwise.
-     */
-    private fun initContent(shuffle: Boolean) {
-        this.ivNone = findViewById(R.id.iv_feed_none)
-        this.tvNone = findViewById(R.id.tv_feed_none)
-        this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
-
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                dataPosts.clear()
-                if(snapshot.exists()){
-
-                    for(postSnap in snapshot.children){
-                        val post = postSnap.getValue(Post::class.java)
-
-                        if(post != null){
-                            if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
-                                post.setUpvote(true)
-                            }
-
-                            if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
-                                post.setBookmark(true)
-                            }
-
-                            dataPosts.add(post)
-                        }
-                    }
-
-                    if (shuffle) {
-                        dataPosts.shuffle()
-                    }
-
-                    if (dataPosts.isNotEmpty()){
-                        ivNone.visibility = View.GONE
-                        tvNone.visibility = View.GONE
-                        tvSubNone.visibility = View.GONE
-                    }
-
-                    else{
-                        ivNone.visibility = View.VISIBLE
-                        tvNone.visibility = View.VISIBLE
-                        tvSubNone.visibility = View.VISIBLE
-                    }
-
-                    feedAdapter.notifyDataSetChanged()
-                }
-
-                else{
-                    ivNone.visibility = View.VISIBLE
-                    tvNone.visibility = View.VISIBLE
-                    tvSubNone.visibility = View.VISIBLE
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-        })
-    }
-
-    /**
      * Fetches realtime updates from the remote database to prevent the entire activity from reloading
      * in case data change as a result of some user activity.
      */
     private fun getRealtimeUpdates(){
+        this.ivNone = findViewById(R.id.iv_feed_none)
+        this.tvNone = findViewById(R.id.tv_feed_none)
+        this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
+
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addChildEventListener(object: ChildEventListener{
@@ -413,12 +350,19 @@ class BrowseFeedActivity : AppCompatActivity() {
                     if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
                         post.setUpvote(true)
                     }
+                    else{
+                        post.setUpvote(false)
+                    }
 
                     if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
                         post.setBookmark(true)
                     }
+                    else{
+                        post.setBookmark(false)
+                    }
 
                     dataPosts.add(post)
+                    postKeys.add(post.getPostId()!!)
                 }
 
                 feedAdapter.notifyItemInserted(0)
@@ -446,14 +390,22 @@ class BrowseFeedActivity : AppCompatActivity() {
                             post.setBookmark(false)
                         }
                     }
+
+                    val index = postKeys.indexOf(post.getPostId()!!)
+                    dataPosts.set(index, post)
+                    feedAdapter.notifyItemChanged(index)
                 }
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val post = snapshot.getValue(Post::class.java)
-                val index = dataPosts.indexOf(post)
-                dataPosts.remove(post)
-                feedAdapter.notifyItemRemoved(index)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    val index = postKeys.indexOf(post.getPostId()!!)
+                    dataPosts.removeAt(index)
+                    postKeys.removeAt(index)
+                    feedAdapter.notifyItemRemoved(index)
+                }
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
@@ -467,6 +419,18 @@ class BrowseFeedActivity : AppCompatActivity() {
             }
 
         })
+
+        if (dataPosts.isNotEmpty()){
+            ivNone.visibility = View.GONE
+            tvNone.visibility = View.GONE
+            tvSubNone.visibility = View.GONE
+        }
+
+        else{
+            ivNone.visibility = View.VISIBLE
+            tvNone.visibility = View.VISIBLE
+            tvSubNone.visibility = View.VISIBLE
+        }
     }
 
 

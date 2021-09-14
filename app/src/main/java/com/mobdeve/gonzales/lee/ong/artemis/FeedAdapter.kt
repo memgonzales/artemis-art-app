@@ -39,8 +39,6 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
      */
     private lateinit var firebaseHelper: FirebaseHelper
 
-    private lateinit var sp: SharedPreferences
-
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
      * to represent an item.

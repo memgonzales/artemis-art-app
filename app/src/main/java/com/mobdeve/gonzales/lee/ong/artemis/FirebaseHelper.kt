@@ -93,10 +93,18 @@ class FirebaseHelper {
 
     fun updateUpvoteDB(userVal: String?, postKey: String?, postVal: String?, numUpvotes: Int){
         if (!postKey.isNullOrEmpty()){
+
+            var upvote = false
+            if (!postVal.isNullOrEmpty()){
+                upvote = true
+            }
+
             val updates = hashMapOf<String, Any?>(
                 "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.upvoteUsers.name}/$userId" to userVal,
                 "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.numUpvotes.name}" to numUpvotes,
                 "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.upvotedPosts.name}/$postKey" to postVal
+
+               // "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.upvote.name}" to upvote
             )
 
             db.updateChildren(updates)
@@ -105,9 +113,15 @@ class FirebaseHelper {
 
     fun updateBookmarkDB(userVal: String?, postKey: String?, postVal: String?){
         if (!postKey.isNullOrEmpty()){
+            var bookmark = false
+            if (!postVal.isNullOrEmpty()){
+                bookmark = true
+            }
+
             val updates = hashMapOf<String, Any?>(
                 "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.bookmarkUsers.name}/$userId" to userVal,
                 "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bookmarks.name}/$postKey" to postVal
+            //    "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.bookmark.name}" to bookmark
             )
 
             db.updateChildren(updates)
