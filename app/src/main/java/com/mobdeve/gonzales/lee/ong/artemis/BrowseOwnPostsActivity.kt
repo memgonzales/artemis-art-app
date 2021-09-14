@@ -43,6 +43,8 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
      */
     private lateinit var dataPosts: ArrayList<Post>
 
+    private lateinit var postKeys: ArrayList<String>
+
     /**
      * Recycler view for the user's own posts.
      */
@@ -136,6 +138,8 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
      * Activity result launcher related to choosing photos from the Gallery.
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
+
+    private lateinit var childEventListener: ChildEventListener
 
     /**
      * Called when the activity is starting.
@@ -293,6 +297,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         //this.dataPosts = DataHelper.loadOwnPostsData();
 
         this.dataPosts = arrayListOf()
+        this.postKeys = arrayListOf()
 
         this.rvBrowseOwnPosts = findViewById(R.id.rv_browse_own_posts)
         this.rvBrowseOwnPosts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
@@ -408,7 +413,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.userPosts.name) //.child(Keys.highlights.name)
 
 
-        userDB.addChildEventListener(object : ChildEventListener{
+        this.childEventListener = userDB.addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val postId = snapshot.key.toString()
                 setUserHighlight(postId)
@@ -427,27 +432,19 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                  */
 
                 val postId = snapshot.key.toString()
+
                 Toast.makeText(applicationContext, "ch: " + postId, Toast.LENGTH_LONG).show()
                 //setUserHighlight(postId)
+
+
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val postId = snapshot.key.toString()
 
-                var i = 0
-                var found = false
-
-                while (i < dataPosts.size && !found){
-                    if (dataPosts.get(i).getPostId()!!.contains(postId)){
-                        dataPosts.removeAt(i)
-                        ownPostsAdapter.notifyItemRemoved(i)
-
-                        found = true
-                    }
-
-                    i++
-                }
-
+                val index = postKeys.indexOf(postId)
+                dataPosts.removeAt(index)
+                ownPostsAdapter.notifyItemRemoved(index)
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
@@ -496,6 +493,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                     if (post != null && !post.getPostId().isNullOrEmpty()){
                         post.setHighlight(highlights)
                         dataPosts.add(post)
+                        postKeys.add(post.getPostId()!!)
                     }
                 }
 
@@ -509,6 +507,12 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        this.db.child(Keys.KEY_DB_USERS.name).removeEventListener(this.childEventListener)
     }
 
     /**

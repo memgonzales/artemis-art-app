@@ -302,7 +302,8 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
 
         this.rvHighlights.adapter = highlightsAdapter
 
-        initContent()
+        //initContent()
+        getRealtimeUpdates()
     }
 
     /**
@@ -393,7 +394,6 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
      */
     private fun getRealtimeUpdates(){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.highlights.name) //.child(Keys.highlights.name)
-
 
         userDB.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {

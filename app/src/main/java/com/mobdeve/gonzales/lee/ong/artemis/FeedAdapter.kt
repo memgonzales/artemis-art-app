@@ -3,6 +3,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -37,6 +38,8 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
      * Wrapper over Firebase's realtime database.
      */
     private lateinit var firebaseHelper: FirebaseHelper
+
+    private lateinit var sp: SharedPreferences
 
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
@@ -186,12 +189,10 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
 
             if(currentPost.getBookmark()){
                 firebaseHelper.updateBookmarkDB("1", currentPost.getPostId(),"1")
-               // notifyItemChanged(position)
             }
 
             else{
                 firebaseHelper.updateBookmarkDB( null, currentPost.getPostId(), null)
-               // notifyItemChanged(position)
             }
 
         }
@@ -204,7 +205,6 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
                 holder.setItemFeedUpvote(currentPost.getUpvote())
 
                 firebaseHelper.updateUpvoteDB(null, currentPost.getPostId(), null, currentPost.getNumUpvotes())
-           //     notifyItemChanged(position)
 
             } else {
                 currentPost.setUpvote(true)
@@ -213,7 +213,6 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
                 holder.setItemFeedUpvote(currentPost.getUpvote())
 
                 firebaseHelper.updateUpvoteDB("1", currentPost.getPostId(), "1", currentPost.getNumUpvotes())
-             //   notifyItemChanged(position)
             }
 
         }

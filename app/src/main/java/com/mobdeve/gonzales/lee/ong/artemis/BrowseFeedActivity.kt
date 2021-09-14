@@ -3,6 +3,7 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -152,6 +153,9 @@ class BrowseFeedActivity : AppCompatActivity() {
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
     private lateinit var childEventListener: ChildEventListener
+
+    private lateinit var sp: SharedPreferences
+
 
     /**
      * Called when the activity is starting.
@@ -464,6 +468,7 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         })
     }
+
 
     /**
      * Initialize the contents of the Activity's standard options menu.

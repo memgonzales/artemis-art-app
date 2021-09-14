@@ -3,11 +3,13 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -30,15 +32,8 @@ import com.facebook.share.widget.ShareDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
-import java.security.Key
 
 
 class ViewPostActivity : AppCompatActivity() {
@@ -71,6 +66,13 @@ class ViewPostActivity : AppCompatActivity() {
 
     private lateinit var cmFacebook: CallbackManager
     private lateinit var sdFacebook: ShareDialog
+
+
+    private lateinit var sp: SharedPreferences
+    private lateinit var spEditor: SharedPreferences.Editor
+
+    private var bookmark: Boolean = false
+    private var upvote: Boolean = false
 
     /**
      * Photo of the artwork for posting.
@@ -186,8 +188,9 @@ class ViewPostActivity : AppCompatActivity() {
         val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
         val tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)
-        var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
-        var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
+
+        this.bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
+        this.upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
 
         var upvoteString = ""
         var commentString = ""
@@ -262,21 +265,21 @@ class ViewPostActivity : AppCompatActivity() {
         updateUpvote(upvote)
 
         ibItemViewPostBookmark.setOnClickListener {
-            bookmark = !bookmark
+            this.bookmark = !bookmark
             updateBookmark(bookmark)
 
-            if(bookmark){
-                firebaseHelper.updateBookmarkDB("1", postId!!, "1")
+            if(this.bookmark){
+                this.firebaseHelper.updateBookmarkDB("1", postId!!, "1")
             }
 
             else{
-                firebaseHelper.updateBookmarkDB(null, postId!!, null)
+                this.firebaseHelper.updateBookmarkDB(null, postId!!, null)
             }
         }
 
         clItemViewPostUpvote.setOnClickListener {
-            if (upvote) {
-                upvote = false
+            if (this.upvote) {
+                this.upvote = false
                 upvoteCounter -= 1
 
                 if (upvoteCounter == 1) {
@@ -286,12 +289,12 @@ class ViewPostActivity : AppCompatActivity() {
                 }
 
                 this.tvItemViewPostUpvoteCounter.text = upvoteString
-                updateUpvote(upvote)
+                updateUpvote(this.upvote)
 
-                firebaseHelper.updateUpvoteDB(null, postId!!, null, upvoteCounter)
+                this.firebaseHelper.updateUpvoteDB(null, postId!!, null, upvoteCounter)
 
             } else {
-                upvote = true
+                this.upvote = true
                 upvoteCounter += 1
 
                 if (upvoteCounter == 1) {
@@ -301,9 +304,9 @@ class ViewPostActivity : AppCompatActivity() {
                 }
 
                 this.tvItemViewPostUpvoteCounter.text = upvoteString
-                updateUpvote(upvote)
+                updateUpvote(this.upvote)
 
-                firebaseHelper.updateUpvoteDB( "1", postId!!, "1", upvoteCounter)
+                this.firebaseHelper.updateUpvoteDB( "1", postId!!, "1", upvoteCounter)
             }
         }
 

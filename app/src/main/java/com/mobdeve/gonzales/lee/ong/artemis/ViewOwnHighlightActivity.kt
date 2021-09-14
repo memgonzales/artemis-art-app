@@ -205,14 +205,14 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
                 highlight = false
                 updateHighlight(highlight)
 
-                firebaseHelper.updateHighlightDB(postId!!, null)
+                this.firebaseHelper.updateHighlightDB(postId!!, null)
 
             } else {
                 highlight = true
                 updateHighlight(highlight)
                 Toast.makeText(this@ViewOwnHighlightActivity, "Added to your Highlights", Toast.LENGTH_SHORT).show()
 
-                firebaseHelper.updateHighlightDB(postId!!, "1")
+                this.firebaseHelper.updateHighlightDB(postId!!, "1")
             }
         }
 
