@@ -55,7 +55,6 @@ class FeedAdapter(private val parentActivity: Activity) :
 
     private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
 
-    //private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
      * to represent an item.

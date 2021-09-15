@@ -203,14 +203,14 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
                 currentPost.setHighlight(false)
                 holder.setOwnPostHighlight(currentPost.getHighlight())
 
-                firebaseHelper.updateHighlightDB(currentPost.getPostId(), null)
+                this.firebaseHelper.updateHighlightDB(currentPost.getPostId(), null)
 
             } else {
                 currentPost.setHighlight(true)
                 holder.setOwnPostHighlight(currentPost.getHighlight())
                 Toast.makeText(view.context, "Added to your Highlights", Toast.LENGTH_SHORT).show()
 
-                firebaseHelper.updateHighlightDB(currentPost.getPostId(), currentPost.getPostId())
+                this.firebaseHelper.updateHighlightDB(currentPost.getPostId(), currentPost.getPostId())
             }
         }
 

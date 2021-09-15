@@ -84,6 +84,7 @@ enum class Keys {
     upvoteUsers,
     bookmarkUsers,
     comments,
+    highlightUser,
 
     numUpvotes,
     numComments,

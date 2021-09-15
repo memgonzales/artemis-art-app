@@ -370,7 +370,6 @@ class BrowseFeedActivity : AppCompatActivity() {
                     }
                 }
 
-
                 val list = ArrayList<Post>(dataPosts)
                 val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
 
