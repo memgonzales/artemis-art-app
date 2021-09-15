@@ -24,7 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
@@ -55,6 +55,9 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
     private lateinit var userId: String
     private lateinit var db: DatabaseReference
 
+    private lateinit var postId: String
+    private var numComment: Int = 0
+
     /**
      * Photo of the artwork for posting.
      */
@@ -74,8 +77,9 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_comments_followed)
 
-        initComponents()
         initFirebase()
+        initComponents()
+        initIntent()
         initGalleryLauncher(this@ViewCommentsFollowedActivity)
         initCameraLauncher(this@ViewCommentsFollowedActivity)
     }
@@ -136,6 +140,17 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         this.db = Firebase.database.reference
     }
 
+    private fun initIntent(){
+        val intent: Intent = intent
+        this.postId = intent.getStringExtra(Keys.KEY_POSTID.name).toString()
+        this.numComment = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
+
+        if (postId.isNullOrEmpty()){
+            val intent = Intent(this@ViewCommentsFollowedActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_comments_followed))
         initShimmer()
@@ -144,7 +159,7 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         addPost()
         initSwipeRefresh()
 
-      //  addComment()
+        addComment()
     }
 
     private fun initShimmer() {
@@ -197,35 +212,103 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
 
         this.rvCommentsFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        //this.commentsAdapter = CommentsAdapter(this.dataCommentsFollowed)
         this.commentsAdapter = CommentsAdapter()
 
         this.rvCommentsFollowed.adapter = commentsAdapter
+
+        this.rvCommentsFollowed.itemAnimator = null
+
+        initContents()
     }
 
-    private fun addComment(comment: Comment) {
+    private fun initContents(){
+
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
-        val postKey = commentDB.push().key!!
 
-        commentDB.child(postKey).setValue(comment)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful){
-                    this.pbComment.visibility = View.GONE
-                    Toast.makeText(this, "Commented successfully", Toast.LENGTH_LONG).show()
-                }
+        commentDB.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val commentSnap = snapshot.getValue(Comment::class.java)
 
-                else{
-                    this.pbComment.visibility = View.VISIBLE
-                    Toast.makeText(this, "Failed to comment", Toast.LENGTH_LONG).show()
+                if (commentSnap != null &&
+                    !commentSnap.getUserId().isNullOrEmpty() &&
+                    !commentSnap.getCommentId().isNullOrEmpty() &&
+                    !commentSnap.getPostId().isNullOrEmpty() &&
+                    commentSnap.getPostId()!!.equals(postId)){
+
+                    if (commentSnap.getUserId().equals(userId)){
+                        commentSnap.setEditable(true)
+                    }
+
+                    dataCommentsFollowed.add(commentSnap)
+                    commentsAdapter.updateComments(dataCommentsFollowed)
                 }
             }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val commentSnap = snapshot.getValue(Comment::class.java)
+
+                if (commentSnap != null &&
+                    !commentSnap.getUserId().isNullOrEmpty() &&
+                    !commentSnap.getCommentId().isNullOrEmpty() &&
+                    !commentSnap.getPostId().isNullOrEmpty() &&
+                    commentSnap.getPostId()!!.equals(postId)){
+
+                    if (commentSnap.getUserId().equals(userId)){
+                        commentSnap.setEditable(true)
+                    }
+
+
+                    val list = ArrayList<Comment>(dataCommentsFollowed)
+                    val index = list.indexOfFirst { it.getCommentId() == commentSnap.getCommentId() }
+
+                    if (index != -1){
+                        list.set(index, commentSnap)
+
+                        dataCommentsFollowed = list
+                        commentsAdapter.updateComments(list)
+                    }
+
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val commentSnap = snapshot.getValue(Comment::class.java)
+
+                if (commentSnap != null &&
+                    !commentSnap.getUserId().isNullOrEmpty() &&
+                    !commentSnap.getCommentId().isNullOrEmpty() &&
+                    !commentSnap.getPostId().isNullOrEmpty()){
+
+                    val list = ArrayList<Comment>(dataCommentsFollowed)
+
+                    val index = list.indexOfFirst { it.getCommentId() == commentSnap.getCommentId() }
+
+                    if (index != -1){
+                        list.removeAt(index)
+
+                        dataCommentsFollowed = list
+                        commentsAdapter.updateComments(list)
+                    }
+                }
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                /* This is intentionally left blank */
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@ViewCommentsFollowedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
     }
 
-    /*
     private fun addComment() {
         this.ibAddComment = findViewById(R.id.ib_add_comment_followed)
         this.etComment = findViewById(R.id.et_add_comment_followed)
         this.pbComment = findViewById(R.id.pb_view_comments_followed)
+
 
         this.ibAddComment.setOnClickListener {
             val commentText: String = etComment.text.toString().trim()
@@ -233,15 +316,60 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
             if (commentText.isNotEmpty()) {
                 this.pbComment.visibility = View.VISIBLE
 
-                val comment = Comment("1", R.drawable.chibi_circle, "yey", commentText, true)
-                addComment(comment)
+
+                db.child(Keys.KEY_DB_USERS.name).child(userId)
+                    .addListenerForSingleValueEvent(object: ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
+                            val username: String = snapshot.child(Keys.username.name).getValue().toString()
+
+                            val comment = Comment(userId, postId, userImg, username, commentText)
+
+                            val commentDB = db.child(Keys.KEY_DB_COMMENTS.name)
+                            val commentKey = commentDB.push().key!!
+
+                            comment.setCommentId(commentKey)
+
+                            addCommentDB(comment, commentKey)
+
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            val intent = Intent(this@ViewCommentsFollowedActivity, BrokenLinkActivity::class.java)
+                            startActivity(intent)
+                        }
+
+                    })
+
             } else {
                 Toast.makeText(this, "Comments should not be blank", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-     */
+    private fun addCommentDB(comment: Comment, commentKey: String) {
+        this.numComment++
+
+        val updates = hashMapOf<String, Any>(
+            "/${Keys.KEY_DB_COMMENTS.name}/$commentKey" to comment,
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.comments.name}/$commentKey" to commentKey,
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.numComments.name}" to numComment,
+        )
+
+        db.updateChildren(updates)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful){
+                    pbComment.visibility = View.GONE
+                    Toast.makeText(this@ViewCommentsFollowedActivity, "Commented successfully", Toast.LENGTH_LONG).show()
+                    etComment.text.clear()
+                }
+
+                else{
+                    pbComment.visibility = View.VISIBLE
+                    Toast.makeText(this@ViewCommentsFollowedActivity, "Failed to comment", Toast.LENGTH_LONG).show()
+                }
+            }
+    }
 
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@ViewCommentsFollowedActivity)

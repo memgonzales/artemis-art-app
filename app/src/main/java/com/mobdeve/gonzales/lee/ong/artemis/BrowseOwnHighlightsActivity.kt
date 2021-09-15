@@ -299,9 +299,9 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
 
         this.highlightsAdapter = HighlightsAdapter()
 
-
         this.rvHighlights.adapter = highlightsAdapter
 
+        this.rvHighlights.itemAnimator = null
         getRealtimeUpdates()
     }
 

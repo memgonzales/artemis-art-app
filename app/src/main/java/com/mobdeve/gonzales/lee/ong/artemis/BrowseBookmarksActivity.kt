@@ -306,6 +306,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
 
         this.rvBookmarks.adapter = bookmarksAdapter
 
+        this.rvBookmarks.itemAnimator = null
         getRealtimeUpdates()
     }
 

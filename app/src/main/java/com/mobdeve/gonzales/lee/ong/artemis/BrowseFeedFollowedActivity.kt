@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -307,7 +308,8 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         this.rvFollowed = findViewById(R.id.rv_feed_followed)
         this.rvFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        this.feedFollowedAdapter = FeedFollowedAdapter(this@BrowseFeedFollowedActivity)
+        //this.feedFollowedAdapter = FeedFollowedAdapter(this@BrowseFeedFollowedActivity)
+        this.feedFollowedAdapter = FeedFollowedAdapter(this.dataPosts,this@BrowseFeedFollowedActivity)
 
 
         this.rvFollowed.adapter = feedFollowedAdapter
@@ -449,63 +451,51 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
 
 
 
-    /*
     /**
      * Fetches realtime updates from the remote database to prevent the entire activity from reloading
      * in case data change as a result of some user activity.
      */
     private fun getRealtimeUpdates(){
-        this.ivNone = findViewById(R.id.iv_feed_none)
-        this.tvNone = findViewById(R.id.tv_feed_none)
-        this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
+        this.ivNone = findViewById(R.id.iv_feed_followed_none)
+        this.tvNone = findViewById(R.id.tv_feed_followed_none)
+        this.tvSubNone = findViewById(R.id.tv_feed_followed_subtitle_none)
 
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.usersFollowed.name)
 
         userDB.addChildEventListener(object: ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val userId = snapshot.key.toString()
-                if (!userId.isNullOrEmpty()){
+                val postId = snapshot.key.toString()
+                if (!postId.isNullOrEmpty()){
                     getUserPosts(userId)
                 }
 
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val post = snapshot.getValue(Post::class.java)
-
-                if (post != null && !post.getPostId().isNullOrEmpty()){
-                    if (!post.getUpvoteUsers().isNullOrEmpty()){
-                        if(post.getUpvoteUsers().containsKey(userId)){
-                            post.setUpvote(true)
-                        }
-                        else{
-                            post.setUpvote(false)
-                        }
-                    }
-
-                    if(!post.getBookmarkUsers().isNullOrEmpty()) {
-                        if (post.getBookmarkUsers().containsKey(userId)){
-                            post.setBookmark(true)
-                        }
-                        else{
-                            post.setBookmark(false)
-                        }
-                    }
-
-                    val index = postKeys.indexOf(post.getPostId()!!)
-                    dataPosts.set(index, post)
-                    feedAdapter.notifyItemChanged(index)
-                }
+                /* This is intentionally left blank */
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-                val post = snapshot.getValue(Post::class.java)
+                val postId = snapshot.key.toString()
 
-                if (post != null && !post.getPostId().isNullOrEmpty()){
-                    val index = postKeys.indexOf(post.getPostId()!!)
-                    dataPosts.removeAt(index)
-                    postKeys.removeAt(index)
-                    feedAdapter.notifyItemRemoved(index)
+                if (!postId.isNullOrEmpty()){
+
+                    val list = ArrayList<Post>(dataPosts)
+
+                    val index = list.indexOfFirst { it.getPostId() == postId }
+
+                    if (index != -1){
+                        list.removeAt(index)
+
+                        dataPosts = list
+                        feedFollowedAdapter.updatePosts(list)
+
+                        if (dataPosts.isNullOrEmpty()){
+                            ivNone.visibility = View.VISIBLE
+                            tvNone.visibility = View.VISIBLE
+                        }
+                    }
+
                 }
             }
 
@@ -515,7 +505,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
+                val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
 
@@ -534,7 +524,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUserPosts(){
+    private fun getUserPosts(userId: String){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId)
 
         userDB.addListenerForSingleValueEvent(object : ValueEventListener{
@@ -543,8 +533,11 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
                     val userSnap = snapshot.getValue(User::class.java)
 
                     if (userSnap != null){
-                        val usersFF = userSnap.getUsersFollowed().keys
+                        val usersFFPosts = userSnap.getUpvotedPosts().keys
 
+                        if (usersFFPosts != null){
+                            getRealtimePostUpdates(usersFFPosts)
+                        }
                     }
                 }
             }
@@ -557,7 +550,117 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         })
     }
 
-     */
+    private fun getRealtimePostUpdates(userPosts: Set<String?>){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addChildEventListener(object: ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty() && userPosts.contains(post.getPostId())){
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                        post.setUpvote(true)
+                    }
+                    else{
+                        post.setUpvote(false)
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                        post.setBookmark(true)
+                    }
+                    else{
+                        post.setBookmark(false)
+                    }
+
+                    dataPosts.add(post)
+                    feedFollowedAdapter.updatePosts(dataPosts)
+                }
+
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty() && userPosts.contains(post.getPostId())){
+
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                        post.setUpvote(true)
+                    }
+                    else{
+                        post.setUpvote(false)
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                        post.setBookmark(true)
+                    }
+                    else{
+                        post.setBookmark(false)
+                    }
+
+
+                    val list = ArrayList<Post>(dataPosts)
+                    val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
+
+                    Toast.makeText(applicationContext, "ch: " + index, Toast.LENGTH_SHORT).show()
+                    if (index != -1){
+                        list.set(index, post)
+
+                        dataPosts = list
+                        feedFollowedAdapter.updatePosts(list)
+                    }
+
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+
+                    val list = ArrayList<Post>(dataPosts)
+
+                    val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
+
+                    if (index != -1){
+                        list.removeAt(index)
+
+                        dataPosts = list
+                        feedFollowedAdapter.updatePosts(list)
+
+                        if (dataPosts.isNullOrEmpty()){
+                            ivNone.visibility = View.VISIBLE
+                            tvNone.visibility = View.VISIBLE
+                        }
+                    }
+
+                }
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                /* This is intentionally left blank */
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+        })
+
+        if (dataPosts.isNotEmpty()){
+            ivNone.visibility = View.GONE
+            tvNone.visibility = View.GONE
+        }
+
+        else{
+            Handler(Looper.getMainLooper()).postDelayed({
+
+                ivNone.visibility = View.VISIBLE
+                tvNone.visibility = View.VISIBLE
+
+            }, AnimationDuration.NO_POST_TIMEOUT.toLong())
+
+        }
+    }
 
     /**
      * Initialize the contents of the Activity's standard options menu.
