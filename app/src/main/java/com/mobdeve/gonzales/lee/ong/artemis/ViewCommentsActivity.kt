@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.activity.result.ActivityResult
@@ -68,6 +69,21 @@ class ViewCommentsActivity : AppCompatActivity() {
     private lateinit var postId: String
     private var numComment: Int = 0
 
+    // data for onbackpressed() intent
+    private lateinit var userIdPost: String
+    private lateinit var profilePicture: String
+    private lateinit var username: String
+    private lateinit var postImg: String
+    private lateinit var title: String
+    private var upvoteCounter: Int = 0
+    private lateinit var datePosted: String
+    private lateinit var medium: String
+    private lateinit var dimensions: String
+    private lateinit var description: String
+    private lateinit var tags: String
+    private var bookmark: Boolean = false
+    private var upvote: Boolean = false
+
     /**
      * Photo of the artwork for posting.
      */
@@ -113,6 +129,20 @@ class ViewCommentsActivity : AppCompatActivity() {
         val intent: Intent = intent
         this.postId = intent.getStringExtra(Keys.KEY_POSTID.name).toString()
         this.numComment = intent.getIntExtra(Keys.KEY_NUM_COMMENTS.name, 0)
+
+        this.userIdPost = intent.getStringExtra(Keys.KEY_USERID.name).toString()
+        this.profilePicture = intent.getStringExtra(Keys.KEY_PROFILE_PICTURE.name).toString()
+        this.username = intent.getStringExtra(Keys.KEY_USERNAME.name).toString()
+        this.postImg = intent.getStringExtra(Keys.KEY_POST.name).toString()
+        this.title = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
+        this.upvoteCounter = intent.getIntExtra(Keys.KEY_NUM_UPVOTES.name, 0)
+        this.datePosted = intent.getStringExtra(Keys.KEY_DATE_POSTED.name).toString()
+        this.medium = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
+        this.dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
+        this.description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
+        this.tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name).toString()
+        this.bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
+        this.upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
 
         if (postId.isNullOrEmpty()){
             val intent = Intent(this@ViewCommentsActivity, BrokenLinkActivity::class.java)
@@ -239,6 +269,84 @@ class ViewCommentsActivity : AppCompatActivity() {
 
 
         initContents()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            } else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, ViewPostActivity::class.java)
+
+        intent.putExtra(
+            Keys.KEY_USERID.name,
+            this.userIdPost
+        )
+        intent.putExtra(
+            Keys.KEY_PROFILE_PICTURE.name,
+            this.profilePicture
+        )
+        intent.putExtra(
+            Keys.KEY_USERNAME.name,
+            this.username
+        )
+        intent.putExtra(
+            Keys.KEY_POST.name,
+            this.postImg
+        )
+        intent.putExtra(
+            Keys.KEY_TITLE.name,
+            this.title
+        )
+        intent.putExtra(
+            Keys.KEY_POSTID.name,
+            this.postId
+        )
+        intent.putExtra(
+            Keys.KEY_NUM_UPVOTES.name,
+            this.upvoteCounter
+        )
+        intent.putExtra(
+            Keys.KEY_NUM_COMMENTS.name,
+            this.numComment
+        )
+        intent.putExtra(
+            Keys.KEY_DATE_POSTED.name,
+            this.datePosted
+        )
+        intent.putExtra(
+            Keys.KEY_MEDIUM.name,
+            this.medium
+        )
+        intent.putExtra(
+            Keys.KEY_DIMENSIONS.name,
+            this.dimensions
+        )
+        intent.putExtra(
+            Keys.KEY_DESCRIPTION.name,
+            this.description
+        )
+        intent.putExtra(
+            Keys.KEY_TAGS.name,
+            this.tags
+        )
+        intent.putExtra(
+            Keys.KEY_BOOKMARK.name,
+            this.bookmark
+        )
+        intent.putExtra(
+            Keys.KEY_UPVOTE.name,
+            this.upvote
+        )
+        startActivity(intent)
+        finish()
     }
 
     private fun initContents(){

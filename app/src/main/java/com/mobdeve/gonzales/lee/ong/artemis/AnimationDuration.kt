@@ -37,6 +37,10 @@ class AnimationDuration {
          */
         const val REFRESH_TIMEOUT = 1500
 
+        /**
+         * Waiting time for data fetching before the display of the notice indicating that the
+         * activity has no posts (for example, in the feed or highlights).
+         */
         const val NO_POST_TIMEOUT = 3000
     }
 }
