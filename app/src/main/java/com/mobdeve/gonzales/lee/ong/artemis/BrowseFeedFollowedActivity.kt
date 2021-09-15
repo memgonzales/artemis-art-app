@@ -307,7 +307,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         this.rvFollowed = findViewById(R.id.rv_feed_followed)
         this.rvFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        this.feedFollowedAdapter = FeedFollowedAdapter(dataPosts, this@BrowseFeedFollowedActivity)
+        this.feedFollowedAdapter = FeedFollowedAdapter(this@BrowseFeedFollowedActivity)
 
 
         this.rvFollowed.adapter = feedFollowedAdapter
