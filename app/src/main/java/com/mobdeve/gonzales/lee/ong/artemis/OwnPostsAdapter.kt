@@ -140,6 +140,16 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
 
         ownPostsViewHolder.setOwnPostCommentOnClickListener { view ->
             val intent = Intent(view.context, ViewCommentsActivity::class.java)
+            val curPost = differ.currentList[ownPostsViewHolder.bindingAdapterPosition]
+
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                curPost.getPostId()
+            )
+            intent.putExtra(
+                Keys.KEY_NUM_COMMENTS.name,
+                curPost.getNumComments()
+            )
             view.context.startActivity(intent)
         }
 
@@ -156,7 +166,6 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: OwnPostsViewHolder, position: Int) {
-        //val currentPost = dataPosts[position]
         val currentPost = differ.currentList[position]
 
         Glide.with(context)
@@ -195,7 +204,6 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
                 holder.setOwnPostHighlight(currentPost.getHighlight())
 
                 firebaseHelper.updateHighlightDB(currentPost.getPostId(), null)
-                notifyItemChanged(position)
 
             } else {
                 currentPost.setHighlight(true)
@@ -203,7 +211,6 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
                 Toast.makeText(view.context, "Added to your Highlights", Toast.LENGTH_SHORT).show()
 
                 firebaseHelper.updateHighlightDB(currentPost.getPostId(), currentPost.getPostId())
-                notifyItemChanged(position)
             }
         }
 
@@ -301,8 +308,6 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
 
             delete.setOnClickListener {
                 this.firebaseHelper.deletePostDB(currentPost.getPostId()!!, false)
-                //notifyItemRemoved(position)
-                //notifyItemRemoved(position)
                 //Toast.makeText(view.context, "Your post has been deleted", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
 
@@ -341,17 +346,10 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        //return dataPosts.size
         return differ.currentList.size
     }
 
     fun updatePosts(newPosts: ArrayList<Post>){
-        /*
-        val diffUtil = DiffUtil.calculateDiff(PostUtilCallbacks(this.dataPosts, newPosts))
-        diffUtil.dispatchUpdatesTo(this)
-
-       */
-
         differ.submitList(newPosts)
     }
 }

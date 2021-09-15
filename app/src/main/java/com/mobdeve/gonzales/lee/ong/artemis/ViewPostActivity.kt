@@ -305,6 +305,14 @@ class ViewPostActivity : AppCompatActivity() {
 
         clItemViewPostComment.setOnClickListener {
             val intent = Intent(this, ViewCommentsActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                postId
+            )
+            intent.putExtra(
+                Keys.KEY_NUM_COMMENTS.name,
+                comments
+            )
             startActivity(intent)
         }
 

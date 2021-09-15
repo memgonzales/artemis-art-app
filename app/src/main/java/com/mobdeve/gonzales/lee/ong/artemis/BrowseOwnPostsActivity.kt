@@ -294,7 +294,6 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-        //this.dataPosts = DataHelper.loadOwnPostsData();
 
         this.dataPosts = arrayListOf()
         this.postKeys = arrayListOf()
@@ -302,159 +301,129 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         this.rvBrowseOwnPosts = findViewById(R.id.rv_browse_own_posts)
         this.rvBrowseOwnPosts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
 
-        //this.ownPostsAdapter = OwnPostsAdapter(this.dataPosts, this@BrowseOwnPostsActivity)
+
         this.ownPostsAdapter = OwnPostsAdapter(this@BrowseOwnPostsActivity)
 
 
         this.rvBrowseOwnPosts.adapter = ownPostsAdapter
 
-        //initContent()
+        this.rvBrowseOwnPosts.itemAnimator = null
+
         getRealtimeUpdates()
-
     }
 
-    /**
-     * Fetches the keys related to the user's own posts from the remote database.
-     */
-    private fun initContent(){
-        this.ivNone = findViewById(R.id.iv_browse_own_posts_none)
-        this.tvNone = findViewById(R.id.tv_browse_own_posts_none)
-
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
-
-        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userPost = snapshot.getValue(User::class.java)
-
-                if(userPost != null){
-                    val postKeys = userPost.getUserPosts().keys
-                    val userHighlights = userPost.getHighlights().keys
-
-                    if (!userHighlights.isNullOrEmpty()){
-                        getPosts(userHighlights, postKeys)
-                    }
-
-                    else{
-                        ivNone.visibility = View.VISIBLE
-                        tvNone.visibility = View.VISIBLE
-                    }
-
-                }
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseOwnPostsActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-        })
-    }
-
-
-    /**
-     * Fetches the user's own posts and updates the visibility of text and image views.
-     *
-     * @param highlights Posts highlighted by the user.
-     * @param postKeys Keys of the user's own posts.
-     */
-    private fun getPosts(highlights: Set<String?>, postKeys: Set<String?>){
-
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                dataPosts.clear()
-                if (snapshot.exists()){
-                    for (postSnap in snapshot.children){
-                        if (postSnap.key != null && postKeys.contains(postSnap.key)){
-                            val post = postSnap.getValue(Post::class.java)
-
-                            if(post != null){
-                                if (!highlights.isNullOrEmpty() && highlights.contains(post.getPostId())){
-                                    post.setHighlight(true)
-                                }
-
-                                dataPosts.add(post)
-                            }
-                        }
-                    }
-
-                    if (dataPosts.isNotEmpty()){
-                        ivNone.visibility = View.GONE
-                        tvNone.visibility = View.GONE
-                    }
-
-                    else{
-                        ivNone.visibility = View.VISIBLE
-                        tvNone.visibility = View.VISIBLE
-                    }
-
-                    ownPostsAdapter.notifyDataSetChanged()
-                }
-
-                else{
-                    ivNone.visibility = View.VISIBLE
-                    tvNone.visibility = View.VISIBLE
-                }
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseOwnPostsActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-
-        })
-    }
 
     /**
      * Fetches realtime updates from the remote database to prevent the entire activity from reloading
      * in case data change as a result of some user activity.
      */
     private fun getRealtimeUpdates(){
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId) //.child(Keys.highlights.name)
+        this.ivNone = findViewById(R.id.iv_browse_own_posts_none)
+        this.tvNone = findViewById(R.id.tv_browse_own_posts_none)
+
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId)
+
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+
+                    val userSnap = snapshot.getValue(User::class.java)
+
+                    if (userSnap != null){
+                        val highlights = userSnap.getHighlights().keys
+                        val userPosts = userSnap.getUserPosts().keys
+
+                        if (!userPosts.isNullOrEmpty()){
+                            ivNone.visibility = View.GONE
+                            tvNone.visibility = View.GONE
+                            getRealtimePostUpdates(userPosts, highlights)
+                        }
+
+                        else{
+                            ivNone.visibility = View.VISIBLE
+                            tvNone.visibility = View.VISIBLE
+                        }
+
+                    }
 
 
-        userDB.child(Keys.userPosts.name).addChildEventListener(object : ChildEventListener{
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseOwnPostsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+        })
+
+    }
+
+
+
+    private fun getRealtimePostUpdates(userPosts: Set<String?>, highlights: Set<String?>){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addChildEventListener(object: ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val postId = snapshot.key.toString()
-                setUserHighlight(postId)
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty() && userPosts.contains(post.getPostId())){
+                    if (highlights.contains(post.getPostId())){
+                        post.setHighlight(true)
+                    }
+                    else{
+                        post.setHighlight(false)
+                    }
+
+                    dataPosts.add(post)
+                    ownPostsAdapter.updatePosts(dataPosts)
+                }
+
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                //val userSnap = snapshot.getValue(User::class.java)
+                val post = snapshot.getValue(Post::class.java)
 
-                /*
-                if (userSnap != null && !userSnap.getUserId().isNullOrEmpty()){
-                    if(!userSnap.getHighlights().isNullOrEmpty()){
+                if (post != null && !post.getPostId().isNullOrEmpty() && userPosts.contains(post.getPostId())){
 
+                    if (highlights.contains(post.getPostId())){
+                        post.setHighlight(true)
                     }
+                    else{
+                        post.setHighlight(false)
+                    }
+
+
+                    val list = ArrayList<Post>(dataPosts)
+                    val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
+
+                    Toast.makeText(applicationContext, "ch: " + index, Toast.LENGTH_SHORT).show()
+                    if (index != -1){
+                        list.set(index, post)
+
+                        dataPosts = list
+                        ownPostsAdapter.updatePosts(list)
+                    }
+
                 }
-
-                 */
-
-                val postId = snapshot.key.toString()
-
-                Toast.makeText(applicationContext, "ch: " + postId, Toast.LENGTH_LONG).show()
-                setUserHighlight(postId)
-
-
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-                val postId = snapshot.key.toString()
+                val post = snapshot.getValue(Post::class.java)
 
-                if (!postId.isNullOrEmpty()){
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+
                     val list = ArrayList<Post>(dataPosts)
 
-                    //val index = postKeys.indexOf(postId)
-                    val index = list.indexOfFirst { it.getPostId() == postId }
-                    list.removeAt(index)
-                    //postKeys.removeAt(index)
-                   // ownPostsAdapter.notifyItemRemoved(index)
+                    val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
 
-                    dataPosts = list
-                    ownPostsAdapter.updatePosts(list)
+                    if (index != -1){
+                        list.removeAt(index)
+
+                        dataPosts = list
+                        ownPostsAdapter.updatePosts(list)
+                    }
+
                 }
             }
 
@@ -466,77 +435,23 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                 val intent = Intent(this@BrowseOwnPostsActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
-
         })
+
+        if (dataPosts.isNotEmpty()){
+            ivNone.visibility = View.GONE
+            tvNone.visibility = View.GONE
+        }
+
+        else{
+            Handler(Looper.getMainLooper()).postDelayed({
+
+                ivNone.visibility = View.VISIBLE
+                tvNone.visibility = View.VISIBLE
+
+            }, AnimationDuration.NO_POST_TIMEOUT.toLong())
+
+        }
     }
-
-    private fun setUserHighlight(postId: String){
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.highlights.name).child(postId)
-        //val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId)
-
-        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    getPost(postId, true)
-                    /*
-                    val userSnap = snapshot.getValue(User::class.java)
-
-                    if (userSnap != null){
-                        val highlights = userSnap.getHighlights().keys
-                        getRealtimePostUpdates(postId, highlights)
-                    }
-
-                     */
-                }
-
-                else{
-                    getPost(postId, false)
-                   // getRealtimePostUpdates(postId, false)
-                }
-
-
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseOwnPostsActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-
-        })
-    }
-
-    private fun getPost(postId: String, highlights: Boolean){
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-
-        postDB.child(postId).addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    val post = snapshot.getValue(Post::class.java)
-
-                    if (post != null && !post.getPostId().isNullOrEmpty()){
-                        post.setHighlight(highlights)
-                        dataPosts.add(post)
-                        postKeys.add(post.getPostId()!!)
-                    }
-                }
-
-                //ownPostsAdapter.notifyDataSetChanged()
-                ownPostsAdapter.updatePosts(dataPosts)
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseOwnPostsActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-
-        })
-    }
-
-
-
-
     /*
     override fun onStop() {
         super.onStop()

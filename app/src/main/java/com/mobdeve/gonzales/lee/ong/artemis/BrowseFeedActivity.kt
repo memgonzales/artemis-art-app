@@ -47,7 +47,6 @@ class BrowseFeedActivity : AppCompatActivity() {
      * Posts to be displayed on the feed.
      */
     private lateinit var dataPosts: ArrayList<Post>
-    private lateinit var postKeys: ArrayList<String>
 
     /**
      * Recycler view for the posts to be displayed on the feed.
@@ -308,14 +307,11 @@ class BrowseFeedActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-        //this.dataPosts = DataHelper.loadPostData();
         this.dataPosts = arrayListOf()
-        this.postKeys = arrayListOf()
 
         this.rvFeed = findViewById(R.id.rv_feed)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
 
-        //this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
         this.feedAdapter = FeedAdapter(this@BrowseFeedActivity)
 
         this.rvFeed.adapter = feedAdapter
@@ -345,12 +341,10 @@ class BrowseFeedActivity : AppCompatActivity() {
                 }
 
                 dataPosts.add(post)
-                postKeys.add(post.getPostId()!!)
-                Toast.makeText(applicationContext, "ch", Toast.LENGTH_SHORT).show()
+                feedAdapter.updatePosts(dataPosts)
             }
 
-             //feedAdapter.notifyItemInserted(0)
-            feedAdapter.updatePosts(dataPosts)
+
         }
 
         override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -377,26 +371,15 @@ class BrowseFeedActivity : AppCompatActivity() {
                 }
 
 
-                //val index = postKeys.indexOf(post.getPostId()!!)
-                //Toast.makeText(applicationContext, "ch: " + index, Toast.LENGTH_SHORT).show()
-
-                //dataPosts.set(index, post)
-                //       feedAdapter.setData(dataPosts)
-
-                // feedAdapter.notifyItemChanged(index)
-
                 val list = ArrayList<Post>(dataPosts)
                 val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
 
-                Toast.makeText(applicationContext, "ch: " + index, Toast.LENGTH_SHORT).show()
+                if (index != -1){
+                    list.set(index, post)
 
-                list.set(index, post)
-
-                dataPosts = list
-                feedAdapter.updatePosts(list)
-
-               // feedAdapter.updatePosts(dataPosts)
-
+                    dataPosts = list
+                    feedAdapter.updatePosts(list)
+                }
 
             }
         }
@@ -405,22 +388,18 @@ class BrowseFeedActivity : AppCompatActivity() {
             val post = snapshot.getValue(Post::class.java)
 
             if (post != null && !post.getPostId().isNullOrEmpty()){
-                /*
-                val index = postKeys.indexOf(post.getPostId()!!)
-                dataPosts.removeAt(index)
-                postKeys.removeAt(index)
-                feedAdapter.notifyItemRemoved(index)
 
-                 */
                 val list = ArrayList<Post>(dataPosts)
 
                 val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
-                list.removeAt(index)
 
-                dataPosts = list
-                feedAdapter.updatePosts(list)
+                if (index != -1){
+                    list.removeAt(index)
 
-                //feedAdapter.updatePosts(dataPosts)
+                    dataPosts = list
+                    feedAdapter.updatePosts(list)
+                }
+
             }
         }
 
@@ -474,7 +453,6 @@ class BrowseFeedActivity : AppCompatActivity() {
     }
 
      */
-
 
 
     /**

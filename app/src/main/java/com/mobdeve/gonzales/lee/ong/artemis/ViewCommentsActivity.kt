@@ -276,6 +276,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.etComment = findViewById(R.id.et_add_comment)
         this.pbComment = findViewById(R.id.pb_view_comments)
 
+       // Toast.makeText(applicationContext, "ch: " + postId, Toast.LENGTH_SHORT).show()
         this.ibAddComment.setOnClickListener {
             val commentText: String = etComment.text.toString().trim()
 
