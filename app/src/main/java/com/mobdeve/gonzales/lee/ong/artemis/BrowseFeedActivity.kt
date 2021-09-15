@@ -367,6 +367,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                 val post = snapshot.getValue(Post::class.java)
 
                 if (post != null && !post.getPostId().isNullOrEmpty()){
+
                     if (!post.getUpvoteUsers().isNullOrEmpty()){
                         if(post.getUpvoteUsers().containsKey(userId)){
                             post.setUpvote(true)
@@ -384,6 +385,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                             post.setBookmark(false)
                         }
                     }
+
 
                     val index = postKeys.indexOf(post.getPostId()!!)
                     Toast.makeText(applicationContext, "ch: " + index, Toast.LENGTH_SHORT).show()
@@ -435,6 +437,11 @@ class BrowseFeedActivity : AppCompatActivity() {
             tvNone.visibility = View.VISIBLE
             tvSubNone.visibility = View.VISIBLE
         }
+    }
+
+    override fun onResume() {
+
+        super.onResume()
     }
 
 

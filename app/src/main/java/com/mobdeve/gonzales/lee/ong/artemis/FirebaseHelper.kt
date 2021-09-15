@@ -2,7 +2,9 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Context
 import android.content.Intent
+import android.widget.Adapter
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +28,26 @@ class FirebaseHelper {
     private lateinit var userId: String
 
     private lateinit var credential: AuthCredential
+
+    private lateinit var adapter: Adapter
+
+    constructor(context: Context, adapter: Adapter){
+        this.mAuth = Firebase.auth
+        this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(context, BrokenLinkActivity::class.java)
+            context.startActivity(intent)
+        }
+
+        this.adapter = adapter
+    }
+
 
     constructor(context: Context){
         this.mAuth = Firebase.auth
@@ -87,6 +109,7 @@ class FirebaseHelper {
 
         this.context = context
     }
+
 
 
 
@@ -167,11 +190,11 @@ class FirebaseHelper {
 
         db.updateChildren(updates)
             .addOnSuccessListener {
-                Toast.makeText(context, "Your post details have been updated", Toast.LENGTH_SHORT).show()
+          //      Toast.makeText(context, "Your post details have been updated", Toast.LENGTH_SHORT).show()
 
             }
             .addOnFailureListener {
-                Toast.makeText(context, "Your post details failed to be updated", Toast.LENGTH_SHORT).show()
+                     Toast.makeText(context, "Your post details failed to be updated", Toast.LENGTH_SHORT).show()
             }
     }
 
