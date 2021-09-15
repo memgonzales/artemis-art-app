@@ -46,19 +46,19 @@
         <ImageButton
             android:id="@+id/ib_item_feed_bookmark"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="26dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="3dp"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:backgroundTint="@android:color/transparent"
+            android:contentDescription="@string/ib_item_feed_bookmark"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="@+id/civ_item_feed_profile_pic"
             app:layout_constraintEnd_toStartOf="@+id/gl_item_feed_right_margin"
             app:layout_constraintTop_toTopOf="@+id/civ_item_feed_profile_pic"
-            app:srcCompat="@drawable/outline_bookmark_border_24"
-            android:contentDescription="@string/ib_item_feed_bookmark" />
+            app:srcCompat="@drawable/outline_bookmark_border_24" />
 
         <TextView
             android:id="@+id/tv_item_feed_username"
@@ -171,22 +171,22 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_item_feed_upvote"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toStartOf="@+id/gl_item_feed_one_third"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_item_feed_upvote_counter"
-            android:focusable="true">
+            app:layout_constraintTop_toBottomOf="@id/tv_item_feed_upvote_counter">
 
             <ImageView
                 android:id="@+id/iv_item_feed_upvote"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/iv_item_feed_upvote"
                 android:scaleType="fitCenter"
-                app:tint="@color/default_gray"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_item_feed_upvote"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -194,7 +194,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/upvote_v2"
-                android:contentDescription="@string/iv_item_feed_upvote" />
+                app:tint="@color/default_gray" />
 
             <TextView
                 android:id="@+id/tv_item_feed_upvote"
@@ -214,20 +214,21 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_item_feed_comment"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@+id/cl_item_feed_upvote"
             app:layout_constraintEnd_toStartOf="@+id/gl_item_feed_two_thirds"
             app:layout_constraintStart_toStartOf="@+id/gl_item_feed_one_third"
-            app:layout_constraintTop_toTopOf="@+id/cl_item_feed_upvote"
-            android:focusable="true">
+            app:layout_constraintTop_toTopOf="@+id/cl_item_feed_upvote">
 
             <ImageView
                 android:id="@+id/iv_item_feed_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/iv_item_feed_comment"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -236,8 +237,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/outline_mode_comment_24"
-                android:contentDescription="@string/iv_item_feed_comment" />
+                app:srcCompat="@drawable/outline_mode_comment_24" />
 
             <TextView
                 android:id="@+id/tv_item_feed_comment"
@@ -257,21 +257,21 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_item_feed_share"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@+id/cl_item_feed_upvote"
             app:layout_constraintEnd_toStartOf="@id/gl_item_feed_right_margin"
             app:layout_constraintStart_toStartOf="@id/gl_item_feed_two_thirds"
-            app:layout_constraintTop_toTopOf="@+id/cl_item_feed_upvote"
-            android:focusable="true">
+            app:layout_constraintTop_toTopOf="@+id/cl_item_feed_upvote">
 
             <ImageView
                 android:id="@+id/iv_item_feed_share"
-                android:contentDescription="@string/iv_item_feed_share"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/iv_item_feed_share"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
