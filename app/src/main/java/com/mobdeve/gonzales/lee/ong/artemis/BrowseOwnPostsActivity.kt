@@ -302,7 +302,8 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         this.rvBrowseOwnPosts = findViewById(R.id.rv_browse_own_posts)
         this.rvBrowseOwnPosts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
 
-        this.ownPostsAdapter = OwnPostsAdapter(dataPosts, this@BrowseOwnPostsActivity)
+        //this.ownPostsAdapter = OwnPostsAdapter(this.dataPosts, this@BrowseOwnPostsActivity)
+        this.ownPostsAdapter = OwnPostsAdapter(this@BrowseOwnPostsActivity)
 
 
         this.rvBrowseOwnPosts.adapter = ownPostsAdapter
@@ -443,10 +444,16 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                 val postId = snapshot.key.toString()
 
                 if (!postId.isNullOrEmpty()){
-                    val index = postKeys.indexOf(postId)
-                    dataPosts.removeAt(index)
-                    postKeys.removeAt(index)
-                    ownPostsAdapter.notifyItemRemoved(index)
+                    val list = ArrayList<Post>(dataPosts)
+
+                    //val index = postKeys.indexOf(postId)
+                    val index = list.indexOfFirst { it.getPostId() == postId }
+                    list.removeAt(index)
+                    //postKeys.removeAt(index)
+                   // ownPostsAdapter.notifyItemRemoved(index)
+
+                    dataPosts = list
+                    ownPostsAdapter.updatePosts(list)
                 }
             }
 
@@ -500,7 +507,8 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                     }
                 }
 
-                ownPostsAdapter.notifyDataSetChanged()
+                //ownPostsAdapter.notifyDataSetChanged()
+                ownPostsAdapter.updatePosts(dataPosts)
 
             }
 

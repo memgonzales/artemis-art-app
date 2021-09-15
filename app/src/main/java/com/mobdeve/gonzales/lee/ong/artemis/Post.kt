@@ -295,4 +295,20 @@ class Post {
         this.numComments = numComments
     }
 
+
+    override fun equals(other: Any?): Boolean {
+
+        if (other is Post){
+            val post = other as Post
+
+            return (post.getUpvote().equals(this.upvote) && post.getBookmark().equals(this.bookmark)
+                    && post.getTitle().equals(this.title))
+
+        }
+
+        return false
+
+    // return super.equals(other)
+    }
+
 }

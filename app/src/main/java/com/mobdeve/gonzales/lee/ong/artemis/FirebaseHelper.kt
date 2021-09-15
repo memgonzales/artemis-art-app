@@ -105,6 +105,7 @@ class FirebaseHelper {
 
     fun updateBookmarkDB(userVal: String?, postKey: String?, postVal: String?){
         if (!postKey.isNullOrEmpty()){
+
             val updates = hashMapOf<String, Any?>(
                 "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.bookmarkUsers.name}/$userId" to userVal,
                 "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bookmarks.name}/$postKey" to postVal
@@ -144,13 +145,15 @@ class FirebaseHelper {
 
 
     fun editComment(commentId: String, commentBody: String){
-        this.db.child(Keys.KEY_DB_COMMENTS.name).child(commentId).child(Keys.commentBody.name).setValue(commentBody)
-            .addOnSuccessListener {
-                Toast.makeText(context, "Your comment has been updated", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(context, "Your comment failed to be updated", Toast.LENGTH_SHORT).show()
-            }
+        if (!commentId.isNullOrEmpty()){
+            this.db.child(Keys.KEY_DB_COMMENTS.name).child(commentId).child(Keys.commentBody.name).setValue(commentBody)
+                .addOnSuccessListener {
+                    Toast.makeText(context, "Your comment has been updated", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(context, "Your comment failed to be updated", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     fun editPost(postId: String, title: String, medium: String, dimensions: String, desc: String, tags: ArrayList<String>){

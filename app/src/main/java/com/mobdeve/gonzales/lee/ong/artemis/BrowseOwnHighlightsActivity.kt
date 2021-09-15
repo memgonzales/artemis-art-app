@@ -408,6 +408,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val postId = snapshot.key.toString()
 
+                /*
                 var i = 0
                 var found = false
 
@@ -421,6 +422,12 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
 
                     i++
                 }
+
+                 */
+
+                val index = dataPosts.indexOfFirst { it.getPostId() == postId }
+                dataPosts.removeAt(index)
+                highlightsAdapter.notifyItemRemoved(index)
 
             }
 

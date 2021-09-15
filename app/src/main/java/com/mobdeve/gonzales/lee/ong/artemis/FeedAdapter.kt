@@ -3,11 +3,14 @@ package com.mobdeve.gonzales.lee.ong.artemis
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.drawable.BitmapDrawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.facebook.CallbackManager
@@ -17,7 +20,7 @@ import com.facebook.share.Sharer
 import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
-import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Adapter for the recycler view that handles the posts displayed on the feed.
@@ -26,7 +29,8 @@ import java.util.*
  * @param dataPosts Posts displayed on the feed.
  * @param parentActivity Activity calling this adapter.
  */
-class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
+//class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
+class FeedAdapter(private val parentActivity: Activity) :
     RecyclerView.Adapter<FeedViewHolder>() {
 
     /**
@@ -39,6 +43,18 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
      */
     private lateinit var firebaseHelper: FirebaseHelper
 
+    private val diffCallbacks = object : DiffUtil.ItemCallback<Post>(){
+        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+            return oldItem.getPostId().equals(newItem.getPostId())
+        }
+
+        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+            return oldItem.equals(newItem)
+        }
+
+    }
+
+    private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
      * to represent an item.
@@ -58,66 +74,67 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
 
         itemView.setOnClickListener { view ->
             val intent = Intent(view.context, ViewPostActivity::class.java)
+            val curPost = differ.currentList[feedViewHolder.bindingAdapterPosition]
 
             intent.putExtra(
                 Keys.KEY_USERID.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getUserId()
+                curPost.getUserId()
             )
             intent.putExtra(
                 Keys.KEY_POSTID.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getPostId()
+                curPost.getPostId()
             )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getProfilePicture()
+                curPost.getProfilePicture()
             )
             intent.putExtra(
                 Keys.KEY_USERNAME.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getUsername()
+                curPost.getUsername()
             )
             intent.putExtra(
                 Keys.KEY_POST.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getPostImg()
+                curPost.getPostImg()
             )
             intent.putExtra(
                 Keys.KEY_TITLE.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getTitle()
+                curPost.getTitle()
             )
             intent.putExtra(
                 Keys.KEY_NUM_UPVOTES.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getNumUpvotes()
+                curPost.getNumUpvotes()
             )
             intent.putExtra(
                 Keys.KEY_NUM_COMMENTS.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getNumComments()
+                curPost.getNumComments()
             )
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getDatePosted()
+                curPost.getDatePosted()
             )
             intent.putExtra(
                 Keys.KEY_MEDIUM.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getMedium()
+                curPost.getMedium()
             )
             intent.putExtra(
                 Keys.KEY_DIMENSIONS.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getDimensions()
+                curPost.getDimensions()
             )
             intent.putExtra(
                 Keys.KEY_DESCRIPTION.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getDescription()
+                curPost.getDescription()
             )
             intent.putExtra(
                 Keys.KEY_TAGS.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getTags()
+                curPost.getTags()
             )
             intent.putExtra(
                 Keys.KEY_BOOKMARK.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getBookmark()
+                curPost.getBookmark()
             )
             intent.putExtra(
                 Keys.KEY_UPVOTE.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getUpvote()
+                curPost.getUpvote()
             )
 
             view.context.startActivity(intent)
@@ -125,13 +142,14 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
 
         feedViewHolder.setItemFeedCommentOnClickListener { view ->
             val intent = Intent(view.context, ViewCommentsActivity::class.java)
+            val curPost = differ.currentList[feedViewHolder.bindingAdapterPosition]
             intent.putExtra(
                 Keys.KEY_POSTID.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getPostId()
+                curPost.getPostId()
             )
             intent.putExtra(
                 Keys.KEY_NUM_COMMENTS.name,
-                dataPosts[feedViewHolder.bindingAdapterPosition].getNumComments()
+                curPost.getNumComments()
             )
             view.context.startActivity(intent)
          }
@@ -149,7 +167,7 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        val currentPost = dataPosts[position]
+        val currentPost = differ.currentList[position]//dataPosts[position]
 
         Glide.with(context)
             .load(currentPost.getProfilePicture())
@@ -265,12 +283,80 @@ class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActi
         }
     }
 
+
+    /*
+    override fun onBindViewHolder(holder: FeedViewHolder, position: Int, payloads: MutableList<Any>) {
+
+        if (payloads.isEmpty()){
+            super.onBindViewHolder(holder, position, payloads)
+        }
+
+        else{
+            val bundle = payloads.get(0) as? Bundle
+
+            if (bundle != null){
+                for (key in bundle!!.keySet()){
+                    if (key.equals(Keys.upvote.name)){
+                        holder.setItemFeedUpvote(bundle.getBoolean(Keys.upvote.name, false))
+                    }
+
+                    if (key.equals(Keys.bookmark.name)){
+                        holder.setItemFeedBookmark(bundle.getBoolean(Keys.bookmark.name, false))
+                    }
+
+                    if (key.equals(Keys.title.name)){
+                        holder.setItemFeedTitle(bundle.getString(Keys.title.name))
+                    }
+                }
+            }
+
+        }
+
+
+    }
+
+     */
+
+
+
+
     /**
      * Returns the total number of items in the data set held by the adapter.
      *
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        return dataPosts.size
+        return differ.currentList.size
+       // return dataPosts.size
     }
+
+    /*
+    fun updatePosts(newPosts: ArrayList<Post>){
+
+
+        //val diffUtil = androidx.recyclerview.widget.DiffUtil.calculateDiff(DiffUtilCallbacks(dataPosts, newPosts))
+        val diffUtil = DiffUtil.calculateDiff(PostUtilCallbacks(this.dataPosts, newPosts))
+
+      //  this.dataPosts.clear()
+       // this.dataPosts.addAll(newPosts)
+
+        diffUtil.dispatchUpdatesTo(this)
+
+
+    }
+
+     */
+
+    fun updatePosts(newPosts: List<Post>){
+        differ.submitList(newPosts)
+    }
+
+    /*
+    fun setData(posts: ArrayList<Post>){
+        this.dataPosts.clear()
+        this.dataPosts.addAll(posts)
+        notifyDataSetChanged()
+    }
+
+     */
 }

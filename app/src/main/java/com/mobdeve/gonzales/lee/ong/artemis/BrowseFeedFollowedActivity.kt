@@ -28,10 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
@@ -315,8 +312,10 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
 
         this.rvFollowed.adapter = feedFollowedAdapter
 
-        initContent()
+       initContent()
+        //getRealtimeUpdates()
     }
+
 
     /**
      * Fetches the keys related to the posts of followed users from the remote database.
@@ -447,6 +446,118 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
 
         })
     }
+
+
+
+    /*
+    /**
+     * Fetches realtime updates from the remote database to prevent the entire activity from reloading
+     * in case data change as a result of some user activity.
+     */
+    private fun getRealtimeUpdates(){
+        this.ivNone = findViewById(R.id.iv_feed_none)
+        this.tvNone = findViewById(R.id.tv_feed_none)
+        this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
+
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.usersFollowed.name)
+
+        userDB.addChildEventListener(object: ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val userId = snapshot.key.toString()
+                if (!userId.isNullOrEmpty()){
+                    getUserPosts(userId)
+                }
+
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    if (!post.getUpvoteUsers().isNullOrEmpty()){
+                        if(post.getUpvoteUsers().containsKey(userId)){
+                            post.setUpvote(true)
+                        }
+                        else{
+                            post.setUpvote(false)
+                        }
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty()) {
+                        if (post.getBookmarkUsers().containsKey(userId)){
+                            post.setBookmark(true)
+                        }
+                        else{
+                            post.setBookmark(false)
+                        }
+                    }
+
+                    val index = postKeys.indexOf(post.getPostId()!!)
+                    dataPosts.set(index, post)
+                    feedAdapter.notifyItemChanged(index)
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    val index = postKeys.indexOf(post.getPostId()!!)
+                    dataPosts.removeAt(index)
+                    postKeys.removeAt(index)
+                    feedAdapter.notifyItemRemoved(index)
+                }
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                /* This is intentionally left blank */
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+
+        if (dataPosts.isNotEmpty()){
+            ivNone.visibility = View.GONE
+            tvNone.visibility = View.GONE
+            tvSubNone.visibility = View.GONE
+        }
+
+        else{
+            ivNone.visibility = View.VISIBLE
+            tvNone.visibility = View.VISIBLE
+            tvSubNone.visibility = View.VISIBLE
+        }
+    }
+
+    private fun getUserPosts(){
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId)
+
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    val userSnap = snapshot.getValue(User::class.java)
+
+                    if (userSnap != null){
+                        val usersFF = userSnap.getUsersFollowed().keys
+
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+    }
+
+     */
 
     /**
      * Initialize the contents of the Activity's standard options menu.

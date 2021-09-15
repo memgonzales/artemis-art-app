@@ -4,10 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.facebook.CallbackManager
@@ -18,6 +21,7 @@ import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Adapter for the recycler view that handles the user's own posts.
@@ -25,7 +29,8 @@ import java.util.*
  * @constructor Creates an adapter for the recycler view that handles the user's own posts.
  * @param dataPosts User's own posts.
  */
-class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
+//class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
+class OwnPostsAdapter(private val parentActivity: Activity) :
     RecyclerView.Adapter<OwnPostsViewHolder>() {
 
     /**
@@ -37,6 +42,20 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
      * Wrapper over Firebase's realtime database.
      */
     private lateinit var firebaseHelper: FirebaseHelper
+
+
+    private val diffCallbacks = object : DiffUtil.ItemCallback<Post>(){
+        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+            return oldItem.getPostId().equals(newItem.getPostId())
+        }
+
+        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+            return oldItem.equals(newItem)
+        }
+
+    }
+
+    private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
 
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
@@ -57,62 +76,63 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
 
         itemView.setOnClickListener { view ->
             val intent = Intent(view.context, ViewOwnPostActivity::class.java)
+            val curPost = differ.currentList[ownPostsViewHolder.bindingAdapterPosition]
 
             intent.putExtra(
                 Keys.KEY_USERID.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getUserId()
+                curPost.getUserId()
             )
             intent.putExtra(
                 Keys.KEY_POSTID.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getPostId()
+                curPost.getPostId()
             )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getProfilePicture()
+                curPost.getProfilePicture()
             )
             intent.putExtra(
                 Keys.KEY_USERNAME.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getUsername()
+                curPost.getUsername()
             )
             intent.putExtra(
                 Keys.KEY_POST.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getPostImg()
+                curPost.getPostImg()
             )
             intent.putExtra(
                 Keys.KEY_TITLE.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getTitle()
+                curPost.getTitle()
             )
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDatePosted()
+                curPost.getDatePosted()
             )
             intent.putExtra(
                 Keys.KEY_MEDIUM.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getMedium()
+                curPost.getMedium()
             )
             intent.putExtra(
                 Keys.KEY_DIMENSIONS.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDimensions()
+                curPost.getDimensions()
             )
             intent.putExtra(
                 Keys.KEY_DESCRIPTION.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getDescription()
+                curPost.getDescription()
             )
             intent.putExtra(
                 Keys.KEY_TAGS.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getTags()
+                curPost.getTags()
             )
             intent.putExtra(
                 Keys.KEY_NUM_UPVOTES.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getNumUpvotes()
+                curPost.getNumUpvotes()
             )
             intent.putExtra(
                 Keys.KEY_NUM_COMMENTS.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getNumComments()
+                curPost.getNumComments()
             )
             intent.putExtra(
                 Keys.KEY_HIGHLIGHT.name,
-                dataPosts[ownPostsViewHolder.bindingAdapterPosition].getHighlight()
+                curPost.getHighlight()
             )
 
             view.context.startActivity(intent)
@@ -136,7 +156,8 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: OwnPostsViewHolder, position: Int) {
-        val currentPost = dataPosts[position]
+        //val currentPost = dataPosts[position]
+        val currentPost = differ.currentList[position]
 
         Glide.with(context)
             .load(currentPost.getProfilePicture())
@@ -174,6 +195,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
                 holder.setOwnPostHighlight(currentPost.getHighlight())
 
                 firebaseHelper.updateHighlightDB(currentPost.getPostId(), null)
+                notifyItemChanged(position)
 
             } else {
                 currentPost.setHighlight(true)
@@ -181,6 +203,7 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
                 Toast.makeText(view.context, "Added to your Highlights", Toast.LENGTH_SHORT).show()
 
                 firebaseHelper.updateHighlightDB(currentPost.getPostId(), currentPost.getPostId())
+                notifyItemChanged(position)
             }
         }
 
@@ -273,10 +296,13 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
                     currentPost.getPostImg()
                 )
                 view.context.startActivity(intent)
+                notifyItemChanged(position)
             }
 
             delete.setOnClickListener {
                 this.firebaseHelper.deletePostDB(currentPost.getPostId()!!, false)
+                //notifyItemRemoved(position)
+                //notifyItemRemoved(position)
                 //Toast.makeText(view.context, "Your post has been deleted", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
 
@@ -287,12 +313,45 @@ class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parent
         }
     }
 
+    override fun onBindViewHolder(holder: OwnPostsViewHolder, position: Int, payloads: MutableList<Any>) {
+        super.onBindViewHolder(holder, position, payloads)
+
+        if (payloads.isEmpty()){
+            super.onBindViewHolder(holder, position, payloads)
+        }
+
+        else{
+            val bundle = payloads.get(0) as? Bundle
+
+            if (bundle != null){
+                for (key in bundle!!.keySet()){
+                    if (key.equals(Keys.title.name)){
+                        holder.setOwnPostTitle(bundle.getString(Keys.title.name))
+                    }
+                }
+            }
+
+        }
+    }
+
+
     /**
      * Returns the total number of items in the data set held by the adapter.
      *
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        return dataPosts.size
+        //return dataPosts.size
+        return differ.currentList.size
+    }
+
+    fun updatePosts(newPosts: ArrayList<Post>){
+        /*
+        val diffUtil = DiffUtil.calculateDiff(PostUtilCallbacks(this.dataPosts, newPosts))
+        diffUtil.dispatchUpdatesTo(this)
+
+       */
+
+        differ.submitList(newPosts)
     }
 }

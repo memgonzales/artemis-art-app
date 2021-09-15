@@ -407,19 +407,12 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val post = snapshot.getValue(Post::class.java)
 
-                if(post != null){
-                    post.setBookmark(true)
-                    dataPosts.add(post)
-                }
-
-                if (post != null && !post.getPostId().isNullOrEmpty()){
-                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
-                        post.setUpvote(true)
-                    }
-
-                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                if(post != null && !post.getPostId().isNullOrEmpty()){
+                    if (!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
                         post.setBookmark(true)
+                        dataPosts.add(post)
                     }
+
                 }
 
                 bookmarksAdapter.notifyDataSetChanged()
@@ -429,7 +422,6 @@ class BrowseBookmarksActivity : AppCompatActivity() {
                 val post = snapshot.getValue(Post::class.java)
 
                 if (post != null && !post.getPostId().isNullOrEmpty()){
-
 
                     if(!post.getBookmarkUsers().isNullOrEmpty()) {
                         if (post.getBookmarkUsers().containsKey(userId)){

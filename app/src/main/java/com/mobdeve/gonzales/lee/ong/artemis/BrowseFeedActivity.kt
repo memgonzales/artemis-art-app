@@ -288,7 +288,7 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
-            //initContent(true)
+            //getRealtimeUpdates()
             srlFeed.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
@@ -315,10 +315,11 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.rvFeed = findViewById(R.id.rv_feed)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
 
-        this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
-
+        //this.feedAdapter = FeedAdapter(dataPosts, this@BrowseFeedActivity)
+        this.feedAdapter = FeedAdapter(this@BrowseFeedActivity)
 
         this.rvFeed.adapter = feedAdapter
+
 
         getRealtimeUpdates()
 
@@ -358,8 +359,8 @@ class BrowseFeedActivity : AppCompatActivity() {
                     postKeys.add(post.getPostId()!!)
                 }
 
-                feedAdapter.notifyItemInserted(0)
-
+               // feedAdapter.notifyItemInserted(0)
+                feedAdapter.updatePosts(dataPosts)
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -385,8 +386,14 @@ class BrowseFeedActivity : AppCompatActivity() {
                     }
 
                     val index = postKeys.indexOf(post.getPostId()!!)
+                    Toast.makeText(applicationContext, "ch: " + index, Toast.LENGTH_SHORT).show()
+
                     dataPosts.set(index, post)
-                    feedAdapter.notifyItemChanged(index)
+             //       feedAdapter.setData(dataPosts)
+
+                  //  feedAdapter.notifyItemChanged(index)
+
+                    feedAdapter.updatePosts(dataPosts)
                 }
             }
 
@@ -394,10 +401,14 @@ class BrowseFeedActivity : AppCompatActivity() {
                 val post = snapshot.getValue(Post::class.java)
 
                 if (post != null && !post.getPostId().isNullOrEmpty()){
+                    /*
                     val index = postKeys.indexOf(post.getPostId()!!)
                     dataPosts.removeAt(index)
                     postKeys.removeAt(index)
                     feedAdapter.notifyItemRemoved(index)
+
+                     */
+                    feedAdapter.updatePosts(dataPosts)
                 }
             }
 
