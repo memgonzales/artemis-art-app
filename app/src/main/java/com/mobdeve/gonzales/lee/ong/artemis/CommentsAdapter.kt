@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.util.*
@@ -15,8 +17,8 @@ import java.util.*
  * @constructor Creates an adapter for the recycler view that handles the comments on the posts.
  * @param dataComments Comments on the posts.
  */
-class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
-    RecyclerView.Adapter<CommentsViewHolder>() {
+
+class CommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>() {
 
     /**
      * Context tied to the activity calling this adapter.
@@ -24,6 +26,18 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
     private lateinit var context: Context
 
     private lateinit var firebaseHelper: FirebaseHelper
+
+    private val diffCallbacks = object : DiffUtil.ItemCallback<Comment>(){
+        override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+            return oldItem.getCommentId().equals(newItem.getCommentId())
+        }
+
+        override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+            return oldItem.equals(newItem)
+        }
+    }
+
+    private val differ: AsyncListDiffer<Comment> = AsyncListDiffer(this, diffCallbacks)
 
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
@@ -56,7 +70,7 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
-        val currentComment = dataComments[position]
+        val currentComment = differ.currentList[position]
 
         Glide.with(context)
             .load(currentComment.getProfilePicture())
@@ -126,6 +140,10 @@ class CommentsAdapter(private val dataComments: ArrayList<Comment>) :
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        return dataComments.size
+        return differ.currentList.size
+    }
+
+    fun updateComments(newComments: List<Comment>){
+        differ.submitList(newComments)
     }
 }

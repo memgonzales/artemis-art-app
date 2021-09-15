@@ -213,7 +213,6 @@ class ViewCommentsActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-       // this.dataComments = DataHelper.loadCommentData()
 
         this.dataComments = arrayListOf<Comment>()
 
@@ -222,9 +221,11 @@ class ViewCommentsActivity : AppCompatActivity() {
 
         this.rvComments.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        this.commentsAdapter = CommentsAdapter(this.dataComments)
+        this.commentsAdapter = CommentsAdapter()
 
         this.rvComments.adapter = commentsAdapter
+
+        this.rvComments.itemAnimator = null
 
 
         initContents()
@@ -234,33 +235,75 @@ class ViewCommentsActivity : AppCompatActivity() {
 
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
 
-        commentDB.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                dataComments.clear()
+        commentDB.addChildEventListener(object : ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val commentSnap = snapshot.getValue(Comment::class.java)
 
-                if (snapshot.exists()){
-                    for (c in snapshot.children){
+                if (commentSnap != null &&
+                    !commentSnap.getUserId().isNullOrEmpty() &&
+                    !commentSnap.getCommentId().isNullOrEmpty() &&
+                    !commentSnap.getPostId().isNullOrEmpty() &&
+                    commentSnap.getPostId()!!.equals(postId)){
 
-                        var commentSnap = c.getValue(Comment::class.java)
-
-                        if (commentSnap != null &&
-                            !commentSnap.getUserId().isNullOrEmpty() &&
-                            !commentSnap.getCommentId().isNullOrEmpty() &&
-                            !commentSnap.getPostId().isNullOrEmpty() &&
-                            commentSnap.getPostId()!!.contains(postId!!)){
-
-                            if (commentSnap.getUserId().equals(userId)){
-                                commentSnap.setEditable(true)
-                            }
-
-                            dataComments.add(commentSnap)
-                        }
+                    if (commentSnap.getUserId().equals(userId)){
+                        commentSnap.setEditable(true)
                     }
 
-                    commentsAdapter.notifyDataSetChanged()
+                    dataComments.add(commentSnap)
+                    commentsAdapter.updateComments(dataComments)
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val commentSnap = snapshot.getValue(Comment::class.java)
+
+                if (commentSnap != null &&
+                    !commentSnap.getUserId().isNullOrEmpty() &&
+                    !commentSnap.getCommentId().isNullOrEmpty() &&
+                    !commentSnap.getPostId().isNullOrEmpty() &&
+                    commentSnap.getPostId()!!.equals(postId)){
+
+                    if (commentSnap.getUserId().equals(userId)){
+                        commentSnap.setEditable(true)
+                    }
+
+
+                    val list = ArrayList<Comment>(dataComments)
+                    val index = list.indexOfFirst { it.getCommentId() == commentSnap.getCommentId() }
+
+                    if (index != -1){
+                        list.set(index, commentSnap)
+
+                        dataComments = list
+                        commentsAdapter.updateComments(list)
+                    }
 
                 }
+            }
 
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val commentSnap = snapshot.getValue(Comment::class.java)
+
+                if (commentSnap != null &&
+                    !commentSnap.getUserId().isNullOrEmpty() &&
+                    !commentSnap.getCommentId().isNullOrEmpty() &&
+                    !commentSnap.getPostId().isNullOrEmpty()){
+
+                    val list = ArrayList<Comment>(dataComments)
+
+                    val index = list.indexOfFirst { it.getCommentId() == commentSnap.getCommentId() }
+
+                    if (index != -1){
+                        list.removeAt(index)
+
+                        dataComments = list
+                        commentsAdapter.updateComments(list)
+                    }
+                }
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                /* This is intentionally left blank */
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -276,7 +319,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.etComment = findViewById(R.id.et_add_comment)
         this.pbComment = findViewById(R.id.pb_view_comments)
 
-       // Toast.makeText(applicationContext, "ch: " + postId, Toast.LENGTH_SHORT).show()
+
         this.ibAddComment.setOnClickListener {
             val commentText: String = etComment.text.toString().trim()
 
@@ -329,10 +372,6 @@ class ViewCommentsActivity : AppCompatActivity() {
                     pbComment.visibility = View.GONE
                     Toast.makeText(this@ViewCommentsActivity, "Commented successfully", Toast.LENGTH_LONG).show()
                     etComment.text.clear()
-
-                    comment.setEditable(true)
-                    dataComments.add(comment)
-                    commentsAdapter.notifyDataSetChanged()
                 }
 
                 else{

@@ -197,7 +197,8 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
 
         this.rvCommentsFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        this.commentsAdapter = CommentsAdapter(this.dataCommentsFollowed)
+        //this.commentsAdapter = CommentsAdapter(this.dataCommentsFollowed)
+        this.commentsAdapter = CommentsAdapter()
 
         this.rvCommentsFollowed.adapter = commentsAdapter
     }
