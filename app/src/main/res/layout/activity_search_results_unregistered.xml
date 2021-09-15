@@ -237,7 +237,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        app:layout_constraintGuide_begin="120dp" />
+                        app:layout_constraintGuide_begin="110dp" />
 
                     <TextView
                         android:id="@+id/tv_search_unregistered_results_artworks"
