@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.util.*
@@ -15,13 +17,25 @@ import java.util.*
  * by the user.
  * @param dataPosts Posts bookmarked by the user.
  */
-class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
-    RecyclerView.Adapter<BookmarksViewHolder>() {
+class BookmarksAdapter() : RecyclerView.Adapter<BookmarksViewHolder>() {
 
     /**
      * Context tied to the activity calling this adapter.
      */
     private lateinit var context: Context
+
+    private val diffCallbacks = object : DiffUtil.ItemCallback<Post>(){
+        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+            return oldItem.getPostId().equals(newItem.getPostId())
+        }
+
+        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+            return oldItem.equals(newItem)
+        }
+
+    }
+
+    private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
 
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
@@ -42,46 +56,47 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
 
         itemView.setOnClickListener { view ->
             val intent = Intent(view.context, ViewBookmarkActivity::class.java)
+            val curPost = differ.currentList[bookmarksViewHolder.bindingAdapterPosition]
 
             intent.putExtra(
                 Keys.KEY_USERID.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getUserId()
+                curPost.getUserId()
             )
             intent.putExtra(
                 Keys.KEY_POSTID.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getPostId()
+                curPost.getPostId()
             )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getProfilePicture()
+                curPost.getProfilePicture()
             )
             intent.putExtra(
                 Keys.KEY_USERNAME.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getUsername()
+                curPost.getUsername()
             )
             intent.putExtra(
                 Keys.KEY_POST.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getPostImg()
+                curPost.getPostImg()
             )
             intent.putExtra(
                 Keys.KEY_TITLE.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getTitle()
+                curPost.getTitle()
             )
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getDatePosted()
+                curPost.getDatePosted()
             )
             intent.putExtra(
                 Keys.KEY_MEDIUM.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getMedium()
+                curPost.getMedium()
             )
             intent.putExtra(
                 Keys.KEY_DIMENSIONS.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getDimensions()
+                curPost.getDimensions()
             )
             intent.putExtra(
                 Keys.KEY_DESCRIPTION.name,
-                dataPosts[bookmarksViewHolder.bindingAdapterPosition].getDescription()
+                curPost.getDescription()
             )
             intent.putExtra(
                 Keys.KEY_BOOKMARK.name,
@@ -102,7 +117,7 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: BookmarksViewHolder, position: Int) {
-        val currentPost = dataPosts[position]
+        val currentPost = differ.currentList[position]
         //holder.setItemSearchResults(currentPost.getPostImg())
 
         Glide.with(context)
@@ -118,6 +133,10 @@ class BookmarksAdapter(private val dataPosts: ArrayList<Post>) :
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        return dataPosts.size
+        return differ.currentList.size
+    }
+
+    fun updatePosts(newPosts: List<Post>){
+        differ.submitList(newPosts)
     }
 }

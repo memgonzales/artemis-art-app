@@ -398,6 +398,12 @@ class BrowseFeedActivity : AppCompatActivity() {
 
                     dataPosts = list
                     feedAdapter.updatePosts(list)
+
+                    if (dataPosts.isNullOrEmpty()){
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                        tvSubNone.visibility = View.VISIBLE
+                    }
                 }
 
             }
@@ -424,24 +430,31 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         val postDB = db.child(Keys.KEY_DB_POSTS.name)
 
+        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    ivNone.visibility = View.GONE
+                    tvNone.visibility = View.GONE
+                    tvSubNone.visibility = View.GONE
+                }
+
+                else{
+                    ivNone.visibility = View.VISIBLE
+                    tvNone.visibility = View.VISIBLE
+                    tvSubNone.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+
         postDB.addChildEventListener(childEventListener)
 
-        if (dataPosts.isNotEmpty()){
-            ivNone.visibility = View.GONE
-            tvNone.visibility = View.GONE
-            tvSubNone.visibility = View.GONE
-        }
 
-        else{
-            Handler(Looper.getMainLooper()).postDelayed({
-
-                ivNone.visibility = View.VISIBLE
-                tvNone.visibility = View.VISIBLE
-                tvSubNone.visibility = View.VISIBLE
-
-            }, AnimationDuration.NO_POST_TIMEOUT.toLong())
-
-        }
     }
 
     /*

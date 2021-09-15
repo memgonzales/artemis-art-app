@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -296,90 +297,33 @@ class BrowseBookmarksActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-       // this.dataPosts = DataHelper.loadBookmarkData()
-
         this.dataPosts = arrayListOf<Post>()
 
         this.rvBookmarks = findViewById(R.id.rv_bookmarks)
         this.rvBookmarks.layoutManager = GridLayoutManager(this, 2)
 
-        this.bookmarksAdapter = BookmarksAdapter(this.dataPosts)
-
+        this.bookmarksAdapter = BookmarksAdapter()
 
         this.rvBookmarks.adapter = bookmarksAdapter
 
-        initContent()
-        //getRealtimeUpdates()
+        getRealtimeUpdates()
     }
 
     /**
-     * Fetches the keys related to the posts bookmarked by the user from the remote database.
+     * Fetches realtime updates from the remote database to prevent the entire activity from reloading
+     * in case data change as a result of some user activity.
      */
-    private fun initContent(){
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
-
-
-        userDB.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userPost = snapshot.getValue(User::class.java)
-
-                if(userPost != null){
-                    val userBookmarks = userPost.getBookmarks().keys
-                    getPosts(userBookmarks)
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseBookmarksActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-        })
-
-
-    }
-
-    /**
-     * Fetches the posts bookmarked by the user and updates the view, alongside the adapter
-     * and the view holder.
-     *
-     * @param bookmarks Posts bookmarked by the user.
-     */
-    private fun getPosts(bookmarks: Set<String?>){
+    private fun getRealtimeUpdates(){
         this.ivNone = findViewById(R.id.iv_browse_bookmarks_none)
         this.tvNone = findViewById(R.id.tv_browse_bookmarks_none)
 
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+        val userDB = db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.bookmarks.name)
 
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener {
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                dataPosts.clear()
                 if (snapshot.exists()){
-                    for (postSnap in snapshot.children){
-                        if (postSnap.key != null && bookmarks.contains(postSnap.key)){
-                            val post = postSnap.getValue(Post::class.java)
-
-                            if(post != null){
-                                post.setBookmark(true)
-                                dataPosts.add(post)
-                            }
-                        }
-                    }
-
-                    if (!dataPosts.isEmpty()){
-                        ivNone.visibility = View.GONE
-                        tvNone.visibility = View.GONE
-                    }
-
-                    else{
-                        ivNone.visibility = View.VISIBLE
-                        tvNone.visibility = View.VISIBLE
-                    }
-
-                    //bookmarksAdapter = BookmarksAdapter(dataPosts)
-                    //rvBookmarks.adapter = bookmarksAdapter
-
-                    bookmarksAdapter.notifyDataSetChanged()
-
+                    ivNone.visibility = View.GONE
+                    tvNone.visibility = View.GONE
                 }
 
                 else{
@@ -394,55 +338,68 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             }
 
         })
-    }
-
-    /**
-     * Fetches realtime updates from the remote database to prevent the entire activity from reloading
-     * in case data change as a result of some user activity.
-     */
-    private fun getRealtimeUpdates(){
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-
-        postDB.addChildEventListener(object: ChildEventListener {
+        userDB.addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val post = snapshot.getValue(Post::class.java)
+                val postId = snapshot.key.toString()
 
-                if(post != null && !post.getPostId().isNullOrEmpty()){
-                    if (!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
-                        post.setBookmark(true)
-                        dataPosts.add(post)
-                    }
-
+                if (postId != null){
+                    getPost(postId)
                 }
 
-                bookmarksAdapter.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val post = snapshot.getValue(Post::class.java)
-
-                if (post != null && !post.getPostId().isNullOrEmpty()){
-
-                    if(!post.getBookmarkUsers().isNullOrEmpty()) {
-                        if (post.getBookmarkUsers().containsKey(userId)){
-                            post.setBookmark(true)
-                        }
-                        else{
-                            post.setBookmark(false)
-                        }
-                    }
-                }
+                /* This is intentionally left blank */
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-                val post = snapshot.getValue(Post::class.java)
-                dataPosts.remove(post)
-                bookmarksAdapter.notifyDataSetChanged()
+                val postId = snapshot.key.toString()
+
+                if (postId != null){
+
+                    val list = ArrayList<Post>(dataPosts)
+
+                    val index = list.indexOfFirst { it.getPostId() == postId }
+
+                    if (index != -1){
+                        list.removeAt(index)
+
+                        dataPosts = list
+                        bookmarksAdapter.updatePosts(list)
+
+                        if (dataPosts.isNullOrEmpty()){
+                            ivNone.visibility = View.VISIBLE
+                            tvNone.visibility = View.VISIBLE
+                        }
+                    }
+
+                }
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
                 /* This is intentionally left blank */
+            }
 
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseBookmarksActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+        })
+    }
+
+    private fun getPost(postId: String){
+        val postDB = db.child(Keys.KEY_DB_POSTS.name).child(postId)
+
+        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    val post = snapshot.getValue(Post::class.java)
+
+                    if (post != null){
+                        dataPosts.add(post)
+                        bookmarksAdapter.updatePosts(dataPosts)
+                    }
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
