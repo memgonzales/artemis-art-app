@@ -418,4 +418,6 @@
     <string name="tv_broken_link_email"><u>artemis.appmaster@gmail.com</u></string>
     <string name="iv_user_highlights_none">No highlights</string>
     <string name="tv_user_highlights_none">No highlights just yet</string>
+    <string name="tv_search_unregistered_results_users">Matching Users</string>
+    <string name="tv_search_results_users">Matching Users</string>
 </resources>
