@@ -338,6 +338,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             }
 
         })
+
         userDB.addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val postId = snapshot.key.toString()
@@ -394,6 +395,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     val post = snapshot.getValue(Post::class.java)
+                    post?.setBookmark(true)
 
                     if (post != null){
                         dataPosts.add(post)

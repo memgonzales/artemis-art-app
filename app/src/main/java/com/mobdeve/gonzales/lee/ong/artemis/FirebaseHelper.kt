@@ -293,7 +293,7 @@ class FirebaseHelper {
 
         db.updateChildren(updates)
             .addOnSuccessListener {
-        //        Toast.makeText(context, "Your post details have been updated", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Your post details have been updated", Toast.LENGTH_SHORT).show()
 
             }
             .addOnFailureListener {
