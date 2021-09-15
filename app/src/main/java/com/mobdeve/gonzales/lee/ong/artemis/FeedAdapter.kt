@@ -4,13 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.facebook.CallbackManager
@@ -20,7 +18,6 @@ import com.facebook.share.Sharer
 import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
-import kotlin.collections.ArrayList
 
 /**
  * Adapter for the recycler view that handles the posts displayed on the feed.
@@ -42,6 +39,10 @@ class FeedAdapter(private val parentActivity: Activity) :
      */
     private lateinit var firebaseHelper: FirebaseHelper
 
+    /**
+     * Callback that informs <code>ArrayObjectAdapter</code> how to compute list updates when using
+     * <code>DiffUtil</code> in <code>ArrayObjectAdapter.setItems(List, DiffCallback)</code> method.
+     */
     private val diffCallbacks = object : DiffUtil.ItemCallback<Post>(){
         override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
             return oldItem.getPostId().equals(newItem.getPostId())
@@ -53,6 +54,9 @@ class FeedAdapter(private val parentActivity: Activity) :
 
     }
 
+    /**
+     * Helper for computing the difference between two lists via <code>DiffUtil</code> on a background thread.
+     */
     private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
 
     //private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
@@ -295,8 +299,12 @@ class FeedAdapter(private val parentActivity: Activity) :
         return differ.currentList.size
     }
 
+    /**
+     * Pass a new List to the AdapterHelper, with the Adapter updates computed on a background thread.
+     *
+     * @param newPosts The new List.
+     */
     fun updatePosts(newPosts: List<Post>){
         differ.submitList(newPosts)
     }
-
 }

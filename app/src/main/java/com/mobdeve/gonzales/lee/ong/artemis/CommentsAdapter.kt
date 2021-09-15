@@ -9,13 +9,11 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import java.util.*
 
 /**
  * Adapter for the recycler view that handles the comments on the posts.
  *
  * @constructor Creates an adapter for the recycler view that handles the comments on the posts.
- * @param dataComments Comments on the posts.
  */
 
 class CommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>() {

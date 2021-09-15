@@ -12,7 +12,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -287,7 +286,8 @@ class BrowseFeedActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
-            //getRealtimeUpdates()
+            initRecyclerView()
+
             srlFeed.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
@@ -321,6 +321,9 @@ class BrowseFeedActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Receives events about changes in the child locations of a given <code>DatabaseReference</code> ref.
+     */
     private var childEventListener = object : ChildEventListener{
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             val post = snapshot.getValue(Post::class.java)
@@ -375,7 +378,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                 val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
 
                 if (index != -1){
-                    list.set(index, post)
+                    list[index] = post
 
                     dataPosts = list
                     feedAdapter.updatePosts(list)
@@ -419,6 +422,7 @@ class BrowseFeedActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     /**
      * Fetches realtime updates from the remote database to prevent the entire activity from reloading
      * in case data change as a result of some user activity.

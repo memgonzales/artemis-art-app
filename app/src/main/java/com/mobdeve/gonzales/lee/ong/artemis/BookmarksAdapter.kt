@@ -8,14 +8,12 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import java.util.*
 
 /**
  * Adapter for the recycler view that handles the posts bookmarked by the user.
  *
  * @constructor Creates an adapter for the recycler view that handles the posts bookmarked
  * by the user.
- * @param dataPosts Posts bookmarked by the user.
  */
 class BookmarksAdapter() : RecyclerView.Adapter<BookmarksViewHolder>() {
 
