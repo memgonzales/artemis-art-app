@@ -29,7 +29,6 @@ import kotlin.collections.ArrayList
  * @param dataPosts Posts displayed on the feed.
  * @param parentActivity Activity calling this adapter.
  */
-//class FeedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
 class FeedAdapter(private val parentActivity: Activity) :
     RecyclerView.Adapter<FeedViewHolder>() {
 
@@ -55,6 +54,8 @@ class FeedAdapter(private val parentActivity: Activity) :
     }
 
     private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
+
+    //private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
      * to represent an item.
@@ -143,6 +144,7 @@ class FeedAdapter(private val parentActivity: Activity) :
         feedViewHolder.setItemFeedCommentOnClickListener { view ->
             val intent = Intent(view.context, ViewCommentsActivity::class.java)
             val curPost = differ.currentList[feedViewHolder.bindingAdapterPosition]
+
             intent.putExtra(
                 Keys.KEY_POSTID.name,
                 curPost.getPostId()
@@ -167,7 +169,7 @@ class FeedAdapter(private val parentActivity: Activity) :
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        val currentPost = differ.currentList[position]//dataPosts[position]
+        val currentPost = differ.currentList[position]
 
         Glide.with(context)
             .load(currentPost.getProfilePicture())
@@ -284,42 +286,6 @@ class FeedAdapter(private val parentActivity: Activity) :
     }
 
 
-    /*
-    override fun onBindViewHolder(holder: FeedViewHolder, position: Int, payloads: MutableList<Any>) {
-
-        if (payloads.isEmpty()){
-            super.onBindViewHolder(holder, position, payloads)
-        }
-
-        else{
-            val bundle = payloads.get(0) as? Bundle
-
-            if (bundle != null){
-                for (key in bundle!!.keySet()){
-                    if (key.equals(Keys.upvote.name)){
-                        holder.setItemFeedUpvote(bundle.getBoolean(Keys.upvote.name, false))
-                    }
-
-                    if (key.equals(Keys.bookmark.name)){
-                        holder.setItemFeedBookmark(bundle.getBoolean(Keys.bookmark.name, false))
-                    }
-
-                    if (key.equals(Keys.title.name)){
-                        holder.setItemFeedTitle(bundle.getString(Keys.title.name))
-                    }
-                }
-            }
-
-        }
-
-
-    }
-
-     */
-
-
-
-
     /**
      * Returns the total number of items in the data set held by the adapter.
      *
@@ -327,36 +293,10 @@ class FeedAdapter(private val parentActivity: Activity) :
      */
     override fun getItemCount(): Int {
         return differ.currentList.size
-       // return dataPosts.size
     }
-
-    /*
-    fun updatePosts(newPosts: ArrayList<Post>){
-
-
-        //val diffUtil = androidx.recyclerview.widget.DiffUtil.calculateDiff(DiffUtilCallbacks(dataPosts, newPosts))
-        val diffUtil = DiffUtil.calculateDiff(PostUtilCallbacks(this.dataPosts, newPosts))
-
-      //  this.dataPosts.clear()
-       // this.dataPosts.addAll(newPosts)
-
-        diffUtil.dispatchUpdatesTo(this)
-
-
-    }
-
-     */
 
     fun updatePosts(newPosts: List<Post>){
         differ.submitList(newPosts)
     }
 
-    /*
-    fun setData(posts: ArrayList<Post>){
-        this.dataPosts.clear()
-        this.dataPosts.addAll(posts)
-        notifyDataSetChanged()
-    }
-
-     */
 }

@@ -295,7 +295,7 @@ class Post {
         this.numComments = numComments
     }
 
-
+/*
     override fun equals(other: Any?): Boolean {
 
         if (other is Post){
@@ -310,5 +310,7 @@ class Post {
 
     // return super.equals(other)
     }
+
+ */
 
 }

@@ -44,7 +44,7 @@ class PostUtilCallbacks(private val oldPosts: ArrayList<Post>, private  val newP
 
     override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
 
-        /*
+/*
         val newPosts = newPosts.get(newItemPosition)
         val oldPosts = oldPosts.get(oldItemPosition)
 
@@ -68,8 +68,10 @@ class PostUtilCallbacks(private val oldPosts: ArrayList<Post>, private  val newP
 
         return bundle
 
+ */
 
-         */
+
+
 
        return super.getChangePayload(oldItemPosition, newItemPosition)
     }

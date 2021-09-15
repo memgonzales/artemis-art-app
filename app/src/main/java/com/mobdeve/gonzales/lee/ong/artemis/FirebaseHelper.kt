@@ -2,6 +2,9 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import android.widget.Adapter
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -10,10 +13,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -29,25 +29,7 @@ class FirebaseHelper {
 
     private lateinit var credential: AuthCredential
 
-    private lateinit var adapter: Adapter
-
-    constructor(context: Context, adapter: Adapter){
-        this.mAuth = Firebase.auth
-        this.db = Firebase.database.reference
-
-        if (this.mAuth.currentUser != null){
-            this.user = this.mAuth.currentUser!!
-            this.userId = this.user.uid
-        }
-
-        else{
-            val intent = Intent(context, BrokenLinkActivity::class.java)
-            context.startActivity(intent)
-        }
-
-        this.adapter = adapter
-    }
-
+   // private lateinit var adapter: Adapter
 
     constructor(context: Context){
         this.mAuth = Firebase.auth
@@ -65,6 +47,127 @@ class FirebaseHelper {
 
         this.context = context
     }
+
+    /*
+    private fun getRealtimeUpdates(dataPosts: ArrayList<Post>, adapter: Adapter){
+
+        //this.ivNone = findViewById(R.id.iv_feed_none)
+        //this.tvNone = findViewById(R.id.tv_feed_none)
+        //this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
+
+        val postDB = db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addChildEventListener(object: ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                        post.setUpvote(true)
+                    }
+                    else{
+                        post.setUpvote(false)
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                        post.setBookmark(true)
+                    }
+                    else{
+                        post.setBookmark(false)
+                    }
+
+                    dataPosts.add(post)
+                }
+
+                adapter.updatePosts(dataPosts)
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+
+                    if (!post.getUpvoteUsers().isNullOrEmpty()){
+                        if(post.getUpvoteUsers().containsKey(userId)){
+                            post.setUpvote(true)
+                        }
+                        else{
+                            post.setUpvote(false)
+                        }
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty()) {
+                        if (post.getBookmarkUsers().containsKey(userId)){
+                            post.setBookmark(true)
+                        }
+                        else{
+                            post.setBookmark(false)
+                        }
+                    }
+
+
+                    val index = postKeys.indexOf(post.getPostId()!!)
+                    Toast.makeText(applicationContext, "ch: " + index, Toast.LENGTH_SHORT).show()
+
+                    dataPosts.set(index, post)
+                    //       feedAdapter.setData(dataPosts)
+
+                    // feedAdapter.notifyItemChanged(index)
+
+                    feedAdapter.updatePosts(dataPosts)
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()){
+                    val list = ArrayList<Post>(dataPosts)
+
+                    //val index = postKeys.indexOf(postId)
+                    val index = list.indexOfFirst { it.getPostId() == postId }
+                    list.removeAt(index)
+                    //postKeys.removeAt(index)
+                    // ownPostsAdapter.notifyItemRemoved(index)
+
+                    dataPosts = list
+                   adapter.updatePosts(list)
+                }
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                /* This is intentionally left blank */
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+
+        if (dataPosts.isNotEmpty()){
+            ivNone.visibility = View.GONE
+            tvNone.visibility = View.GONE
+            tvSubNone.visibility = View.GONE
+        }
+
+        else{
+            Handler(Looper.getMainLooper()).postDelayed({
+
+                ivNone.visibility = View.VISIBLE
+                tvNone.visibility = View.VISIBLE
+                tvSubNone.visibility = View.VISIBLE
+
+            }, AnimationDuration.NO_POST_TIMEOUT.toLong())
+
+        }
+    }
+
+     */
+
+
 
     constructor(context: Context, postId: String?, userIdPost: String?){
         this.mAuth = Firebase.auth
@@ -185,7 +288,10 @@ class FirebaseHelper {
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.medium.name}" to medium,
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.dimensions.name}" to dimensions,
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.description.name}" to desc,
-            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.tags.name}" to tags
+            "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.tags.name}" to tags,
+
+
+            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userPosts.name}/$postId" to "edited"
         )
 
         db.updateChildren(updates)

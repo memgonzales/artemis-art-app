@@ -535,7 +535,4 @@ class ViewPostActivity : AppCompatActivity() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
 }

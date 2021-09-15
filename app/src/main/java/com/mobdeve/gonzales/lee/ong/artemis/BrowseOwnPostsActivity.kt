@@ -139,7 +139,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
-    private lateinit var childEventListener: ChildEventListener
+   // private lateinit var childEventListener: ChildEventListener
 
     /**
      * Called when the activity is starting.
@@ -310,6 +310,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
 
         //initContent()
         getRealtimeUpdates()
+
     }
 
     /**
@@ -411,10 +412,10 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
      * in case data change as a result of some user activity.
      */
     private fun getRealtimeUpdates(){
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.userPosts.name) //.child(Keys.highlights.name)
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId) //.child(Keys.highlights.name)
 
 
-        this.childEventListener = userDB.addChildEventListener(object : ChildEventListener{
+        userDB.child(Keys.userPosts.name).addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val postId = snapshot.key.toString()
                 setUserHighlight(postId)
@@ -435,7 +436,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                 val postId = snapshot.key.toString()
 
                 Toast.makeText(applicationContext, "ch: " + postId, Toast.LENGTH_LONG).show()
-                //setUserHighlight(postId)
+                setUserHighlight(postId)
 
 
             }
@@ -471,16 +472,29 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
 
     private fun setUserHighlight(postId: String){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.highlights.name).child(postId)
+        //val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId)
 
         userDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     getPost(postId, true)
+                    /*
+                    val userSnap = snapshot.getValue(User::class.java)
+
+                    if (userSnap != null){
+                        val highlights = userSnap.getHighlights().keys
+                        getRealtimePostUpdates(postId, highlights)
+                    }
+
+                     */
                 }
 
                 else{
                     getPost(postId, false)
+                   // getRealtimePostUpdates(postId, false)
                 }
+
+
 
             }
 
@@ -520,11 +534,17 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         })
     }
 
+
+
+
+    /*
     override fun onStop() {
         super.onStop()
 
         this.db.child(Keys.KEY_DB_USERS.name).removeEventListener(this.childEventListener)
     }
+
+     */
 
     /**
      * Adds a back button to the action bar.
