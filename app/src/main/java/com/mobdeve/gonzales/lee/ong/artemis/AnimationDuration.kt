@@ -36,5 +36,7 @@ class AnimationDuration {
          * the time needed to complete the asynchronous fetching of data from the Firebase server).
          */
         const val REFRESH_TIMEOUT = 1500
+
+        const val NO_POST_TIMEOUT = 3000
     }
 }

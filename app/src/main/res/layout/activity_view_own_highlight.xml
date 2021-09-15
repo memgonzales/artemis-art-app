@@ -101,14 +101,15 @@
 
                 <ImageButton
                     android:id="@+id/ib_item_view_own_highlight_highlight"
-                    android:contentDescription="@string/ib_item_view_own_highlight_highlight"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="26dp"
                     android:layout_marginTop="3dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="3dp"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:backgroundTint="@android:color/transparent"
+                    android:contentDescription="@string/ib_item_view_own_highlight_highlight"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="@+id/civ_item_view_own_highlight_profile_pic"
                     app:layout_constraintEnd_toStartOf="@+id/gl_item_view_own_highlight_right_margin"
