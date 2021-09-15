@@ -4,17 +4,30 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.util.*
 
-class UnregisteredCommentsAdapter(private val dataComments: ArrayList<Comment>) :
-    RecyclerView.Adapter<CommentsViewHolder>() {
+class UnregisteredCommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>() {
 
     /**
      * Context tied to the activity calling this adapter.
      */
     private lateinit var context: Context
+
+    private val diffCallbacks = object : DiffUtil.ItemCallback<Comment>(){
+        override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+            return oldItem.getCommentId().equals(newItem.getCommentId())
+        }
+
+        override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+            return oldItem.equals(newItem)
+        }
+    }
+
+    private val differ: AsyncListDiffer<Comment> = AsyncListDiffer(this, diffCallbacks)
 
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
@@ -44,7 +57,7 @@ class UnregisteredCommentsAdapter(private val dataComments: ArrayList<Comment>) 
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
-        val currentComment = dataComments[position]
+        val currentComment = differ.currentList[position]
 
         //holder.setItemCommentProfilePic(currentComment.getProfilePicture())
         Glide.with(context)
@@ -82,6 +95,10 @@ class UnregisteredCommentsAdapter(private val dataComments: ArrayList<Comment>) 
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        return dataComments.size
+        return differ.currentList.size
+    }
+
+    fun updateComments(newComments: List<Comment>){
+        differ.submitList(newComments)
     }
 }

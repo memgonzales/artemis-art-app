@@ -49,6 +49,16 @@ class ViewCommentsActivity : AppCompatActivity() {
 
     private lateinit var srlViewComments: SwipeRefreshLayout
 
+    /**
+     * First (main) text view displayed when the feed does not have any post to display.
+     */
+    private lateinit var ivNone: ImageView
+
+    /**
+     * Second text view displayed displayed when the feed does not have any post to display.
+     */
+    private lateinit var tvNone: TextView
+
     //Firebase
     private lateinit var mAuth: FirebaseAuth
     private lateinit var user: FirebaseUser
@@ -232,6 +242,8 @@ class ViewCommentsActivity : AppCompatActivity() {
     }
 
     private fun initContents(){
+        this.ivNone = findViewById(R.id.iv_view_comments_no_comment)
+        this.tvNone = findViewById(R.id.tv_view_comments_no_comment)
 
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
 

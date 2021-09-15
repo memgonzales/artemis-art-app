@@ -220,74 +220,133 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-        //this.dataPosts = DataHelper.loadPostDataUnregistered()
-
         this.dataPosts = arrayListOf()
         this.rvFeed = findViewById(R.id.rv_feed_unregistered)
         this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        this.unregisteredFeedAdapter = UnregisteredFeedAdapter(this.dataPosts)
+        this.unregisteredFeedAdapter = UnregisteredFeedAdapter()
 
 
         this.rvFeed.adapter = unregisteredFeedAdapter
 
-        initContent(false)
-      //  getRealtimeUpdates()
+        this.rvFeed.itemAnimator = null
+
+        getRealtimeUpdates()
     }
 
-    /**
-     * Fetches the posts bookmarked by the user and updates the view, alongside the adapter
-     * and the view holder.
-     *
-     * @param shuffle <code>true</code> if the posts are shuffled before display;
-     * <code>false</code>, otherwise.
-     */
-    private fun initContent(shuffle: Boolean) {
-        this.ivNone = findViewById(R.id.iv_feed_unregistered_none)
-        this.tvNone = findViewById(R.id.tv_feed_unregistered_none)
-        this.tvSubNone = findViewById(R.id.tv_feed_unregistered_subtitle_none)
+    private var childEventListener = object : ChildEventListener{
+        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            val post = snapshot.getValue(Post::class.java)
 
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+            if (post != null && !post.getPostId().isNullOrEmpty()){
+                if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                    post.setUpvote(true)
+                }
+                else{
+                    post.setUpvote(false)
+                }
 
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener {
+                if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                    post.setBookmark(true)
+                }
+                else{
+                    post.setBookmark(false)
+                }
 
-            override fun onDataChange(snapshot: DataSnapshot) {
-                dataPosts.clear()
-                if(snapshot.exists()){
+                dataPosts.add(post)
+                unregisteredFeedAdapter.updatePosts(dataPosts)
+            }
+        }
 
-                    for(postSnap in snapshot.children){
-                        val post = postSnap.getValue(Post::class.java)
+        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            val post = snapshot.getValue(Post::class.java)
 
-                        if(post != null){
-                            if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
-                                post.setUpvote(true)
-                            }
+            if (post != null && !post.getPostId().isNullOrEmpty()){
 
-                            if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
-                                post.setBookmark(true)
-                            }
-
-                            dataPosts.add(post)
-                        }
+                if (!post.getUpvoteUsers().isNullOrEmpty()){
+                    if(post.getUpvoteUsers().containsKey(userId)){
+                        post.setUpvote(true)
                     }
-
-                    if (shuffle) {
-                        dataPosts.shuffle()
-                    }
-
-                    if (dataPosts.isNotEmpty()){
-                        ivNone.visibility = View.GONE
-                        tvNone.visibility = View.GONE
-                        tvSubNone.visibility = View.GONE
-                    }
-
                     else{
+                        post.setUpvote(false)
+                    }
+                }
+
+                if(!post.getBookmarkUsers().isNullOrEmpty()) {
+                    if (post.getBookmarkUsers().containsKey(userId)){
+                        post.setBookmark(true)
+                    }
+                    else{
+                        post.setBookmark(false)
+                    }
+                }
+
+
+                val list = ArrayList<Post>(dataPosts)
+                val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
+
+                if (index != -1){
+                    list.set(index, post)
+
+                    dataPosts = list
+                    unregisteredFeedAdapter.updatePosts(list)
+                }
+
+            }
+        }
+
+        override fun onChildRemoved(snapshot: DataSnapshot) {
+            val post = snapshot.getValue(Post::class.java)
+
+            if (post != null && !post.getPostId().isNullOrEmpty()){
+
+                val list = ArrayList<Post>(dataPosts)
+
+                val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
+
+                if (index != -1){
+                    list.removeAt(index)
+
+                    dataPosts = list
+                    unregisteredFeedAdapter.updatePosts(list)
+
+                    if (dataPosts.isNullOrEmpty()){
                         ivNone.visibility = View.VISIBLE
                         tvNone.visibility = View.VISIBLE
                         tvSubNone.visibility = View.VISIBLE
                     }
+                }
 
-                    unregisteredFeedAdapter.notifyDataSetChanged()
+            }
+        }
+
+        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            /* This is intentionally left blank */
+
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            val intent = Intent(this@BrowseFeedUnregisteredActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
+    }
+    /**
+     * Fetches realtime updates from the remote database to prevent the entire activity from reloading
+     * in case data change as a result of some user activity.
+     */
+    private fun getRealtimeUpdates(){
+        this.ivNone = findViewById(R.id.iv_feed_unregistered_none)
+        this.tvNone = findViewById(R.id.tv_feed_unregistered_none)
+        this.tvSubNone = findViewById(R.id.tv_feed_unregistered_subtitle_none)
+
+        val postDB = db.child(Keys.KEY_DB_POSTS.name)
+
+        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    ivNone.visibility = View.GONE
+                    tvNone.visibility = View.GONE
+                    tvSubNone.visibility = View.GONE
                 }
 
                 else{
@@ -301,76 +360,10 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
                 val intent = Intent(this@BrowseFeedUnregisteredActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
-        })
-    }
-
-    /**
-     * Fetches realtime updates from the remote database to prevent the entire activity from reloading
-     * in case data change as a result of some user activity.
-     */
-    private fun getRealtimeUpdates(){
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-
-        postDB.addChildEventListener(object: ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val post = snapshot.getValue(Post::class.java)
-
-                if (post != null && !post.getPostId().isNullOrEmpty()){
-                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
-                        post.setUpvote(true)
-                    }
-
-                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
-                        post.setBookmark(true)
-                    }
-
-                    dataPosts.add(post)
-                }
-
-                unregisteredFeedAdapter.notifyDataSetChanged()
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val post = snapshot.getValue(Post::class.java)
-
-                if (post != null && !post.getPostId().isNullOrEmpty()){
-                    if (!post.getUpvoteUsers().isNullOrEmpty()){
-                        if(post.getUpvoteUsers().containsKey(userId)){
-                            post.setUpvote(true)
-                        }
-                        else{
-                            post.setUpvote(false)
-                        }
-                    }
-
-                    if(!post.getBookmarkUsers().isNullOrEmpty()) {
-                        if (post.getBookmarkUsers().containsKey(userId)){
-                            post.setBookmark(true)
-                        }
-                        else{
-                            post.setBookmark(false)
-                        }
-                    }
-                }
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                val post = snapshot.getValue(Post::class.java)
-                dataPosts.remove(post)
-                unregisteredFeedAdapter.notifyDataSetChanged()
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                /* This is intentionally left blank */
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseFeedUnregisteredActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
 
         })
+
+        postDB.addChildEventListener(childEventListener)
     }
 
     /**

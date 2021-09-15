@@ -47,6 +47,17 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
 
     private lateinit var pbComment: ProgressBar
 
+    /**
+     * First (main) text view displayed when the feed does not have any post to display.
+     */
+    private lateinit var ivNone: ImageView
+
+    /**
+     * Second text view displayed displayed when the feed does not have any post to display.
+     */
+    private lateinit var tvNone: TextView
+
+
     private lateinit var srlViewCommentsFollowed: SwipeRefreshLayout
 
     //Firebase
@@ -222,6 +233,8 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
     }
 
     private fun initContents(){
+        this.ivNone = findViewById(R.id.iv_view_comments_followed_no_comment)
+        this.tvNone = findViewById(R.id.tv_view_comments_followed_no_comment)
 
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
 
