@@ -199,6 +199,14 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
 
         clItemViewPostUnregisteredComment.setOnClickListener {
             val intent = Intent(this, ViewCommentsUnregisteredActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                postId
+            )
+            intent.putExtra(
+                Keys.KEY_NUM_COMMENTS.name,
+                comments
+            )
             startActivity(intent)
         }
 

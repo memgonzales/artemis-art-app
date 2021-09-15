@@ -74,16 +74,8 @@ class UnregisteredCommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>()
         holder.setItemCommentProfileOnClickListener { view ->
             val intent = Intent(view.context, ViewUserUnregisteredActivity::class.java)
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                currentComment.getProfilePicture()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                currentComment.getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                "Dummy bio"
+                Keys.KEY_USERID.name,
+                currentComment.getUserId()
             )
             view.context.startActivity(intent)
         }
