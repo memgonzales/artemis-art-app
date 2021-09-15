@@ -36,7 +36,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
-class ViewPostFollowedActivity : AppCompatActivity() {
+class   ViewPostFollowedActivity : AppCompatActivity() {
     private lateinit var civItemViewPostFollowedProfilePic: CircleImageView
     private lateinit var tvItemViewPostFollowedUsername: TextView
     private lateinit var ivItemViewPostFollowedPost: ImageView
@@ -306,6 +306,14 @@ class ViewPostFollowedActivity : AppCompatActivity() {
 
         clItemViewPostFollowedComment.setOnClickListener {
             val intent = Intent(this, ViewCommentsFollowedActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_POSTID.name,
+                postId
+            )
+            intent.putExtra(
+                Keys.KEY_NUM_COMMENTS.name,
+                comments
+            )
             startActivity(intent)
         }
 
