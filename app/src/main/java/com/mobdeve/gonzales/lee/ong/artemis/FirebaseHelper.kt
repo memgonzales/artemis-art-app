@@ -435,82 +435,8 @@ class FirebaseHelper {
             }
 
         })
-        /*
-        commentDB.orderByChild(Keys.postId.name).equalTo(postId)
-            .addListenerForSingleValueEvent(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()){
-                        for (c in snapshot.children){
-                            var commentKey = c.key!!
-
-                            commentDB.child(commentKey).removeValue()
-                        }
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    val intent = Intent(context, BrokenLinkActivity::class.java)
-                    context.startActivity(intent)
-                }
-
-            })
-
-         */
     }
-
-    /**
-     * Deletes the account details of the current user from the database.
-     */
-    fun deleteUserDB(){
-        val userDB = db.child(Keys.KEY_DB_USERS.name).child(userId)
-
-        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userSnap = snapshot.getValue(User::class.java)
-
-                if (userSnap != null && !userSnap.getEmail().isNullOrEmpty() && !userSnap.getPassword().isNullOrEmpty()){
-                   // val hash = userSnap.getPassword()
-
-                    credential = EmailAuthProvider.getCredential(userSnap.getEmail()!!, userSnap.getPassword()!!)
-
-                    user.reauthenticate(credential).addOnCompleteListener {
-                        if (it.isSuccessful){
-
-                            deleteUser()
-                            user.delete().addOnCompleteListener {
-                                if (it.isSuccessful){
-
-                                    Toast.makeText(context.applicationContext, "Account deleted", Toast.LENGTH_SHORT).show()
-                                    val intent = Intent(context, LogInActivity::class.java)
-                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                    context.startActivity(intent)
-                                }
-
-                                else{
-                                    Toast.makeText(context, "Failed to delete account", Toast.LENGTH_SHORT).show()
-                                }
-                            }
-
-
-                        }
-
-                        else{
-                            Toast.makeText(context, "Failed to delete account", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(context, BrokenLinkActivity::class.java)
-                context.startActivity(intent)
-            }
-
-        })
-
-    }
-
+    
     /**
      * Deletes the account details of the current user.
      */

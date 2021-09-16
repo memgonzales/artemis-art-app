@@ -15,6 +15,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -78,6 +80,16 @@ class AccountManagementActivity : AppCompatActivity(), DialogWithInput.DialogWit
      * Identifier of the user in the Firebase database.
      */
     private lateinit var userId: String
+
+    /**
+     * Email address of the user.
+     */
+    private lateinit var email: String
+
+    /**
+     * Credential used by Firebase to authenticate a user.
+     */
+    private lateinit var credential: AuthCredential
 
     /**
      * Object instantiating the class containing helper methods for Firebase CRUD operations.
@@ -184,6 +196,7 @@ class AccountManagementActivity : AppCompatActivity(), DialogWithInput.DialogWit
         if (this.mAuth.currentUser != null){
             this.user = this.mAuth.currentUser!!
             this.userId = this.user.uid
+            this.email = this.user.email!!
         }
 
         else{
@@ -210,6 +223,7 @@ class AccountManagementActivity : AppCompatActivity(), DialogWithInput.DialogWit
 
         val passwordDialog = DialogWithInput()
         passwordDialog.show(supportFragmentManager, "Dialog");
+
 
 //        val builder = AlertDialog.Builder(this)
 //        builder.setTitle("Delete Profile")
@@ -252,6 +266,32 @@ class AccountManagementActivity : AppCompatActivity(), DialogWithInput.DialogWit
     override fun fetchPassword(password: String): String {
         tvAccountManagementInputPassword = findViewById(R.id.tv_account_management_input_password)
         tvAccountManagementInputPassword.text = password
+
+
+        this.firebaseHelper = FirebaseHelper(this@AccountManagementActivity)
+
+        credential = EmailAuthProvider.getCredential(email, password)
+
+        user.reauthenticate(credential).addOnCompleteListener {
+            if (it.isSuccessful){
+
+                firebaseHelper.deleteUser()
+
+                user.delete().addOnCompleteListener {
+                    if (it.isSuccessful){
+                        deleteSuccessfully()
+                    }
+
+                    else{
+                        deleteFailed()
+                    }
+                }
+            }
+
+            else{
+                deleteFailed()
+            }
+        }
 
         return tvAccountManagementInputPassword.text as String
     }

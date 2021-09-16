@@ -117,8 +117,15 @@ class EditPasswordActivity : AppCompatActivity() {
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
 
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@EditPasswordActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**
