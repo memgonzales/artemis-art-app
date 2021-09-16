@@ -404,6 +404,8 @@ class ViewCommentsActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val commentSnap = snapshot.getValue(Comment::class.java)
 
+                numComment--
+
                 if (commentSnap != null &&
                     !commentSnap.getUserId().isNullOrEmpty() &&
                     !commentSnap.getCommentId().isNullOrEmpty() &&
