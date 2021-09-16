@@ -340,9 +340,6 @@ class SearchResultsActivity : AppCompatActivity() {
      * Initializes the contents (i.e., the list of resulting users and posts) of the activity.
      */
     private fun initContents() {
-        //this.dataPosts = DataHelper.loadPostData();
-        //this.dataUsers = DataHelper.loadSearchUserData();
-
         this.dataPosts = arrayListOf<Post>()
         this.dataUsers = arrayListOf<User>()
 
@@ -360,14 +357,7 @@ class SearchResultsActivity : AppCompatActivity() {
 
         val search = intent.getStringExtra(Keys.KEY_SEARCH.name).toString()
 
-        //this.civSearchResultUser1.setImageResource(dataUsers[0].getUserImg())
-        //this.civSearchResultUser2.setImageResource(dataUsers[1].getUserImg())
-        //this.civSearchResultUser3.setImageResource(dataUsers[2].getUserImg())
-        //this.civSearchResultUser4.setImageResource(dataUsers[3].getUserImg())
-
         getUserSearchResults(search)
-        //getSearchPostResults(search)
-
 
         civSearchResultUser1.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
