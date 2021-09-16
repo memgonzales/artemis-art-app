@@ -78,7 +78,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_bio"
+                    app:layout_constraintTop_toBottomOf="@+id/til_edit_bio"
                     app:layout_constraintVertical_bias="0.05"
                     android:focusable="true">
 
@@ -269,7 +269,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_edit_profile_bio"
+                    android:id="@+id/til_edit_bio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textColorHint="@color/purple_main"
@@ -284,7 +284,7 @@
                     app:layout_constraintVertical_bias="0.05">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_edit_profile_bio"
+                        android:id="@+id/tiet_edit_bio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/tiet_edit_profile_bio"

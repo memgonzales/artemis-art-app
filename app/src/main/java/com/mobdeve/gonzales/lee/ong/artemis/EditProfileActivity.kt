@@ -20,7 +20,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
@@ -300,7 +299,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         this.civEditProfilePic = findViewById(R.id.civ_edit_profile_pic)
         this.tietEditProfileUsername = findViewById(R.id.tiet_edit_profile_username)
-        this.tietEditProfileBio = findViewById(R.id.tiet_edit_profile_bio)
+        this.tietEditProfileBio = findViewById(R.id.tiet_edit_bio)
 
         this.tietEditProfileUsername.isFocusable = false
 
