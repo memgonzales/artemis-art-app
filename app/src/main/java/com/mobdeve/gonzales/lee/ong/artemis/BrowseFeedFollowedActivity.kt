@@ -254,7 +254,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         sflFollowed.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
-           // initRecyclerView()
+            initRecyclerView()
             sflFollowed.visibility = View.GONE
             rvFollowed.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
@@ -483,6 +483,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         })
     }
 
+    /*
     override fun onPause() {
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.usersFollowed.name)
         userDB.removeEventListener(childEventListenerUser)
@@ -497,6 +498,8 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
 
         initRecyclerView()
     }
+
+     */
 
     /**
      * Initialize the contents of the Activity's standard options menu.

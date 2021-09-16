@@ -249,7 +249,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         sflBookmarks.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
-          //  initRecyclerView()
+            initRecyclerView()
             sflBookmarks.visibility = View.GONE
             rvBookmarks.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())

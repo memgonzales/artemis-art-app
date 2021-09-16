@@ -165,7 +165,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         sflFeed.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
-         //   initRecyclerView()
+            initRecyclerView()
             sflFeed.visibility = View.GONE
             rvFeed.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())

@@ -244,7 +244,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         sflHighlights.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
-           // initRecyclerView()
+            initRecyclerView()
             sflHighlights.visibility = View.GONE
             rvHighlights.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())

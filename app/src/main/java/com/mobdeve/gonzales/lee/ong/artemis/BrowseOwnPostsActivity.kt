@@ -248,7 +248,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         sflBrowseOwnPosts.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
-           // initRecyclerView()
+            initRecyclerView()
             sflBrowseOwnPosts.visibility = View.GONE
             rvBrowseOwnPosts.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())

@@ -217,26 +217,28 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
     override fun onBindViewHolder(holder: OwnPostsViewHolder, position: Int) {
         val currentPost = differ.currentList[position]
 
-        holder.setOwnPostProfilePic(currentPost.getProfilePicture()!! )
-        /*
+        //holder.setOwnPostProfilePic(currentPost.getProfilePicture()!! )
+
         Glide.with(context)
+            .asBitmap()
             .load(currentPost.getProfilePicture())
             .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(holder.getOwnPostProfilePic())
 
 
-         */
+
         holder.setOwnPostUsername(currentPost.getUsername())
 
-        holder.setOwnPostPost(currentPost.getPostImg()!!)
-        /*
+        //holder.setOwnPostPost(currentPost.getPostImg()!!)
+
         Glide.with(context)
+            .asBitmap()
             .load(currentPost.getPostImg())
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(holder.getOwnPostPost())
-         */
+
         holder.setOwnPostTitle(currentPost.getTitle())
 
         if (currentPost.getNumUpvotes() == 1) {
