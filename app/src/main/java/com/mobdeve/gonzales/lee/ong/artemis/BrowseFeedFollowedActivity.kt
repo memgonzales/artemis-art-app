@@ -375,6 +375,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
 
             ivNone.visibility = View.VISIBLE
             tvNone.visibility = View.VISIBLE
+            tvSubNone.visibility = View.VISIBLE
 
         }, AnimationDuration.NO_POST_TIMEOUT.toLong())
 
