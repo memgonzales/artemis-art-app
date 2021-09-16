@@ -250,7 +250,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         sflBookmarks.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            initRecyclerView()
+          //  initRecyclerView()
             sflBookmarks.visibility = View.GONE
             rvBookmarks.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
@@ -310,6 +310,47 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         getRealtimeUpdates()
     }
 
+    private var childEventListener = object : ChildEventListener{
+        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            val postId = snapshot.key.toString()
+
+            if (postId != null){
+                getPost(postId)
+            }
+
+        }
+
+        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            /* This is intentionally left blank */
+        }
+
+        override fun onChildRemoved(snapshot: DataSnapshot) {
+            val postId = snapshot.key.toString()
+
+            if (postId != null){
+
+                val list = ArrayList<Post>(dataPosts)
+
+                val index = list.indexOfFirst { it.getPostId() == postId }
+
+                if (index != -1){
+                    list.removeAt(index)
+
+                    dataPosts = list
+                    bookmarksAdapter.updatePosts(list)
+                }
+            }
+        }
+
+        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            /* This is intentionally left blank */
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            val intent = Intent(this@BrowseBookmarksActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
+    }
     /**
      * Fetches realtime updates from the remote database to prevent the entire activity from reloading
      * in case data change as a result of some user activity.
@@ -318,79 +359,24 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         this.ivNone = findViewById(R.id.iv_browse_bookmarks_none)
         this.tvNone = findViewById(R.id.tv_browse_bookmarks_none)
 
-        val userDB = db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.bookmarks.name)
+        Handler(Looper.getMainLooper()).postDelayed({
 
-        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    ivNone.visibility = View.GONE
-                    tvNone.visibility = View.GONE
-                }
-
-                else{
-                    ivNone.visibility = View.VISIBLE
-                    tvNone.visibility = View.VISIBLE
-                }
+            if (dataPosts.isNullOrEmpty()){
+                ivNone.visibility = View.VISIBLE
+                tvNone.visibility = View.VISIBLE
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseBookmarksActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
+        }, AnimationDuration.NO_POST_TIMEOUT.toLong())
 
-        })
 
-        userDB.addChildEventListener(object : ChildEventListener{
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val postId = snapshot.key.toString()
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.bookmarks.name)
 
-                if (postId != null){
-                    getPost(postId)
-                }
-
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                /* This is intentionally left blank */
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                val postId = snapshot.key.toString()
-
-                if (postId != null){
-
-                    val list = ArrayList<Post>(dataPosts)
-
-                    val index = list.indexOfFirst { it.getPostId() == postId }
-
-                    if (index != -1){
-                        list.removeAt(index)
-
-                        dataPosts = list
-                        bookmarksAdapter.updatePosts(list)
-
-                        if (dataPosts.isNullOrEmpty()){
-                            ivNone.visibility = View.VISIBLE
-                            tvNone.visibility = View.VISIBLE
-                        }
-                    }
-
-                }
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                /* This is intentionally left blank */
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseBookmarksActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-        })
+        userDB.addChildEventListener(childEventListener)
     }
 
+
     private fun getPost(postId: String){
-        val postDB = db.child(Keys.KEY_DB_POSTS.name).child(postId)
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name).child(postId)
 
         postDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -401,6 +387,9 @@ class BrowseBookmarksActivity : AppCompatActivity() {
                     if (post != null){
                         dataPosts.add(post)
                         bookmarksAdapter.updatePosts(dataPosts)
+
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
                     }
                 }
             }
@@ -411,6 +400,19 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onPause() {
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.bookmarks.name)
+        userDB.removeEventListener(childEventListener)
+
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        initRecyclerView()
     }
 
     /**

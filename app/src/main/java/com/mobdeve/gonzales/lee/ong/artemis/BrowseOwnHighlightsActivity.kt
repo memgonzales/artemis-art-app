@@ -244,7 +244,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         sflHighlights.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            initRecyclerView()
+           // initRecyclerView()
             sflHighlights.visibility = View.GONE
             rvHighlights.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
@@ -305,6 +305,53 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         getRealtimeUpdates()
     }
 
+    private var childEventListener = object : ChildEventListener{
+        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            val postId = snapshot.key.toString()
+
+            if (postId != null){
+                getPost(postId)
+            }
+        }
+
+        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            /* This is intentionally left blank */
+        }
+
+        override fun onChildRemoved(snapshot: DataSnapshot) {
+            val postId = snapshot.key.toString()
+
+            if (postId != null){
+
+                val list = ArrayList<Post>(dataPosts)
+
+                val index = list.indexOfFirst { it.getPostId() == postId }
+
+                if (index != -1){
+                    list.removeAt(index)
+
+                    dataPosts = list
+                    highlightsAdapter.updatePosts(list)
+
+                    if (dataPosts.isNullOrEmpty()){
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            /* This is intentionally left blank */
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            val intent = Intent(this@BrowseOwnHighlightsActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
     /**
      * Fetches realtime updates from the remote database to prevent the entire activity from reloading
      * in case data change as a result of some user activity.
@@ -313,79 +360,22 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         this.ivNone = findViewById(R.id.iv_browse_highlights_none)
         this.tvNone = findViewById(R.id.tv_browse_highlights_none)
 
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            if (dataPosts.isNullOrEmpty()){
+                ivNone.visibility = View.VISIBLE
+                tvNone.visibility = View.VISIBLE
+            }
+
+        }, AnimationDuration.NO_POST_TIMEOUT.toLong())
+
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.highlights.name)
 
-        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                if (snapshot.exists()){
-                    ivNone.visibility = View.GONE
-                    tvNone.visibility = View.GONE
-                }
-
-                else{
-                    ivNone.visibility = View.VISIBLE
-                    tvNone.visibility = View.VISIBLE
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseOwnHighlightsActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-
-        })
-
-        userDB.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val postId = snapshot.key.toString()
-
-                if (postId != null){
-                    getPost(postId)
-                }
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                /* This is intentionally left blank */
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                val postId = snapshot.key.toString()
-
-                if (postId != null){
-
-                    val list = ArrayList<Post>(dataPosts)
-
-                    val index = list.indexOfFirst { it.getPostId() == postId }
-
-                    if (index != -1){
-                        list.removeAt(index)
-
-                        dataPosts = list
-                        highlightsAdapter.updatePosts(list)
-
-                        if (dataPosts.isNullOrEmpty()){
-                            ivNone.visibility = View.VISIBLE
-                            tvNone.visibility = View.VISIBLE
-                        }
-                    }
-                }
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                /* This is intentionally left blank */
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseOwnHighlightsActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-
-        })
+        userDB.addChildEventListener(childEventListener)
     }
 
     private fun getPost(postId: String){
-        val postDB = db.child(Keys.KEY_DB_POSTS.name).child(postId)
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name).child(postId)
 
         postDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -396,6 +386,9 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
                     if (post != null){
                         dataPosts.add(post)
                         highlightsAdapter.updatePosts(dataPosts)
+
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
                     }
                 }
             }
@@ -406,6 +399,19 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onPause() {
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.highlights.name)
+        userDB.removeEventListener(childEventListener)
+
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        initRecyclerView()
     }
 
     /**

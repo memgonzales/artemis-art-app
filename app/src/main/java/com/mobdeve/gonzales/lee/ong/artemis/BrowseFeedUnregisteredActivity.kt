@@ -165,7 +165,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         sflFeed.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            initRecyclerView()
+         //   initRecyclerView()
             sflFeed.visibility = View.GONE
             rvFeed.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
@@ -255,6 +255,10 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
 
                 dataPosts.add(post)
                 unregisteredFeedAdapter.updatePosts(dataPosts)
+
+                ivNone.visibility = View.GONE
+                tvNone.visibility = View.GONE
+                tvSubNone.visibility = View.GONE
             }
         }
 
@@ -309,12 +313,6 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
 
                     dataPosts = list
                     unregisteredFeedAdapter.updatePosts(list)
-
-                    if (dataPosts.isNullOrEmpty()){
-                        ivNone.visibility = View.VISIBLE
-                        tvNone.visibility = View.VISIBLE
-                        tvSubNone.visibility = View.VISIBLE
-                    }
                 }
 
             }
@@ -339,31 +337,31 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         this.tvNone = findViewById(R.id.tv_feed_unregistered_none)
         this.tvSubNone = findViewById(R.id.tv_feed_unregistered_subtitle_none)
 
-        val postDB = db.child(Keys.KEY_DB_POSTS.name)
+        Handler(Looper.getMainLooper()).postDelayed({
 
-        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    ivNone.visibility = View.GONE
-                    tvNone.visibility = View.GONE
-                    tvSubNone.visibility = View.GONE
-                }
-
-                else{
-                    ivNone.visibility = View.VISIBLE
-                    tvNone.visibility = View.VISIBLE
-                    tvSubNone.visibility = View.VISIBLE
-                }
+            if (dataPosts.isNullOrEmpty()){
+                ivNone.visibility = View.VISIBLE
+                tvNone.visibility = View.VISIBLE
+                tvSubNone.visibility = View.VISIBLE
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseFeedUnregisteredActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
+        }, AnimationDuration.NO_POST_TIMEOUT.toLong())
 
-        })
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addChildEventListener(childEventListener)
+    }
+
+    override fun onPause() {
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+        postDB.removeEventListener(childEventListener)
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        initRecyclerView()
     }
 
     /**

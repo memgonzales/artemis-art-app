@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -258,7 +259,7 @@ class BrowseFeedActivity : AppCompatActivity() {
         sflFeed.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            initRecyclerView()
+       //     initRecyclerView()
             sflFeed.visibility = View.GONE
             rvFeed.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
@@ -345,6 +346,11 @@ class BrowseFeedActivity : AppCompatActivity() {
 
                 dataPosts.add(post)
                 feedAdapter.updatePosts(dataPosts)
+
+                ivNone.visibility = View.GONE
+                tvNone.visibility = View.GONE
+                tvSubNone.visibility = View.GONE
+
             }
 
 
@@ -383,6 +389,7 @@ class BrowseFeedActivity : AppCompatActivity() {
                     feedAdapter.updatePosts(list)
                 }
 
+
             }
         }
 
@@ -400,12 +407,6 @@ class BrowseFeedActivity : AppCompatActivity() {
 
                     dataPosts = list
                     feedAdapter.updatePosts(list)
-
-                    if (dataPosts.isNullOrEmpty()){
-                        ivNone.visibility = View.VISIBLE
-                        tvNone.visibility = View.VISIBLE
-                        tvSubNone.visibility = View.VISIBLE
-                    }
                 }
 
             }
@@ -431,44 +432,36 @@ class BrowseFeedActivity : AppCompatActivity() {
         this.tvNone = findViewById(R.id.tv_feed_none)
         this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
 
-        val postDB = db.child(Keys.KEY_DB_POSTS.name)
+        Handler(Looper.getMainLooper()).postDelayed({
 
-        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    ivNone.visibility = View.GONE
-                    tvNone.visibility = View.GONE
-                    tvSubNone.visibility = View.GONE
-                }
-
-                else{
-                    ivNone.visibility = View.VISIBLE
-                    tvNone.visibility = View.VISIBLE
-                    tvSubNone.visibility = View.VISIBLE
-                }
+            if (dataPosts.isNullOrEmpty()){
+                ivNone.visibility = View.VISIBLE
+                tvNone.visibility = View.VISIBLE
+                tvSubNone.visibility = View.VISIBLE
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
+        }, AnimationDuration.NO_POST_TIMEOUT.toLong())
 
-        })
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addChildEventListener(childEventListener)
 
 
     }
 
-    /*
-    override fun onPause() {
-        val postDB = db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addChildEventListener(childEventListener)
+    override fun onPause() {
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
+        postDB.removeEventListener(childEventListener)
         super.onPause()
     }
 
-     */
+    override fun onResume() {
+        super.onResume()
+
+        initRecyclerView()
+    }
+
 
 
     /**
