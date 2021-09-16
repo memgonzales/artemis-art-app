@@ -224,39 +224,8 @@ class AccountManagementActivity : AppCompatActivity(), DialogWithInput.DialogWit
     private fun deleteDialog() {
 
         val passwordDialog = DialogWithInput()
-        passwordDialog.show(supportFragmentManager, "Dialog");
+        passwordDialog.show(supportFragmentManager, "Dialog")
 
-
-//        val builder = AlertDialog.Builder(this)
-//        builder.setTitle("Delete Profile")
-//        builder.setMessage("Are you sure you want to delete your profile? This action cannot be reversed.")
-//        builder.setPositiveButton(
-//            "Delete"
-//        ) { _, _ ->
-//
-//            this.firebaseHelper = FirebaseHelper(this@AccountManagementActivity)
-//            this.firebaseHelper.deleteUserDB()
-//
-//            /*
-//            this.user.delete()
-//                .addOnCompleteListener { task ->
-//                    if(task.isSuccessful){
-//                        this.firebaseHelper.deleteUserDB()
-//                        deleteSuccessfully()
-//                    }
-//
-//                    else{
-//                        deleteFailed()
-//                    }
-//                }
-//
-//             */
-//        }
-//
-//        builder.setNegativeButton(
-//            "Cancel"
-//        ) { _, _ -> }
-//        builder.create().show()
     }
 
     /**

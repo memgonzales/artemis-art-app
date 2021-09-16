@@ -144,9 +144,9 @@ class BookmarksAdapter() : RecyclerView.Adapter<BookmarksViewHolder>() {
     }
 
     /**
-     * Updates the comments displayed through the adapter.
+     * Updates the bookmarks displayed through the adapter.
      *
-     * @param newComments List of new comments to be displayed through the adapter.
+     * @param newPosts List of new bookmarks to be displayed through the adapter.
      */
     fun updatePosts(newPosts: List<Post>){
         differ.submitList(newPosts)

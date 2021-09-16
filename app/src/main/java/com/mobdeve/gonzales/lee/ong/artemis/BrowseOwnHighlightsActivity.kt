@@ -402,21 +402,6 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         })
     }
 
-    /*
-    override fun onPause() {
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.highlights.name)
-        userDB.removeEventListener(childEventListener)
-
-        super.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        initRecyclerView()
-    }
-
-     */
 
     /**
      * Adds a back button to the action bar.

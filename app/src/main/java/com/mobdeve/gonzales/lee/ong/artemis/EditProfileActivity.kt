@@ -357,8 +357,8 @@ class EditProfileActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         url.downloadUrl
                             .addOnSuccessListener {
-                                uploadSuccessfully()
-                                updateDB(it.toString(), "")
+                               // uploadSuccessfully()
+                                updateDB(it.toString(), bio)
                             }
 
                             .addOnFailureListener {
@@ -375,8 +375,8 @@ class EditProfileActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         url.downloadUrl
                             .addOnSuccessListener {
-                                uploadSuccessfully()
-                                updateDB(it.toString(), "")
+                                //uploadSuccessfully()
+                                updateDB(it.toString(), bio)
                             }
 
                             .addOnFailureListener {
@@ -491,7 +491,7 @@ class EditProfileActivity : AppCompatActivity() {
     /**
      * Defines the behavior when the attribute in the user's profile are successfully edited.
      */
-    private fun updateSuccessfully(){
+    private fun updateProfileSuccessfully(){
         pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
 
@@ -503,7 +503,7 @@ class EditProfileActivity : AppCompatActivity() {
     /**
      * Defines the behavior when the attribute in the user's profile are not successfully edited.
      */
-    private fun updateFailed(){
+    private fun updateProfileFailed(){
         pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Failed to update your profile details", Toast.LENGTH_SHORT).show()
     }
@@ -519,20 +519,21 @@ class EditProfileActivity : AppCompatActivity() {
 
         val updates = hashMapOf<String, Any>(
             "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userImg.name}" to userImg
-         //   "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bio.name}" to bio
+           // "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bio.name}" to bio
         )
 
         db.updateChildren(updates)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    updateSuccessfully()
+                    uploadSuccessfully()
                 }
 
                 else{
-                    updateFailed()
+                    uploadFailed()
                 }
             }
 
+        updateBio(bio)
         /*
         userDB.child(Keys.bio.name).setValue(bio)
             .addOnSuccessListener {
@@ -556,8 +557,8 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun updateBio(bio: String){
         this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.bio.name).setValue(bio)
-            .addOnSuccessListener { updateSuccessfully() }
-            .addOnFailureListener { updateFailed() }
+            .addOnSuccessListener { updateProfileSuccessfully() }
+            .addOnFailureListener { updateProfileFailed() }
     }
 
     /**

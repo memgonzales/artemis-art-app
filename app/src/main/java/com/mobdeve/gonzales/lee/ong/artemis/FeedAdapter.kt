@@ -354,9 +354,9 @@ class FeedAdapter(private val parentActivity: Activity) :
     }
 
     /**
-     * Pass a new List to the AdapterHelper, with the Adapter updates computed on a background thread.
+     * Updates the posts displayed through the adapter.
      *
-     * @param newPosts The new List.
+     * @param newPosts List of new posts to be displayed through the adapter.
      */
     fun updatePosts(newPosts: List<Post>){
         differ.submitList(newPosts)

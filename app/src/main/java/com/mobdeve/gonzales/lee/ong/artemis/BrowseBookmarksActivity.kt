@@ -404,22 +404,6 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         })
     }
 
-    /*
-    override fun onPause() {
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.bookmarks.name)
-        userDB.removeEventListener(childEventListener)
-
-        super.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        initRecyclerView()
-    }
-
-     */
-
     /**
      * Initialize the contents of the Activity's standard options menu.
      *

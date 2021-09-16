@@ -134,6 +134,11 @@ class HighlightsAdapter() : RecyclerView.Adapter<HighlightsViewHolder>() {
         return differ.currentList.size
     }
 
+    /**
+     * Updates the highlights displayed through the adapter.
+     *
+     * @param newPosts List of new highlights to be displayed through the adapter.
+     */
     fun updatePosts(newPosts: List<Post>){
         differ.submitList(newPosts)
     }

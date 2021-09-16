@@ -92,10 +92,7 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
     private lateinit var credentials: AuthCredential
 
     /**
-     * Retrieves and returns the password entered by the user in the confirmation dialog.
-     *
-     * @param password Password entered by the user in the confirmation dialog.
-     * @return Password entered by the user, casted as a string.
+     * Text view for fetching the password entered by the user in the confirmatory dialog.
      */
     private lateinit var tvEditEmailInputPassword: TextView
 
@@ -162,11 +159,20 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
         }
     }
 
+    /**
+     * Creates the confirmation dialog when the edit button is clicked.
+     */
     private fun editDialog() {
         val passwordDialog = DialogWithInput()
-        passwordDialog.show(supportFragmentManager, "Dialog");
+        passwordDialog.show(supportFragmentManager, "Dialog")
     }
 
+    /**
+     * Retrieves and returns the password entered by the user in the confirmation dialog.
+     *
+     * @param password Password entered by the user in the confirmation dialog.
+     * @return Password entered by the user, casted as a string.
+     */
     override fun fetchPassword(password: String): String {
         tvEditEmailInputPassword = findViewById(R.id.tv_edit_email_input_password)
         tvEditEmailInputPassword.text = password
