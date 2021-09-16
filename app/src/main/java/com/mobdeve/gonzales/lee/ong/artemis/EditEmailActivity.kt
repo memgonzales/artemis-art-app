@@ -122,9 +122,16 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
 
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
-        this.email = this.user.email!!
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+            this.email = this.user.email!!
+        }
+
+        else{
+            val intent = Intent(this@EditEmailActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**
