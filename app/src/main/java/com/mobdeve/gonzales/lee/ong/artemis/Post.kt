@@ -108,6 +108,8 @@ class Post {
 
     /**
      * Creates a post.
+     *
+     * @constructor Creates a post.
      */
     constructor(){
         /*
@@ -122,6 +124,10 @@ class Post {
      * of the artwork, the dimensions of the artwork, the description of the post, and the tags of
      * the post.
      *
+     * @constructor Creates a post given the unique identifier of the user who posted the post, the
+     * unique identifier of the post itself, the title of the post, the artwork to be posted, the medium
+     * of the artwork, the dimensions of the artwork, the description of the post, and the tags of
+     * the post.
      * @param userId Unique identifier of the user who posted the post.
      * @param postId Unique identifier of the post itself.
      * @param title Title of the post.

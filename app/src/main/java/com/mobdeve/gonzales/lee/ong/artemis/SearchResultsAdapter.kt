@@ -8,6 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.util.*
 
+/**
+ * Adapter for the recycler view that handles the posts displayed on the search results.
+ *
+ * @constructor Creates an adapter for the recycler view that handles the posts displayed on the search results.
+ * @param dataPosts Posts displayed on the search results.
+ */
 class SearchResultsAdapter(private val dataPosts: ArrayList<Post>) :
     RecyclerView.Adapter<SearchViewHolder>() {
 

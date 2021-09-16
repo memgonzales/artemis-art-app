@@ -48,6 +48,8 @@ class Comment {
 
     /**
      * Creates a comment.
+     *
+     * @constructor Creates a comment.
      */
     constructor() {
         /*
@@ -61,6 +63,9 @@ class Comment {
      * the comment itself, and the unique identifier, profile picture, and username of the user
      * who posted it.
      *
+     * @constructor Creates a comment given the unique identifier of the post to which the comment
+     * is tied, the comment itself, and the unique identifier, profile picture, and username of the
+     * user who posted it.
      * @param userId Unique identifier of the user who posted the comment.
      * @param postId Unique identifier of the post to which the comment is tied.
      * @param profilePicture URI of the profile picture of the user who posted the comment.
