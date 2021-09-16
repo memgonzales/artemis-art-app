@@ -392,16 +392,19 @@ class AddProfilePictureActivity : AppCompatActivity() {
 
             clDialogProfilePictureEdit.setOnClickListener {
                 PostArtworkUtil.chooseFromGallery(this, galleryLauncher)
+                btmProfilePicture.dismiss()
             }
 
             clDialogProfilePictureCamera.setOnClickListener {
                 photoFile = PostArtworkUtil.takeFromCamera(this, this@AddProfilePictureActivity, cameraLauncher)
+                btmProfilePicture.dismiss()
             }
 
             clDialogProfilePictureDelete.setOnClickListener {
                 civUploadImg.setImageResource(R.drawable.painter)
                 isProfilePictureUploaded = false
                 cameraTaken = false
+                btmProfilePicture.dismiss()
             }
 
             btmProfilePicture.show()
