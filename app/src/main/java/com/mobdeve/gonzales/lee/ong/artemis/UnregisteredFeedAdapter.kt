@@ -160,16 +160,14 @@ class UnregisteredFeedAdapter() : RecyclerView.Adapter<FeedViewHolder>() {
 
         Glide.with(context)
             .load(currentPost.getProfilePicture())
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.chibi_artemis_hd)
+                        .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(holder.getItemFeedProfilePic())
 
         holder.setItemFeedUsername(currentPost.getUsername())
         Glide.with(context)
             .load(currentPost.getPostImg())
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(holder.getItemFeedPost())
 

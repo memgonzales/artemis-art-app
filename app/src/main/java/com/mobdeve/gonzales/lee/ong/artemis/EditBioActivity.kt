@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -136,12 +135,5 @@ class EditBioActivity : AppCompatActivity() {
     private fun updateProfileFailed(){
         pbEditBio.visibility = View.GONE
         Toast.makeText(this@EditBioActivity, "Failed to update your profile details", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (!this.isDestroyed) {
-            Glide.with(this@EditBioActivity).pauseRequests()
-        }
     }
 }

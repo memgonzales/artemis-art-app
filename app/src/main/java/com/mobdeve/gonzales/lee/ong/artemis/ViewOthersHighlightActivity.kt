@@ -216,8 +216,7 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
 
         Glide.with(this@ViewOthersHighlightActivity)
             .load(profilePicture)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.chibi_artemis_hd)
+                        .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(this.civItemViewOthersHighlightProfilePic)
 
@@ -225,8 +224,7 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
 
         Glide.with(this@ViewOthersHighlightActivity)
             .load(postImg)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(this.ivItemViewOthersHighlightPost)
 

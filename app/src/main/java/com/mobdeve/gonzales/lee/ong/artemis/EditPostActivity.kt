@@ -147,8 +147,7 @@ class EditPostActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load(postImg)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(this.ivEditArtworkPost)
 

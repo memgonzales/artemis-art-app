@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -499,6 +499,13 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
             RequestCodes.REQUEST_CODE_POST_GALLERY.ordinal -> {
                 PostArtworkUtil.permissionsResultGallery(grantResults, context, galleryLauncher)
             }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (!this.isDestroyed) {
+            Glide.with(this@BrowseOwnPostsActivity).pauseRequests()
         }
     }
 }

@@ -235,8 +235,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
                     if(userInfoPost != null){
                         Glide.with(this@ViewUserUnregisteredActivity)
                             .load(userInfoPost.getUserImg())
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .placeholder(R.drawable.chibi_artemis_hd)
+                                        .placeholder(R.drawable.chibi_artemis_hd)
                             .error(R.drawable.chibi_artemis_hd)
                             .into(civViewUserUnregisteredProfilePicture)
 

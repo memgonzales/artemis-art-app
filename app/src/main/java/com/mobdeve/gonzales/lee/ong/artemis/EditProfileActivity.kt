@@ -443,13 +443,6 @@ class EditProfileActivity : AppCompatActivity() {
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (!this.isDestroyed) {
-            Glide.with(this@EditProfileActivity).pauseRequests()
-        }
-    }
-
     /**
      * Launches the bottom sheet dialog showing the options for editing the profile picture:
      * removing the current profile picture, selecting a photo from the Gallery, or taking a
