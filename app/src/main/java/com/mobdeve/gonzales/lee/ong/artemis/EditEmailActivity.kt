@@ -84,6 +84,8 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
      */
     private lateinit var email: String
 
+    private lateinit var newEmail: String
+
     /**
      * Credential that the Firebase Authentication server can use to authenticate the user.
      */
@@ -144,9 +146,9 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
         this.pbEditEmail = findViewById(R.id.pb_edit_email)
 
         this.btnEditEmail.setOnClickListener {
-            val email: String = this.tietNewEmail.text.toString().trim()
+            this.newEmail = this.tietNewEmail.text.toString().trim()
 
-            if(validEmail(email)){
+            if(validEmail(newEmail)){
                 editDialog()
                 // updateEmail(email.lowercase())
             }
@@ -161,6 +163,8 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
     override fun fetchPassword(password: String): String {
         tvEditEmailInputPassword = findViewById(R.id.tv_edit_email_input_password)
         tvEditEmailInputPassword.text = password
+
+        updateEmail(newEmail.lowercase(), password)
 
         return tvEditEmailInputPassword.text as String
     }
@@ -208,34 +212,18 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
      *
      * @param email New email address of the user.
      */
-    private fun updateEmail(email: String){
+    private fun updateEmail(email: String, pw: String){
         pbEditEmail.visibility = View.VISIBLE
 
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
+        credentials = EmailAuthProvider.getCredential(this.email, pw)
 
-        userDB.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                val e: String = snapshot.child(Keys.email.name).value.toString()
-                val pw: String = snapshot.child(Keys.password.name).value.toString()
-
-                credentials = EmailAuthProvider.getCredential(e, pw)
-
-                user.reauthenticateAndRetrieveData(credentials)
-                    .addOnSuccessListener {
-                        checkEmail(email)
-                    }
-                    .addOnFailureListener {
-                        updateFailed()
-                    }
-
+        user.reauthenticate(credentials)
+            .addOnSuccessListener {
+                checkEmail(email)
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                pbEditEmail.visibility = View.GONE
-                Toast.makeText(applicationContext, "Failed to Access User", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener {
+                updateFailed()
             }
-        })
     }
 
     /**
@@ -264,8 +252,6 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
      * @param email Email address to be checked.
      */
     private fun checkEmail(email: String){
-
-
         val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
         userDB.orderByChild(Keys.email.name).equalTo(email)
@@ -274,10 +260,11 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
 
                     if (snapshot.exists()){
                         emailExists()
+                        updateFailed()
                     }
 
                     else{
-                        userDB.child(Keys.email.name).setValue(email)
+                        userDB.child(userId).child(Keys.email.name).setValue(email)
                             .addOnSuccessListener {
                                 user.updateEmail(email)
                                     .addOnSuccessListener { updateSuccessfully() }
