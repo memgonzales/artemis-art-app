@@ -68,26 +68,83 @@
                 android:paddingTop="12dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_edit_profile_edit_email"
-                    android:contentDescription="@string/cl_edit_profile_edit_email"
+                    android:id="@+id/cl_edit_profile_edit_bio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
+                    android:contentDescription="@string/cl_edit_profile_edit_bio"
+                    android:focusable="true"
                     android:padding="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/til_edit_bio"
-                    app:layout_constraintVertical_bias="0.05"
-                    android:focusable="true">
+                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_username"
+                    app:layout_constraintVertical_bias="0.060000002">
 
                     <ImageView
-                        android:id="@+id/iv_edit_profile_edit_email_icon"
-                        android:contentDescription="@string/iv_edit_profile_edit_email_icon"
+                        android:id="@+id/iv_edit_profile_edit_bio_icon"
                         android:layout_width="26dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="true"
+                        android:contentDescription="@string/iv_edit_profile_edit_bio_icon"
+                        android:cropToPadding="false"
+                        android:paddingLeft="1dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_edit_bio_left_margin"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:srcCompat="@drawable/outline_edit_24"
+                        app:tint="@color/default_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_edit_profile_edit_bio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/tv_edit_profile_edit_bio"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_edit_bio_left_margin"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_edit_profile_edit_bio_left_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.12" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_edit_profile_edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:contentDescription="@string/cl_edit_profile_edit_email"
+                    android:focusable="true"
+                    android:padding="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_edit_profile_edit_bio"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <ImageView
+                        android:id="@+id/iv_edit_profile_edit_email_icon"
+                        android:layout_width="26dp"
+                        android:layout_height="0dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/iv_edit_profile_edit_email_icon"
                         android:cropToPadding="false"
                         android:paddingLeft="1dp"
                         android:paddingRight="1dp"
@@ -266,31 +323,6 @@
                         android:inputType="text"
                         android:text="@string/tiet_edit_profile_username_val" />
 
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_edit_bio"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="150"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_edit_profile_right_margin"
-                    app:layout_constraintStart_toStartOf="@+id/gl_edit_profile_left_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/til_edit_profile_username"
-                    app:layout_constraintVertical_bias="0.05">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_edit_bio"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/tiet_edit_profile_bio"
-                        android:inputType="text|textPersonName|textMultiLine"
-                        android:maxLength="150"
-                        android:text="@string/tiet_edit_profile_bio_val" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ProgressBar

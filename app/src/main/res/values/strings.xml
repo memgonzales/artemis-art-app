@@ -423,4 +423,7 @@
     <string name="et_input_password">Enter password</string>
     <string name="tv_edit_bio_title">Edit Short Bio</string>
     <string name="btn_edit_bio_confirm">Confirm Change</string>
+    <string name="cl_edit_profile_edit_bio">Change Short Bio</string>
+    <string name="tv_edit_profile_edit_bio">Change Short Bio</string>
+    <string name="iv_edit_profile_edit_bio_icon">Edit Bio Icon</string>
 </resources>
