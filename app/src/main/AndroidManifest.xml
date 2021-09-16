@@ -35,7 +35,8 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".BrokenLinkActivity"></activity>
+        <activity android:name=".ViewOwnPostCommentsActivity"></activity>
+        <activity android:name=".BrokenLinkActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -138,8 +139,8 @@
         <activity
             android:name=".EditProfileActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
             android:parentActivityName=".ViewProfileActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ViewProfileActivity"

@@ -30,7 +30,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
 
-class ViewCommentsActivity : AppCompatActivity() {
+class ViewOwnPostCommentsActivity : AppCompatActivity() {
     private lateinit var dataComments: ArrayList<Comment>
     private lateinit var rvComments: RecyclerView
     private lateinit var commentsAdapter: CommentsAdapter
@@ -101,13 +101,13 @@ class ViewCommentsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_comments)
+        setContentView(R.layout.activity_view_own_post_comments)
 
         initFirebase()
         initIntent()
         initComponents()
-        initGalleryLauncher(this@ViewCommentsActivity)
-        initCameraLauncher(this@ViewCommentsActivity)
+        initGalleryLauncher(this@ViewOwnPostCommentsActivity)
+        initCameraLauncher(this@ViewOwnPostCommentsActivity)
     }
 
     private fun initFirebase() {
@@ -120,7 +120,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         }
 
         else{
-            val intent = Intent(this@ViewCommentsActivity, BrokenLinkActivity::class.java)
+            val intent = Intent(this@ViewOwnPostCommentsActivity, BrokenLinkActivity::class.java)
             startActivity(intent)
         }
     }
@@ -145,7 +145,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
 
         if (postId.isNullOrEmpty()){
-            val intent = Intent(this@ViewCommentsActivity, BrokenLinkActivity::class.java)
+            val intent = Intent(this@ViewOwnPostCommentsActivity, BrokenLinkActivity::class.java)
             startActivity(intent)
         }
     }
@@ -244,7 +244,7 @@ class ViewCommentsActivity : AppCompatActivity() {
         this.bnvViewCommentsBottom = findViewById(R.id.nv_view_comments_bottom)
 
         BottomMenuUtil.setFinishBottomMenuListeners(bnvViewCommentsBottom, this,
-            this@ViewCommentsActivity)
+            this@ViewOwnPostCommentsActivity)
     }
 
     private fun initActionBar() {
@@ -283,7 +283,7 @@ class ViewCommentsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val intent = Intent(this, ViewPostActivity::class.java)
+        val intent = Intent(this, ViewOwnPostActivity::class.java)
 
         intent.putExtra(
             Keys.KEY_USERID.name,
@@ -429,7 +429,7 @@ class ViewCommentsActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@ViewCommentsActivity, BrokenLinkActivity::class.java)
+                val intent = Intent(this@ViewOwnPostCommentsActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
 
@@ -467,7 +467,7 @@ class ViewCommentsActivity : AppCompatActivity() {
                         }
 
                         override fun onCancelled(error: DatabaseError) {
-                            val intent = Intent(this@ViewCommentsActivity, BrokenLinkActivity::class.java)
+                            val intent = Intent(this@ViewOwnPostCommentsActivity, BrokenLinkActivity::class.java)
                             startActivity(intent)
                         }
 
@@ -492,22 +492,22 @@ class ViewCommentsActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     pbComment.visibility = View.GONE
-                    Toast.makeText(this@ViewCommentsActivity, "Commented successfully", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@ViewOwnPostCommentsActivity, "Commented successfully", Toast.LENGTH_LONG).show()
                     etComment.text.clear()
                 }
 
                 else{
                     pbComment.visibility = View.VISIBLE
-                    Toast.makeText(this@ViewCommentsActivity, "Failed to comment", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@ViewOwnPostCommentsActivity, "Failed to comment", Toast.LENGTH_LONG).show()
                 }
             }
     }
 
     private fun addPost() {
-        this.btmAddPost = BottomSheetDialog(this@ViewCommentsActivity)
+        this.btmAddPost = BottomSheetDialog(this@ViewOwnPostCommentsActivity)
         this.fabAddPost = findViewById(R.id.fab_view_comments_add)
 
-        val view = LayoutInflater.from(this@ViewCommentsActivity).inflate(R.layout.dialog_post_artwork, null)
+        val view = LayoutInflater.from(this@ViewOwnPostCommentsActivity).inflate(R.layout.dialog_post_artwork, null)
 
         this.fabAddPost.setOnClickListener {
             btmAddPost.setContentView(view)
@@ -520,7 +520,7 @@ class ViewCommentsActivity : AppCompatActivity() {
             }
 
             clDialogPostArtworkPhoto.setOnClickListener {
-                photoFile = PostArtworkUtil.takeFromCamera(this, this@ViewCommentsActivity, cameraLauncher)
+                photoFile = PostArtworkUtil.takeFromCamera(this, this@ViewOwnPostCommentsActivity, cameraLauncher)
             }
 
             btmAddPost.show()
@@ -540,7 +540,7 @@ class ViewCommentsActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        permissionsResult(requestCode, grantResults, this@ViewCommentsActivity, this)
+        permissionsResult(requestCode, grantResults, this@ViewOwnPostCommentsActivity, this)
     }
 
     /**
