@@ -7,7 +7,9 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 /**
  * Class handling the functionalities related to editing a post.
@@ -35,6 +37,7 @@ class EditPostActivity : AppCompatActivity() {
      */
     private lateinit var tietEditArtworkDescription: TextInputEditText
 
+    private lateinit var tilEditArtworkTags: TextInputLayout
     /**
      * Input field for editing the tags of an artwork.
      */
@@ -82,6 +85,8 @@ class EditPostActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar_edit_artwork))
         initActionBar()
 
+        this.tilEditArtworkTags = findViewById(R.id.til_edit_artwork_tags)
+
         this.tietEditArtworkTitle = findViewById(R.id.tiet_edit_artwork_title)
         this.tietEditArtworkMedium = findViewById(R.id.tiet_edit_artwork_medium)
         this.tietEditArtworkDimension = findViewById(R.id.tiet_edit_artwork_dimen)
@@ -99,11 +104,16 @@ class EditPostActivity : AppCompatActivity() {
             var description = tietEditArtworkDescription.text.toString().trim()
             var tags = tietEditArtworkTags.text.toString().trim()
 
-            if(!postId.isEmpty()){
+            if(!postId.isEmpty() && !tags.isNullOrEmpty()){
+                tilEditArtworkTags.error = null
                 this.firebaseHelper.editPost(postId, title, medium, dimension, description, tags.split(',').toCollection(ArrayList()))
                 finish()
             }
 
+            else if (tags.isNullOrEmpty()){
+                tilEditArtworkTags.error = "Required"
+                tietEditArtworkTags.requestFocus()
+            }
             else{
                 Toast.makeText(this@EditPostActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
             }
@@ -137,6 +147,7 @@ class EditPostActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load(postImg)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(this.ivEditArtworkPost)
