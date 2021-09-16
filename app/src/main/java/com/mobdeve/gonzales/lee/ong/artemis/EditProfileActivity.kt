@@ -426,7 +426,7 @@ class EditProfileActivity : AppCompatActivity() {
                 val profPic: String = snapshot.child(Keys.userImg.name).value.toString()
                 val username: String = snapshot.child(Keys.username.name).value.toString()
 
-                Glide.with(this@EditProfileActivity)
+                Glide.with(baseContext)
                     .load(profPic)
                     .placeholder(R.drawable.chibi_artemis_hd)
                     .error(R.drawable.chibi_artemis_hd)

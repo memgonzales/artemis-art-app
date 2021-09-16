@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
+
 
 class EditBioActivity : AppCompatActivity() {
     private lateinit var tietEditBio : TextInputEditText
@@ -136,5 +136,12 @@ class EditBioActivity : AppCompatActivity() {
     private fun updateProfileFailed(){
         pbEditBio.visibility = View.GONE
         Toast.makeText(this@EditBioActivity, "Failed to update your profile details", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (!this.isDestroyed) {
+            Glide.with(this@EditBioActivity).pauseRequests()
+        }
     }
 }
