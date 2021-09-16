@@ -30,32 +30,100 @@ import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
 
 class PostAddTagsActivity : AppCompatActivity() {
+    /**
+     * Input field for the tags of the post.
+     */
     private lateinit var tietTags: TextInputEditText
+
+    /**
+     * Button for saving the post tags.
+     */
     private lateinit var btnAddTag: Button
 
+    /**
+     * Image view for the photo of the artwork to be posted.
+     */
     private lateinit var ivPostAddTagsArt: ImageView
 
-    //Firebase
+    /**
+     * Attribute for performing Firebase authentications.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Attribute storing a user's profile information obtained from the user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user currently accessing the app.
+     */
     private lateinit var userId: String
+
+    /**
+     * Reference to the database being accessed.
+     */
     private lateinit var db: DatabaseReference
 
+    /**
+     * Attribute used to store and retrieve data from Google Cloud Storage.
+     */
     private lateinit var storage: FirebaseStorage
+
+    /**
+     * Reference to the Google Cloud Storage object.
+     */
     private lateinit var storageRef: StorageReference
 
+    /**
+     * Title of the post.
+     */
     private lateinit var title: String
+
+    /**
+     * Medium of the artwork.
+     */
     private lateinit var medium: String
+
+    /**
+     * Dimensions of the artwork.
+     */
     private lateinit var dimensions: String
+
+    /**
+     * Description of the post.
+     */
     private lateinit var desc: String
 
+    /**
+     * Progress bar representing the process of adding the post to the database.
+     */
     private lateinit var pbAddPost: ProgressBar
 
+    /**
+     * Either <code>PostArtworkUtil.FROM_CAMERA</code> or <code>PostArtworkUtil.FROM_GALLERY</code>
+     * depending on whether the photo was chosen from the Gallery or taken using the device camera.
+     */
     private lateinit var photoSource: String
+
+    /**
+     * Path to the photo of the artwork.
+     */
     private lateinit var photoPath: String
 
+    /**
+     * Whether the photo of the artwork to be posted was taken using the device camera.
+     */
     private var cameraTaken: Boolean = false
+
+    /**
+     * Byte array representation of the photo.
+     */
     private lateinit var photoByte: ByteArray
+
+    /**
+     * URI representation of the photo as stored in the database.
+     */
     private lateinit var photoUri: String
 
     /**
@@ -188,7 +256,8 @@ class PostAddTagsActivity : AppCompatActivity() {
      * This hook is called whenever an item in your options menu is selected.
      *
      * @param item The menu item that was selected. This value cannot be <code>null</code>.
-     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     * @return <code>false</code> to allow normal menu processing to proceed; <code>true</code>
+     * to consume it here.
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
@@ -201,6 +270,9 @@ class PostAddTagsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the values of the post details.
+     */
     private fun initDetails(){
         this.title = intent.getStringExtra(Keys.KEY_TITLE.name).toString()
         this.medium = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
@@ -208,6 +280,9 @@ class PostAddTagsActivity : AppCompatActivity() {
         this.desc = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
     }
 
+    /**
+     * Adds the entered tags to the post details and posts the artwork.
+     */
     private fun addTagsAndPost(){
         this.tietTags = findViewById(R.id.tiet_post_add_tags_desc)
         this.btnAddTag = findViewById(R.id.btn_post_add_tags_save)
@@ -275,6 +350,12 @@ class PostAddTagsActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Adds the post to the database.
+     *
+     * @param postKey Unique identifier of the post to be added to the database.
+     * @param post Post to be added to the database.
+     */
     private fun storePost(postKey: String, post: Post){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
@@ -311,6 +392,9 @@ class PostAddTagsActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Displays a toast stating that the artwork was posted successfully.
+     */
     private fun postSuccessfully(){
         pbAddPost.visibility = View.GONE
         Toast.makeText(applicationContext, "Posted successfully", Toast.LENGTH_LONG).show()
@@ -318,11 +402,20 @@ class PostAddTagsActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /**
+     * Displays a toast stating that the artwork was not posted.
+     */
     private fun postFailed(){
         pbAddPost.visibility = View.GONE
         Toast.makeText(applicationContext, "Failed to post", Toast.LENGTH_LONG).show()
     }
 
+    /**
+     * Checks whether the tag input text field is empty and, if so, prompts the user to enter a tag.
+     *
+     * @param tags String entered by the user on the tag input text field.
+     * @return <code>true</code> if the user did not enter any tags; <code>false</code>, otherwise
+     */
     private fun checkEmpty(tags: String): Boolean{
         var hasEmpty = false
 

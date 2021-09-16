@@ -22,19 +22,62 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.io.File
 
 class SearchActivity : AppCompatActivity() {
+    /**
+     * Button for searching using the first search tag.
+     */
     private lateinit var btnSearchTag1: Button
+
+    /**
+     * Button for searching using the second search tag.
+     */
     private lateinit var btnSearchTag2: Button
+
+    /**
+     * Button for searching using the third search tag.
+     */
     private lateinit var btnSearchTag3: Button
+
+    /**
+     * Button for searching using the fourth search tag.
+     */
     private lateinit var btnSearchTag4: Button
+
+    /**
+     * Button for searching using the fifth search tag.
+     */
     private lateinit var btnSearchTag5: Button
 
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvSearchBottom: BottomNavigationView
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Input field for the user's search query.
+     */
     private lateinit var etSearchBar: EditText
 
     /**
@@ -52,7 +95,14 @@ class SearchActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
-
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
@@ -111,6 +161,9 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_search))
 
@@ -189,11 +242,21 @@ class SearchActivity : AppCompatActivity() {
         addPost()
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected. This value cannot be <code>null</code>.
+     * @return <code>false</code> to allow normal menu processing to proceed; <code>true</code>
+     * to consume it here.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             android.R.id.home -> {
@@ -205,6 +268,9 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvSearchBottom = findViewById(R.id.nv_search_bottom)
 
@@ -235,6 +301,10 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@SearchActivity)
         this.fabAddPost = findViewById(R.id.fab_search_add)
