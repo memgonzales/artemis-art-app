@@ -17,19 +17,46 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
+/**
+ * Class containing helper attributes and methods for accessing Firebase.
+ */
 class FirebaseHelper {
-
+    /**
+     * Context with which the database is being accessed.
+     */
     private var context: Context
 
+    /**
+     * Attribute for performing Firebase authentications.
+     */
     private var mAuth: FirebaseAuth
+
+    /**
+     * Reference to the database being accessed.
+     */
     private var db: DatabaseReference
 
+    /**
+     * Attribute storing a user's profile information obtained from the user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user currently accessing the app.
+     */
     private lateinit var userId: String
 
+    /**
+     * Credential used by Firebase to authenticate a user.
+     */
     private lateinit var credential: AuthCredential
 
 
+    /**
+     * Creates a FirebaseHelper object given the context with which the database is accessed.
+     *
+     * @param context Context with which the database is accessed.
+     */
     constructor(context: Context){
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
@@ -47,7 +74,14 @@ class FirebaseHelper {
         this.context = context
     }
 
-
+    /**
+     * Creates a FirebaseHelper object given the context with which the database is accessed, the
+     * unique identifier of a post, and the unique identifier of the user who posted it.
+     *
+     * @param context Context with which the database is accessed.
+     * @param postId Unique identifier of a post.
+     * @param userIdPost Unique identifier of the user who posted the post.
+     */
     constructor(context: Context, postId: String?, userIdPost: String?){
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
@@ -70,6 +104,13 @@ class FirebaseHelper {
         this.context = context
     }
 
+    /**
+     * Creates a FirebaseHelper object given the context with which the database is accessed and a
+     * unique identifier of a database document.
+     *
+     * @param context Context with which the database is accessed.
+     * @param Id Unique identifier of a database document.
+     */
     constructor(context: Context, Id: String?){
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
@@ -92,10 +133,15 @@ class FirebaseHelper {
         this.context = context
     }
 
-
-
-
-
+    /**
+     * Updates the upvotes of a post on the database.
+     *
+     * @param userVal Username of the user who upvoted or removed their upvote on a post.
+     * @param postKey Unique identifier of the post whose upvotes are being toggled.
+     * @param postVal Unique identifier of the post to be added or removed from the user's list of
+     * upvoted posts.
+     * @param numUpvotes Updated number of upvotes of the post.
+     */
     fun updateUpvoteDB(userVal: String?, postKey: String?, postVal: String?, numUpvotes: Int){
         if (!postKey.isNullOrEmpty()){
             val updates = hashMapOf<String, Any?>(
@@ -108,6 +154,14 @@ class FirebaseHelper {
         }
     }
 
+    /**
+     * Updates the bookmark status of a post on the database.
+     *
+     * @param userVal Username of the user who bookmarked or removed the bookmark on a post.
+     * @param postKey Unique identifier of the post whose bookmark status is being toggled.
+     * @param postVal Unique identifier of the post to be added or removed from the user's list of
+     * bookmarked posts.
+     */
     fun updateBookmarkDB(userVal: String?, postKey: String?, postVal: String?){
         if (!postKey.isNullOrEmpty()){
 
@@ -120,6 +174,13 @@ class FirebaseHelper {
         }
     }
 
+    /**
+     * Updates the highlight status of a post on the database.
+     *
+     * @param postKey Unique identifier of the post whose highlight status is being toggled.
+     * @param postVal Unique identifier of the post to be added or removed from the user's list of
+     * highlighted posts.
+     */
     fun updateHighlightDB(postKey: String?, postVal: String?){
         if(!postKey.isNullOrEmpty()){
 
@@ -138,6 +199,13 @@ class FirebaseHelper {
         }
     }
 
+    /**
+     * Updates the user's list of posts on the database.
+     *
+     * @param postKey Unique identifier of the post.
+     * @param postVal Unique identifier of the post to be added or removed from the user's list of
+     * posts.
+     */
     fun updateUserPostDB(postKey: String, postVal: String?){
         val updates = hashMapOf<String, Any?>(
             "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userPosts.name}/$postKey" to postVal
@@ -146,6 +214,13 @@ class FirebaseHelper {
         db.updateChildren(updates)
     }
 
+    /**
+     * Updates the user's list of followed users on the database.
+     *
+     * @param userKey Unique identifier of a user.
+     * @param userVal Unique identifier of the user to be added or removed from the current user's
+     * list of followed users.
+     */
     fun updateUsersFollowedDB(userKey: String?, userVal: String?){
         val updates = hashMapOf<String, Any?>(
             "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.usersFollowed.name}/$userKey" to userVal
@@ -154,9 +229,12 @@ class FirebaseHelper {
         db.updateChildren(updates)
     }
 
-
-
-
+    /**
+     * Edits the body of a comment.
+     *
+     * @param commentId Unique identifier of the comment being edited.
+     * @param commentBody Updated comment body.
+     */
     fun editComment(commentId: String, commentBody: String){
         if (!commentId.isNullOrEmpty()){
             this.db.child(Keys.KEY_DB_COMMENTS.name).child(commentId).child(Keys.commentBody.name).setValue(commentBody)
@@ -169,6 +247,16 @@ class FirebaseHelper {
         }
     }
 
+    /**
+     * Edits the details of a post.
+     *
+     * @param postId Unique identifier of the posts whose details are being edited.
+     * @param title Updated title of the post.
+     * @param medium Updated medium of the post.
+     * @param dimensions Updated dimensions of the post.
+     * @param desc Updated description of the post.
+     * @param tags Updated tags of the post.
+     */
     fun editPost(postId: String, title: String, medium: String, dimensions: String, desc: String, tags: ArrayList<String>){
         val updates = hashMapOf<String, Any?>(
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.title.name}" to title,
@@ -188,10 +276,12 @@ class FirebaseHelper {
             }
     }
 
-
-
-
-
+    /**
+     * Deletes a comment from the database.
+     *
+     * @param commentId Unique identifier of the comment to be deleted.
+     * @param postId Unique identifier of the post on which the comment was added.
+     */
     fun deleteCommentDB(commentId: String, postId: String){
         if (!commentId.isNullOrEmpty() && !postId.isNullOrEmpty()){
             val commentDB = db.child(Keys.KEY_DB_COMMENTS.name).child(commentId)
@@ -222,6 +312,15 @@ class FirebaseHelper {
 
     }
 
+    /**
+     * Updates a comment on the database.
+     *
+     * @param postId Unique identifier of the post on which the comment was added.
+     * @param commentKey Unique identifier of the comment being updated.
+     * @param commentVal Unique identifier of the comment being updated to be added ore removed from
+     * the list of comments of a post.
+     * @param numComments Updated number of comments on the post.
+     */
     fun updateCommentFromPostDB(postId: String, commentKey: String?, commentVal: String?, numComments: Int){
         val updates = hashMapOf<String, Any?>(
             "/${Keys.KEY_DB_POSTS.name}/$postId/${Keys.comments.name}/$commentKey" to commentVal,
@@ -231,9 +330,13 @@ class FirebaseHelper {
         db.updateChildren(updates)
     }
 
-
-
-
+    /**
+     * Deletes a post from the database.
+     *
+     * @param postKey Unique identifier of the post being deleted.
+     * @param delUserFF <code>true</code> if the post was successfully deleted; <code>false</code>,
+     * otherwise.
+     */
     fun deletePostDB(postKey: String, delUserFF: Boolean){
         val postDB = db.child(Keys.KEY_DB_POSTS.name).child(postKey)
 
@@ -251,6 +354,14 @@ class FirebaseHelper {
             }
     }
 
+    /**
+     * Deletes a post and its related data (i.e., bookmark, highlight, and upvote status) from the
+     * database.
+     *
+     * @param postId Unique identifier of the post being deleted.
+     * @param delUserFF <code>true</code> if the post was and its related data was successfully
+     * deleted; <code>false</code>, otherwise.
+     */
     fun deletePostANDUserFollowedFromUsersDB(postId: String, delUserFF: Boolean){
         val userDB = db.child(Keys.KEY_DB_USERS.name)
 
@@ -299,6 +410,11 @@ class FirebaseHelper {
         })
     }
 
+    /**
+     * Deletes a comment from the database.
+     *
+     * @param postId Unique identifier of the post where the comment to be deleted was added.
+     */
     fun deleteCommentFromPostDB(postId: String){
         val commentDB = db.child(Keys.KEY_DB_COMMENTS.name)
 
@@ -346,9 +462,9 @@ class FirebaseHelper {
          */
     }
 
-
-
-
+    /**
+     * Deletes the account details of the current user from the database.
+     */
     fun deleteUserDB(){
         val userDB = db.child(Keys.KEY_DB_USERS.name).child(userId)
 
@@ -397,6 +513,9 @@ class FirebaseHelper {
 
     }
 
+    /**
+     * Deletes the account details of the current user.
+     */
     fun deleteUser(){
         val userDB = db.child(Keys.KEY_DB_USERS.name).child(userId)
 
