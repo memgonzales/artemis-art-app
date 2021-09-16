@@ -195,7 +195,8 @@ class PostArtworkActivity : AppCompatActivity() {
      * This hook is called whenever an item in your options menu is selected.
      *
      * @param item The menu item that was selected. This value cannot be <code>null</code>.
-     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     * @return <code>false</code> to allow normal menu processing to proceed; <code>true</code>
+     * to consume it here.
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
