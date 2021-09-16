@@ -20,6 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
@@ -421,12 +422,10 @@ class EditProfileActivity : AppCompatActivity() {
 
                 val profPic: String = snapshot.child(Keys.userImg.name).value.toString()
                 val username: String = snapshot.child(Keys.username.name).value.toString()
-//                var email: String = snapshot.child(Keys.email.name).getValue().toString()
-//                var pw: String = snapshot.child(Keys.password.name).getValue().toString()
-
 
                 Glide.with(this@EditProfileActivity)
                     .load(profPic)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.placeholder)
                     .into(civEditProfilePic)
@@ -436,8 +435,6 @@ class EditProfileActivity : AppCompatActivity() {
 
 
                 tietEditProfileUsername.setText(username)
-//                tietEditProfileEmail.setText(email)
-//                tietEditProfilePassword.setText(pw)
                 tietEditProfileBio.setText(bio)
             }
 
