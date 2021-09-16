@@ -133,8 +133,6 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         catch(err: IOException){
             civOwnPostProfilePic.setImageResource(R.drawable.chibi_artemis_hd)
         }
-
-       // civOwnPostProfilePic.setImageResource(picture)
     }
 
     /**
@@ -186,8 +184,6 @@ class OwnPostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         catch(err: IOException){
             ivOwnPostPost.setImageResource(R.drawable.chibi_artemis_hd)
         }
-
-        //ivOwnPostPost.setImageResource(post)
     }
 
     /**

@@ -163,7 +163,7 @@ class PostArtworkActivity : AppCompatActivity() {
      * Stores the details entered about the artwork in intents to be passed to the next activity
      * (where the user is asked to enter tags related to their post).
      */
-    private fun addDetails(){
+    private fun addDetails() {
         this.tietTitle = findViewById(R.id.tiet_post_artwork_title)
         this.tietMedium = findViewById(R.id.tiet_post_artwork_medium)
         this.tietDimensions = findViewById(R.id.tiet_post_artwork_dimen)

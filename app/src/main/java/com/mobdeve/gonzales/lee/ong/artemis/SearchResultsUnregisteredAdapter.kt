@@ -138,7 +138,6 @@ class SearchResultsUnregisteredAdapter() : RecyclerView.Adapter<SearchViewHolder
      */
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         val currentPost = differ.currentList[position]
-        //holder.setItemSearchResults(currentPost.getPostImg())
 
         Glide.with(context)
             .load(currentPost.getPostImg())

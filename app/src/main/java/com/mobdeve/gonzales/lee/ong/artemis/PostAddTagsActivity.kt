@@ -352,7 +352,6 @@ class PostAddTagsActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     /**
@@ -377,14 +376,11 @@ class PostAddTagsActivity : AppCompatActivity() {
                     "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userPosts.name}/$postKey" to postKey
                 )
 
-
                 db.updateChildren(updates)
                     .addOnCompleteListener { task ->
-                        if (task.isSuccessful){
+                        if (task.isSuccessful) {
                             postSuccessfully()
-                        }
-
-                        else{
+                        } else {
                             postFailed()
                         }
                     }

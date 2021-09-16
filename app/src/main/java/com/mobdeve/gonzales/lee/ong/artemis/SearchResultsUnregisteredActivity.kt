@@ -205,7 +205,6 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             initContents()
             sflSearch.visibility = View.GONE
-            //tvSearchResultsArtworks.visibility = View.VISIBLE
             rvSearch.visibility = View.VISIBLE
 
             civSearchResultUser1.visibility = View.GONE
@@ -479,7 +478,6 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                     }
 
                     searchAdapter.updatePosts(dataPosts)
-                    //searchAdapter.notifyDataSetChanged()
                     setSearchPostResults(dataPosts, dataUsers)
 
                 }

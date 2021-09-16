@@ -292,7 +292,6 @@ class SearchResultsActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             initContents()
             sflSearch.visibility = View.GONE
-            //tvSearchResultsArtworks.visibility = View.VISIBLE
             rvSearch.visibility = View.VISIBLE
 
             civSearchResultUser1.visibility = View.GONE
@@ -546,17 +545,15 @@ class SearchResultsActivity : AppCompatActivity() {
                 if (post != null && !post.getPostId().isNullOrEmpty()
                     && !post.getTags()?.filter { it.contains(searchPost, ignoreCase = true)}.isNullOrEmpty()){
 
-                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)) {
                         post.setUpvote(true)
-                    }
-                    else{
+                    } else {
                         post.setUpvote(false)
                     }
 
-                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)) {
                         post.setBookmark(true)
-                    }
-                    else{
+                    } else {
                         post.setBookmark(false)
                     }
 
@@ -578,17 +575,15 @@ class SearchResultsActivity : AppCompatActivity() {
                 if (post != null && !post.getPostId().isNullOrEmpty()
                     && !post.getTags()?.filter { it.contains(searchPost, ignoreCase = true)}.isNullOrEmpty()){
 
-                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)) {
                         post.setUpvote(true)
-                    }
-                    else{
+                    } else {
                         post.setUpvote(false)
                     }
 
-                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)) {
                         post.setBookmark(true)
-                    }
-                    else{
+                    } else {
                         post.setBookmark(false)
                     }
 
@@ -614,7 +609,7 @@ class SearchResultsActivity : AppCompatActivity() {
 
                     val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
 
-                    if (index != -1){
+                    if (index != -1) {
                         list.removeAt(index)
 
                         dataPosts = list
