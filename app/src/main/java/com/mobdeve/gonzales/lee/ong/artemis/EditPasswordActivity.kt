@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import at.favre.lib.crypto.bcrypt.BCrypt
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.AuthCredential
@@ -236,20 +237,20 @@ class EditPasswordActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 val e: String = snapshot.child(Keys.email.name).getValue().toString()
-                val pw: String = snapshot.child(Keys.password.name).getValue().toString()
+                val hash: String = snapshot.child(Keys.password.name).getValue().toString()
 
-                credentials = EmailAuthProvider.getCredential(e, pw)
+                val result = BCrypt.verifyer().verify(oldPw.toCharArray(), hash)
 
-                if (!oldPw.equals(pw)){
-                    invalidOldPw()
-                }
+                if (result.verified){
 
-                else{
+                    credentials = EmailAuthProvider.getCredential(e, oldPw)
                     user.reauthenticateAndRetrieveData(credentials)
                         .addOnSuccessListener {
-                            user.updatePassword(newPw)
+                            val pwHash = BCrypt.withDefaults().hashToString(12, newPw.toCharArray())
+                            userDB.child(Keys.password.name).setValue(pwHash)
                                 .addOnSuccessListener {
-                                    userDB.child(Keys.password.name).setValue(newPw)
+
+                                    user.updatePassword(newPw)
                                     updateSuccessfully()
 
                                 }
@@ -260,6 +261,10 @@ class EditPasswordActivity : AppCompatActivity() {
                         .addOnFailureListener {
                             updateFailed()
                         }
+                }
+
+                else{
+                    invalidOldPw()
                 }
             }
 

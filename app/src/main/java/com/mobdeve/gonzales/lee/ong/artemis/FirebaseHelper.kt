@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.Adapter
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import at.favre.lib.crypto.bcrypt.BCrypt
+import at.favre.lib.crypto.bcrypt.BCryptParser
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -357,12 +359,14 @@ class FirebaseHelper {
                 val userSnap = snapshot.getValue(User::class.java)
 
                 if (userSnap != null && !userSnap.getEmail().isNullOrEmpty() && !userSnap.getPassword().isNullOrEmpty()){
+                   // val hash = userSnap.getPassword()
+
                     credential = EmailAuthProvider.getCredential(userSnap.getEmail()!!, userSnap.getPassword()!!)
 
                     user.reauthenticate(credential).addOnCompleteListener {
                         if (it.isSuccessful){
-                            deleteUser()
 
+                            deleteUser()
                             user.delete().addOnCompleteListener {
                                 if (it.isSuccessful){
 
