@@ -217,6 +217,9 @@ class ViewOwnPostActivity : AppCompatActivity() {
         val tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)
         var highlight = intent.getBooleanExtra(Keys.KEY_HIGHLIGHT.name, false)
 
+        var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
+        var upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
+
         var upvoteString = ""
         var commentString = ""
 
@@ -303,16 +306,69 @@ class ViewOwnPostActivity : AppCompatActivity() {
         }
 
         clItemViewOwnPostComment.setOnClickListener {
-            val intent = Intent(this, ViewCommentsActivity::class.java)
+            val intent = Intent(this, ViewOwnPostCommentsActivity::class.java)
+            intent.putExtra(
+                Keys.KEY_USERID.name,
+                userIdPost
+            )
+            intent.putExtra(
+                Keys.KEY_PROFILE_PICTURE.name,
+                profilePicture
+            )
+            intent.putExtra(
+                Keys.KEY_USERNAME.name,
+                username
+            )
+            intent.putExtra(
+                Keys.KEY_POST.name,
+                postImg
+            )
+            intent.putExtra(
+                Keys.KEY_TITLE.name,
+                title
+            )
             intent.putExtra(
                 Keys.KEY_POSTID.name,
                 postId
             )
             intent.putExtra(
+                Keys.KEY_NUM_UPVOTES.name,
+                upvoteCounter
+            )
+            intent.putExtra(
                 Keys.KEY_NUM_COMMENTS.name,
                 comments
             )
+            intent.putExtra(
+                Keys.KEY_DATE_POSTED.name,
+                datePosted
+            )
+            intent.putExtra(
+                Keys.KEY_MEDIUM.name,
+                medium
+            )
+            intent.putExtra(
+                Keys.KEY_DIMENSIONS.name,
+                dimensions
+            )
+            intent.putExtra(
+                Keys.KEY_DESCRIPTION.name,
+                description
+            )
+            intent.putExtra(
+                Keys.KEY_TAGS.name,
+                tags
+            )
+            intent.putExtra(
+                Keys.KEY_BOOKMARK.name,
+                bookmark
+            )
+            intent.putExtra(
+                Keys.KEY_UPVOTE.name,
+                upvote
+            )
             startActivity(intent)
+            finish()
         }
 
         clItemViewOwnPostShare.setOnClickListener {
