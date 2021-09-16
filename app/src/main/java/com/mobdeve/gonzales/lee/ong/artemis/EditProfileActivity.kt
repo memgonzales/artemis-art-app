@@ -323,6 +323,10 @@ class EditProfileActivity : AppCompatActivity() {
 
         }
 
+        clEditProfileBio.setOnClickListener {
+            val intent = Intent(this@EditProfileActivity, EditBioActivity::class.java)
+            startActivity(intent)
+        }
 
         clEditProfileEmail.setOnClickListener {
             val intent = Intent(this@EditProfileActivity, EditEmailActivity::class.java)
@@ -519,12 +523,6 @@ class EditProfileActivity : AppCompatActivity() {
                 }
             }
 
-    }
-
-    private fun updateBio(bio: String){
-        this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.bio.name).setValue(bio)
-            .addOnSuccessListener { updateProfileSuccessfully() }
-            .addOnFailureListener { updateProfileFailed() }
     }
 
     /**
