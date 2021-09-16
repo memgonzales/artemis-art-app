@@ -358,7 +358,7 @@ class EditProfileActivity : AppCompatActivity() {
                         url.downloadUrl
                             .addOnSuccessListener {
                                 uploadSuccessfully()
-                                updateDB(it.toString(), bio)
+                                updateDB(it.toString(), "")
                             }
 
                             .addOnFailureListener {
@@ -376,7 +376,7 @@ class EditProfileActivity : AppCompatActivity() {
                         url.downloadUrl
                             .addOnSuccessListener {
                                 uploadSuccessfully()
-                                updateDB(it.toString(), bio)
+                                updateDB(it.toString(), "")
                             }
 
                             .addOnFailureListener {
@@ -518,8 +518,8 @@ class EditProfileActivity : AppCompatActivity() {
        // val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
         val updates = hashMapOf<String, Any>(
-            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userImg.name}" to userImg,
-            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bio.name}" to bio
+            "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userImg.name}" to userImg
+         //   "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bio.name}" to bio
         )
 
         db.updateChildren(updates)
