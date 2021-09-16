@@ -14,17 +14,54 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class SearchUnregisteredActivity : AppCompatActivity() {
+    /**
+     * Button for searching using the first search tag.
+     */
     private lateinit var btnSearchTag1: Button
+
+    /**
+     * Button for searching using the second search tag.
+     */
     private lateinit var btnSearchTag2: Button
+
+    /**
+     * Button for searching using the third search tag.
+     */
     private lateinit var btnSearchTag3: Button
+
+    /**
+     * Button for searching using the fourth search tag.
+     */
     private lateinit var btnSearchTag4: Button
+
+    /**
+     * Button for searching using the fifth search tag.
+     */
     private lateinit var btnSearchTag5: Button
 
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvSearchBottom: BottomNavigationView
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
 
+    /**
+     * Input field for the user's search query.
+     */
     private lateinit var etSearchBar: EditText
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_unregistered)
@@ -33,6 +70,9 @@ class SearchUnregisteredActivity : AppCompatActivity() {
         initBottom()
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_search_unregistered))
 
@@ -124,6 +164,9 @@ class SearchUnregisteredActivity : AppCompatActivity() {
         initActionBar()
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvSearchBottom = findViewById(R.id.nv_search_unregistered_bottom)
         this.fabAddPost = findViewById(R.id.fab_search_unregistered_add)
@@ -136,11 +179,21 @@ class SearchUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected. This value cannot be <code>null</code>.
+     * @return <code>false</code> to allow normal menu processing to proceed; <code>true</code>
+     * to consume it here.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             android.R.id.home -> {
