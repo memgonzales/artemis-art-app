@@ -18,29 +18,106 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
+/**
+ * Class handling the functionalities related to viewing a post for unregistered users.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing a post
+ * for unregistered users.
+ */
 class ViewPostUnregisteredActivity : AppCompatActivity() {
+    /**
+     * Profile picture of the user whose post is being viewed.
+     */
     private lateinit var civItemViewPostUnregisteredProfilePic: CircleImageView
+
+    /**
+     * Username of the user whose post is being viewed.
+     */
     private lateinit var tvItemViewPostUnregisteredUsername: TextView
+
+    /**
+     * Artwork of the post being viewed.
+     */
     private lateinit var ivItemViewPostUnregisteredPost: ImageView
+
+    /**
+     * Title of the post being viewed.
+     */
     private lateinit var tvItemViewPostUnregisteredTitle: TextView
+
+    /**
+     * Number of upvotes of the post being viewed.
+     */
     private lateinit var tvItemViewPostUnregisteredUpvoteCounter: TextView
+
+    /**
+     * Number of comments of the post being viewed.
+     */
     private lateinit var tvItemViewPostUnregisteredComments: TextView
+
+    /**
+     * Date posted of the post being viewed.
+     */
     private lateinit var tvItemViewPostUnregisteredDatePosted: TextView
+
+    /**
+     * Medium of the artwork being viewed.
+     */
     private lateinit var tvItemViewPostUnregisteredMedium: TextView
+
+    /**
+     * Dimensions of the artwork being viewed.
+     */
     private lateinit var tvItemViewPostUnregisteredDimensions: TextView
+
+    /**
+     * Description of the post being viewed.
+     */
     private lateinit var tvItemViewPostUnregisteredDescription: TextView
+
+    /**
+     * Tags of the post being viewed.
+     */
     private lateinit var tvItemViewPostUnregisteredTags: TextView
 
+    /**
+     * Image button holding the bookmark icon.
+     */
     private lateinit var ibItemViewPostUnregisteredBookmark: ImageButton
+
+    /**
+     * Constraint layout holding the upvote option.
+     */
     private lateinit var clItemViewPostUnregisteredUpvote: ConstraintLayout
+
+    /**
+     * Constraint layout holding the comment option.
+     */
     private lateinit var clItemViewPostUnregisteredComment: ConstraintLayout
+
+    /**
+     * Constraint layout holding the share option.
+     */
     private lateinit var clItemViewPostUnregisteredShare: ConstraintLayout
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewPostUnregisteredBottom: BottomNavigationView
 
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
 
-    private lateinit var srlViewPostUnregisterd: SwipeRefreshLayout
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
+    private lateinit var srlViewPostUnregistered: SwipeRefreshLayout
 
+    /**
+     * Object for accessing the Firebase helper methods.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
     /**
@@ -76,24 +153,35 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         initSwipeRefresh()
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
-        this.srlViewPostUnregisterd = findViewById(R.id.srl_view_post_unregistered)
-        srlViewPostUnregisterd.setOnRefreshListener {
+        this.srlViewPostUnregistered = findViewById(R.id.srl_view_post_unregistered)
+        srlViewPostUnregistered.setOnRefreshListener {
             onRefresh()
         }
 
-        srlViewPostUnregisterd.setColorSchemeResources(R.color.purple_main,
+        srlViewPostUnregistered.setColorSchemeResources(R.color.purple_main,
             R.color.pinkish_purple,
             R.color.purple_pics_lighter,
             R.color.pinkish_purple_lighter)
     }
 
+    /**
+     * Refetches data from the database and reshuffles the display of existing data when the screen
+     * is swiped to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
-            srlViewPostUnregisterd.isRefreshing = false
+            srlViewPostUnregistered.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Initializes the intent passed to the activity.
+     */
     private fun initIntent() {
         val intent: Intent = intent
 
@@ -249,12 +337,18 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_post_unregistered))
         initActionBar()
         initBottom()
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewPostUnregisteredBottom = findViewById(R.id.nv_view_post_unregistered_bottom)
         this.fabAddPost = findViewById(R.id.fab_view_post_unregistered_add)
@@ -271,6 +365,9 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)

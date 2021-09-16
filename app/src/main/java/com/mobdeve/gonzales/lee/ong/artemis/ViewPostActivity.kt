@@ -33,36 +33,138 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
-
+/**
+ * Class handling the functionalities related to viewing a post.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing a post.
+ */
 class ViewPostActivity : AppCompatActivity() {
+    /**
+     * Profile picture of the user whose post is being viewed.
+     */
     private lateinit var civItemViewPostProfilePic: CircleImageView
+
+    /**
+     * Username of the user whose post is being viewed.
+     */
     private lateinit var tvItemViewPostUsername: TextView
+
+    /**
+     * Artwork of the post being viewed.
+     */
     private lateinit var ivItemViewPostPost: ImageView
+
+    /**
+     * Title of the post being viewed.
+     */
     private lateinit var tvItemViewPostTitle: TextView
+
+    /**
+     * Number of upvotes of the post being viewed.
+     */
     private lateinit var tvItemViewPostUpvoteCounter: TextView
+
+    /**
+     * Number of comments of the post being viewed.
+     */
     private lateinit var tvItemViewPostComments: TextView
+
+    /**
+     * Date posted of the post being viewed.
+     */
     private lateinit var tvItemViewPostDatePosted: TextView
+
+    /**
+     * Medium of the artwork being viewed.
+     */
     private lateinit var tvItemViewPostMedium: TextView
+
+    /**
+     * Dimensions of the artwork being viewed.
+     */
     private lateinit var tvItemViewPostDimensions: TextView
+
+    /**
+     * Description of the post being viewed.
+     */
     private lateinit var tvItemViewPostDescription: TextView
+
+    /**
+     * Tags of the post being viewed.
+     */
     private lateinit var tvItemViewPostTags: TextView
 
+    /**
+     * Image button holding the bookmark icon.
+     */
     private lateinit var ibItemViewPostBookmark: ImageButton
+
+    /**
+     * Image view holding the upvote icon.
+     */
     private lateinit var ivItemViewPostUpvote: ImageView
+
+    /**
+     * Text view holding the "Upvote" label.
+     */
     private lateinit var tvItemViewPostUpvote: TextView
+
+    /**
+     * Constraint layout holding the upvote option.
+     */
     private lateinit var clItemViewPostUpvote: ConstraintLayout
+
+    /**
+     * Constraint layout holding the comment option.
+     */
     private lateinit var clItemViewPostComment: ConstraintLayout
+
+    /**
+     * Constraint layout holding the share option.
+     */
     private lateinit var clItemViewPostShare: ConstraintLayout
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewPostBottom: BottomNavigationView
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
     private lateinit var srlViewPost: SwipeRefreshLayout
 
+    /**
+     * Callback manager for handling the share on Facebook feature.
+     */
     private lateinit var cmFacebook: CallbackManager
+
+    /**
+     * Share dialog for sharing the artwork on Facebook.
+     */
     private lateinit var sdFacebook: ShareDialog
 
     /**
@@ -80,6 +182,9 @@ class ViewPostActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    /**
+     * Object for accessing the Firebase helper methods.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
     /**
@@ -168,6 +273,9 @@ class ViewPostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the intent passed to the activity.
+     */
     private fun initIntent() {
         val intent: Intent = intent
 
@@ -403,6 +511,9 @@ class ViewPostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_post))
         initActionBar()
@@ -411,6 +522,10 @@ class ViewPostActivity : AppCompatActivity() {
         addPost()
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
         this.srlViewPost = findViewById(R.id.srl_view_post)
         srlViewPost.setOnRefreshListener {
@@ -423,12 +538,19 @@ class ViewPostActivity : AppCompatActivity() {
             R.color.pinkish_purple_lighter)
     }
 
+    /**
+     * Refetches data from the database and reshuffles the display of existing data when the screen
+     * is swiped to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             srlViewPost.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewPostBottom = findViewById(R.id.nv_view_post_bottom)
 
@@ -436,11 +558,20 @@ class ViewPostActivity : AppCompatActivity() {
             this@ViewPostActivity)
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Updates the bookmark status of a post.
+     *
+     * @param bookmark <code>true</code> if the user chooses to bookmark the post; <code>false</code>
+     * if the user chooses to remove the bookmark status of the post
+     */
     private fun updateBookmark(bookmark: Boolean) {
         if(bookmark) {
             this.ibItemViewPostBookmark.setImageResource(R.drawable.outline_bookmark_24)
@@ -455,6 +586,12 @@ class ViewPostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Updates the upvote status of a post.
+     *
+     * @param upvote <code>true</code> if the user chooses to upvote the post; <code>false</code>
+     * if the user chooses to remove their upvote from the post
+     */
     private fun updateUpvote(upvote: Boolean) {
         if (upvote) {
             ivItemViewPostUpvote.setImageResource(R.drawable.upvote_colored)
@@ -490,6 +627,10 @@ class ViewPostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@ViewPostActivity)
         this.fabAddPost = findViewById(R.id.fab_view_post_add)

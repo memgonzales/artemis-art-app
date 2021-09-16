@@ -35,39 +35,155 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
+/**
+ * Class handling the functionalities related to viewing a user's own post.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing a user's
+ * own post.
+ */
 class ViewOwnPostActivity : AppCompatActivity() {
+    /**
+     * Profile picture of the user whose post is being viewed.
+     */
     private lateinit var civItemViewOwnPostProfilePic: CircleImageView
+
+    /**
+     * Username of the user whose post is being viewed.
+     */
     private lateinit var tvItemViewOwnPostUsername: TextView
+
+    /**
+     * Artwork of the post being viewed.
+     */
     private lateinit var ivItemViewOwnPostPostImg: ImageView
+
+    /**
+     * Title of the post being viewed.
+     */
     private lateinit var tvItemViewOwnPostTitle: TextView
+
+    /**
+     * Number of upvotes of the post being viewed.
+     */
     private lateinit var tvItemViewOwnPostUpvoteCounter: TextView
+
+    /**
+     * Number of comments of the post being viewed.
+     */
     private lateinit var tvItemViewOwnPostComments: TextView
+
+    /**
+     * Date posted of the post being viewed.
+     */
     private lateinit var tvItemViewOwnPostDatePosted: TextView
+
+    /**
+     * Medium of the artwork being viewed.
+     */
     private lateinit var tvItemViewOwnPostMedium: TextView
+
+    /**
+     * Dimensions of the artwork being viewed.
+     */
     private lateinit var tvItemViewOwnPostDimensions: TextView
+
+    /**
+     * Description of the post being viewed.
+     */
     private lateinit var tvItemViewOwnPostDescription: TextView
+
+    /**
+     * Tags of the post being viewed.
+     */
     private lateinit var tvItemViewOwnPostTags: TextView
 
+    /**
+     * Image view holding the highlight icon.
+     */
     private lateinit var ivItemViewOwnPostHighlight: ImageView
+
+    /**
+     * Text view holding the "Highlight" label.
+     */
     private lateinit var tvItemViewOwnPostHighlight: TextView
+
+    /**
+     * Constraint layout holding the highlight option.
+     */
     private lateinit var clItemViewOwnPostHighlight: ConstraintLayout
+
+    /**
+     * Constraint layout holding the comment option.
+     */
     private lateinit var clItemViewOwnPostComment: ConstraintLayout
+
+    /**
+     * Constraint layout holding the share option.
+     */
     private lateinit var clItemViewOwnPostShare: ConstraintLayout
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewOwnPostBottom: BottomNavigationView
 
+    /**
+     * Image button for opening the own post options bottom dialog
+     */
     private lateinit var ibItemViewOwnPostOptions: ImageButton
+
+    /**
+     * Bottom sheet dialog displayed when the user clicks the image button for viewing the own
+     * post options.
+     */
     private lateinit var btmViewOwnPost: BottomSheetDialog
+
+    /**
+     * Constraint layout holding the edit post option.
+     */
     private lateinit var clDialogViewOwnPostEdit: ConstraintLayout
+
+    /**
+     * Constraint layout holding the delete post option.
+     */
     private lateinit var clDialogViewOwnPostDelete: ConstraintLayout
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
     private lateinit var srlViewOwnPost: SwipeRefreshLayout
 
+    /**
+     * Callback manager for handling the share on Facebook feature.
+     */
     private lateinit var cmFacebook: CallbackManager
+
+    /**
+     * Share dialog for sharing the artwork on Facebook.
+     */
     private lateinit var sdFacebook: ShareDialog
 
     /**
@@ -85,6 +201,9 @@ class ViewOwnPostActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    /**
+     * Object for accessing the Firebase helper methods.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
     /**
@@ -178,12 +297,19 @@ class ViewOwnPostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_own_post))
         initActionBar()
         initSwipeRefresh()
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
         this.srlViewOwnPost = findViewById(R.id.srl_view_own_post)
         srlViewOwnPost.setOnRefreshListener {
@@ -196,12 +322,19 @@ class ViewOwnPostActivity : AppCompatActivity() {
             R.color.pinkish_purple_lighter)
     }
 
+    /**
+     * Refetches data from the database and reshuffles the display of existing data when the screen
+     * is swiped to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             srlViewOwnPost.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Initializes the intent passed to the activity.
+     */
     private fun initIntent() {
         val intent: Intent = intent
 
@@ -403,6 +536,18 @@ class ViewOwnPostActivity : AppCompatActivity() {
         launchDialog(userIdPost.toString(), postId.toString(), editTitle, editMedium, editDimensions, editDescription, editPostImg, editTags)
     }
 
+    /**
+     * Launches the bottom sheet dialog for choosing the own post options.
+     *
+     * @param userIdPost Unique identifier of the user who posted the post.
+     * @param postId Unique identifier of the post.
+     * @param title Title of the post.
+     * @param medium Medium of the artwork.
+     * @param dimensions Dimensions of the artwork.
+     * @param description Description of the post.
+     * @param postImg The posted artwork.
+     * @param tags Tags of the post.
+     */
     private fun launchDialog(userIdPost: String, postId: String,
                              title: String, medium: String, dimensions: String, description: String,
                              postImg: String, tags: String) {
@@ -469,11 +614,17 @@ class ViewOwnPostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewOwnPostBottom = findViewById(R.id.nv_view_own_post_bottom)
 
@@ -481,6 +632,12 @@ class ViewOwnPostActivity : AppCompatActivity() {
             this@ViewOwnPostActivity)
     }
 
+    /**
+     * Updates the highlight status of a post.
+     *
+     * @param highlight <code>true</code> if the user chooses to highlight the post; <code>false</code>
+     * if the user chooses to remove the highlight status of the post
+     */
     private fun updateHighlight(highlight: Boolean) {
         if(highlight) {
             this.ivItemViewOwnPostHighlight.setImageResource(R.drawable.baseline_star_24)
@@ -501,6 +658,10 @@ class ViewOwnPostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@ViewOwnPostActivity)
         this.fabAddPost = findViewById(R.id.fab_view_own_post_add)
