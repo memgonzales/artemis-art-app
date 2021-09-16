@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.util.*
@@ -14,13 +16,26 @@ import java.util.*
  * @constructor Creates an adapter for the recycler view that handles the posts displayed on the search results.
  * @param dataPosts Posts displayed on the search results.
  */
-class SearchResultsAdapter(private val dataPosts: ArrayList<Post>) :
-    RecyclerView.Adapter<SearchViewHolder>() {
+class SearchResultsAdapter() : RecyclerView.Adapter<SearchViewHolder>() {
+
 
     /**
      * Context tied to the activity calling this adapter.
      */
     private lateinit var context: Context
+
+    private val diffCallbacks = object : DiffUtil.ItemCallback<Post>(){
+        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+            return oldItem.getPostId().equals(newItem.getPostId())
+        }
+
+        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+            return oldItem.equals(newItem)
+        }
+
+    }
+
+    private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
 
     /**
      * Called when RecyclerView needs a new <code>RecyclerView.ViewHolder</code> of the given type
@@ -41,66 +56,67 @@ class SearchResultsAdapter(private val dataPosts: ArrayList<Post>) :
 
         itemView.setOnClickListener { view ->
             val intent = Intent(view.context, ViewPostActivity::class.java)
+            val curPost = differ.currentList[searchViewHolder.bindingAdapterPosition]
 
             intent.putExtra(
                 Keys.KEY_USERID.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getUserId()
+                curPost.getUserId()
             )
             intent.putExtra(
                 Keys.KEY_POSTID.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getPostId()
+                curPost.getPostId()
             )
             intent.putExtra(
                 Keys.KEY_PROFILE_PICTURE.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getProfilePicture()
+                curPost.getProfilePicture()
             )
             intent.putExtra(
                 Keys.KEY_USERNAME.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getUsername()
+                curPost.getUsername()
             )
             intent.putExtra(
                 Keys.KEY_POST.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getPostImg()
+                curPost.getPostImg()
             )
             intent.putExtra(
                 Keys.KEY_TITLE.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getTitle()
+                curPost.getTitle()
             )
             intent.putExtra(
                 Keys.KEY_NUM_UPVOTES.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getNumUpvotes()
+                curPost.getNumUpvotes()
             )
             intent.putExtra(
                 Keys.KEY_NUM_COMMENTS.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getNumComments()
+                curPost.getNumComments()
             )
             intent.putExtra(
                 Keys.KEY_DATE_POSTED.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getDatePosted()
+                curPost.getDatePosted()
             )
             intent.putExtra(
                 Keys.KEY_MEDIUM.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getMedium()
+                curPost.getMedium()
             )
             intent.putExtra(
                 Keys.KEY_DIMENSIONS.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getDimensions()
+                curPost.getDimensions()
             )
             intent.putExtra(
                 Keys.KEY_DESCRIPTION.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getDescription()
+                curPost.getDescription()
             )
             intent.putExtra(
                 Keys.KEY_TAGS.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getTags()
+                curPost.getTags()
             )
             intent.putExtra(
                 Keys.KEY_BOOKMARK.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getBookmark()
+                curPost.getBookmark()
             )
             intent.putExtra(
                 Keys.KEY_UPVOTE.name,
-                dataPosts[searchViewHolder.bindingAdapterPosition].getUpvote()
+                curPost.getUpvote()
             )
 
             view.context.startActivity(intent)
@@ -117,7 +133,7 @@ class SearchResultsAdapter(private val dataPosts: ArrayList<Post>) :
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        val currentPost = dataPosts[position]
+        val currentPost = differ.currentList[position]
         //holder.setItemSearchResults(currentPost.getPostImg())
 
         Glide.with(context)
@@ -125,7 +141,6 @@ class SearchResultsAdapter(private val dataPosts: ArrayList<Post>) :
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(holder.getItemSearchResults())
-
 
     }
 
@@ -135,6 +150,10 @@ class SearchResultsAdapter(private val dataPosts: ArrayList<Post>) :
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        return dataPosts.size
+        return differ.currentList.size
+    }
+
+    fun updatePosts(newPosts: List<Post>){
+        differ.submitList(newPosts)
     }
 }

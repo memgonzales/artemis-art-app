@@ -436,7 +436,7 @@ class FirebaseHelper {
 
         })
     }
-    
+
     /**
      * Deletes the account details of the current user.
      */

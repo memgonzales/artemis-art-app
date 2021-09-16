@@ -2,10 +2,8 @@ package com.mobdeve.gonzales.lee.ong.artemis
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
@@ -35,6 +33,8 @@ class EditCommentActivity : AppCompatActivity() {
      * Button for saving the edited comment.
      */
     private lateinit var btnEditCommentSave: Button
+
+    private lateinit var pbEditComment: ProgressBar
 
     /**
      * Object instantiating the class containing helper methods for Firebase CRUD operations.
@@ -73,13 +73,17 @@ class EditCommentActivity : AppCompatActivity() {
         this.etEditComment = findViewById(R.id.et_edit_comment)
         this.btnEditCommentSave = findViewById(R.id.btn_edit_comment_save)
 
+        this.pbEditComment = findViewById(R.id.pb_edit_comment)
+
         initIntent()
 
         btnEditCommentSave.setOnClickListener {
             val commentBody = etEditComment.text.toString().trim()
 
             if (!commentBody.isNullOrEmpty()){
+                pbEditComment.visibility = View.VISIBLE
                 this.firebaseHelper.editComment(commentId, commentBody)
+                pbEditComment.visibility = View.GONE
                 finish()
             }
             else{

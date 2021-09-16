@@ -209,6 +209,8 @@ class AccountManagementActivity : AppCompatActivity(), DialogWithInput.DialogWit
      * Launches a confirmation dialog when the Delete Account button is clicked.
      */
     private fun initDeleteDialog() {
+        this.firebaseHelper = FirebaseHelper(this@AccountManagementActivity)
+
         this.clAccountManagementDelete = findViewById(R.id.cl_account_management_delete)
 
         clAccountManagementDelete.setOnClickListener {
@@ -267,31 +269,35 @@ class AccountManagementActivity : AppCompatActivity(), DialogWithInput.DialogWit
         tvAccountManagementInputPassword = findViewById(R.id.tv_account_management_input_password)
         tvAccountManagementInputPassword.text = password
 
+        if (!password.isNullOrEmpty()){
+            credential = EmailAuthProvider.getCredential(email, password)
 
-        this.firebaseHelper = FirebaseHelper(this@AccountManagementActivity)
+            user.reauthenticate(credential).addOnCompleteListener {
+                if (it.isSuccessful){
 
-        credential = EmailAuthProvider.getCredential(email, password)
+                    firebaseHelper.deleteUser()
 
-        user.reauthenticate(credential).addOnCompleteListener {
-            if (it.isSuccessful){
+                    user.delete().addOnCompleteListener {
+                        if (it.isSuccessful){
+                            deleteSuccessfully()
+                        }
 
-                firebaseHelper.deleteUser()
-
-                user.delete().addOnCompleteListener {
-                    if (it.isSuccessful){
-                        deleteSuccessfully()
-                    }
-
-                    else{
-                        deleteFailed()
+                        else{
+                            deleteFailed()
+                        }
                     }
                 }
-            }
 
-            else{
-                deleteFailed()
+                else{
+                    deleteFailed()
+                }
             }
         }
+
+        else{
+            Toast.makeText(applicationContext, "Please input your password", Toast.LENGTH_SHORT).show()
+        }
+
 
         return tvAccountManagementInputPassword.text as String
     }

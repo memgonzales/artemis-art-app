@@ -171,7 +171,14 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
         tvEditEmailInputPassword = findViewById(R.id.tv_edit_email_input_password)
         tvEditEmailInputPassword.text = password
 
-        updateEmail(newEmail.lowercase(), password)
+        if (!password.isNullOrEmpty()){
+            updateEmail(newEmail.lowercase(), password)
+        }
+
+        else{
+            Toast.makeText(applicationContext, "Please input your password", Toast.LENGTH_SHORT).show()
+        }
+
 
         return tvEditEmailInputPassword.text as String
     }

@@ -366,7 +366,8 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
         override fun onChildRemoved(snapshot: DataSnapshot) {
             val post = snapshot.getValue(Post::class.java)
 
-            if (post != null && !post.getPostId().isNullOrEmpty()){
+            if (post != null && !post.getPostId().isNullOrEmpty()
+                && !post.getUserId().isNullOrEmpty() && post.getUserId().equals(userId)){
 
                 val list = ArrayList<Post>(dataPosts)
 

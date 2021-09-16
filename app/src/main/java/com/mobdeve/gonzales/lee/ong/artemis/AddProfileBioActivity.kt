@@ -131,17 +131,25 @@ class AddProfileBioActivity : AppCompatActivity() {
 
             val bio: String = tielBio.text.toString().trim()
 
-            this.db.child(Keys.KEY_DB_USERS.name).child(this.user.uid).child(Keys.bio.name).setValue(bio)
-                .addOnSuccessListener {
-                    pbAddBio.visibility = View.GONE
-                    val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
-                    startActivity(i)
-                    finish()
-                }
-                .addOnFailureListener{
-                    pbAddBio.visibility = View.GONE
-                    Toast.makeText(this@AddProfileBioActivity, "Unable to add your bio right now. Please try again later", Toast.LENGTH_SHORT).show()
-                }
+            if (!bio.isEmpty()){
+                this.db.child(Keys.KEY_DB_USERS.name).child(this.user.uid).child(Keys.bio.name).setValue(bio)
+                    .addOnSuccessListener {
+                        pbAddBio.visibility = View.GONE
+                        val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
+                        startActivity(i)
+                        finish()
+                    }
+                    .addOnFailureListener{
+                        pbAddBio.visibility = View.GONE
+                        Toast.makeText(this@AddProfileBioActivity, "Unable to add your bio right now. Please try again later", Toast.LENGTH_SHORT).show()
+                    }
+            }
+
+            else{
+                pbAddBio.visibility = View.GONE
+                Toast.makeText(this@AddProfileBioActivity, "Please add a short bio about yourself", Toast.LENGTH_SHORT).show()
+            }
+
 
         }
     }
