@@ -343,6 +343,11 @@ class FeedFollowedAdapter(private val parentActivity: Activity) :
         return differ.currentList.size
     }
 
+    /**
+     * Updates the posts displayed through the adapter.
+     *
+     * @param newPosts List of new posts to be displayed through the adapter.
+     */
     fun updatePosts(newPosts: List<Post>){
         differ.submitList(newPosts)
     }

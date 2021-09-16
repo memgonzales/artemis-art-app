@@ -57,7 +57,6 @@ class BookmarksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 ivItemSearchResults.setImageBitmap(bitmap)
             }
 
-        //ivItemSearchResults.setImageResource(post)
     }
 
     /**

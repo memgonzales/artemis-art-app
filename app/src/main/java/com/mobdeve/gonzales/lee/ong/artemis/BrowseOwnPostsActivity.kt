@@ -418,21 +418,6 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
 
     }
 
-    /*
-    override fun onPause() {
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-        postDB.removeEventListener(childEventListener)
-        super.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        initRecyclerView()
-    }
-
-     */
-
 
 
     /**

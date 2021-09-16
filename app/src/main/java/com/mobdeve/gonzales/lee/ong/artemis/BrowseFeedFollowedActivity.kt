@@ -483,24 +483,6 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         })
     }
 
-    /*
-    override fun onPause() {
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.usersFollowed.name)
-        userDB.removeEventListener(childEventListenerUser)
-
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-
-        super.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        initRecyclerView()
-    }
-
-     */
-
     /**
      * Initialize the contents of the Activity's standard options menu.
      *
