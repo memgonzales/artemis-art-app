@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -279,11 +278,13 @@ class ViewProfileActivity : AppCompatActivity() {
                     val username: String = snapshot.child(Keys.username.name).getValue().toString()
                     val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
 
-                    Glide.with(baseContext)
-                        .load(profPic)
-                        .placeholder(R.drawable.chibi_artemis_hd)
-                        .error(R.drawable.chibi_artemis_hd)
-                        .into(civViewProfileProfilePicture)
+                    if (!(this@ViewProfileActivity as Activity).isFinishing) {
+                        Glide.with(this@ViewProfileActivity)
+                            .load(profPic)
+                            .placeholder(R.drawable.chibi_artemis_hd)
+                            .error(R.drawable.chibi_artemis_hd)
+                            .into(civViewProfileProfilePicture)
+                    }
 
                     tvViewProfileUsername.setText(username)
                     tvViewProfileBio.setText(bio)

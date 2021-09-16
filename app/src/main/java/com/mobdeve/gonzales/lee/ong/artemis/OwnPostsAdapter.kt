@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -218,19 +217,24 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
     override fun onBindViewHolder(holder: OwnPostsViewHolder, position: Int) {
         val currentPost = differ.currentList[position]
 
-        Glide.with(context)
-            .load(currentPost.getProfilePicture())
-                        .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(holder.getOwnPostProfilePic())
+        if (!(context as Activity).isFinishing) {
+            Glide.with(context)
+                .load(currentPost.getProfilePicture())
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(holder.getOwnPostProfilePic())
+        }
+
 
         holder.setOwnPostUsername(currentPost.getUsername())
 
-        Glide.with(context)
-            .load(currentPost.getPostImg())
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(holder.getOwnPostPost())
+        if (!(context as Activity).isFinishing) {
+            Glide.with(context)
+                .load(currentPost.getPostImg())
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(holder.getOwnPostPost())
+        }
 
         holder.setOwnPostTitle(currentPost.getTitle())
 
