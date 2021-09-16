@@ -41,6 +41,14 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -55,12 +63,17 @@ class SignUpActivity : AppCompatActivity() {
         tvSignUpPrivacy.movementMethod = LinkMovementMethod.getInstance()
     }
 
+    /**
+     * Initializes the Firebase-related components.
+     */
     private fun initFirebase() {
         this.mAuth = Firebase.auth
         this.db = Firebase.database
     }
 
-
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         this.tietUsername = findViewById(R.id.tiet_sign_up_username)
         this.tietEmail = findViewById(R.id.tiet_sign_up_email)
@@ -81,6 +94,9 @@ class SignUpActivity : AppCompatActivity() {
         launchAddProfilePic()
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
