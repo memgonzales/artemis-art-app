@@ -2,35 +2,35 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_view_comments_root"
+    android:id="@+id/cl_view_own_post_comments_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coord_view_comments"
+        android:id="@+id/coord_view_own_post_comments"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/cl_view_comments_comment"
+        app:layout_constraintBottom_toTopOf="@id/cl_view_own_post_comments_comment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar_view_comments"
+            android:id="@+id/appbar_view_own_post_comments"
             android:layout_width="match_parent"
             android:layout_height="56dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/ctl_view_comments"
+                android:id="@+id/ctl_view_own_post_comments"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:toolbarId="@+id/toolbar_view_comments">
+                app:toolbarId="@+id/toolbar_view_own_post_comments">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar_view_comments"
+                    android:id="@+id/toolbar_view_own_post_comments"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     tools:layout_collapseMode="pin">
@@ -38,7 +38,7 @@
                 </androidx.appcompat.widget.Toolbar>
 
                 <TextView
-                    android:id="@+id/tv_view_comments_title"
+                    android:id="@+id/tv_view_own_post_comments_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
@@ -55,31 +55,31 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_view_comments"
+            android:id="@+id/srl_view_own_post_comments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.core.widget.NestedScrollView
-                android:id="@+id/nsv_view_comments"
+                android:id="@+id/nsv_view_own_post_comments"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_view_comments_no_comment"
+                    android:id="@+id/cl_view_own_post_comments_no_comment"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@id/cl_view_comments_comment"
+                    app:layout_constraintBottom_toTopOf="@id/cl_view_own_post_comments_comment"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/coord_view_comments"
+                    app:layout_constraintTop_toTopOf="@id/coord_view_own_post_comments"
                     app:layout_constraintVertical_bias="0.5">
 
                     <ProgressBar
-                        android:id="@+id/pb_view_comments"
+                        android:id="@+id/pb_view_own_post_comments"
                         style="?android:attr/progressBarStyle"
                         android:layout_width="51dp"
                         android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/sfl_view_comments"
+                        android:id="@+id/sfl_view_own_post_comments"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -103,7 +103,7 @@
                         tools:ignore="MissingConstraints">
 
                         <LinearLayout
-                            android:id="@+id/ll_view_comments_shimmer"
+                            android:id="@+id/ll_view_own_post_comments_shimmer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
@@ -118,7 +118,7 @@
                     </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_view_comments"
+                        android:id="@+id/rv_view_own_post_comments"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="?attr/actionBarSize"
@@ -130,7 +130,7 @@
                         app:layout_constraintVertical_bias="0.0" />
 
                     <ImageView
-                        android:id="@+id/iv_view_comments_no_comment"
+                        android:id="@+id/iv_view_own_post_comments_no_comment"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -140,17 +140,17 @@
                         android:contentDescription="@string/iv_view_comments_none"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
-                        app:layout_constraintBottom_toTopOf="@+id/tv_view_comments_no_comment"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_view_comments_no_comment"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_view_own_post_comments_no_comment"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_view_own_post_comments_no_comment"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tv_view_comments_no_comment"
+                        app:layout_constraintStart_toStartOf="@+id/tv_view_own_post_comments_no_comment"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.25"
                         app:layout_constraintVertical_chainStyle="packed"
                         app:srcCompat="@drawable/logo_recolored" />
 
                     <TextView
-                        android:id="@+id/tv_view_comments_no_comment"
+                        android:id="@+id/tv_view_own_post_comments_no_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -164,7 +164,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_view_comments_no_comment" />
+                        app:layout_constraintTop_toBottomOf="@+id/iv_view_own_post_comments_no_comment" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -179,17 +179,17 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_view_comments_comment"
+        android:id="@+id/cl_view_own_post_comments_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/nv_view_comments_bottom"
+        app:layout_constraintBottom_toTopOf="@id/nv_view_own_post_comments_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
         <ImageButton
-            android:id="@+id/ib_add_comment"
+            android:id="@+id/ib_add_own_post_comment"
             android:contentDescription="@string/ib_add_comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -198,16 +198,16 @@
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@id/et_add_comment"
-            app:layout_constraintEnd_toStartOf="@+id/gl_view_comments_right_comment"
-            app:layout_constraintStart_toStartOf="@+id/gl_view_comments_left_icon"
-            app:layout_constraintTop_toTopOf="@+id/et_add_comment"
+            app:layout_constraintBottom_toBottomOf="@id/et_add_own_post_comment"
+            app:layout_constraintEnd_toStartOf="@+id/gl_view_own_post_comments_right_comment"
+            app:layout_constraintStart_toStartOf="@+id/gl_view_own_post_comments_left_icon"
+            app:layout_constraintTop_toTopOf="@+id/et_add_own_post_comment"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_action_send"
             app:tint="@color/purple_main" />
 
         <EditText
-            android:id="@+id/et_add_comment"
+            android:id="@+id/et_add_own_post_comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -218,12 +218,12 @@
             android:textColorHint="@color/purple_main"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ib_add_comment"
-            app:layout_constraintStart_toStartOf="@id/gl_view_comments_left_comment"
+            app:layout_constraintEnd_toStartOf="@+id/ib_add_own_post_comment"
+            app:layout_constraintStart_toStartOf="@id/gl_view_own_post_comments_left_comment"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_view_comments_left_comment"
+            android:id="@+id/gl_view_own_post_comments_left_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -231,14 +231,14 @@
             app:layout_constraintGuide_percent="0.03" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_view_comments_right_comment"
+            android:id="@+id/gl_view_own_post_comments_right_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.97" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_view_comments_left_icon"
+            android:id="@+id/gl_view_own_post_comments_left_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -248,7 +248,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nv_view_comments_bottom"
+        android:id="@+id/nv_view_own_post_comments_bottom"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
@@ -261,7 +261,7 @@
         app:menu="@menu/menu_bottom_profile">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_view_comments_add"
+            android:id="@+id/fab_view_own_post_comments_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"

@@ -30,22 +30,80 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
 
+/**
+ * Class handling the functionalities related to viewing the comments on a post of a followed user.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing the comments
+ * on a post of a followed user.
+ */
 class ViewCommentsFollowedActivity : AppCompatActivity() {
+    /**
+     * Comments to be displayed.
+     */
     private lateinit var dataCommentsFollowed: ArrayList<Comment>
+
+    /**
+     * Recycler view for the comments to be displayed.
+     */
     private lateinit var rvCommentsFollowed: RecyclerView
+
+    /**
+     * Adapter for the recycler view handling the comments to be displayed.
+     */
     private lateinit var commentsAdapter: CommentsAdapter
+
+    /**
+     * Linear layout used to hold the shimmer layout.
+     */
     private lateinit var llViewCommentsFollowedShimmer: LinearLayout
+
+    /**
+     * Shimmer layout displayed while data regarding the comments are being fetched
+     * from the remote database.
+     */
     private lateinit var sflViewCommentsFollowed: ShimmerFrameLayout
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewCommentsFollowedBottom: BottomNavigationView
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Image button for adding a comment.
+     */
     private lateinit var ibAddComment: ImageButton
+
+    /**
+     * Edit text field for entering a comment.
+     */
     private lateinit var etComment: EditText
 
+    /**
+     * Progress bar representing the process of adding the comment to the database.
+     */
     private lateinit var pbComment: ProgressBar
 
     /**
@@ -58,31 +116,104 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
      */
     private lateinit var tvNone: TextView
 
-
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
     private lateinit var srlViewCommentsFollowed: SwipeRefreshLayout
 
-    //Firebase
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user.
+     */
     private lateinit var userId: String
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: DatabaseReference
 
+    /**
+     * Unique identifier of the post.
+     */
     private lateinit var postId: String
+
+    /**
+     * Number of comments on the post.
+     */
     private var numComment: Int = 0
 
-    // data for onbackpressed() intent
+    /**
+     * Unique identifier of the user who posted the post.
+     */
     private lateinit var userIdPost: String
+
+    /**
+     * Profile picture of the user who posted the post.
+     */
     private lateinit var profilePicture: String
+
+    /**
+     * Username of the user who posted the post.
+     */
     private lateinit var username: String
+
+    /**
+     * The posted artwork.
+     */
     private lateinit var postImg: String
+
+    /**
+     * Title of the post.
+     */
     private lateinit var title: String
+
+    /**
+     * Number of upvotes of the post.
+     */
     private var upvoteCounter: Int = 0
+
+    /**
+     * Date that the post was posted.
+     */
     private lateinit var datePosted: String
+
+    /**
+     * Medium of the artwork.
+     */
     private lateinit var medium: String
+
+    /**
+     * Dimensions of the artwork.
+     */
     private lateinit var dimensions: String
+
+    /**
+     * Description of the post.
+     */
     private lateinit var description: String
+
+    /**
+     * Tags of the post.
+     */
     private lateinit var tags: String
+
+    /**
+     * <code>true</code> if the user has bookmarked the post; <code>false</code>, otherwise.
+     */
     private var bookmark: Boolean = false
+
+    /**
+     * <code>true</code> if the user has upvoted the post; <code>false</code>, otherwise.
+     */
     private var upvote: Boolean = false
 
     /**
@@ -168,6 +299,9 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the Firebase-related components.
+     */
     private fun initFirebase() {
         this.mAuth = Firebase.auth
         this.user = this.mAuth.currentUser!!
@@ -175,6 +309,9 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         this.db = Firebase.database.reference
     }
 
+    /**
+     * Initializes the intent passed to the activity.
+     */
     private fun initIntent(){
         val intent: Intent = intent
         this.postId = intent.getStringExtra(Keys.KEY_POSTID.name).toString()
@@ -200,6 +337,9 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_comments_followed))
         initShimmer()
@@ -211,6 +351,9 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         addComment()
     }
 
+    /**
+     * Initializes the shimmer layout animated while the data are being fetched from the remote server.
+     */
     private fun initShimmer() {
         this.sflViewCommentsFollowed = findViewById(R.id.sfl_view_comments_followed)
 
@@ -223,6 +366,10 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
         this.srlViewCommentsFollowed = findViewById(R.id.srl_view_comments_followed)
         srlViewCommentsFollowed.setOnRefreshListener {
@@ -235,12 +382,19 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
             R.color.pinkish_purple_lighter)
     }
 
+    /**
+     * Refetches data from the database and reshuffles the display of existing data when the screen
+     * is swiped to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             srlViewCommentsFollowed.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewCommentsFollowedBottom = findViewById(R.id.nv_view_comments_followed_bottom)
 
@@ -248,11 +402,17 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
             this@ViewCommentsFollowedActivity)
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Initializes the recycler view of the activity.
+     */
     private fun initRecyclerView() {
         this.dataCommentsFollowed = arrayListOf<Comment>()
 
@@ -270,6 +430,13 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         initContents()
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected. This value cannot be <code>null</code>.
+     * @return <code>false</code> to allow normal menu processing to proceed; <code>true</code>
+     * to consume it here.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             android.R.id.home -> {
@@ -281,6 +448,10 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Redirects the user to the ViewPostFollowed activity of the post whose comments are being
+     * viewed when they click the back button.
+     */
     override fun onBackPressed() {
         val intent = Intent(this, ViewPostFollowedActivity::class.java)
 
@@ -348,6 +519,9 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         finish()
     }
 
+    /**
+     * Initializes the contents of the activity.
+     */
     private fun initContents(){
         this.ivNone = findViewById(R.id.iv_view_comments_followed_no_comment)
         this.tvNone = findViewById(R.id.tv_view_comments_followed_no_comment)
@@ -435,6 +609,9 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Sets the listeners in relation to adding a comment on the post.
+     */
     private fun addComment() {
         this.ibAddComment = findViewById(R.id.ib_add_comment_followed)
         this.etComment = findViewById(R.id.et_add_comment_followed)
@@ -478,6 +655,12 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Adds a comment to the database.
+     *
+     * @param comment Comment to be added to the database
+     * @param commentKey Unique identifier of the comment to be added to the database
+     */
     private fun addCommentDB(comment: Comment, commentKey: String) {
         this.numComment++
 
@@ -502,6 +685,10 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
             }
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@ViewCommentsFollowedActivity)
         this.fabAddPost = findViewById(R.id.fab_view_comments_followed_add)

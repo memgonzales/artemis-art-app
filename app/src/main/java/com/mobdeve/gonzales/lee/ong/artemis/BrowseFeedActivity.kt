@@ -473,8 +473,8 @@ class BrowseFeedActivity : AppCompatActivity() {
      * Initialize the contents of the Activity's standard options menu.
      *
      * @param menu The options menu in which you place your items.
-     * @return You must return true for the menu to be displayed; if you return false
-     * it will not be shown.
+     * @return You must return <code>true</code> for the menu to be displayed; if you return
+     * <code>false</code> it will not be shown.
      */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater

@@ -23,19 +23,62 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
+/**
+ * Class handling the functionalities related to viewing the comments on a post for unregistered users.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing the comments
+ * on a post for unregistered users.
+ */
 class ViewCommentsUnregisteredActivity : AppCompatActivity() {
+    /**
+     * Comments to be displayed.
+     */
     private lateinit var dataComments: ArrayList<Comment>
+
+    /**
+     * Recycler view for the comments to be displayed.
+     */
     private lateinit var rvComments: RecyclerView
+
+    /**
+     * Adapter for the recycler view handling the comments to be displayed.
+     */
     private lateinit var unregisteredCommentsAdapter: UnregisteredCommentsAdapter
+
+    /**
+     * Linear layout used to hold the shimmer layout.
+     */
     private lateinit var llViewCommentsShimmer: LinearLayout
+
+    /**
+     * Shimmer layout displayed while data regarding the comments are being fetched
+     * from the remote database.
+     */
     private lateinit var sflViewComments: ShimmerFrameLayout
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewCommentsUnregisteredBottom: BottomNavigationView
+
+    /**
+     * Edit text field for entering a comment.
+     */
     private lateinit var etAddCommentUnregistered: EditText
 
+    /**
+     * Image button for adding a comment.
+     */
     private lateinit var ibAddComment: ImageButton
 
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
 
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
     private lateinit var srlViewCommentsUnregisterd: SwipeRefreshLayout
 
     /**
@@ -48,14 +91,36 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
      */
     private lateinit var tvNone: TextView
 
-    //Firebase
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user.
+     */
     private lateinit var userId: String
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: DatabaseReference
 
+    /**
+     * Unique identifier of the post.
+     */
     private lateinit var postId: String
+
+    /**
+     * Number of comments on the post.
+     */
     private var numComment: Int = 0
+
 
     /**
      * Called when the activity is starting.
@@ -74,6 +139,9 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
         initComponents()
     }
 
+    /**
+     * Initializes the Firebase-related components.
+     */
     private fun initFirebase() {
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
@@ -89,6 +157,9 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the intent passed to the activity.
+     */
     private fun initIntent(){
         val intent: Intent = intent
         this.postId = intent.getStringExtra(Keys.KEY_POSTID.name).toString()
@@ -100,6 +171,9 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_comments_unregistered))
         initShimmer()
@@ -110,6 +184,9 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
         disableEditText()
     }
 
+    /**
+     * Initializes the shimmer layout animated while the data are being fetched from the remote server.
+     */
     private fun initShimmer() {
         this.sflViewComments = findViewById(R.id.sfl_view_comments_unregistered)
 
@@ -122,6 +199,10 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
         this.srlViewCommentsUnregisterd = findViewById(R.id.srl_view_comments_unregistered)
         srlViewCommentsUnregisterd.setOnRefreshListener {
@@ -134,12 +215,19 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
             R.color.pinkish_purple_lighter)
     }
 
+    /**
+     * Refetches data from the database and reshuffles the display of existing data when the screen
+     * is swiped to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             srlViewCommentsUnregisterd.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewCommentsUnregisteredBottom = findViewById(R.id.nv_view_comments_unregistered_bottom)
         this.fabAddPost = findViewById(R.id.fab_view_comments_unregistered_add)
@@ -174,11 +262,17 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Initializes the recycler view of the activity.
+     */
     private fun initRecyclerView() {
         this.dataComments = arrayListOf<Comment>()
 
@@ -196,6 +290,9 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
         initContents()
     }
 
+    /**
+     * Initializes the contents of the activity.
+     */
     private fun initContents(){
         this.ivNone = findViewById(R.id.iv_view_comments_unregistered_no_comment)
         this.tvNone = findViewById(R.id.tv_view_comments_unregistered_no_comment)
@@ -272,6 +369,9 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Disables the adding of comments when a user is unregistered.
+     */
     private fun disableEditText() {
         this.etAddCommentUnregistered = findViewById(R.id.et_add_comment_unregistered)
         this.ibAddComment = findViewById(R.id.ib_add_comment_unregistered)
