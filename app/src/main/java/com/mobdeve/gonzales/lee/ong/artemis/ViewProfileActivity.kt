@@ -279,7 +279,7 @@ class ViewProfileActivity : AppCompatActivity() {
                     val username: String = snapshot.child(Keys.username.name).getValue().toString()
                     val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
 
-                    Glide.with(this@ViewProfileActivity)
+                    Glide.with(baseContext)
                         .load(profPic)
                         .placeholder(R.drawable.chibi_artemis_hd)
                         .error(R.drawable.chibi_artemis_hd)
