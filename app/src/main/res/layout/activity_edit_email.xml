@@ -96,6 +96,17 @@
                     app:layout_constraintGuide_begin="0dp"
                     app:layout_constraintGuide_percent="0.62" />
 
+                <TextView
+                    android:id="@+id/tv_edit_email_input_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_edit_email"
                     android:layout_width="0dp"
