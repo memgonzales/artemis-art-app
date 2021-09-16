@@ -115,7 +115,7 @@ class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * In the case of a caught input/output exception, this function sets the profile picture
      * to the launcher icon (currently, this is the chibi version of the Artemis logo).
      *
-     * @return URI of the photo to which the profile picture of the user is to be set.
+     * @param picture URI of the photo to which the profile picture of the user is to be set.
      */
     fun setItemFeedProfilePic(picture: String) {
 

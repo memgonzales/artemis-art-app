@@ -29,6 +29,11 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
 
+/**
+ * Class handling the functionalities related to adding post tags.
+ *
+ * @constructor Creates an activity for adding post tags.
+ */
 class PostAddTagsActivity : AppCompatActivity() {
     /**
      * Input field for the tags of the post.

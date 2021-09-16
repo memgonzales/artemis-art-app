@@ -36,38 +36,137 @@ import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
+/**
+ * Class for handling functionalities related to displaying the search results.
+ *
+ * @constructor Creates an activity for displaying the search results.
+ */
 class SearchResultsActivity : AppCompatActivity() {
+    /**
+     * List of posts returned by the search query.
+     */
     private lateinit var dataPosts: ArrayList<Post>
+
+    /**
+     * List of users returned by the search query.
+     */
     private lateinit var dataUsers: ArrayList<User>
+
+    /**
+     * Recycler view for the posts to be displayed on the search results.
+     */
     private lateinit var rvSearch: RecyclerView
+
+    /**
+     * Image view holding the profile picture of the first user returned by the search query.
+     */
     private lateinit var civSearchResultUser1: CircleImageView
+
+    /**
+     * Image view holding the profile picture of the second user returned by the search query.
+     */
     private lateinit var civSearchResultUser2: CircleImageView
+
+    /**
+     * Image view holding the profile picture of the third user returned by the search query.
+     */
     private lateinit var civSearchResultUser3: CircleImageView
+
+    /**
+     * Image view holding the profile picture of the fourth user returned by the search query.
+     */
     private lateinit var civSearchResultUser4: CircleImageView
+
+    /**
+     * Text view holding the "Matching Artworks" label.
+     */
     private lateinit var tvSearchResultsArtworks: TextView
     private lateinit var tvSearchResultsUsers: TextView
 
+    /**
+     * Image view displayed when the search result does not have matching users or posts to display.
+     */
     private lateinit var ivNone: ImageView
+
+    /**
+     * First (main) text view displayed when the search result does not have matching users or
+     * posts to display.
+     */
     private lateinit var tvNone: TextView
+
+    /**
+     * Second text view displayed when the search result does not have matching users or
+     * posts to display.
+     */
     private lateinit var tvSubNone: TextView
 
+    /**
+     * Adapter for the recycler view handling the posts to be displayed on the search result.
+     */
     private lateinit var searchAdapter: SearchResultsAdapter
+
+    /**
+     * Shimmer layout displayed while data regarding the posts are being fetched
+     * from the remote database.
+     */
     private lateinit var sflSearch: ShimmerFrameLayout
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvSearchBottom: BottomNavigationView
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
     private lateinit var srlSearchResults: SwipeRefreshLayout
 
+    /**
+     * Input field for the user's search query.
+     */
     private lateinit var etSearchBar: EditText
 
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: DatabaseReference
 
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user.
+     */
     private lateinit var userId: String
 
     /**
@@ -85,6 +184,14 @@ class SearchResultsActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_results)
@@ -162,6 +269,9 @@ class SearchResultsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_search_results))
         initShimmer()
@@ -172,6 +282,9 @@ class SearchResultsActivity : AppCompatActivity() {
         initSwipeRefresh()
     }
 
+    /**
+     * Initializes the shimmer layout animated while the data are being fetched from the remote server.
+     */
     private fun initShimmer() {
         this.sflSearch = findViewById(R.id.sfl_search_results)
 
@@ -190,6 +303,10 @@ class SearchResultsActivity : AppCompatActivity() {
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
     }
 
+    /**
+     * Initializes the swipe refresh layout and defines the behavior when the screen is swiped
+     * to refresh.
+     */
     private fun initSwipeRefresh() {
         this.srlSearchResults = findViewById(R.id.srl_search_results)
         srlSearchResults.setOnRefreshListener {
@@ -202,12 +319,19 @@ class SearchResultsActivity : AppCompatActivity() {
             R.color.pinkish_purple_lighter);
     }
 
+    /**
+     * Refetches data from the database and reshuffles the display of existing data when the screen
+     * is swiped to refresh.
+     */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             srlSearchResults.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvSearchBottom = findViewById(R.id.nv_search_results_bottom)
 
@@ -215,6 +339,9 @@ class SearchResultsActivity : AppCompatActivity() {
             this@SearchResultsActivity)
     }
 
+    /**
+     * Initializes the contents (i.e., the list of resulting users and posts) of the activity.
+     */
     private fun initContents() {
         this.dataPosts = arrayListOf<Post>()
         this.dataUsers = arrayListOf<User>()
@@ -235,14 +362,7 @@ class SearchResultsActivity : AppCompatActivity() {
 
         val search = intent.getStringExtra(Keys.KEY_SEARCH.name).toString()
 
-        //this.civSearchResultUser1.setImageResource(dataUsers[0].getUserImg())
-        //this.civSearchResultUser2.setImageResource(dataUsers[1].getUserImg())
-        //this.civSearchResultUser3.setImageResource(dataUsers[2].getUserImg())
-        //this.civSearchResultUser4.setImageResource(dataUsers[3].getUserImg())
-
         getUserSearchResults(search)
-        //getSearchPostResults(search)
-
 
         civSearchResultUser1.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@SearchResultsActivity, ViewUserActivity::class.java)
@@ -306,6 +426,11 @@ class SearchResultsActivity : AppCompatActivity() {
         });
     }
 
+    /**
+     * Retrieves the list of matching users based on the user's search query.
+     *
+     * @param search The user's search query.
+     */
     private fun getUserSearchResults(search: String){
         val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
@@ -345,6 +470,11 @@ class SearchResultsActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Sets the list of matching users based on the user's search query onto the activity layout.
+     *
+     * @param data Array list of users matching the user's search query.
+     */
     private fun setSearchUserResults(data: ArrayList<User>){
         var i = 0
 
@@ -398,6 +528,12 @@ class SearchResultsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Retrieves the list of matching posts based on the user's search query.
+     *
+     * @param searchPost The user's search query.
+     * @param dataUsers Array list of user's matching the user's search query.
+     */
     private fun getSearchPostResults(searchPost: String, dataUsers: ArrayList<User>){
         setSearchPostResults(dataPosts, dataUsers)
 
@@ -499,6 +635,12 @@ class SearchResultsActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Sets the list of matching posts based on the user's search query onto the activity layout.
+     *
+     * @param dataPosts Array list of posts matching the user's search query.
+     * @param dataUsers Array list of users matching the user's search query.
+     */
     private fun setSearchPostResults(dataPosts: ArrayList<Post>, dataUsers: ArrayList<User>){
         if (dataPosts.isNullOrEmpty() && dataUsers.isNullOrEmpty()){
             this.tvSearchResultsUsers.visibility = View.GONE
@@ -509,11 +651,18 @@ class SearchResultsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@SearchResultsActivity)
         this.fabAddPost = findViewById(R.id.fab_search_results_add)

@@ -12,6 +12,12 @@ import com.bumptech.glide.Glide
 import java.security.Key
 import java.util.*
 
+/**
+ * Adapter for the recycler view that handles the posts displayed on the feed for unregistered users.
+ *
+ * @constructor Creates an adapter for the recycler view that handles the posts displayed on the feed
+ * for unregistered users.
+ */
 class UnregisteredFeedAdapter() : RecyclerView.Adapter<FeedViewHolder>() {
 
     /**
@@ -19,6 +25,10 @@ class UnregisteredFeedAdapter() : RecyclerView.Adapter<FeedViewHolder>() {
      */
     private lateinit var context: Context
 
+    /**
+     * Callback that informs <code>ArrayObjectAdapter</code> how to compute list updates when using
+     * <code>DiffUtil</code> in <code>ArrayObjectAdapter.setItems(List, DiffCallback)</code> method.
+     */
     private val diffCallbacks = object : DiffUtil.ItemCallback<Post>(){
         override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
             return oldItem.getPostId().equals(newItem.getPostId())
@@ -30,6 +40,9 @@ class UnregisteredFeedAdapter() : RecyclerView.Adapter<FeedViewHolder>() {
 
     }
 
+    /**
+     * Helper for computing the difference between two lists via <code>DiffUtil</code> on a background thread.
+     */
     private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
 
     /**

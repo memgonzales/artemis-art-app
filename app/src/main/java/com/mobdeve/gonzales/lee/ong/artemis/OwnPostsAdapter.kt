@@ -26,7 +26,6 @@ import com.facebook.share.widget.ShareDialog
  *
  * @constructor Creates an adapter for the recycler view that handles the user's own posts.
  */
-//class OwnPostsAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
 class OwnPostsAdapter(private val parentActivity: Activity) :
     RecyclerView.Adapter<OwnPostsViewHolder>() {
 

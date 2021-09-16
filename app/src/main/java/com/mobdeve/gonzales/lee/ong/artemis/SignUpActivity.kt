@@ -21,25 +21,75 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
+/**
+ * Class for handling functionalities related to signing up.
+ *
+ * @constructor Creates an activity for signing up.
+ */
 class SignUpActivity : AppCompatActivity() {
+    /**
+     * Button for creating a user account.
+     */
     private lateinit var btnSignUp: Button
 
+    /**
+     * Input field for the username.
+     */
     private lateinit var tietUsername: TextInputEditText
+
+    /**
+     * Input field for the email.
+     */
     private lateinit var tietEmail: TextInputEditText
+
+    /**
+     * Input field for the password.
+     */
     private lateinit var tietPassword: TextInputEditText
+
+    /**
+     * Input field for reentering the password for confirmation.
+     */
     private lateinit var tietConfirmPassword: TextInputEditText
 
+    /**
+     * Text input layout for the username.
+     */
     private lateinit var tilUsername: TextInputLayout
+
+    /**
+     * Text input layout for the email.
+     */
     private lateinit var tilEmail: TextInputLayout
+
+    /**
+     * Text input layout for the password.
+     */
     private lateinit var tilPassword: TextInputLayout
+
+    /**
+     * Text input layout for reentering the password for confirmation.
+     */
     private lateinit var tilConfirmPassword: TextInputLayout
 
+    /**
+     * Progress bar to signal that data are being fetched from the database.
+     */
     private lateinit var pbSignUp: ProgressBar
 
+    /**
+     * Clickable text view for viewing the Philippine Data Privacy Act.
+     */
     private lateinit var tvSignUpPrivacy: TextView
 
-    //Firebase - related
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
+
+    /**
+     * Starting point for all database-related operations.
+     */
     private lateinit var db: FirebaseDatabase
 
     /**
@@ -59,6 +109,9 @@ class SignUpActivity : AppCompatActivity() {
         initLink()
     }
 
+    /**
+     * Initializes the link for the Philippine Data Privacy Act.
+     */
     private fun initLink() {
         tvSignUpPrivacy = findViewById(R.id.tv_sign_up_privacy)
         tvSignUpPrivacy.movementMethod = LinkMovementMethod.getInstance()
@@ -103,6 +156,9 @@ class SignUpActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Launches the AddProfilePicture activity.
+     */
     private fun launchAddProfilePic() {
 
         this.btnSignUp.setOnClickListener {
@@ -118,6 +174,15 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Checks whether the user entered valid credentials.
+     *
+     * @param username Username entered by the user.
+     * @param email Email address entered by the user.
+     * @param password Password entered by the user.
+     * @param confirmPw Password reentered by the user for confirmation.
+     * @return <code>true</code> if the entered credentials were valid; <code>false</code>, otherwise.
+     */
     private fun validCredentials(username: String, email: String, password: String, confirmPw: String): Boolean{
         var isValid = true
 
@@ -137,8 +202,6 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-
-
         if(email.isEmpty()) {
             this.tilEmail.error = "Required"
             this.tietEmail.requestFocus()
@@ -154,8 +217,6 @@ class SignUpActivity : AppCompatActivity() {
         else{
             this.tilEmail.error = null
         }
-
-
 
         when {
             password.isEmpty() -> {
@@ -173,8 +234,6 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-
-
         when {
             confirmPw.isEmpty() -> {
                 this.tilConfirmPassword.error = "Required"
@@ -191,10 +250,17 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-
         return isValid
     }
 
+    /**
+     * Creates an account with the user's entered credentials and logs the user in using the newly
+     * created account.
+     *
+     * @param username Username entered by the user.
+     * @param email Email address entered by the user.
+     * @param password Password entered by the user.
+     */
     private fun signUp(username: String, email: String, password: String){
 
         val userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
@@ -222,6 +288,15 @@ class SignUpActivity : AppCompatActivity() {
             })
     }
 
+    /**
+     * Checks whether the entered email is unique.
+     *
+     * @param userExists <code>true</code> if the entered email is already in the database;
+     * <code>false</code>, otherwise
+     * @param email Email address entered by the user
+     * @param username Username entered by the user
+     * @param password Password entered by the user
+     */
     private fun checkEmail(userExists: Boolean, email: String, username: String, password: String){
 
         val userDB = this.db.reference.child(Keys.KEY_DB_USERS.name)
@@ -251,16 +326,27 @@ class SignUpActivity : AppCompatActivity() {
             })
     }
 
+    /**
+     * Displays a toast stating that the entered username is already associated with another account.
+     */
     private fun usernameExists(){
         this.tilUsername.error = "Username has been already been taken"
         this.tietUsername.requestFocus()
     }
 
+    /**
+     * Displays a toast stating that the entered email is already associated with another account.
+     */
     private fun emailExists(){
         this.tilEmail.error = "The email was registered before"
         this.tietEmail.requestFocus()
     }
 
+    /**
+     * Stores user details in the database.
+     *
+     * @param user User details to be stored in the database.
+     */
     private fun storeUser(user: User) {
         this.pbSignUp.visibility = View.VISIBLE
 
@@ -290,6 +376,10 @@ class SignUpActivity : AppCompatActivity() {
             }
     }
 
+    /**
+     * Displays a toast stating that the user was successfully registered and redirects the user to
+     * the AddProfilePicture activity.
+     */
     private fun successfulRegistration() {
         this.pbSignUp.visibility = View.GONE
         Toast.makeText(this, "Successfully registered", Toast.LENGTH_SHORT).show()
@@ -299,6 +389,9 @@ class SignUpActivity : AppCompatActivity() {
         finish()
     }
 
+    /**
+     * Displays a toast stating that the registration failed.
+     */
     private fun failedRegistration() {
         this.pbSignUp.visibility = View.GONE
         Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()

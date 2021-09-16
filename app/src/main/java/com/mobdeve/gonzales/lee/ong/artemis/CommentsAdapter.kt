@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide
  *
  * @constructor Creates an adapter for the recycler view that handles the comments on the posts.
  */
-
 class CommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>() {
 
     /**
@@ -23,8 +22,15 @@ class CommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>() {
      */
     private lateinit var context: Context
 
+    /**
+     * Object for accessing the Firebase helper methods.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
+    /**
+     * Callback that informs <code>ArrayObjectAdapter</code> how to compute list updates when using
+     * <code>DiffUtil</code> in <code>ArrayObjectAdapter.setItems(List, DiffCallback)</code> method.
+     */
     private val diffCallbacks = object : DiffUtil.ItemCallback<Comment>(){
         override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
             return oldItem.getCommentId().equals(newItem.getCommentId())
@@ -35,6 +41,9 @@ class CommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>() {
         }
     }
 
+    /**
+     * Helper for computing the difference between two lists via <code>DiffUtil</code> on a background thread.
+     */
     private val differ: AsyncListDiffer<Comment> = AsyncListDiffer(this, diffCallbacks)
 
     /**
@@ -141,6 +150,11 @@ class CommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>() {
         return differ.currentList.size
     }
 
+    /**
+     * Updates the comments displayed through the adapter.
+     *
+     * @param newComments List of new comments to be displayed through the adapter.
+     */
     fun updateComments(newComments: List<Comment>){
         differ.submitList(newComments)
     }

@@ -23,7 +23,6 @@ import com.facebook.share.widget.ShareDialog
  * Adapter for the recycler view that handles the posts displayed on the feed.
  *
  * @constructor Creates an adapter for the recycler view that handles the posts displayed on the feed.
- * @param dataPosts Posts displayed on the feed.
  * @param parentActivity Activity calling this adapter.
  */
 class FeedAdapter(private val parentActivity: Activity) :

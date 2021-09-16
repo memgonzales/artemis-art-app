@@ -22,22 +22,22 @@ class FirebaseHelper {
     private var context: Context
 
     /**
-     * Attribute for performing Firebase authentications.
+     * Starting point for Firebase authentication SDK.
      */
     private var mAuth: FirebaseAuth
 
     /**
-     * Reference to the database being accessed.
+     * Starting point for all database-related operations.
      */
     private var db: DatabaseReference
 
     /**
-     * Attribute storing a user's profile information obtained from the user database.
+     * Represents a user profile's information in the Firebase user database.
      */
     private lateinit var user: FirebaseUser
 
     /**
-     * Unique identifier of the user currently accessing the app.
+     * Unique identifier of the user.
      */
     private lateinit var userId: String
 
@@ -50,6 +50,7 @@ class FirebaseHelper {
     /**
      * Creates a FirebaseHelper object given the context with which the database is accessed.
      *
+     * @constructor Creates a FirebaseHelper object given the context with which the database is accessed.
      * @param context Context with which the database is accessed.
      */
     constructor(context: Context){

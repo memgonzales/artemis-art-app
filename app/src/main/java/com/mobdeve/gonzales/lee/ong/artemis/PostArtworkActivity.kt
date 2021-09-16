@@ -16,6 +16,8 @@ import java.io.FileOutputStream
 
 /**
  * Class for handling functionalities related to posting an artwork.
+ *
+ * @constructor Creates an activity for posting an artwork.
  */
 class PostArtworkActivity : AppCompatActivity() {
     /**

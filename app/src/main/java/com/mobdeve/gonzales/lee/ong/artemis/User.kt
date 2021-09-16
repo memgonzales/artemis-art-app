@@ -65,26 +65,20 @@ class User {
 
     /**
      * Creates a user.
+     *
+     * @constructor Creates a user.
      */
     constructor(){
-       // this.userId = ""
-      //  this.username = ""
-     //   this.email = ""
-      //  this.password = ""
-      //  this.userImg = ""
-      //  this.bio = ""
-
-      //  this.bookmarks = HashMap<String, Any?>()
-      //  this.userPosts = HashMap<String, Any?>()
-      //  this.highlights = HashMap<String, Any?>()
-      //  this.upvotedPosts = HashMap<String, Any?>()
-      //  this.usersFollowed = HashMap<String, Any?>()
-     //   this.userComments = HashMap<String, Any?>()
+        /*
+         * Intentionally left empty to prevent the app from crashing when performing Firebase
+         * CRUD operations involving comments
+         */
     }
 
-     /**
+    /**
      * Creates a user given a username, email address, and password.
      *
+     * @constructor Creates a user given a username, email address, and password.
      * @param username Username of the user.
      * @param email Email address of the user.
      * @param password Password of the user.
@@ -96,19 +90,12 @@ class User {
          this.password = password
          this.userImg = "https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2"
          this.bio = ""
-
-    //     this.bookmarks = HashMap<String, Any?>()
-   //      this.userPosts = HashMap<String, Any?>()
-    //     this.highlights = HashMap<String, Any?>()
-     //    this.upvotedPosts = HashMap<String, Any?>()
-    //     this.usersFollowed = HashMap<String, Any?>()
-    //     this.userComments = HashMap<String, Any?>()
-
     }
 
     /**
      * Creates a user given a username, email address, password, profile picture, and short bio.
      *
+     * @constructor Creates a user given a username, email address, password, profile picture, and short bio.
      * @param username Username of the user.
      * @param email Email address of the user.
      * @param password Password of the user.
@@ -122,14 +109,6 @@ class User {
         this.password = password
         this.userImg = userImg
         this.bio = bio
-
-     //   this.bookmarks = HashMap<String, Any?>()
-      //  this.userPosts = HashMap<String, Any?>()
-      //  this.highlights = HashMap<String, Any?>()
-     //   this.upvotedPosts = HashMap<String, Any?>()
-     //   this.usersFollowed = HashMap<String, Any?>()
-    //    this.userComments = HashMap<String, Any?>()
-
     }
 
     /**
