@@ -257,7 +257,7 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
      */
     private fun updateFailed(){
         pbEditEmail.visibility = View.GONE
-        Toast.makeText(applicationContext, "Failed to update your email", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Invalid password", Toast.LENGTH_SHORT).show()
     }
 
     /**

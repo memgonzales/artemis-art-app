@@ -317,7 +317,7 @@ class AccountManagementActivity : AppCompatActivity(), DialogWithInput.DialogWit
      * Defines the behavior when the account deletion fails.
      */
     private fun deleteFailed(){
-        Toast.makeText(applicationContext, "Failed to delete account", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Invalid password", Toast.LENGTH_SHORT).show()
     }
 
     /**
