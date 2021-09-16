@@ -5,11 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,7 +28,7 @@ import java.io.File
  *
  * @constructor Creates an activity for account management.
  */
-class AccountManagementActivity : AppCompatActivity() {
+class AccountManagementActivity : AppCompatActivity(), DialogWithInput.DialogWithInputListener {
     /**
      * Clickable layout for account deletion.
      */
@@ -98,6 +98,8 @@ class AccountManagementActivity : AppCompatActivity() {
      * Activity result launcher related to choosing photos from the Gallery.
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
+
+    private lateinit var tvAccountManagementInputPassword: TextView
 
     /**
      * Called when the activity is starting.
@@ -202,37 +204,49 @@ class AccountManagementActivity : AppCompatActivity() {
      * Creates the confirmation dialog when the Delete Account button is clicked.
      */
     private fun deleteDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Delete Profile")
-        builder.setMessage("Are you sure you want to delete your profile? This action cannot be reversed.")
-        builder.setPositiveButton(
-            "Delete"
-        ) { _, _ ->
 
-            this.firebaseHelper = FirebaseHelper(this@AccountManagementActivity)
-            this.firebaseHelper.deleteUserDB()
+        val passwordDialog = DialogWithInput()
+        passwordDialog.show(supportFragmentManager, "Dialog");
 
-            /*
-            this.user.delete()
-                .addOnCompleteListener { task ->
-                    if(task.isSuccessful){
-                        this.firebaseHelper.deleteUserDB()
-                        deleteSuccessfully()
-                    }
-
-                    else{
-                        deleteFailed()
-                    }
-                }
-
-             */
-        }
-
-        builder.setNegativeButton(
-            "Cancel"
-        ) { _, _ -> }
-        builder.create().show()
+//        val builder = AlertDialog.Builder(this)
+//        builder.setTitle("Delete Profile")
+//        builder.setMessage("Are you sure you want to delete your profile? This action cannot be reversed.")
+//        builder.setPositiveButton(
+//            "Delete"
+//        ) { _, _ ->
+//
+//            this.firebaseHelper = FirebaseHelper(this@AccountManagementActivity)
+//            this.firebaseHelper.deleteUserDB()
+//
+//            /*
+//            this.user.delete()
+//                .addOnCompleteListener { task ->
+//                    if(task.isSuccessful){
+//                        this.firebaseHelper.deleteUserDB()
+//                        deleteSuccessfully()
+//                    }
+//
+//                    else{
+//                        deleteFailed()
+//                    }
+//                }
+//
+//             */
+//        }
+//
+//        builder.setNegativeButton(
+//            "Cancel"
+//        ) { _, _ -> }
+//        builder.create().show()
     }
+
+    override fun fetchPassword(password: String): String {
+        tvAccountManagementInputPassword = findViewById(R.id.tv_account_management_input_password)
+        tvAccountManagementInputPassword.text = password
+
+        return tvAccountManagementInputPassword.text as String
+    }
+
 
     /**
      * Defines the behavior when the account is successfully deleted.

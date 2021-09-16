@@ -420,4 +420,5 @@
     <string name="tv_user_highlights_none">No highlights just yet</string>
     <string name="tv_search_unregistered_results_users">Matching Users</string>
     <string name="tv_search_results_users">Matching Users</string>
+    <string name="et_input_password">Enter password</string>
 </resources>
