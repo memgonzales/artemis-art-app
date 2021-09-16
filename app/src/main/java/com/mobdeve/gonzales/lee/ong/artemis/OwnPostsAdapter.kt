@@ -218,8 +218,6 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
     override fun onBindViewHolder(holder: OwnPostsViewHolder, position: Int) {
         val currentPost = differ.currentList[position]
 
-        //holder.setOwnPostProfilePic(currentPost.getProfilePicture()!! )
-
         Glide.with(context)
             .load(currentPost.getProfilePicture())
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -227,11 +225,7 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
             .error(R.drawable.chibi_artemis_hd)
             .into(holder.getOwnPostProfilePic())
 
-
-
         holder.setOwnPostUsername(currentPost.getUsername())
-
-        //holder.setOwnPostPost(currentPost.getPostImg()!!)
 
         Glide.with(context)
             .load(currentPost.getPostImg())
@@ -366,9 +360,7 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
 
             delete.setOnClickListener {
                 this.firebaseHelper.deletePostDB(currentPost.getPostId()!!, false)
-                //Toast.makeText(view.context, "Your post has been deleted", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
-
             }
 
 

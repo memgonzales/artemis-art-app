@@ -116,7 +116,6 @@ class OthersHighlightAdapter() : RecyclerView.Adapter<HighlightsViewHolder>() {
      */
     override fun onBindViewHolder(holder: HighlightsViewHolder, position: Int) {
         val currentPost = differ.currentList[position]
-        //holder.setItemSearchResults(currentPost.getPostImg())
 
         Glide.with(context)
             .load(currentPost.getPostImg())

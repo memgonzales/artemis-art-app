@@ -56,8 +56,6 @@ class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 var bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                 ivItemSearchResults.setImageBitmap(bitmap)
             }
-
-        //ivItemSearchResults.setImageResource(post)
     }
 
     /**

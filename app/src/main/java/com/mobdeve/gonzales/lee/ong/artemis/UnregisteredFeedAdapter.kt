@@ -158,7 +158,6 @@ class UnregisteredFeedAdapter() : RecyclerView.Adapter<FeedViewHolder>() {
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentPost = differ.currentList[position]
 
-        // holder.setItemFeedProfilePic(currentPost.getProfilePicture()!!)
         Glide.with(context)
             .load(currentPost.getProfilePicture())
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -167,7 +166,6 @@ class UnregisteredFeedAdapter() : RecyclerView.Adapter<FeedViewHolder>() {
             .into(holder.getItemFeedProfilePic())
 
         holder.setItemFeedUsername(currentPost.getUsername())
-       // holder.setItemFeedPost(currentPost.getPostImg())
         Glide.with(context)
             .load(currentPost.getPostImg())
             .diskCacheStrategy(DiskCacheStrategy.NONE)
