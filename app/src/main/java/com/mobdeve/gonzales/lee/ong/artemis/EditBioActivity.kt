@@ -18,13 +18,27 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-
+/**
+ * Class handling the functionalities related to editing the short bio.
+ *
+ * @constructor Creates a class that handles the functionalities related to editing a short bio.
+ */
 class EditBioActivity : AppCompatActivity() {
+    /**
+     * Input field for the new short bio.
+     */
     private lateinit var tietEditBio : TextInputEditText
 
+    /**
+     * Progress bar to signal that data are being saved into the database.
+     */
     private lateinit var pbEditBio : ProgressBar
 
+    /**
+     * Button for saving the new bio.
+     */
     private lateinit var btnEditBio: Button
+
     /**
      * Starting point for Firebase authentication SDK.
      */
@@ -45,7 +59,14 @@ class EditBioActivity : AppCompatActivity() {
      */
     private lateinit var userId: String
 
-
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in
+     * <code>onSaveInstanceState(Bundle)</code>. Note: Otherwise it is <code>null</code>.
+     * This value may be <code>null</code>.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_bio)
@@ -54,6 +75,9 @@ class EditBioActivity : AppCompatActivity() {
         initComponents()
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_edit_bio))
         initActionBar()
@@ -78,6 +102,9 @@ class EditBioActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the contents of the activity in preparation for the CRUD operations.
+     */
     private fun initContent(){
         this.tietEditBio = findViewById(R.id.tiet_edit_bio)
         this.pbEditBio = findViewById(R.id.pb_edit_bio)
@@ -107,6 +134,7 @@ class EditBioActivity : AppCompatActivity() {
 
         }
     }
+
     /**
      * Adds a back button to the action bar.
      */
@@ -115,6 +143,12 @@ class EditBioActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Saves the new short bio in the remote database, effectively replacing the short bio
+     * of the user.
+     *
+     * @param bio New email address of the user.
+     */
     private fun updateBio(bio: String){
         this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.bio.name).setValue(bio)
             .addOnSuccessListener { updateProfileSuccessfully() }
