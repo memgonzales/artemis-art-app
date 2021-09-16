@@ -222,7 +222,7 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
 
         Glide.with(context)
             .load(currentPost.getProfilePicture())
-            .skipMemoryCache(true)
+           // .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
@@ -236,7 +236,7 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
 
         Glide.with(context)
             .load(currentPost.getPostImg())
-            .skipMemoryCache(true)
+          //  .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
