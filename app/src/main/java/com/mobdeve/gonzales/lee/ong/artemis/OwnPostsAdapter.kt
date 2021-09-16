@@ -136,17 +136,70 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
         }
 
         ownPostsViewHolder.setOwnPostCommentOnClickListener { view ->
-            val intent = Intent(view.context, ViewCommentsActivity::class.java)
+            val intent = Intent(view.context, ViewOwnPostCommentsActivity::class.java)
             val curPost = differ.currentList[ownPostsViewHolder.bindingAdapterPosition]
 
+            intent.putExtra(
+                Keys.KEY_USERID.name,
+                curPost.getUserId()
+            )
             intent.putExtra(
                 Keys.KEY_POSTID.name,
                 curPost.getPostId()
             )
             intent.putExtra(
+                Keys.KEY_PROFILE_PICTURE.name,
+                curPost.getProfilePicture()
+            )
+            intent.putExtra(
+                Keys.KEY_USERNAME.name,
+                curPost.getUsername()
+            )
+            intent.putExtra(
+                Keys.KEY_POST.name,
+                curPost.getPostImg()
+            )
+            intent.putExtra(
+                Keys.KEY_TITLE.name,
+                curPost.getTitle()
+            )
+            intent.putExtra(
+                Keys.KEY_NUM_UPVOTES.name,
+                curPost.getNumUpvotes()
+            )
+            intent.putExtra(
                 Keys.KEY_NUM_COMMENTS.name,
                 curPost.getNumComments()
             )
+            intent.putExtra(
+                Keys.KEY_DATE_POSTED.name,
+                curPost.getDatePosted()
+            )
+            intent.putExtra(
+                Keys.KEY_MEDIUM.name,
+                curPost.getMedium()
+            )
+            intent.putExtra(
+                Keys.KEY_DIMENSIONS.name,
+                curPost.getDimensions()
+            )
+            intent.putExtra(
+                Keys.KEY_DESCRIPTION.name,
+                curPost.getDescription()
+            )
+            intent.putExtra(
+                Keys.KEY_TAGS.name,
+                curPost.getTags()
+            )
+            intent.putExtra(
+                Keys.KEY_BOOKMARK.name,
+                curPost.getBookmark()
+            )
+            intent.putExtra(
+                Keys.KEY_UPVOTE.name,
+                curPost.getUpvote()
+            )
+
             view.context.startActivity(intent)
         }
 
@@ -200,14 +253,14 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
                 currentPost.setHighlight(false)
                 holder.setOwnPostHighlight(currentPost.getHighlight())
 
-                firebaseHelper.updateHighlightDB(currentPost.getPostId(), null)
+                this.firebaseHelper.updateHighlightDB(currentPost.getPostId(), null)
 
             } else {
                 currentPost.setHighlight(true)
                 holder.setOwnPostHighlight(currentPost.getHighlight())
                 Toast.makeText(view.context, "Added to your Highlights", Toast.LENGTH_SHORT).show()
 
-                firebaseHelper.updateHighlightDB(currentPost.getPostId(), currentPost.getPostId())
+                this.firebaseHelper.updateHighlightDB(currentPost.getPostId(), currentPost.getPostId())
             }
         }
 

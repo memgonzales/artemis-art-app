@@ -24,6 +24,7 @@ class Post {
     private var upvoteUsers: HashMap<String, Any?> = HashMap()
     private var bookmarkUsers: HashMap<String, Any?> = HashMap()
     private var comments: HashMap<String, Any?> = HashMap()
+    private var highlightUser : String? = null
 
     private var numUpvotes: Int = 0
     private var numComments: Int = 0
@@ -209,6 +210,10 @@ class Post {
         return this.comments
     }
 
+    fun getHighlightUser(): String? {
+        return this.highlightUser
+    }
+
     fun getNumUpvotes(): Int {
         return this.numUpvotes
     }
@@ -285,6 +290,10 @@ class Post {
 
     fun setComments(comments: HashMap<String, Any?>) {
         this.comments = comments
+    }
+
+    fun setHighlightUser(highlightUser: String?) {
+        this.highlightUser = highlightUser
     }
 
     fun setNumUpvotes(numUpvotes: Int) {

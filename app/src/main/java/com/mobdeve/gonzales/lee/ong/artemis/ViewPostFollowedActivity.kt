@@ -306,15 +306,69 @@ class   ViewPostFollowedActivity : AppCompatActivity() {
 
         clItemViewPostFollowedComment.setOnClickListener {
             val intent = Intent(this, ViewCommentsFollowedActivity::class.java)
+
+            intent.putExtra(
+                Keys.KEY_USERID.name,
+                userIdPost
+            )
+            intent.putExtra(
+                Keys.KEY_PROFILE_PICTURE.name,
+                profilePicture
+            )
+            intent.putExtra(
+                Keys.KEY_USERNAME.name,
+                username
+            )
+            intent.putExtra(
+                Keys.KEY_POST.name,
+                postImg
+            )
+            intent.putExtra(
+                Keys.KEY_TITLE.name,
+                title
+            )
             intent.putExtra(
                 Keys.KEY_POSTID.name,
                 postId
             )
             intent.putExtra(
+                Keys.KEY_NUM_UPVOTES.name,
+                upvoteCounter
+            )
+            intent.putExtra(
                 Keys.KEY_NUM_COMMENTS.name,
                 comments
             )
+            intent.putExtra(
+                Keys.KEY_DATE_POSTED.name,
+                datePosted
+            )
+            intent.putExtra(
+                Keys.KEY_MEDIUM.name,
+                medium
+            )
+            intent.putExtra(
+                Keys.KEY_DIMENSIONS.name,
+                dimensions
+            )
+            intent.putExtra(
+                Keys.KEY_DESCRIPTION.name,
+                description
+            )
+            intent.putExtra(
+                Keys.KEY_TAGS.name,
+                tags
+            )
+            intent.putExtra(
+                Keys.KEY_BOOKMARK.name,
+                bookmark
+            )
+            intent.putExtra(
+                Keys.KEY_UPVOTE.name,
+                upvote
+            )
             startActivity(intent)
+            finish()
         }
 
         clItemViewPostFollowedShare.setOnClickListener {

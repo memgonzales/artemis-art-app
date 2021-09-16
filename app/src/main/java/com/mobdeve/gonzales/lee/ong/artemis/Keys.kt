@@ -287,6 +287,7 @@ enum class Keys {
      * Key used in retrieving and passing data related to the comments on a post.
      */
     comments,
+    highlightUser,
 
     /**
      * Key used in retrieving and passing data related to the number of upvotes of a post.

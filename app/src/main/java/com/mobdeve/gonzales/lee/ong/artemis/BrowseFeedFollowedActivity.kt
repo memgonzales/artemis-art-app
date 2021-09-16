@@ -255,7 +255,7 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         sflFollowed.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            initRecyclerView()
+           // initRecyclerView()
             sflFollowed.visibility = View.GONE
             rvFollowed.visibility = View.VISIBLE
         }, AnimationDuration.SHIMMER_TIMEOUT.toLong())
@@ -302,154 +302,65 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-        //this.dataPosts = DataHelper.loadFollowedData();
-
         this.dataPosts = arrayListOf()
         this.rvFollowed = findViewById(R.id.rv_feed_followed)
-        this.rvFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        this.rvFollowed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
 
-        //this.feedFollowedAdapter = FeedFollowedAdapter(this@BrowseFeedFollowedActivity)
-        this.feedFollowedAdapter = FeedFollowedAdapter(this.dataPosts,this@BrowseFeedFollowedActivity)
+        this.feedFollowedAdapter = FeedFollowedAdapter(this@BrowseFeedFollowedActivity)
 
 
         this.rvFollowed.adapter = feedFollowedAdapter
+        this.rvFollowed.itemAnimator = null
 
-       initContent()
-        //getRealtimeUpdates()
+        getRealtimeUpdates()
     }
 
+    private var childEventListenerUser = object : ChildEventListener{
+        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            val userFFId = snapshot.key.toString()
 
-    /**
-     * Fetches the keys related to the posts of followed users from the remote database.
-     */
-    private fun initContent(){
-        this.ivNone = findViewById(R.id.iv_feed_followed_none)
-        this.tvNone = findViewById(R.id.tv_feed_followed_none)
-        this.tvSubNone = findViewById(R.id.tv_feed_followed_subtitle_none)
-
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name)
-
-        userDB.child(userId).addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                val userSnap = snapshot.getValue(User::class.java)
-
-                if (userSnap != null){
-                    val usersFF = userSnap.getUsersFollowed().keys
-                    getUserPosts(userDB, usersFF)
-                }
+            if (!userId.isNullOrEmpty()){
+                getRealtimePostUpdates(userFFId)
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
+        }
 
-        })
-    }
+        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            /* This is intentionally left blank */
+        }
 
-    /**
-     * Fetches the posts of followed users and updates the visibility of text and image views.
-     *
-     * @param ref Particular location in the Firebase database.
-     * @param userKeys Keys of the followed users.
-     */
-    private fun getUserPosts(ref: DatabaseReference, userKeys: Set<String?>) {
+        override fun onChildRemoved(snapshot: DataSnapshot) {
+            val userFFId = snapshot.key.toString()
 
-        ref.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                dataPosts.clear()
-                if (snapshot.exists()){
-                    for (userSnap in snapshot.children){
-                        if (userSnap.key != null && userKeys.contains(userSnap.key)){
-                            val userFF = userSnap.getValue(User::class.java)
+            if (!userFFId.isNullOrEmpty()){
 
-                            if(userFF != null){
-                                val userPosts = userFF.getUserPosts().keys
+                val list = ArrayList<Post>(dataPosts)
 
-                                getPosts(userPosts)
-                            }
-                        }
-                    }
+                val index = list.filterNot { it.getUserId().equals(userFFId) }
 
-                    if (dataPosts.isNotEmpty()){
-                        ivNone.visibility = View.GONE
-                        tvNone.visibility = View.GONE
-                        tvSubNone.visibility = View.GONE
-                    }
-                    /*
-                    else{
+                if (!index.isNullOrEmpty()){
+
+                    dataPosts = ArrayList(index)
+                    feedFollowedAdapter.updatePosts(ArrayList(index))
+
+                    if (dataPosts.isNullOrEmpty()){
                         ivNone.visibility = View.VISIBLE
                         tvNone.visibility = View.VISIBLE
-                        tvSubNone.visibility = View.VISIBLE
                     }
-
-                     */
                 }
-
-                else{
-                    ivNone.visibility = View.VISIBLE
-                    tvNone.visibility = View.VISIBLE
-                    tvSubNone.visibility = View.VISIBLE
-                }
-
             }
+        }
 
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
+        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            /* This is intentionally left blank */
 
-        })
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
-
-    /**
-     * Fetches the posts of followed users, handles the status of each post (that is, whether it
-     * is bookmarked or upvoted by the current user), and updates the view, alongside the adapter
-     * and the view holder.
-     *
-     * @param userPosts Posts of followed users.
-     */
-    private fun getPosts(userPosts: Set<String?>){
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-
-        postDB.addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                if (snapshot.exists()) {
-                    for (postSnap in snapshot.children) {
-                        if (postSnap.key != null && userPosts.contains(postSnap.key)) {
-                            val post = postSnap.getValue(Post::class.java)
-
-                            if (post != null) {
-
-                                if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)) {
-                                    post.setUpvote(true)
-                                }
-
-                                if (!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)) {
-                                    post.setBookmark(true)
-                                }
-
-                                dataPosts.add(post)
-                            }
-                        }
-                    }
-
-                    feedFollowedAdapter.notifyDataSetChanged()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                //Toast.makeText(this@BrowseOwnPostsActivity, "Unable to load data", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-
-        })
-    }
-
-
 
     /**
      * Fetches realtime updates from the remote database to prevent the entire activity from reloading
@@ -460,104 +371,28 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         this.tvNone = findViewById(R.id.tv_feed_followed_none)
         this.tvSubNone = findViewById(R.id.tv_feed_followed_subtitle_none)
 
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.usersFollowed.name)
+        Handler(Looper.getMainLooper()).postDelayed({
 
-        userDB.addChildEventListener(object: ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val postId = snapshot.key.toString()
-                if (!postId.isNullOrEmpty()){
-                    getUserPosts(userId)
-                }
-
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                /* This is intentionally left blank */
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                val postId = snapshot.key.toString()
-
-                if (!postId.isNullOrEmpty()){
-
-                    val list = ArrayList<Post>(dataPosts)
-
-                    val index = list.indexOfFirst { it.getPostId() == postId }
-
-                    if (index != -1){
-                        list.removeAt(index)
-
-                        dataPosts = list
-                        feedFollowedAdapter.updatePosts(list)
-
-                        if (dataPosts.isNullOrEmpty()){
-                            ivNone.visibility = View.VISIBLE
-                            tvNone.visibility = View.VISIBLE
-                        }
-                    }
-
-                }
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                /* This is intentionally left blank */
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-
-        })
-
-        if (dataPosts.isNotEmpty()){
-            ivNone.visibility = View.GONE
-            tvNone.visibility = View.GONE
-            tvSubNone.visibility = View.GONE
-        }
-
-        else{
             ivNone.visibility = View.VISIBLE
             tvNone.visibility = View.VISIBLE
-            tvSubNone.visibility = View.VISIBLE
-        }
+
+        }, AnimationDuration.NO_POST_TIMEOUT.toLong())
+
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.usersFollowed.name)
+
+        userDB.addChildEventListener(childEventListenerUser)
     }
 
-    private fun getUserPosts(userId: String){
-        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId)
-
-        userDB.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    val userSnap = snapshot.getValue(User::class.java)
-
-                    if (userSnap != null){
-                        val usersFFPosts = userSnap.getUpvotedPosts().keys
-
-                        if (usersFFPosts != null){
-                            getRealtimePostUpdates(usersFFPosts)
-                        }
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseFeedFollowedActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-
-        })
-    }
-
-    private fun getRealtimePostUpdates(userPosts: Set<String?>){
+    private fun getRealtimePostUpdates(userFFId: String){
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
         postDB.addChildEventListener(object: ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val post = snapshot.getValue(Post::class.java)
 
-                if (post != null && !post.getPostId().isNullOrEmpty() && userPosts.contains(post.getPostId())){
+                if (post != null && !post.getPostId().isNullOrEmpty()
+                        && !post.getUserId().isNullOrEmpty() && post.getUserId().equals(userFFId)){
+
                     if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
                         post.setUpvote(true)
                     }
@@ -574,6 +409,10 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
 
                     dataPosts.add(post)
                     feedFollowedAdapter.updatePosts(dataPosts)
+
+                    ivNone.visibility = View.GONE
+                    tvNone.visibility = View.GONE
+                    tvSubNone.visibility = View.GONE
                 }
 
             }
@@ -581,7 +420,8 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val post = snapshot.getValue(Post::class.java)
 
-                if (post != null && !post.getPostId().isNullOrEmpty() && userPosts.contains(post.getPostId())){
+                if (post != null && !post.getPostId().isNullOrEmpty()
+                    && !post.getUserId().isNullOrEmpty() && post.getUserId().equals(userFFId)){
 
                     if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
                         post.setUpvote(true)
@@ -601,7 +441,6 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
                     val list = ArrayList<Post>(dataPosts)
                     val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
 
-                    Toast.makeText(applicationContext, "ch: " + index, Toast.LENGTH_SHORT).show()
                     if (index != -1){
                         list.set(index, post)
 
@@ -626,11 +465,6 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
 
                         dataPosts = list
                         feedFollowedAdapter.updatePosts(list)
-
-                        if (dataPosts.isNullOrEmpty()){
-                            ivNone.visibility = View.VISIBLE
-                            tvNone.visibility = View.VISIBLE
-                        }
                     }
 
                 }
@@ -645,21 +479,21 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
+    }
 
-        if (dataPosts.isNotEmpty()){
-            ivNone.visibility = View.GONE
-            tvNone.visibility = View.GONE
-        }
+    override fun onPause() {
+        val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.usersFollowed.name)
+        userDB.removeEventListener(childEventListenerUser)
 
-        else{
-            Handler(Looper.getMainLooper()).postDelayed({
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-                ivNone.visibility = View.VISIBLE
-                tvNone.visibility = View.VISIBLE
+        super.onPause()
+    }
 
-            }, AnimationDuration.NO_POST_TIMEOUT.toLong())
+    override fun onResume() {
+        super.onResume()
 
-        }
+        initRecyclerView()
     }
 
     /**

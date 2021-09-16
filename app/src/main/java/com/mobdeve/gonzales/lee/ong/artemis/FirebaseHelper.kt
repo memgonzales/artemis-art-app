@@ -29,7 +29,6 @@ class FirebaseHelper {
 
     private lateinit var credential: AuthCredential
 
-   // private lateinit var adapter: Adapter
 
     constructor(context: Context){
         this.mAuth = Firebase.auth
@@ -47,126 +46,6 @@ class FirebaseHelper {
 
         this.context = context
     }
-
-    /*
-    private fun getRealtimeUpdates(dataPosts: ArrayList<Post>, adapter: Adapter){
-
-        //this.ivNone = findViewById(R.id.iv_feed_none)
-        //this.tvNone = findViewById(R.id.tv_feed_none)
-        //this.tvSubNone = findViewById(R.id.tv_feed_subtitle_none)
-
-        val postDB = db.child(Keys.KEY_DB_POSTS.name)
-
-        postDB.addChildEventListener(object: ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val post = snapshot.getValue(Post::class.java)
-
-                if (post != null && !post.getPostId().isNullOrEmpty()){
-                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
-                        post.setUpvote(true)
-                    }
-                    else{
-                        post.setUpvote(false)
-                    }
-
-                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
-                        post.setBookmark(true)
-                    }
-                    else{
-                        post.setBookmark(false)
-                    }
-
-                    dataPosts.add(post)
-                }
-
-                adapter.updatePosts(dataPosts)
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val post = snapshot.getValue(Post::class.java)
-
-                if (post != null && !post.getPostId().isNullOrEmpty()){
-
-                    if (!post.getUpvoteUsers().isNullOrEmpty()){
-                        if(post.getUpvoteUsers().containsKey(userId)){
-                            post.setUpvote(true)
-                        }
-                        else{
-                            post.setUpvote(false)
-                        }
-                    }
-
-                    if(!post.getBookmarkUsers().isNullOrEmpty()) {
-                        if (post.getBookmarkUsers().containsKey(userId)){
-                            post.setBookmark(true)
-                        }
-                        else{
-                            post.setBookmark(false)
-                        }
-                    }
-
-
-                    val index = postKeys.indexOf(post.getPostId()!!)
-                    Toast.makeText(applicationContext, "ch: " + index, Toast.LENGTH_SHORT).show()
-
-                    dataPosts.set(index, post)
-                    //       feedAdapter.setData(dataPosts)
-
-                    // feedAdapter.notifyItemChanged(index)
-
-                    feedAdapter.updatePosts(dataPosts)
-                }
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                val post = snapshot.getValue(Post::class.java)
-
-                if (post != null && !post.getPostId().isNullOrEmpty()){
-                    val list = ArrayList<Post>(dataPosts)
-
-                    //val index = postKeys.indexOf(postId)
-                    val index = list.indexOfFirst { it.getPostId() == postId }
-                    list.removeAt(index)
-                    //postKeys.removeAt(index)
-                    // ownPostsAdapter.notifyItemRemoved(index)
-
-                    dataPosts = list
-                   adapter.updatePosts(list)
-                }
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                /* This is intentionally left blank */
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                val intent = Intent(this@BrowseFeedActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
-            }
-
-        })
-
-        if (dataPosts.isNotEmpty()){
-            ivNone.visibility = View.GONE
-            tvNone.visibility = View.GONE
-            tvSubNone.visibility = View.GONE
-        }
-
-        else{
-            Handler(Looper.getMainLooper()).postDelayed({
-
-                ivNone.visibility = View.VISIBLE
-                tvNone.visibility = View.VISIBLE
-                tvSubNone.visibility = View.VISIBLE
-
-            }, AnimationDuration.NO_POST_TIMEOUT.toLong())
-
-        }
-    }
-
-     */
-
 
 
     constructor(context: Context, postId: String?, userIdPost: String?){
@@ -243,8 +122,16 @@ class FirebaseHelper {
 
     fun updateHighlightDB(postKey: String?, postVal: String?){
         if(!postKey.isNullOrEmpty()){
+
+            var userVal: String? = null
+
+            if (!postVal.isNullOrEmpty()){
+                userVal = userId
+            }
+
             val updates = hashMapOf<String, Any?>(
-                "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.highlights.name}/$postKey" to postVal
+                "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.highlights.name}/$postKey" to postVal,
+                "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.highlightUser.name}" to userVal
             )
 
             db.updateChildren(updates)

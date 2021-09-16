@@ -27,8 +27,7 @@ import java.util.*
  * @param dataPosts Posts of followed users.
  * @param parentActivity Activity calling this adapter.
  */
-class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val parentActivity: Activity) :
-//class FeedFollowedAdapter(private val parentActivity: Activity) :
+class FeedFollowedAdapter(private val parentActivity: Activity) :
     RecyclerView.Adapter<FeedViewHolder>() {
 
     /**
@@ -72,8 +71,7 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
 
         itemView.setOnClickListener { view ->
             val intent = Intent(view.context, ViewPostFollowedActivity::class.java)
-            //val curPost = differ.currentList[feedViewHolder.bindingAdapterPosition]
-            val curPost = dataPosts[feedViewHolder.bindingAdapterPosition]
+            val curPost = differ.currentList[feedViewHolder.bindingAdapterPosition]
 
             intent.putExtra(
                 Keys.KEY_USERID.name,
@@ -141,16 +139,67 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
 
         feedViewHolder.setItemFeedCommentOnClickListener { view ->
             val intent = Intent(view.context, ViewCommentsFollowedActivity::class.java)
-            val curPost = dataPosts[feedViewHolder.bindingAdapterPosition]
-            //val curPost = differ.currentList[feedViewHolder.bindingAdapterPosition]
+            val curPost = differ.currentList[feedViewHolder.bindingAdapterPosition]
 
+            intent.putExtra(
+                Keys.KEY_USERID.name,
+                curPost.getUserId()
+            )
             intent.putExtra(
                 Keys.KEY_POSTID.name,
                 curPost.getPostId()
             )
             intent.putExtra(
+                Keys.KEY_PROFILE_PICTURE.name,
+                curPost.getProfilePicture()
+            )
+            intent.putExtra(
+                Keys.KEY_USERNAME.name,
+                curPost.getUsername()
+            )
+            intent.putExtra(
+                Keys.KEY_POST.name,
+                curPost.getPostImg()
+            )
+            intent.putExtra(
+                Keys.KEY_TITLE.name,
+                curPost.getTitle()
+            )
+            intent.putExtra(
+                Keys.KEY_NUM_UPVOTES.name,
+                curPost.getNumUpvotes()
+            )
+            intent.putExtra(
                 Keys.KEY_NUM_COMMENTS.name,
                 curPost.getNumComments()
+            )
+            intent.putExtra(
+                Keys.KEY_DATE_POSTED.name,
+                curPost.getDatePosted()
+            )
+            intent.putExtra(
+                Keys.KEY_MEDIUM.name,
+                curPost.getMedium()
+            )
+            intent.putExtra(
+                Keys.KEY_DIMENSIONS.name,
+                curPost.getDimensions()
+            )
+            intent.putExtra(
+                Keys.KEY_DESCRIPTION.name,
+                curPost.getDescription()
+            )
+            intent.putExtra(
+                Keys.KEY_TAGS.name,
+                curPost.getTags()
+            )
+            intent.putExtra(
+                Keys.KEY_BOOKMARK.name,
+                curPost.getBookmark()
+            )
+            intent.putExtra(
+                Keys.KEY_UPVOTE.name,
+                curPost.getUpvote()
             )
 
             view.context.startActivity(intent)
@@ -169,8 +218,7 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        //val currentPost = differ.currentList[position]
-        val currentPost = dataPosts[position]
+        val currentPost = differ.currentList[position]
 
        Glide.with(context)
             .load(currentPost.getProfilePicture())
@@ -290,8 +338,7 @@ class FeedFollowedAdapter(private val dataPosts: ArrayList<Post>, private val pa
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        //return differ.currentList.size
-        return dataPosts.size
+        return differ.currentList.size
     }
 
     fun updatePosts(newPosts: List<Post>){
