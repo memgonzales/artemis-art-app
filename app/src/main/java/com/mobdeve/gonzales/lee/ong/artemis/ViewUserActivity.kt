@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -28,10 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
@@ -81,6 +79,8 @@ class ViewUserActivity : AppCompatActivity() {
     private lateinit var userId: String
 
     private lateinit var firebaseHelper: FirebaseHelper
+
+    private lateinit var userIdPost: String
 
     /**
      * Called when the activity is starting.
@@ -170,6 +170,52 @@ class ViewUserActivity : AppCompatActivity() {
         }
     }
 
+    private var childEventListenerUserPost = object : ChildEventListener{
+        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            val postId = snapshot.key.toString()
+
+            if (postId != null){
+                getPost(postId)
+            }
+        }
+
+        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            /* This is intentionally left blank */
+        }
+
+        override fun onChildRemoved(snapshot: DataSnapshot) {
+            val postId = snapshot.key.toString()
+
+            if (postId != null){
+
+                val list = java.util.ArrayList<Post>(dataHighlights)
+
+                val index = list.indexOfFirst { it.getPostId() == postId }
+
+                if (index != -1){
+                    list.removeAt(index)
+
+                    dataHighlights = list
+                    highlightAdapter.updatePosts(list)
+
+                    if (dataHighlights.isNullOrEmpty()){
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            /* This is intentionally left blank */
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            val intent = Intent(this@ViewUserActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     private fun initContent() {
         this.ivNone = findViewById(R.id.iv_user_highlights_none)
         this.tvNone = findViewById(R.id.tv_user_highlights_none)
@@ -182,19 +228,14 @@ class ViewUserActivity : AppCompatActivity() {
         this.dataHighlights = arrayListOf<Post>()
 
         val intent: Intent = intent
-        val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name).toString()
-        /*
-        val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
-        val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
-        val bio = intent.getStringExtra(Keys.KEY_BIO.name)
-
-         */
+        this.userIdPost = intent.getStringExtra(Keys.KEY_USERID.name).toString()
 
         this.firebaseHelper = FirebaseHelper(this@ViewUserActivity, userIdPost)
 
         val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
-        if(!userIdPost.isEmpty()){
+        if (!userIdPost.isNullOrEmpty()){
+
             userDB.child(userIdPost).addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userInfoPost = snapshot.getValue(User::class.java)
@@ -209,19 +250,10 @@ class ViewUserActivity : AppCompatActivity() {
                         tvViewUserUsername.text = userInfoPost.getUsername()
                         tvViewUserBio.text = userInfoPost.getBio()
 
-                        val highlights = userInfoPost.getHighlights().keys
-
-                        if (!highlights.isNullOrEmpty()){
-                            ivNone.visibility = View.GONE
-                            tvNone.visibility = View.GONE
-                            getPosts(highlights)
-                        }
-
-                        else{
+                        if (userInfoPost.getHighlights().isNullOrEmpty()){
                             ivNone.visibility = View.VISIBLE
                             tvNone.visibility = View.VISIBLE
                         }
-
                     }
                 }
 
@@ -231,80 +263,70 @@ class ViewUserActivity : AppCompatActivity() {
                 }
 
             })
-        }
 
-        //this.civViewUserProfilePicture.setImageResource(profilePicture)
-        //this.tvViewUserUsername.text = username
-        //this.tvViewUserBio.text = bio
+            userDB.child(userIdPost).child(Keys.highlights.name).addChildEventListener(childEventListenerUserPost)
 
-        if (userIdPost.equals(userId)){
-            btnViewUserFollow.visibility = View.GONE
-        }
-
-        else{
-            userDB.child(userId).addListenerForSingleValueEvent(object: ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val userSnap = snapshot.getValue(User::class.java)
-
-                    if (userSnap != null){
-                        val usersFF = userSnap.getUsersFollowed().keys
-
-                        if (usersFF.contains(userIdPost)){
-                            btnViewUserFollow.setText("UNFOLLOW USER")
-                        }
-
-                        else{
-                            btnViewUserFollow.setText("FOLLOW USER")
-                        }
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    val intent = Intent(this@ViewUserActivity, BrokenLinkActivity::class.java)
-                    startActivity(intent)
-                }
-
-            })
-        }
-
-        btnViewUserFollow.setOnClickListener {
-            if(btnViewUserFollow.text.equals("FOLLOW USER")){
-                this.firebaseHelper.updateUsersFollowedDB(userIdPost, userIdPost)
-                btnViewUserFollow.setText("UNFOLLOW USER")
+            if (userIdPost.equals(userId)){
+                btnViewUserFollow.visibility = View.GONE
             }
 
             else{
-                this.firebaseHelper.updateUsersFollowedDB(userIdPost, null)
-                btnViewUserFollow.setText("FOLLOW USER")
-            }
-        }
-    }
+                userDB.child(userId).addListenerForSingleValueEvent(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val userSnap = snapshot.getValue(User::class.java)
 
-    private fun getPosts(highlights: Set<String?>){
+                        if (userSnap != null){
+                            val usersFF = userSnap.getUsersFollowed().keys
 
-        this.dataHighlights = arrayListOf<Post>()
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                if (snapshot.exists()){
-                    for (postSnap in snapshot.children){
-                        if (postSnap.key != null && highlights.contains(postSnap.key)){
-                            val post = postSnap.getValue(Post::class.java)
-
-                            if(post != null){
-                                post.setBookmark(true)
-                                dataHighlights.add(post)
+                            if (usersFF.contains(userIdPost)){
+                                btnViewUserFollow.setText("UNFOLLOW USER")
                             }
 
+                            else{
+                                btnViewUserFollow.setText("FOLLOW USER")
+                            }
                         }
                     }
 
-                    //highlightAdapter.notifyDataSetChanged()
-                    highlightAdapter = OthersHighlightAdapter(dataHighlights)
-                    rvViewUser.adapter = highlightAdapter
+                    override fun onCancelled(error: DatabaseError) {
+                        val intent = Intent(this@ViewUserActivity, BrokenLinkActivity::class.java)
+                        startActivity(intent)
+                    }
 
+                })
+            }
+
+            btnViewUserFollow.setOnClickListener {
+                if(btnViewUserFollow.text.equals("FOLLOW USER")){
+                    this.firebaseHelper.updateUsersFollowedDB(userIdPost, userIdPost)
+                    btnViewUserFollow.setText("UNFOLLOW USER")
+                }
+
+                else{
+                    this.firebaseHelper.updateUsersFollowedDB(userIdPost, null)
+                    btnViewUserFollow.setText("FOLLOW USER")
+                }
+            }
+
+        }
+    }
+
+    private fun getPost(postId: String){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name).child(postId)
+
+        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    val post = snapshot.getValue(Post::class.java)
+                    post?.setHighlight(true)
+
+                    if (post != null){
+                        dataHighlights.add(post)
+                        highlightAdapter.updatePosts(dataHighlights)
+
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
+                    }
                 }
             }
 
@@ -315,6 +337,20 @@ class ViewUserActivity : AppCompatActivity() {
 
         })
     }
+
+    override fun onPause() {
+        val userDB = this.db.child(userIdPost).child(Keys.highlights.name)
+        userDB.removeEventListener(childEventListenerUserPost)
+
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        initRecyclerView()
+    }
+
 
     /**
      * Initializes the components of the activity.
@@ -331,14 +367,14 @@ class ViewUserActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-       // this.dataHighlights = arrayListOf()
+        this.dataHighlights = arrayListOf()
 
         this.rvViewUser = findViewById(R.id.rv_view_user)
         this.rvViewUser.layoutManager = GridLayoutManager(this, 2)
 
-       // this.highlightAdapter = OthersHighlightAdapter(this.dataHighlights)
+        this.highlightAdapter = OthersHighlightAdapter()
 
-       // this.rvViewUser.adapter = highlightAdapter
+        this.rvViewUser.adapter = highlightAdapter
     }
 
     /**

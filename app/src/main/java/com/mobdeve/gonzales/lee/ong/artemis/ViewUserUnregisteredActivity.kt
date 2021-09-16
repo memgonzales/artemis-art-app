@@ -20,10 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
@@ -52,6 +49,8 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
     private lateinit var userId: String
 
     private lateinit var firebaseHelper: FirebaseHelper
+
+    private lateinit var userIdPost: String
 
     /**
      * Called when the activity is starting.
@@ -88,6 +87,52 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    private var childEventListenerUserPost = object : ChildEventListener {
+        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            val postId = snapshot.key.toString()
+
+            if (postId != null){
+                getPost(postId)
+            }
+        }
+
+        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            /* This is intentionally left blank */
+        }
+
+        override fun onChildRemoved(snapshot: DataSnapshot) {
+            val postId = snapshot.key.toString()
+
+            if (postId != null){
+
+                val list = java.util.ArrayList<Post>(dataHighlights)
+
+                val index = list.indexOfFirst { it.getPostId() == postId }
+
+                if (index != -1){
+                    list.removeAt(index)
+
+                    dataHighlights = list
+                    unregisteredHighlightAdapter.updatePosts(list)
+
+                    if (dataHighlights.isNullOrEmpty()){
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            /* This is intentionally left blank */
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            val intent = Intent(this@ViewUserUnregisteredActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     private fun initContent() {
         this.ivNone = findViewById(R.id.iv_user_highlights_unregistered_none)
         this.tvNone = findViewById(R.id.tv_user_highlights_unregistered_none)
@@ -99,22 +144,14 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         this.dataHighlights = arrayListOf<Post>()
 
         val intent: Intent = intent
-        val userIdPost = intent.getStringExtra(Keys.KEY_USERID.name).toString()
-
-        /*
-        val intent: Intent = intent
-        val profilePicture = intent.getIntExtra(Keys.KEY_PROFILE_PICTURE.name, 0)
-        val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
-        val bio = intent.getStringExtra(Keys.KEY_BIO.name)
-
-         */
+        this.userIdPost = intent.getStringExtra(Keys.KEY_USERID.name).toString()
 
         this.firebaseHelper = FirebaseHelper(this@ViewUserUnregisteredActivity, userIdPost)
 
         val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
         if(!userIdPost.isEmpty()){
-            userDB.child(userIdPost).addListenerForSingleValueEvent(object : ValueEventListener {
+            userDB.child(userIdPost).addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userInfoPost = snapshot.getValue(User::class.java)
 
@@ -128,14 +165,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
                         tvViewUserUnregisteredUsername.text = userInfoPost.getUsername()
                         tvViewUserUnregisteredBio.text = userInfoPost.getBio()
 
-                        val highlights = userInfoPost.getHighlights().keys
-                        if (!highlights.isNullOrEmpty()){
-                            ivNone.visibility = View.GONE
-                            tvNone.visibility = View.GONE
-                            getPosts(highlights)
-                        }
-
-                        else{
+                        if (userInfoPost.getHighlights().isNullOrEmpty()){
                             ivNone.visibility = View.VISIBLE
                             tvNone.visibility = View.VISIBLE
                         }
@@ -150,9 +180,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
             })
         }
 
-        //this.civViewUserUnregisteredProfilePicture.setImageResource(profilePicture)
-        //this.tvViewUserUnregisteredUsername.text = username
-        //this.tvViewUserUnregisteredBio.text = bio
+        userDB.child(userIdPost).child(Keys.highlights.name).addChildEventListener(childEventListenerUserPost)
 
         btnViewUserUnregisteredFollow.setOnClickListener {
             Toast.makeText(
@@ -163,31 +191,22 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         }
     }
 
-    private fun getPosts(highlights: Set<String?>){
+    private fun getPost(postId: String){
+        val postDB = this.db.child(Keys.KEY_DB_POSTS.name).child(postId)
 
-        this.dataHighlights = arrayListOf<Post>()
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-
-        postDB.addListenerForSingleValueEvent(object: ValueEventListener {
+        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 if (snapshot.exists()){
-                    for (postSnap in snapshot.children){
-                        if (postSnap.key != null && highlights.contains(postSnap.key)){
-                            val post = postSnap.getValue(Post::class.java)
+                    val post = snapshot.getValue(Post::class.java)
+                    post?.setHighlight(true)
 
-                            if(post != null){
-                                post.setBookmark(true)
-                                dataHighlights.add(post)
-                            }
+                    if (post != null){
+                        dataHighlights.add(post)
+                        unregisteredHighlightAdapter.updatePosts(dataHighlights)
 
-                        }
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
                     }
-
-                    //highlightAdapter.notifyDataSetChanged()
-                    unregisteredHighlightAdapter = OthersHighlightAdapterUnregistered(dataHighlights)
-                    rvViewUnregisteredUser.adapter = unregisteredHighlightAdapter
-
                 }
             }
 
@@ -197,6 +216,19 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onPause() {
+        val userDB = this.db.child(userIdPost).child(Keys.highlights.name)
+        userDB.removeEventListener(childEventListenerUserPost)
+
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        initRecyclerView()
     }
 
     /**
@@ -214,12 +246,13 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
+        this.dataHighlights = arrayListOf()
         this.rvViewUnregisteredUser = findViewById(R.id.rv_view_user_unregistered)
         this.rvViewUnregisteredUser.layoutManager = GridLayoutManager(this, 2)
 
-       // this.unregisteredHighlightAdapter = OthersHighlightAdapterUnregistered(this.dataHighlights)
+        this.unregisteredHighlightAdapter = OthersHighlightAdapterUnregistered()
 
-       // this.rvViewUnregisteredUser.adapter = unregisteredHighlightAdapter
+        this.rvViewUnregisteredUser.adapter = unregisteredHighlightAdapter
     }
 
     /**
