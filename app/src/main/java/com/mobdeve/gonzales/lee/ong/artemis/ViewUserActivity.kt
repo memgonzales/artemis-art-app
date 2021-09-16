@@ -437,6 +437,7 @@ class ViewUserActivity : AppCompatActivity() {
         })
     }
 
+    /*
     /**
      * Defines the behavior of the activity when it is paused.
      */
@@ -455,6 +456,8 @@ class ViewUserActivity : AppCompatActivity() {
 
         initRecyclerView()
     }
+
+     */
 
     /**
      * Initializes the components of the activity.

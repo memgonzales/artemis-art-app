@@ -448,6 +448,8 @@ class BrowseFeedActivity : AppCompatActivity() {
 
     }
 
+    /*
+
     /**
      * Defines the behavior of the activity when it is paused.
      */
@@ -465,6 +467,8 @@ class BrowseFeedActivity : AppCompatActivity() {
 
         initRecyclerView()
     }
+
+     */
 
 
 

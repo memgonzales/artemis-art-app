@@ -355,6 +355,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         postDB.addChildEventListener(childEventListener)
     }
 
+    /*
     override fun onPause() {
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
         postDB.removeEventListener(childEventListener)
@@ -366,6 +367,8 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
 
         initRecyclerView()
     }
+
+     */
 
     /**
      * Initialize the contents of the Activity's standard options menu.
