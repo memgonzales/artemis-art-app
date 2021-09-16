@@ -425,9 +425,9 @@ class EditProfileActivity : AppCompatActivity() {
                 val username: String = snapshot.child(Keys.username.name).value.toString()
 
                 Glide.with(this@EditProfileActivity)
-                    .load(profPic)
-                    .placeholder(R.drawable.placeholder)
-                    .error(R.drawable.placeholder)
+                    .load("profPic")
+                    .placeholder(R.drawable.chibi_artemis_hd)
+                    .error(R.drawable.chibi_artemis_hd)
                     .into(civEditProfilePic)
 
                 val bio: String = snapshot.child(Keys.bio.name).value.toString()
