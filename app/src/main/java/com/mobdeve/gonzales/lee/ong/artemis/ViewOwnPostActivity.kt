@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -379,19 +380,27 @@ class ViewOwnPostActivity : AppCompatActivity() {
 
         val tagsString = tags?.joinToString(", ")
 
+        this.civItemViewOwnPostProfilePic.setImageURI(Uri.parse(profilePicture))
+        /*
         Glide.with(this)
             .load(profilePicture)
             .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(this.civItemViewOwnPostProfilePic)
 
+         */
+
         this.tvItemViewOwnPostUsername.text = username
 
+        this.ivItemViewOwnPostPostImg.setImageURI(Uri.parse(postImg))
+        /*
         Glide.with(this)
             .load(postImg)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(this.ivItemViewOwnPostPostImg)
+
+         */
 
         if (!title.isNullOrEmpty()){
             this.tvItemViewOwnPostTitle.visibility = View.VISIBLE
