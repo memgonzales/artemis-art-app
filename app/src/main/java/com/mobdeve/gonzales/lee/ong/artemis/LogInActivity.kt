@@ -22,9 +22,6 @@ import com.google.firebase.ktx.Firebase
  * @constructor Creates a class that handles the functionalities related to logging in.
  */
 class LogInActivity : AppCompatActivity() {
-
-    private lateinit var btnTest: Button
-
     /**
      * Button for creating a user account.
      */
@@ -110,9 +107,6 @@ class LogInActivity : AppCompatActivity() {
 
         this.btnLogIn = findViewById(R.id.btn_log_in)
         startBrowsing()
-
-        this.btnTest = findViewById(R.id.btn_test)
-        startTesting()
 
         this.tvGuest = findViewById(R.id.tv_log_in_guest)
         loginAsGuest()
@@ -307,14 +301,6 @@ class LogInActivity : AppCompatActivity() {
                 finish()
             }
 
-        }
-    }
-
-
-    private fun startTesting() {
-        this.btnTest.setOnClickListener {
-            val i = Intent(this@LogInActivity, BrokenLinkActivity::class.java)
-            startActivity(i)
         }
     }
 }
