@@ -283,7 +283,6 @@ class ViewProfileActivity : AppCompatActivity() {
 
                     Glide.with(this@ViewProfileActivity)
                         .load(profPic)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .placeholder(R.drawable.chibi_artemis_hd)
                         .error(R.drawable.chibi_artemis_hd)
                         .into(civViewProfileProfilePicture)

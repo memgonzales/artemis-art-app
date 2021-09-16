@@ -390,7 +390,8 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         else{
-            updateDB("https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2", bio)
+         //   updateDB("https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2", bio)
+            updateBio(bio)
         }
     }
 
@@ -425,7 +426,6 @@ class EditProfileActivity : AppCompatActivity() {
 
                 Glide.with(this@EditProfileActivity)
                     .load(profPic)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.placeholder)
                     .into(civEditProfilePic)
@@ -495,9 +495,9 @@ class EditProfileActivity : AppCompatActivity() {
         pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
 
-        val intent = Intent(this@EditProfileActivity, ViewProfileActivity::class.java)
-        startActivity(intent)
-        finish()
+        //val intent = Intent(this@EditProfileActivity, ViewProfileActivity::class.java)
+        //startActivity(intent)
+        //finish()
     }
 
     /**
@@ -552,6 +552,12 @@ class EditProfileActivity : AppCompatActivity() {
             }
 
          */
+    }
+
+    private fun updateBio(bio: String){
+        this.db.child(Keys.KEY_DB_USERS.name).child(userId).child(Keys.bio.name).setValue(bio)
+            .addOnSuccessListener { updateSuccessfully() }
+            .addOnFailureListener { updateFailed() }
     }
 
     /**
