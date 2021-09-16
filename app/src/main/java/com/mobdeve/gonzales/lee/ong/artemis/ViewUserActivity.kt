@@ -35,25 +35,94 @@ import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
+/**
+ * Class handling the functionalities related to viewing another user's profile.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing another
+ * user's profile.
+ */
 class ViewUserActivity : AppCompatActivity() {
+    /**
+     * Profile picture of the user whose profile is being viewed.
+     */
     private lateinit var civViewUserProfilePicture: CircleImageView
+
+    /**
+     * Username of the user whose profile is being viewed.
+     */
     private lateinit var tvViewUserUsername: TextView
+
+    /**
+     * Bio of the user whose profile is being viewed.
+     */
     private lateinit var tvViewUserBio: TextView
+
+    /**
+     * Button for following a user.
+     */
     private lateinit var btnViewUserFollow: Button
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewUserBottom: BottomNavigationView
+
+    /**
+     * Nested scroll view holding the contents of the activity excluding the bottom navigation view.
+     */
     private lateinit var nsvViewUser: NestedScrollView
+
+    /**
+     * List of highlights of the user whose profile is being viewed.
+     */
     private lateinit var dataHighlights: ArrayList<Post>
+
+    /**
+     * Recycler view holding the highlights of the user whose profile is being viewed.
+     */
     private lateinit var rvViewUser: RecyclerView
+
+    /**
+     * Adapter for displaying the highlights of the user whose profile is being viewed.
+     */
     private lateinit var highlightAdapter: OthersHighlightAdapter
 
+    /**
+     * Image view displayed when the user's highlights does not have any post to display.
+     */
     private lateinit var ivNone: ImageView
+
+    /**
+     * First (main) text view displayed when the user's highlights does not have any post to display.
+     */
     private lateinit var tvNone: TextView
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
     private lateinit var srlViewUser: SwipeRefreshLayout
 
     /**
@@ -71,15 +140,34 @@ class ViewUserActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
-
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var db: DatabaseReference
 
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user.
+     */
     private lateinit var userId: String
 
+    /**
+     * Starting point for all database-related operations.
+     */
+    private lateinit var db: DatabaseReference
+
+    /**
+     * Object for accessing the Firebase helper methods.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
+    /**
+     * Unique identifier of the post posted by the user.
+     */
     private lateinit var userIdPost: String
 
     /**
@@ -170,6 +258,9 @@ class ViewUserActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Child event listener for handling the viewing of a user's highlights.
+     */
     private var childEventListenerUserPost = object : ChildEventListener{
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             val postId = snapshot.key.toString()
@@ -216,6 +307,9 @@ class ViewUserActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the contents of the activity.
+     */
     private fun initContent() {
         this.ivNone = findViewById(R.id.iv_user_highlights_none)
         this.tvNone = findViewById(R.id.tv_user_highlights_none)
@@ -311,6 +405,11 @@ class ViewUserActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Retrieves the post selected from the user's highlights.
+     *
+     * @param postId Unique identifier of the post to be displayed.
+     */
     private fun getPost(postId: String){
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name).child(postId)
 
@@ -338,6 +437,9 @@ class ViewUserActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Defines the behavior of the activity when it is paused.
+     */
     override fun onPause() {
         val userDB = this.db.child(userIdPost).child(Keys.highlights.name)
         userDB.removeEventListener(childEventListenerUserPost)
@@ -345,12 +447,14 @@ class ViewUserActivity : AppCompatActivity() {
         super.onPause()
     }
 
+    /**
+     * Defines the behavior of the activity when it is resumed.
+     */
     override fun onResume() {
         super.onResume()
 
         initRecyclerView()
     }
-
 
     /**
      * Initializes the components of the activity.

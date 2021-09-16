@@ -34,35 +34,123 @@ import com.google.firebase.storage.ktx.storage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
-
+/**
+ * Class handling the functionalities related to viewing the user's profile.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing the user's profile.
+ */
 class ViewProfileActivity : AppCompatActivity() {
+    /**
+     * Profile picture of the user whose profile is being viewed.
+     */
     private lateinit var civViewProfileProfilePicture: CircleImageView
+
+    /**
+     * Username of the user whose profile is being viewed.
+     */
     private lateinit var tvViewProfileUsername: TextView
+
+    /**
+     * Bio of the user whose profile is being viewed.
+     */
     private lateinit var tvViewProfileBio: TextView
+
+    /**
+     * Constraint layout holding the edit profile option.
+     */
     private lateinit var clViewProfileEdit: ConstraintLayout
+
+    /**
+     * Constraint layout holding the view posts option.
+     */
     private lateinit var clViewProfileViewPosts: ConstraintLayout
+
+    /**
+     * Constraint layout holding the delete profile option.
+     */
     private lateinit var clViewProfileDelete: ConstraintLayout
+
+    /**
+     * Constraint layout holding the log out option.
+     */
     private lateinit var clViewProfileLogout: ConstraintLayout
+
+    /**
+     * Button for viewing the highlights of the user whose profile is being viewed.
+     */
     private lateinit var btnViewProfileHighlights: Button
 
+    /**
+     * Text view holding the email address for contacting the app developers.
+     */
     private lateinit var tvViewProfileNoteEmail: TextView
 
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewProfileBottom: BottomNavigationView
+
+    /**
+     * Nested scroll view holding the contents of the activity excluding the bottom navigation view.
+     */
     private lateinit var nsvViewProfile: NestedScrollView
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * User object holding the data of the user.
+     */
     private lateinit var dataUser: User
 
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var db: DatabaseReference
+
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user.
+     */
     private lateinit var userId: String
 
+    /**
+     * Starting point for all database-related operations.
+     */
+    private lateinit var db: DatabaseReference
+
+    /**
+     * Attribute used to store and retrieve data from Google Cloud Storage.
+     */
     private lateinit var storage: FirebaseStorage
+
+    /**
+     * Reference to the Google Cloud Storage object.
+     */
     private lateinit var storageRef: StorageReference
 
     /**
@@ -151,6 +239,9 @@ class ViewProfileActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the Firebase-related components.
+     */
     private fun initFirebase(){
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
@@ -169,6 +260,9 @@ class ViewProfileActivity : AppCompatActivity() {
         this.storageRef = this.storage.reference
     }
 
+    /**
+     * Initializes the contents of the activity.
+     */
     private fun initContent() {
         this.civViewProfileProfilePicture = findViewById(R.id.civ_view_profile_logo)
         this.tvViewProfileUsername = findViewById(R.id.tv_view_user_unregistered_username)
@@ -178,8 +272,6 @@ class ViewProfileActivity : AppCompatActivity() {
         this.clViewProfileDelete = findViewById(R.id.cl_view_profile_delete)
         this.clViewProfileLogout = findViewById(R.id.cl_view_profile_logout)
         this.btnViewProfileHighlights = findViewById(R.id.btn_view_profile_highlights)
-
-
 
         this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
             .addValueEventListener(object : ValueEventListener {
@@ -193,7 +285,6 @@ class ViewProfileActivity : AppCompatActivity() {
                         .error(R.drawable.chibi_artemis_hd)
                         .into(civViewProfileProfilePicture)
 
-
                     tvViewProfileUsername.setText(username)
                     tvViewProfileBio.setText(bio)
 
@@ -203,10 +294,7 @@ class ViewProfileActivity : AppCompatActivity() {
                     val intent = Intent(this@ViewProfileActivity, BrokenLinkActivity::class.java)
                     startActivity(intent)
                 }
-
             })
-
-
 
         clViewProfileEdit.setOnClickListener {
             val intent = Intent(this@ViewProfileActivity, EditProfileActivity::class.java)
@@ -233,11 +321,17 @@ class ViewProfileActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_profile))
         initBottom()
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewProfileBottom = findViewById(R.id.nv_view_profile_bottom)
         this.nsvViewProfile = findViewById(R.id.nsv_view_profile)
@@ -246,6 +340,13 @@ class ViewProfileActivity : AppCompatActivity() {
             BottomMenuUtil.USER, this, this@ViewProfileActivity)
     }
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     *
+     * @param menu The options menu in which you place your items.
+     * @return You must return <code>true</code> for the menu to be displayed; if you return
+     * <code>false</code> it will not be shown.
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_top_with_search, menu)
@@ -278,6 +379,9 @@ class ViewProfileActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /**
+     * Directs the user to contacting the email provided by the app developers.
+     */
     private fun launchEmail() {
         tvViewProfileNoteEmail = findViewById(R.id.tv_view_profile_note_email)
         tvViewProfileNoteEmail.setOnClickListener {
@@ -292,6 +396,10 @@ class ViewProfileActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@ViewProfileActivity)
         this.fabAddPost = findViewById(R.id.fab_view_profile_add)
@@ -316,6 +424,9 @@ class ViewProfileActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Opens the log out alert dialog.
+     */
     private fun logoutDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Log Out")

@@ -25,31 +25,101 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 
+/**
+ * Class handling the functionalities related to viewing another user's profile for unregistered users.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing another
+ * user's profile for unregistered users.
+ */
 class ViewUserUnregisteredActivity : AppCompatActivity() {
+    /**
+     * Profile picture of the user whose profile is being viewed.
+     */
     private lateinit var civViewUserUnregisteredProfilePicture: CircleImageView
+
+    /**
+     * Username of the user whose profile is being viewed.
+     */
     private lateinit var tvViewUserUnregisteredUsername: TextView
+
+    /**
+     * Bio of the user whose profile is being viewed.
+     */
     private lateinit var tvViewUserUnregisteredBio: TextView
+
+    /**
+     * Button for following a user.
+     */
     private lateinit var btnViewUserUnregisteredFollow: Button
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewUserUnregisteredBottom: BottomNavigationView
+
+    /**
+     * List of highlights of the user whose profile is being viewed.
+     */
     private lateinit var dataHighlights: ArrayList<Post>
+
+    /**
+     * Recycler view holding the highlights of the user whose profile is being viewed.
+     */
     private lateinit var rvViewUnregisteredUser: RecyclerView
+
+    /**
+     * Adapter for displaying the highlights of the user whose profile is being viewed.
+     */
     private lateinit var unregisteredHighlightAdapter: OthersHighlightAdapterUnregistered
 
+    /**
+     * Image view displayed when the user's highlights does not have any post to display.
+     */
     private lateinit var ivNone: ImageView
+
+    /**
+     * First (main) text view displayed when the user's highlights does not have any post to display.
+     */
     private lateinit var tvNone: TextView
 
+    /**
+     * Layout for registering a swipe gesture as a request to refresh this activity.
+     */
     private lateinit var srlViewUserUnregistered: SwipeRefreshLayout
 
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
 
+    /**
+     * Starting point for Firebase authentication SDK.
+     */
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var db: DatabaseReference
 
+    /**
+     * Represents a user profile's information in the Firebase user database.
+     */
     private lateinit var user: FirebaseUser
+
+    /**
+     * Unique identifier of the user.
+     */
     private lateinit var userId: String
 
+    /**
+     * Starting point for all database-related operations.
+     */
+    private lateinit var db: DatabaseReference
+
+    /**
+     * Object for accessing the Firebase helper methods.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
+    /**
+     * Unique identifier of the post posted by the user.
+     */
     private lateinit var userIdPost: String
 
     /**
@@ -87,6 +157,9 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Child event listener for handling the viewing of a user's highlights.
+     */
     private var childEventListenerUserPost = object : ChildEventListener {
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             val postId = snapshot.key.toString()
@@ -133,6 +206,9 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the contents of the activity.
+     */
     private fun initContent() {
         this.ivNone = findViewById(R.id.iv_user_highlights_unregistered_none)
         this.tvNone = findViewById(R.id.tv_user_highlights_unregistered_none)
@@ -191,6 +267,11 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Retrieves the post selected from the user's highlights.
+     *
+     * @param postId Unique identifier of the post to be displayed.
+     */
     private fun getPost(postId: String){
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name).child(postId)
 
@@ -218,6 +299,9 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Defines the behavior of the activity when it is paused.
+     */
     override fun onPause() {
         val userDB = this.db.child(userIdPost).child(Keys.highlights.name)
         userDB.removeEventListener(childEventListenerUserPost)
@@ -225,6 +309,9 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         super.onPause()
     }
 
+    /**
+     * Defines the behavior of the activity when it is resumed.
+     */
     override fun onResume() {
         super.onResume()
 
