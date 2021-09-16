@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 /**
  * Adapter for the recycler view that handles the comments on the posts.
@@ -81,6 +82,7 @@ class CommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>() {
 
         Glide.with(context)
             .load(currentComment.getProfilePicture())
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(holder.getItemCommentProfilePic())

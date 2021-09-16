@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import java.util.*
 
 /**
@@ -138,6 +139,7 @@ class SearchResultsAdapter() : RecyclerView.Adapter<SearchViewHolder>() {
 
         Glide.with(context)
             .load(currentPost.getPostImg())
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(holder.getItemSearchResults())

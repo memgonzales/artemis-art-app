@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -222,6 +223,7 @@ class FeedFollowedAdapter(private val parentActivity: Activity) :
 
        Glide.with(context)
             .load(currentPost.getProfilePicture())
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(holder.getItemFeedProfilePic())

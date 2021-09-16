@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
@@ -228,6 +229,7 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         //this.civItemViewPostUnregisteredProfilePic.setImageResource(profilePicture)
         Glide.with(this)
             .load(profilePicture)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(this.civItemViewPostUnregisteredProfilePic)
@@ -236,6 +238,7 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         //this.ivItemViewPostUnregisteredPost.setImageResource(post)
         Glide.with(this)
             .load(postImg)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(this.ivItemViewPostUnregisteredPost)

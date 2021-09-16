@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -282,6 +283,8 @@ class ViewProfileActivity : AppCompatActivity() {
 
                     Glide.with(this@ViewProfileActivity)
                         .load(profPic)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .placeholder(R.drawable.chibi_artemis_hd)
                         .error(R.drawable.chibi_artemis_hd)
                         .into(civViewProfileProfilePicture)
 

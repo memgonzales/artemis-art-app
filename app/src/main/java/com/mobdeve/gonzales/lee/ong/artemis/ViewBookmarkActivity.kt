@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -230,6 +231,7 @@ class ViewBookmarkActivity : AppCompatActivity() {
 
         Glide.with(this@ViewBookmarkActivity)
             .load(profilePicture)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(civItemViewBookmarkProfilePic)
@@ -238,6 +240,7 @@ class ViewBookmarkActivity : AppCompatActivity() {
 
         Glide.with(this@ViewBookmarkActivity)
             .load(postImg)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(ivItemViewBookmarkPost)
