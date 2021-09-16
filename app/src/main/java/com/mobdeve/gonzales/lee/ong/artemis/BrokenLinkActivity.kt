@@ -11,6 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
  * from crashing when the Firebase server encounters an error that cannot be resolved with simple
  * toast displays (for example, the remote server is temporarily down or the user submitted a
  * bad request).
+ *
+ * @constructor Creates a class that handles the functionalities related to notifying the user
+ * and preventing the app from crashing when the Firebase server encounters an error that cannot be
+ * resolved with simple toast displays (for example, the remote server is temporarily down or the user
+ * submitted a bad request).
  */
 class BrokenLinkActivity : AppCompatActivity() {
     /**
