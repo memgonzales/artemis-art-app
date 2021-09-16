@@ -299,6 +299,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         })
     }
 
+    /*
     /**
      * Defines the behavior of the activity when it is paused.
      */
@@ -317,6 +318,8 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
 
         initRecyclerView()
     }
+
+     */
 
     /**
      * Initializes the components of the activity.

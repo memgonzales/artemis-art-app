@@ -217,7 +217,7 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
     override fun onBindViewHolder(holder: OwnPostsViewHolder, position: Int) {
         val currentPost = differ.currentList[position]
 
-        holder.setOwnPostProfilePic(currentPost.getProfilePicture()!!)
+        holder.setOwnPostProfilePic(currentPost.getProfilePicture()!! )
         /*
         Glide.with(context)
             .load(currentPost.getProfilePicture())
