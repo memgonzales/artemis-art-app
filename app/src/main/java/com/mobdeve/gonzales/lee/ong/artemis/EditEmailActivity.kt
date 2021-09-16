@@ -89,6 +89,12 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
      */
     private lateinit var credentials: AuthCredential
 
+    /**
+     * Retrieves and returns the password entered by the user in the confirmation dialog.
+     *
+     * @param password Password entered by the user in the confirmation dialog.
+     * @return Password entered by the user, casted as a string.
+     */
     private lateinit var tvEditEmailInputPassword: TextView
 
     /**

@@ -8,9 +8,24 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatDialogFragment
 
+/**
+ * Class that defines a custom alert dialog that accepts a password input from the user.
+ *
+ * This implementation is based on the Java code presented in the following video:
+ * [https://www.youtube.com/watch?v=ARezg1D9Zd0](https://www.youtube.com/watch?v=ARezg1D9Zd0).
+ */
 class DialogWithInput : AppCompatDialogFragment() {
+    /**
+     * Listener that retrieves the password entered by the user.
+     */
     private lateinit var listener: DialogWithInputListener
 
+    /**
+     * Override to build your own custom Dialog container.
+     *
+     * @param savedInstanceState The last saved instance state of the Fragment, or null if this is a
+     * freshly created Fragment.
+     */
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val inflater = requireActivity().layoutInflater
         val view: View = inflater.inflate(R.layout.dialog_input_password, null)
@@ -27,6 +42,11 @@ class DialogWithInput : AppCompatDialogFragment() {
             .create()
     }
 
+    /**
+     * Called when a fragment is first attached to its context.
+     *
+     * @param context Context of this class.
+     */
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -40,7 +60,16 @@ class DialogWithInput : AppCompatDialogFragment() {
         }
     }
 
+    /**
+     * Skeleton for the listener that retrieves the password entered by the user.
+     */
     interface DialogWithInputListener {
+        /**
+         * Retrieves and returns the password entered by the user in the confirmation dialog.
+         *
+         * @param password Password entered by the user in the confirmation dialog.
+         * @return Password entered by the user, casted as a string.
+         */
         fun fetchPassword(password: String): String
     }
 }

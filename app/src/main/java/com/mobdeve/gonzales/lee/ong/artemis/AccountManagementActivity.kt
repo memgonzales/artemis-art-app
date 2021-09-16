@@ -99,6 +99,9 @@ class AccountManagementActivity : AppCompatActivity(), DialogWithInput.DialogWit
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    /**
+     * Text view for fetching the password entered by the user in the confirmatory dialog.
+     */
     private lateinit var tvAccountManagementInputPassword: TextView
 
     /**
@@ -240,6 +243,12 @@ class AccountManagementActivity : AppCompatActivity(), DialogWithInput.DialogWit
 //        builder.create().show()
     }
 
+    /**
+     * Retrieves and returns the password entered by the user in the confirmation dialog.
+     *
+     * @param password Password entered by the user in the confirmation dialog.
+     * @return Password entered by the user, casted as a string.
+     */
     override fun fetchPassword(password: String): String {
         tvAccountManagementInputPassword = findViewById(R.id.tv_account_management_input_password)
         tvAccountManagementInputPassword.text = password
