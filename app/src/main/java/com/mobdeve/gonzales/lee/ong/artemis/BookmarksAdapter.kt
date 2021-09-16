@@ -22,6 +22,10 @@ class BookmarksAdapter() : RecyclerView.Adapter<BookmarksViewHolder>() {
      */
     private lateinit var context: Context
 
+    /**
+     * Callback that informs <code>ArrayObjectAdapter</code> how to compute list updates when using
+     * <code>DiffUtil</code> in <code>ArrayObjectAdapter.setItems(List, DiffCallback)</code> method.
+     */
     private val diffCallbacks = object : DiffUtil.ItemCallback<Post>(){
         override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
             return oldItem.getPostId().equals(newItem.getPostId())
@@ -33,6 +37,9 @@ class BookmarksAdapter() : RecyclerView.Adapter<BookmarksViewHolder>() {
 
     }
 
+    /**
+     * Helper for computing the difference between two lists via <code>DiffUtil</code> on a background thread.
+     */
     private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
 
     /**
@@ -134,6 +141,11 @@ class BookmarksAdapter() : RecyclerView.Adapter<BookmarksViewHolder>() {
         return differ.currentList.size
     }
 
+    /**
+     * Updates the comments displayed through the adapter.
+     *
+     * @param newComments List of new comments to be displayed through the adapter.
+     */
     fun updatePosts(newPosts: List<Post>){
         differ.submitList(newPosts)
     }

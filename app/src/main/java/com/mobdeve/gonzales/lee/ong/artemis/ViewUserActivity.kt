@@ -503,6 +503,7 @@ class ViewUserActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initRecyclerView()
             srlViewUser.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }

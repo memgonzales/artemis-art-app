@@ -388,6 +388,7 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initRecyclerView()
             srlViewCommentsFollowed.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }

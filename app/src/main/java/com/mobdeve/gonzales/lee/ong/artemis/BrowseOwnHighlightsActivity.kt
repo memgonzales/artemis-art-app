@@ -272,6 +272,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initRecyclerView()
             srlHighlights.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }

@@ -237,6 +237,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initContents()
             srlSearchResults.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }

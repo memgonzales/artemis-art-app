@@ -364,6 +364,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initRecyclerView()
             srlViewUserUnregistered.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }

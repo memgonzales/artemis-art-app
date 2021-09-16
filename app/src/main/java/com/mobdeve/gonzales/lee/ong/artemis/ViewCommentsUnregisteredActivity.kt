@@ -221,6 +221,7 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initRecyclerView()
             srlViewCommentsUnregisterd.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }

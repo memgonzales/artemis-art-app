@@ -288,6 +288,7 @@ class BrowseFeedActivity : AppCompatActivity() {
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             initRecyclerView()
+            initRecyclerView()
 
             srlFeed.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())

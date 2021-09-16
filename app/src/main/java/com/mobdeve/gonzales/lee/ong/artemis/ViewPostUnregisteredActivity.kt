@@ -175,6 +175,7 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initIntent()
             srlViewPostUnregistered.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }

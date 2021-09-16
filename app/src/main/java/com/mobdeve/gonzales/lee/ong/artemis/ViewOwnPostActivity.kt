@@ -328,6 +328,7 @@ class ViewOwnPostActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initIntent()
             srlViewOwnPost.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }

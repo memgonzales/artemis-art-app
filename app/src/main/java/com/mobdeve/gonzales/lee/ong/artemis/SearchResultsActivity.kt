@@ -13,7 +13,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -325,6 +324,7 @@ class SearchResultsActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initContents()
             srlSearchResults.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }

@@ -193,6 +193,9 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initRecyclerView()
+            initRecyclerView()
+
             srlFeedUnregistered.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }

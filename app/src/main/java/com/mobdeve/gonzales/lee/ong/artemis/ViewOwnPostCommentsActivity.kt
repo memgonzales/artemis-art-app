@@ -396,6 +396,7 @@ class ViewOwnPostCommentsActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initRecyclerView()
             srlViewComments.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }

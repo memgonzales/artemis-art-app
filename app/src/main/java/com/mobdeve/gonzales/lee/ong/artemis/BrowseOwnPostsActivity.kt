@@ -276,6 +276,7 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
      */
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
+            initRecyclerView()
             srlBrowseOwnPosts.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
     }
