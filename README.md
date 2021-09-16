@@ -57,6 +57,13 @@ The complete project specifications can be found in the document <a href = "http
 
 3. Run the app using Android Studio (or any IDE that supports Android development). Alternatively, Android also provides a <a href = "https://developer.android.com/studio/build/building-cmdline">guide</a> on how to build the app from the command line.
 
+### Credentials (For Testing Only)
+To test the Facebook sharing feature, log into Facebook using the following credentials:
+
+- **Email Address:** `tester.artemis@gmail.com`
+- **Password:** `ASDFGHJKL123;`
+
+
 ## Dependencies
 This project uses the following project dependencies:
 
