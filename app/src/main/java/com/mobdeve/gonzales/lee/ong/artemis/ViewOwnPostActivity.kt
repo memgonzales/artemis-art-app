@@ -23,6 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -383,8 +384,8 @@ class ViewOwnPostActivity : AppCompatActivity() {
         //this.civItemViewOwnPostProfilePic.setImageURI(Uri.parse(profilePicture))
 
         Glide.with(this)
-            .asBitmap()
             .load(profilePicture)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(this.civItemViewOwnPostProfilePic)
@@ -395,8 +396,8 @@ class ViewOwnPostActivity : AppCompatActivity() {
         //this.ivItemViewOwnPostPostImg.setImageURI(Uri.parse(postImg))
 
         Glide.with(this)
-            .asBitmap()
             .load(postImg)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(this.ivItemViewOwnPostPostImg)

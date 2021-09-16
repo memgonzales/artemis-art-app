@@ -465,10 +465,12 @@ class EditProfileActivity : AppCompatActivity() {
 
             clDialogProfilePictureEdit.setOnClickListener {
                 PostArtworkUtil.chooseFromGallery(this, galleryLauncher)
+                btmProfilePicture.dismiss()
             }
 
             clDialogProfilePictureCamera.setOnClickListener {
                 photoFile = PostArtworkUtil.takeFromCamera(this, this@EditProfileActivity, cameraLauncher)
+                btmProfilePicture.dismiss()
             }
 
             clDialogProfilePictureDelete.setOnClickListener {

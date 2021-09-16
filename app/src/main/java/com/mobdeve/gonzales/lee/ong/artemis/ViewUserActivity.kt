@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -337,6 +338,7 @@ class ViewUserActivity : AppCompatActivity() {
                     if(userInfoPost != null){
                         Glide.with(this@ViewUserActivity)
                             .load(userInfoPost.getUserImg())
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .placeholder(R.drawable.chibi_artemis_hd)
                             .error(R.drawable.chibi_artemis_hd)
                             .into(civViewUserProfilePicture)
