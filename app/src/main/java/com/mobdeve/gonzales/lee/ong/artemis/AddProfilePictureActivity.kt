@@ -337,7 +337,9 @@ class AddProfilePictureActivity : AppCompatActivity() {
             }
 
             else{
-                storeUserImg("https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2")
+                pbAddProfPic.visibility = View.GONE
+                //storeUserImg("https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2")
+                Toast.makeText(this@AddProfilePictureActivity, "Please add an profile picture", Toast.LENGTH_SHORT).show()
             }
         }
     }
