@@ -21,6 +21,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.io.File
 
+/**
+ * Class for handling functionalities related to searching.
+ *
+ * @constructor Creates an activity for searching.
+ */
 class SearchActivity : AppCompatActivity() {
     /**
      * Button for searching using the first search tag.

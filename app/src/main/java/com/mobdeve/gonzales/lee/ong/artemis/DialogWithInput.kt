@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatDialogFragment
  *
  * This implementation is based on the Java code presented in the following video:
  * [https://www.youtube.com/watch?v=ARezg1D9Zd0](https://www.youtube.com/watch?v=ARezg1D9Zd0).
+ *
+ * @constructor Creates a custom alert dialog that accepts a password input from the user
  */
 class DialogWithInput : AppCompatDialogFragment() {
     /**

@@ -39,6 +39,11 @@ import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
+/**
+ * Class for handling functionalities related to displaying the search results.
+ *
+ * @constructor Creates an activity for displaying the search results.
+ */
 class SearchResultsActivity : AppCompatActivity() {
     /**
      * List of posts returned by the search query.

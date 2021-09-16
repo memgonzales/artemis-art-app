@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide
  *
  * @constructor Creates an adapter for the recycler view that handles the comments on the posts.
  */
-
 class CommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>() {
 
     /**

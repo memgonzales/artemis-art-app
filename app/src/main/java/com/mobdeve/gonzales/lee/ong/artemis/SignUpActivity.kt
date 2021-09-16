@@ -21,6 +21,11 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
+/**
+ * Class for handling functionalities related to signing up.
+ *
+ * @constructor Creates an activity for signing up.
+ */
 class SignUpActivity : AppCompatActivity() {
     private lateinit var btnSignUp: Button
 

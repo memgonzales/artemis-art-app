@@ -30,6 +30,11 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 
+/**
+ * Class for handling functionalities related to displaying the search results for unregistered users.
+ *
+ * @constructor Creates an activity for displaying the search results for unregistered users.
+ */
 class SearchResultsUnregisteredActivity : AppCompatActivity() {
     /**
      * List of posts returned by the search query.

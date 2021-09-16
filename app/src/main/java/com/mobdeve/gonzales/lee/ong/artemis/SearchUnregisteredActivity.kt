@@ -13,6 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+/**
+ * Class for handling functionalities related to searching for unregistered users.
+ *
+ * @constructor Creates an activity for searching for unregistered users.
+ */
 class SearchUnregisteredActivity : AppCompatActivity() {
     /**
      * Button for searching using the first search tag.
