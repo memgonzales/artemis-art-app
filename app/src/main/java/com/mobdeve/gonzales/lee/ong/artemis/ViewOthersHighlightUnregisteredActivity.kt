@@ -122,8 +122,6 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
         val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
 
-        //this.civItemViewOthersHighlightUnregisteredProfilePic.setImageResource(profilePicture)
-
         Glide.with(this@ViewOthersHighlightUnregisteredActivity)
             .load(profilePicture)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -132,7 +130,7 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
             .into(this.civItemViewOthersHighlightUnregisteredProfilePic)
 
         this.tvItemViewOthersHighlightUnregisteredUsername.text = username
-        //this.ivItemViewOthersHighlightUnregisteredPost.setImageResource(post)
+
         Glide.with(this@ViewOthersHighlightUnregisteredActivity)
             .load(postImg)
             .diskCacheStrategy(DiskCacheStrategy.NONE)

@@ -266,7 +266,7 @@ class ViewUserActivity : AppCompatActivity() {
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             val postId = snapshot.key.toString()
 
-            if (postId != null){
+            if (postId != null) {
                 getPost(postId)
             }
         }
@@ -278,7 +278,7 @@ class ViewUserActivity : AppCompatActivity() {
         override fun onChildRemoved(snapshot: DataSnapshot) {
             val postId = snapshot.key.toString()
 
-            if (postId != null){
+            if (postId != null) {
 
                 val list = java.util.ArrayList<Post>(dataHighlights)
 
@@ -438,28 +438,6 @@ class ViewUserActivity : AppCompatActivity() {
 
         })
     }
-
-    /*
-    /**
-     * Defines the behavior of the activity when it is paused.
-     */
-    override fun onPause() {
-        val userDB = this.db.child(userIdPost).child(Keys.highlights.name)
-        userDB.removeEventListener(childEventListenerUserPost)
-
-        super.onPause()
-    }
-
-    /**
-     * Defines the behavior of the activity when it is resumed.
-     */
-    override fun onResume() {
-        super.onResume()
-
-        initRecyclerView()
-    }
-
-     */
 
     /**
      * Initializes the components of the activity.

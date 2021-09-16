@@ -381,8 +381,6 @@ class ViewOwnPostActivity : AppCompatActivity() {
 
         val tagsString = tags?.joinToString(", ")
 
-        //this.civItemViewOwnPostProfilePic.setImageURI(Uri.parse(profilePicture))
-
         Glide.with(this)
             .load(profilePicture)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -392,8 +390,6 @@ class ViewOwnPostActivity : AppCompatActivity() {
 
 
         this.tvItemViewOwnPostUsername.text = username
-
-        //this.ivItemViewOwnPostPostImg.setImageURI(Uri.parse(postImg))
 
         Glide.with(this)
             .load(postImg)
@@ -617,8 +613,6 @@ class ViewOwnPostActivity : AppCompatActivity() {
                 finish()
 
                 btmViewOwnPost.dismiss()
-                //Toast.makeText(this@ViewOwnPostActivity, "Your post has been deleted", Toast.LENGTH_SHORT).show()
-
             }
 
             btmViewOwnPost.show()

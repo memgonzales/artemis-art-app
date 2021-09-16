@@ -247,12 +247,10 @@ class ViewProfileActivity : AppCompatActivity() {
         this.mAuth = Firebase.auth
         this.db = Firebase.database.reference
 
-        if (this.mAuth.currentUser != null){
+        if (this.mAuth.currentUser != null) {
             this.user = this.mAuth.currentUser!!
             this.userId = this.user.uid
-        }
-
-        else{
+        } else {
             val intent = Intent(this@ViewProfileActivity, BrokenLinkActivity::class.java)
             startActivity(intent)
         }

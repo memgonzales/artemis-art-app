@@ -244,37 +244,33 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
             .error(R.drawable.placeholder)
             .into(this.ivItemViewOwnHighlightPost)
 
-        if (!title.isNullOrEmpty()){
+        if (!title.isNullOrEmpty()) {
             this.tvItemViewOwnHighlightTitle.visibility = View.VISIBLE
             this.tvItemViewOwnHighlightTitle.text = title
-        }
-        else{
+        } else {
             this.tvItemViewOwnHighlightTitle.visibility = View.INVISIBLE
         }
 
         this.tvItemViewOwnHighlightDatePosted.text = datePosted
 
-        if(!medium.isNullOrEmpty()){
+        if(!medium.isNullOrEmpty()) {
             this.tvItemViewOwnHighlightMedium.visibility = View.VISIBLE
             this.tvItemViewOwnHighlightMedium.text = medium
-        }
-        else{
+        } else {
             this.tvItemViewOwnHighlightMedium.visibility = View.GONE
         }
 
-        if(!dimensions.isNullOrEmpty()){
+        if(!dimensions.isNullOrEmpty()) {
             this.tvItemViewOwnHighlightDimensions.visibility = View.VISIBLE
             this.tvItemViewOwnHighlightDimensions.text = dimensions
-        }
-        else{
+        } else {
             this.tvItemViewOwnHighlightDimensions.visibility = View.GONE
         }
 
-        if(!description.isNullOrEmpty()){
+        if(!description.isNullOrEmpty()) {
             this.tvItemViewOwnHighlightDescription.visibility = View.VISIBLE
             this.tvItemViewOwnHighlightDescription.text = description
-        }
-        else{
+        } else {
             this.tvItemViewOwnHighlightDescription.visibility = View.GONE
         }
 

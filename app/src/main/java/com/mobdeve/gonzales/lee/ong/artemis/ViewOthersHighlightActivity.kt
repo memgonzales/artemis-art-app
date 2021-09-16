@@ -214,9 +214,6 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
         val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
 
-
-        //this.civItemViewOthersHighlightProfilePic.setImageResource(profilePicture)
-
         Glide.with(this@ViewOthersHighlightActivity)
             .load(profilePicture)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -225,7 +222,7 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
             .into(this.civItemViewOthersHighlightProfilePic)
 
         this.tvItemViewOthersHighlightUsername.text = username
-        //this.ivItemViewOthersHighlightPost.setImageResource(post)
+
         Glide.with(this@ViewOthersHighlightActivity)
             .load(postImg)
             .diskCacheStrategy(DiskCacheStrategy.NONE)

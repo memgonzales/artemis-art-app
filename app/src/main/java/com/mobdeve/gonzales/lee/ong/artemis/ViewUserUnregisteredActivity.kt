@@ -177,7 +177,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         override fun onChildRemoved(snapshot: DataSnapshot) {
             val postId = snapshot.key.toString()
 
-            if (postId != null){
+            if (postId != null) {
 
                 val list = java.util.ArrayList<Post>(dataHighlights)
 
@@ -274,7 +274,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
      *
      * @param postId Unique identifier of the post to be displayed.
      */
-    private fun getPost(postId: String){
+    private fun getPost(postId: String) {
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name).child(postId)
 
         postDB.addListenerForSingleValueEvent(object : ValueEventListener{
@@ -300,29 +300,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
 
         })
     }
-
-    /*
-    /**
-     * Defines the behavior of the activity when it is paused.
-     */
-    override fun onPause() {
-        val userDB = this.db.child(userIdPost).child(Keys.highlights.name)
-        userDB.removeEventListener(childEventListenerUserPost)
-
-        super.onPause()
-    }
-
-    /**
-     * Defines the behavior of the activity when it is resumed.
-     */
-    override fun onResume() {
-        super.onResume()
-
-        initRecyclerView()
-    }
-
-     */
-
+    
     /**
      * Initializes the components of the activity.
      */

@@ -226,7 +226,6 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
 
         val tagsString = tags?.joinToString(", ")
 
-        //this.civItemViewPostUnregisteredProfilePic.setImageResource(profilePicture)
         Glide.with(this)
             .load(profilePicture)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -235,7 +234,7 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
             .into(this.civItemViewPostUnregisteredProfilePic)
 
         this.tvItemViewPostUnregisteredUsername.text = username
-        //this.ivItemViewPostUnregisteredPost.setImageResource(post)
+
         Glide.with(this)
             .load(postImg)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -243,11 +242,10 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
             .error(R.drawable.placeholder)
             .into(this.ivItemViewPostUnregisteredPost)
 
-        if (!title.isNullOrEmpty()){
+        if (!title.isNullOrEmpty()) {
             this.tvItemViewPostUnregisteredTitle.visibility = View.VISIBLE
             this.tvItemViewPostUnregisteredTitle.text = title
-        }
-        else{
+        } else {
             this.tvItemViewPostUnregisteredTitle.visibility = View.INVISIBLE
         }
 
@@ -255,27 +253,24 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
         this.tvItemViewPostUnregisteredComments.text = commentString
         this.tvItemViewPostUnregisteredDatePosted.text = datePosted
 
-        if(!medium.isNullOrEmpty()){
+        if(!medium.isNullOrEmpty()) {
             this.tvItemViewPostUnregisteredMedium.visibility = View.VISIBLE
             this.tvItemViewPostUnregisteredMedium.text = medium
-        }
-        else{
+        } else {
             this.tvItemViewPostUnregisteredMedium.visibility = View.GONE
         }
 
-        if(!dimensions.isNullOrEmpty()){
+        if(!dimensions.isNullOrEmpty()) {
             this.tvItemViewPostUnregisteredDimensions.visibility = View.VISIBLE
             this.tvItemViewPostUnregisteredDimensions.text = dimensions
-        }
-        else{
+        } else {
             this.tvItemViewPostUnregisteredDimensions.visibility = View.GONE
         }
 
-        if(!description.isNullOrEmpty()){
+        if(!description.isNullOrEmpty()) {
             this.tvItemViewPostUnregisteredDescription.visibility = View.VISIBLE
             this.tvItemViewPostUnregisteredDescription.text = description
-        }
-        else{
+        } else {
             this.tvItemViewPostUnregisteredDescription.visibility = View.GONE
         }
 

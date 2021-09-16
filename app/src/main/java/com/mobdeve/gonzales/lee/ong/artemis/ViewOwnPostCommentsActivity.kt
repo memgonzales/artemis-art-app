@@ -659,7 +659,6 @@ class ViewOwnPostCommentsActivity : AppCompatActivity() {
                             val intent = Intent(this@ViewOwnPostCommentsActivity, BrokenLinkActivity::class.java)
                             startActivity(intent)
                         }
-
                     })
 
             } else {

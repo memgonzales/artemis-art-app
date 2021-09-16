@@ -338,11 +338,10 @@ class   ViewPostFollowedActivity : AppCompatActivity() {
             .error(R.drawable.placeholder)
             .into(this.ivItemViewPostFollowedPost)
 
-        if (!title.isNullOrEmpty()){
+        if (!title.isNullOrEmpty()) {
             this.tvItemViewPostFollowedTitle.visibility = View.VISIBLE
             this.tvItemViewPostFollowedTitle.text = title
-        }
-        else{
+        } else {
             this.tvItemViewPostFollowedTitle.visibility = View.INVISIBLE
         }
 
@@ -350,27 +349,24 @@ class   ViewPostFollowedActivity : AppCompatActivity() {
         this.tvItemViewPostFollowedComments.text = commentString
         this.tvItemViewPostFollowedDatePosted.text = datePosted
 
-        if(!medium.isNullOrEmpty()){
+        if(!medium.isNullOrEmpty()) {
             this.tvItemViewPostFollowedMedium.visibility = View.VISIBLE
             this.tvItemViewPostFollowedMedium.text = medium
-        }
-        else{
+        } else {
             this.tvItemViewPostFollowedMedium.visibility = View.GONE
         }
 
-        if(!dimensions.isNullOrEmpty()){
+        if(!dimensions.isNullOrEmpty()) {
             this.tvItemViewPostFollowedDimensions.visibility = View.VISIBLE
             this.tvItemViewPostFollowedDimensions.text = dimensions
-        }
-        else{
+        } else {
             this.tvItemViewPostFollowedDimensions.visibility = View.GONE
         }
 
-        if(!description.isNullOrEmpty()){
+        if(!description.isNullOrEmpty()) {
             this.tvItemViewPostFollowedDescription.visibility = View.VISIBLE
             this.tvItemViewPostFollowedDescription.text = description
-        }
-        else{
+        } else {
             this.tvItemViewPostFollowedDescription.visibility = View.GONE
         }
 
@@ -383,11 +379,9 @@ class   ViewPostFollowedActivity : AppCompatActivity() {
             bookmark = !bookmark
             updateBookmark(bookmark)
 
-            if(bookmark){
+            if(bookmark) {
                 firebaseHelper.updateBookmarkDB("1", postId!!, "1")
-            }
-
-            else{
+            } else {
                 firebaseHelper.updateBookmarkDB(null, postId!!, null)
             }
         }
