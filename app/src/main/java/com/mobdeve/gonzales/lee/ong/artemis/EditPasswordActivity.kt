@@ -251,7 +251,8 @@ class EditPasswordActivity : AppCompatActivity() {
                                 .addOnSuccessListener {
 
                                     user.updatePassword(newPw)
-                                    updateSuccessfully()
+                                        .addOnSuccessListener { updateSuccessfully() }
+                                        .addOnFailureListener { updateFailed() }
 
                                 }
                                 .addOnFailureListener {

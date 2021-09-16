@@ -243,6 +243,7 @@ class EditEmailActivity : AppCompatActivity() {
      */
     private fun checkEmail(email: String){
 
+
         val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
         userDB.orderByChild(Keys.email.name).equalTo(email)
@@ -254,11 +255,11 @@ class EditEmailActivity : AppCompatActivity() {
                     }
 
                     else{
-                        user.updateEmail(email)
+                        userDB.child(Keys.email.name).setValue(email)
                             .addOnSuccessListener {
-                                userDB.child(Keys.email.name).setValue(email)
-                                updateSuccessfully()
-
+                                user.updateEmail(email)
+                                    .addOnSuccessListener { updateSuccessfully() }
+                                    .addOnFailureListener { updateFailed() }
                             }
                             .addOnFailureListener {
                                 updateFailed()
