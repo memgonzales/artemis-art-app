@@ -358,7 +358,7 @@ class EditProfileActivity : AppCompatActivity() {
                         url.downloadUrl
                             .addOnSuccessListener {
                                // uploadSuccessfully()
-                                updateDB(it.toString(), bio)
+                                updateDB(it.toString())
                             }
 
                             .addOnFailureListener {
@@ -376,7 +376,7 @@ class EditProfileActivity : AppCompatActivity() {
                         url.downloadUrl
                             .addOnSuccessListener {
                                 //uploadSuccessfully()
-                                updateDB(it.toString(), bio)
+                                updateDB(it.toString())
                             }
 
                             .addOnFailureListener {
@@ -387,6 +387,8 @@ class EditProfileActivity : AppCompatActivity() {
                         uploadFailed()
                     }
             }
+
+            updateBio(bio)
         }
 
         else{
@@ -400,7 +402,7 @@ class EditProfileActivity : AppCompatActivity() {
      */
     private fun uploadSuccessfully(){
         pbEditProfile.visibility = View.GONE
-        Toast.makeText(this@EditProfileActivity, "Successfully uploaded your image", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@EditProfileActivity, "Update in Progress", Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -514,7 +516,7 @@ class EditProfileActivity : AppCompatActivity() {
      * @param userImg URI of the profile picture of the user.
      * @param bio Short bio of the user.
      */
-    private fun updateDB(userImg: String, bio: String){
+    private fun updateDB(userImg: String){
        // val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
         val updates = hashMapOf<String, Any>(
@@ -533,7 +535,7 @@ class EditProfileActivity : AppCompatActivity() {
                 }
             }
 
-        updateBio(bio)
+      //  updateBio(bio)
         /*
         userDB.child(Keys.bio.name).setValue(bio)
             .addOnSuccessListener {
