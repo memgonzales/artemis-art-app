@@ -20,20 +20,79 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
+/**
+ * Class handling the functionalities related to viewing the highlight of another user.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing the highlight
+ * of another user.
+ */
 class ViewOthersHighlightActivity : AppCompatActivity() {
+    /**
+     * Profile picture of the user whose highlight is being viewed.
+     */
     private lateinit var civItemViewOthersHighlightProfilePic: CircleImageView
+
+    /**
+     * Username of the user whose highlight is being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightUsername: TextView
+
+    /**
+     * Artwork of the highlight being viewed.
+     */
     private lateinit var ivItemViewOthersHighlightPost: ImageView
+
+    /**
+     * Title of the highlight being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightTitle: TextView
+
+    /**
+     * Date posted of the highlight being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightDatePosted: TextView
+
+    /**
+     * Medium of the highlight being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightMedium: TextView
+
+    /**
+     * Dimensions of the highlight being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightDimensions: TextView
+
+    /**
+     * Description of the highlight being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightDescription: TextView
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewOthersHighlightBottom: BottomNavigationView
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
     /**
@@ -51,6 +110,9 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
      */
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
 
+    /**
+     * Object for accessing the Firebase helper methods.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
     /**
@@ -131,6 +193,9 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the intent passed to the activity.
+     */
     private fun initIntent() {
         val intent: Intent = intent
 
@@ -222,11 +287,17 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_others_highlight))
         initActionBar()
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewOthersHighlightBottom = findViewById(R.id.nv_view_others_highlight_bottom)
 
@@ -234,11 +305,18 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
             this@ViewOthersHighlightActivity)
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@ViewOthersHighlightActivity)
         this.fabAddPost = findViewById(R.id.fab_view_others_highlight_add)

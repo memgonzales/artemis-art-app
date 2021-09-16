@@ -24,23 +24,89 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
+/**
+ * Class handling the functionalities related to viewing a user's own highlight.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing a user's own
+ * highlight.
+ */
 class ViewOwnHighlightActivity : AppCompatActivity() {
+    /**
+     * Profile picture of the user whose highlight is being viewed.
+     */
     private lateinit var civItemViewOwnHighlightProfilePic: CircleImageView
+
+    /**
+     * Username of the user whose highlight is being viewed.
+     */
     private lateinit var tvItemViewOwnHighlightUsername: TextView
+
+    /**
+     * Artwork of the highlight being viewed.
+     */
     private lateinit var ivItemViewOwnHighlightPost: ImageView
+
+    /**
+     * Title of the highlight being viewed.
+     */
     private lateinit var tvItemViewOwnHighlightTitle: TextView
+
+    /**
+     * Date posted of the highlight being viewed.
+     */
     private lateinit var tvItemViewOwnHighlightDatePosted: TextView
+
+    /**
+     * Medium of the highlight being viewed.
+     */
     private lateinit var tvItemViewOwnHighlightMedium: TextView
+
+    /**
+     * Dimensions of the highlight being viewed.
+     */
     private lateinit var tvItemViewOwnHighlightDimensions: TextView
+
+    /**
+     * Description of the highlight being viewed.
+     */
     private lateinit var tvItemViewOwnHighlightDescription: TextView
+
+    /**
+     * Image button for toggling the highlight status of the highlight being viewed.
+     */
     private lateinit var ibItemViewOwnHighlightHighlight: ImageButton
+
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewOwnHighlightBottom: BottomNavigationView
 
+    /**
+     * Bottom sheet dialog displayed when the user clicks the floating action button
+     * for posting an artwork.
+     */
     private lateinit var btmAddPost: BottomSheetDialog
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user uploading a photo of their artwork from the Gallery.
+     */
     private lateinit var clDialogPostArtworkGallery: ConstraintLayout
+
+    /**
+     * Clickable constraint layout (part of the bottom sheet dialog) related to the option
+     * of the user taking a photo of their artwork using the device camera.
+     */
     private lateinit var clDialogPostArtworkPhoto: ConstraintLayout
 
+    /**
+     * Object for accessing the Firebase helper methods.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
     /**
@@ -138,6 +204,9 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the intent passed to the activity.
+     */
     private fun initIntent() {
         val intent: Intent = intent
 
@@ -235,11 +304,17 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_own_highlight))
         initActionBar()
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewOwnHighlightBottom = findViewById(R.id.nv_view_own_highlight_bottom)
 
@@ -247,11 +322,20 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
             this@ViewOwnHighlightActivity)
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * Updates the highlight status of the highlight being viewed.
+     *
+     * @param highlight <code>true</code> if the user chooses to highlight the activity,
+     * <code>false</code> if the user chooses to remove the highlight status of the activity
+     */
     private fun updateHighlight(highlight: Boolean) {
         if(highlight) {
             this.ibItemViewOwnHighlightHighlight.setImageResource(R.drawable.baseline_star_24)
@@ -266,6 +350,10 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Sets the listeners in relation to adding an artwork (that is, by either choosing an image
+     * from the gallery or taking a photo using the device camera) to be posted on Artemis.
+     */
     private fun addPost() {
         this.btmAddPost = BottomSheetDialog(this@ViewOwnHighlightActivity)
         this.fabAddPost = findViewById(R.id.fab_view_own_highlight_add)

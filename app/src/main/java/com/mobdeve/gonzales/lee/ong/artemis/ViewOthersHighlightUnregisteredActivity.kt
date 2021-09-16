@@ -12,19 +12,67 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
+/**
+ * Class handling the functionalities related to viewing the highlight of another user for
+ * unregistered users.
+ *
+ * @constructor Creates a class that handles the functionalities related to viewing the highlight
+ * of another user for unregistered users.
+ */
 class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
+    /**
+     * Profile picture of the user whose highlight is being viewed.
+     */
     private lateinit var civItemViewOthersHighlightUnregisteredProfilePic: CircleImageView
+
+    /**
+     * Username of the user whose highlight is being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightUnregisteredUsername: TextView
+
+    /**
+     * Artwork of the highlight being viewed.
+     */
     private lateinit var ivItemViewOthersHighlightUnregisteredPost: ImageView
+
+    /**
+     * Title of the highlight being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightUnregisteredTitle: TextView
+
+    /**
+     * Date posted of the highlight being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightUnregisteredDatePosted: TextView
+
+    /**
+     * Medium of the highlight being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightUnregisteredMedium: TextView
+
+    /**
+     * Dimensions of the highlight being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightUnregisteredDimensions: TextView
+
+    /**
+     * Description of the highlight being viewed.
+     */
     private lateinit var tvItemViewOthersHighlightUnregisteredDescription: TextView
 
+    /**
+     * Bottom navigation view containing the menu items for Home, Followed, Bookmarks, and Profile.
+     */
     private lateinit var bnvViewOthersHighlightUnregisteredBottom: BottomNavigationView
+
+    /**
+     * Floating action button for posting an artwork.
+     */
     private lateinit var fabAddPost: FloatingActionButton
 
+    /**
+     * Object for accessing the Firebase helper methods.
+     */
     private lateinit var firebaseHelper: FirebaseHelper
 
     /**
@@ -53,6 +101,9 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
         initBottom()
     }
 
+    /**
+     * Initializes the intent passed to the activity.
+     */
     private fun initIntent() {
         val intent: Intent = intent
 
@@ -143,11 +194,17 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Initializes the components of the activity.
+     */
     private fun initComponents() {
         setSupportActionBar(findViewById(R.id.toolbar_view_others_highlight_unregistered))
         initActionBar()
     }
 
+    /**
+     * Sets the listeners for the menu selection found in the bottom navigation view.
+     */
     private fun initBottom() {
         this.bnvViewOthersHighlightUnregisteredBottom = findViewById(R.id.nv_view_others_highlight_unregistered_bottom)
         this.fabAddPost = findViewById(R.id.fab_view_others_highlight_unregistered_add)
@@ -164,6 +221,9 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Adds a back button to the action bar.
+     */
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
