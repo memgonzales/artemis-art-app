@@ -204,7 +204,7 @@ class ViewOwnPostCommentsActivity : AppCompatActivity() {
     /**
      * Tags of the post.
      */
-    private lateinit var tags: String
+    private lateinit var tags: ArrayList<String>
 
     /**
      * <code>true</code> if the user has bookmarked the post; <code>false</code>, otherwise.
@@ -286,7 +286,7 @@ class ViewOwnPostCommentsActivity : AppCompatActivity() {
         this.medium = intent.getStringExtra(Keys.KEY_MEDIUM.name).toString()
         this.dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name).toString()
         this.description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
-        this.tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name).toString()
+        this.tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)!!
         this.bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
         this.upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
 
