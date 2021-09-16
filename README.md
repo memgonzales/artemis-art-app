@@ -21,6 +21,7 @@ Phase | Duration | Description
 1 (Beta Demo) | 2 weeks | Completion of front-end views or layouts for all the activities, and implementation of either at least one API feature or all the database helpers (however, only the schemas are needed for apps that use a remote database)
 2 (Final Demo) | 3 weeks | Completion of the entire Android app (i.e., the implementation of all the features enumerated in the proposed project specifications)
 
+## Project Structure
 The project consists of the following folders:
 
 Folder | Description
