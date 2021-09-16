@@ -501,11 +501,4 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
             }
         }
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (!this.isDestroyed) {
-            Glide.with(this@BrowseOwnPostsActivity).pauseRequests()
-        }
-    }
 }
