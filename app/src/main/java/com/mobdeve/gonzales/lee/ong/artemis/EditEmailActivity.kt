@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
@@ -27,7 +28,7 @@ import com.google.firebase.ktx.Firebase
  * @constructor Creates a class that handles the functionalities related to editing the user's
  * email address.
  */
-class EditEmailActivity : AppCompatActivity() {
+class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputListener {
     /**
      * Text input layout for the old email address.
      */
@@ -89,6 +90,14 @@ class EditEmailActivity : AppCompatActivity() {
     private lateinit var credentials: AuthCredential
 
     /**
+     * Retrieves and returns the password entered by the user in the confirmation dialog.
+     *
+     * @param password Password entered by the user in the confirmation dialog.
+     * @return Password entered by the user, casted as a string.
+     */
+    private lateinit var tvEditEmailInputPassword: TextView
+
+    /**
      * Called when the activity is starting.
      *
      * @param savedInstanceState  If the activity is being re-initialized after previously being
@@ -138,9 +147,22 @@ class EditEmailActivity : AppCompatActivity() {
             val email: String = this.tietNewEmail.text.toString().trim()
 
             if(validEmail(email)){
-                updateEmail(email.lowercase())
+                editDialog()
+                // updateEmail(email.lowercase())
             }
         }
+    }
+
+    private fun editDialog() {
+        val passwordDialog = DialogWithInput()
+        passwordDialog.show(supportFragmentManager, "Dialog");
+    }
+
+    override fun fetchPassword(password: String): String {
+        tvEditEmailInputPassword = findViewById(R.id.tv_edit_email_input_password)
+        tvEditEmailInputPassword.text = password
+
+        return tvEditEmailInputPassword.text as String
     }
 
     /**
@@ -243,6 +265,7 @@ class EditEmailActivity : AppCompatActivity() {
      */
     private fun checkEmail(email: String){
 
+
         val userDB = this.db.child(Keys.KEY_DB_USERS.name)
 
         userDB.orderByChild(Keys.email.name).equalTo(email)
@@ -254,11 +277,11 @@ class EditEmailActivity : AppCompatActivity() {
                     }
 
                     else{
-                        user.updateEmail(email)
+                        userDB.child(Keys.email.name).setValue(email)
                             .addOnSuccessListener {
-                                userDB.child(Keys.email.name).setValue(email)
-                                updateSuccessfully()
-
+                                user.updateEmail(email)
+                                    .addOnSuccessListener { updateSuccessfully() }
+                                    .addOnFailureListener { updateFailed() }
                             }
                             .addOnFailureListener {
                                 updateFailed()

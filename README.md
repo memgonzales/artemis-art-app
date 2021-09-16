@@ -1,7 +1,9 @@
 # Artemis
 ![badge][badge-kotlin]
 ![badge][badge-android] 
+![badge][badge-gradle]
 ![badge][badge-fb]
+![badge][badge-firebase]
 
 **Artemis** is an **art-sharing platform** where the community can share and provide feedback on members’ works. While unregistered users are limited to viewing posted artworks and searching for posts and users, they can opt to register to maximize the features of the app. Registered users can log in to post their art and showcase some of their selected works on their profile using the Highlights feature. Moreover, they can provide their feedback on other artworks posted in the community by giving an upvote or leaving a comment. 
 
@@ -19,6 +21,7 @@ Phase | Duration | Description
 1 (Beta Demo) | 2 weeks | Completion of front-end views or layouts for all the activities, and implementation of either at least one API feature or all the database helpers (however, only the schemas are needed for apps that use a remote database)
 2 (Final Demo) | 3 weeks | Completion of the entire Android app (i.e., the implementation of all the features enumerated in the proposed project specifications)
 
+## Project Structure
 The project consists of the following folders:
 
 Folder | Description
@@ -117,4 +120,6 @@ Assets (images and XML-based layouts) are properties of their respective owners.
 
 [badge-android]: http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat
 [badge-kotlin]: https://img.shields.io/badge/kotlin-%230095D5.svg?&style=flat&logo=kotlin&logoColor=white
+[badge-gradle]: https://img.shields.io/badge/Gradle-02303A.svg?style=flate&logo=Gradle&logoColor=white
 [badge-fb]: https://img.shields.io/badge/Facebook-1877F2?style=flat&logo=facebook&logoColor=white
+[badge-firebase]: https://img.shields.io/badge/firebase-%23039BE5.svg?style=flat&logo=firebase

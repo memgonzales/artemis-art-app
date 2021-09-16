@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import at.favre.lib.crypto.bcrypt.BCrypt
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -267,6 +268,8 @@ class SignUpActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     user.setUserId(mAuth.currentUser!!.uid)
+                    val pwHash = BCrypt.withDefaults().hashToString(12, user.getPassword()?.toCharArray())
+                    user.setPassword(pwHash)
 
                     db.getReference(Keys.KEY_DB_USERS.name)
                         .child(mAuth.currentUser!!.uid)

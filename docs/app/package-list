@@ -852,7 +852,6 @@ $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity///PointingToD
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/LogInActivity/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/-log-in-activity.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/btnLogIn/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/btn-log-in.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/btnSignUp/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/btn-sign-up.html
-$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/btnTest/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/btn-test.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/checkEmpty/#kotlin.String#kotlin.String/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/check-empty.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/db/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/db.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/initComponents/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/init-components.html
@@ -868,7 +867,6 @@ $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/onCreate/#and
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/onStart/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/on-start.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/pbLogin/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/pb-login.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/startBrowsing/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/start-browsing.html
-$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/startTesting/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/start-testing.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/tietPassword/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/tiet-password.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/tietUsername/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/tiet-username.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/LogInActivity/tilPassword/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-log-in-activity/til-password.html
