@@ -89,7 +89,8 @@ class EditProfileActivity : AppCompatActivity() {
     /**
      * Input field for the user's short bio.
      */
-    private lateinit var tietEditProfileBio: TextInputEditText
+   // private lateinit var tietEditProfileBio: TextInputEditText
+    private lateinit var clEditProfileBio : ConstraintLayout
 
     /**
      * Clickable layout for editing the user's email address.
@@ -299,7 +300,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         this.civEditProfilePic = findViewById(R.id.civ_edit_profile_pic)
         this.tietEditProfileUsername = findViewById(R.id.tiet_edit_profile_username)
-        this.tietEditProfileBio = findViewById(R.id.tiet_edit_bio)
+        //this.tietEditProfileBio = findViewById(R.id.tiet_edit_bio)
 
         this.tietEditProfileUsername.isFocusable = false
 
@@ -307,6 +308,9 @@ class EditProfileActivity : AppCompatActivity() {
         this.btmProfilePicture = BottomSheetDialog(this@EditProfileActivity)
 
         this.btnEditProfileSave = findViewById(R.id.btn_edit_profile_save)
+
+        this.clEditProfileBio = findViewById(R.id.cl_edit_profile_edit_bio)
+
         this.clEditProfileEmail = findViewById(R.id.cl_edit_profile_edit_email)
         this.clEditProfilePassword = findViewById(R.id.cl_edit_profile_edit_password)
 
@@ -315,11 +319,10 @@ class EditProfileActivity : AppCompatActivity() {
         btnEditProfileSave.setOnClickListener {
 
             pbEditProfile.visibility = View.VISIBLE
-            val bio: String = tietEditProfileBio.text.toString().trim()
-
-            updateImgBio(bio)
+            updateImg()
 
         }
+
 
         clEditProfileEmail.setOnClickListener {
             val intent = Intent(this@EditProfileActivity, EditEmailActivity::class.java)
@@ -331,9 +334,9 @@ class EditProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
         initContent()
         launchDialog()
-
 
     }
 
@@ -347,7 +350,7 @@ class EditProfileActivity : AppCompatActivity() {
      *
      * @param bio New short bio of the user.
      */
-    private fun updateImgBio(bio: String){
+    private fun updateImg(){
         if (isProfilePictureUploaded){
             val url = this.storageRef.child(this.userId)
 
@@ -387,12 +390,6 @@ class EditProfileActivity : AppCompatActivity() {
                     }
             }
 
-            updateBio(bio)
-        }
-
-        else{
-         //   updateDB("https://firebasestorage.googleapis.com/v0/b/artemis-77e4e.appspot.com/o/chibi_artemis_hd.png?alt=media&token=53dfd292-76a2-4abb-849c-c5fcbb7932d2", bio)
-            updateBio(bio)
         }
     }
 
@@ -431,12 +428,8 @@ class EditProfileActivity : AppCompatActivity() {
                     .error(R.drawable.chibi_artemis_hd)
                     .into(civEditProfilePic)
 
-                val bio: String = snapshot.child(Keys.bio.name).value.toString()
-
-
-
                 tietEditProfileUsername.setText(username)
-                tietEditProfileBio.setText(bio)
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -495,10 +488,6 @@ class EditProfileActivity : AppCompatActivity() {
     private fun updateProfileSuccessfully(){
         pbEditProfile.visibility = View.GONE
         Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
-
-        //val intent = Intent(this@EditProfileActivity, ViewProfileActivity::class.java)
-        //startActivity(intent)
-        //finish()
     }
 
     /**
@@ -513,47 +502,23 @@ class EditProfileActivity : AppCompatActivity() {
      * Updates the database entries pertaining to the profile picture and short bio of the user.
      *
      * @param userImg URI of the profile picture of the user.
-     * @param bio Short bio of the user.
      */
     private fun updateDB(userImg: String){
-       // val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
-
         val updates = hashMapOf<String, Any>(
             "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userImg.name}" to userImg
-           // "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bio.name}" to bio
         )
 
         db.updateChildren(updates)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    uploadSuccessfully()
+                    updateProfileSuccessfully()
                 }
 
                 else{
-                    uploadFailed()
+                    updateProfileFailed()
                 }
             }
 
-      //  updateBio(bio)
-        /*
-        userDB.child(Keys.bio.name).setValue(bio)
-            .addOnSuccessListener {
-                updateSuccessfully()
-            }
-            .addOnFailureListener{
-                updateFailed()
-            }
-
-
-        this.db.child(Keys.KEY_DB_USERS.name).child(this.userId).child(Keys.userImg.name).setValue(userImg)
-            .addOnSuccessListener {
-                uploadSuccessfully()
-            }
-            .addOnFailureListener{
-                uploadFailed()
-            }
-
-         */
     }
 
     private fun updateBio(bio: String){
