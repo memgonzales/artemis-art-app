@@ -30,10 +30,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
@@ -48,6 +45,7 @@ class SearchResultsActivity : AppCompatActivity() {
     private lateinit var civSearchResultUser3: CircleImageView
     private lateinit var civSearchResultUser4: CircleImageView
     private lateinit var tvSearchResultsArtworks: TextView
+    private lateinit var tvSearchResultsUsers: TextView
 
     private lateinit var ivNone: ImageView
     private lateinit var tvNone: TextView
@@ -218,9 +216,6 @@ class SearchResultsActivity : AppCompatActivity() {
     }
 
     private fun initContents() {
-        //this.dataPosts = DataHelper.loadPostData();
-        //this.dataUsers = DataHelper.loadSearchUserData();
-
         this.dataPosts = arrayListOf<Post>()
         this.dataUsers = arrayListOf<User>()
 
@@ -230,6 +225,8 @@ class SearchResultsActivity : AppCompatActivity() {
         this.civSearchResultUser4 = findViewById(R.id.civ_search_result_user4)
 
         this.tvSearchResultsArtworks = findViewById(R.id.tv_search_results_artworks)
+        this.tvSearchResultsUsers = findViewById(R.id.tv_search_results_users)
+
         this.ivNone = findViewById(R.id.iv_search_results_none)
         this.tvNone = findViewById(R.id.tv_search_results_none)
         this.tvSubNone = findViewById(R.id.tv_search_results_subtitle_none)
@@ -288,9 +285,11 @@ class SearchResultsActivity : AppCompatActivity() {
         this.rvSearch = findViewById(R.id.rv_search_results)
         this.rvSearch.layoutManager = GridLayoutManager(this, 2)
 
-        this.searchAdapter = SearchResultsAdapter(this.dataPosts)
+        this.searchAdapter = SearchResultsAdapter()
 
         this.rvSearch.adapter = searchAdapter
+
+        this.rvSearch.itemAnimator = null
 
         this.etSearchBar = findViewById(R.id.et_search_results_bar)
 
@@ -324,7 +323,15 @@ class SearchResultsActivity : AppCompatActivity() {
 
                     }
 
-                    setSearchUserResults(dataUsers)
+                    if (!dataUsers.isNullOrEmpty()){
+                        tvSearchResultsUsers.visibility = View.VISIBLE
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
+                        tvSubNone.visibility = View.GONE
+
+                        setSearchUserResults(dataUsers)
+                    }
+
                     getSearchPostResults(search, dataUsers)
 
                 }
@@ -391,53 +398,114 @@ class SearchResultsActivity : AppCompatActivity() {
         }
     }
 
-
     private fun getSearchPostResults(searchPost: String, dataUsers: ArrayList<User>){
+        setSearchPostResults(dataPosts, dataUsers)
+
         val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
 
-        postDB.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                dataPosts.clear()
-                if (snapshot.exists()){
-                    for (p in snapshot.children){
-                        var postSnap = p.getValue(Post::class.java)
+        postDB.addChildEventListener(object : ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
 
-                        if (postSnap != null && !postSnap.getTags().isNullOrEmpty()) {
+                if (post != null && !post.getPostId().isNullOrEmpty()
+                    && !post.getTags()?.filter { it.contains(searchPost, ignoreCase = true)}.isNullOrEmpty()){
 
-                            var check = postSnap.getTags()?.filter { it.contains(searchPost, ignoreCase = true) }
-
-                            if (check!!.size > 0){
-                                dataPosts.add(postSnap)
-                            }
-                        }
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                        post.setUpvote(true)
                     }
-                    searchAdapter.notifyDataSetChanged()
-                    setSearchPostResults(dataPosts, dataUsers)
+                    else{
+                        post.setUpvote(false)
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                        post.setBookmark(true)
+                    }
+                    else{
+                        post.setBookmark(false)
+                    }
+
+                    tvSearchResultsArtworks.visibility = View.VISIBLE
+                    ivNone.visibility = View.GONE
+                    tvNone.visibility = View.GONE
+                    tvSubNone.visibility = View.GONE
+
+                    dataPosts.add(post)
+                    searchAdapter.updatePosts(dataPosts)
+
 
                 }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()
+                    && !post.getTags()?.filter { it.contains(searchPost, ignoreCase = true)}.isNullOrEmpty()){
+
+                    if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
+                        post.setUpvote(true)
+                    }
+                    else{
+                        post.setUpvote(false)
+                    }
+
+                    if(!post.getBookmarkUsers().isNullOrEmpty() && post.getBookmarkUsers().containsKey(userId)){
+                        post.setBookmark(true)
+                    }
+                    else{
+                        post.setBookmark(false)
+                    }
+
+                    val list = ArrayList<Post>(dataPosts)
+                    val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
+
+                    if (index != -1){
+                        list[index] = post
+
+                        dataPosts = list
+                        searchAdapter.updatePosts(list)
+                    }
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val post = snapshot.getValue(Post::class.java)
+
+                if (post != null && !post.getPostId().isNullOrEmpty()
+                    && !post.getTags()?.filter { it.contains(searchPost, ignoreCase = true)}.isNullOrEmpty()){
+
+                    val list = ArrayList<Post>(dataPosts)
+
+                    val index = list.indexOfFirst { it.getPostId() == post.getPostId() }
+
+                    if (index != -1){
+                        list.removeAt(index)
+
+                        dataPosts = list
+                        searchAdapter.updatePosts(list)
+                    }
+
+                }
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                /* This is intentionally left blank */
             }
 
             override fun onCancelled(error: DatabaseError) {
                 val intent = Intent(this@SearchResultsActivity, BrokenLinkActivity::class.java)
                 startActivity(intent)
             }
-
         })
     }
 
     private fun setSearchPostResults(dataPosts: ArrayList<Post>, dataUsers: ArrayList<User>){
         if (dataPosts.isNullOrEmpty() && dataUsers.isNullOrEmpty()){
+            this.tvSearchResultsUsers.visibility = View.GONE
             this.tvSearchResultsArtworks.visibility = View.GONE
             this.ivNone.visibility = View.VISIBLE
             this.tvNone.visibility = View.VISIBLE
             this.tvSubNone.visibility = View.VISIBLE
-        }
-
-        else if (!dataPosts.isNullOrEmpty()){
-            this.tvSearchResultsArtworks.visibility = View.VISIBLE
-            this.ivNone.visibility = View.GONE
-            this.tvNone.visibility = View.GONE
-            this.tvSubNone.visibility = View.GONE
         }
     }
 

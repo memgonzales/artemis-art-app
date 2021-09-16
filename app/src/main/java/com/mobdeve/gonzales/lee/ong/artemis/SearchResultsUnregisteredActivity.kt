@@ -39,6 +39,8 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
     private lateinit var civSearchResultUser3: CircleImageView
     private lateinit var civSearchResultUser4: CircleImageView
     private lateinit var tvSearchResultsArtworks: TextView
+    private lateinit var tvSearchResultsUsers: TextView
+
     private lateinit var searchAdapter: SearchResultsUnregisteredAdapter
     private lateinit var sflSearch: ShimmerFrameLayout
 
@@ -143,9 +145,6 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
     }
 
     private fun initContents() {
-        //this.dataPosts = DataHelper.loadPostDataUnregistered()
-        //this.dataUsers = DataHelper.loadSearchUserData()
-
         this.dataPosts = arrayListOf<Post>()
         this.dataUsers = arrayListOf<User>()
 
@@ -155,6 +154,8 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
         this.civSearchResultUser4 = findViewById(R.id.civ_search_unregistered_result_user4)
 
         this.tvSearchResultsArtworks = findViewById(R.id.tv_search_unregistered_results_artworks)
+        this.tvSearchResultsUsers = findViewById(R.id.tv_search_unregistered_results_users)
+
         this.ivNone = findViewById(R.id.iv_search_results_unregistered_none)
         this.tvNone = findViewById(R.id.tv_search_results_unregistered_none)
         this.tvSubNone = findViewById(R.id.tv_search_results_subtitle_unregistered_none)
@@ -178,16 +179,8 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                 ViewUserUnregisteredActivity::class.java
             )
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[0].getUserImg()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[0].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[0].getBio()
+                Keys.KEY_USERID.name,
+                dataUsers[0].getUserId()
             )
             startActivity(intent)
         }
@@ -198,16 +191,8 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                 ViewUserUnregisteredActivity::class.java
             )
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[1].getUserImg()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[1].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[1].getBio()
+                Keys.KEY_USERID.name,
+                dataUsers[0].getUserId()
             )
             startActivity(intent)
         }
@@ -218,16 +203,8 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                 ViewUserUnregisteredActivity::class.java
             )
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[2].getUserImg()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[2].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[2].getBio()
+                Keys.KEY_USERID.name,
+                dataUsers[0].getUserId()
             )
             startActivity(intent)
         }
@@ -238,16 +215,8 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                 ViewUserUnregisteredActivity::class.java
             )
             intent.putExtra(
-                Keys.KEY_PROFILE_PICTURE.name,
-                dataUsers[3].getUserImg()
-            )
-            intent.putExtra(
-                Keys.KEY_USERNAME.name,
-                dataUsers[3].getUsername()
-            )
-            intent.putExtra(
-                Keys.KEY_BIO.name,
-                dataUsers[3].getBio()
+                Keys.KEY_USERID.name,
+                dataUsers[0].getUserId()
             )
             startActivity(intent)
         }
@@ -255,7 +224,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
         this.rvSearch = findViewById(R.id.rv_search_unregistered_results)
         this.rvSearch.layoutManager = GridLayoutManager(this, 2)
 
-        this.searchAdapter = SearchResultsUnregisteredAdapter(this.dataPosts)
+        this.searchAdapter = SearchResultsUnregisteredAdapter()
 
         this.rvSearch.adapter = searchAdapter
 
@@ -264,6 +233,10 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
         etSearchBar.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, event ->
             if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                 val intent = Intent(this@SearchResultsUnregisteredActivity, SearchResultsUnregisteredActivity::class.java)
+                intent.putExtra(
+                    Keys.KEY_SEARCH.name,
+                    etSearchBar.text.toString().trim()
+                )
                 startActivity(intent)
             }
             return@OnEditorActionListener false
@@ -285,7 +258,15 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                         }
                     }
 
-                    setSearchUserResults(dataUsers)
+                    if(!dataUsers.isNullOrEmpty()){
+                        tvSearchResultsUsers.visibility = View.VISIBLE
+                        ivNone.visibility = View.GONE
+                        tvNone.visibility = View.GONE
+                        tvSubNone.visibility = View.GONE
+
+                        setSearchUserResults(dataUsers)
+                    }
+
                     getSearchPostResults(search, dataUsers)
 
                 }
@@ -372,7 +353,9 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                             }
                         }
                     }
-                    searchAdapter.notifyDataSetChanged()
+
+                    searchAdapter.updatePosts(dataPosts)
+                    //searchAdapter.notifyDataSetChanged()
                     setSearchPostResults(dataPosts, dataUsers)
 
                 }
@@ -388,6 +371,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
 
     private fun setSearchPostResults(dataPosts: ArrayList<Post>, dataUsers: ArrayList<User>){
         if (dataPosts.isNullOrEmpty() && dataUsers.isNullOrEmpty()){
+            this.tvSearchResultsArtworks.visibility = View.GONE
             this.tvSearchResultsArtworks.visibility = View.GONE
             this.ivNone.visibility = View.VISIBLE
             this.tvNone.visibility = View.VISIBLE

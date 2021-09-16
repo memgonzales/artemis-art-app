@@ -313,22 +313,12 @@ class EditProfileActivity : AppCompatActivity() {
         this.pbEditProfile = findViewById(R.id.pb_edit_profile)
 
         btnEditProfileSave.setOnClickListener {
-//            var username: String = tietEditProfileUsername.text.toString().trim()
-//            var profPic: Int = civEditProfilePic.id
-//            var email: String = tietEditProfileEmail.text.toString().trim()
-//            var password: String = tietEditProfilePassword.text.toString().trim()
 
             pbEditProfile.visibility = View.VISIBLE
             val bio: String = tietEditProfileBio.text.toString().trim()
-            //this.updateBio(bio)
+
             updateImgBio(bio)
 
-            //val intent: Intent = intent
-            //Toast.makeText(applicationContext, "check: " + intent.getStringExtra("Check").toString(), Toast.LENGTH_LONG).show()
-//            if(!checkEmpty(email, password)){
-//                pbEditProfile.visibility = View.VISIBLE
-//                updateProfile(profPic, email, password, bio)
-//            }
         }
 
         clEditProfileEmail.setOnClickListener {
