@@ -35,7 +35,9 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".EditBioActivity"></activity>
+        <activity android:name=".EditBioActivity"
+            android:parentActivityName=".EditProfileActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ViewOwnPostCommentsActivity" />
         <activity android:name=".BrokenLinkActivity" />
 

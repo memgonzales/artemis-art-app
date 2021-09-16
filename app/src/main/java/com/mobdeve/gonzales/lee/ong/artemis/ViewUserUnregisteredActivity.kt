@@ -300,7 +300,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
 
         })
     }
-    
+
     /**
      * Initializes the components of the activity.
      */
