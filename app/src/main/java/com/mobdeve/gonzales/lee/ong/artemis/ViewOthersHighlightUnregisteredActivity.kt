@@ -124,8 +124,7 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
 
         Glide.with(this@ViewOthersHighlightUnregisteredActivity)
             .load(profilePicture)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.chibi_artemis_hd)
+                        .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(this.civItemViewOthersHighlightUnregisteredProfilePic)
 
@@ -133,8 +132,7 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
 
         Glide.with(this@ViewOthersHighlightUnregisteredActivity)
             .load(postImg)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(this.ivItemViewOthersHighlightUnregisteredPost)
 

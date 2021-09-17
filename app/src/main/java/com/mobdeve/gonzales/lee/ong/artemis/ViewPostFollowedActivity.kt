@@ -324,8 +324,7 @@ class   ViewPostFollowedActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load(profilePicture)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.chibi_artemis_hd)
+                        .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(this.civItemViewPostFollowedProfilePic)
 
@@ -333,8 +332,7 @@ class   ViewPostFollowedActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load(postImg)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(this.ivItemViewPostFollowedPost)
 

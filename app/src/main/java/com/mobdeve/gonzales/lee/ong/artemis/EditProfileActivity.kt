@@ -426,11 +426,13 @@ class EditProfileActivity : AppCompatActivity() {
                 val profPic: String = snapshot.child(Keys.userImg.name).value.toString()
                 val username: String = snapshot.child(Keys.username.name).value.toString()
 
-                Glide.with(this@EditProfileActivity)
-                    .load(profPic)
-                    .placeholder(R.drawable.chibi_artemis_hd)
-                    .error(R.drawable.chibi_artemis_hd)
-                    .into(civEditProfilePic)
+                if (!(this@EditProfileActivity as Activity).isFinishing) {
+                    Glide.with(this@EditProfileActivity)
+                        .load(profPic)
+                        .placeholder(R.drawable.chibi_artemis_hd)
+                        .error(R.drawable.chibi_artemis_hd)
+                        .into(civEditProfilePic)
+                }
 
                 tietEditProfileUsername.setText(username)
 
@@ -441,13 +443,6 @@ class EditProfileActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Failed to Access User", Toast.LENGTH_SHORT).show()
             }
         })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (!this.isDestroyed) {
-            Glide.with(this@EditProfileActivity).pauseRequests()
-        }
     }
 
     /**

@@ -231,8 +231,7 @@ class ViewBookmarkActivity : AppCompatActivity() {
 
         Glide.with(this@ViewBookmarkActivity)
             .load(profilePicture)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.chibi_artemis_hd)
+                        .placeholder(R.drawable.chibi_artemis_hd)
             .error(R.drawable.chibi_artemis_hd)
             .into(civItemViewBookmarkProfilePic)
 
@@ -240,8 +239,7 @@ class ViewBookmarkActivity : AppCompatActivity() {
 
         Glide.with(this@ViewBookmarkActivity)
             .load(postImg)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(ivItemViewBookmarkPost)
 

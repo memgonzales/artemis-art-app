@@ -212,9 +212,9 @@ class ViewOwnPostCommentsActivity : AppCompatActivity() {
     private var bookmark: Boolean = false
 
     /**
-     * <code>true</code> if the user has upvoted the post; <code>false</code>, otherwise.
+     * <code>true</code> if the user has highlighted the post; <code>false</code>, otherwise.
      */
-    private var upvote: Boolean = false
+    private var highlight: Boolean = false
 
     /**
      * Photo of the artwork for posting.
@@ -288,7 +288,7 @@ class ViewOwnPostCommentsActivity : AppCompatActivity() {
         this.description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name).toString()
         this.tags = intent.getStringArrayListExtra(Keys.KEY_TAGS.name)!!
         this.bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
-        this.upvote = intent.getBooleanExtra(Keys.KEY_UPVOTE.name, false)
+        this.highlight = intent.getBooleanExtra(Keys.KEY_HIGHLIGHT.name, false)
 
         if (postId.isNullOrEmpty()){
             val intent = Intent(this@ViewOwnPostCommentsActivity, BrokenLinkActivity::class.java)
@@ -523,8 +523,8 @@ class ViewOwnPostCommentsActivity : AppCompatActivity() {
             this.bookmark
         )
         intent.putExtra(
-            Keys.KEY_UPVOTE.name,
-            this.upvote
+            Keys.KEY_HIGHLIGHT.name,
+            this.highlight
         )
         startActivity(intent)
         finish()

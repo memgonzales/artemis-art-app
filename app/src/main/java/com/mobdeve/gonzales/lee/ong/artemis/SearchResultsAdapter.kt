@@ -138,8 +138,7 @@ class SearchResultsAdapter() : RecyclerView.Adapter<SearchViewHolder>() {
 
         Glide.with(context)
             .load(currentPost.getPostImg())
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(holder.getItemSearchResults())
     }

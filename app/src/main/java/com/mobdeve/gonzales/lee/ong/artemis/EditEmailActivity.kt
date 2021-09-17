@@ -84,6 +84,9 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
      */
     private lateinit var email: String
 
+    /**
+     * New email address entered by the user.
+     */
     private lateinit var newEmail: String
 
     /**
@@ -251,7 +254,7 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
      */
     private fun updateSuccessfully(){
         pbEditEmail.visibility = View.GONE
-        Toast.makeText(applicationContext, "Your email have been updated", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Your email has been updated", Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this@EditEmailActivity, EditProfileActivity::class.java)
         startActivity(intent)
