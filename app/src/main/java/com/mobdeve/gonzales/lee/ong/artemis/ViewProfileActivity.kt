@@ -436,7 +436,7 @@ class ViewProfileActivity : AppCompatActivity() {
             "Log out"
         ) { _, _ ->
             Toast.makeText(this@ViewProfileActivity,
-                "You have been logged out.", Toast.LENGTH_SHORT).show()
+                "You have been logged out", Toast.LENGTH_SHORT).show()
 
             this.mAuth.signOut()
             val intent = Intent(this@ViewProfileActivity, LogInActivity::class.java)
