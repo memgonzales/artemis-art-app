@@ -298,6 +298,15 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
         this.ivNone = findViewById(R.id.iv_view_comments_unregistered_no_comment)
         this.tvNone = findViewById(R.id.tv_view_comments_unregistered_no_comment)
 
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            if (dataComments.isNullOrEmpty()){
+                ivNone.visibility = View.VISIBLE
+                tvNone.visibility = View.VISIBLE
+            }
+
+        }, AnimationDuration.NO_POST_TIMEOUT.toLong())
+        
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
 
         commentDB.addChildEventListener(object : ChildEventListener {
