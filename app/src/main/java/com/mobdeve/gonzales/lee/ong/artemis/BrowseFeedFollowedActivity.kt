@@ -408,12 +408,12 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
                         post.setBookmark(false)
                     }
 
-                    dataPosts.add(post)
-                    feedFollowedAdapter.updatePosts(dataPosts)
-
                     ivNone.visibility = View.GONE
                     tvNone.visibility = View.GONE
                     tvSubNone.visibility = View.GONE
+
+                    dataPosts.add(post)
+                    feedFollowedAdapter.updatePosts(dataPosts)
                 }
 
             }
