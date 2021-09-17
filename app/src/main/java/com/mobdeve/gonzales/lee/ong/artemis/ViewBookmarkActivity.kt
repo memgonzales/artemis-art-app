@@ -15,7 +15,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -229,19 +228,23 @@ class ViewBookmarkActivity : AppCompatActivity() {
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
         var bookmark = intent.getBooleanExtra(Keys.KEY_BOOKMARK.name, false)
 
-        Glide.with(this@ViewBookmarkActivity)
-            .load(profilePicture)
-                        .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(civItemViewBookmarkProfilePic)
+        if (!(this@ViewBookmarkActivity as Activity).isFinishing) {
+            Glide.with(this@ViewBookmarkActivity)
+                .load(profilePicture)
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(civItemViewBookmarkProfilePic)
+        }
 
         this.tvItemViewBookmarkUsername.text = username
 
-        Glide.with(this@ViewBookmarkActivity)
-            .load(postImg)
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(ivItemViewBookmarkPost)
+        if (!(this@ViewBookmarkActivity as Activity).isFinishing) {
+            Glide.with(this@ViewBookmarkActivity)
+                .load(postImg)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(ivItemViewBookmarkPost)
+        }
 
         this.tvItemViewBookmarkTitle.text = title
         this.tvItemViewBookmarkDatePosted.text = datePosted

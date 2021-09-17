@@ -12,7 +12,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,7 +22,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -336,11 +334,13 @@ class ViewUserActivity : AppCompatActivity() {
                     val userInfoPost = snapshot.getValue(User::class.java)
 
                     if(userInfoPost != null){
-                        Glide.with(this@ViewUserActivity)
-                            .load(userInfoPost.getUserImg())
-                                        .placeholder(R.drawable.chibi_artemis_hd)
-                            .error(R.drawable.chibi_artemis_hd)
-                            .into(civViewUserProfilePicture)
+                        if (!(this@ViewUserActivity as Activity).isFinishing) {
+                            Glide.with(this@ViewUserActivity)
+                                .load(userInfoPost.getUserImg())
+                                .placeholder(R.drawable.chibi_artemis_hd)
+                                .error(R.drawable.chibi_artemis_hd)
+                                .into(civViewUserProfilePicture)
+                        }
 
                         tvViewUserUsername.text = userInfoPost.getUsername()
                         tvViewUserBio.text = userInfoPost.getBio()

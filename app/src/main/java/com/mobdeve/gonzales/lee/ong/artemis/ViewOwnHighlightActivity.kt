@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -228,19 +227,23 @@ class ViewOwnHighlightActivity : AppCompatActivity() {
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
         var highlight = intent.getBooleanExtra(Keys.KEY_HIGHLIGHT.name, false)
 
-        Glide.with(this@ViewOwnHighlightActivity)
-            .load(profilePicture)
-                        .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(this.civItemViewOwnHighlightProfilePic)
+        if (!(this@ViewOwnHighlightActivity as Activity).isFinishing) {
+            Glide.with(this@ViewOwnHighlightActivity)
+                .load(profilePicture)
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(this.civItemViewOwnHighlightProfilePic)
+        }
 
         this.tvItemViewOwnHighlightUsername.text = username
 
-        Glide.with(this@ViewOwnHighlightActivity)
-            .load(postImg)
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(this.ivItemViewOwnHighlightPost)
+        if (!(this@ViewOwnHighlightActivity as Activity).isFinishing) {
+            Glide.with(this@ViewOwnHighlightActivity)
+                .load(postImg)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(this.ivItemViewOwnHighlightPost)
+        }
 
         if (!title.isNullOrEmpty()) {
             this.tvItemViewOwnHighlightTitle.visibility = View.VISIBLE

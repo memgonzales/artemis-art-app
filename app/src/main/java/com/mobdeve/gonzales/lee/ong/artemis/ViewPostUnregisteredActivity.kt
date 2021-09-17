@@ -1,5 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -14,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
@@ -226,19 +226,23 @@ class ViewPostUnregisteredActivity : AppCompatActivity() {
 
         val tagsString = tags?.joinToString(", ")
 
-        Glide.with(this)
-            .load(profilePicture)
-                        .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(this.civItemViewPostUnregisteredProfilePic)
+        if (!(this@ViewPostUnregisteredActivity as Activity).isFinishing) {
+            Glide.with(this@ViewPostUnregisteredActivity)
+                .load(profilePicture)
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(this.civItemViewPostUnregisteredProfilePic)
+        }
 
         this.tvItemViewPostUnregisteredUsername.text = username
 
-        Glide.with(this)
-            .load(postImg)
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(this.ivItemViewPostUnregisteredPost)
+        if (!(this@ViewPostUnregisteredActivity as Activity).isFinishing) {
+            Glide.with(this@ViewPostUnregisteredActivity)
+                .load(postImg)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(this.ivItemViewPostUnregisteredPost)
+        }
 
         if (!title.isNullOrEmpty()) {
             this.tvItemViewPostUnregisteredTitle.visibility = View.VISIBLE

@@ -315,19 +315,23 @@ class ViewPostActivity : AppCompatActivity() {
 
         val tagsString = tags?.joinToString(", ")
 
-        Glide.with(this)
-            .load(profilePicture)
-                        .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(this.civItemViewPostProfilePic)
+        if (!(this@ViewPostActivity as Activity).isFinishing) {
+            Glide.with(this@ViewPostActivity)
+                .load(profilePicture)
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(this.civItemViewPostProfilePic)
+        }
 
         this.tvItemViewPostUsername.text = username
 
-        Glide.with(this)
-            .load(postImg)
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(this.ivItemViewPostPost)
+        if (!(this@ViewPostActivity as Activity).isFinishing) {
+            Glide.with(this@ViewPostActivity)
+                .load(postImg)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(this.ivItemViewPostPost)
+        }
 
         if (!title.isNullOrEmpty()) {
             this.tvItemViewPostTitle.visibility = View.VISIBLE

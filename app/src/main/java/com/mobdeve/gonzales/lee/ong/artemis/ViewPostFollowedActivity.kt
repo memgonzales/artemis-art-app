@@ -23,7 +23,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -322,19 +321,23 @@ class   ViewPostFollowedActivity : AppCompatActivity() {
 
         val tagsString = tags?.joinToString(", ")
 
-        Glide.with(this)
-            .load(profilePicture)
-                        .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(this.civItemViewPostFollowedProfilePic)
+        if (!(this@ViewPostFollowedActivity as Activity).isFinishing) {
+            Glide.with(this@ViewPostFollowedActivity)
+                .load(profilePicture)
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(this.civItemViewPostFollowedProfilePic)
+        }
 
         this.tvItemViewPostFollowedUsername.text = username
 
-        Glide.with(this)
-            .load(postImg)
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(this.ivItemViewPostFollowedPost)
+        if (!(this@ViewPostFollowedActivity as Activity).isFinishing) {
+            Glide.with(this@ViewPostFollowedActivity)
+                .load(postImg)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(this.ivItemViewPostFollowedPost)
+        }
 
         if (!title.isNullOrEmpty()) {
             this.tvItemViewPostFollowedTitle.visibility = View.VISIBLE

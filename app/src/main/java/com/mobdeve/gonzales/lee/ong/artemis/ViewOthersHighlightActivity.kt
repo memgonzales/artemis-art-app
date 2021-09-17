@@ -14,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -214,19 +213,23 @@ class ViewOthersHighlightActivity : AppCompatActivity() {
         val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
 
-        Glide.with(this@ViewOthersHighlightActivity)
-            .load(profilePicture)
-                        .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(this.civItemViewOthersHighlightProfilePic)
+        if (!(this@ViewOthersHighlightActivity as Activity).isFinishing) {
+            Glide.with(this@ViewOthersHighlightActivity)
+                .load(profilePicture)
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(this.civItemViewOthersHighlightProfilePic)
+        }
 
         this.tvItemViewOthersHighlightUsername.text = username
 
-        Glide.with(this@ViewOthersHighlightActivity)
-            .load(postImg)
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(this.ivItemViewOthersHighlightPost)
+        if (!(this@ViewOthersHighlightActivity as Activity).isFinishing) {
+            Glide.with(this@ViewOthersHighlightActivity)
+                .load(postImg)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(this.ivItemViewOthersHighlightPost)
+        }
 
         if (!title.isNullOrEmpty()){
             this.tvItemViewOthersHighlightTitle.visibility = View.VISIBLE

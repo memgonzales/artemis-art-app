@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -23,7 +22,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -381,20 +379,24 @@ class ViewOwnPostActivity : AppCompatActivity() {
 
         val tagsString = tags?.joinToString(", ")
 
-        Glide.with(this)
-            .load(profilePicture)
-                        .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(this.civItemViewOwnPostProfilePic)
+        if (!(this@ViewOwnPostActivity as Activity).isFinishing) {
+            Glide.with(this@ViewOwnPostActivity)
+                .load(profilePicture)
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(this.civItemViewOwnPostProfilePic)
+        }
 
 
         this.tvItemViewOwnPostUsername.text = username
 
-        Glide.with(this)
-            .load(postImg)
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(this.ivItemViewOwnPostPostImg)
+        if (!(this@ViewOwnPostActivity as Activity).isFinishing) {
+            Glide.with(this@ViewOwnPostActivity)
+                .load(postImg)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(this.ivItemViewOwnPostPostImg)
+        }
 
 
         if (!title.isNullOrEmpty()){

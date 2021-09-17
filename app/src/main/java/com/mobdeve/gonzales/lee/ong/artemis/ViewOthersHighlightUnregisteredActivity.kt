@@ -1,5 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
@@ -122,19 +122,23 @@ class ViewOthersHighlightUnregisteredActivity : AppCompatActivity() {
         val dimensions = intent.getStringExtra(Keys.KEY_DIMENSIONS.name)
         val description = intent.getStringExtra(Keys.KEY_DESCRIPTION.name)
 
-        Glide.with(this@ViewOthersHighlightUnregisteredActivity)
-            .load(profilePicture)
-                        .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(this.civItemViewOthersHighlightUnregisteredProfilePic)
+        if (!(this@ViewOthersHighlightUnregisteredActivity as Activity).isFinishing) {
+            Glide.with(this@ViewOthersHighlightUnregisteredActivity)
+                .load(profilePicture)
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(this.civItemViewOthersHighlightUnregisteredProfilePic)
+        }
 
         this.tvItemViewOthersHighlightUnregisteredUsername.text = username
 
-        Glide.with(this@ViewOthersHighlightUnregisteredActivity)
-            .load(postImg)
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(this.ivItemViewOthersHighlightUnregisteredPost)
+        if (!(this@ViewOthersHighlightUnregisteredActivity as Activity).isFinishing) {
+            Glide.with(this@ViewOthersHighlightUnregisteredActivity)
+                .load(postImg)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(this.ivItemViewOthersHighlightUnregisteredPost)
+        }
 
         if (!title.isNullOrEmpty()){
             this.tvItemViewOthersHighlightUnregisteredTitle.visibility = View.VISIBLE
