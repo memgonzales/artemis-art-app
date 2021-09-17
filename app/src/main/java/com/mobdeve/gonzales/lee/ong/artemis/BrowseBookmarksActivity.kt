@@ -340,6 +340,11 @@ class BrowseBookmarksActivity : AppCompatActivity() {
 
                     dataPosts = list
                     bookmarksAdapter.updatePosts(list)
+
+                    if (dataPosts.isNullOrEmpty()){
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                    }
                 }
             }
         }
