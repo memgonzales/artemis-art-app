@@ -426,4 +426,5 @@
     <string name="cl_edit_profile_edit_bio">Change Short Bio</string>
     <string name="tv_edit_profile_edit_bio">Change Short Bio</string>
     <string name="iv_edit_profile_edit_bio_icon">Edit Bio Icon</string>
+    <string name="btn_log_in_recover">Attempt to Recover</string>
 </resources>

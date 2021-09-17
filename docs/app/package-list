@@ -44,6 +44,7 @@ $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/initC
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/initFirebase/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/init-firebase.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/launchProfileSuccess/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/launch-profile-success.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/mAuth/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/m-auth.html
+$dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/onBackPressed/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/on-back-pressed.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/onCreate/#android.os.Bundle?/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/on-create.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/onOptionsItemSelected/#android.view.MenuItem/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/on-options-item-selected.html
 $dokka.location:com.mobdeve.gonzales.lee.ong.artemis/AddProfileBioActivity/pbAddBio/#/PointingToDeclaration/app/com.mobdeve.gonzales.lee.ong.artemis/-add-profile-bio-activity/pb-add-bio.html
