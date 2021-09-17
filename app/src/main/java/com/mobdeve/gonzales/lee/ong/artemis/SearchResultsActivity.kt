@@ -80,6 +80,10 @@ class SearchResultsActivity : AppCompatActivity() {
      * Text view holding the "Matching Artworks" label.
      */
     private lateinit var tvSearchResultsArtworks: TextView
+
+    /**
+     * Text view holding the "Matching Users" label.
+     */
     private lateinit var tvSearchResultsUsers: TextView
 
     /**

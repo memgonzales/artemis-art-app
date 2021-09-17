@@ -222,7 +222,7 @@ class EditPasswordActivity : AppCompatActivity() {
                 isValid = false
             }
             newPw != confirmPw -> {
-                this.tilConfirmPw.error = "Password do not match with your new password"
+                this.tilConfirmPw.error = "Password does not match with your new password"
                 this.tietConfirmPw.requestFocus()
                 isValid = false
             }
@@ -273,7 +273,7 @@ class EditPasswordActivity : AppCompatActivity() {
      */
     private fun updateSuccessfully(){
         pbEditPw.visibility = View.GONE
-        Toast.makeText(applicationContext, "Your password have been updated", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Your password has been updated", Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this@EditPasswordActivity, EditProfileActivity::class.java)
         startActivity(intent)
@@ -293,7 +293,7 @@ class EditPasswordActivity : AppCompatActivity() {
      */
     private fun invalidOldPw(){
         pbEditPw.visibility = View.GONE
-        Toast.makeText(this@EditPasswordActivity, "Invalid Old Password", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@EditPasswordActivity, "Invalid old password", Toast.LENGTH_SHORT).show()
     }
 
 }

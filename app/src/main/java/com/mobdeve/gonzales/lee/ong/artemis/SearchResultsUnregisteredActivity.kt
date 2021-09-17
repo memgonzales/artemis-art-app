@@ -77,6 +77,9 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
      */
     private lateinit var tvSearchResultsArtworks: TextView
 
+    /**
+     * Text view holding the "Matching Users" label.
+     */
     private lateinit var tvSearchResultsUsers: TextView
 
 
