@@ -558,6 +558,9 @@ class ViewCommentsActivity : AppCompatActivity() {
                     !commentSnap.getPostId().isNullOrEmpty() &&
                     commentSnap.getPostId()!!.equals(postId)){
 
+                    ivNone.visibility = View.GONE
+                    tvNone.visibility = View.GONE
+                    
                     if (commentSnap.getUserId().equals(userId)){
                         commentSnap.setEditable(true)
                     }

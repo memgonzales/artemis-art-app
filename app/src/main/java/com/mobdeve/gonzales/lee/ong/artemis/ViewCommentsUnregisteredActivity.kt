@@ -306,7 +306,7 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
             }
 
         }, AnimationDuration.NO_POST_TIMEOUT.toLong())
-        
+
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
 
         commentDB.addChildEventListener(object : ChildEventListener {
@@ -318,6 +318,9 @@ class ViewCommentsUnregisteredActivity : AppCompatActivity() {
                     !commentSnap.getCommentId().isNullOrEmpty() &&
                     !commentSnap.getPostId().isNullOrEmpty() &&
                     commentSnap.getPostId()!!.equals(postId)){
+
+                    ivNone.visibility = View.GONE
+                    tvNone.visibility = View.GONE
 
                     dataComments.add(commentSnap)
                     unregisteredCommentsAdapter.updateComments(dataComments)

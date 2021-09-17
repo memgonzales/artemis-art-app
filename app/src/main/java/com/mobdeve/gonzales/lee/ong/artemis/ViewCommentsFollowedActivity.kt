@@ -527,6 +527,15 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
         this.ivNone = findViewById(R.id.iv_view_comments_followed_no_comment)
         this.tvNone = findViewById(R.id.tv_view_comments_followed_no_comment)
 
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            if (dataCommentsFollowed.isNullOrEmpty()){
+                ivNone.visibility = View.VISIBLE
+                tvNone.visibility = View.VISIBLE
+            }
+
+        }, AnimationDuration.NO_POST_TIMEOUT.toLong())
+
         val commentDB = this.db.child(Keys.KEY_DB_COMMENTS.name)
 
         commentDB.addChildEventListener(object : ChildEventListener {
@@ -538,6 +547,9 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
                     !commentSnap.getCommentId().isNullOrEmpty() &&
                     !commentSnap.getPostId().isNullOrEmpty() &&
                     commentSnap.getPostId()!!.equals(postId)){
+
+                    ivNone.visibility = View.GONE
+                    tvNone.visibility = View.GONE
 
                     if (commentSnap.getUserId().equals(userId)){
                         commentSnap.setEditable(true)
