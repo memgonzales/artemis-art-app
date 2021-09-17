@@ -184,4 +184,13 @@ class AddProfileBioActivity : AppCompatActivity() {
             }
         }
     }
+
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     */
+    override fun onBackPressed() {
+        val i = Intent(this@AddProfileBioActivity, AddProfilePictureActivity::class.java)
+        startActivity(i)
+        finish()
+    }
 }
