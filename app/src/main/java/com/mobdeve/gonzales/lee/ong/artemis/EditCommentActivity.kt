@@ -1,5 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -113,11 +114,13 @@ class EditCommentActivity : AppCompatActivity() {
         val username = intent.getStringExtra(Keys.KEY_USERNAME.name)
         val commentBody = intent.getStringExtra(Keys.KEY_COMMENT_BODY.name)
 
-        Glide.with(this)
-            .load(profilePicture)
-            .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(this.civEditCommentProfilePic)
+        if (!(this@EditCommentActivity as Activity).isFinishing) {
+            Glide.with(this@EditCommentActivity)
+                .load(profilePicture)
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(this.civEditCommentProfilePic)
+        }
 
         this.tvEditCommentUsername.text = username
         this.etEditComment.setText(commentBody)
