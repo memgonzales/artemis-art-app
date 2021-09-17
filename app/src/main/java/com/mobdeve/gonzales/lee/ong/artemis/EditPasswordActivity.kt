@@ -90,6 +90,11 @@ class EditPasswordActivity : AppCompatActivity() {
     private lateinit var userId: String
 
     /**
+     * Email address of the user.
+     */
+    private lateinit var email: String
+
+    /**
      * Credential that the Firebase Authentication server can use to authenticate the user.
      */
     private lateinit var credentials: AuthCredential
@@ -120,6 +125,7 @@ class EditPasswordActivity : AppCompatActivity() {
         if (this.mAuth.currentUser != null){
             this.user = this.mAuth.currentUser!!
             this.userId = this.user.uid
+            this.email = this.user.email!!
         }
 
         else{
@@ -240,48 +246,26 @@ class EditPasswordActivity : AppCompatActivity() {
 
         val userDB = this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
 
-        userDB.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+        credentials = EmailAuthProvider.getCredential(this.email, oldPw)
 
-                val e: String = snapshot.child(Keys.email.name).getValue().toString()
-                val hash: String = snapshot.child(Keys.password.name).getValue().toString()
+        user.reauthenticateAndRetrieveData(credentials)
+            .addOnSuccessListener {
+                val pwHash = BCrypt.withDefaults().hashToString(12, newPw.toCharArray())
+                userDB.child(Keys.password.name).setValue(pwHash)
+                    .addOnSuccessListener {
 
-                val result = BCrypt.verifyer().verify(oldPw.toCharArray(), hash)
+                        user.updatePassword(newPw)
+                            .addOnSuccessListener { updateSuccessfully() }
+                            .addOnFailureListener { updateFailed() }
 
-                if (result.verified){
-
-                    credentials = EmailAuthProvider.getCredential(e, oldPw)
-                    user.reauthenticateAndRetrieveData(credentials)
-                        .addOnSuccessListener {
-                            val pwHash = BCrypt.withDefaults().hashToString(12, newPw.toCharArray())
-                            userDB.child(Keys.password.name).setValue(pwHash)
-                                .addOnSuccessListener {
-
-                                    user.updatePassword(newPw)
-                                        .addOnSuccessListener { updateSuccessfully() }
-                                        .addOnFailureListener { updateFailed() }
-
-                                }
-                                .addOnFailureListener {
-                                    updateFailed()
-                                }
-                        }
-                        .addOnFailureListener {
-                            updateFailed()
-                        }
-                }
-
-                else{
-                    invalidOldPw()
-                }
+                    }
+                    .addOnFailureListener {
+                        updateFailed()
+                    }
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                pbEditPw.visibility = View.GONE
-                val intent = Intent(this@EditPasswordActivity, BrokenLinkActivity::class.java)
-                startActivity(intent)
+            .addOnFailureListener {
+                invalidOldPw()
             }
-        })
     }
 
     /**
