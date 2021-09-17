@@ -560,7 +560,7 @@ class ViewCommentsActivity : AppCompatActivity() {
 
                     ivNone.visibility = View.GONE
                     tvNone.visibility = View.GONE
-                    
+
                     if (commentSnap.getUserId().equals(userId)){
                         commentSnap.setEditable(true)
                     }
@@ -616,6 +616,11 @@ class ViewCommentsActivity : AppCompatActivity() {
 
                         dataComments = list
                         commentsAdapter.updateComments(list)
+
+                        if (list.isNullOrEmpty()){
+                            ivNone.visibility = View.VISIBLE
+                            tvNone.visibility = View.VISIBLE
+                        }
                     }
                 }
             }
