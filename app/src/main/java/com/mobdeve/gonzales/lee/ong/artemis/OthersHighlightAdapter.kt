@@ -1,5 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,7 +9,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import java.util.*
 
 /**
@@ -117,11 +117,13 @@ class OthersHighlightAdapter() : RecyclerView.Adapter<HighlightsViewHolder>() {
     override fun onBindViewHolder(holder: HighlightsViewHolder, position: Int) {
         val currentPost = differ.currentList[position]
 
-        Glide.with(context)
-            .load(currentPost.getPostImg())
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(holder.getItemSearchResults())
+        if (!(context as Activity).isFinishing) {
+            Glide.with(context)
+                .load(currentPost.getPostImg())
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(holder.getItemSearchResults())
+        }
     }
 
     /**
