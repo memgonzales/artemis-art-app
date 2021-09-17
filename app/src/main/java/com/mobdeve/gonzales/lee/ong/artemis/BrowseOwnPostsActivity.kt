@@ -379,6 +379,10 @@ class BrowseOwnPostsActivity : AppCompatActivity() {
                     dataPosts = list
                     ownPostsAdapter.updatePosts(list)
 
+                    if (list.isNullOrEmpty()){
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                    }
                 }
 
             }

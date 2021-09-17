@@ -406,6 +406,12 @@ class BrowseFeedActivity : AppCompatActivity() {
 
                     dataPosts = list
                     feedAdapter.updatePosts(list)
+
+                    if (list.isNullOrEmpty()){
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                        tvSubNone.visibility = View.VISIBLE
+                    }
                 }
 
             }
