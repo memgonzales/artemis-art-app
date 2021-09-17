@@ -618,6 +618,11 @@ class ViewOwnPostCommentsActivity : AppCompatActivity() {
 
                         dataComments = list
                         commentsAdapter.updateComments(list)
+
+                        if (list.isNullOrEmpty()){
+                            ivNone.visibility = View.VISIBLE
+                            tvNone.visibility = View.VISIBLE
+                        }
                     }
                 }
             }
