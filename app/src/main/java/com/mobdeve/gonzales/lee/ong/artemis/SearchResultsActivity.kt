@@ -483,44 +483,52 @@ class SearchResultsActivity : AppCompatActivity() {
                 0 -> {
                     civSearchResultUser1.visibility = View.VISIBLE
 
-                    Glide.with(this)
-                        .load(dataUsers[0].getUserImg())
-                        .placeholder(R.drawable.placeholder)
-                        .error(R.drawable.placeholder)
-                        .into(civSearchResultUser1)
+                    if (!(this@SearchResultsActivity as Activity).isFinishing) {
+                        Glide.with(this@SearchResultsActivity)
+                            .load(dataUsers[0].getUserImg())
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder)
+                            .into(civSearchResultUser1)
+                    }
                 }
 
 
                 1 -> {
                     civSearchResultUser2.visibility = View.VISIBLE
 
-                    Glide.with(this)
-                        .load(dataUsers[1].getUserImg())
-                        .placeholder(R.drawable.placeholder)
-                        .error(R.drawable.placeholder)
-                        .into(civSearchResultUser2)
+                    if (!(this@SearchResultsActivity as Activity).isFinishing) {
+                        Glide.with(this@SearchResultsActivity)
+                            .load(dataUsers[1].getUserImg())
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder)
+                            .into(civSearchResultUser2)
+                    }
                 }
 
 
                 2 -> {
                     civSearchResultUser3.visibility = View.VISIBLE
 
-                    Glide.with(this)
-                        .load(dataUsers[2].getUserImg())
-                        .placeholder(R.drawable.placeholder)
-                        .error(R.drawable.placeholder)
-                        .into(civSearchResultUser3)
+                    if (!(this@SearchResultsActivity as Activity).isFinishing) {
+                        Glide.with(this)
+                            .load(dataUsers[2].getUserImg())
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder)
+                            .into(civSearchResultUser3)
+                    }
                 }
 
 
                 3 -> {
                     civSearchResultUser4.visibility = View.VISIBLE
 
-                    Glide.with(this)
-                        .load(dataUsers[3].getUserImg())
-                        .placeholder(R.drawable.placeholder)
-                        .error(R.drawable.placeholder)
-                        .into(civSearchResultUser4)
+                    if (!(this@SearchResultsActivity as Activity).isFinishing) {
+                        Glide.with(this@SearchResultsActivity)
+                            .load(dataUsers[3].getUserImg())
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder)
+                            .into(civSearchResultUser4)
+                    }
                 }
             }
             i++
