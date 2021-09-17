@@ -99,6 +99,7 @@ Dependency | Version | Description | License
 `androidx.test.ext:junit` | 1.1.3 | AndroidX unit testing framework for Java | Eclipse Public License 1.0 <br/> Apache License 2.0
 `androidx.test.espresso:espresso-core` | 3.4.0 | Framework for writing Android user interface tests | Apache License 2.0
 `androidx.recyclerview:recyclerview` | 1.2.1 | Library for displaying large sets of data in your user interface while minimizing memory usage | Apache License 2.0
+`at.favre.lib:bcrypt` | 0.9.0 | Implementation of the OpenBSD Blowfish password hashing algorithm, based on jBcrypt | Apache License 2.0
 
 *The descriptions are taken from their respective websites.*
 
@@ -109,6 +110,8 @@ This project uses the following languages and technologies:
 - **Database**: <a href = "https://firebase.google.com/docs/database">Firebase Database</a>, a cloud-based NoSQL database featuring real-time data synchronization
 
 The <a href = "https://memgonzales.github.io/artemis-art-app/">HTML documentation</a> of the source code was generated from <a href = "https://kotlinlang.org/docs/kotlin-doc.html">KDoc</a> comments via the documentation engine <a href = "https://github.com/Kotlin/dokka">Dokka</a>.
+
+Password encryption is implemented using [bcrypt](https://github.com/patrickfav/bcrypt) and [scrypt](https://firebaseopensource.com/projects/firebase/scrypt/).
 
 ## Authors
 - <b>Mark Edward M. Gonzales</b> <br/>
