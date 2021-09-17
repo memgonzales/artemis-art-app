@@ -468,7 +468,7 @@ class EditProfileActivity : AppCompatActivity() {
             }
 
             clDialogProfilePictureDelete.setOnClickListener {
-                civEditProfilePic.setImageResource(R.drawable.painter)
+                civEditProfilePic.setImageResource(R.drawable.chibi_artemis_hd)
                 isProfilePictureUploaded = false
                 cameraTaken = false
             }
