@@ -454,29 +454,6 @@ class BrowseFeedActivity : AppCompatActivity() {
 
     }
 
-    /*
-
-    /**
-     * Defines the behavior of the activity when it is paused.
-     */
-    override fun onPause() {
-        val postDB = this.db.child(Keys.KEY_DB_POSTS.name)
-        postDB.removeEventListener(childEventListener)
-        super.onPause()
-    }
-
-    /**
-     * Defines the behavior of the activity when it is resumed.
-     */
-    override fun onResume() {
-        super.onResume()
-
-        initRecyclerView()
-    }
-
-     */
-
-
 
     /**
      * Initialize the contents of the Activity's standard options menu.
