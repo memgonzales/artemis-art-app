@@ -431,12 +431,12 @@ class ViewProfileActivity : AppCompatActivity() {
     private fun logoutDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Log Out")
-        builder.setMessage("Do you want to log out?")
+        builder.setMessage("Do you want to log out? \n\nIf your account is newly created, kindly log in using your email for the next hour while our server authenticates your username.")
         builder.setPositiveButton(
             "Log out"
         ) { _, _ ->
             Toast.makeText(this@ViewProfileActivity,
-                "You have been logged out. If you are using a newly created account, kindly log in using your email, as it takes time to write usernames onto the database", Toast.LENGTH_SHORT).show()
+                "You have been logged out.", Toast.LENGTH_SHORT).show()
 
             this.mAuth.signOut()
             val intent = Intent(this@ViewProfileActivity, LogInActivity::class.java)
