@@ -301,7 +301,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
             )
             intent.putExtra(
                 Keys.KEY_USERID.name,
-                dataUsers[0].getUserId()
+                dataUsers[1].getUserId()
             )
             startActivity(intent)
         }
@@ -313,7 +313,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
             )
             intent.putExtra(
                 Keys.KEY_USERID.name,
-                dataUsers[0].getUserId()
+                dataUsers[2].getUserId()
             )
             startActivity(intent)
         }
@@ -325,7 +325,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
             )
             intent.putExtra(
                 Keys.KEY_USERID.name,
-                dataUsers[0].getUserId()
+                dataUsers[3].getUserId()
             )
             startActivity(intent)
         }
