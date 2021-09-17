@@ -1,5 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,9 +10,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import java.security.Key
-import java.util.*
 
 /**
  * Adapter for the recycler view that handles the posts displayed on the feed for unregistered users.
@@ -158,18 +156,23 @@ class UnregisteredFeedAdapter() : RecyclerView.Adapter<FeedViewHolder>() {
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentPost = differ.currentList[position]
 
-        Glide.with(context)
-            .load(currentPost.getProfilePicture())
-                        .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(holder.getItemFeedProfilePic())
+        if (!(context as Activity).isFinishing) {
+            Glide.with(context)
+                .load(currentPost.getProfilePicture())
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(holder.getItemFeedProfilePic())
+        }
 
         holder.setItemFeedUsername(currentPost.getUsername())
-        Glide.with(context)
-            .load(currentPost.getPostImg())
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(holder.getItemFeedPost())
+
+        if (!(context as Activity).isFinishing) {
+            Glide.with(context)
+                .load(currentPost.getPostImg())
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(holder.getItemFeedPost())
+        }
 
         holder.setItemFeedTitle(currentPost.getTitle())
 

@@ -1,5 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -407,44 +408,52 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                 0 -> {
                     civSearchResultUser1.visibility = View.VISIBLE
 
-                    Glide.with(this)
-                        .load(dataUsers[0].getUserImg())
-                        .placeholder(R.drawable.placeholder)
-                        .error(R.drawable.placeholder)
-                        .into(civSearchResultUser1)
+                    if (!(this@SearchResultsUnregisteredActivity as Activity).isFinishing) {
+                        Glide.with(this@SearchResultsUnregisteredActivity)
+                            .load(dataUsers[0].getUserImg())
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder)
+                            .into(civSearchResultUser1)
+                    }
                 }
 
 
                 1 -> {
                     civSearchResultUser2.visibility = View.VISIBLE
 
-                    Glide.with(this)
-                        .load(dataUsers[1].getUserImg())
-                        .placeholder(R.drawable.placeholder)
-                        .error(R.drawable.placeholder)
-                        .into(civSearchResultUser2)
+                    if (!(this@SearchResultsUnregisteredActivity as Activity).isFinishing) {
+                        Glide.with(this@SearchResultsUnregisteredActivity)
+                            .load(dataUsers[1].getUserImg())
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder)
+                            .into(civSearchResultUser2)
+                    }
                 }
 
 
                 2 -> {
                     civSearchResultUser3.visibility = View.VISIBLE
 
-                    Glide.with(this)
-                        .load(dataUsers[2].getUserImg())
-                        .placeholder(R.drawable.placeholder)
-                        .error(R.drawable.placeholder)
-                        .into(civSearchResultUser3)
+                    if (!(this@SearchResultsUnregisteredActivity as Activity).isFinishing) {
+                        Glide.with(this@SearchResultsUnregisteredActivity)
+                            .load(dataUsers[2].getUserImg())
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder)
+                            .into(civSearchResultUser3)
+                    }
                 }
 
 
                 3 -> {
                     civSearchResultUser4.visibility = View.VISIBLE
 
-                    Glide.with(this)
-                        .load(dataUsers[3].getUserImg())
-                        .placeholder(R.drawable.placeholder)
-                        .error(R.drawable.placeholder)
-                        .into(civSearchResultUser4)
+                    if (!(this@SearchResultsUnregisteredActivity as Activity).isFinishing) {
+                        Glide.with(this@SearchResultsUnregisteredActivity)
+                            .load(dataUsers[3].getUserImg())
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder)
+                            .into(civSearchResultUser4)
+                    }
                 }
             }
             i++

@@ -220,19 +220,23 @@ class FeedFollowedAdapter(private val parentActivity: Activity) :
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentPost = differ.currentList[position]
 
-       Glide.with(context)
-            .load(currentPost.getProfilePicture())
-            .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(holder.getItemFeedProfilePic())
+        if (!(context as Activity).isFinishing) {
+            Glide.with(context)
+                .load(currentPost.getProfilePicture())
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(holder.getItemFeedProfilePic())
+        }
 
         holder.setItemFeedUsername(currentPost.getUsername())
 
-        Glide.with(context)
-            .load(currentPost.getPostImg())
-            .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(holder.getItemFeedPost())
+        if (!(context as Activity).isFinishing) {
+            Glide.with(context)
+                .load(currentPost.getPostImg())
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(holder.getItemFeedPost())
+        }
 
         holder.setItemFeedTitle(currentPost.getTitle())
 

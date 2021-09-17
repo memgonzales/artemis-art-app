@@ -1,5 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -116,11 +117,13 @@ class HighlightsAdapter() : RecyclerView.Adapter<HighlightsViewHolder>() {
     override fun onBindViewHolder(holder: HighlightsViewHolder, position: Int) {
         val currentPost = differ.currentList[position]
 
-        Glide.with(context)
-            .load(currentPost.getPostImg())
-                        .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
-            .into(holder.getItemSearchResults())
+        if (!(context as Activity).isFinishing) {
+            Glide.with(context)
+                .load(currentPost.getPostImg())
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(holder.getItemSearchResults())
+        }
     }
 
     /**

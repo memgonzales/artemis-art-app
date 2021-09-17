@@ -1,5 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,8 +9,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import java.util.*
 
 /**
  * Adapter for the recycler view that handles the comments on the posts for unregistered users.
@@ -73,12 +72,14 @@ class UnregisteredCommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>()
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
         val currentComment = differ.currentList[position]
 
-        //holder.setItemCommentProfilePic(currentComment.getProfilePicture())
-        Glide.with(context)
-            .load(currentComment.getProfilePicture())
-                        .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(holder.getItemCommentProfilePic())
+
+        if (!(context as Activity).isFinishing) {
+            Glide.with(context)
+                .load(currentComment.getProfilePicture())
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(holder.getItemCommentProfilePic())
+        }
 
         holder.setItemCommentUsername(currentComment.getUsername())
         holder.setItemCommentDate(currentComment.getDateCommented())
