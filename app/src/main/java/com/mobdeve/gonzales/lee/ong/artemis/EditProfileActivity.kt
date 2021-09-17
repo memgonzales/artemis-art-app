@@ -175,11 +175,6 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var storageRef: StorageReference
 
     /**
-     * Credential that the Firebase Authentication server can use to authenticate the user.
-     */
-    private lateinit var credentials: AuthCredential
-
-    /**
      * Called when the activity is starting.
      *
      * @param savedInstanceState  If the activity is being re-initialized after previously being
@@ -390,7 +385,10 @@ class EditProfileActivity : AppCompatActivity() {
                         uploadFailed()
                     }
             }
-
+        }
+        else{
+            pbEditProfile.visibility = View.GONE
+            Toast.makeText(this@EditProfileActivity, "Updated your profile", Toast.LENGTH_SHORT).show()
         }
     }
 
