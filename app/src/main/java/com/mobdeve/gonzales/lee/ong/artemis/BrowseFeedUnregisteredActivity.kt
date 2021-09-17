@@ -316,6 +316,12 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
 
                     dataPosts = list
                     unregisteredFeedAdapter.updatePosts(list)
+
+                    if (list.isNullOrEmpty()){
+                        ivNone.visibility = View.VISIBLE
+                        tvNone.visibility = View.VISIBLE
+                        tvSubNone.visibility = View.VISIBLE
+                    }
                 }
 
             }
