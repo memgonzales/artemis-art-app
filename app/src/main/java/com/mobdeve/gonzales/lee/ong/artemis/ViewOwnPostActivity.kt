@@ -510,8 +510,8 @@ class ViewOwnPostActivity : AppCompatActivity() {
                 bookmark
             )
             intent.putExtra(
-                Keys.KEY_UPVOTE.name,
-                upvote
+                Keys.KEY_HIGHLIGHT.name,
+                highlight
             )
             startActivity(intent)
             finish()
