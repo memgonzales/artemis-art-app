@@ -471,6 +471,7 @@ class EditProfileActivity : AppCompatActivity() {
                 civEditProfilePic.setImageResource(R.drawable.chibi_artemis_hd)
                 isProfilePictureUploaded = false
                 cameraTaken = false
+                btmProfilePicture.dismiss()
             }
 
             btmProfilePicture.show()
