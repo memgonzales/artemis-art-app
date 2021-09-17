@@ -1,5 +1,6 @@
 package com.mobdeve.gonzales.lee.ong.artemis
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -79,11 +80,13 @@ class CommentsAdapter() : RecyclerView.Adapter<CommentsViewHolder>() {
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
         val currentComment = differ.currentList[position]
 
-        Glide.with(context)
-            .load(currentComment.getProfilePicture())
-            .placeholder(R.drawable.chibi_artemis_hd)
-            .error(R.drawable.chibi_artemis_hd)
-            .into(holder.getItemCommentProfilePic())
+        if (!(context as Activity).isFinishing) {
+            Glide.with(context)
+                .load(currentComment.getProfilePicture())
+                .placeholder(R.drawable.chibi_artemis_hd)
+                .error(R.drawable.chibi_artemis_hd)
+                .into(holder.getItemCommentProfilePic())
+        }
 
         holder.setItemCommentUsername(currentComment.getUsername())
         holder.setItemCommentDate(currentComment.getDateCommented())
