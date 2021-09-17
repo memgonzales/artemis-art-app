@@ -57,6 +57,9 @@ The complete project specifications can be found in the document <a href = "http
 
 3. Run the app using Android Studio (or any IDE that supports Android development). Alternatively, Android also provides a <a href = "https://developer.android.com/studio/build/building-cmdline">guide</a> on how to build the app from the command line.
 
+<img src="https://github.com/memgonzales/artemis-art-app/blob/master/screenshots/screenshot-2.jpg?raw=True" alt="Screenshot 2" width = 750> 
+<img src="https://github.com/memgonzales/artemis-art-app/blob/master/screenshots/screenshot-1.jpg?raw=True" alt="Screenshot 1" width = 750> 
+
 ### Credentials (For Testing Only)
 To test the Facebook sharing feature, log into Facebook using the following credentials:
 

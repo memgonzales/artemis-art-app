@@ -72,4 +72,13 @@ class BrokenLinkActivity : AppCompatActivity() {
             startActivity(Intent.createChooser(emailIntent, EmailUtil.TITLE_BROKEN_LINK));
         }
     }
+
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     */
+    override fun onBackPressed() {
+        val intent = Intent(this@BrokenLinkActivity, LogInActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 }
