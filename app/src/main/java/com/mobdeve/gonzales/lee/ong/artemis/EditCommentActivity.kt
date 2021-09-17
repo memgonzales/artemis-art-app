@@ -34,6 +34,9 @@ class EditCommentActivity : AppCompatActivity() {
      */
     private lateinit var btnEditCommentSave: Button
 
+    /**
+     * Progress bar to signal that data are being saved into the database.
+     */
     private lateinit var pbEditComment: ProgressBar
 
     /**

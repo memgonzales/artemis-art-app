@@ -39,7 +39,10 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
      */
     private lateinit var firebaseHelper: FirebaseHelper
 
-
+    /**
+     * Callback that informs <code>ArrayObjectAdapter</code> how to compute list updates when using
+     * <code>DiffUtil</code> in <code>ArrayObjectAdapter.setItems(List, DiffCallback)</code> method.
+     */
     private val diffCallbacks = object : DiffUtil.ItemCallback<Post>(){
         override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
             return oldItem.getPostId().equals(newItem.getPostId())
@@ -51,6 +54,9 @@ class OwnPostsAdapter(private val parentActivity: Activity) :
 
     }
 
+    /**
+     * Helper for computing the difference between two lists via <code>DiffUtil</code> on a background thread.
+     */
     private val differ: AsyncListDiffer<Post> = AsyncListDiffer(this, diffCallbacks)
 
     /**

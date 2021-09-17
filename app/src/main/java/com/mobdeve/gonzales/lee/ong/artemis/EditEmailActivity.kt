@@ -84,6 +84,9 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
      */
     private lateinit var email: String
 
+    /**
+     * New email address entered by the user.
+     */
     private lateinit var newEmail: String
 
     /**
