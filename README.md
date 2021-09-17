@@ -63,6 +63,8 @@ To test the Facebook sharing feature, log into Facebook using the following cred
 - **Email Address:** `tester.artemis@gmail.com`
 - **Password:** `ASDFGHJKL123;`
 
+*Using this tester account is necessary since the project has yet to undergo Facebook's [App Review](https://developers.facebook.com/docs/app-review/). Alternatively, send a Facebook friend request to [Artemis Art App](https://www.facebook.com/profile.php?id=100072056787027) to be added as a tester.* 
+
 
 ## Dependencies
 This project uses the following project dependencies:

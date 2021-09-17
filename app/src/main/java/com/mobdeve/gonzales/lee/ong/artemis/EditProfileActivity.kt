@@ -300,7 +300,6 @@ class EditProfileActivity : AppCompatActivity() {
 
         this.civEditProfilePic = findViewById(R.id.civ_edit_profile_pic)
         this.tietEditProfileUsername = findViewById(R.id.tiet_edit_profile_username)
-        //this.tietEditProfileBio = findViewById(R.id.tiet_edit_bio)
 
         this.tietEditProfileUsername.isFocusable = false
 
@@ -363,7 +362,6 @@ class EditProfileActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         url.downloadUrl
                             .addOnSuccessListener {
-                               // uploadSuccessfully()
                                 updateDB(it.toString())
                             }
 
@@ -381,7 +379,6 @@ class EditProfileActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         url.downloadUrl
                             .addOnSuccessListener {
-                                //uploadSuccessfully()
                                 updateDB(it.toString())
                             }
 
@@ -402,7 +399,7 @@ class EditProfileActivity : AppCompatActivity() {
      */
     private fun uploadSuccessfully(){
         pbEditProfile.visibility = View.GONE
-        Toast.makeText(this@EditProfileActivity, "Update in Progress", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@EditProfileActivity, "Update in progress", Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -440,7 +437,7 @@ class EditProfileActivity : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {
                 pbEditProfile.visibility = View.GONE
-                Toast.makeText(applicationContext, "Failed to Access User", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Failed to access user", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -493,7 +490,7 @@ class EditProfileActivity : AppCompatActivity() {
      */
     private fun updateProfileSuccessfully(){
         pbEditProfile.visibility = View.GONE
-        Toast.makeText(this@EditProfileActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@EditProfileActivity, "Your profile picture has been updated", Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -501,7 +498,7 @@ class EditProfileActivity : AppCompatActivity() {
      */
     private fun updateProfileFailed(){
         pbEditProfile.visibility = View.GONE
-        Toast.makeText(this@EditProfileActivity, "Failed to update your profile details", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@EditProfileActivity, "Failed to update your profile picture", Toast.LENGTH_SHORT).show()
     }
 
     /**

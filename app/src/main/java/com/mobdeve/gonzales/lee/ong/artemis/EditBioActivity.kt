@@ -160,7 +160,7 @@ class EditBioActivity : AppCompatActivity() {
      */
     private fun updateProfileSuccessfully(){
         pbEditBio.visibility = View.GONE
-        Toast.makeText(this@EditBioActivity, "Your profile details have been updated", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@EditBioActivity, "Your bio has been updated", Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -168,6 +168,6 @@ class EditBioActivity : AppCompatActivity() {
      */
     private fun updateProfileFailed(){
         pbEditBio.visibility = View.GONE
-        Toast.makeText(this@EditBioActivity, "Failed to update your profile details", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@EditBioActivity, "Failed to update your bio", Toast.LENGTH_SHORT).show()
     }
 }

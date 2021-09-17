@@ -157,7 +157,6 @@ class EditEmailActivity : AppCompatActivity(), DialogWithInput.DialogWithInputLi
 
             if(validEmail(newEmail)){
                 editDialog()
-                // updateEmail(email.lowercase())
             }
         }
     }

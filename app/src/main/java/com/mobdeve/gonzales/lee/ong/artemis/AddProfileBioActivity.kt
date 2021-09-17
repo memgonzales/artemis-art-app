@@ -135,6 +135,7 @@ class AddProfileBioActivity : AppCompatActivity() {
                 this.db.child(Keys.KEY_DB_USERS.name).child(this.user.uid).child(Keys.bio.name).setValue(bio)
                     .addOnSuccessListener {
                         pbAddBio.visibility = View.GONE
+                        Toast.makeText(this@AddProfileBioActivity, "Successfully added your bio", Toast.LENGTH_SHORT).show()
                         val i = Intent(this@AddProfileBioActivity, AddProfileSuccessActivity::class.java)
                         startActivity(i)
                         finish()
