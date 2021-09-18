@@ -132,7 +132,7 @@ class FirebaseHelper {
     fun getUserId(): String{
         return this.userId
     }
-    
+
     /**
      * Updates the upvotes of a post on the database.
      *
@@ -147,6 +147,16 @@ class FirebaseHelper {
             val updates = hashMapOf<String, Any?>(
                 "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.upvoteUsers.name}/$userId" to userVal,
                 "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.numUpvotes.name}" to numUpvotes,
+                "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.upvotedPosts.name}/$postKey" to postVal
+            )
+
+            db.updateChildren(updates)
+        }
+    }
+
+    fun delUpvoteDB(userVal: String?, postKey: String?, postVal: String?){
+        if (!postKey.isNullOrEmpty()){
+            val updates = hashMapOf<String, Any?>(
                 "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.upvotedPosts.name}/$postKey" to postVal
             )
 
@@ -389,7 +399,8 @@ class FirebaseHelper {
                             }
 
                             if (!upvotedPosts.isNullOrEmpty() && upvotedPosts.contains(postId)){
-                                updateUpvoteDB(null, postId, null, 0)
+                                //updateUpvoteDB(null, postId, null, 0)
+                                delUpvoteDB(null, postId, null)
                             }
 
                             if (!userPosts.isNullOrEmpty() && userPosts.contains(postId)){
