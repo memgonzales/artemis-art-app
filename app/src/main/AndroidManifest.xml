@@ -237,7 +237,8 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="Create Account"
             android:parentActivityName=".LogInActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".LogInActivity"
             android:configChanges="orientation|keyboardHidden"

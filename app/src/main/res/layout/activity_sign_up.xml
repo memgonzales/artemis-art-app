@@ -1,330 +1,369 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coord_sign_up"
+    android:id="@+id/cl_sign_up_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:elevation="0dp">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_sign_up"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_sign_up_follow"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:elevation="0dp">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/ctl_sign_up"
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_sign_up_left_margin_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_sign_up_right_margin_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <Button
+            android:id="@+id/btn_sign_up"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:text="Create Account"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right_margin_bottom"
+            app:layout_constraintStart_toStartOf="@+id/gl_sign_up_left_margin_bottom"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coord_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:elevation="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_sign_up_follow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_sign_up"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar_sign_up">
+            android:layout_height="56dp"
+            app:elevation="0dp">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_sign_up"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/ctl_sign_up"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:toolbarId="@+id/toolbar_sign_up">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsv_sign_up"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_sign_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_sign_up"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_sign_up"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="@android:color/black">
-
-            <ProgressBar
-                android:id="@+id/pb_sign_up"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="51dp"
-                android:layout_height="wrap_content"
-                android:indeterminateTint="@color/purple_pics_lighter"
-                android:secondaryProgressTint="@color/pinkish_purple"
-                android:translationZ="10dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:fillViewport="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_sign_up_pic_top"
+                android:id="@+id/cl_sign_up"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@drawable/parabolic_border"
-                android:paddingBottom="33dp"
-                app:layout_constraintBottom_toTopOf="@+id/gl_sign_up_divider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+                android:layout_height="match_parent"
+                android:backgroundTint="@android:color/black">
 
-                <ImageView
-                    android:id="@+id/iv_sign_up_logo"
-                    android:contentDescription="@string/iv_sign_up_logo"
-                    android:layout_width="wrap_content"
+                <ProgressBar
+                    android:id="@+id/pb_sign_up"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="51dp"
+                    android:layout_height="wrap_content"
+                    android:indeterminateTint="@color/purple_pics_lighter"
+                    android:secondaryProgressTint="@color/pinkish_purple"
+                    android:translationZ="10dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_sign_up_pic_top"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_sign_up_community"
+                    android:background="@drawable/parabolic_border"
+                    android:paddingBottom="33dp"
+                    app:layout_constraintBottom_toTopOf="@+id/gl_sign_up_divider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left_top"
-                    app:layout_constraintTop_toTopOf="@+id/tv_sign_up_create"
-                    app:srcCompat="@drawable/logo_non_splash" />
-
-                <TextView
-                    android:id="@+id/tv_sign_up_create"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="bottom"
-                    android:text="@string/tv_sign_up_create"
-                    android:textColor="@color/white"
-                    app:autoSizeMaxTextSize="30sp"
-                    app:autoSizeMinTextSize="18sp"
-                    app:autoSizeStepGranularity="1sp"
-                    app:autoSizeTextType="uniform"
-                    app:layout_constraintBottom_toTopOf="@+id/gl_sign_up_bottom_create"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right_top"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="@+id/tv_sign_up_community"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintVertical_bias="0.0">
 
-                <TextView
-                    android:id="@+id/tv_sign_up_community"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/tv_sign_up_community"
-                    android:textColor="@android:color/white"
-                    app:autoSizeMaxTextSize="14sp"
-                    app:autoSizeMinTextSize="12sp"
-                    app:autoSizeStepGranularity="1sp"
-                    app:autoSizeTextType="uniform"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right_top"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/iv_sign_up_logo"
-                    app:layout_constraintTop_toTopOf="@+id/gl_sign_up_top_community"
-                    app:layout_constraintVertical_bias="1.0" />
+                    <ImageView
+                        android:id="@+id/iv_sign_up_logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/iv_sign_up_logo"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_sign_up_community"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@id/gl_sign_up_left_top"
+                        app:layout_constraintTop_toTopOf="@+id/tv_sign_up_create"
+                        app:srcCompat="@drawable/logo_non_splash" />
+
+                    <TextView
+                        android:id="@+id/tv_sign_up_create"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="bottom"
+                        android:text="@string/tv_sign_up_create"
+                        android:textColor="@color/white"
+                        app:autoSizeMaxTextSize="30sp"
+                        app:autoSizeMinTextSize="18sp"
+                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintBottom_toTopOf="@+id/gl_sign_up_bottom_create"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right_top"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="@+id/tv_sign_up_community"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/tv_sign_up_community"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/tv_sign_up_community"
+                        android:textColor="@android:color/white"
+                        app:autoSizeMaxTextSize="14sp"
+                        app:autoSizeMinTextSize="12sp"
+                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right_top"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/iv_sign_up_logo"
+                        app:layout_constraintTop_toTopOf="@+id/gl_sign_up_top_community"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_sign_up_left_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="0dp"
+                        app:layout_constraintGuide_percent="0.1" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_sign_up_right_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="0dp"
+                        app:layout_constraintGuide_percent="0.9" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_sign_up_bottom_create"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="0dp"
+                        app:layout_constraintGuide_percent="0.45" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_sign_up_top_community"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="0dp"
+                        app:layout_constraintGuide_percent="0.52" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_sign_up_left_top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.1" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_sign_up_right_top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.9" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_sign_up_bottom_create"
+                    android:id="@+id/gl_sign_up_divider"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.45" />
+                    app:layout_constraintGuide_begin="120dp" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_sign_up_top_community"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.52" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_sign_up_bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_sign_up_pic_top"
+                    app:layout_constraintVertical_bias="0.52">
 
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_sign_up_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="0dp"
+                        app:layout_constraintGuide_percent="0.1" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_sign_up_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="0dp"
+                        app:layout_constraintGuide_percent="0.9" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_sign_up_username"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/purple_main"
+                        app:boxBackgroundColor="@android:color/white"
+                        app:boxStrokeColor="@color/purple_main"
+                        app:counterEnabled="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
+                        app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.060000002"
+                        app:startIconDrawable="@drawable/ic_action_person"
+                        app:startIconTint="@color/purple_main">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tiet_sign_up_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/tiet_sign_up_username"
+                            android:inputType="text" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_sign_up_email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/purple_main"
+                        app:boxBackgroundColor="@android:color/white"
+                        app:boxStrokeColor="@color/purple_main"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
+                        app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
+                        app:layout_constraintTop_toBottomOf="@id/til_sign_up_username"
+                        app:layout_constraintVertical_bias="0"
+                        app:startIconDrawable="@drawable/ic_action_email"
+                        app:startIconTint="@color/purple_main">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tiet_sign_up_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/tiet_sign_up_email"
+                            android:inputType="text|textEmailAddress" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_sign_up_password"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/purple_main"
+                        app:boxBackgroundColor="@android:color/white"
+                        app:boxStrokeColor="@color/purple_main"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
+                        app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
+                        app:layout_constraintTop_toBottomOf="@id/til_sign_up_email"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/purple_main"
+                        app:startIconDrawable="@android:drawable/ic_lock_lock"
+                        app:startIconTint="@color/purple_main"
+                        tools:passwordToggleTint="@color/purple_bg"
+                        tools:startIconDrawable="@android:drawable/ic_lock_lock">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tiet_sign_up_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/tiet_sign_up_password"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_sign_up_confirm_password"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/purple_main"
+                        app:boxBackgroundColor="@android:color/white"
+                        app:boxStrokeColor="@color/purple_main"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
+                        app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
+                        app:layout_constraintTop_toBottomOf="@+id/til_sign_up_password"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/purple_main"
+                        app:startIconDrawable="@drawable/baseline_enhanced_encryption_24"
+                        app:startIconTint="@color/purple_main"
+                        tools:passwordToggleTint="@color/purple_bg">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tiet_sign_up_confirm_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/tiet_sign_up_confirm_password"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_sign_up_privacy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="@string/tv_sign_up_clause"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/gl_sign_up_left"
+                        app:layout_constraintTop_toBottomOf="@+id/til_sign_up_confirm_password"
+                        app:layout_constraintVertical_bias="0.0" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_sign_up_divider"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="0dp"
-                app:layout_constraintGuide_percent="0.20" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_sign_up_bottom"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_sign_up_pic_top"
-                app:layout_constraintVertical_bias="0.52">
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_sign_up_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.1" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_sign_up_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.9" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_sign_up_username"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:counterEnabled="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
-                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.060000002"
-                    app:startIconDrawable="@drawable/ic_action_person"
-                    app:startIconTint="@color/purple_main">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_sign_up_username"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/tiet_sign_up_username"
-                        android:inputType="text" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_sign_up_email"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
-                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
-                    app:layout_constraintTop_toBottomOf="@id/til_sign_up_username"
-                    app:layout_constraintVertical_bias="0"
-                    app:startIconDrawable="@drawable/ic_action_email"
-                    app:startIconTint="@color/purple_main">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_sign_up_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/tiet_sign_up_email"
-                        android:inputType="text|textEmailAddress" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_sign_up_password"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
-                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
-                    app:layout_constraintTop_toBottomOf="@id/til_sign_up_email"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/purple_main"
-                    app:startIconDrawable="@android:drawable/ic_lock_lock"
-                    app:startIconTint="@color/purple_main"
-                    tools:passwordToggleTint="@color/purple_bg"
-                    tools:startIconDrawable="@android:drawable/ic_lock_lock">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_sign_up_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/tiet_sign_up_password"
-                        android:inputType="textPassword" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_sign_up_confirm_password"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/purple_main"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeColor="@color/purple_main"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/gl_sign_up_right"
-                    app:layout_constraintStart_toStartOf="@id/gl_sign_up_left"
-                    app:layout_constraintTop_toBottomOf="@+id/til_sign_up_password"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/purple_main"
-                    app:startIconDrawable="@drawable/baseline_enhanced_encryption_24"
-                    app:startIconTint="@color/purple_main"
-                    tools:passwordToggleTint="@color/purple_bg">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiet_sign_up_confirm_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/tiet_sign_up_confirm_password"
-                        android:inputType="textPassword" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/btn_sign_up"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/purple_main"
-                    android:text="@string/btn_sign_up"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_sign_up_left"
-                    app:layout_constraintTop_toBottomOf="@+id/til_sign_up_password"
-                    app:layout_constraintVertical_bias="0.41000003" />
-
-                <TextView
-                    android:id="@+id/tv_sign_up_privacy"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/tv_sign_up_clause"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/gl_sign_up_right"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/gl_sign_up_left"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_sign_up"
-                    app:layout_constraintVertical_bias="0.050000012" />
+        </androidx.core.widget.NestedScrollView>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
