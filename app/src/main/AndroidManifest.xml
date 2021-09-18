@@ -64,7 +64,8 @@
             android:name=".EditEmailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".EditProfileActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".SearchResultsUnregisteredActivity"
             android:configChanges="orientation|keyboardHidden"
