@@ -260,11 +260,11 @@ class FeedFollowedAdapter(private val parentActivity: Activity) :
             holder.setItemFeedBookmark(currentPost.getBookmark())
 
             if(currentPost.getBookmark()){
-                firebaseHelper.updateBookmarkDB("1", currentPost.getPostId(),"1")
+                firebaseHelper.updateBookmarkDB(firebaseHelper.getUserId(), "1", currentPost.getPostId(),"1")
             }
 
             else{
-                firebaseHelper.updateBookmarkDB( null, currentPost.getPostId(), null)
+                firebaseHelper.updateBookmarkDB( firebaseHelper.getUserId(), null, currentPost.getPostId(), null)
             }
         }
 

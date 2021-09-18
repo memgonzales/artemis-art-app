@@ -375,9 +375,9 @@ class ViewPostActivity : AppCompatActivity() {
             updateBookmark(bookmark)
 
             if(bookmark) {
-                this.firebaseHelper.updateBookmarkDB("1", postId!!, "1")
+                this.firebaseHelper.updateBookmarkDB(firebaseHelper.getUserId(),"1", postId!!, "1")
             } else {
-                this.firebaseHelper.updateBookmarkDB(null, postId!!, null)
+                this.firebaseHelper.updateBookmarkDB(firebaseHelper.getUserId(),null, postId!!, null)
             }
         }
 

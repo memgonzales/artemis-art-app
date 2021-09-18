@@ -129,6 +129,10 @@ class FirebaseHelper {
         this.context = context
     }
 
+    fun getUserId(): String{
+        return this.userId
+    }
+    
     /**
      * Updates the upvotes of a post on the database.
      *
@@ -158,12 +162,12 @@ class FirebaseHelper {
      * @param postVal Unique identifier of the post to be added or removed from the user's list of
      * bookmarked posts.
      */
-    fun updateBookmarkDB(userVal: String?, postKey: String?, postVal: String?){
-        if (!postKey.isNullOrEmpty()){
+    fun updateBookmarkDB(userKey: String?, userVal: String?, postKey: String?, postVal: String?){
+        if (!postKey.isNullOrEmpty() && !userKey.isNullOrEmpty()){
 
             val updates = hashMapOf<String, Any?>(
                 "/${Keys.KEY_DB_POSTS.name}/$postKey/${Keys.bookmarkUsers.name}/$userId" to userVal,
-                "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.bookmarks.name}/$postKey" to postVal
+                "/${Keys.KEY_DB_USERS.name}/$userKey/${Keys.bookmarks.name}/$postKey" to postVal
             )
 
             db.updateChildren(updates)
@@ -368,7 +372,8 @@ class FirebaseHelper {
                     for (u in snapshot.children){
                         val userSnap = u.getValue(User::class.java)
 
-                        if (userSnap != null){
+                        if (userSnap != null && !userSnap.getUserId().isNullOrEmpty()){
+                            val otherUserId = userSnap.getUserId()
                             val bookmarks = userSnap.getBookmarks().keys
                             val highlights = userSnap.getHighlights().keys
                             val upvotedPosts = userSnap.getUpvotedPosts().keys
@@ -376,7 +381,7 @@ class FirebaseHelper {
                             val userFFs = userSnap.getUsersFollowed().keys
 
                             if(!bookmarks.isNullOrEmpty() && bookmarks.contains(postId)){
-                                updateBookmarkDB(null, postId, null)
+                                updateBookmarkDB(otherUserId,null, postId, null)
                             }
 
                             if(!highlights.isNullOrEmpty() && highlights.contains(postId)){

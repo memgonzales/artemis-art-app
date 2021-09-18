@@ -259,11 +259,11 @@ class ViewBookmarkActivity : AppCompatActivity() {
             updateBookmark(bookmark)
 
             if(bookmark){
-                firebaseHelper.updateBookmarkDB("1", postId!!, "1")
+                firebaseHelper.updateBookmarkDB(firebaseHelper.getUserId(),"1", postId!!, "1")
             }
 
             else{
-                firebaseHelper.updateBookmarkDB(null, postId!!, null)
+                firebaseHelper.updateBookmarkDB(firebaseHelper.getUserId(),null, postId!!, null)
             }
         }
 
