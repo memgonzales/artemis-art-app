@@ -52,7 +52,8 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ViewOwnPostCommentsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".BrokenLinkActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -121,7 +122,8 @@
             android:name=".ViewCommentsFollowedActivity"
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".ViewPostFollowedActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".PostArtworkActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -212,7 +214,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:parentActivityName=".ViewPostActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ViewPostActivity"
             android:configChanges="orientation|keyboardHidden"
