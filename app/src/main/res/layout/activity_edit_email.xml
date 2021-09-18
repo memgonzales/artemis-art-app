@@ -180,7 +180,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_edit_short_bio_follow"
+        android:id="@+id/cl_edit_email_follow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -192,14 +192,14 @@
 
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_edit_short_bio_left_margin_bottom"
+            android:id="@+id/gl_edit_email_left_margin_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_edit_short_bio_right_margin_bottom"
+            android:id="@+id/gl_edit_email_right_margin_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -213,8 +213,8 @@
             android:layout_marginBottom="4dp"
             android:text="@string/btn_edit_email_confirm"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/gl_edit_short_bio_right_margin_bottom"
-            app:layout_constraintStart_toStartOf="@+id/gl_edit_short_bio_left_margin_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/gl_edit_email_right_margin_bottom"
+            app:layout_constraintStart_toStartOf="@+id/gl_edit_email_left_margin_bottom"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.9" />
     </androidx.constraintlayout.widget.ConstraintLayout>
