@@ -35,11 +35,6 @@
         android:roundIcon="@mipmap/chibi_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Artemis">
-        <activity android:name=".EditBioActivity"
-            android:parentActivityName=".EditProfileActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ViewOwnPostCommentsActivity" />
-        <activity android:name=".BrokenLinkActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -51,9 +46,19 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
+
+        <activity android:name=".EditBioActivity"
+            android:parentActivityName=".EditProfileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ViewOwnPostCommentsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".BrokenLinkActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EditPasswordActivity"
-            android:parentActivityName=".EditProfileActivity" />
+            android:parentActivityName=".EditProfileActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EditEmailActivity"
             android:configChanges="orientation|keyboardHidden"
