@@ -113,9 +113,16 @@ class EditBioActivity : AppCompatActivity() {
         this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
+                    if (snapshot.exists()){
+                        val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
 
-                    tietEditBio.setText(bio)
+                        tietEditBio.setText(bio)
+                    }
+
+                    else{
+                        val intent = Intent(this@EditBioActivity, BrokenLinkActivity::class.java)
+                        startActivity(intent)
+                    }
 
                 }
 

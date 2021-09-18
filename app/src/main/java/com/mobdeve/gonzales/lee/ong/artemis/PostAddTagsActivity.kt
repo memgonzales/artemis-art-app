@@ -365,29 +365,38 @@ class PostAddTagsActivity : AppCompatActivity() {
 
         userDB.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
-                val username: String = snapshot.child(Keys.username.name).getValue().toString()
+                if (snapshot.exists()){
+                    val userImg: String = snapshot.child(Keys.userImg.name).getValue().toString()
+                    val username: String = snapshot.child(Keys.username.name).getValue().toString()
 
-                post.setProfilePicture(userImg)
-                post.setUsername(username)
+                    post.setProfilePicture(userImg)
+                    post.setUsername(username)
 
-                val updates = hashMapOf<String, Any>(
-                    "/${Keys.KEY_DB_POSTS.name}/$postKey" to post,
-                    "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userPosts.name}/$postKey" to postKey
-                )
+                    val updates = hashMapOf<String, Any>(
+                        "/${Keys.KEY_DB_POSTS.name}/$postKey" to post,
+                        "/${Keys.KEY_DB_USERS.name}/$userId/${Keys.userPosts.name}/$postKey" to postKey
+                    )
 
-                db.updateChildren(updates)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            postSuccessfully()
-                        } else {
-                            postFailed()
+                    db.updateChildren(updates)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                postSuccessfully()
+                            } else {
+                                postFailed()
+                            }
                         }
-                    }
+                }
+
+                else{
+                    val intent = Intent(this@PostAddTagsActivity, BrokenLinkActivity::class.java)
+                    startActivity(intent)
+                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
-                postFailed()
+                val intent = Intent(this@PostAddTagsActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
 
         })

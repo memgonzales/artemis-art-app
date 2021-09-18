@@ -274,21 +274,27 @@ class ViewProfileActivity : AppCompatActivity() {
         this.db.child(Keys.KEY_DB_USERS.name).child(this.userId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val profPic: String = snapshot.child(Keys.userImg.name).getValue().toString()
-                    val username: String = snapshot.child(Keys.username.name).getValue().toString()
-                    val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
+                    if (snapshot.exists()){
+                        val profPic: String = snapshot.child(Keys.userImg.name).getValue().toString()
+                        val username: String = snapshot.child(Keys.username.name).getValue().toString()
+                        val bio: String = snapshot.child(Keys.bio.name).getValue().toString()
 
-                    if (!(this@ViewProfileActivity as Activity).isFinishing) {
-                        Glide.with(this@ViewProfileActivity)
-                            .load(profPic)
-                            .placeholder(R.drawable.chibi_artemis_hd)
-                            .error(R.drawable.chibi_artemis_hd)
-                            .into(civViewProfileProfilePicture)
+                        if (!(this@ViewProfileActivity as Activity).isFinishing) {
+                            Glide.with(this@ViewProfileActivity)
+                                .load(profPic)
+                                .placeholder(R.drawable.chibi_artemis_hd)
+                                .error(R.drawable.chibi_artemis_hd)
+                                .into(civViewProfileProfilePicture)
+                        }
+
+                        tvViewProfileUsername.setText(username)
+                        tvViewProfileBio.setText(bio)
                     }
 
-                    tvViewProfileUsername.setText(username)
-                    tvViewProfileBio.setText(bio)
-
+                    else{
+                        val intent = Intent(this@ViewProfileActivity, BrokenLinkActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {

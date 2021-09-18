@@ -331,25 +331,33 @@ class ViewUserActivity : AppCompatActivity() {
 
             userDB.child(userIdPost).addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val userInfoPost = snapshot.getValue(User::class.java)
+                    if (snapshot.exists()){
+                        val userInfoPost = snapshot.getValue(User::class.java)
 
-                    if(userInfoPost != null){
-                        if (!(this@ViewUserActivity as Activity).isFinishing) {
-                            Glide.with(this@ViewUserActivity)
-                                .load(userInfoPost.getUserImg())
-                                .placeholder(R.drawable.chibi_artemis_hd)
-                                .error(R.drawable.chibi_artemis_hd)
-                                .into(civViewUserProfilePicture)
-                        }
+                        if(userInfoPost != null){
+                            if (!(this@ViewUserActivity as Activity).isFinishing) {
+                                Glide.with(this@ViewUserActivity)
+                                    .load(userInfoPost.getUserImg())
+                                    .placeholder(R.drawable.chibi_artemis_hd)
+                                    .error(R.drawable.chibi_artemis_hd)
+                                    .into(civViewUserProfilePicture)
+                            }
 
-                        tvViewUserUsername.text = userInfoPost.getUsername()
-                        tvViewUserBio.text = userInfoPost.getBio()
+                            tvViewUserUsername.text = userInfoPost.getUsername()
+                            tvViewUserBio.text = userInfoPost.getBio()
 
-                        if (userInfoPost.getHighlights().isNullOrEmpty()){
-                            ivNone.visibility = View.VISIBLE
-                            tvNone.visibility = View.VISIBLE
+                            if (userInfoPost.getHighlights().isNullOrEmpty()){
+                                ivNone.visibility = View.VISIBLE
+                                tvNone.visibility = View.VISIBLE
+                            }
                         }
                     }
+
+                    else{
+                        val intent = Intent(this@ViewUserActivity, BrokenLinkActivity::class.java)
+                        startActivity(intent)
+                    }
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -368,19 +376,27 @@ class ViewUserActivity : AppCompatActivity() {
             else{
                 userDB.child(userId).addListenerForSingleValueEvent(object: ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        val userSnap = snapshot.getValue(User::class.java)
+                        if (snapshot.exists()){
+                            val userSnap = snapshot.getValue(User::class.java)
 
-                        if (userSnap != null){
-                            val usersFF = userSnap.getUsersFollowed().keys
+                            if (userSnap != null){
+                                val usersFF = userSnap.getUsersFollowed().keys
 
-                            if (usersFF.contains(userIdPost)){
-                                btnViewUserFollow.setText("UNFOLLOW USER")
-                            }
+                                if (usersFF.contains(userIdPost)){
+                                    btnViewUserFollow.setText("UNFOLLOW USER")
+                                }
 
-                            else{
-                                btnViewUserFollow.setText("FOLLOW USER")
+                                else{
+                                    btnViewUserFollow.setText("FOLLOW USER")
+                                }
                             }
                         }
+
+                        else{
+                            val intent = Intent(this@ViewUserActivity, BrokenLinkActivity::class.java)
+                            startActivity(intent)
+                        }
+
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -418,9 +434,10 @@ class ViewUserActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     val post = snapshot.getValue(Post::class.java)
-                    post?.setHighlight(true)
 
-                    if (post != null){
+                    if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()){
+                        post.setHighlight(true)
+
                         dataHighlights.add(post)
                         highlightAdapter.updatePosts(dataHighlights)
 

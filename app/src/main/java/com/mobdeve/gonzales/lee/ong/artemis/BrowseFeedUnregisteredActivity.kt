@@ -240,7 +240,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             val post = snapshot.getValue(Post::class.java)
 
-            if (post != null && !post.getPostId().isNullOrEmpty()){
+            if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()){
                 if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)){
                     post.setUpvote(true)
                 }
@@ -267,7 +267,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
             val post = snapshot.getValue(Post::class.java)
 
-            if (post != null && !post.getPostId().isNullOrEmpty()){
+            if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()){
 
                 if (!post.getUpvoteUsers().isNullOrEmpty()){
                     if(post.getUpvoteUsers().containsKey(userId)){
@@ -304,7 +304,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
         override fun onChildRemoved(snapshot: DataSnapshot) {
             val post = snapshot.getValue(Post::class.java)
 
-            if (post != null && !post.getPostId().isNullOrEmpty()){
+            if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()){
 
                 val list = ArrayList<Post>(dataPosts)
 

@@ -445,7 +445,8 @@ class SearchResultsActivity : AppCompatActivity() {
 
                         var userSnap = u.getValue(User::class.java)
 
-                        if (userSnap != null && userSnap.getUsername()!!.contains(search, ignoreCase = true)){
+                        if (userSnap != null && !userSnap.getUserId().isNullOrEmpty()
+                            && userSnap.getUsername()!!.contains(search, ignoreCase = true)){
                             dataUsers.add(userSnap)
                         }
 
@@ -554,7 +555,7 @@ class SearchResultsActivity : AppCompatActivity() {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val post = snapshot.getValue(Post::class.java)
 
-                if (post != null && !post.getPostId().isNullOrEmpty()
+                if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()
                     && !post.getTags()?.filter { it.contains(searchPost, ignoreCase = true)}.isNullOrEmpty()){
 
                     if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)) {
@@ -584,7 +585,7 @@ class SearchResultsActivity : AppCompatActivity() {
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val post = snapshot.getValue(Post::class.java)
 
-                if (post != null && !post.getPostId().isNullOrEmpty()
+                if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()
                     && !post.getTags()?.filter { it.contains(searchPost, ignoreCase = true)}.isNullOrEmpty()){
 
                     if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)) {
@@ -614,7 +615,7 @@ class SearchResultsActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val post = snapshot.getValue(Post::class.java)
 
-                if (post != null && !post.getPostId().isNullOrEmpty()
+                if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()
                     && !post.getTags()?.filter { it.contains(searchPost, ignoreCase = true)}.isNullOrEmpty()){
 
                     val list = ArrayList<Post>(dataPosts)

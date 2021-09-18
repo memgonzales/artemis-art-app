@@ -367,7 +367,8 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
                     for (u in snapshot.children){
                         var userSnap = u.getValue(User::class.java)
 
-                        if (userSnap != null && userSnap.getUsername()!!.contains(search, ignoreCase = true)){
+                        if (userSnap != null && !userSnap.getUserId().isNullOrEmpty()
+                            && userSnap.getUsername()!!.contains(search, ignoreCase = true)){
                             dataUsers.add(userSnap)
                         }
                     }
@@ -475,7 +476,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val post = snapshot.getValue(Post::class.java)
 
-                if (post != null && !post.getPostId().isNullOrEmpty()
+                if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()
                     && !post.getTags()?.filter { it.contains(searchPost, ignoreCase = true)}.isNullOrEmpty()){
 
                     if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)) {
@@ -505,7 +506,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val post = snapshot.getValue(Post::class.java)
 
-                if (post != null && !post.getPostId().isNullOrEmpty()
+                if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()
                     && !post.getTags()?.filter { it.contains(searchPost, ignoreCase = true)}.isNullOrEmpty()){
 
                     if (!post.getUpvoteUsers().isNullOrEmpty() && post.getUpvoteUsers().containsKey(userId)) {
@@ -535,7 +536,7 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val post = snapshot.getValue(Post::class.java)
 
-                if (post != null && !post.getPostId().isNullOrEmpty()
+                if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()
                     && !post.getTags()?.filter { it.contains(searchPost, ignoreCase = true)}.isNullOrEmpty()){
 
                     val list = ArrayList<Post>(dataPosts)
@@ -582,13 +583,6 @@ class SearchResultsUnregisteredActivity : AppCompatActivity() {
             this.ivNone.visibility = View.VISIBLE
             this.tvNone.visibility = View.VISIBLE
             this.tvSubNone.visibility = View.VISIBLE
-        }
-
-        else if (!dataPosts.isNullOrEmpty()){
-            this.tvSearchResultsArtworks.visibility = View.VISIBLE
-            this.ivNone.visibility = View.GONE
-            this.tvNone.visibility = View.GONE
-            this.tvSubNone.visibility = View.GONE
         }
     }
 

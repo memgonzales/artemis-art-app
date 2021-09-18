@@ -416,24 +416,30 @@ class EditProfileActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 pbEditProfile.visibility = View.GONE
 
-                val profPic: String = snapshot.child(Keys.userImg.name).value.toString()
-                val username: String = snapshot.child(Keys.username.name).value.toString()
+                if (snapshot.exists()){
+                    val profPic: String = snapshot.child(Keys.userImg.name).value.toString()
+                    val username: String = snapshot.child(Keys.username.name).value.toString()
 
-                if (!(this@EditProfileActivity as Activity).isFinishing) {
-                    Glide.with(this@EditProfileActivity)
-                        .load(profPic)
-                        .placeholder(R.drawable.chibi_artemis_hd)
-                        .error(R.drawable.chibi_artemis_hd)
-                        .into(civEditProfilePic)
+                    if (!(this@EditProfileActivity as Activity).isFinishing) {
+                        Glide.with(this@EditProfileActivity)
+                            .load(profPic)
+                            .placeholder(R.drawable.chibi_artemis_hd)
+                            .error(R.drawable.chibi_artemis_hd)
+                            .into(civEditProfilePic)
+                    }
+
+                    tietEditProfileUsername.setText(username)
                 }
 
-                tietEditProfileUsername.setText(username)
-
+                else{
+                    val intent = Intent(this@EditProfileActivity, BrokenLinkActivity::class.java)
+                    startActivity(intent)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                pbEditProfile.visibility = View.GONE
-                Toast.makeText(applicationContext, "Failed to access user", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@EditProfileActivity, BrokenLinkActivity::class.java)
+                startActivity(intent)
             }
         })
     }

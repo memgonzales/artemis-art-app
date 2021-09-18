@@ -316,7 +316,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             val postId = snapshot.key.toString()
 
-            if (postId != null){
+            if (!postId.isNullOrEmpty()){
                 getPost(postId)
             }
 
@@ -329,7 +329,7 @@ class BrowseBookmarksActivity : AppCompatActivity() {
         override fun onChildRemoved(snapshot: DataSnapshot) {
             val postId = snapshot.key.toString()
 
-            if (postId != null){
+            if (!postId.isNullOrEmpty()){
 
                 val list = ArrayList<Post>(dataPosts)
 
@@ -389,9 +389,10 @@ class BrowseBookmarksActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     val post = snapshot.getValue(Post::class.java)
-                    post?.setBookmark(true)
 
-                    if (post != null){
+                    if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()){
+                        post.setBookmark(true)
+
                         dataPosts.add(post)
                         bookmarksAdapter.updatePosts(dataPosts)
 

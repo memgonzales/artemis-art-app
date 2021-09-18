@@ -165,7 +165,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             val postId = snapshot.key.toString()
 
-            if (postId != null){
+            if (!postId.isNullOrEmpty()){
                 getPost(postId)
             }
         }
@@ -177,7 +177,7 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         override fun onChildRemoved(snapshot: DataSnapshot) {
             val postId = snapshot.key.toString()
 
-            if (postId != null) {
+            if (!postId.isNullOrEmpty()){
 
                 val list = java.util.ArrayList<Post>(dataHighlights)
 
@@ -230,25 +230,33 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
         if(!userIdPost.isEmpty()){
             userDB.child(userIdPost).addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val userInfoPost = snapshot.getValue(User::class.java)
+                    if (snapshot.exists()){
+                        val userInfoPost = snapshot.getValue(User::class.java)
 
-                    if(userInfoPost != null){
-                        if (!(this@ViewUserUnregisteredActivity as Activity).isFinishing) {
-                            Glide.with(this@ViewUserUnregisteredActivity)
-                                .load(userInfoPost.getUserImg())
-                                .placeholder(R.drawable.chibi_artemis_hd)
-                                .error(R.drawable.chibi_artemis_hd)
-                                .into(civViewUserUnregisteredProfilePicture)
-                        }
+                        if(userInfoPost != null){
+                            if (!(this@ViewUserUnregisteredActivity as Activity).isFinishing) {
+                                Glide.with(this@ViewUserUnregisteredActivity)
+                                    .load(userInfoPost.getUserImg())
+                                    .placeholder(R.drawable.chibi_artemis_hd)
+                                    .error(R.drawable.chibi_artemis_hd)
+                                    .into(civViewUserUnregisteredProfilePicture)
+                            }
 
-                        tvViewUserUnregisteredUsername.text = userInfoPost.getUsername()
-                        tvViewUserUnregisteredBio.text = userInfoPost.getBio()
+                            tvViewUserUnregisteredUsername.text = userInfoPost.getUsername()
+                            tvViewUserUnregisteredBio.text = userInfoPost.getBio()
 
-                        if (userInfoPost.getHighlights().isNullOrEmpty()){
-                            ivNone.visibility = View.VISIBLE
-                            tvNone.visibility = View.VISIBLE
+                            if (userInfoPost.getHighlights().isNullOrEmpty()){
+                                ivNone.visibility = View.VISIBLE
+                                tvNone.visibility = View.VISIBLE
+                            }
                         }
                     }
+
+                    else{
+                        val intent = Intent(this@ViewUserUnregisteredActivity, BrokenLinkActivity::class.java)
+                        startActivity(intent)
+                    }
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -282,9 +290,10 @@ class ViewUserUnregisteredActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     val post = snapshot.getValue(Post::class.java)
-                    post?.setHighlight(true)
 
-                    if (post != null){
+                    if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()){
+                        post.setHighlight(true)
+
                         dataHighlights.add(post)
                         unregisteredHighlightAdapter.updatePosts(dataHighlights)
 

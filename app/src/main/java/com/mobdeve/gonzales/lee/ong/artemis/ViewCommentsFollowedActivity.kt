@@ -304,9 +304,17 @@ class ViewCommentsFollowedActivity : AppCompatActivity() {
      */
     private fun initFirebase() {
         this.mAuth = Firebase.auth
-        this.user = this.mAuth.currentUser!!
-        this.userId = this.user.uid
         this.db = Firebase.database.reference
+
+        if (this.mAuth.currentUser != null){
+            this.user = this.mAuth.currentUser!!
+            this.userId = this.user.uid
+        }
+
+        else{
+            val intent = Intent(this@ViewCommentsFollowedActivity, BrokenLinkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**

@@ -291,8 +291,6 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
      * Initializes the recycler view of the activity.
      */
     private fun initRecyclerView() {
-       // this.dataPosts = DataHelper.loadHighlightsData()
-
         this.dataPosts = arrayListOf()
 
         this.rvHighlights = findViewById(R.id.rv_highlights)
@@ -310,7 +308,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             val postId = snapshot.key.toString()
 
-            if (postId != null){
+            if (!postId.isNullOrEmpty()){
                 getPost(postId)
             }
         }
@@ -322,7 +320,7 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
         override fun onChildRemoved(snapshot: DataSnapshot) {
             val postId = snapshot.key.toString()
 
-            if (postId != null){
+            if (!postId.isNullOrEmpty()){
 
                 val list = ArrayList<Post>(dataPosts)
 
@@ -382,9 +380,10 @@ class BrowseOwnHighlightsActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     val post = snapshot.getValue(Post::class.java)
-                    post?.setHighlight(true)
 
-                    if (post != null){
+                    if (post != null && !post.getPostId().isNullOrEmpty() && !post.getUserId().isNullOrEmpty()){
+                        post.setHighlight(true)
+
                         dataPosts.add(post)
                         highlightsAdapter.updatePosts(dataPosts)
 
