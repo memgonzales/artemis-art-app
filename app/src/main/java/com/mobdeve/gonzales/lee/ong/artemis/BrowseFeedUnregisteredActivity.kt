@@ -194,7 +194,6 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
     private fun onRefresh() {
         Handler(Looper.getMainLooper()).postDelayed({
             initRecyclerView()
-            initRecyclerView()
 
             srlFeedUnregistered.isRefreshing = false
         }, AnimationDuration.REFRESH_TIMEOUT.toLong())
@@ -225,7 +224,7 @@ class BrowseFeedUnregisteredActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         this.dataPosts = arrayListOf()
         this.rvFeed = findViewById(R.id.rv_feed_unregistered)
-        this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        this.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
 
         this.unregisteredFeedAdapter = UnregisteredFeedAdapter()
 

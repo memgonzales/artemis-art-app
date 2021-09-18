@@ -161,6 +161,8 @@ class EditBioActivity : AppCompatActivity() {
     private fun updateProfileSuccessfully(){
         pbEditBio.visibility = View.GONE
         Toast.makeText(this@EditBioActivity, "Your bio has been updated", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this@EditBioActivity, EditProfileActivity::class.java)
+        startActivity(intent)
     }
 
     /**
