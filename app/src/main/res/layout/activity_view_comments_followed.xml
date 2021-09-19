@@ -250,6 +250,7 @@
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
+        android:visibility="gone"
         app:itemIconTint="@color/purple_navbar_lighter"
         app:itemTextColor="@color/purple_navbar_lighter"
         app:labelVisibilityMode="labeled"
@@ -260,19 +261,19 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_view_comments_followed_add"
-            android:contentDescription="@string/fab_view_comments_followed_add"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center"
             android:clickable="true"
+            android:contentDescription="@string/fab_view_comments_followed_add"
             android:elevation="0dp"
+            android:focusable="true"
             app:backgroundTint="@color/purple_navbar_lighter"
             app:elevation="0dp"
             app:fabCustomSize="44dp"
             app:maxImageSize="34dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            app:tint="@android:color/white"
-            android:focusable="true" />
+            app:tint="@android:color/white" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

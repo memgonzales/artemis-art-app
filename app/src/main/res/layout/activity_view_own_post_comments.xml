@@ -252,6 +252,7 @@
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
+        android:visibility="gone"
         app:itemIconTint="@color/purple_navbar_lighter"
         app:itemTextColor="@color/purple_navbar_lighter"
         app:labelVisibilityMode="labeled"

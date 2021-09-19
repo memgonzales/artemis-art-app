@@ -212,7 +212,7 @@
     <string name="btn_edit_email_confirm">Confirm Change</string>
     <string name="tv_edit_password_title">Change Password</string>
     <string name="tiet_edit_password">Old Password</string>
-    <string name="tiet_edit_password_new">New Password</string>
+    <string name="tiet_edit_password_new">New Password (at least 6 characters)</string>
     <string name="tiet_edit_password_new_confirm">Confirm New Password</string>
     <string name="btn_edit_password_confirm">Confirm Change</string>
     <string name="tv_edit_artwork_title">Edit Details</string>
@@ -239,7 +239,7 @@
     <string name="tiet_edit_profile_username_val">shoobie</string>
     <string name="tiet_edit_profile_bio">Short Bio</string>
     <string name="tiet_edit_profile_bio_val">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</string>
-    <string name="btn_edit_profile_save">Change Profile Picture</string>
+    <string name="btn_edit_profile_save">Save Profile Picture</string>
     <string name="tv_view_user_unregistered_title">User Profile</string>
     <string name="v_view_user_unregistered_username">shoobie</string>
     <string name="btn_view_user_unregistered_follow">Follow User</string>
