@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -332,22 +333,21 @@ class BrowseFeedFollowedActivity : AppCompatActivity() {
         override fun onChildRemoved(snapshot: DataSnapshot) {
             val userFFId = snapshot.key.toString()
 
+
             if (!userFFId.isNullOrEmpty()){
 
                 val list = ArrayList<Post>(dataPosts)
 
                 val index = list.filterNot { it.getUserId().equals(userFFId) }
+                
+                dataPosts = ArrayList(index)
+                feedFollowedAdapter.updatePosts(ArrayList(index))
 
-                if (!index.isNullOrEmpty()){
-
-                    dataPosts = ArrayList(index)
-                    feedFollowedAdapter.updatePosts(ArrayList(index))
-
-                    if (dataPosts.isNullOrEmpty()){
-                        ivNone.visibility = View.VISIBLE
-                        tvNone.visibility = View.VISIBLE
-                    }
+                if (dataPosts.isNullOrEmpty()){
+                    ivNone.visibility = View.VISIBLE
+                    tvNone.visibility = View.VISIBLE
                 }
+
             }
         }
 
