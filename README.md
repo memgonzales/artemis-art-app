@@ -108,7 +108,7 @@ Dependency | Version | Description | License
 
 ## Built Using
 This project uses the following languages and technologies:
-- **Logic**: <a href = "https://kotlinlang.org/">Kotlin</a>, a statisically-typed language officially endorsed by Google as the preferred language for Android development
+- **Logic**: <a href = "https://kotlinlang.org/">Kotlin</a>, a statically-typed language officially endorsed by Google as the preferred language for Android development
 - **Layouts**: <a href = "https://developer.android.com/guide/topics/ui/declaring-layout">XML</a>, a lightweight markup language that is both human- and machine-readable
 - **Database**: <a href = "https://firebase.google.com/docs/database">Firebase Database</a>, a cloud-based NoSQL database featuring real-time data synchronization
 
