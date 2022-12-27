@@ -44,8 +44,6 @@ The complete project specifications can be found in the document <a href = "http
 Download and install the APK file from the [latest release](https://github.com/memgonzales/artemis-art-app/releases/tag/v1.0.0). You may have to modify the security settings of your device to allow the installation of third-party apps from unknown sources.
 
 <img src="https://github.com/memgonzales/artemis-art-app/blob/master/screenshots/screenshot-2.jpg?raw=True" alt="Screenshot 2" width = 750> 
-<img src="https://github.com/memgonzales/artemis-art-app/blob/master/screenshots/screenshot-1.jpg?raw=True" alt="Screenshot 1" width = 750> 
-
 
 ### Using the Source Code
 1. Before running the application locally, the following software are recommended (albeit not required) to be installed:
@@ -66,6 +64,7 @@ Download and install the APK file from the [latest release](https://github.com/
 
 3. Run the app using Android Studio (or any IDE that supports Android development). Alternatively, Android also provides a <a href = "https://developer.android.com/studio/build/building-cmdline">guide</a> on how to build the app from the command line.
 
+  <img src="https://github.com/memgonzales/artemis-art-app/blob/master/screenshots/screenshot-1.jpg?raw=True" alt="Screenshot 1" width = 750>
 
 ### Credentials (For Testing Only)
 To test the Facebook sharing feature, log into Facebook using the following credentials:
