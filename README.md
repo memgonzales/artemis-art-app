@@ -12,7 +12,7 @@ Users also have the option to bookmark their favorite artworks made by other use
 ***The source code documentation can be accessed through the following website: https://memgonzales.github.io/artemis-art-app/.***
 
 ## Task
-**Artemis** is the major course output in a mobile development class. The students are tasked to create an Android app of their choice, provided that it satisfied the minimum requirement of being connected to a remote server or featuring at least two of the following services: telephony, local database, geolocation, touch gestures that are non-native to the views used, camera usage, canvas or graphics-related applications, motion sensors, service that runs on the background, and usage of third-party APIs.
+**Artemis** is the major course output in a mobile development class under Ms. Candy Joyce Espulgar of the Department of Software Technology, De La Salle University. The students are tasked to create an Android app of their choice, provided that it satisfied the minimum requirement of being connected to a remote server or featuring at least two of the following services: telephony, local database, geolocation, touch gestures that are non-native to the views used, camera usage, canvas or graphics-related applications, motion sensors, service that runs on the background, and usage of third-party APIs.
 
 The application development is divided into two phases:
 
